@@ -7,10 +7,6 @@ export default {
   out: './db/migrations',
   driver: 'pg',
   dbCredentials: {
-    host: process.env.PGHOST,
-    port: process.env.PGPORT,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE,
+    connectionString: process.env.DATABASE_URL,
   },
-} as Config & { dbCredentials: Record<string, string> };
+} as Config;
