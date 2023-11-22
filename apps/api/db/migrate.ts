@@ -1,5 +1,12 @@
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
-import { db } from './db';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
+
+const sql = postgres(process.env.DATABASE_URL, {
+  max: 1,
+});
+
+const db = drizzle(sql);
 
 migrate(db, { migrationsFolder: './db/migrations' })
   .then(() => {

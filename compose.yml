@@ -5,6 +5,7 @@ services:
     image: postgres:15-alpine
     restart: on-failure
     environment:
+      POSTGRES_DB: ddays
       POSTGRES_USER: dumpovac
       POSTGRES_PASSWORD: dump123
     ports:

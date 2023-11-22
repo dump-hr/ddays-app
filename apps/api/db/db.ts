@@ -1,9 +1,9 @@
 import postgres from 'postgres';
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import 'dotenv/config';
 
-const client = postgres(process.env.DATABASE_URL, {
-  //   ssl: 'require',
+const sql = postgres(process.env.DATABASE_URL, {
+  // ssl: 'require',
 });
 
-export const db: PostgresJsDatabase = drizzle(client);
+export const db = drizzle(sql);
