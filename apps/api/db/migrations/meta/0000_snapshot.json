@@ -1,0 +1,195 @@
+{
+  "id": "3cb5e1ec-787f-46f0-99eb-ab6841627a39",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "achievement": {
+      "name": "achievement",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fulfillmentCodeCount": {
+          "name": "fulfillmentCodeCount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isHidden": {
+          "name": "isHidden",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "achievementToCode": {
+      "name": "achievementToCode",
+      "schema": "",
+      "columns": {
+        "achievementId": {
+          "name": "achievementId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "codeId": {
+          "name": "codeId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "achievementToCode_achievementId_achievement_id_fk": {
+          "name": "achievementToCode_achievementId_achievement_id_fk",
+          "tableFrom": "achievementToCode",
+          "tableTo": "achievement",
+          "columnsFrom": [
+            "achievementId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "achievementToCode_codeId_code_id_fk": {
+          "name": "achievementToCode_codeId_code_id_fk",
+          "tableFrom": "achievementToCode",
+          "tableTo": "code",
+          "columnsFrom": [
+            "codeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "achievementToCode_achievementId_codeId": {
+          "name": "achievementToCode_achievementId_codeId",
+          "columns": [
+            "achievementId",
+            "codeId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "code": {
+      "name": "code",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isActive": {
+          "name": "isActive",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "isSingleUse": {
+          "name": "isSingleUse",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "hasPage": {
+          "name": "hasPage",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "expirationDate": {
+          "name": "expirationDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
