@@ -1,6 +1,6 @@
 <h1 align="center">DUMP Days App</h1>
 
-DUMP Days companion app
+DUMP Days App
 
 ## Development
 
@@ -24,17 +24,21 @@ Create `.env.local` file that can override configuration options from `.env` in 
 Required variables for `api`:
 - `DATABASE_URL`
 
+#### Generate new database migrations (after adding models)
+
+```
+yarn generate
+```
+
 #### Run database migrations
 
 ```
-yarn prisma migrate dev
+yarn migrate
 ```
 
 #### Run database seed
 
-```
-yarn prisma db seed
-```
+todo
 
 #### Run app
 
@@ -42,4 +46,22 @@ yarn prisma db seed
 yarn dev
 ```
 
-App is now accessible on <http://localhost:3000/>. API routes are prefixed with `/api`.
+App is now accessible on <http://localhost:5173/>. API routes are prefixed with `/api`.
+
+## Cookbook
+
+#### Add new dependency
+
+example: add `drizzle-kit` library to `api` app
+
+```
+yarn workspace api add drizzle-kit
+```
+
+## Useful resources
+
+- [NestJS + Vite setup with Turborepo](https://youtu.be/nY0R7pslbCI)
+- [Drizzle ORM](https://www.youtube.com/watch?v=Qo-RXkSwOtc)
+- [TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
+- [React Query Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)
+- [React Hook Form with ZOD Tutorial](https://www.youtube.com/watch?v=dldjCPa9ZW4)
