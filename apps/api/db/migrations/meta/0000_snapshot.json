@@ -1,5 +1,5 @@
 {
-  "id": "c139f7fd-69e2-49a3-b0ea-0f9c9e7a1c93",
+  "id": "a46c287e-832c-40f2-b2da-958afc12d520",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -32,21 +32,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "fulfillmentCodeCount": {
-          "name": "fulfillmentCodeCount",
+        "fulfillment_code_count": {
+          "name": "fulfillment_code_count",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "isHidden": {
-          "name": "isHidden",
+        "is_hidden": {
+          "name": "is_hidden",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
@@ -62,14 +62,14 @@
       "name": "achievementToCode",
       "schema": "",
       "columns": {
-        "achievementId": {
-          "name": "achievementId",
+        "achievement_id": {
+          "name": "achievement_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "codeId": {
-          "name": "codeId",
+        "code_id": {
+          "name": "code_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -77,12 +77,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "achievementToCode_achievementId_achievement_id_fk": {
-          "name": "achievementToCode_achievementId_achievement_id_fk",
+        "achievementToCode_achievement_id_achievement_id_fk": {
+          "name": "achievementToCode_achievement_id_achievement_id_fk",
           "tableFrom": "achievementToCode",
           "tableTo": "achievement",
           "columnsFrom": [
-            "achievementId"
+            "achievement_id"
           ],
           "columnsTo": [
             "id"
@@ -90,12 +90,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "achievementToCode_codeId_code_id_fk": {
-          "name": "achievementToCode_codeId_code_id_fk",
+        "achievementToCode_code_id_code_id_fk": {
+          "name": "achievementToCode_code_id_code_id_fk",
           "tableFrom": "achievementToCode",
           "tableTo": "code",
           "columnsFrom": [
-            "codeId"
+            "code_id"
           ],
           "columnsTo": [
             "id"
@@ -105,11 +105,11 @@
         }
       },
       "compositePrimaryKeys": {
-        "achievementToCode_achievementId_codeId": {
-          "name": "achievementToCode_achievementId_codeId",
+        "achievementToCode_achievement_id_code_id": {
+          "name": "achievementToCode_achievement_id_code_id",
           "columns": [
-            "achievementId",
-            "codeId"
+            "achievement_id",
+            "code_id"
           ]
         }
       },
@@ -143,36 +143,36 @@
           "primaryKey": false,
           "notNull": true
         },
-        "isActive": {
-          "name": "isActive",
+        "is_active": {
+          "name": "is_active",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": true
         },
-        "isSingleUse": {
-          "name": "isSingleUse",
+        "is_single_use": {
+          "name": "is_single_use",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
         },
-        "hasPage": {
-          "name": "hasPage",
+        "has_page": {
+          "name": "has_page",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
         },
-        "expirationDate": {
-          "name": "expirationDate",
+        "expiration_date": {
+          "name": "expiration_date",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,

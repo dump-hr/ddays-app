@@ -14,9 +14,9 @@ export const achievement = pgTable('achievement', {
   name: varchar('name', { length: 50 }).notNull(),
   description: varchar('description', { length: 255 }).notNull(),
   points: integer('points').notNull(),
-  fulfillmentCodeCount: integer('fulfillmentCodeCount').notNull(),
-  isHidden: boolean('isHidden').default(false),
-  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow(),
+  fulfillmentCodeCount: integer('fulfillment_code_count').notNull(),
+  isHidden: boolean('is_hidden').default(false),
+  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
 });
 
 export const achievementRelations = relations(achievement, ({ many }) => ({
@@ -28,11 +28,11 @@ export const code = pgTable('code', {
   value: varchar('value', { length: 10 }).notNull(),
   description: varchar('description', { length: 255 }).notNull(),
   points: integer('points').notNull(),
-  isActive: boolean('isActive').default(true),
-  isSingleUse: boolean('isSingleUse').default(false),
-  hasPage: boolean('hasPage').default(false),
-  expirationDate: timestamp('expirationDate', { mode: 'string' }).defaultNow(),
-  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow(),
+  isActive: boolean('is_active').default(true),
+  isSingleUse: boolean('is_single_use').default(false),
+  hasPage: boolean('has_page').default(false),
+  expirationDate: timestamp('expiration_date', { mode: 'string' }).defaultNow(),
+  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
 });
 
 export const codeRelations = relations(code, ({ many }) => ({
@@ -42,10 +42,10 @@ export const codeRelations = relations(code, ({ many }) => ({
 export const achievementToCode = pgTable(
   'achievementToCode',
   {
-    achievementId: integer('achievementId')
+    achievementId: integer('achievement_id')
       .notNull()
       .references(() => achievement.id),
-    codeId: integer('codeId')
+    codeId: integer('code_id')
       .notNull()
       .references(() => code.id),
   },

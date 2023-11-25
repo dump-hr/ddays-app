@@ -11,9 +11,9 @@
     "start": "nest start",
     "dev": "nest start --watch --preserveWatchOutput",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "introspect": "drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
-    "generate": "drizzle-kit generate:pg --config ./db/drizzle.config.ts",
-    "migrate": "tsx ./db/migrate"
+    "introspect": "dotenv -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
+    "generate": "dotenv -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
+    "migrate": "dotenv -- tsx ./db/migrate"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
