@@ -8,21 +8,28 @@ DUMP Days App
 
 - Node.js >=18 and yarn
 - PostgreSQL >= 15
+- dotenv-cli (install with: `yarn global add dotenv-cli`)
+- Docker and Docker compose (optional)
+
+#### Setup environment
+
+1. Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally. 
+
+    If you use local postgres db server, create manually new database named `ddays` 
+
+
+2. Create `.env.local` file that can override configuration options from `.env` in web/api apps.
+
+    Add required env variables for `api`:
+   - `DATABASE_URL`
 
 #### Install dependencies
+
+Run command from workspace level
 
 ```
 yarn
 ```
-
-#### Setup environment
-
-Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally.
-
-Create `.env.local` file that can override configuration options from `.env` in web/api apps.
-
-Required variables for `api`:
-- `DATABASE_URL`
 
 #### Generate new database migrations (after adding models)
 
@@ -38,7 +45,9 @@ yarn migrate
 
 #### Run database seed
 
-todo
+```
+//todo
+```
 
 #### Run app
 
@@ -51,6 +60,10 @@ App is now accessible on <http://localhost:5173/>. API routes are prefixed with 
 ## Cookbook
 
 #### Add new dependency
+
+```
+yarn workspace <workspace> add <package>
+```
 
 example: add `drizzle-kit` library to `api` app
 
