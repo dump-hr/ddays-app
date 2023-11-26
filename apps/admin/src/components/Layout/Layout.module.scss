@@ -2,8 +2,16 @@
     margin: 0 auto;
     max-width: 1200px;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .nav{
     display: flex;
+    flex-wrap: wrap;
 }
+
+.nav > *{
+    margin-right: 10px;
+}   
