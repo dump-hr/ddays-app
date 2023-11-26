@@ -1,5 +1,5 @@
-import Button from "../Button";
-import c from "./Table.module.scss";
+import Button from '../Button';
+import c from './Table.module.scss';
 
 type TableProps = {
   headers: string[];
@@ -39,10 +39,9 @@ const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
                 {buttonActions.map((action, i) => {
                   return (
                     <Button
-                      variant="secondary"
+                      variant='secondary'
                       onClick={() => action.action(row)}
-                      key={i}
-                    >
+                      key={i}>
                       {action.label}
                     </Button>
                   );
