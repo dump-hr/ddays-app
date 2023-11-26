@@ -1,6 +1,7 @@
 import useLocation from "wouter/use-location";
 import Button from "../Button";
 import c from "./Layout.module.scss";
+import Input from "../Input";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {text}
           </Button>
         ))}
+        <Input placeholder="placeholder" />
       </nav>
       {children}
     </div>
