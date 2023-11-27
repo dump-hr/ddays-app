@@ -10,8 +10,6 @@
 .nav{
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
 }
-
-.nav > *{
-    margin-right: 10px;
-}   
+  

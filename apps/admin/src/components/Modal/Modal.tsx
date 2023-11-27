@@ -3,23 +3,20 @@ import c from "./Modal.module.scss";
 
 type ModalProps = {
   children: React.ReactNode;
-  modal: boolean;
+  isOpen: boolean;
   toggleModal: () => void;
 };
 
-const Modal: React.FC<ModalProps> = ({ children, modal, toggleModal }) => {
+const Modal: React.FC<ModalProps> = ({ children, isOpen, toggleModal }) => {
+  if (!isOpen) return null;
   return (
-    <>
-      {modal && (
-        <div className={c.modal}>
-          <div onClick={toggleModal} className={c.overlay}></div>
-          <div className={c.modalContent}>
-            {children}
-            <Button onClick={toggleModal}>Close</Button>
-          </div>
-        </div>
-      )}
-    </>
+    <div className={c.modal}>
+      <div onClick={toggleModal} className={c.overlay}></div>
+      <div className={c.modalContent}>
+        {children}
+        <Button onClick={toggleModal}>Close</Button>
+      </div>
+    </div>
   );
 };
 

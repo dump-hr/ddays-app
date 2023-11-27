@@ -30,11 +30,6 @@ const navLinks = [
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
-  const [modal, setModal] = useState(false);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
 
   return (
     <div className={c.layout}>
@@ -48,12 +43,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {text}
           </Button>
         ))}
-        <Input placeholder="placeholder" />
-        <Button onClick={toggleModal}>Open modal</Button>
-        <Modal modal={modal} toggleModal={toggleModal}>
-          <Input placeholder="Username" />
-          <Input placeholder="Password" />
-        </Modal>
       </nav>
       {children}
     </div>
