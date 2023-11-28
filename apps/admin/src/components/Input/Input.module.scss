@@ -1,4 +1,4 @@
-.input{
+.input {
     font-size: 16px;
     background-color: transparent;
     font-weight: 400;
@@ -7,12 +7,14 @@
     transition: all 0.3s ease-in-out;
     padding: 10px 10px;
     display: block;
-    &:focus{
+
+    &:focus {
         outline: none;
         border-bottom-color: #5cc2a0;
         color: #000;
     }
-    &.error{
+
+    &.error {
         border-bottom-color: #ff0000;
     }
 }

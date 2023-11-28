@@ -1,4 +1,4 @@
-.button{
+.button {
     background-color: #5cc2a0;
     color: #fff;
     border: 2px solid #5cc2a0;
@@ -9,10 +9,12 @@
     font-weight: 600;
     transition: all 0.3s ease-in-out;
     display: block;
-    &.primary{
+
+    &.primary {
         background-color: #5cc2a0;
     }
-    &.secondary{
+
+    &.secondary {
         background-color: #fff;
         color: #5cc2a0;
     }

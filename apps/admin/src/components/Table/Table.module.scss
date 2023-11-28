@@ -1,17 +1,22 @@
-.th, .td{
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 5px;	
+.th,
+.td {
+    border-radius: 5px;
     padding: 10px 10px;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.th{
+.th {
     background-color: #5cc2a045;
     font-weight: 600;
 }
 
-.td{
+.td {
     background-color: #fff;
-    font-weight: 400;
+}
+
+.buttonActions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }

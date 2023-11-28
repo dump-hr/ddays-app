@@ -9,8 +9,7 @@ const headers = [
   "Mjesto",
   "Početak",
   "Kraj",
-  "Uredi",
-  "Obriši",
+  "Akcije",
 ];
 
 const data = [
@@ -56,8 +55,23 @@ const data = [
   },
 ];
 
+const buttonActions = [
+  {
+    label: "Uredi",
+    action: (row: object) => {
+      console.log("Uredi", row);
+    },
+  },
+  {
+    label: "Obriši",
+    action: (row: object) => {
+      console.log("Obriši", row);
+    },
+  },
+];
+
 const EventsPage = () => {
-  return <Table headers={headers} data={data} />;
+  return <Table headers={headers} data={data} buttonActions={buttonActions} />;
 };
 
 export default EventsPage;
