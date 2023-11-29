@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   serial,
@@ -67,3 +68,43 @@ export const achievementToCodeRelations = relations(
     }),
   }),
 );
+
+export const eventTheme = pgEnum('event_theme', [
+  'dev',
+  'design',
+  'tech',
+  'marketing',
+]);
+
+export const eventType = pgEnum('event_type', [
+  'lecture',
+  'workshop',
+  'flyTalk',
+  'campfireTalk',
+  'other',
+]);
+export const eventPlace = pgEnum('event_place', ['online', 'inPerson']);
+export const event = pgTable('event', {
+  id: serial('id').primaryKey().notNull(),
+  name: varchar('name', { length: 50 }).notNull(),
+  description: varchar('description', { length: 255 }).notNull(),
+  eventType: eventType('event_type').notNull(),
+  eventTheme: eventTheme('event_theme').notNull(),
+  eventPlace: eventPlace('event_place').notNull(),
+  startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
+  endsAt: timestamp('ends_at', { mode: 'string' }).notNull(),
+  requirements: varchar('requirements', { length: 255 }).notNull(),
+  footageLink: varchar('footage_link', { length: 255 }).notNull(),
+  maxParticipants: integer('max_participants').notNull(),
+  codeId: integer('code_id')
+    .notNull()
+    .references(() => code.id),
+  //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
+});
+
+export const eventRelations = relations(event, ({ one }) => ({
+  codes: one(code, {
+    fields: [event.codeId],
+    references: [code.id],
+  }),
+}));
