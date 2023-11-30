@@ -3,6 +3,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { db } from 'db';
 import { event, eventPlace, eventTheme, eventType } from 'db/schema';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class EventsService {
@@ -23,21 +24,45 @@ export class EventsService {
         maxParticipants: createEventDto.maxParticipants,
       })
       .returning();
+
+    return createdEvent;
   }
 
-  findAll() {
-    return `This action returns all events`;
+  async getAll() {
+    
   }
 
   findOne(id: number) {
     return `This action returns a #${id} event`;
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  async update(id: number, updateEventDto: UpdateEventDto) {
+    const updatedEvent = await db
+      .update(event)
+      .set({
+        name: updateEventDto.name,
+        codeId: updateEventDto.codeId,
+        description: updateEventDto.description,
+        eventType: eventType.enumValues[updateEventDto.eventType],
+        eventTheme: eventTheme.enumValues[updateEventDto.eventTheme],
+        eventPlace: eventPlace.enumValues[updateEventDto.eventPlace],
+        startsAt: updateEventDto.startsAt,
+        endsAt: updateEventDto.endsAt,
+        requirements: updateEventDto.requirements,
+        footageLink: updateEventDto.footageLink,
+        maxParticipants: updateEventDto.maxParticipants,
+      })
+      .returning();
+
+    return updatedEvent;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async remove(id: number) {
+    const deletedUser = await db
+      .delete(event)
+      .where(eq(event.id, id))
+      .returning();
+
+    return deletedUser;
   }
 }
