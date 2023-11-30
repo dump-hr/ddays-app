@@ -17,26 +17,39 @@ export class EventsController {
 
   @Post()
   async create(@Body() createEventDto: CreateEventDto) {
-    return this.eventsService.create(createEventDto);
+    const createdEvent = await this.eventsService.create(createEventDto);
+
+    return createdEvent;
   }
 
   @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  async getAll() {
+    const events = await this.eventsService.getAll();
+
+    return events;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const event = await this.eventsService.getOne(+id);
+
+    return event;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventsService.update(+id, updateEventDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateEventDto: UpdateEventDto,
+  ) {
+    const updatedEvent = await this.eventsService.update(+id, updateEventDto);
+
+    return updatedEvent;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.eventsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const deletedEvent = await this.eventsService.remove(+id);
+
+    return deletedEvent;
   }
 }
