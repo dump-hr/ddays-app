@@ -29,13 +29,39 @@ export class EventsService {
   }
 
   async getAll() {
-    const events = await db.select().from(event).orderBy(event.name);
+    const events = await db
+      .select({
+        id: event.id,
+        name: event.name,
+        description: event.description,
+        startsAt: event.startsAt,
+        endsAt: event.endsAt,
+        maxParticipants: event.maxParticipants,
+      })
+      .from(event)
+      .orderBy(event.name);
 
     return events;
   }
 
   async getOne(id: number) {
-    const eventToFind = await db.select().from(event).where(eq(event.id, id));
+    const eventToFind = await db
+      .select({
+        name: event.name,
+        description: event.description,
+        startsAt: event.startsAt,
+        endsAt: event.endsAt,
+        maxParticipants: event.maxParticipants,
+        requirements: event.requirements,
+        footageLink: event.footageLink,
+        eventType: event.eventType,
+        eventTheme: event.eventTheme,
+        eventPlace: event.eventPlace,
+        codeId: event.codeId,
+        id: event.id,
+      })
+      .from(event)
+      .where(eq(event.id, id));
 
     return eventToFind;
   }
@@ -56,6 +82,7 @@ export class EventsService {
         footageLink: updateEventDto.footageLink,
         maxParticipants: updateEventDto.maxParticipants,
       })
+      .where(eq(event.id, id))
       .returning();
 
     return updatedEvent;
