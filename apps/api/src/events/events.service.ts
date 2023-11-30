@@ -1,32 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEventDto } from './dto/create-event.dto';
+import {
+  CreateEventDto,
+  eventPlace,
+  eventTheme,
+  eventType,
+} from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { db } from 'db';
-import { event, eventPlace, eventTheme, eventType } from 'db/schema';
+import { event } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class EventsService {
   async create(createEventDto: CreateEventDto) {
-    console.log(eventType.enumValues[createEventDto.eventType]);
     const createdEvent = await db
       .insert(event)
       .values({
         name: createEventDto.name,
         codeId: createEventDto.codeId,
         description: createEventDto.description,
-        eventType: createEventDto.eventType as
-          | 'lecture'
-          | 'workshop'
-          | 'flyTalk'
-          | 'campfireTalk'
-          | 'other',
-        eventTheme: createEventDto.eventTheme as
-          | 'dev'
-          | 'design'
-          | 'tech'
-          | 'marketing',
-        eventPlace: createEventDto.eventPlace as 'online' | 'inPerson',
+        eventType: createEventDto.eventType as eventType,
+        eventTheme: createEventDto.eventTheme as eventTheme,
+        eventPlace: createEventDto.eventPlace as eventPlace,
         startsAt: createEventDto.startsAt,
         endsAt: createEventDto.endsAt,
         requirements: createEventDto.requirements,
@@ -83,9 +78,9 @@ export class EventsService {
         name: updateEventDto.name,
         codeId: updateEventDto.codeId,
         description: updateEventDto.description,
-        eventType: eventType.enumValues[updateEventDto.eventType],
-        eventTheme: eventTheme.enumValues[updateEventDto.eventTheme],
-        eventPlace: eventPlace.enumValues[updateEventDto.eventPlace],
+        eventType: updateEventDto.eventType as eventType,
+        eventTheme: updateEventDto.eventTheme as eventTheme,
+        eventPlace: updateEventDto.eventPlace as eventPlace,
         startsAt: updateEventDto.startsAt,
         endsAt: updateEventDto.endsAt,
         requirements: updateEventDto.requirements,

@@ -2,6 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 import { eventPlace, eventTheme, eventType } from 'db/schema';
 
+export type eventPlace = 'online' | 'inPerson';
+export type eventTheme = 'dev' | 'design' | 'tech' | 'marketing';
+export type eventType =
+  | 'lecture'
+  | 'workshop'
+  | 'flyTalk'
+  | 'campfireTalk'
+  | 'other';
 export class CreateEventDto {
   @IsString()
   @ApiProperty()
