@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDate,
-  IsDateString,
-  IsEnum,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 import { eventPlace, eventTheme, eventType } from 'db/schema';
 
 export class CreateEventDto {
@@ -45,11 +39,11 @@ export class CreateEventDto {
   @ApiProperty()
   footageLink: string;
 
-  @IsString()
+  @IsNumber()
   @ApiProperty()
   maxParticipants: number;
 
   @IsNumber()
   @ApiProperty()
-  codeId: number; 
+  codeId: number;
 }

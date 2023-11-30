@@ -8,15 +8,25 @@ import { eq } from 'drizzle-orm';
 @Injectable()
 export class EventsService {
   async create(createEventDto: CreateEventDto) {
+    console.log(eventType.enumValues[createEventDto.eventType]);
     const createdEvent = await db
       .insert(event)
       .values({
         name: createEventDto.name,
         codeId: createEventDto.codeId,
         description: createEventDto.description,
-        eventType: eventType.enumValues[createEventDto.eventType],
-        eventTheme: eventTheme.enumValues[createEventDto.eventTheme],
-        eventPlace: eventPlace.enumValues[createEventDto.eventPlace],
+        eventType: createEventDto.eventType as
+          | 'lecture'
+          | 'workshop'
+          | 'flyTalk'
+          | 'campfireTalk'
+          | 'other',
+        eventTheme: createEventDto.eventTheme as
+          | 'dev'
+          | 'design'
+          | 'tech'
+          | 'marketing',
+        eventPlace: createEventDto.eventPlace as 'online' | 'inPerson',
         startsAt: createEventDto.startsAt,
         endsAt: createEventDto.endsAt,
         requirements: createEventDto.requirements,
