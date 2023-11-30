@@ -29,11 +29,15 @@ export class EventsService {
   }
 
   async getAll() {
-    
+    const events = await db.select().from(event).orderBy(event.name);
+
+    return events;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  async getOne(id: number) {
+    const eventToFind = await db.select().from(event).where(eq(event.id, id));
+
+    return eventToFind;
   }
 
   async update(id: number, updateEventDto: UpdateEventDto) {
