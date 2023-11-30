@@ -1,4 +1,11 @@
-import { IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { eventPlace, eventTheme, eventType } from 'db/schema';
 
 export class CreateEventDto {
   @IsString()
@@ -7,20 +14,20 @@ export class CreateEventDto {
   @IsString()
   description: string;
 
-  @IsEnum(['lecture', 'workshop', 'flyTalk', 'campfireTalk', 'other'])
+  @IsEnum(eventType.enumValues)
   eventType: string;
 
-  @IsEnum(['dev', 'design', 'tech', 'marketing'])
+  @IsEnum(eventTheme.enumValues)
   eventTheme: string;
 
-  @IsEnum(['online', 'inPerson'])
+  @IsEnum(eventPlace.enumValues)
   eventPlace: string;
 
-  @IsDate()
-  startsAt: Date;
+  @IsDateString()
+  startsAt: string;
 
-  @IsDate()
-  endsAt: Date;
+  @IsDateString()
+  endsAt: string;
 
   @IsString()
   requirements: string;

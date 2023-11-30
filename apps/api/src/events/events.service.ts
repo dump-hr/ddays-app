@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { db } from 'db';
-import { event, eventPlace, eventTheme } from 'db/schema';
+import { event, eventPlace, eventTheme, eventType } from 'db/schema';
 
 @Injectable()
 export class EventsService {
@@ -11,16 +11,16 @@ export class EventsService {
       .insert(event)
       .values({
         name: createEventDto.name,
-        description: createEventDto.description,
-        endsAt: createEventDto.endsAt,
         codeId: createEventDto.codeId,
-        footageLink: createEventDto.footageLink,
-        requirements: createEventDto.requirements,
-        eventPlace: createEventDto.eventPlace,
-        eventType: createEventDto.eventType,
-        eventTheme: createEventDto.eventTheme,
-        maxParticipants: createEventDto.maxParticipants,
+        description: createEventDto.description,
+        eventType: eventType.enumValues[createEventDto.eventType],
+        eventTheme: eventTheme.enumValues[createEventDto.eventTheme],
+        eventPlace: eventPlace.enumValues[createEventDto.eventPlace],
         startsAt: createEventDto.startsAt,
+        endsAt: createEventDto.endsAt,
+        requirements: createEventDto.requirements,
+        footageLink: createEventDto.footageLink,
+        maxParticipants: createEventDto.maxParticipants,
       })
       .returning();
   }
