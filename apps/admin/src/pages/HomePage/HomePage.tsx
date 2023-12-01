@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import Checkbox from '../../components/Checkbox';
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,8 @@ const HomePage = () => {
         <Input placeholder='Username' />
         <Input placeholder='Password' />
       </Modal>
+      <Checkbox label='Some label' />
+      <Checkbox label='Some other label' />
     </div>
   );
 };
