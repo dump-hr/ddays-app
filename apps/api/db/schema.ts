@@ -143,3 +143,9 @@ export const eventRelations = relations(event, ({ one }) => ({
     references: [code.id],
   }),
 }));
+
+export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
+  id: serial('id').primaryKey().notNull(),
+  question: varchar('question', { length: 255 }).notNull(),
+  answer: varchar('answer', { length: 255 }).notNull(),
+});
