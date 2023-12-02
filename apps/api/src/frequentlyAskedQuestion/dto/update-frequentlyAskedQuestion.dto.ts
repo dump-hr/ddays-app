@@ -1,5 +1,5 @@
 
-export class UpdatedFrequentlyAskedQuestion {
+export class UpdateFrequentlyAskedQuestionDto {
     question: string;
     answer: string;
 }
