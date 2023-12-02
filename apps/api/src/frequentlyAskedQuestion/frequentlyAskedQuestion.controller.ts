@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { 
+  Body, 
+  Controller, 
+  Delete, 
+  Get, 
+  Param, 
+  Post, 
+  Put 
+} from '@nestjs/common';
 import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
 
 @Controller('faq')
@@ -27,7 +35,7 @@ export class FrequentlyAskedQuestionController {
   }
 
   @Delete(':id')
-  async remove() {
+  async remove(@Param('id') id: string) {
     const deletedFrequentlyAskedQuestion = await this.frequentlyAskedQuestionService.remove();
 
     return deletedFrequentlyAskedQuestion;
