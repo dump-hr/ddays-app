@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   serial,
@@ -67,3 +68,38 @@ export const achievementToCodeRelations = relations(
     }),
   }),
 );
+
+export const sponsorCategory = pgEnum('sponsor_category', [
+  'general',
+  'gold',
+  'silver',
+  'bronze',
+  'workshop',
+  'foodAndBeverage',
+  'generalMedia',
+  'media',
+  'organizational',
+  'prizeGame',
+  'friend',
+]);
+
+export const company = pgTable('company', {
+  id: serial('id').primaryKey().notNull(),
+  value: varchar('value', { length: 10 }).notNull(),
+  sponsorCategory: sponsorCategory('sponsor_category').notNull(),
+  name: varchar('name', { length: 50 }).notNull(),
+  description: varchar('description', { length: 255 }).notNull(),
+  websiteUrl: varchar('website_url', { length: 255 }).notNull(),
+  boothLocation: varchar('booth_location', { length: 255 }).notNull(),
+  //TODO: add logoImage, landingImage ids to schema
+  codeId: integer('code_id')
+    .notNull()
+    .references(() => code.id),
+});
+
+export const companyRelations = relations(company, ({ one }) => ({
+  codes: one(code, {
+    fields: [company.codeId],
+    references: [code.id],
+  }),
+}));
