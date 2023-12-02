@@ -85,7 +85,6 @@ export const sponsorCategory = pgEnum('sponsor_category', [
 
 export const company = pgTable('company', {
   id: serial('id').primaryKey().notNull(),
-  value: varchar('value', { length: 10 }).notNull(),
   sponsorCategory: sponsorCategory('sponsor_category').notNull(),
   name: varchar('name', { length: 50 }).notNull(),
   description: varchar('description', { length: 255 }).notNull(),

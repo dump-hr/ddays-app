@@ -15,6 +15,13 @@
       "when": 1701523817233,
       "tag": "0001_rare_brother_voodoo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1701524462489,
+      "tag": "0002_tranquil_leo",
+      "breakpoints": true
     }
   ]
 }
