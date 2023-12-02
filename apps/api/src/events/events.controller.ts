@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ApiTags } from '@nestjs/swagger';
+
 @ApiTags('events')
 @Controller('events')
 export class EventsController {
@@ -31,25 +33,25 @@ export class EventsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const event = await this.eventsService.getOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const event = await this.eventsService.getOne(id);
 
     return event;
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateEventDto: UpdateEventDto,
   ) {
-    const updatedEvent = await this.eventsService.update(+id, updateEventDto);
+    const updatedEvent = await this.eventsService.update(id, updateEventDto);
 
     return updatedEvent;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const deletedEvent = await this.eventsService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    const deletedEvent = await this.eventsService.remove(id);
 
     return deletedEvent;
   }

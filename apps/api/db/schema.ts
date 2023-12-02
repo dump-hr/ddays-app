@@ -6,6 +6,7 @@ import {
   pgTable,
   primaryKey,
   serial,
+  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
@@ -86,15 +87,15 @@ export const eventType = pgEnum('event_type', [
 export const eventPlace = pgEnum('event_place', ['online', 'inPerson']);
 export const event = pgTable('event', {
   id: serial('id').primaryKey().notNull(),
-  name: varchar('name', { length: 50 }).notNull(),
-  description: varchar('description', { length: 255 }).notNull(),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
   eventType: eventType('event_type').notNull(),
   eventTheme: eventTheme('event_theme').notNull(),
   eventPlace: eventPlace('event_place').notNull(),
   startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
   endsAt: timestamp('ends_at', { mode: 'string' }).notNull(),
-  requirements: varchar('requirements', { length: 255 }).notNull(),
-  footageLink: varchar('footage_link', { length: 255 }).notNull(),
+  requirements: text('requirements').notNull(),
+  footageLink: text('footage_link').notNull(),
   maxParticipants: integer('max_participants').notNull(),
   codeId: integer('code_id')
     .notNull()

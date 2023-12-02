@@ -21,15 +21,15 @@ export class CreateEventDto {
 
   @IsEnum(eventType.enumValues)
   @ApiProperty()
-  eventType: string;
+  eventType: eventType;
 
   @IsEnum(eventTheme.enumValues)
   @ApiProperty()
-  eventTheme: string;
+  eventTheme: eventTheme;
 
   @IsEnum(eventPlace.enumValues)
   @ApiProperty()
-  eventPlace: string;
+  eventPlace: eventPlace;
 
   @IsDateString()
   @ApiProperty()
