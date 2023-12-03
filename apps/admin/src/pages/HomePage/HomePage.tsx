@@ -3,9 +3,11 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import Checkbox from '../../components/Checkbox';
+import FileUpload from '../../components/FileUpload';
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -22,6 +24,7 @@ const HomePage = () => {
       </Modal>
       <Checkbox label='Some label' />
       <Checkbox label='Some other label' />
+      <FileUpload preview={preview} setPreview={setPreview} />
     </div>
   );
 };

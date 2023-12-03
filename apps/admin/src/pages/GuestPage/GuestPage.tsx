@@ -3,7 +3,15 @@ import Input from "../../components/Input";
 import MultipleSelectInput from "../../components/MultipleSelectInput";
 import SelectInput from "../../components/SelectInput";
 
-const options = ["Guest", "User", "Admin"];
+const options = [
+  "Guest",
+  "User",
+  "Admin",
+  "Super admin",
+  "This",
+  "That",
+  "Something else",
+];
 
 const GuestPage = () => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -16,8 +24,6 @@ const GuestPage = () => {
     }
   };
 
-  console.log(selectedOptions);
-
   return (
     <div>
       <h1>Guest Page</h1>
@@ -29,6 +35,7 @@ const GuestPage = () => {
         label="Multiple select"
         options={options}
         toggleSelectOption={toggleSelectOption}
+        selectedOptions={selectedOptions}
       />
     </div>
   );

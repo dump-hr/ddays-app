@@ -1,7 +1,6 @@
 import { Route, Switch } from 'wouter';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Path } from './constants/paths';
-
 import './App.scss';
 
 import Layout from './components/Layout';

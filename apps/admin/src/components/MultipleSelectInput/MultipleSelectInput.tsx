@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
 import Button from "../Button";
 import c from "./MultipleSelectInput.module.scss";
 
 type MultipleSelectInputProps = {
   label: string;
   options: string[];
-  selectedOptios?: string[];
+  selectedOptions: string[];
   toggleSelectOption: (option: string) => void;
 };
 
 const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
   label,
   options,
-  selectedOptios = [],
+  selectedOptions,
   toggleSelectOption,
 }) => {
   return (
@@ -21,7 +20,7 @@ const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
       <div className={c.multipleSelectInputWrapper}>
         {options.map((option) => (
           <Button
-            variant={selectedOptios.includes(option) ? "primary" : "secondary"}
+            variant={selectedOptions.includes(option) ? "primary" : "secondary"}
             onClick={() => {
               toggleSelectOption(option);
             }}
