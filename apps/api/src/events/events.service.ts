@@ -1,14 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import {
-  CreateEventDto,
-  eventPlace,
-  eventTheme,
-  eventType,
-} from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 import { db } from 'db';
 import { event } from 'db/schema';
 import { eq } from 'drizzle-orm';
+import { CreateEventDto, UpdateEventDto } from './events.dto';
 
 @Injectable()
 export class EventsService {
