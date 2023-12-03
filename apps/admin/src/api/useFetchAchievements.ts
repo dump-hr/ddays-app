@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { QueryOptions, useQuery } from 'react-query';
 import { api } from '.';
 
 const fetchAllAchievements = async () =>
@@ -6,6 +6,10 @@ const fetchAllAchievements = async () =>
     '/achievement',
   );
 
-export const useFetchAchievements = () => {
-  return useQuery(['achievement'], fetchAllAchievements);
+export const useFetchAchievements = (
+  options?: QueryOptions<
+    { name: string; description: string; points: number }[]
+  >,
+) => {
+  return useQuery(['achievement'], fetchAllAchievements, options);
 };
