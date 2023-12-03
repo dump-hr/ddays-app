@@ -8,6 +8,7 @@ import AchievementsPage from './pages/AchievementsPage';
 import HompePage from './pages/HomePage';
 import GuestPage from './pages/GuestPage';
 import EventsPage from './pages/EventsPage';
+import React from 'react';
 
 const queryClient = new QueryClient();
 
@@ -16,9 +17,9 @@ export const App = () => {
     <QueryClientProvider client={queryClient}>
       <Layout>
         <Switch>
-          <Route path='/' component={HompePage} />
-          <Route path='/guest' component={GuestPage} />˝
-          <Route path='/events' component={EventsPage} />
+          <Route path={Path.Home} component={HompePage} />
+          <Route path={Path.Guest} component={GuestPage} />˝
+          <Route path={Path.Events} component={EventsPage} />
           <Route path={Path.Achievements} component={AchievementsPage} />
         </Switch>
       </Layout>

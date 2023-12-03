@@ -1,5 +1,8 @@
 export enum Path {
-  Achievements = '/',
+  Home = '/',
+  Guest = '/guest',
+  Achievements = '/achievements',
+  Events = '/events',
 
   CatchAll = '/:path*',
 }
