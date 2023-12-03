@@ -1,11 +1,16 @@
 import Button from "../Button";
 import c from "./MultipleSelectInput.module.scss";
 
+type Option = {
+  label: string;
+  value: string;
+};
+
 type MultipleSelectInputProps = {
   label: string;
-  options: string[];
-  selectedOptions: string[];
-  toggleSelectOption: (option: string) => void;
+  options: Option[];
+  selectedOptions: Option[];
+  toggleSelectOption: (option: Option) => void;
 };
 
 const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
@@ -24,9 +29,9 @@ const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
             onClick={() => {
               toggleSelectOption(option);
             }}
-            key={option}
+            key={option.value}
           >
-            {option}
+            {option.label}
           </Button>
         ))}
       </div>
