@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../../components/Input";
 import MultipleSelectInput from "../../components/MultipleSelectInput";
 import SelectInput from "../../components/SelectInput";
+import AvatarIcon from "../../components/AvatarIcon";
 
 type Option = {
   label: string;
@@ -68,6 +69,8 @@ const GuestPage = () => {
         toggleSelectOption={toggleSelectOption}
         selectedOptions={selectedOptions}
       />
+
+      <AvatarIcon width={50} height={50} />
     </div>
   );
 };
