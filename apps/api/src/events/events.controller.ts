@@ -9,8 +9,8 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { CreateEventDto } from './events.dto';
+import { UpdateEventDto } from './events.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('events')
