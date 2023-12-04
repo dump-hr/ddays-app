@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { event } from 'db/schema';
 import { eq } from 'drizzle-orm';
+
 import { CreateEventDto, UpdateEventDto } from './events.dto';
 
 @Injectable()

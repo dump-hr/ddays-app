@@ -12,7 +12,7 @@ import HompePage from './pages/HomePage';
 
 const queryClient = new QueryClient();
 
-export const App = () => {
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
