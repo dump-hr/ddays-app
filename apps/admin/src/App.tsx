@@ -1,14 +1,14 @@
-import { Route, Switch } from 'wouter';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Path } from './constants/paths';
+import { Route, Switch } from 'wouter';
 
 import './App.scss';
 
 import Layout from './components/Layout';
+import { Path } from './constants/paths';
 import AchievementsPage from './pages/AchievementsPage';
-import HompePage from './pages/HomePage';
-import GuestPage from './pages/GuestPage';
 import EventsPage from './pages/EventsPage';
+import GuestPage from './pages/GuestPage';
+import HompePage from './pages/HomePage';
 
 const queryClient = new QueryClient();
 

@@ -1,9 +1,7 @@
-import useLocation from "wouter/use-location";
-import Button from "../Button";
-import c from "./Layout.module.scss";
-import Input from "../Input";
-import Modal from "../Modal";
-import { useState } from "react";
+import useLocation from 'wouter/use-location';
+
+import c from './Layout.module.scss';
+import Button from '../Button';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,20 +9,20 @@ type LayoutProps = {
 
 const navLinks = [
   {
-    href: "/",
-    text: "Home",
+    href: '/',
+    text: 'Home',
   },
   {
-    href: "/guest",
-    text: "Guest",
+    href: '/guest',
+    text: 'Guest',
   },
   {
-    href: "/events",
-    text: "Events",
+    href: '/events',
+    text: 'Events',
   },
   {
-    href: "/achievements",
-    text: "Achievements",
+    href: '/achievements',
+    text: 'Achievements',
   },
 ];
 
@@ -37,9 +35,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {navLinks.map(({ href, text }) => (
           <Button
             key={href}
-            variant={location === href ? "primary" : "secondary"}
-            onClick={() => navigate(href)}
-          >
+            variant={location === href ? 'primary' : 'secondary'}
+            onClick={() => navigate(href)}>
             {text}
           </Button>
         ))}

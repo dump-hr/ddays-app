@@ -1,4 +1,5 @@
 import { QueryOptions, useQuery } from 'react-query';
+
 import { api } from '.';
 
 const fetchAllAchievements = async () =>
