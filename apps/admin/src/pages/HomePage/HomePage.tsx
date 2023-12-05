@@ -24,7 +24,12 @@ const HomePage = () => {
       </Modal>
       <Checkbox label='Some label' />
       <Checkbox label='Some other label' />
-      <FileUpload src={src} label={'some label'} setSrc={setSrc} />
+      <FileUpload
+        src={src}
+        label={'some label'}
+        accept={'.png,.jpg'}
+        setSrc={setSrc}
+      />
     </div>
   );
 };

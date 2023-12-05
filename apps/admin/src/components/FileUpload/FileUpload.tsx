@@ -7,12 +7,14 @@ import Button from '../Button';
 type FileUploadProps = {
   src: string | ArrayBuffer | null;
   label?: string;
+  accept: string | undefined;
   setSrc: (result: string | ArrayBuffer | null) => void;
 };
 
 const FileUpload: React.FC<FileUploadProps> = ({
   src,
   label = null,
+  accept = 'image/*',
   setSrc,
 }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -36,7 +38,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       {label && <p>{label}</p>}
       {!src && (
         <div className={c.dragNDropArea} {...getRootProps()}>
-          <input {...getInputProps()} />
+          <input accept={accept} {...getInputProps()} />
           {isDragActive ? (
             <p className={c.dragNDropAreaText}>Drop the files here ...</p>
           ) : (
