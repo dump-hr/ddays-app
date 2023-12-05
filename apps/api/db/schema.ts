@@ -6,6 +6,7 @@ import {
   pgTable,
   primaryKey,
   serial,
+  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
@@ -85,11 +86,11 @@ export const sponsorCategory = pgEnum('sponsor_category', [
 
 export const company = pgTable('company', {
   id: serial('id').primaryKey().notNull(),
-  sponsorCategory: sponsorCategory('sponsor_category').notNull(),
-  name: varchar('name', { length: 50 }).notNull(),
-  description: varchar('description', { length: 255 }).notNull(),
-  websiteUrl: varchar('website_url', { length: 255 }).notNull(),
-  boothLocation: varchar('booth_location', { length: 255 }).notNull(),
+  sponsorCategory: sponsorCategory('sponsor_category'),
+  name: text('name'),
+  description: text('description'),
+  websiteUrl: text('website_url'),
+  boothLocation: text('booth_location'),
   //TODO: add logoImage, landingImage ids to schema
   codeId: integer('code_id')
     .notNull()
