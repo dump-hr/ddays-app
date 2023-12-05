@@ -1,20 +1,25 @@
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 
-import c from "./FileUpload.module.scss";
-import Button from "../Button";
+import c from './FileUpload.module.scss';
+import Button from '../Button';
 
 type FileUploadProps = {
-  preview: string | ArrayBuffer | null;
-  setPreview: (result: string | ArrayBuffer | null) => void;
+  src: string | ArrayBuffer | null;
+  label?: string;
+  setSrc: (result: string | ArrayBuffer | null) => void;
 };
 
-const FileUpload: React.FC<FileUploadProps> = ({ preview, setPreview }) => {
+const FileUpload: React.FC<FileUploadProps> = ({
+  src,
+  label = null,
+  setSrc,
+}) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = new FileReader();
 
     file.onload = () => {
-      setPreview(file.result);
+      setSrc(file.result);
     };
 
     file.readAsDataURL(acceptedFiles[0]);
@@ -23,12 +28,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ preview, setPreview }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleFileRemove = () => {
-    setPreview(null);
+    setSrc(null);
   };
 
   return (
     <div className={c.dragNDropWrapper}>
-      {!preview && (
+      {label && <p>{label}</p>}
+      {!src && (
         <div className={c.dragNDropArea} {...getRootProps()}>
           <input {...getInputProps()} />
           {isDragActive ? (
@@ -41,9 +47,9 @@ const FileUpload: React.FC<FileUploadProps> = ({ preview, setPreview }) => {
         </div>
       )}
 
-      {preview && (
+      {src && (
         <div className={c.previewWrapper}>
-          <img className={c.img} src={preview as string} alt="preview" />
+          <img className={c.img} src={src as string} alt='preview' />
           <Button onClick={handleFileRemove}>Remove</Button>
         </div>
       )}
