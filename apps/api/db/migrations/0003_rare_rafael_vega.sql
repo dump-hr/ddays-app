@@ -6,12 +6,11 @@ END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "company" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"value" varchar(10) NOT NULL,
-	"sponsor_category" "sponsor_category" NOT NULL,
-	"name" varchar(50) NOT NULL,
-	"description" varchar(255) NOT NULL,
-	"website_url" varchar(255) NOT NULL,
-	"booth_location" varchar(255) NOT NULL,
+	"sponsor_category" "sponsor_category",
+	"name" text,
+	"description" text,
+	"website_url" text,
+	"booth_location" text,
 	"code_id" integer NOT NULL
 );
 --> statement-breakpoint

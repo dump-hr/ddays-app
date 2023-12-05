@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Switch } from 'wouter';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Path } from './constants/paths';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.scss';
 
+import Layout from './components/Layout';
+import AchievementsPage from './pages/AchievementsPage';
+import HompePage from './pages/HomePage';
+import GuestPage from './pages/GuestPage';
+import EventsPage from './pages/EventsPage';
+
+const queryClient = new QueryClient();
+
+export const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <QueryClientProvider client={queryClient}>
+      <Layout>
+        <Switch>
+          <Route path={Path.Home} component={HompePage} />
+          <Route path={Path.Guest} component={GuestPage} />˝
+          <Route path={Path.Events} component={EventsPage} />
+          <Route path={Path.Achievements} component={AchievementsPage} />
+        </Switch>
+      </Layout>
+    </QueryClientProvider>
+  );
+};
 
-export default App
+export default App;

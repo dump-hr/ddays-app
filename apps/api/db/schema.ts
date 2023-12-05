@@ -103,3 +103,43 @@ export const companyRelations = relations(company, ({ one }) => ({
     references: [code.id],
   }),
 }));
+
+export const eventTheme = pgEnum('event_theme', [
+  'dev',
+  'design',
+  'tech',
+  'marketing',
+]);
+
+export const eventType = pgEnum('event_type', [
+  'lecture',
+  'workshop',
+  'flyTalk',
+  'campfireTalk',
+  'other',
+]);
+export const eventPlace = pgEnum('event_place', ['online', 'inPerson']);
+export const event = pgTable('event', {
+  id: serial('id').primaryKey().notNull(),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  eventType: eventType('event_type').notNull(),
+  eventTheme: eventTheme('event_theme').notNull(),
+  eventPlace: eventPlace('event_place').notNull(),
+  startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
+  endsAt: timestamp('ends_at', { mode: 'string' }).notNull(),
+  requirements: text('requirements').notNull(),
+  footageLink: text('footage_link').notNull(),
+  maxParticipants: integer('max_participants').notNull(),
+  codeId: integer('code_id')
+    .notNull()
+    .references(() => code.id),
+  //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
+});
+
+export const eventRelations = relations(event, ({ one }) => ({
+  codes: one(code, {
+    fields: [event.codeId],
+    references: [code.id],
+  }),
+}));

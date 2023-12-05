@@ -1,6 +1,6 @@
 {
-  "id": "2c8cd5a5-d568-4298-b428-03e6022f9eae",
-  "prevId": "f71948b3-1c5f-497a-9b07-e4d4bb05ef73",
+  "id": "d1f597cf-af57-4c03-8916-6a23b6daf3e0",
+  "prevId": "6fdf4c41-d586-41a7-912d-38809782529c",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -249,9 +249,131 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
+    },
+    "event": {
+      "name": "event",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_type": {
+          "name": "event_type",
+          "type": "event_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_theme": {
+          "name": "event_theme",
+          "type": "event_theme",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_place": {
+          "name": "event_place",
+          "type": "event_place",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ends_at": {
+          "name": "ends_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requirements": {
+          "name": "requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "footage_link": {
+          "name": "footage_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_participants": {
+          "name": "max_participants",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "code_id": {
+          "name": "code_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "event_code_id_code_id_fk": {
+          "name": "event_code_id_code_id_fk",
+          "tableFrom": "event",
+          "tableTo": "code",
+          "columnsFrom": [
+            "code_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     }
   },
   "enums": {
+    "event_place": {
+      "name": "event_place",
+      "values": {
+        "online": "online",
+        "inPerson": "inPerson"
+      }
+    },
+    "event_theme": {
+      "name": "event_theme",
+      "values": {
+        "dev": "dev",
+        "design": "design",
+        "tech": "tech",
+        "marketing": "marketing"
+      }
+    },
+    "event_type": {
+      "name": "event_type",
+      "values": {
+        "lecture": "lecture",
+        "workshop": "workshop",
+        "flyTalk": "flyTalk",
+        "campfireTalk": "campfireTalk",
+        "other": "other"
+      }
+    },
     "sponsor_category": {
       "name": "sponsor_category",
       "values": {

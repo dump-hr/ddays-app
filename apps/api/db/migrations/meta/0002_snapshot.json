@@ -1,6 +1,6 @@
 {
-  "id": "f71948b3-1c5f-497a-9b07-e4d4bb05ef73",
-  "prevId": "3da9e7a3-0e93-488a-9cef-b91876b9a5a9",
+  "id": "6fdf4c41-d586-41a7-912d-38809782529c",
+  "prevId": "1881f606-50a9-4f9b-8991-133822f45a5d",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -184,8 +184,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "company": {
-      "name": "company",
+    "event": {
+      "name": "event",
       "schema": "",
       "columns": {
         "id": {
@@ -194,33 +194,63 @@
           "primaryKey": true,
           "notNull": true
         },
-        "sponsor_category": {
-          "name": "sponsor_category",
-          "type": "sponsor_category",
-          "primaryKey": false,
-          "notNull": true
-        },
         "name": {
           "name": "name",
-          "type": "varchar(50)",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "description": {
           "name": "description",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "website_url": {
-          "name": "website_url",
-          "type": "varchar(255)",
+        "event_type": {
+          "name": "event_type",
+          "type": "event_type",
           "primaryKey": false,
           "notNull": true
         },
-        "booth_location": {
-          "name": "booth_location",
-          "type": "varchar(255)",
+        "event_theme": {
+          "name": "event_theme",
+          "type": "event_theme",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_place": {
+          "name": "event_place",
+          "type": "event_place",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ends_at": {
+          "name": "ends_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requirements": {
+          "name": "requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "footage_link": {
+          "name": "footage_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_participants": {
+          "name": "max_participants",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -233,9 +263,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "company_code_id_code_id_fk": {
-          "name": "company_code_id_code_id_fk",
-          "tableFrom": "company",
+        "event_code_id_code_id_fk": {
+          "name": "event_code_id_code_id_fk",
+          "tableFrom": "event",
           "tableTo": "code",
           "columnsFrom": [
             "code_id"
@@ -252,20 +282,30 @@
     }
   },
   "enums": {
-    "sponsor_category": {
-      "name": "sponsor_category",
+    "event_place": {
+      "name": "event_place",
       "values": {
-        "general": "general",
-        "gold": "gold",
-        "silver": "silver",
-        "bronze": "bronze",
+        "online": "online",
+        "inPerson": "inPerson"
+      }
+    },
+    "event_theme": {
+      "name": "event_theme",
+      "values": {
+        "dev": "dev",
+        "design": "design",
+        "tech": "tech",
+        "marketing": "marketing"
+      }
+    },
+    "event_type": {
+      "name": "event_type",
+      "values": {
+        "lecture": "lecture",
         "workshop": "workshop",
-        "foodAndBeverage": "foodAndBeverage",
-        "generalMedia": "generalMedia",
-        "media": "media",
-        "organizational": "organizational",
-        "prizeGame": "prizeGame",
-        "friend": "friend"
+        "flyTalk": "flyTalk",
+        "campfireTalk": "campfireTalk",
+        "other": "other"
       }
     }
   },

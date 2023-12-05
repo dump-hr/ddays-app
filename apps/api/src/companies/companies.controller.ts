@@ -36,7 +36,7 @@ export class CompaniesController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCompanyDto: UpdateCompanyDto,
   ) {
     const updatedCmopany = await this.companiesService.update(
