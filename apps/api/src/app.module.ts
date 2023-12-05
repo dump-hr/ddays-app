@@ -8,17 +8,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
 
 @Module({
-<<<<<<< HEAD
-  imports: [AchievementModule, CompaniesModule],
-  controllers: [AppController],
-  providers: [AppService],
-})
-
-@Module({
-  imports: [AchievementModule, EventsModule],
-=======
-  imports: [AchievementModule, FrequentlyAskedQuestionModule],
->>>>>>> 091cd81 (added module, just created service and controller)
+  imports: [AchievementModule, CompaniesModule, EventsModule, FrequentlyAskedQuestionModule],
   controllers: [AppController],
   providers: [AppService],
 })

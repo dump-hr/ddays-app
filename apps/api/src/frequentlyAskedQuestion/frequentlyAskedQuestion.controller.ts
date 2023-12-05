@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Patch,
 } from '@nestjs/common';
 import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
 import { CreateFrequentlyAskedQuestionDto } from './dto/create-frequentlyAskedQuestion.dto';
@@ -37,7 +37,7 @@ export class FrequentlyAskedQuestionController {
     return createdFrequentlyAskedQuestion;
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateFrequentlyAskedQuestionDto: UpdateFrequentlyAskedQuestionDto,
