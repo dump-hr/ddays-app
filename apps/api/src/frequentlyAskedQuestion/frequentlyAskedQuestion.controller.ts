@@ -13,7 +13,7 @@ import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.servic
 import { CreateFrequentlyAskedQuestionDto } from './dto/create-frequentlyAskedQuestion.dto';
 import { UpdateFrequentlyAskedQuestionDto } from './dto/update-frequentlyAskedQuestion.dto';
 
-@ApiTags('events')
+@ApiTags('faq')
 @Controller('faq')
 export class FrequentlyAskedQuestionController {
   constructor(
