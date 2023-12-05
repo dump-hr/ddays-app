@@ -1,5 +1,5 @@
-import { IsDateString, IsEnum, IsNumber, IsString } from "class-validator";
-import { EventPlace, EventTheme, EventType } from "src/model";
+import { EventPlace, EventTheme, EventType } from '../../model/event';
+import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 
 export const getCreateEventDto = (ApiPropertySwagger?: any) => {
   // We did this to avoid having to include all nest dependencies related to ApiProperty on the client side too
@@ -8,47 +8,47 @@ export const getCreateEventDto = (ApiPropertySwagger?: any) => {
 
   class CreateEventDto {
     @IsString()
-    @ApiProperty()
+    // @ApiProperty()
     name: string;
 
     @IsString()
-    @ApiProperty()
+    // @ApiProperty()
     description: string;
 
     @IsEnum(EventType)
-    @ApiProperty()
+    // @ApiProperty({ enum: EventType })
     eventType: EventType;
 
     @IsEnum(EventTheme)
-    @ApiProperty()
+    // @ApiProperty({ enum: EventTheme })
     eventTheme: EventTheme;
 
     @IsEnum(EventPlace)
-    @ApiProperty()
+    // @ApiProperty({ enum: EventPlace })
     eventPlace: EventPlace;
 
     @IsDateString()
-    @ApiProperty()
+    // @ApiProperty()
     startsAt: string;
 
     @IsDateString()
-    @ApiProperty()
+    // @ApiProperty()
     endsAt: string;
 
     @IsString()
-    @ApiProperty()
+    // @ApiProperty()
     requirements: string;
 
     @IsString()
-    @ApiProperty()
+    // @ApiProperty()
     footageLink: string;
 
     @IsNumber()
-    @ApiProperty()
+    // @ApiProperty()
     maxParticipants: number;
 
     @IsNumber()
-    @ApiProperty()
+    // @ApiProperty()
     codeId: number;
   }
 
