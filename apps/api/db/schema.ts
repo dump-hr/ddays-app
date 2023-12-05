@@ -7,6 +7,7 @@ import {
   primaryKey,
   serial,
   text,
+  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
@@ -146,6 +147,6 @@ export const eventRelations = relations(event, ({ one }) => ({
 
 export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
   id: serial('id').primaryKey().notNull(),
-  question: varchar('question', { length: 255 }).notNull(),
-  answer: varchar('answer', { length: 255 }).notNull(),
+  question: text('question').notNull(),
+  answer: text('answer').notNull(),
 });

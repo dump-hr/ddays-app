@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Patch,
+  ParseIntPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
 import { CreateFrequentlyAskedQuestionDto } from './dto/create-frequentlyAskedQuestion.dto';
 import { UpdateFrequentlyAskedQuestionDto } from './dto/update-frequentlyAskedQuestion.dto';
 
+@ApiTags('events')
 @Controller('faq')
 export class FrequentlyAskedQuestionController {
   constructor(
@@ -39,12 +42,12 @@ export class FrequentlyAskedQuestionController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateFrequentlyAskedQuestionDto: UpdateFrequentlyAskedQuestionDto,
   ) {
     const updatedFrequentlyAskedQuestion =
       await this.frequentlyAskedQuestionService.update(
-        +id,
+        id,
         updateFrequentlyAskedQuestionDto,
       );
 
@@ -52,9 +55,9 @@ export class FrequentlyAskedQuestionController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     const deletedFrequentlyAskedQuestion =
-      await this.frequentlyAskedQuestionService.remove(+id);
+      await this.frequentlyAskedQuestionService.remove(id);
 
     return deletedFrequentlyAskedQuestion;
   }

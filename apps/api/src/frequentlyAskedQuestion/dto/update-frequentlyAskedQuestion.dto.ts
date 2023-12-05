@@ -1,6 +1,12 @@
-import { CreateFrequentlyAskedQuestionDto } from './create-frequentlyAskedQuestion.dto';
-import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
-export class UpdateFrequentlyAskedQuestionDto extends PartialType(
-  CreateFrequentlyAskedQuestionDto,
-) {}
+export class UpdateFrequentlyAskedQuestionDto {
+  @IsString()
+  @ApiProperty()
+  question: string;
+
+  @IsString()
+  @ApiProperty()
+  answer: string;
+}
