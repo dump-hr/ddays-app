@@ -1,5 +1,5 @@
-import { useId } from "react";
-import c from "./SelectInput.module.scss";
+import { useId } from 'react';
+import c from './SelectInput.module.scss';
 
 type SelectInputProps = {
   options: string[];
@@ -18,10 +18,10 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <>
       <label htmlFor={id} className={c.selectLabel}>
-        Uloga:
+        {label}
       </label>
-      <select defaultValue="" id={id} className={c.selectInput} {...handlers}>
-        <option value="" disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
+      <select defaultValue='' id={id} className={c.selectInput} {...handlers}>
+        <option value='' disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
           -
         </option>
         {options.map((option) => (
