@@ -12,32 +12,38 @@ import Modal from '../../components/Modal';
 const questions: Question[] = [
   {
     type: QuestionType.Field,
-    title: 'Naziv',
-    id: 'firstName',
-    registerValue: 'x',
+    title: 'Naziv eventa',
+    id: 'eventName',
+    rules: {
+      required: 'Obavezno!',
+    },
   },
   {
     type: QuestionType.Number,
-    title: 'Baraba',
-    id: 'broj',
-    registerValue: 4,
-    rules: { min: 2, max: 5, required: true },
+    title: 'Ocjena',
+    id: 'eventScore',
+    defaultValue: 10,
+    rules: {
+      min: { value: 0, message: 'Ocjena minimalna 0!' },
+      max: { value: 10, message: 'Ocjena maksimalna 10!' },
+      required: 'Obavezno unijeti broj!',
+    },
   },
   {
     type: QuestionType.Date,
-    title: 'Naziv',
-    id: 'datun',
+    title: 'Start',
+    id: 'eventStart',
   },
   {
     type: QuestionType.DateTime,
-    title: 'Vrime',
-    id: 'vrimeje',
+    title: 'Kraj',
+    id: 'eventEnd',
   },
   {
     type: QuestionType.Checkbox,
-    title: 'dali',
-    id: 'salvador dali',
-    registerValue: '1',
+    title: 'Debakl?',
+    id: 'isFail',
+    defaultValue: false,
   },
 ];
 
@@ -53,7 +59,6 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home Page</h1>
-      <button onClick={form.handleSubmit((s) => console.log(s))}>b</button>
       <Input placeholder='placeholder' />
       <Button onClick={toggleModal}>Open modal</Button>
       <Modal isOpen={isOpen} toggleModal={toggleModal}>
@@ -68,6 +73,8 @@ const HomePage = () => {
         accept={'.png,.jpg'}
         setSrc={setSrc}
       />
+
+      <button onClick={form.handleSubmit((s) => console.log(s))}>Submit</button>
       {questions.map((q) => (
         <InputHandler question={q} form={form} key={q.id} />
       ))}
