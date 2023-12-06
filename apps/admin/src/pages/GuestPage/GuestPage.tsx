@@ -48,14 +48,6 @@ const options = [
 const GuestPage = () => {
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
-  const toggleSelectOption = (option: Option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((opt) => opt !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
   return (
     <div>
       <h1>Guest Page</h1>
@@ -66,7 +58,7 @@ const GuestPage = () => {
       <MultipleSelectInput
         label='Multiple select'
         options={options}
-        toggleSelectOption={toggleSelectOption}
+        setSelectedOptions={setSelectedOptions}
         selectedOptions={selectedOptions}
       />
 
