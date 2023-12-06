@@ -20,4 +20,9 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
+    "references": [
+        {
+            "path": "./react.node.json"
+        }
+    ],
 }

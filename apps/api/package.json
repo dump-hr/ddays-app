@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npx dotenv-cli -c -- nest build",
-    "start": "npx dotenv-cli -c -- node dist/src/main.js",
-    "dev": "npx dotenv-cli -c -- nest start --watch --preserveWatchOutput",
+    "build": "dotenv -- nest build",
+    "start": "dotenv -- node dist/src/main.js",
+    "dev": "dotenv -- nest start --watch --preserveWatchOutput",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "introspect": "dotenv -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
@@ -31,6 +31,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@ddays-app/tsconfig": "*",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@types/express": "^4.17.17",
@@ -47,7 +48,6 @@
     "source-map-support": "^0.5.21",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
-    "tsconfig": "*",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.2.0",
     "typescript": "^5.1.3"

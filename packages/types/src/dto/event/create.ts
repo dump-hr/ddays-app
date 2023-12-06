@@ -8,47 +8,47 @@ export const getCreateEventDto = (ApiPropertySwagger?: any) => {
 
   class CreateEventDto {
     @IsString()
-    // @ApiProperty()
+    @ApiProperty()
     name: string;
 
     @IsString()
-    // @ApiProperty()
+    @ApiProperty()
     description: string;
 
     @IsEnum(EventType)
-    // @ApiProperty({ enum: EventType })
+    @ApiProperty({ enum: EventType })
     eventType: EventType;
 
     @IsEnum(EventTheme)
-    // @ApiProperty({ enum: EventTheme })
+    @ApiProperty({ enum: EventTheme })
     eventTheme: EventTheme;
 
     @IsEnum(EventPlace)
-    // @ApiProperty({ enum: EventPlace })
+    @ApiProperty({ enum: EventPlace })
     eventPlace: EventPlace;
 
     @IsDateString()
-    // @ApiProperty()
+    @ApiProperty()
     startsAt: string;
 
     @IsDateString()
-    // @ApiProperty()
+    @ApiProperty()
     endsAt: string;
 
     @IsString()
-    // @ApiProperty()
+    @ApiProperty()
     requirements: string;
 
     @IsString()
-    // @ApiProperty()
+    @ApiProperty()
     footageLink: string;
 
     @IsNumber()
-    // @ApiProperty()
+    @ApiProperty()
     maxParticipants: number;
 
     @IsNumber()
-    // @ApiProperty()
+    @ApiProperty()
     codeId: number;
   }
 

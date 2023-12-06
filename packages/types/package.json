@@ -8,8 +8,8 @@
     "dist/**/*"
   ],
   "scripts": {
-    "type-check": "tsc",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external node"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external node",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external node --watch"
   },
   "devDependencies": {
     "tsup": "^6.2.3",

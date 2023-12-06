@@ -10,7 +10,12 @@ import HompePage from './pages/HomePage';
 import GuestPage from './pages/GuestPage';
 import EventsPage from './pages/EventsPage';
 
+import { getCreateEventDto } from '@ddays-app/types';
+
 const queryClient = new QueryClient();
+
+const createEventDto = getCreateEventDto();
+console.log(createEventDto);
 
 export const App = () => {
   return (
