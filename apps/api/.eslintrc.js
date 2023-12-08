@@ -2,7 +2,7 @@ const { join } = require('node:path');
 
 module.exports = {
   extends: [
-    'custom/nest',
+    'ddays/nest',
   ],
   parserOptions: {
     project: join(__dirname, 'tsconfig.json'),

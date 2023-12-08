@@ -52,18 +52,18 @@ const GuestPage = () => {
   return (
     <div>
       <h1>Guest Page</h1>
-      <SelectInput label="Uloga" options={['Guest', 'User']} />
-      <Input type="date" />
-      <Input type="datetime-local" />
+      <SelectInput label='Uloga' options={['Guest', 'User']} />
+      <Input type='date' />
+      <Input type='datetime-local' />
 
       <MultipleSelectInput
-        label="Multiple select"
+        label='Multiple select'
         options={options}
         setSelectedOptions={setSelectedOptions}
         selectedOptions={selectedOptions}
       />
 
-      <AvatarIcon width={50} height={50} avatarId="oneEyedDevil" />
+      <AvatarIcon width={50} height={50} avatarId='oneEyedDevil' />
     </div>
   );
 };

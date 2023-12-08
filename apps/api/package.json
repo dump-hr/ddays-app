@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@ddays-app/tsconfig": "*",
-    "eslint-config-custom": "*",
+    "eslint-config-ddays": "*",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@types/express": "^4.17.17",
