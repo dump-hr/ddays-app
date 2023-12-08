@@ -1,4 +1,4 @@
-import c from "./Input.module.scss";
+import c from './Input.module.scss';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 

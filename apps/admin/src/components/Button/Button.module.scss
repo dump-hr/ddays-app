@@ -1,21 +1,21 @@
 .button {
+  background-color: #5cc2a0;
+  color: #fff;
+  border: 2px solid #5cc2a0;
+  padding: 9px 26px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  display: block;
+
+  &.primary {
     background-color: #5cc2a0;
-    color: #fff;
-    border: 2px solid #5cc2a0;
-    padding: 9px 26px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-    display: block;
+  }
 
-    &.primary {
-        background-color: #5cc2a0;
-    }
-
-    &.secondary {
-        background-color: #fff;
-        color: #5cc2a0;
-    }
+  &.secondary {
+    background-color: #fff;
+    color: #5cc2a0;
+  }
 }

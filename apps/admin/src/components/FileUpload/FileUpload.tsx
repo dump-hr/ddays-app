@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import c from './FileUpload.module.scss';
 import Button from '../Button';
+import c from './FileUpload.module.scss';
 
 type FileUploadProps = {
   src: string | ArrayBuffer | null;
@@ -51,7 +51,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
       {src && (
         <div className={c.previewWrapper}>
-          <img className={c.img} src={src as string} alt='preview' />
+          <img className={c.img} src={src as string} alt="preview" />
           <Button onClick={handleFileRemove}>Remove</Button>
         </div>
       )}

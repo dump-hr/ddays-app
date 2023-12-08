@@ -1,8 +1,9 @@
 import { useState } from 'react';
+
+import AvatarIcon from '../../components/AvatarIcon';
 import Input from '../../components/Input';
 import MultipleSelectInput from '../../components/MultipleSelectInput';
 import SelectInput from '../../components/SelectInput';
-import AvatarIcon from '../../components/AvatarIcon';
 
 type Option = {
   label: string;

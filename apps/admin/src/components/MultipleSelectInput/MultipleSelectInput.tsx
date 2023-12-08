@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+
 import Button from '../Button';
 import c from './MultipleSelectInput.module.scss';
 
@@ -38,7 +39,8 @@ const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
             onClick={() => {
               toggleSelectOption(option);
             }}
-            key={option.value}>
+            key={option.value}
+          >
             {option.label}
           </Button>
         ))}

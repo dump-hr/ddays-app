@@ -1,15 +1,15 @@
-import { Route, Switch } from 'wouter';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Path } from './constants/paths';
 import './App.scss';
 
-import Layout from './components/Layout';
-import AchievementsPage from './pages/AchievementsPage';
-import HomePage from './pages/HomePage';
-import GuestPage from './pages/GuestPage';
-import EventsPage from './pages/EventsPage';
-
 import { getCreateEventDto } from '@ddays-app/types';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Route, Switch } from 'wouter';
+
+import Layout from './components/Layout';
+import { Path } from './constants/paths';
+import AchievementsPage from './pages/AchievementsPage';
+import EventsPage from './pages/EventsPage';
+import GuestPage from './pages/GuestPage';
+import HomePage from './pages/HomePage';
 
 const queryClient = new QueryClient();
 

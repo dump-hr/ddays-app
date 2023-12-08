@@ -39,9 +39,10 @@ const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
                 {buttonActions.map((action, i) => {
                   return (
                     <Button
-                      variant='secondary'
+                      variant="secondary"
                       onClick={() => action.action(row)}
-                      key={i}>
+                      key={i}
+                    >
                       {action.label}
                     </Button>
                   );
