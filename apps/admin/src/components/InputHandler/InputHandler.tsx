@@ -8,7 +8,7 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 import Input from '../Input';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 type InputHandlerProps = {
   question: Question;
@@ -20,8 +20,8 @@ const inputDefaultValues = {
   [QuestionType.Number]: 0,
   [QuestionType.TextArea]: '',
   [QuestionType.Checkbox]: false,
-  [QuestionType.Date]: moment(new Date()).format('YYYY-MM-DD'),
-  [QuestionType.DateTime]: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+  [QuestionType.Date]: dayjs().format('YYYY-MM-DD'),
+  [QuestionType.DateTime]: dayjs().format('YYYY-MM-DD HH:mm'),
   [QuestionType.Select]: '',
   [QuestionType.MultipleSelect]: [],
 };
