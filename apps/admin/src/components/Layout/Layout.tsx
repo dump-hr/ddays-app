@@ -1,4 +1,5 @@
 import useLocation from 'wouter/use-location';
+
 import Button from '../Button';
 import c from './Layout.module.scss';
 
@@ -35,7 +36,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Button
             key={href}
             variant={location === href ? 'primary' : 'secondary'}
-            onClick={() => navigate(href)}>
+            onClick={() => navigate(href)}
+          >
             {text}
           </Button>
         ))}

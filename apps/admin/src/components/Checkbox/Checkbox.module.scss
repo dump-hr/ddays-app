@@ -30,21 +30,21 @@
   background-color: #eee;
 }
 
-.checkboxContainer:hover input~.checkmark {
+.checkboxContainer:hover input ~ .checkmark {
   background-color: #5cc2a045;
 }
 
-.checkboxContainer input:checked~.checkmark {
+.checkboxContainer input:checked ~ .checkmark {
   background-color: #5cc2a0;
 }
 
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
 
-.checkboxContainer input:checked~.checkmark:after {
+.checkboxContainer input:checked ~ .checkmark:after {
   display: block;
 }
 
