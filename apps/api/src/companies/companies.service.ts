@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto, sponsorCategory } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
+import { SponsorCategory } from '@ddays-app/types';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { db } from 'db';
@@ -13,7 +13,7 @@ export class CompaniesService {
       .values({
         name: createCompanyDto.name,
         description: createCompanyDto.description,
-        sponsorCategory: createCompanyDto.sponsorCategory as sponsorCategory,
+        sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: createCompanyDto.websiteUrl,
         boothLocation: createCompanyDto.boothLocation,
         codeId: createCompanyDto.codeId,
@@ -63,7 +63,7 @@ export class CompaniesService {
       .set({
         name: updateCompanyDto.name,
         description: updateCompanyDto.description,
-        sponsorCategory: updateCompanyDto.sponsorCategory as sponsorCategory,
+        sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: updateCompanyDto.websiteUrl,
         boothLocation: updateCompanyDto.boothLocation,
         codeId: updateCompanyDto.codeId,
