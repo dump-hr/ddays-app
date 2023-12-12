@@ -1,5 +1,5 @@
-import { IsDateString, IsEnum, IsNumber, IsString } from "class-validator";
-import { EventPlace, EventTheme, EventType } from "src/model";
+import { EventPlace, EventTheme, EventType } from '../../model/event';
+import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 
 export const getUpdateEventDto = (ApiPropertySwagger?: any) => {
   // We did this to avoid having to include all nest dependencies related to ApiProperty on the client side too
@@ -16,15 +16,15 @@ export const getUpdateEventDto = (ApiPropertySwagger?: any) => {
     description: string;
 
     @IsEnum(EventType)
-    @ApiProperty()
+    @ApiProperty({ enum: EventType })
     eventType: EventType;
 
     @IsEnum(EventTheme)
-    @ApiProperty()
+    @ApiProperty({ enum: EventTheme })
     eventTheme: EventTheme;
 
     @IsEnum(EventPlace)
-    @ApiProperty()
+    @ApiProperty({ enum: EventPlace })
     eventPlace: EventPlace;
 
     @IsDateString()

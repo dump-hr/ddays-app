@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "eslint": "^8.55.0",
     "turbo": "^1.10.16"
   },
   "private": true,
@@ -15,5 +16,6 @@
     "introspect": "yarn workspace api run introspect",
     "generate": "yarn workspace api run generate",
     "migrate": "yarn workspace api run migrate"
-  }
+  },
+  "dependencies": {}
 }

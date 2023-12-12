@@ -1,13 +1,19 @@
 {
   "name": "@ddays-app/types",
   "version": "1.0.0",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "type-check": "tsc"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external node",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external node --watch"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "tsup": "^6.2.3",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "class-validator": "^0.14.0"

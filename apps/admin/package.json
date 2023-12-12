@@ -10,14 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ddays-app/types": "*",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.48.2",
     "react-query": "^3.39.3",
     "wouter": "^2.12.1"
   },
   "devDependencies": {
+    "@ddays-app/tsconfig": "*",
+    "eslint-config-ddays": "*",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

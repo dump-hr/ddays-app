@@ -1,5 +1,5 @@
-import Button from "../Button";
-import c from "./Modal.module.scss";
+import Button from '../Button';
+import c from './Modal.module.scss';
 
 type ModalProps = {
   children: React.ReactNode;

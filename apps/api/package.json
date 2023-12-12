@@ -6,10 +6,10 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "dotenv -- nest build",
+    "start": "dotenv -- node dist/src/main.js",
+    "dev": "dotenv -- nest start --watch --preserveWatchOutput",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "dev": "nest start --watch --preserveWatchOutput",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "introspect": "dotenv -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
     "generate": "dotenv -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
@@ -31,6 +31,8 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@ddays-app/tsconfig": "*",
+    "eslint-config-ddays": "*",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@types/express": "^4.17.17",

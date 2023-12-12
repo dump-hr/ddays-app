@@ -1,5 +1,5 @@
-import Button from "../Button";
-import c from "./Table.module.scss";
+import Button from '../Button';
+import c from './Table.module.scss';
 
 type TableProps = {
   headers: string[];
