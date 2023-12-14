@@ -19,6 +19,8 @@ export class CompaniesService {
     const createdComapny = await db
       .insert(company)
       .values({
+        officialEmail: createCompanyDto.officialEmail,
+        password: createCompanyDto.password,
         name: createCompanyDto.name,
         description: createCompanyDto.description,
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,

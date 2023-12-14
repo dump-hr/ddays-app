@@ -86,6 +86,8 @@ export const sponsorCategory = pgEnum('sponsor_category', [
 
 export const company = pgTable('company', {
   id: serial('id').primaryKey().notNull(),
+  officialEmail: text('official_email').notNull(), //TODO: Use this for stuff like password reset and email validation
+  password: text('password').notNull(),
   sponsorCategory: sponsorCategory('sponsor_category'),
   name: text('name'),
   description: text('description'),
