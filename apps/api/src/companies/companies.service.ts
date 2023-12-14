@@ -83,12 +83,12 @@ export class CompaniesService {
   }
 
   async remove(id: number) {
-    const deletedCompany = await db
+    const removedCompany = await db
       .delete(company)
       .where(eq(company.id, id))
       .returning();
 
-    return deletedCompany;
+    return removedCompany;
   }
 
   async addDescription(
@@ -143,5 +143,49 @@ export class CompaniesService {
       .returning();
 
     return addedLandingImage;
+  }
+
+  async removeDescription(id: number) {
+    const removedDescription = await db
+      .update(company)
+      .set({
+        description: null,
+      })
+      .where(eq(company.id, id));
+
+    return removedDescription;
+  }
+
+  async removeLogo(id: number) {
+    const removedLogo = await db
+      .update(company)
+      .set({
+        logoImage: null,
+      })
+      .where(eq(company.id, id));
+
+    return removedLogo;
+  }
+
+  async removeVideo(id: number) {
+    const removedVideo = await db
+      .update(company)
+      .set({
+        companyVideo: null,
+      })
+      .where(eq(company.id, id));
+
+    return removedVideo;
+  }
+
+  async removeLandingImage(id: number) {
+    const removedLandingImage = await db
+      .update(company)
+      .set({
+        landingImage: null,
+      })
+      .where(eq(company.id, id));
+
+    return removedLandingImage;
   }
 }

@@ -113,4 +113,34 @@ export class CompaniesController {
 
     return addedSponsorLandingImage;
   }
+
+  @Delete(':id/sponsor-description')
+  async removeSponsorDescription(@Param('id', ParseIntPipe) id: number) {
+    const removedSponsorDescription =
+      await this.companiesService.removeDescription(id);
+
+    return removedSponsorDescription;
+  }
+
+  @Delete(':id/sponsor-logo')
+  async removeSponsorLogo(@Param('id', ParseIntPipe) id: number) {
+    const removedSponsorLogo = await this.companiesService.removeLogo(id);
+
+    return removedSponsorLogo;
+  }
+
+  @Delete(':id/sponsor-video')
+  async removeSponsorVideo(@Param('id', ParseIntPipe) id: number) {
+    const removedSponsorVideo = await this.companiesService.removeVideo(id);
+
+    return removedSponsorVideo;
+  }
+
+  @Delete(':id/sponsor-landing-image')
+  async removeSponsorLandingImage(@Param('id', ParseIntPipe) id: number) {
+    const removedSponsorLandingImage =
+      await this.companiesService.removeLandingImage(id);
+
+    return removedSponsorLandingImage;
+  }
 }
