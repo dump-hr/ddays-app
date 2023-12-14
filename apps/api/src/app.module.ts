@@ -5,15 +5,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
+import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
 
 @Module({
-  imports: [AchievementModule, CompaniesModule],
-  controllers: [AppController],
-  providers: [AppService],
-})
-
-@Module({
-  imports: [AchievementModule, EventsModule],
+  imports: [
+    AchievementModule,
+    CompaniesModule,
+    EventsModule,
+    FrequentlyAskedQuestionModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

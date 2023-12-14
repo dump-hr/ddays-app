@@ -19,7 +19,7 @@
     "@ddays-app/types": "*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/mapped-types": "*",
+    "@nestjs/mapped-types": "^2.0.4",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.1.16",
     "class-transformer": "^0.5.1",
