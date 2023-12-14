@@ -5,9 +5,9 @@ import { env } from 'process';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { CompaniesService } from 'src/companies/companies.service';
 
-import { AuthService } from '../auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { AuthController } from '../auth.controller';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './sponsor/jwt.strategy';
 
 export const jwtSecret = env.JWT_SECRET;
 

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from 'auth/sponsor/auth.module';
+import { AuthModule } from 'auth/auth.module';
 
 import { AchievementModule } from './achievement/achievement.module';
 import { AppController } from './app.controller';
