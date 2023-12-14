@@ -4,7 +4,14 @@ import { db } from 'db';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
-import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
+import {
+  AddSponsorDescriptionDto,
+  AddSponsorLandingImageDto,
+  AddSponsorLogoDto,
+  AddSponsorVideoDto,
+  CreateCompanyDto,
+  UpdateCompanyDto,
+} from './companies.dto';
 
 @Injectable()
 export class CompaniesService {
@@ -82,5 +89,59 @@ export class CompaniesService {
       .returning();
 
     return deletedCompany;
+  }
+
+  async addDescription(
+    id: number,
+    addSponsorDescriptionDto: AddSponsorDescriptionDto,
+  ) {
+    const addedDescription = await db
+      .update(company)
+      .set({
+        description: addSponsorDescriptionDto.description,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedDescription;
+  }
+
+  async addLogo(id: number, addSponsorLogoDto: AddSponsorLogoDto) {
+    const addedLogo = await db
+      .update(company)
+      .set({
+        logoImage: addSponsorLogoDto.imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLogo;
+  }
+
+  async addVideo(id: number, addSponsorVideoDto: AddSponsorVideoDto) {
+    const addedVideo = await db
+      .update(company)
+      .set({
+        companyVideo: addSponsorVideoDto.videoUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedVideo;
+  }
+
+  async addLandingImage(
+    id: number,
+    addSponsorLandingImageDto: AddSponsorLandingImageDto,
+  ) {
+    const addedLandingImage = await db
+      .update(company)
+      .set({
+        landingImage: addSponsorLandingImageDto.imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLandingImage;
   }
 }
