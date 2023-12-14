@@ -1,9 +1,5 @@
 import { SponsorCategory } from '@ddays-app/types';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company } from 'db/schema';
