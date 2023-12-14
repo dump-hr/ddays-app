@@ -70,6 +70,40 @@ export const achievementToCodeRelations = relations(
   }),
 );
 
+export const sponsorCategory = pgEnum('sponsor_category', [
+  'general',
+  'gold',
+  'silver',
+  'bronze',
+  'workshop',
+  'foodAndBeverage',
+  'generalMedia',
+  'media',
+  'organizational',
+  'prizeGame',
+  'friend',
+]);
+
+export const company = pgTable('company', {
+  id: serial('id').primaryKey().notNull(),
+  sponsorCategory: sponsorCategory('sponsor_category'),
+  name: text('name'),
+  description: text('description'),
+  websiteUrl: text('website_url'),
+  boothLocation: text('booth_location'),
+  //TODO: add logoImage, landingImage ids to schema
+  codeId: integer('code_id')
+    .notNull()
+    .references(() => code.id),
+});
+
+export const companyRelations = relations(company, ({ one }) => ({
+  codes: one(code, {
+    fields: [company.codeId],
+    references: [code.id],
+  }),
+}));
+
 export const eventTheme = pgEnum('event_theme', [
   'dev',
   'design',
