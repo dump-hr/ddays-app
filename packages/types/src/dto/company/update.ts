@@ -1,32 +1,10 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { SponsorCategory } from 'src/model';
+import { getCreateCompanyDto } from './create';
+import { PartialType } from '@nestjs/mapped-types';
 
 export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
-  const ApiProperty = ApiPropertySwagger || function () {};
-  class UpdateCompanyDto {
-    @IsString()
-    @ApiProperty()
-    name: string;
+  const CreateCompanyDto = getCreateCompanyDto(ApiPropertySwagger);
 
-    @IsString()
-    @ApiProperty()
-    description: string;
+  class UpdateCompanyDto extends PartialType(CreateCompanyDto) {}
 
-    @IsEnum(SponsorCategory)
-    @ApiProperty()
-    sponsorCategory: string;
-
-    @IsString()
-    @ApiProperty()
-    websiteUrl: string;
-
-    @IsString()
-    @ApiProperty()
-    boothLocation: string;
-
-    @IsNumber()
-    @ApiProperty()
-    codeId: number;
-  }
   return UpdateCompanyDto;
 };
