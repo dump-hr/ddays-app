@@ -6,17 +6,23 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.setGlobalPrefix('/api');
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle('DDays API')
     .setDescription('Backend for DDays application')
     .setVersion('0.1')
     .addBearerAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger', app, document);
-  await app.listen(3000);
+  SwaggerModule.setup('api/swagger', app, document);
+
+  await app.listen(process.env.PORT || 3000);
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
