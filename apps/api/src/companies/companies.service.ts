@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
 import { SponsorCategory } from '@ddays-app/types';
+import { Injectable } from '@nestjs/common';
+import { db } from 'db';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
-import { db } from 'db';
+
+import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
 
 @Injectable()
 export class CompaniesService {

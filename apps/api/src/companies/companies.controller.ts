@@ -1,15 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
   ParseIntPipe,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { CompaniesService } from './companies.service';
+
 import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
+import { CompaniesService } from './companies.service';
 
 @Controller('companies')
 export class CompaniesController {

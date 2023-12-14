@@ -91,7 +91,9 @@ export const company = pgTable('company', {
   description: text('description'),
   websiteUrl: text('website_url'),
   boothLocation: text('booth_location'),
-  //TODO: add logoImage, landingImage ids to schema
+  logoImage: text('logo_image'),
+  landingImage: text('landing_image'),
+  companyVideo: text('company_video'),
   codeId: integer('code_id')
     .notNull()
     .references(() => code.id),

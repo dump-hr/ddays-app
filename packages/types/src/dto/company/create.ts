@@ -1,5 +1,5 @@
-import { IsEnum, IsNumber, IsString } from "class-validator";
-import { SponsorCategory } from "src/model";
+import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { SponsorCategory } from 'src/model';
 
 export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -28,5 +28,5 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     codeId: number;
   }
-  return CreateCompanyDto
-}
+  return CreateCompanyDto;
+};
