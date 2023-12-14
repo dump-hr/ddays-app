@@ -1,5 +1,10 @@
 import { SponsorCategory } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
@@ -65,6 +70,46 @@ export class CompaniesService {
       .where(eq(company.id, id));
 
     return companyToGet;
+  }
+
+  async getOneByEmail(officialEmail: string) {
+    const companyToGet = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        description: company.description,
+        sponsorCategory: company.sponsorCategory,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
+      .from(company)
+      .where(eq(company.officialEmail, officialEmail));
+
+    return companyToGet;
+  }
+
+  async login(officialEmail: string, password: string) {
+    const companyToLogin = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        password: company.password,
+      })
+      .from(company)
+      .where(eq(company.officialEmail, officialEmail))
+      .limit(1);
+
+    if (!companyToLogin) {
+      throw new NotFoundException('company not found');
+    }
+
+    const passwordMatch = await bcrypt.compare(
+      password,
+      companyToLogin[0].password,
+    );
+
+    return passwordMatch && companyToLogin[0];
   }
 
   async update(id: number, updateCompanyDto: UpdateCompanyDto) {
