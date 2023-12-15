@@ -46,7 +46,6 @@ export class CompaniesController {
     @Req() req: any,
     @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
   ) {
-    console.log(req.user, 'dad');
     const addedSponsorDescription = await this.companiesService.addDescription(
       +req.user.id,
       addSponsorDescriptionDto,
