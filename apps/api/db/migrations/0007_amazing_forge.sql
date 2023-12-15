@@ -1,0 +1,1 @@
+ALTER TABLE "company" ADD CONSTRAINT "company_official_email_unique" UNIQUE("official_email");

@@ -50,6 +50,13 @@
       "when": 1702594743278,
       "tag": "0006_unknown_medusa",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1702600464561,
+      "tag": "0007_amazing_forge",
+      "breakpoints": true
     }
   ]
 }
