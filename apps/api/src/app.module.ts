@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
 import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
+import { InterestsModule } from './interests/interests.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequen
     CompaniesModule,
     EventsModule,
     FrequentlyAskedQuestionModule,
+    InterestsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,5 @@
 import { relations } from 'drizzle-orm';
+import { int } from 'drizzle-orm/mysql-core';
 import {
   boolean,
   integer,
@@ -10,6 +11,7 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { throwIfEmpty } from 'rxjs';
 
 export const achievement = pgTable('achievement', {
   id: serial('id').primaryKey().notNull(),
@@ -97,11 +99,12 @@ export const company = pgTable('company', {
     .references(() => code.id),
 });
 
-export const companyRelations = relations(company, ({ one }) => ({
+export const companyRelations = relations(company, ({ one, many }) => ({
   codes: one(code, {
     fields: [company.codeId],
     references: [code.id],
   }),
+  interest: many(interest),
 }));
 
 export const eventTheme = pgEnum('event_theme', [
@@ -137,11 +140,12 @@ export const event = pgTable('event', {
   //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
 });
 
-export const eventRelations = relations(event, ({ one }) => ({
+export const eventRelations = relations(event, ({ one, many }) => ({
   codes: one(code, {
     fields: [event.codeId],
     references: [code.id],
   }),
+  interest: many(interest),
 }));
 
 export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
@@ -149,3 +153,64 @@ export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
   question: text('question').notNull(),
   answer: text('answer').notNull(),
 });
+
+export const interest = pgTable('interests', {
+  id: serial('id').primaryKey().notNull(),
+  name: text('name').notNull(),
+  theme: eventTheme('theme').notNull(),
+});
+
+export const companyInterests = pgTable(
+  'companyInterests',
+  {
+    companyId: integer('companyId')
+      .notNull()
+      .references(() => company.id),
+    interestId: integer('interestId')
+      .notNull()
+      .references(() => interest.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.companyId, t.interestId] }),
+  }),
+);
+
+export const eventInterests = pgTable(
+  'eventInterests',
+  {
+    eventId: integer('eventId')
+      .notNull()
+      .references(() => event.id),
+    interestId: integer('interestId')
+      .notNull()
+      .references(() => interest.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.eventId, t.interestId] }),
+  }),
+);
+
+export const companyInterestsRelations = relations(
+  companyInterests,
+  ({ one }) => ({
+    company: one(company, {
+      fields: [companyInterests.companyId],
+      references: [company.id],
+    }),
+    interest: one(interest, {
+      fields: [companyInterests.interestId],
+      references: [interest.id],
+    }),
+  }),
+);
+
+export const eventInterestsRelations = relations(eventInterests, ({ one }) => ({
+  company: one(company, {
+    fields: [eventInterests.eventId],
+    references: [company.id],
+  }),
+  interest: one(interest, {
+    fields: [eventInterests.interestId],
+    references: [interest.id],
+  }),
+}));
