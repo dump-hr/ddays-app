@@ -11,7 +11,7 @@ type JwtPayload = {
   name: string;
 };
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'çompany') {
+export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
   constructor(private companiesService: CompaniesService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -26,6 +26,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'çompany') {
       throw new UnauthorizedException();
     }
 
-    return payload;
+    return {
+      id: sponsor[0].id,
+      email: sponsor[0].officialEmail,
+      name: sponsor[0].name,
+    };
   }
 }

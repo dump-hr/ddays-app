@@ -10,7 +10,7 @@ import { SponsorAuthGuard } from './sponsor/jwt-auth-guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('login/sponsor')
   async login(@Body() login: SponsorLoginDto) {
     const accessToken = await this.authService.companyPasswordLogin(
       login.officialEmail,
@@ -25,7 +25,7 @@ export class AuthController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Get('me/sponsor')
-  async whichCompanyAmI(@Req() { company }) {
-    return company;
+  async whichCompanyAmI(@Req() req: any) {
+    return req.user;
   }
 }

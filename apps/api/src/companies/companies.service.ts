@@ -21,7 +21,7 @@ export class CompaniesService {
       .insert(company)
       .values({
         officialEmail: createCompanyDto.officialEmail,
-        password: createCompanyDto.password,
+        password: await bcrypt.hash(createCompanyDto.password, 10),
         name: createCompanyDto.name,
         description: createCompanyDto.description,
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
@@ -61,6 +61,7 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
+        officialEmail: company.officialEmail,
       })
       .from(company)
       .where(eq(company.id, id));
@@ -194,7 +195,8 @@ export class CompaniesService {
       .set({
         description: null,
       })
-      .where(eq(company.id, id));
+      .where(eq(company.id, id))
+      .returning();
 
     return removedDescription;
   }
@@ -205,7 +207,8 @@ export class CompaniesService {
       .set({
         logoImage: null,
       })
-      .where(eq(company.id, id));
+      .where(eq(company.id, id))
+      .returning();
 
     return removedLogo;
   }
@@ -216,7 +219,8 @@ export class CompaniesService {
       .set({
         companyVideo: null,
       })
-      .where(eq(company.id, id));
+      .where(eq(company.id, id))
+      .returning();
 
     return removedVideo;
   }
@@ -227,7 +231,8 @@ export class CompaniesService {
       .set({
         landingImage: null,
       })
-      .where(eq(company.id, id));
+      .where(eq(company.id, id))
+      .returning();
 
     return removedLandingImage;
   }

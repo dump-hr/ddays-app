@@ -11,8 +11,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { SponsorAuthGuard } from 'auth/sponsor/jwt-auth-guard';
 
+import { SponsorAuthGuard } from '../auth/sponsor/jwt-auth-guard';
 import {
   AddSponsorDescriptionDto,
   AddSponsorLandingImageDto,
@@ -39,13 +39,115 @@ export class CompaniesController {
     return company;
   }
 
-  @Get(':id')
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/sponsor-description')
+  async addSponsorDescription(
+    @Req() req: any,
+    @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
+  ) {
+    console.log(req.user, 'dad');
+    const addedSponsorDescription = await this.companiesService.addDescription(
+      +req.user.id,
+      addSponsorDescriptionDto,
+    );
+
+    return addedSponsorDescription;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/sponsor-logo')
+  async addSponsorLogo(
+    @Req() req: any,
+    @Body() addSponsorLogoDto: AddSponsorLogoDto,
+  ) {
+    const addedSponsorLogo = await this.companiesService.addLogo(
+      +req.user.id,
+      addSponsorLogoDto,
+    );
+
+    return addedSponsorLogo;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/sponsor-video')
+  async addSponsorVideo(
+    @Req() req: any,
+    @Body() addSponsorVideoDto: AddSponsorVideoDto,
+  ) {
+    const addedSponsorVideo = await this.companiesService.addVideo(
+      req.user.id,
+      addSponsorVideoDto,
+    );
+
+    return addedSponsorVideo;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/sponsor-landing-image')
+  async addSponsorLandingImage(
+    @Body() addSponsorLandingImageDto: AddSponsorLandingImageDto,
+    @Req() req: any,
+  ) {
+    const addedSponsorLandingImage =
+      await this.companiesService.addLandingImage(
+        req.user.id,
+        addSponsorLandingImageDto,
+      );
+
+    return addedSponsorLandingImage;
+  }
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/sponsor-description')
+  async removeSponsorDescription(@Req() req: any) {
+    const removedSponsorDescription =
+      await this.companiesService.removeDescription(req.user.id);
+
+    return removedSponsorDescription;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/sponsor-logo')
+  async removeSponsorLogo(@Req() req: any) {
+    const removedSponsorLogo = await this.companiesService.removeLogo(
+      req.user.id,
+    );
+
+    return removedSponsorLogo;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/sponsor-video')
+  async removeSponsorVideo(@Req() req: any) {
+    const removedSponsorVideo = await this.companiesService.removeVideo(
+      req.user.id,
+    );
+
+    return removedSponsorVideo;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/sponsor-landing-image')
+  async removeSponsorLandingImage(@Req() req: any) {
+    const removedSponsorLandingImage =
+      await this.companiesService.removeLandingImage(req.user.id);
+
+    return removedSponsorLandingImage;
+  }
+  @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
   }
 
-  @Patch(':id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
+  @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCompanyDto: UpdateCompanyDto,
@@ -62,107 +164,5 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('sponsor-description')
-  async addSponsorDescription(
-    @Req() req: any,
-    @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
-  ) {
-    const addedSponsorDescription = await this.companiesService.addDescription(
-      req.company.id,
-      addSponsorDescriptionDto,
-    );
-
-    return addedSponsorDescription;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('sponsor-logo')
-  async addSponsorLogo(
-    @Req() req: any,
-    @Body() addSponsorLogoDto: AddSponsorLogoDto,
-  ) {
-    const addedSponsorLogo = await this.companiesService.addLogo(
-      req.company.id,
-      addSponsorLogoDto,
-    );
-
-    return addedSponsorLogo;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('sponsor-video')
-  async addSponsorVideo(
-    @Req() req: any,
-    @Body() addSponsorVideoDto: AddSponsorVideoDto,
-  ) {
-    const addedSponsorVideo = await this.companiesService.addVideo(
-      req.company.id,
-      addSponsorVideoDto,
-    );
-
-    return addedSponsorVideo;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('sponsor-landing-image')
-  async addSponsorLandingImage(
-    @Body() addSponsorLandingImageDto: AddSponsorLandingImageDto,
-    @Req() req: any,
-  ) {
-    const addedSponsorLandingImage =
-      await this.companiesService.addLandingImage(
-        req.company.id,
-        addSponsorLandingImageDto,
-      );
-
-    return addedSponsorLandingImage;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('sponsor-description')
-  async removeSponsorDescription(@Req() req: any) {
-    const removedSponsorDescription =
-      await this.companiesService.removeDescription(req.company.id);
-
-    return removedSponsorDescription;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('sponsor-logo')
-  async removeSponsorLogo(@Req() req: any) {
-    const removedSponsorLogo = await this.companiesService.removeLogo(
-      req.company.id,
-    );
-
-    return removedSponsorLogo;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('sponsor-video')
-  async removeSponsorVideo(@Req() req: any) {
-    const removedSponsorVideo = await this.companiesService.removeVideo(
-      req.company.id,
-    );
-
-    return removedSponsorVideo;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('sponsor-landing-image')
-  async removeSponsorLandingImage(@Req() req: any) {
-    const removedSponsorLandingImage =
-      await this.companiesService.removeLandingImage(req.company.id);
-
-    return removedSponsorLandingImage;
   }
 }
