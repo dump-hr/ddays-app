@@ -2,7 +2,7 @@ import { getCreateInterestDto } from '@ddays-app/types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _CreateInterestDto = getCreateInterestDto(ApiProperty);
-export const CreateInterestDto = _CreateInterestDto;
+export class CreateInterestDto extends _CreateInterestDto {}
 
 export const _UpdateInterestDto = getCreateInterestDto(ApiProperty);
-export const UpdateInterestDto = _UpdateInterestDto;
+export class UpdateInterestDto extends _UpdateInterestDto {}

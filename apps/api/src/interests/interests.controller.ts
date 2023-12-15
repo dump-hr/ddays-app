@@ -1,34 +1,63 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { InterestsService } from './interests.service';
-import { CreateInterestDto } from './dto/create-interest.dto';
-import { UpdateInterestDto } from './dto/update-interest.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+import { CreateInterestDto } from './interests.dto';
+import { UpdateInterestDto } from './interests.dto';
+import { InterestsService } from './interests.service';
+
+@ApiTags('interests')
 @Controller('interests')
 export class InterestsController {
   constructor(private readonly interestsService: InterestsService) {}
 
   @Post()
-  create(@Body() createInterestDto: CreateInterestDto) {
-    return this.interestsService.create(createInterestDto);
+  async create(@Body() createInterestDto: CreateInterestDto) {
+    const createdInterest =
+      await this.interestsService.create(createInterestDto);
+
+    return createdInterest;
   }
 
   @Get()
-  findAll() {
-    return this.interestsService.findAll();
+  async getAll() {
+    const Interests = await this.interestsService.getAll();
+
+    return Interests;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.interestsService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const Interest = await this.interestsService.getOne(id);
+
+    return Interest;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInterestDto: UpdateInterestDto) {
-    return this.interestsService.update(+id, updateInterestDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateInterestDto: UpdateInterestDto,
+  ) {
+    const updatedInterest = await this.interestsService.update(
+      id,
+      updateInterestDto,
+    );
+
+    return updatedInterest;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.interestsService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    const deletedInterest = await this.interestsService.remove(id);
+
+    return deletedInterest;
   }
 }

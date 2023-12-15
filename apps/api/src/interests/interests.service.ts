@@ -1,26 +1,69 @@
 import { Injectable } from '@nestjs/common';
-import { CreateInterestDto } from './dto/create-interest.dto';
-import { UpdateInterestDto } from './dto/update-interest.dto';
+import { db } from 'db';
+import { interest } from 'db/schema';
+import { eq } from 'drizzle-orm';
+
+import { CreateInterestDto, UpdateInterestDto } from './interests.dto';
 
 @Injectable()
 export class InterestsService {
-  create(createInterestDto: CreateInterestDto) {
-    return 'This action adds a new interest';
+  async create(createInterestDto: CreateInterestDto) {
+    const createdInterest = await db
+      .insert(interest)
+      .values({
+        name: createInterestDto.name,
+        theme: createInterestDto.theme,
+      })
+      .returning();
+
+    return createdInterest;
   }
 
-  findAll() {
-    return `This action returns all interests`;
+  async getAll() {
+    const interests = await db
+      .select({
+        id: interest.id,
+        name: interest.name,
+        theme: interest.theme,
+      })
+      .from(interest)
+      .orderBy(interest.name);
+
+    return interests;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} interest`;
+  async getOne(id: number) {
+    const interestToFind = await db
+      .select({
+        name: interest.name,
+        theme: interest.theme,
+        id: interest.id,
+      })
+      .from(interest)
+      .where(eq(interest.id, id));
+
+    return interestToFind;
   }
 
-  update(id: number, updateInterestDto: UpdateInterestDto) {
-    return `This action updates a #${id} interest`;
+  async update(id: number, updateInterestDto: UpdateInterestDto) {
+    const updatedInterest = await db
+      .update(interest)
+      .set({
+        name: updateInterestDto.name,
+        theme: updateInterestDto.theme,
+      })
+      .where(eq(interest.id, id))
+      .returning();
+
+    return updatedInterest;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} interest`;
+  async remove(id: number) {
+    const deletedUser = await db
+      .delete(interest)
+      .where(eq(interest.id, id))
+      .returning();
+
+    return deletedUser;
   }
 }
