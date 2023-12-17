@@ -1,21 +1,24 @@
 module.exports = {
-    parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint/eslint-plugin', 'simple-import-sort'],
+    parser: "@typescript-eslint/parser",
     extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
+        "standard",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
     ],
-    root: true,
-    env: {
-        node: true,
-    },
-    ignorePatterns: ['.eslintrc.js'],
+    ignorePatterns: ["dist/*"],
+    plugins: ["@typescript-eslint", "simple-import-sort"],
     rules: {
-        '@typescript-eslint/interface-name-prefix': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                varsIgnorePattern: "^_",
+                argsIgnorePattern: "^_",
+            },
+        ],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
     },
 };

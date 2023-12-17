@@ -2,9 +2,14 @@
     "name": "@ddays-app/tsconfig",
     "version": "1.0.0",
     "private": true,
-    "main": "index.js",
+    "license": "MIT",
     "files": [
+        "base.json",
         "nest.json",
-        "react.json"
-    ]
+        "react.json",
+        "react-library.json"
+    ],
+    "dependencies": {
+        "typescript": "^5.2.2"
+    }
 }

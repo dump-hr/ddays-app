@@ -1,0 +1,1 @@
+module.exports = require('@ddays-app/prettier/.prettierrc');

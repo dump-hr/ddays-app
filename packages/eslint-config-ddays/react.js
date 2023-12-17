@@ -1,15 +1,22 @@
 module.exports = {
-    root: true,
-    env: { browser: true, es2020: true },
+    parser: "@typescript-eslint/parser",
     extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
+        "standard",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
         'plugin:react-hooks/recommended',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        "prettier",
+        "next",
     ],
-    ignorePatterns: ['dist', '.eslintrc.cjs'],
-    parser: '@typescript-eslint/parser',
-    plugins: ['react-refresh', 'simple-import-sort'],
+    ignorePatterns: [
+        "dist/*",
+        // ".eslintrc.cjs",
+        "__generated/*",
+    ],
+    plugins: ["@typescript-eslint", "simple-import-sort"],
+    // parser: '@typescript-eslint/parser',
     rules: {
         'react-refresh/only-export-components': [
             'warn',
@@ -18,4 +25,4 @@ module.exports = {
         'simple-import-sort/imports': 'error',
         'simple-import-sort/exports': 'error',
     },
-}
+};

@@ -1,10 +1,4 @@
-const { join } = require('node:path');
-
 module.exports = {
-  extends: [
-    'ddays/nest',
-  ],
-  parserOptions: {
-    project: join(__dirname, 'tsconfig.json'),
-  }
+  root: true,
+  extends: ['@ddays-app/eslint-config-ddays/nest.js'],
 };

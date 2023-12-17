@@ -23,7 +23,8 @@
   },
   "devDependencies": {
     "@ddays-app/tsconfig": "*",
-    "eslint-config-ddays": "*",
+    "@ddays-app/eslint-config-ddays": "*",
+    "@ddays-app/prettier": "*",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
