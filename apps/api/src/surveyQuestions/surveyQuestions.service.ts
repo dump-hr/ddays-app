@@ -1,9 +1,12 @@
 // import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { surveyQuestion } from 'db/schema';
 import { eq } from 'drizzle-orm';
-import { CreateSurveyQuestionDto } from './surveyQuestions.dto';
+import {
+  CreateSurveyQuestionDto,
+  UpdateSurveyQuestionDto,
+} from './surveyQuestions.dto';
 
 @Injectable()
 export class SurveyQuestionsService {
@@ -62,7 +65,22 @@ export class SurveyQuestionsService {
   }
 
   async create(createSurveyQuestionDto: CreateSurveyQuestionDto) {
-    const createdSurveyQuestion = await db
+    if (createSurveyQuestionDto.question.trim() === '') {
+      throw new HttpException('Question cannot be empty', 400);
+    }
+
+    const surveyQuestionsToFind = await db
+      .select({
+        question: surveyQuestion.question,
+      })
+      .from(surveyQuestion)
+      .where(eq(surveyQuestion.question, createSurveyQuestionDto.question));
+
+    if (surveyQuestionsToFind.length) {
+      throw new HttpException('Question already exists', 400);
+    }
+
+    const createdSurveyQuestions = await db
       .insert(surveyQuestion)
       .values({
         question: createSurveyQuestionDto.question,
@@ -74,6 +92,46 @@ export class SurveyQuestionsService {
       })
       .returning();
 
+    const createdSurveyQuestion = createdSurveyQuestions[0];
+
     return createdSurveyQuestion;
+  }
+
+  async update(id: number, updateSurveyQuestionDto: UpdateSurveyQuestionDto) {
+    if (updateSurveyQuestionDto.question.trim() === '') {
+      throw new HttpException('Question cannot be empty', 400);
+    }
+
+    const surveyQuestionsToFind = await db
+      .select({
+        question: surveyQuestion.question,
+      })
+      .from(surveyQuestion)
+      .where(eq(surveyQuestion.question, updateSurveyQuestionDto.question));
+
+    if (surveyQuestionsToFind.length) {
+      throw new HttpException('Question already exists', 400);
+    }
+
+    const updatedSurveyQuestions = await db
+      .update(surveyQuestion)
+      .set({
+        question: updateSurveyQuestionDto.question,
+        description: updateSurveyQuestionDto.description,
+        inputLabel: updateSurveyQuestionDto.inputLabel,
+        surveyQuestionInputType:
+          updateSurveyQuestionDto.surveyQuestionInputType,
+        surveyQuestionType: updateSurveyQuestionDto.surveyQuestionType,
+      })
+      .where(eq(surveyQuestion.id, id))
+      .returning();
+
+    if (!updatedSurveyQuestions.length) {
+      throw new HttpException('Survey question not found', 404);
+    }
+
+    const updatedSurveyQuestion = updatedSurveyQuestions[0];
+
+    return updatedSurveyQuestion;
   }
 }

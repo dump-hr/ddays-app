@@ -8,4 +8,4 @@ export const _CreateSurveyQuestionDto = getCreateSurveyQuestionDto(ApiProperty);
 export class CreateSurveyQuestionDto extends _CreateSurveyQuestionDto {}
 
 export const _UpdateSurveyQuestionDto = getUpdateSurveyQuestionDto(ApiProperty);
-export class UpdateEventDto extends _UpdateSurveyQuestionDto {}
+export class UpdateSurveyQuestionDto extends _UpdateSurveyQuestionDto {}
