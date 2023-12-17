@@ -21,7 +21,7 @@ import {
 } from './surveyQuestions.dto';
 
 @ApiTags('surveyQuestions')
-@Controller('surveyQuestions')
+@Controller('survey-questions')
 export class SurveyQuestionsController {
   constructor(
     private readonly surveyQuestionsService: SurveyQuestionsService,
@@ -41,7 +41,7 @@ export class SurveyQuestionsController {
     return surveyQuestion;
   }
 
-  @Get('/survey-question-type/:type')
+  @Get('/type/:type')
   async getAllOfType(
     @Param('type', new ParseEnumPipe(SurveyQuestionType))
     type: SurveyQuestionType,
