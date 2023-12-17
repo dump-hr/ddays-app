@@ -3,6 +3,7 @@ import { SurveyQuestionsService } from './surveyQuestions.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   Param,
@@ -76,6 +77,13 @@ export class SurveyQuestionsController {
       id,
       updateSurveyQuestionDto,
     );
+
+    return surveyQuestion;
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    const surveyQuestion = await this.surveyQuestionsService.remove(id);
 
     return surveyQuestion;
   }

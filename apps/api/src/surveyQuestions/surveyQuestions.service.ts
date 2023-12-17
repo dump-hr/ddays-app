@@ -134,4 +134,19 @@ export class SurveyQuestionsService {
 
     return updatedSurveyQuestion;
   }
+
+  async remove(id: number) {
+    const deletedSurveyQuestions = await db
+      .delete(surveyQuestion)
+      .where(eq(surveyQuestion.id, id))
+      .returning();
+
+    if (!deletedSurveyQuestions.length) {
+      throw new HttpException('Survey question not found', 404);
+    }
+
+    const deletedSurveyQuestion = deletedSurveyQuestions[0];
+
+    return deletedSurveyQuestion;
+  }
 }
