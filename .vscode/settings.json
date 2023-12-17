@@ -2,7 +2,7 @@
     "eslint.workingDirectories": [{ "mode": "auto" }],
     "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.fixAll.eslint": true
+      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit"
     }
 }
