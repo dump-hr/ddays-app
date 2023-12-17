@@ -1,14 +1,17 @@
 import { ApiTags } from '@nestjs/swagger';
 import { SurveyQuestionsService } from './surveyQuestions.service';
 import {
+  Body,
   Controller,
   Get,
   Param,
   ParseEnumPipe,
   ParseIntPipe,
+  Post,
 } from '@nestjs/common';
 
-import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
+// import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
+import { CreateSurveyQuestionDto } from './surveyQuestions.dto';
 
 @ApiTags('surveyQuestions')
 @Controller('surveyQuestions')
@@ -48,4 +51,18 @@ export class SurveyQuestionsController {
 
   //   return surveyQuestions;
   // }
+
+  // @Post()
+  // async create(@Body() createSurveyQuestionDto: CreateSurveyQuestionDto){
+
+  // }
+
+  @Post()
+  async create(@Body() createSurveyQuestionDto: CreateSurveyQuestionDto) {
+    const surveyQuestion = await this.surveyQuestionsService.create(
+      createSurveyQuestionDto,
+    );
+
+    return surveyQuestion;
+  }
 }

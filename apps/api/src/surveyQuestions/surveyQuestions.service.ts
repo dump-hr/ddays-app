@@ -1,8 +1,9 @@
-import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
+// import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { surveyQuestion } from 'db/schema';
 import { eq } from 'drizzle-orm';
+import { CreateSurveyQuestionDto } from './surveyQuestions.dto';
 
 @Injectable()
 export class SurveyQuestionsService {
@@ -58,5 +59,21 @@ export class SurveyQuestionsService {
     // .where(eq(surveyQuestion.surveyQuestionType, type));
 
     return surveyQuestions;
+  }
+
+  async create(createSurveyQuestionDto: CreateSurveyQuestionDto) {
+    const createdSurveyQuestion = await db
+      .insert(surveyQuestion)
+      .values({
+        question: createSurveyQuestionDto.question,
+        description: createSurveyQuestionDto.description,
+        inputLabel: createSurveyQuestionDto.inputLabel,
+        surveyQuestionInputType:
+          createSurveyQuestionDto.surveyQuestionInputType,
+        surveyQuestionType: createSurveyQuestionDto.surveyQuestionType,
+      })
+      .returning();
+
+    return createdSurveyQuestion;
   }
 }
