@@ -13,7 +13,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-// import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
+import { SurveyQuestionType } from '@ddays-app/types';
 import {
   CreateSurveyQuestionDto,
   UpdateSurveyQuestionDto,
@@ -41,23 +41,16 @@ export class SurveyQuestionsController {
     return surveyQuestion;
   }
 
-  @Get(':type')
-  async getAllOfType(@Param('type') type: string) {
+  @Get('/survey-question-type/:type')
+  async getAllOfType(
+    @Param('type', new ParseEnumPipe(SurveyQuestionType))
+    type: SurveyQuestionType,
+  ) {
     const surveyQuestions =
       await this.surveyQuestionsService.getAllOfType(type);
 
     return surveyQuestions;
   }
-
-  // async getAllOfType(
-  //   @Param('type', new ParseEnumPipe(SurveyQuestionType))
-  //   type: SurveyQuestionType,
-  // ) {
-  //   const surveyQuestions =
-  //     await this.surveyQuestionsService.getAllOfType(type);
-
-  //   return surveyQuestions;
-  // }
 
   @Post()
   async create(@Body() createSurveyQuestionDto: CreateSurveyQuestionDto) {

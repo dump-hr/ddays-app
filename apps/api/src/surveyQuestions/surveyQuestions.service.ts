@@ -1,4 +1,3 @@
-// import { SurveyQuestionType } from '../../../../packages/types/src/model/surveyQuestion';
 import { HttpException, Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { surveyQuestion } from 'db/schema';
@@ -7,6 +6,8 @@ import {
   CreateSurveyQuestionDto,
   UpdateSurveyQuestionDto,
 } from './surveyQuestions.dto';
+
+import { SurveyQuestionType } from '@ddays-app/types';
 
 @Injectable()
 export class SurveyQuestionsService {
@@ -48,7 +49,7 @@ export class SurveyQuestionsService {
     return surveyQuestionToFind;
   }
 
-  async getAllOfType(type: string) {
+  async getAllOfType(type: SurveyQuestionType) {
     const surveyQuestions = await db
       .select({
         id: surveyQuestion.id,
@@ -58,8 +59,9 @@ export class SurveyQuestionsService {
         surveyQuestionInputType: surveyQuestion.surveyQuestionInputType,
         surveyQuestionType: surveyQuestion.surveyQuestionType,
       })
-      .from(surveyQuestion);
-    // .where(eq(surveyQuestion.surveyQuestionType, type));
+      .from(surveyQuestion)
+      .where(eq(surveyQuestion.surveyQuestionType, type))
+      .orderBy(surveyQuestion.inputLabel);
 
     return surveyQuestions;
   }
