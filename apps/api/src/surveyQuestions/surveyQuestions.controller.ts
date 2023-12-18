@@ -5,7 +5,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   ParseEnumPipe,
   ParseIntPipe,
