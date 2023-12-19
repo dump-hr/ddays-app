@@ -10,4 +10,14 @@ export enum SponsorCategory {
     Organizational = "organizational",
     PrizeGame = "prizeGame",
     Friend = "friend",
- } 
+} 
+ 
+export type Company = {
+    id: number;
+    name?: string;
+    description?: string;
+    sponsorCategory: SponsorCategory;
+    websiteUrl?: string;
+    boothLocation?: string;
+    codeId?: number;
+}
