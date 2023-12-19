@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export const getCreateNotificationDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -11,9 +11,9 @@ export const getCreateNotificationDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     content: string;
 
-    @IsString()
-    @ApiProperty()
-    isActive: string;
+    // @IsBoolean()
+    // @ApiProperty()
+    // isActive: boolean;
   }
 
   return CreateNotificationDto;
