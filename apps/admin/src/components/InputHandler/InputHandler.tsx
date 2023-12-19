@@ -1,14 +1,14 @@
 import { Question, QuestionType } from '@ddays-app/types';
-import c from './InputHandler.module.scss';
-
+import dayjs from 'dayjs';
 import {
   Controller,
   ControllerRenderProps,
   FieldValues,
   UseFormReturn,
 } from 'react-hook-form';
+
 import Input from '../Input';
-import dayjs from 'dayjs';
+import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
   question: Question;

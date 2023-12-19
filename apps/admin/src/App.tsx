@@ -1,5 +1,7 @@
 import './App.scss';
 
+import { InteractionType } from '@azure/msal-browser';
+import { useMsalAuthentication } from '@azure/msal-react';
 import { getCreateEventDto } from '@ddays-app/types';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'wouter';
@@ -17,6 +19,8 @@ const createEventDto = getCreateEventDto();
 console.log(createEventDto);
 
 export const App = () => {
+  useMsalAuthentication(InteractionType.Redirect);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
