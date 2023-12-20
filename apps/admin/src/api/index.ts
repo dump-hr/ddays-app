@@ -28,9 +28,9 @@ const acquireToken = async () => {
 api.interceptors.request.use(async (config) => {
   await msalInstance.initialize();
 
-  const token = acquireToken();
-
+  const token = await acquireToken();
   config.headers.Authorization = `Bearer ${token}`;
+
   return config;
 });
 
@@ -45,6 +45,7 @@ api.interceptors.response.use(
   async (error: ErrorResponse) => {
     if (error.response) {
       if (error.response?.status === 401) {
+        alert();
         const silentRequest = {
           scopes: ['openid', 'profile'],
           account: msalInstance.getAllAccounts()[0],

@@ -9,6 +9,23 @@
 
 .nav {
   display: flex;
+  min-width: 1000px;
+  justify-content: space-between;
+}
+
+.pages {
   flex-wrap: wrap;
   gap: 10px;
+  display: flex;
+}
+
+.account {
+  display: flex;
+  gap: 20px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  p { margin: 0; }
 }

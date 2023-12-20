@@ -23,7 +23,7 @@ const AzureADGuard = (role: Role) =>
 
     handleRequest(err, user) {
       const supportedRoles = supportedRolesPerRole[role];
-      Logger.log(user, supportedRoles);
+      Logger.log(user);
       if (err || !user || !areArraysOverlapping(user.roles, supportedRoles)) {
         throw err || new UnauthorizedException();
       }

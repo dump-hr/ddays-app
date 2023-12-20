@@ -28,7 +28,7 @@
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.0",
     "jwks-rsa": "^3.1.0",
-    "passport-azure-ad": "^4.3.5",
+    "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "postgres": "^3.4.3",
     "reflect-metadata": "^0.1.13",
