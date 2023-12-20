@@ -45,7 +45,6 @@ api.interceptors.response.use(
   async (error: ErrorResponse) => {
     if (error.response) {
       if (error.response?.status === 401) {
-        alert();
         const silentRequest = {
           scopes: ['openid', 'profile'],
           account: msalInstance.getAllAccounts()[0],

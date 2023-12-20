@@ -2,7 +2,6 @@ import { Role } from '@ddays-app/types';
 import {
   ExecutionContext,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,10 +22,15 @@ const AzureADGuard = (role: Role) =>
 
     handleRequest(err, user) {
       const supportedRoles = supportedRolesPerRole[role];
-      Logger.log(user);
-      if (err || !user || !areArraysOverlapping(user.roles, supportedRoles)) {
+
+      if (
+        err ||
+        !user?.roles ||
+        !areArraysOverlapping(user.roles, supportedRoles)
+      ) {
         throw err || new UnauthorizedException();
       }
+
       return user;
     }
   };
