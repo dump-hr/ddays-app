@@ -1,5 +1,4 @@
-import { InteractionType } from '@azure/msal-browser';
-import { useMsal, useMsalAuthentication } from '@azure/msal-react';
+import { useMsal } from '@azure/msal-react';
 import { Question, QuestionType } from '@ddays-app/types';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -51,7 +50,7 @@ const questions: Question[] = [
 
 const HomePage = () => {
   const { accounts } = useMsal();
-  console.log(accounts[0].idTokenClaims?.roles);
+  console.log(accounts);
 
   const [isOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState<string | ArrayBuffer | null>(null);

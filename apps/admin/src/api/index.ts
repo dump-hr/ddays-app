@@ -7,6 +7,16 @@ export const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config) => {
+  //TODO fix
+  const token = localStorage.getItem('access_token');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 type ErrorResponse = AxiosError & {
   response: {
     message: string;
