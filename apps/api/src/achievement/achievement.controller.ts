@@ -1,5 +1,5 @@
 import { Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { MemberGuard } from 'src/auth/azure-ad.guard';
+import { PrinterGuard } from 'src/auth/azure-ad.guard';
 
 import { AchievementService } from './achievement.service';
 
@@ -7,7 +7,7 @@ import { AchievementService } from './achievement.service';
 export class AchievementController {
   constructor(private readonly achievementService: AchievementService) {}
 
-  @UseGuards(MemberGuard)
+  @UseGuards(PrinterGuard)
   @Get()
   async getAll() {
     const achievements = await this.achievementService.getAll();

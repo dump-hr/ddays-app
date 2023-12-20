@@ -17,12 +17,9 @@ export class AzureADStrategy extends PassportStrategy(Strategy, 'AzureAD') {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
       algorithms: ['RS256'],
       secretOrKeyProvider: jwksRsa.passportJwtSecret({
-        cache: true,
         rateLimit: true,
-        jwksRequestsPerMinute: 5,
         jwksUri: jwksAADUrl,
       }),
     });

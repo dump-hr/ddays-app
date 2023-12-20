@@ -1,4 +1,3 @@
-import { useMsal } from '@azure/msal-react';
 import { Question, QuestionType } from '@ddays-app/types';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -49,9 +48,6 @@ const questions: Question[] = [
 ];
 
 const HomePage = () => {
-  const { accounts } = useMsal();
-  console.log(accounts);
-
   const [isOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
   const form = useForm<FieldValues>();
