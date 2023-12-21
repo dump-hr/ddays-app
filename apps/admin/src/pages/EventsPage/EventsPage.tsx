@@ -1,4 +1,12 @@
+import { useCallback, useRef, useState } from 'react';
+
+import { useCreateEvents } from '../../api/useCreateEvents';
+import { useFetchEvents } from '../../api/useFetchEvents';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import Modal from '../../components/Modal';
 import Table from '../../components/Table';
+import c from './EventsPage.module.scss';
 
 const headers = [
   'Id',
@@ -70,8 +78,152 @@ const buttonActions = [
   },
 ];
 
+type Event = {
+  name: string;
+  description: string;
+  eventType: string;
+  eventTheme: string;
+  eventPlace: string;
+  startsAt: string;
+  endsAt: string;
+  requirements: string;
+  footageLink: string;
+  maxParticipants: number;
+  codeId: number;
+};
+
 const EventsPage = () => {
-  return <Table headers={headers} data={data} buttonActions={buttonActions} />;
+  const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
+  const modalData = useRef({} as Event);
+  const { mutate: createEvent } = useCreateEvents();
+  const { data: events } = useFetchEvents();
+
+  function toggleAddEventModal() {
+    setAddEventModalIsOpen(!addEventModalIsOpen);
+  }
+
+  function clearModalData() {
+    modalData.current = {} as Event;
+    //setModalData({} as Event);
+  }
+
+  function addEvent() {
+    console.log(modalData.current);
+
+    const exampleEvent: Event = {
+      name: 'Kampiranje',
+      description: 'Kampiranje u prirodi',
+      eventType: 'lecture',
+      eventTheme: 'dev',
+      eventPlace: 'online',
+      startsAt: '2021-06-01',
+      endsAt: '2021-06-10',
+      requirements: 'Nema',
+      footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
+      maxParticipants: 10,
+      codeId: 1,
+    };
+
+    createEvent(exampleEvent);
+    clearModalData();
+    setAddEventModalIsOpen(false);
+  }
+
+  const editModalData = useCallback((key: string, value: string) => {
+    modalData.current = { ...modalData.current, [key]: value };
+    console.log(modalData);
+    //setModalData((prevData) => ({ ...prevData, [key]: value }));
+  }, []);
+
+  const AddEventModal = () => {
+    return (
+      <Modal isOpen={addEventModalIsOpen} toggleModal={toggleAddEventModal}>
+        <h3 className={c.modalTitle}>Dodaj event</h3>
+        <div className={c.editModalLayout}>
+          <div>
+            <label htmlFor='ime'>Ime</label>
+            <Input
+              id='ime'
+              placeholder='Unesi ime'
+              onChange={(e) => editModalData('name', e.target.value)}
+              value={modalData.current.name}
+            />
+          </div>
+          <div>
+            <label htmlFor='opis'>Opis</label>
+            <Input
+              id='opis'
+              placeholder='Unesi opis'
+              onChange={(e) => editModalData('description', e.target.value)}
+              value={modalData.current.description}
+            />
+          </div>
+          <div>
+            <label htmlFor='tip'>Tip</label>
+            <Input
+              id='tip'
+              placeholder='Unesi tip'
+              onChange={(e) => editModalData('type', e.target.value)}
+              value={modalData.current.eventType}
+            />
+          </div>
+          <div>
+            <label htmlFor='tema'>Tema</label>
+            <Input
+              id='tema'
+              placeholder='Unesi temu'
+              onChange={(e) => editModalData('theme', e.target.value)}
+              value={modalData.current.eventTheme}
+            />
+          </div>
+          <div>
+            <label htmlFor='mjesto'>Mjesto</label>
+            <Input
+              id='mjesto'
+              placeholder='Unesi mjesto'
+              onChange={(e) => editModalData('place', e.target.value)}
+              value={modalData.current.eventPlace}
+            />
+          </div>
+          <br />
+          <div>
+            <label htmlFor='datumPocetka'>Datum početka</label>
+            <Input
+              id='datumPocetka'
+              placeholder='Unesi datum početka'
+              onChange={(e) => editModalData('start', e.target.value)}
+              value={modalData.current.startsAt}
+            />
+          </div>
+          <div>
+            <label htmlFor='datumKraja'>Datum kraja</label>
+            <Input
+              id='datumKraja'
+              placeholder='Unesi datum kraja'
+              onChange={(e) => editModalData('end', e.target.value)}
+              value={modalData.current.endsAt}
+            />
+          </div>
+
+          <Button variant='secondary' onClick={() => addEvent()}>
+            Dodaj Event
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
+  return (
+    <>
+      <Table headers={headers} data={data} buttonActions={buttonActions} />
+      <Button style={{ marginTop: '20px' }} onClick={toggleAddEventModal}>
+        Dodaj event
+      </Button>
+      <button onClick={() => console.log(events)}>cl</button>
+
+      <AddEventModal />
+    </>
+  );
 };
 
 export default EventsPage;
