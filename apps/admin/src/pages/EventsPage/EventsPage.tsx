@@ -1,3 +1,5 @@
+import { EventPlace, EventTheme, getCreateEventDto } from '@ddays-app/types';
+import { EventType } from '@ddays-app/types';
 import { useCallback, useRef, useState } from 'react';
 
 import { useCreateEvents } from '../../api/useCreateEvents';
@@ -78,19 +80,7 @@ const buttonActions = [
   },
 ];
 
-type Event = {
-  name: string;
-  description: string;
-  eventType: string;
-  eventTheme: string;
-  eventPlace: string;
-  startsAt: string;
-  endsAt: string;
-  requirements: string;
-  footageLink: string;
-  maxParticipants: number;
-  codeId: number;
-};
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>>;
 
 const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
@@ -113,9 +103,9 @@ const EventsPage = () => {
     const exampleEvent: Event = {
       name: 'Kampiranje',
       description: 'Kampiranje u prirodi',
-      eventType: 'lecture',
-      eventTheme: 'dev',
-      eventPlace: 'online',
+      eventType: EventType.Lecture,
+      eventTheme: EventTheme.Dev,
+      eventPlace: EventPlace.InPerson,
       startsAt: '2021-06-01',
       endsAt: '2021-06-10',
       requirements: 'Nema',

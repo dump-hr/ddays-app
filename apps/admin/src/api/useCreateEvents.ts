@@ -3,9 +3,9 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '.';
 
-const CreateEventDto = getCreateEventDto();
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>>;
 
-const createEvent = async (newEvent: typeof CreateEventDto) =>
+const createEvent = async (newEvent: Event) =>
   await api.post<Event, never>('/events', newEvent);
 
 export const useCreateEvents = () => {
