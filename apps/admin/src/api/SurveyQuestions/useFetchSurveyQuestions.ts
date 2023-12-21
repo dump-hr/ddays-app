@@ -17,5 +17,5 @@ const fetchAllSurveyQuestions = async () =>
   >('/survey-questions');
 
 export const useFetchSurveyQuestions = (options?: QueryOptions<object[]>) => {
-  return useQuery(['achievement'], fetchAllSurveyQuestions, options);
+  return useQuery(['survey-question'], fetchAllSurveyQuestions, options);
 };
