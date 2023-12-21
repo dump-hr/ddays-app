@@ -102,6 +102,24 @@ const EventsPage = () => {
   const { mutate: createEvent } = useCreateEvents();
   const { data: events } = useFetchEvents();
 
+  function formatDate(date: string) {
+    const dateObj = new Date(date);
+
+    const day = dateObj.getDate();
+    const month = dateObj.getMonth() + 1;
+    const year = dateObj.getFullYear();
+
+    const hours =
+      dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
+
+    const minutes =
+      dateObj.getMinutes() < 10
+        ? `0${dateObj.getMinutes()}`
+        : dateObj.getMinutes();
+
+    return `${day}.${month}.${year}. u ${hours}:${minutes}`;
+  }
+
   useEffect(() => {
     if (events) {
       setTableData([]);
@@ -110,11 +128,11 @@ const EventsPage = () => {
           id: event.id,
           name: event.name,
           description: event.description,
-          type: event.eventType,
-          theme: event.eventTheme,
-          place: event.eventPlace,
-          start: event.startsAt,
-          end: event.endsAt,
+          type: '',
+          theme: '',
+          place: '',
+          start: formatDate(event.startsAt),
+          end: formatDate(event.endsAt),
         };
         setTableData((prevData) => [...prevData, tableRow]);
       });
@@ -133,7 +151,7 @@ const EventsPage = () => {
   function addEvent() {
     console.log(modalData.current);
 
-    const exampleEvent: Event = {
+    const exampleEvent = {
       name: 'Kampiranje',
       description: 'Kampiranje u prirodi',
       eventType: EventType.Lecture,
