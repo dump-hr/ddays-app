@@ -1,6 +1,6 @@
 import { EventPlace, EventTheme, getCreateEventDto } from '@ddays-app/types';
 import { EventType } from '@ddays-app/types';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useCreateEvents } from '../../api/useCreateEvents';
 import { useFetchEvents } from '../../api/useFetchEvents';
@@ -22,6 +22,7 @@ const headers = [
   'Akcije',
 ];
 
+/*
 const data = [
   {
     id: 1,
@@ -64,6 +65,18 @@ const data = [
     end: '2021-06-10',
   },
 ];
+*/
+
+type TableDataRow = {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+  theme: string;
+  place: string;
+  start: string;
+  end: string;
+};
 
 const buttonActions = [
   {
@@ -84,9 +97,29 @@ type Event = InstanceType<ReturnType<typeof getCreateEventDto>>;
 
 const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
+  const [tableData, setTableData] = useState<TableDataRow[]>([]);
   const modalData = useRef({} as Event);
   const { mutate: createEvent } = useCreateEvents();
   const { data: events } = useFetchEvents();
+
+  useEffect(() => {
+    if (events) {
+      setTableData([]);
+      events.forEach((event) => {
+        const tableRow: TableDataRow = {
+          id: event.id,
+          name: event.name,
+          description: event.description,
+          type: event.eventType,
+          theme: event.eventTheme,
+          place: event.eventPlace,
+          start: event.startsAt,
+          end: event.endsAt,
+        };
+        setTableData((prevData) => [...prevData, tableRow]);
+      });
+    }
+  }, [events]);
 
   function toggleAddEventModal() {
     setAddEventModalIsOpen(!addEventModalIsOpen);
@@ -205,7 +238,7 @@ const EventsPage = () => {
 
   return (
     <>
-      <Table headers={headers} data={data} buttonActions={buttonActions} />
+      <Table headers={headers} data={tableData} buttonActions={buttonActions} />
       <Button style={{ marginTop: '20px' }} onClick={toggleAddEventModal}>
         Dodaj event
       </Button>
