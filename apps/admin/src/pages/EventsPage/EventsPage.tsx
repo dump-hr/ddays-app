@@ -1,8 +1,9 @@
-import { EventPlace, EventTheme, getCreateEventDto } from '@ddays-app/types';
+import { EventPlace, EventTheme } from '@ddays-app/types';
 import { EventType } from '@ddays-app/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useCreateEvents } from '../../api/useCreateEvents';
+import { useDeleteEvent } from '../../api/useDeleteEvent';
 import { useFetchEvents } from '../../api/useFetchEvents';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -78,29 +79,44 @@ type TableDataRow = {
   end: string;
 };
 
-const buttonActions = [
-  {
-    label: 'Uredi',
-    action: (row: object) => {
-      console.log('Uredi', row);
-    },
-  },
-  {
-    label: 'Obriši',
-    action: (row: object) => {
-      console.log('Obriši', row);
-    },
-  },
-];
-
-type Event = InstanceType<ReturnType<typeof getCreateEventDto>>;
+type Event = {
+  id: number;
+  name: string;
+  description: string;
+  startsAt: string;
+  endsAt: string;
+  maxParticipants: number;
+};
 
 const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
+  const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
+
+  const [rowData, setRowData] = useState({} as Event);
+
   const [tableData, setTableData] = useState<TableDataRow[]>([]);
   const modalData = useRef({} as Event);
+
   const { mutate: createEvent } = useCreateEvents();
+  const { mutate: deleteEvent } = useDeleteEvent();
   const { data: events } = useFetchEvents();
+
+  const buttonActions = [
+    {
+      label: 'Uredi',
+      action: (row: object) => {
+        console.log('Uredi', row);
+      },
+    },
+    {
+      label: 'Obriši',
+      action: (row: object) => {
+        console.log('Obriši', row);
+        setRowData(row as Event);
+        toggleDeleteEventModal();
+      },
+    },
+  ];
 
   function formatDate(date: string) {
     const dateObj = new Date(date);
@@ -143,12 +159,16 @@ const EventsPage = () => {
     setAddEventModalIsOpen(!addEventModalIsOpen);
   }
 
+  function toggleDeleteEventModal() {
+    setDeleteEventModalIsOpen(!deleteEventModalIsOpen);
+  }
+
   function clearModalData() {
     modalData.current = {} as Event;
     //setModalData({} as Event);
   }
 
-  function addEvent() {
+  function createEventHandler() {
     console.log(modalData.current);
 
     const exampleEvent = {
@@ -168,6 +188,11 @@ const EventsPage = () => {
     createEvent(exampleEvent);
     clearModalData();
     setAddEventModalIsOpen(false);
+  }
+
+  function deleteEventHandler() {
+    deleteEvent(rowData.id);
+    setDeleteEventModalIsOpen(false);
   }
 
   const editModalData = useCallback((key: string, value: string) => {
@@ -201,30 +226,15 @@ const EventsPage = () => {
           </div>
           <div>
             <label htmlFor='tip'>Tip</label>
-            <Input
-              id='tip'
-              placeholder='Unesi tip'
-              onChange={(e) => editModalData('type', e.target.value)}
-              value={modalData.current.eventType}
-            />
+            <Input id='tip' placeholder='Unesi tip' />
           </div>
           <div>
             <label htmlFor='tema'>Tema</label>
-            <Input
-              id='tema'
-              placeholder='Unesi temu'
-              onChange={(e) => editModalData('theme', e.target.value)}
-              value={modalData.current.eventTheme}
-            />
+            <Input id='tema' placeholder='Unesi temu' />
           </div>
           <div>
             <label htmlFor='mjesto'>Mjesto</label>
-            <Input
-              id='mjesto'
-              placeholder='Unesi mjesto'
-              onChange={(e) => editModalData('place', e.target.value)}
-              value={modalData.current.eventPlace}
-            />
+            <Input id='mjesto' placeholder='Unesi mjesto' />
           </div>
           <br />
           <div>
@@ -246,10 +256,29 @@ const EventsPage = () => {
             />
           </div>
 
-          <Button variant='secondary' onClick={() => addEvent()}>
+          <Button variant='secondary' onClick={() => createEventHandler()}>
             Dodaj Event
           </Button>
         </div>
+      </Modal>
+    );
+  };
+
+  const DeleteEventModal = () => {
+    return (
+      <Modal
+        isOpen={deleteEventModalIsOpen}
+        toggleModal={toggleDeleteEventModal}>
+        <h3 className={c.modalTitle}>Obriši event</h3>
+        <p className={c.modalSubtitle}>{rowData.name}</p>
+        <p>Jesi li siguran da želiš izbrisati ovaj event?</p>
+
+        <Button
+          variant='secondary'
+          onClick={() => deleteEventHandler()}
+          style={{ marginBottom: '20px' }}>
+          Izbriši
+        </Button>
       </Modal>
     );
   };
@@ -263,6 +292,7 @@ const EventsPage = () => {
       <button onClick={() => console.log(events)}>cl</button>
 
       <AddEventModal />
+      <DeleteEventModal />
     </>
   );
 };

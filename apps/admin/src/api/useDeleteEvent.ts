@@ -2,9 +2,10 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '.';
 
-const deleteEvent = async () => await api.delete<number, never>('/events');
+const deleteEvent = (eventId: number) =>
+  api.delete<never, never>(`/events/${eventId}`);
 
-export const useFetchEvents = () => {
+export const useDeleteEvent = () => {
   const queryClient = useQueryClient();
 
   return useMutation(deleteEvent, {
