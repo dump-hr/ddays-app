@@ -91,6 +91,7 @@ type Event = {
 const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
   const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
+  const [editEventModalIsOpen, setEditEventModalIsOpen] = useState(false);
 
   const [rowData, setRowData] = useState({} as Event);
 
@@ -106,6 +107,8 @@ const EventsPage = () => {
       label: 'Uredi',
       action: (row: object) => {
         console.log('Uredi', row);
+        setRowData(row as Event);
+        toggleEditEventModal();
       },
     },
     {
@@ -163,6 +166,10 @@ const EventsPage = () => {
     setDeleteEventModalIsOpen(!deleteEventModalIsOpen);
   }
 
+  function toggleEditEventModal() {
+    setEditEventModalIsOpen(!editEventModalIsOpen);
+  }
+
   function clearModalData() {
     modalData.current = {} as Event;
     //setModalData({} as Event);
@@ -195,6 +202,8 @@ const EventsPage = () => {
     setDeleteEventModalIsOpen(false);
   }
 
+  function editEventHandler() {}
+
   const editModalData = useCallback((key: string, value: string) => {
     modalData.current = { ...modalData.current, [key]: value };
     console.log(modalData);
@@ -226,15 +235,15 @@ const EventsPage = () => {
           </div>
           <div>
             <label htmlFor='tip'>Tip</label>
-            <Input id='tip' placeholder='Unesi tip' />
+            <Input id='tip' placeholder='Unesi tip' disabled />
           </div>
           <div>
             <label htmlFor='tema'>Tema</label>
-            <Input id='tema' placeholder='Unesi temu' />
+            <Input id='tema' placeholder='Unesi temu' disabled />
           </div>
           <div>
             <label htmlFor='mjesto'>Mjesto</label>
-            <Input id='mjesto' placeholder='Unesi mjesto' />
+            <Input id='mjesto' placeholder='Unesi mjesto' disabled />
           </div>
           <br />
           <div>
@@ -283,6 +292,58 @@ const EventsPage = () => {
     );
   };
 
+  const EditEventModal = () => {
+    return (
+      <Modal isOpen={editEventModalIsOpen} toggleModal={toggleEditEventModal}>
+        <h3 className={c.modalTitle}>Uredi event</h3>
+        <div className={c.editModalLayout}>
+          <div>
+            <label htmlFor=''>Ime</label>
+            <Input placeholder='Unesi ime' defaultValue={rowData.name} />
+          </div>
+          <div>
+            <label htmlFor=''>Opis</label>
+            <Input
+              placeholder='Unesi opis'
+              defaultValue={rowData.description}
+            />
+          </div>
+          <div>
+            <label htmlFor=''>Tip</label>
+            <Input placeholder='Unesi tip' disabled />
+          </div>
+          <div>
+            <label htmlFor=''>Tema</label>
+            <Input placeholder='Unesi temu' disabled />
+          </div>
+          <div>
+            <label htmlFor=''>Mjesto</label>
+            <Input placeholder='Unesi mjesto' disabled />
+          </div>
+          <br />
+          <div>
+            <label htmlFor=''>Datum početka</label>
+            <Input
+              placeholder='Unesi datum početka'
+              defaultValue={rowData.startsAt}
+            />
+          </div>
+          <div>
+            <label htmlFor=''>Datum kraja</label>
+            <Input
+              placeholder='Unesi datum kraja'
+              defaultValue={rowData.endsAt}
+            />
+          </div>
+
+          <Button variant='secondary' onClick={() => editEventHandler()}>
+            Spremi promjene
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <>
       <Table headers={headers} data={tableData} buttonActions={buttonActions} />
@@ -293,6 +354,7 @@ const EventsPage = () => {
 
       <AddEventModal />
       <DeleteEventModal />
+      <EditEventModal />
     </>
   );
 };
