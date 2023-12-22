@@ -10,9 +10,13 @@ import {
   SurveyQuestionType,
 } from '@ddays-app/types';
 import InputHandler from '../../components/InputHandler';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, set, useForm } from 'react-hook-form';
 import { useCreateSurveyQuestion } from '../../api/SurveyQuestions/useCreateSurveyQuestion';
-import { CreateSurveyQuestionDto } from '../../types/surveyQuestionDto';
+import {
+  CreateSurveyQuestionDto,
+  UpdateSurveyQuestionDto,
+} from '../../types/surveyQuestionDto';
+import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
 
 const headers = [
   'Broj',
@@ -44,7 +48,6 @@ const questions: Question[] = [
     id: 'surveyQuestionInputType',
     type: QuestionType.Select,
     title: 'Vrsta polja za unos',
-    // defaultValue: SurveyQuestionInputType.Rating,
     options: [
       SurveyQuestionInputType.Input,
       SurveyQuestionInputType.Rating,
@@ -56,7 +59,6 @@ const questions: Question[] = [
     type: QuestionType.Select,
     title: 'Vrsta pitanja',
     rules: { required: 'klosaru unesi' },
-    // defaultValue: SurveyQuestionType.Company,
     options: [
       SurveyQuestionType.Company,
       SurveyQuestionType.Lecture,
@@ -65,37 +67,58 @@ const questions: Question[] = [
   },
 ];
 
+type SurveyQuestion = {
+  id: number;
+  question: string;
+  description: string;
+  inputLabel: string;
+  surveyQuestionInputType: SurveyQuestionInputType;
+  surveyQuestionType: SurveyQuestionType;
+};
+
 const SurveyQuestionsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [questionToEdit, setQuestionToEdit] = useState<SurveyQuestion | null>(
+    null,
+  );
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
+  const buttonActions = [
+    {
+      label: 'Uredi',
+      action: (row: SurveyQuestion) => {
+        console.log('Edit survey question with id: ', row);
+        setQuestionToEdit(row);
+        setIsOpenEditModal(!isOpenEditModal);
+      },
+    },
+    {
+      label: 'Obriši',
+      action: (row: SurveyQuestion) =>
+        console.log('Delete survey question with id: ', row),
+    },
+  ];
 
   const { data: surveyQuestions, isLoading } = useFetchSurveyQuestions();
   const { mutate: createSurveyQuestion } = useCreateSurveyQuestion();
+  const { mutate: editSurveyQuestion } = useUpdateSurveyQuestion();
 
   const handleCreateSurveyQuestion = (answers: CreateSurveyQuestionDto) => {
     console.log('Create survey question');
     createSurveyQuestion(answers);
   };
 
-  const form = useForm<FieldValues>();
-
-  const buttonActions = [
-    {
-      label: 'Uredi',
-      action: (row: object) =>
-        console.log('Edit survey question with id: ', row),
-    },
-    {
-      label: 'Obriši',
-      action: (row: object) =>
-        console.log('Delete survey question with id: ', row),
-    },
-  ];
-
-  const toggleAddQuestionModal = () => {
-    setIsOpenAddModal(!isOpenAddModal);
+  const handleEditSurveyQuestion = (
+    id: number,
+    answers: UpdateSurveyQuestionDto,
+  ) => {
+    console.log('Edit survey question');
+    editSurveyQuestion({ id: id, surveyQuestion: answers });
   };
+
+  const createSurveyQuestionForm = useForm<FieldValues>();
+  const editSurveyQuestionForm = useForm<FieldValues>();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -103,19 +126,55 @@ const SurveyQuestionsPage = () => {
 
   return (
     <>
-      <Modal isOpen={isOpenAddModal} toggleModal={toggleAddQuestionModal}>
+      <Modal
+        isOpen={isOpenAddModal}
+        toggleModal={() => {
+          setIsOpenAddModal(!isOpenAddModal);
+        }}>
         <Button
-          onClick={form.handleSubmit((s) =>
+          onClick={createSurveyQuestionForm.handleSubmit((s) =>
             handleCreateSurveyQuestion(s as CreateSurveyQuestionDto),
           )}>
           Submit
         </Button>
         {questions.map((q) => (
-          <InputHandler question={q} form={form} key={q.id} />
+          <InputHandler
+            question={q}
+            form={createSurveyQuestionForm}
+            key={q.id}
+          />
         ))}
       </Modal>
 
-      <Button variant='primary' onClick={toggleAddQuestionModal}>
+      <Modal
+        isOpen={isOpenEditModal}
+        toggleModal={() => {
+          setIsOpenEditModal(!isOpenEditModal);
+        }}>
+        <Button
+          onClick={editSurveyQuestionForm.handleSubmit((s) =>
+            handleEditSurveyQuestion(
+              questionToEdit?.id as number,
+              s as UpdateSurveyQuestionDto,
+            ),
+          )}>
+          Submit
+        </Button>
+        {questions.map((q) => (
+          <InputHandler
+            question={q}
+            form={editSurveyQuestionForm}
+            key={q.id}
+            value={q.title?.toString()}
+          />
+        ))}
+      </Modal>
+
+      <Button
+        variant='primary'
+        onClick={() => {
+          setIsOpenAddModal(!isOpenAddModal);
+        }}>
         Dodaj novo pitanje
       </Button>
       <Table
