@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 import { UpdateSurveyQuestionDto } from '../../types/surveyQuestionDto';
+import toast from 'react-hot-toast';
 
 type SurveyQuestion = {
   id: number;
@@ -28,9 +29,11 @@ export const useUpdateSurveyQuestion = () => {
   const queryClient = useQueryClient();
 
   return useMutation(updateSurveyQuestion, {
-    onSuccess: (data) => {
-      console.log('mutation', data);
+    onSuccess: () => {
       queryClient.invalidateQueries(['survey-question']);
+    },
+    onError: () => {
+      toast.error("Couldn't update survey question");
     },
   });
 };

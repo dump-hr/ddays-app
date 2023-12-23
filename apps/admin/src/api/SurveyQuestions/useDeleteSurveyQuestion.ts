@@ -12,7 +12,6 @@ export const useDeleteSurveyQuestion = () => {
 
   return useMutation(deleteSurveyQuestion, {
     onSuccess: (data) => {
-      console.log('mutation', data);
       queryClient.invalidateQueries(['survey-question']);
     },
   });

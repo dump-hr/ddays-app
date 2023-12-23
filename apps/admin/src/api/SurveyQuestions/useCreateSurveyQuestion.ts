@@ -23,7 +23,7 @@ export const useCreateSurveyQuestion = () => {
       onSuccess: () => {
         queryClient.invalidateQueries(['survey-question']);
       },
-      onError: (error) => {
+      onError: () => {
         toast.error("Couldn't create survey question");
       },
     },
