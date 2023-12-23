@@ -149,3 +149,23 @@ export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
   question: text('question').notNull(),
   answer: text('answer').notNull(),
 });
+
+export const surveyQuestionInputType = pgEnum('surveyQuestionInputType', [
+  'input',
+  'textarea',
+  'rating',
+]);
+export const surveyQuestionType = pgEnum('surveyQuestionType', [
+  'workshop',
+  'lecture',
+  'company',
+]);
+
+export const surveyQuestion = pgTable('surveyQuestion', {
+  id: serial('id').primaryKey(),
+  question: text('question'),
+  description: text('description'),
+  inputLabel: text('inputLabel'),
+  surveyQuestionInputType: surveyQuestionInputType('inputType').notNull(),
+  surveyQuestionType: surveyQuestionType('type').notNull(),
+});
