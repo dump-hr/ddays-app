@@ -34,6 +34,7 @@ const questions: Question[] = [
     id: 'question',
     type: QuestionType.Field,
     title: 'Pitanje',
+    rules: { required: 'Obavezno polje' },
   },
   {
     id: 'description',
@@ -44,11 +45,13 @@ const questions: Question[] = [
     id: 'inputLabel',
     type: QuestionType.Field,
     title: 'Labela',
+    rules: { required: 'Obavezno polje' },
   },
   {
     id: 'surveyQuestionInputType',
     type: QuestionType.Select,
     title: 'Vrsta polja za unos',
+    rules: { required: 'Obavezno polje' },
     options: [
       SurveyQuestionInputType.Input,
       SurveyQuestionInputType.Rating,
@@ -59,7 +62,7 @@ const questions: Question[] = [
     id: 'surveyQuestionType',
     type: QuestionType.Select,
     title: 'Vrsta pitanja',
-    rules: { required: 'klosaru unesi' },
+    rules: { required: 'Obavezno polje' },
     options: [
       SurveyQuestionType.Company,
       SurveyQuestionType.Lecture,
@@ -98,7 +101,6 @@ const SurveyQuestionsPage = () => {
     {
       label: 'Obriši',
       action: (row: SurveyQuestion) => {
-        console.log('Delete survey question with id: ', row);
         setIsOpenDeleteModal(!isOpenDeleteModal);
         setQuestionToDeleteId(row.id);
       },
@@ -109,22 +111,6 @@ const SurveyQuestionsPage = () => {
   const { mutate: createSurveyQuestion } = useCreateSurveyQuestion();
   const { mutate: editSurveyQuestion } = useUpdateSurveyQuestion();
   const { mutate: deleteSurveyQuestion } = useDeleteSurveyQuestion();
-
-  const handleCreateSurveyQuestion = (answers: CreateSurveyQuestionDto) => {
-    createSurveyQuestion(answers);
-  };
-
-  const handleEditSurveyQuestion = (
-    id: number,
-    answers: UpdateSurveyQuestionDto,
-  ) => {
-    editSurveyQuestion({ id: id, surveyQuestion: answers });
-  };
-
-  const handleDeleteSurveyQuestion = (id: number) => {
-    console.log('Delete survey question with id: ', id);
-    deleteSurveyQuestion(id);
-  };
 
   const createSurveyQuestionForm = useForm<FieldValues>();
   const editSurveyQuestionForm = useForm<FieldValues>();
@@ -154,7 +140,8 @@ const SurveyQuestionsPage = () => {
         }}>
         <Button
           onClick={createSurveyQuestionForm.handleSubmit((s) =>
-            handleCreateSurveyQuestion(s as CreateSurveyQuestionDto),
+            // handleCreateSurveyQuestion(s as CreateSurveyQuestionDto),
+            createSurveyQuestion(s as CreateSurveyQuestionDto),
           )}>
           Submit
         </Button>
@@ -174,10 +161,10 @@ const SurveyQuestionsPage = () => {
         }}>
         <Button
           onClick={editSurveyQuestionForm.handleSubmit((s) =>
-            handleEditSurveyQuestion(
-              questionToEdit?.id as number,
-              s as UpdateSurveyQuestionDto,
-            ),
+            editSurveyQuestion({
+              id: questionToEdit?.id as number,
+              surveyQuestion: s as UpdateSurveyQuestionDto,
+            }),
           )}>
           Submit
         </Button>
@@ -193,7 +180,7 @@ const SurveyQuestionsPage = () => {
         }}>
         <Button
           onClick={() => {
-            handleDeleteSurveyQuestion(questionToDeleteId as number);
+            deleteSurveyQuestion(questionToDeleteId as number);
           }}>
           Delete
         </Button>
