@@ -3,11 +3,23 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 import { UpdateSurveyQuestionDto } from '../../types/surveyQuestionDto';
 
-const updateSurveyQuestion = async (
-  id: number,
-  surveyQuestion: UpdateSurveyQuestionDto,
-) => {
-  const { data } = await api.patch(`/survey-questions/${id}`, surveyQuestion);
+type SurveyQuestion = {
+  id: number;
+  question: string;
+  description: string;
+  inputLabel: string;
+  surveyQuestionInputType: string;
+  surveyQuestionType: string;
+};
+
+const updateSurveyQuestion = async (req: {
+  id: number;
+  surveyQuestion: UpdateSurveyQuestionDto;
+}) => {
+  const data = await api.patch<UpdateSurveyQuestionDto, SurveyQuestion>(
+    `/survey-questions/${req.id}`,
+    req.surveyQuestion,
+  );
 
   return data;
 };
@@ -15,13 +27,10 @@ const updateSurveyQuestion = async (
 export const useUpdateSurveyQuestion = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (data: { id: number; surveyQuestion: UpdateSurveyQuestionDto }) =>
-      updateSurveyQuestion(data.id, data.surveyQuestion),
-    {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(['updateSurveyQuestion', data.id]);
-      },
+  return useMutation(updateSurveyQuestion, {
+    onSuccess: (data) => {
+      console.log('mutation', data);
+      queryClient.invalidateQueries(['survey-question']);
     },
-  );
+  });
 };
