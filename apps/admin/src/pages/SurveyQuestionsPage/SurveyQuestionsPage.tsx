@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchSurveyQuestions } from '../../api/SurveyQuestions/useFetchSurveyQuestions';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
@@ -17,6 +17,7 @@ import {
   UpdateSurveyQuestionDto,
 } from '../../types/surveyQuestionDto';
 import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
+import { useDeleteSurveyQuestion } from '../../api/SurveyQuestions/useDeleteSurveyQuestion';
 
 const headers = [
   'Broj',
@@ -83,29 +84,33 @@ const SurveyQuestionsPage = () => {
     null,
   );
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-
+  const [questionToDeleteId, setQuestionToDeleteId] = useState<number | null>(
+    null,
+  );
   const buttonActions = [
     {
       label: 'Uredi',
       action: (row: SurveyQuestion) => {
-        console.log('Edit survey question with id: ', row);
         setQuestionToEdit(row);
         setIsOpenEditModal(!isOpenEditModal);
       },
     },
     {
       label: 'Obriši',
-      action: (row: SurveyQuestion) =>
-        console.log('Delete survey question with id: ', row),
+      action: (row: SurveyQuestion) => {
+        console.log('Delete survey question with id: ', row);
+        setIsOpenDeleteModal(!isOpenDeleteModal);
+        setQuestionToDeleteId(row.id);
+      },
     },
   ];
 
   const { data: surveyQuestions, isLoading } = useFetchSurveyQuestions();
   const { mutate: createSurveyQuestion } = useCreateSurveyQuestion();
   const { mutate: editSurveyQuestion } = useUpdateSurveyQuestion();
+  const { mutate: deleteSurveyQuestion } = useDeleteSurveyQuestion();
 
   const handleCreateSurveyQuestion = (answers: CreateSurveyQuestionDto) => {
-    console.log('Create survey question');
     createSurveyQuestion(answers);
   };
 
@@ -113,12 +118,28 @@ const SurveyQuestionsPage = () => {
     id: number,
     answers: UpdateSurveyQuestionDto,
   ) => {
-    console.log('Edit survey question');
     editSurveyQuestion({ id: id, surveyQuestion: answers });
+  };
+
+  const handleDeleteSurveyQuestion = (id: number) => {
+    console.log('Delete survey question with id: ', id);
+    deleteSurveyQuestion(id);
   };
 
   const createSurveyQuestionForm = useForm<FieldValues>();
   const editSurveyQuestionForm = useForm<FieldValues>();
+
+  useEffect(() => {
+    if (questionToEdit) {
+      editSurveyQuestionForm.reset({
+        question: questionToEdit?.question,
+        description: questionToEdit?.description,
+        inputLabel: questionToEdit?.inputLabel,
+        surveyQuestionInputType: questionToEdit?.surveyQuestionInputType,
+        surveyQuestionType: questionToEdit?.surveyQuestionType,
+      });
+    }
+  }, [questionToEdit]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -161,13 +182,21 @@ const SurveyQuestionsPage = () => {
           Submit
         </Button>
         {questions.map((q) => (
-          <InputHandler
-            question={q}
-            form={editSurveyQuestionForm}
-            key={q.id}
-            value={q.title?.toString()}
-          />
+          <InputHandler question={q} form={editSurveyQuestionForm} key={q.id} />
         ))}
+      </Modal>
+
+      <Modal
+        isOpen={isOpenDeleteModal}
+        toggleModal={() => {
+          setIsOpenDeleteModal(!isOpenDeleteModal);
+        }}>
+        <Button
+          onClick={() => {
+            handleDeleteSurveyQuestion(questionToDeleteId as number);
+          }}>
+          Delete
+        </Button>
       </Modal>
 
       <Button
