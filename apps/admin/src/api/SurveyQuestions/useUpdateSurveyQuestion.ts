@@ -1,17 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
-import { UpdateSurveyQuestionDto } from '../../types/surveyQuestionDto';
+import {
+  SurveyQuestion,
+  UpdateSurveyQuestionDto,
+} from '../../types/surveyQuestion';
 import toast from 'react-hot-toast';
-
-type SurveyQuestion = {
-  id: number;
-  question: string;
-  description: string;
-  inputLabel: string;
-  surveyQuestionInputType: string;
-  surveyQuestionType: string;
-};
 
 const updateSurveyQuestion = async (req: {
   id: number;

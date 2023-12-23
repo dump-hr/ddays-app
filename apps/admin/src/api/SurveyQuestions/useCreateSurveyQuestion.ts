@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
-import { CreateSurveyQuestionDto } from '../../types/surveyQuestionDto';
+import { CreateSurveyQuestionDto } from '../../types/surveyQuestion';
 import toast from 'react-hot-toast';
 
 const createSurveyQuestion = async (

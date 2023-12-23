@@ -9,3 +9,12 @@ export class CreateSurveyQuestionDto extends _CreateSurveyQuestionDto {}
 
 export const _UpdateSurveyQuestionDto = getUpdateSurveyQuestionDto(ApiProperty);
 export class UpdateSurveyQuestionDto extends _UpdateSurveyQuestionDto {}
+
+export type SurveyQuestion = {
+  id: number;
+  question: string;
+  description: string;
+  inputLabel: string;
+  surveyQuestionInputType: string;
+  surveyQuestionType: string;
+};

@@ -10,12 +10,13 @@ import {
   SurveyQuestionType,
 } from '@ddays-app/types';
 import InputHandler from '../../components/InputHandler';
-import { FieldValues, set, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useCreateSurveyQuestion } from '../../api/SurveyQuestions/useCreateSurveyQuestion';
 import {
   CreateSurveyQuestionDto,
+  SurveyQuestion,
   UpdateSurveyQuestionDto,
-} from '../../types/surveyQuestionDto';
+} from '../../types/surveyQuestion';
 import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
 import { useDeleteSurveyQuestion } from '../../api/SurveyQuestions/useDeleteSurveyQuestion';
 
@@ -70,15 +71,6 @@ const questions: Question[] = [
     ],
   },
 ];
-
-type SurveyQuestion = {
-  id: number;
-  question: string;
-  description: string;
-  inputLabel: string;
-  surveyQuestionInputType: SurveyQuestionInputType;
-  surveyQuestionType: SurveyQuestionType;
-};
 
 const SurveyQuestionsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
@@ -140,7 +132,6 @@ const SurveyQuestionsPage = () => {
         }}>
         <Button
           onClick={createSurveyQuestionForm.handleSubmit((s) =>
-            // handleCreateSurveyQuestion(s as CreateSurveyQuestionDto),
             createSurveyQuestion(s as CreateSurveyQuestionDto),
           )}>
           Submit
