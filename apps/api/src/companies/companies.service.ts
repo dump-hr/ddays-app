@@ -2,8 +2,8 @@ import { SponsorCategory } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
-import { company } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { company, companyInterests } from 'db/schema';
+import { and, eq } from 'drizzle-orm';
 
 import {
   AddSponsorDescriptionDto,
@@ -235,5 +235,55 @@ export class CompaniesService {
       .returning();
 
     return removedLandingImage;
+  }
+
+  async addInterest(companyId: number, interestId: number) {
+    const addedInterest = await db
+      .insert(companyInterests)
+      .values({
+        interestId: interestId,
+        companyId: companyId,
+      })
+      .returning();
+
+    return addedInterest;
+  }
+
+  async removeInterest(companyId: number, interestId: number) {
+    const removedInterest = await db
+      .delete(companyInterests)
+      .where(
+        and(
+          eq(companyInterests.companyId, companyId),
+          eq(companyInterests.interestId, interestId),
+        ),
+      )
+      .returning();
+
+    return removedInterest;
+  }
+
+  async interestExists(companyId: number, interestId: number) {
+    const interest = await db
+      .select()
+      .from(companyInterests)
+      .where(
+        and(
+          eq(companyInterests.companyId, companyId),
+          eq(companyInterests.interestId, interestId),
+        ),
+      );
+
+    return interest.length > 0;
+  }
+
+  async toggleInterest(companyId: number, interestId: number) {
+    const interestExists = await this.interestExists(companyId, interestId);
+
+    const action = interestExists
+      ? await this.removeInterest(companyId, interestId)
+      : await this.addInterest(companyId, interestId);
+
+    return action;
   }
 }

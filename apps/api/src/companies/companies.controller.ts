@@ -141,11 +141,27 @@ export class CompaniesController {
 
     return removedSponsorLandingImage;
   }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/interests/:interestId')
+  async toggleInterest(
+    @Req() req: AuthenticatedRequest,
+    @Param('interestId', ParseIntPipe) interestId: number,
+  ) {
+    const updatedCompany = await this.companiesService.toggleInterest(
+      req.user.id,
+      interestId,
+    );
+
+    return updatedCompany;
+  }
+
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  }
+  } //fun fact this returns an array with one element, not sure if that is good behaviour
 
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
