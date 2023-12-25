@@ -60,4 +60,11 @@ export class InterestsController {
 
     return deletedInterest;
   }
+
+  @Get(':id/companies')
+  async getCompanies(@Param('id', ParseIntPipe) id: number) {
+    const companies = await this.interestsService.getCompanies(id);
+
+    return companies;
+  }
 }
