@@ -4,14 +4,15 @@ import {
   Delete,
   Get,
   Param,
-  Post,
-  Patch,
   ParseIntPipe,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
+
 import { CreateFrequentlyAskedQuestionDto } from './dto/create-frequentlyAskedQuestion.dto';
 import { UpdateFrequentlyAskedQuestionDto } from './dto/update-frequentlyAskedQuestion.dto';
+import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
 
 @ApiTags('faq')
 @Controller('faq')

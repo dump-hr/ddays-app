@@ -1,17 +1,10 @@
-import { PartialType } from '@nestjs/mapped-types';
-
-import {
-  IsEmail,
-  IsEnum,
-  IsNumber,
-  IsString,
-  IsStrongPassword,
-} from 'class-validator';
+import { IsEmail, IsEnum, IsNumber, IsString, IsStrongPassword } from 'class-validator';
 import { SponsorCategory } from 'src/model';
 
 export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
-  class CreateCompanyDto {
+  
+  class UpdateCompanyDto {
     @IsString()
     @ApiProperty()
     name?: string;
@@ -45,5 +38,6 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     password?: string;
   }
-  return CreateCompanyDto;
+
+  return UpdateCompanyDto;
 };
