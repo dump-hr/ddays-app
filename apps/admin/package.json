@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ddays-app/types": "*",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
@@ -22,6 +21,7 @@
     "wouter": "^2.12.1"
   },
   "devDependencies": {
+    "@ddays-app/types": "*",
     "@ddays-app/tsconfig": "*",
     "eslint-config-ddays": "*",
     "@types/react": "^18.2.37",

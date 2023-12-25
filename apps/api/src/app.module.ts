@@ -7,6 +7,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
 import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
 import { InterestsModule } from './interests/interests.module';
+import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { InterestsModule } from './interests/interests.module';
     EventsModule,
     FrequentlyAskedQuestionModule,
     InterestsModule,
+    SurveyQuestionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
