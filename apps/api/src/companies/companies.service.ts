@@ -2,7 +2,7 @@ import { SponsorCategory } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
-import { company, companyInterests } from 'db/schema';
+import { company, companyInterests, interest } from 'db/schema';
 import { and, eq } from 'drizzle-orm';
 
 import {
@@ -285,5 +285,15 @@ export class CompaniesService {
       : await this.addInterest(companyId, interestId);
 
     return action;
+  }
+
+  async getInterests(companyId: number) {
+    const interests = await db
+      .select()
+      .from(companyInterests)
+      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
+      .where(eq(companyInterests.companyId, companyId));
+
+    return interests;
   }
 }
