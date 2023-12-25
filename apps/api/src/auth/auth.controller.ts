@@ -4,6 +4,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SponsorLoginDto } from './login.dto';
 import { SponsorAuthGuard } from './sponsor/jwt-auth-guard';
+import { AuthenticatedRequest } from './authentcatedRequest';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -25,7 +26,7 @@ export class AuthController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Get('me/sponsor')
-  async whichCompanyAmI(@Req() req: any) {
+  async whichCompanyAmI(@Req() req: AuthenticatedRequest) {
     return req.user;
   }
 }

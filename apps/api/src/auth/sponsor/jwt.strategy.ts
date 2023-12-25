@@ -5,7 +5,7 @@ import { CompaniesService } from 'src/companies/companies.service';
 
 import { jwtSecret } from '../auth.module';
 
-type JwtPayload = {
+export type JwtPayload = {
   id: number;
   email: string;
   name: string;
