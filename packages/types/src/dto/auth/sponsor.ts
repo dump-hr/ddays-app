@@ -4,17 +4,21 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
+
 export const getSponsorLoginDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
+  
   class SponsorLoginDto {
     @IsEmail()
     @IsNotEmpty()
     @ApiProperty()
-    officialEmail: string;
+    email: string;
+
     @IsString()
     @IsStrongPassword()
     @ApiProperty()
     password: string;
   }
+
   return SponsorLoginDto;
 };

@@ -1,10 +1,49 @@
-import { getCreateCompanyDto } from './create';
 import { PartialType } from '@nestjs/mapped-types';
 
+import {
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsString,
+  IsStrongPassword,
+} from 'class-validator';
+import { SponsorCategory } from 'src/model';
+
 export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
-  const CreateCompanyDto = getCreateCompanyDto(ApiPropertySwagger);
+  const ApiProperty = ApiPropertySwagger || function () {};
+  class CreateCompanyDto {
+    @IsString()
+    @ApiProperty()
+    name?: string;
 
-  class UpdateCompanyDto extends PartialType(CreateCompanyDto) {} //TODO: Possibly exclude password and email here, maybe make a specific enpoint for that
+    @IsString()
+    @ApiProperty()
+    description?: string;
 
-  return UpdateCompanyDto;
+    @IsEnum(SponsorCategory)
+    @ApiProperty()
+    sponsorCategory?: string;
+
+    @IsString()
+    @ApiProperty()
+    websiteUrl?: string;
+
+    @IsString()
+    @ApiProperty()
+    boothLocation?: string;
+
+    @IsNumber()
+    @ApiProperty()
+    codeId?: number;
+
+    @IsEmail()
+    @ApiProperty()
+    email?: string;
+
+    @IsString()
+    @IsStrongPassword()
+    @ApiProperty()
+    password?: string;
+  }
+  return CreateCompanyDto;
 };

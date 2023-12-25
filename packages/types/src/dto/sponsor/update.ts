@@ -1,6 +1,4 @@
-import { IsEnum, IsNumber, IsString, isNumber } from 'class-validator';
-
-//sponsor ids are temporary, in the future the sponsor id will be fetched from the jwt token or other auth
+import { IsString } from 'class-validator';
 
 export const getAddSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};

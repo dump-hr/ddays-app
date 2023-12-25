@@ -20,7 +20,7 @@ export class CompaniesService {
     const createdComapny = await db
       .insert(company)
       .values({
-        officialEmail: createCompanyDto.officialEmail,
+        email: createCompanyDto.email,
         password: await bcrypt.hash(createCompanyDto.password, 10),
         name: createCompanyDto.name,
         description: createCompanyDto.description,
@@ -61,7 +61,7 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
-        officialEmail: company.officialEmail,
+        email: company.email,
       })
       .from(company)
       .where(eq(company.id, id));
@@ -69,7 +69,7 @@ export class CompaniesService {
     return companyToGet;
   }
 
-  async getOneByEmail(officialEmail: string) {
+  async getOneByEmail(email: string) {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -81,12 +81,12 @@ export class CompaniesService {
         codeId: company.codeId,
       })
       .from(company)
-      .where(eq(company.officialEmail, officialEmail));
+      .where(eq(company.email, email));
 
     return companyToGet;
   }
 
-  async login(officialEmail: string, password: string) {
+  async login(email: string, password: string) {
     const companyToLogin = await db
       .select({
         id: company.id,
@@ -94,11 +94,11 @@ export class CompaniesService {
         password: company.password,
       })
       .from(company)
-      .where(eq(company.officialEmail, officialEmail))
+      .where(eq(company.email, email))
       .limit(1);
 
     if (!companyToLogin) {
-      throw new NotFoundException('company not found');
+      throw new NotFoundException('Company not found');
     }
 
     const passwordMatch = await bcrypt.compare(

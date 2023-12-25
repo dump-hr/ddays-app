@@ -41,7 +41,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Patch('/sponsor-description')
+  @Patch('/description')
   async addSponsorDescription(
     @Req() req: any,
     @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
@@ -56,7 +56,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Patch('/sponsor-logo')
+  @Patch('/logo')
   async addSponsorLogo(
     @Req() req: any,
     @Body() addSponsorLogoDto: AddSponsorLogoDto,
@@ -71,7 +71,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Patch('/sponsor-video')
+  @Patch('/video')
   async addSponsorVideo(
     @Req() req: any,
     @Body() addSponsorVideoDto: AddSponsorVideoDto,
@@ -86,7 +86,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Patch('/sponsor-landing-image')
+  @Patch('/landing-image')
   async addSponsorLandingImage(
     @Body() addSponsorLandingImageDto: AddSponsorLandingImageDto,
     @Req() req: any,
@@ -101,7 +101,7 @@ export class CompaniesController {
   }
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Delete('/sponsor-description')
+  @Delete('/description')
   async removeSponsorDescription(@Req() req: any) {
     const removedSponsorDescription =
       await this.companiesService.removeDescription(req.user.id);
@@ -111,7 +111,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Delete('/sponsor-logo')
+  @Delete('/logo')
   async removeSponsorLogo(@Req() req: any) {
     const removedSponsorLogo = await this.companiesService.removeLogo(
       req.user.id,
@@ -122,7 +122,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Delete('/sponsor-video')
+  @Delete('/video')
   async removeSponsorVideo(@Req() req: any) {
     const removedSponsorVideo = await this.companiesService.removeVideo(
       req.user.id,
@@ -133,7 +133,7 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Delete('/sponsor-landing-image')
+  @Delete('/landing-image')
   async removeSponsorLandingImage(@Req() req: any) {
     const removedSponsorLandingImage =
       await this.companiesService.removeLandingImage(req.user.id);

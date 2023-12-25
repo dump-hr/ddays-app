@@ -36,7 +36,7 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsEmail()
     @ApiProperty()
-    officialEmail: string;
+    email: string;
 
     @IsString()
     @IsStrongPassword()
