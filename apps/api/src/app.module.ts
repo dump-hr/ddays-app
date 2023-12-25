@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
 import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
+import { InterestsModule } from './interests/interests.module';
 import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module';
 
 @Module({
@@ -17,6 +18,8 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
     FrequentlyAskedQuestionModule,
     SurveyQuestionsModule,
     AuthModule,
+    InterestsModule,
+    SurveyQuestionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
