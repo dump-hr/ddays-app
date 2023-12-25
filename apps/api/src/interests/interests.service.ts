@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { companyInterests, interest } from 'db/schema';
+import { company, companyInterests, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 import { CreateInterestDto, UpdateInterestDto } from './interests.dto';
@@ -69,9 +69,18 @@ export class InterestsService {
 
   async getCompanies(interestId: number) {
     const companies = await db
-      .select()
+      .select({
+        id: company.id,
+        name: company.name,
+        logo: company.logoImage,
+        description: company.description,
+        website: company.websiteUrl,
+        email: company.email,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
       .from(companyInterests)
-      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
+      .rightJoin(company, eq(companyInterests.interestId, company.id))
       .where(eq(companyInterests.interestId, interestId));
 
     return companies;

@@ -289,7 +289,11 @@ export class CompaniesService {
 
   async getInterests(companyId: number) {
     const interests = await db
-      .select()
+      .select({
+        id: interest.id,
+        name: interest.name,
+        theme: interest.theme,
+      })
       .from(companyInterests)
       .rightJoin(interest, eq(companyInterests.interestId, interest.id))
       .where(eq(companyInterests.companyId, companyId));
