@@ -29,16 +29,16 @@ export class InterestsController {
 
   @Get()
   async getAll() {
-    const Interests = await this.interestsService.getAll();
+    const interests = await this.interestsService.getAll();
 
-    return Interests;
+    return interests;
   }
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    const Interest = await this.interestsService.getOne(id);
+    const interest = await this.interestsService.getOne(id);
 
-    return Interest;
+    return interest;
   }
 
   @Patch(':id')

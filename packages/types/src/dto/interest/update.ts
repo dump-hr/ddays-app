@@ -1,10 +1,18 @@
-import { getCreateInterestDto } from './create';
-import { PartialType } from '@nestjs/mapped-types';
+import { EventTheme } from '@src/model';
+import { IsEnum, IsString } from 'class-validator';
 
 export const getUpdateInterestDto = (ApiPropertySwagger?: any) => {
-  const CreateInterestDto = getCreateInterestDto(ApiPropertySwagger);
+  const ApiProperty = ApiPropertySwagger || function () {};
 
-  class UpdateInterestDto extends PartialType(CreateInterestDto) {}
+  class UpdateInterestDto {
+    @IsString()
+    @ApiProperty({ required: false })
+    name?: string;
+
+    @IsEnum(EventTheme)
+    @ApiProperty({ enum: EventTheme })
+    theme?: EventTheme;
+  }
 
   return UpdateInterestDto;
 };
