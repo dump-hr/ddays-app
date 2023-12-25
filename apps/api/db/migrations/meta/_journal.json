@@ -43,6 +43,13 @@
       "when": 1702795862003,
       "tag": "0005_elite_silvermane",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1703509831254,
+      "tag": "0006_low_vance_astro",
+      "breakpoints": true
     }
   ]
 }
