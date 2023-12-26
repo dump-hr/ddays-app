@@ -163,6 +163,19 @@ const EventsPage = () => {
     return `${day}.${month}.${year}. u ${hours}:${minutes}`;
   }
 
+  function changeDateIsoFormat(iso8601: string) {
+    const date = new Date(iso8601);
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    const simplifiedIso = `${year}-${month}-${day}T${hours}:${minutes}`;
+    return simplifiedIso;
+  }
+
   function getEventById(id: number) {
     const event = events?.find((event) => event.id === id) as Event;
     if (event) {
@@ -320,7 +333,7 @@ const EventsPage = () => {
               type='datetime-local'
               id='datumPocetka'
               placeholder='Unesi datum početka'
-              defaultValue={getModalData().startsAt}
+              onClick={() => console.log(getModalData().startsAt)}
               onChange={(e) => editModalData('startsAt', e)}
             />
           </div>
@@ -330,7 +343,6 @@ const EventsPage = () => {
               type='datetime-local'
               id='datumKraja'
               placeholder='Unesi datum kraja'
-              defaultValue={getModalData().endsAt}
               onChange={(e) => editModalData('endsAt', e)}
             />
           </div>
@@ -384,33 +396,62 @@ const EventsPage = () => {
             />
           </div>
           <div>
-            <label htmlFor=''>Tip</label>
-            <Input placeholder='Unesi tip' disabled />
+            <label htmlFor='tip'>Tip</label>
+            <br />
+            <SelectInput
+              id='tip'
+              placeholder='Unesi tip'
+              options={eventTypes}
+              defaultValue={getModalData().eventType}
+              onChange={(e) => editModalData('eventType', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <div>
-            <label htmlFor=''>Tema</label>
-            <Input placeholder='Unesi temu' disabled />
+            <label htmlFor='tema'>Tema</label>
+            <br />
+            <SelectInput
+              id='tema'
+              placeholder='Unesi temu'
+              options={themeTypes}
+              defaultValue={getModalData().eventTheme}
+              onChange={(e) => editModalData('eventTheme', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <div>
-            <label htmlFor=''>Mjesto</label>
-            <Input placeholder='Unesi mjesto' disabled />
+            <label htmlFor='mjesto'>Mjesto</label>
+            <br />
+            <SelectInput
+              id='mjesto'
+              placeholder='Unesi mjesto'
+              options={placeTypes}
+              defaultValue={getModalData().eventPlace}
+              onChange={(e) => editModalData('eventPlace', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <br />
           <div>
-            <label htmlFor=''>Datum početka</label>
-            <br />
-            <input
+            <label htmlFor='datumPocetka'>Datum početka</label>
+            <Input
               type='datetime-local'
-              defaultValue={getEventById(getModalData().id).startsAt}
+              id='datumPocetka'
+              placeholder='Unesi datum početka'
+              defaultValue={changeDateIsoFormat(getModalData().startsAt)}
               onChange={(e) => editModalData('startsAt', e)}
             />
           </div>
           <div>
-            <label htmlFor=''>Datum kraja</label>
-            <br />
-            <input
+            <label htmlFor='datumKraja'>Datum kraja</label>
+            <Input
               type='datetime-local'
-              value={getEventById(getModalData().id).endsAt}
+              id='datumKraja'
+              placeholder='Unesi datum kraja'
+              defaultValue={changeDateIsoFormat(getModalData().endsAt)}
               onChange={(e) => editModalData('endsAt', e)}
             />
           </div>
