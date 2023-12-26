@@ -5,15 +5,10 @@ import { useCreateEvents } from '../../api/useCreateEvents';
 import { useDeleteEvent } from '../../api/useDeleteEvent';
 import { useFetchEvents } from '../../api/useFetchEvents';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
 import Modal from '../../components/Modal';
-import SelectInput from '../../components/SelectInput';
 import Table from '../../components/Table';
-import c from './EventsPage.module.scss';
-
-const eventTypes: string[] = Object.values(EventType);
-const themeTypes: string[] = Object.values(EventTheme);
-const placeTypes: string[] = Object.values(EventPlace);
+import AddEditEventModal from './AddEditEventModal';
+import c from './ModalStyles.module.scss';
 
 const headers = [
   'Id',
@@ -26,51 +21,6 @@ const headers = [
   'Kraj',
   'Akcije',
 ];
-
-/*
-const data = [
-  {
-    id: 1,
-    name: 'Kampiranje',
-    description: 'Kampiranje u prirodi',
-    type: 'Kampiranje',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 2,
-    name: 'Krstarenje',
-    description: 'Krstarenje Jadranom',
-    type: 'Krstarenje',
-    theme: 'Priroda',
-    place: 'Jadran',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 3,
-    name: 'Izlet',
-    description: 'Izlet u prirodu',
-    type: 'Izlet',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 4,
-    name: 'Penjanje',
-    description: 'Penjanje po stijenama',
-    type: 'Penjanje',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-];
-*/
 
 type TableDataRow = {
   id: number;
@@ -100,25 +50,11 @@ const EventsPage = () => {
   const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
   const [editEventModalIsOpen, setEditEventModalIsOpen] = useState(false);
 
-  //const [modalData, setModalData] = useState({} as Event);
-
   const [tableData, setTableData] = useState<TableDataRow[]>([]);
 
   const { mutate: createEvent } = useCreateEvents();
   const { mutate: deleteEvent } = useDeleteEvent();
   const { data: events } = useFetchEvents();
-
-  function setModalData(data: Event) {
-    localStorage.setItem('modalData', JSON.stringify(data));
-  }
-
-  function getModalData() {
-    const data = localStorage.getItem('modalData');
-    if (data) {
-      return JSON.parse(data) as Event;
-    }
-    return {} as Event;
-  }
 
   const buttonActions = [
     {
@@ -129,7 +65,7 @@ const EventsPage = () => {
         const data = getEventById((row as Event).id);
         setModalData(data);
 
-        toggleEditEventModal();
+        toggleModal('edit');
       },
     },
     {
@@ -140,49 +76,10 @@ const EventsPage = () => {
         const data = getEventById((row as Event).id);
         setModalData(data);
 
-        toggleDeleteEventModal();
+        toggleModal('delete');
       },
     },
   ];
-
-  function formatDate(date: string) {
-    const dateObj = new Date(date);
-
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1;
-    const year = dateObj.getFullYear();
-
-    const hours =
-      dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
-
-    const minutes =
-      dateObj.getMinutes() < 10
-        ? `0${dateObj.getMinutes()}`
-        : dateObj.getMinutes();
-
-    return `${day}.${month}.${year}. u ${hours}:${minutes}`;
-  }
-
-  function changeDateIsoFormat(iso8601: string) {
-    const date = new Date(iso8601);
-
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    const simplifiedIso = `${year}-${month}-${day}T${hours}:${minutes}`;
-    return simplifiedIso;
-  }
-
-  function getEventById(id: number) {
-    const event = events?.find((event) => event.id === id) as Event;
-    if (event) {
-      return event;
-    }
-    return {} as Event;
-  }
 
   useEffect(() => {
     if (events) {
@@ -203,25 +100,60 @@ const EventsPage = () => {
     }
   }, [events]);
 
-  function toggleAddEventModal() {
-    if (addEventModalIsOpen) {
-      clearModalData();
-    }
-    setAddEventModalIsOpen(!addEventModalIsOpen);
+  function setModalData(data: Event) {
+    localStorage.setItem('modalData', JSON.stringify(data));
   }
 
-  function toggleDeleteEventModal() {
-    if (deleteEventModalIsOpen) {
-      clearModalData();
+  function getModalData() {
+    const data = localStorage.getItem('modalData');
+    if (data) {
+      return JSON.parse(data) as Event;
     }
-    setDeleteEventModalIsOpen(!deleteEventModalIsOpen);
+    return {} as Event;
   }
 
-  function toggleEditEventModal() {
-    if (editEventModalIsOpen) {
+  function formatDate(date: string) {
+    const dateObj = new Date(date);
+
+    const day = dateObj.getDate();
+    const month = dateObj.getMonth() + 1;
+    const year = dateObj.getFullYear();
+
+    const hours =
+      dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
+
+    const minutes =
+      dateObj.getMinutes() < 10
+        ? `0${dateObj.getMinutes()}`
+        : dateObj.getMinutes();
+
+    return `${day}.${month}.${year}. u ${hours}:${minutes}`;
+  }
+
+  function getEventById(id: number) {
+    const event = events?.find((event) => event.id === id) as Event;
+    if (event) {
+      return event;
+    }
+    return {} as Event;
+  }
+
+  function toggleModal(modal: 'add' | 'delete' | 'edit') {
+    if (addEventModalIsOpen || deleteEventModalIsOpen || editEventModalIsOpen) {
       clearModalData();
     }
-    setEditEventModalIsOpen(!editEventModalIsOpen);
+
+    switch (modal) {
+      case 'add':
+        setAddEventModalIsOpen(!addEventModalIsOpen);
+        break;
+      case 'delete':
+        setDeleteEventModalIsOpen(!deleteEventModalIsOpen);
+        break;
+      case 'edit':
+        setEditEventModalIsOpen(!editEventModalIsOpen);
+        break;
+    }
   }
 
   function clearModalData() {
@@ -245,6 +177,8 @@ const EventsPage = () => {
       codeId: 1,
     };
 
+    console.log(eventToCreate);
+
     createEvent(eventToCreate);
     clearModalData();
     setAddEventModalIsOpen(false);
@@ -256,110 +190,21 @@ const EventsPage = () => {
     clearModalData();
   }
 
-  function editEventHandler() {}
-
-  function editModalData(
-    key: string,
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>,
-  ) {
-    setModalData({ ...getModalData(), [key]: event.target.value });
+  function editEventHandler() {
+    alert('spremi promjene');
+    setEditEventModalIsOpen(false);
+    clearModalData();
   }
 
-  const AddEventModal = () => {
-    return (
-      <Modal isOpen={addEventModalIsOpen} toggleModal={toggleAddEventModal}>
-        <h3 className={c.modalTitle}>Dodaj event</h3>
-        <div className={c.editModalLayout}>
-          <div>
-            <label htmlFor='ime'>Ime</label>
-            <Input
-              id='ime'
-              placeholder='Unesi ime'
-              defaultValue={getModalData().name}
-              onChange={(e) => editModalData('name', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor='opis'>Opis</label>
-            <Input
-              id='opis'
-              placeholder='Unesi opis'
-              defaultValue={getModalData().description}
-              onChange={(e) => editModalData('description', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor='tip'>Tip</label>
-            <br />
-            <SelectInput
-              id='tip'
-              placeholder='Unesi tip'
-              options={eventTypes}
-              onChange={(e) => editModalData('eventType', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <div>
-            <label htmlFor='tema'>Tema</label>
-            <br />
-            <SelectInput
-              id='tema'
-              placeholder='Unesi temu'
-              options={themeTypes}
-              onChange={(e) => editModalData('eventTheme', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <div>
-            <label htmlFor='mjesto'>Mjesto</label>
-            <br />
-            <SelectInput
-              id='mjesto'
-              placeholder='Unesi mjesto'
-              options={placeTypes}
-              onChange={(e) => editModalData('eventPlace', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <br />
-          <div>
-            <label htmlFor='datumPocetka'>Datum početka</label>
-            <Input
-              type='datetime-local'
-              id='datumPocetka'
-              placeholder='Unesi datum početka'
-              onClick={() => console.log(getModalData().startsAt)}
-              onChange={(e) => editModalData('startsAt', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor='datumKraja'>Datum kraja</label>
-            <Input
-              type='datetime-local'
-              id='datumKraja'
-              placeholder='Unesi datum kraja'
-              onChange={(e) => editModalData('endsAt', e)}
-            />
-          </div>
-
-          <Button variant='secondary' onClick={() => createEventHandler()}>
-            Dodaj Event
-          </Button>
-        </div>
-      </Modal>
-    );
-  };
+  function editModalData(key: string, value: string) {
+    setModalData({ ...getModalData(), [key]: value });
+  }
 
   const DeleteEventModal = () => {
     return (
       <Modal
         isOpen={deleteEventModalIsOpen}
-        toggleModal={toggleDeleteEventModal}>
+        toggleModal={() => toggleModal('delete')}>
         <h3 className={c.modalTitle}>Obriši event</h3>
         <p className={c.modalSubtitle}>{getModalData().name}</p>
         <p>Jesi li siguran da želiš izbrisati ovaj event?</p>
@@ -368,99 +213,8 @@ const EventsPage = () => {
           variant='secondary'
           onClick={() => deleteEventHandler()}
           style={{ marginBottom: '20px' }}>
-          Izbriši
+          Obriši
         </Button>
-      </Modal>
-    );
-  };
-
-  const EditEventModal = () => {
-    return (
-      <Modal isOpen={editEventModalIsOpen} toggleModal={toggleEditEventModal}>
-        <h3 className={c.modalTitle}>Uredi event</h3>
-        <div className={c.editModalLayout}>
-          <div>
-            <label htmlFor=''>Ime</label>
-            <Input
-              placeholder='Unesi ime'
-              defaultValue={getModalData().name}
-              onChange={(e) => editModalData('name', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor=''>Opis</label>
-            <Input
-              placeholder='Unesi opis'
-              defaultValue={getModalData().description}
-              onChange={(e) => editModalData('name', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor='tip'>Tip</label>
-            <br />
-            <SelectInput
-              id='tip'
-              placeholder='Unesi tip'
-              options={eventTypes}
-              defaultValue={getModalData().eventType}
-              onChange={(e) => editModalData('eventType', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <div>
-            <label htmlFor='tema'>Tema</label>
-            <br />
-            <SelectInput
-              id='tema'
-              placeholder='Unesi temu'
-              options={themeTypes}
-              defaultValue={getModalData().eventTheme}
-              onChange={(e) => editModalData('eventTheme', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <div>
-            <label htmlFor='mjesto'>Mjesto</label>
-            <br />
-            <SelectInput
-              id='mjesto'
-              placeholder='Unesi mjesto'
-              options={placeTypes}
-              defaultValue={getModalData().eventPlace}
-              onChange={(e) => editModalData('eventPlace', e)}
-              label=''
-              isAllowedEmpty={false}
-            />
-          </div>
-          <br />
-          <div>
-            <label htmlFor='datumPocetka'>Datum početka</label>
-            <Input
-              type='datetime-local'
-              id='datumPocetka'
-              placeholder='Unesi datum početka'
-              defaultValue={changeDateIsoFormat(getModalData().startsAt)}
-              onChange={(e) => editModalData('startsAt', e)}
-            />
-          </div>
-          <div>
-            <label htmlFor='datumKraja'>Datum kraja</label>
-            <Input
-              type='datetime-local'
-              id='datumKraja'
-              placeholder='Unesi datum kraja'
-              defaultValue={changeDateIsoFormat(getModalData().endsAt)}
-              onChange={(e) => editModalData('endsAt', e)}
-            />
-          </div>
-
-          <Button variant='secondary' onClick={() => editEventHandler()}>
-            Spremi promjene
-          </Button>
-          <button onClick={() => console.log(getModalData())}>cl</button>
-        </div>
       </Modal>
     );
   };
@@ -468,13 +222,30 @@ const EventsPage = () => {
   return (
     <>
       <Table headers={headers} data={tableData} buttonActions={buttonActions} />
-      <Button style={{ marginTop: '20px' }} onClick={toggleAddEventModal}>
+      <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
 
-      <AddEventModal />
+      <AddEditEventModal
+        isOpen={addEventModalIsOpen}
+        toggle={() => toggleModal('add')}
+        title='Dodaj event'
+        actionButtonHandler={createEventHandler}
+        actionButtonText='Dodaj Event'
+        onInputChange={editModalData}
+      />
+
+      <AddEditEventModal
+        isOpen={editEventModalIsOpen}
+        toggle={() => toggleModal('edit')}
+        title='Uredi event'
+        actionButtonHandler={editEventHandler}
+        actionButtonText='Spremi promjene'
+        onInputChange={editModalData}
+        modalData={getModalData()}
+      />
+
       <DeleteEventModal />
-      <EditEventModal />
     </>
   );
 };
