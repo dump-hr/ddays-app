@@ -1,3 +1,4 @@
+import { Interest } from '@ddays-app/types';
 import { act } from 'react-dom/test-utils';
 
 import { deletedInterest } from '../../api/useDeleteInterest';
@@ -9,8 +10,8 @@ const headers = ['id', 'name', 'theme'];
 const deleteAction = [
   {
     label: 'Obriši',
-    action: (row: object) => {
-      deletedInterest(row).then(() => {
+    action: (row: Interest) => {
+      deletedInterest(row.id).then(() => {
         act(() => {
           window.location.reload();
         });

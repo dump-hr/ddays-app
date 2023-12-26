@@ -24,6 +24,10 @@ const navLinks = [
     href: '/achievements',
     text: 'Achievements',
   },
+  {
+    href: '/interests',
+    text: 'Interests',
+  },
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -36,8 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Button
             key={href}
             variant={location === href ? 'primary' : 'secondary'}
-            onClick={() => navigate(href)}
-          >
+            onClick={() => navigate(href)}>
             {text}
           </Button>
         ))}
