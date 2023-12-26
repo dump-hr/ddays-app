@@ -1,14 +1,15 @@
 import { Question, QuestionType } from '@ddays-app/types';
-import c from './InputHandler.module.scss';
-
+import dayjs from 'dayjs';
 import {
   Controller,
   ControllerRenderProps,
   FieldValues,
   UseFormReturn,
 } from 'react-hook-form';
+
 import Input from '../Input';
-import dayjs from 'dayjs';
+import SelectInput from '../SelectInput';
+import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
   question: Question;
@@ -59,7 +60,13 @@ const getInputComponent = (
     case QuestionType.DateTime:
       return <Input {...controlProps} type='datetime-local' />;
     case QuestionType.Select:
-      return <></>; //TODO: toma
+      return (
+        <SelectInput
+          options={question.options}
+          label={undefined}
+          {...controlProps}
+        />
+      );
     case QuestionType.MultipleSelect:
       return <></>; //TODO: toma
     default:
