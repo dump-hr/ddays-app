@@ -19,7 +19,7 @@ export const updatedInterest = async (params: {
   return action;
 };
 
-export const useDeleteInterest = () => {
+export const useUpdateInterest = () => {
   const queryClient = useQueryClient();
 
   return useMutation(updatedInterest, {

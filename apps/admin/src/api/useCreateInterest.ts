@@ -16,7 +16,7 @@ export const createdInterest = async (dto: CreateInterestDto) => {
   return action;
 };
 
-export const useDeleteInterest = () => {
+export const useCreateInterest = () => {
   const queryClient = useQueryClient();
 
   return useMutation(createdInterest, {
