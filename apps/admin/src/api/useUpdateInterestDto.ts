@@ -1,0 +1,33 @@
+import { getUpdateInterestDto, Interest } from '@ddays-app/types';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '.';
+
+const _updateInterestDto = getUpdateInterestDto();
+
+export class UpdateInterestDto extends _updateInterestDto {}
+
+export const updatedInterest = async (params: {
+  id: number;
+  dto: UpdateInterestDto;
+}) => {
+  const action = await api.patch<UpdateInterestDto, Interest>(
+    '/interests/' + params.id,
+    params.dto,
+  );
+
+  return action;
+};
+
+export const useDeleteInterest = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(updatedInterest, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['interests']);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+};

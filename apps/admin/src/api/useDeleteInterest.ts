@@ -14,7 +14,7 @@ export const useDeleteInterest = () => {
 
   return useMutation(deletedInterest, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['interest']);
+      queryClient.invalidateQueries(['interests']);
     },
   });
 };
