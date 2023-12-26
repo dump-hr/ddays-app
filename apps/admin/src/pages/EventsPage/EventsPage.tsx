@@ -1,5 +1,4 @@
-import { EventPlace, EventTheme } from '@ddays-app/types';
-import { EventType } from '@ddays-app/types';
+import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 
 import { useCreateEvents } from '../../api/useCreateEvents';
@@ -8,8 +7,13 @@ import { useFetchEvents } from '../../api/useFetchEvents';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import SelectInput from '../../components/SelectInput';
 import Table from '../../components/Table';
 import c from './EventsPage.module.scss';
+
+const eventTypes: string[] = Object.values(EventType);
+const themeTypes: string[] = Object.values(EventTheme);
+const placeTypes: string[] = Object.values(EventPlace);
 
 const headers = [
   'Id',
@@ -83,6 +87,9 @@ type Event = {
   id: number;
   name: string;
   description: string;
+  eventType: string;
+  eventTheme: string;
+  eventPlace: string;
   startsAt: string;
   endsAt: string;
   maxParticipants: number;
@@ -214,11 +221,11 @@ const EventsPage = () => {
     const eventToCreate = {
       name: newEvent.name,
       description: newEvent.description,
-      eventType: EventType.Lecture,
-      eventTheme: EventTheme.Dev,
-      eventPlace: EventPlace.InPerson,
-      startsAt: new Date().toISOString(),
-      endsAt: new Date().toISOString(),
+      eventType: newEvent.eventType as EventType,
+      eventTheme: newEvent.eventTheme as EventTheme,
+      eventPlace: newEvent.eventPlace as EventPlace,
+      startsAt: newEvent.startsAt,
+      endsAt: newEvent.endsAt,
       requirements: 'Nema',
       footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
       maxParticipants: 10,
@@ -233,13 +240,16 @@ const EventsPage = () => {
   function deleteEventHandler() {
     deleteEvent(getModalData().id);
     setDeleteEventModalIsOpen(false);
+    clearModalData();
   }
 
   function editEventHandler() {}
 
   function editModalData(
     key: string,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>,
   ) {
     setModalData({ ...getModalData(), [key]: event.target.value });
   }
@@ -254,7 +264,7 @@ const EventsPage = () => {
             <Input
               id='ime'
               placeholder='Unesi ime'
-              value={getModalData().name}
+              defaultValue={getModalData().name}
               onChange={(e) => editModalData('name', e)}
             />
           </div>
@@ -263,38 +273,64 @@ const EventsPage = () => {
             <Input
               id='opis'
               placeholder='Unesi opis'
-              value={getModalData().description}
+              defaultValue={getModalData().description}
               onChange={(e) => editModalData('description', e)}
             />
           </div>
           <div>
             <label htmlFor='tip'>Tip</label>
-            <Input id='tip' placeholder='Unesi tip' disabled />
+            <br />
+            <SelectInput
+              id='tip'
+              placeholder='Unesi tip'
+              options={eventTypes}
+              onChange={(e) => editModalData('eventType', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <div>
             <label htmlFor='tema'>Tema</label>
-            <Input id='tema' placeholder='Unesi temu' disabled />
+            <br />
+            <SelectInput
+              id='tema'
+              placeholder='Unesi temu'
+              options={themeTypes}
+              onChange={(e) => editModalData('eventTheme', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <div>
             <label htmlFor='mjesto'>Mjesto</label>
-            <Input id='mjesto' placeholder='Unesi mjesto' disabled />
+            <br />
+            <SelectInput
+              id='mjesto'
+              placeholder='Unesi mjesto'
+              options={placeTypes}
+              onChange={(e) => editModalData('eventPlace', e)}
+              label=''
+              isAllowedEmpty={false}
+            />
           </div>
           <br />
           <div>
             <label htmlFor='datumPocetka'>Datum početka</label>
             <Input
+              type='datetime-local'
               id='datumPocetka'
               placeholder='Unesi datum početka'
-              value={getModalData().startsAt}
+              defaultValue={getModalData().startsAt}
               onChange={(e) => editModalData('startsAt', e)}
             />
           </div>
           <div>
             <label htmlFor='datumKraja'>Datum kraja</label>
             <Input
+              type='datetime-local'
               id='datumKraja'
               placeholder='Unesi datum kraja'
-              value={getModalData().endsAt}
+              defaultValue={getModalData().endsAt}
               onChange={(e) => editModalData('endsAt', e)}
             />
           </div>
