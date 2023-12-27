@@ -3,12 +3,18 @@ import { useQuery } from 'react-query';
 import { api } from '.';
 
 type Event = {
-  id: number;
   name: string;
   description: string;
   startsAt: string;
   endsAt: string;
   maxParticipants: number;
+  requirements: string;
+  footageLink: string;
+  eventType: string;
+  eventTheme: string;
+  eventPlace: string;
+  codeId: number;
+  id: number;
 };
 
 const fetchAllEvents = async () => await api.get<never, Event[]>('/events');

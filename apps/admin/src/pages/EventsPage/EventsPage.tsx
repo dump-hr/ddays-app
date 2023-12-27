@@ -98,9 +98,9 @@ const EventsPage = () => {
           id: event.id,
           name: event.name,
           description: event.description,
-          eventType: '',
-          eventTheme: '',
-          eventPlace: '',
+          eventType: event.eventType,
+          eventTheme: event.eventTheme,
+          eventPlace: event.eventPlace,
           startsAt: formatDate(event.startsAt),
           endsAt: formatDate(event.endsAt),
         };
