@@ -170,7 +170,6 @@ const EventsPage = () => {
 
     const eventToCreate = {
       ...event,
-      requirements: 'Nema',
       footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
       codeId: 1,
     };

@@ -77,6 +77,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             onChange={(e) => onInputChange('description', e.target.value)}
           />
         </div>
+        <br />
         <div>
           <label htmlFor='tip'>Tip</label>
           <br />
@@ -127,6 +128,27 @@ const AddEditEventModal: React.FC<ModalProps> = ({
           />
         </div>
         <div>
+          <label htmlFor='zahtjevi'>Zahtjevi</label>
+          <br />
+          <textarea
+            name=''
+            id='zahtjevi'
+            defaultValue={modalData?.requirements || ''}
+            onChange={(e) => onInputChange('requirements', e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor='poveznicaNaVideo'>Poveznica na video</label>
+          <br />
+          <Input
+            type='text'
+            id='poveznicaNaVideo'
+            placeholder='Unesi poveznicu'
+            defaultValue={modalData?.footageLink || ''}
+            onChange={(e) => onInputChange('footageLink', e.target.value)}
+          />
+        </div>
+        <div>
           <label htmlFor='datumPocetka'>Datum početka</label>
           <Input
             type='datetime-local'
@@ -146,6 +168,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             onChange={(e) => onInputChange('endsAt', e.target.value)}
           />
         </div>
+        <br />
 
         <Button variant='secondary' onClick={actionButtonHandler}>
           {actionButtonText}
