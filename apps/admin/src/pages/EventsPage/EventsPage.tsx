@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { useCreateEvents } from '../../api/useCreateEvents';
 import { useDeleteEvent } from '../../api/useDeleteEvent';
+import { useEditEvents } from '../../api/useEditEvent';
 import { useFetchEvents } from '../../api/useFetchEvents';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
@@ -37,12 +38,19 @@ type Event = {
   id: number;
   name: string;
   description: string;
-  eventType: string;
-  eventTheme: string;
-  eventPlace: string;
+  eventType: EventType;
+  eventTheme: EventTheme;
+  eventPlace: EventPlace;
   startsAt: string;
   endsAt: string;
   maxParticipants: number;
+};
+
+type DetailedEvent = Event & {
+  maxParticipants: number;
+  requirements: string;
+  footageLink: string;
+  codeId: number;
 };
 
 const EventsPage = () => {
@@ -54,6 +62,7 @@ const EventsPage = () => {
 
   const { mutate: createEvent } = useCreateEvents();
   const { mutate: deleteEvent } = useDeleteEvent();
+  const { mutate: editEvent } = useEditEvents();
   const { data: events } = useFetchEvents();
 
   const buttonActions = [
@@ -62,7 +71,7 @@ const EventsPage = () => {
       action: (row: object) => {
         console.log('Uredi', row);
 
-        const data = getEventById((row as Event).id);
+        const data = findEventById((row as Event).id);
         setModalData(data);
 
         toggleModal('edit');
@@ -73,7 +82,7 @@ const EventsPage = () => {
       action: (row: object) => {
         console.log('Obriši', row);
 
-        const data = getEventById((row as Event).id);
+        const data = findEventById((row as Event).id);
         setModalData(data);
 
         toggleModal('delete');
@@ -130,7 +139,7 @@ const EventsPage = () => {
     return `${day}.${month}.${year}. u ${hours}:${minutes}`;
   }
 
-  function getEventById(id: number) {
+  function findEventById(id: number) {
     const event = events?.find((event) => event.id === id) as Event;
     if (event) {
       return event;
@@ -190,8 +199,27 @@ const EventsPage = () => {
     clearModalData();
   }
 
-  function editEventHandler() {
-    alert('spremi promjene');
+  async function editEventHandler() {
+    const editedEvent = getModalData();
+    const eventToEdit = findEventById(editedEvent.id) as DetailedEvent;
+
+    const event = {
+      ...eventToEdit,
+      name: editedEvent.name,
+      description: editedEvent.description,
+      startsAt: editedEvent.startsAt,
+      endsAt: editedEvent.endsAt,
+      eventType: EventType.Lecture,
+      eventTheme: EventTheme.Dev,
+      eventPlace: EventPlace.Online,
+      requirements: 'Nema',
+      footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
+      codeId: 1,
+    };
+
+    console.log('event', JSON.stringify(event));
+
+    editEvent(event); // trazi prosireni event
     setEditEventModalIsOpen(false);
     clearModalData();
   }
