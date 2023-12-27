@@ -7,13 +7,18 @@ import SelectInput from '../../components/SelectInput';
 import c from './ModalStyles.module.scss';
 
 type ModalData = {
+  id: number;
   name: string;
   description: string;
-  eventType: string;
-  eventTheme: string;
-  eventPlace: string;
+  eventType: EventType;
+  eventTheme: EventTheme;
+  eventPlace: EventPlace;
   startsAt: string;
   endsAt: string;
+  maxParticipants: number;
+  requirements: string;
+  footageLink: string;
+  codeId: number;
 };
 
 type ModalProps = {
@@ -22,7 +27,7 @@ type ModalProps = {
   title: string;
   actionButtonText: string;
   actionButtonHandler: () => void;
-  onInputChange: (key: string, value: string) => void;
+  onInputChange: (key: string, value: string | number) => void;
   modalData?: ModalData;
 };
 
@@ -111,7 +116,16 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             isAllowedEmpty={false}
           />
         </div>
-        <br />
+        <div>
+          <label htmlFor='najveciBrojSudionika'>Najveći broj sudionika</label>
+          <Input
+            type='number'
+            id='najveciBrojSudionika'
+            placeholder='Unesi broj'
+            defaultValue={modalData?.maxParticipants || ''}
+            onChange={(e) => onInputChange('maxParticipants', +e.target.value)}
+          />
+        </div>
         <div>
           <label htmlFor='datumPocetka'>Datum početka</label>
           <Input

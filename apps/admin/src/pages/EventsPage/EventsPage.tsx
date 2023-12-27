@@ -44,10 +44,6 @@ type Event = {
   startsAt: string;
   endsAt: string;
   maxParticipants: number;
-};
-
-type DetailedEvent = Event & {
-  maxParticipants: number;
   requirements: string;
   footageLink: string;
   codeId: number;
@@ -170,19 +166,12 @@ const EventsPage = () => {
   }
 
   function createEventHandler() {
-    const newEvent = getModalData();
+    const event = getModalData();
 
     const eventToCreate = {
-      name: newEvent.name,
-      description: newEvent.description,
-      eventType: newEvent.eventType as EventType,
-      eventTheme: newEvent.eventTheme as EventTheme,
-      eventPlace: newEvent.eventPlace as EventPlace,
-      startsAt: newEvent.startsAt,
-      endsAt: newEvent.endsAt,
+      ...event,
       requirements: 'Nema',
       footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
-      maxParticipants: 10,
       codeId: 1,
     };
 
@@ -201,30 +190,13 @@ const EventsPage = () => {
 
   async function editEventHandler() {
     const editedEvent = getModalData();
-    const eventToEdit = findEventById(editedEvent.id) as DetailedEvent;
 
-    const event = {
-      ...eventToEdit,
-      name: editedEvent.name,
-      description: editedEvent.description,
-      startsAt: editedEvent.startsAt,
-      endsAt: editedEvent.endsAt,
-      eventType: EventType.Lecture,
-      eventTheme: EventTheme.Dev,
-      eventPlace: EventPlace.Online,
-      requirements: 'Nema',
-      footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
-      codeId: 1,
-    };
-
-    console.log('event', JSON.stringify(event));
-
-    editEvent(event); // trazi prosireni event
+    editEvent(editedEvent);
     setEditEventModalIsOpen(false);
     clearModalData();
   }
 
-  function editModalData(key: string, value: string) {
+  function editModalData(key: string, value: string | number) {
     setModalData({ ...getModalData(), [key]: value });
   }
 
