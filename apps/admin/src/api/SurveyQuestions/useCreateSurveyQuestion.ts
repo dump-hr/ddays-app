@@ -16,7 +16,8 @@ export const useCreateSurveyQuestion = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: CreateSurveyQuestionDto) => createSurveyQuestion(data),
+    // (data: CreateSurveyQuestionDto) => createSurveyQuestion(data),
+    createSurveyQuestion,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['survey-question']);
