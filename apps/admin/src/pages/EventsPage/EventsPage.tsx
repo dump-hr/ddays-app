@@ -10,6 +10,7 @@ import Modal from '../../components/Modal';
 import Table from '../../components/Table';
 import AddEditEventModal from './AddEditEventModal';
 import c from './ModalStyles.module.scss';
+import TimeHelper from './TimeHelper';
 
 const headers = [
   'Id',
@@ -68,8 +69,9 @@ const EventsPage = () => {
         console.log('Uredi', row);
 
         const data = findEventById((row as Event).id);
-        setModalData(data);
+        console.log('found data', data);
 
+        setModalData(data);
         toggleModal('edit');
       },
     },
@@ -79,8 +81,8 @@ const EventsPage = () => {
         console.log('Obriši', row);
 
         const data = findEventById((row as Event).id);
-        setModalData(data);
 
+        setModalData(data);
         toggleModal('delete');
       },
     },
@@ -97,8 +99,8 @@ const EventsPage = () => {
           eventType: event.eventType,
           eventTheme: event.eventTheme,
           eventPlace: event.eventPlace,
-          startsAt: formatDate(event.startsAt),
-          endsAt: formatDate(event.endsAt),
+          startsAt: TimeHelper.formatDate(event.startsAt),
+          endsAt: TimeHelper.formatDate(event.endsAt),
         };
         setTableData((prevData) => [...prevData, tableRow]);
       });
@@ -115,26 +117,6 @@ const EventsPage = () => {
       return JSON.parse(data) as Event;
     }
     return {} as Event;
-  }
-
-  function formatDate(date: string) {
-    const dateObj = new Date(date);
-
-    const day = dateObj.getUTCDate();
-    const month = dateObj.getUTCMonth() + 1;
-    const year = dateObj.getUTCFullYear();
-
-    const hours =
-      dateObj.getUTCHours() < 10
-        ? `0${dateObj.getUTCHours()}`
-        : dateObj.getUTCHours();
-
-    const minutes =
-      dateObj.getUTCMinutes() < 10
-        ? `0${dateObj.getUTCMinutes()}`
-        : dateObj.getUTCMinutes();
-
-    return `${day}.${month}.${year}. u ${hours}:${minutes}`;
   }
 
   function findEventById(id: number) {
@@ -231,7 +213,10 @@ const EventsPage = () => {
       </Button>
       <button
         onClick={() =>
-          console.log(events![0].startsAt, formatDate(events![0].startsAt))
+          console.log(
+            events![0].startsAt,
+            TimeHelper.formatDate(events![0].startsAt),
+          )
         }>
         cl
       </button>

@@ -5,6 +5,7 @@ import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import SelectInput from '../../components/SelectInput';
 import c from './ModalStyles.module.scss';
+import TimeHelper from './TimeHelper';
 
 type ModalData = {
   id: number;
@@ -44,19 +45,6 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   onInputChange,
   modalData,
 }) => {
-  function changeDateIsoFormat(iso8601: string) {
-    const date = new Date(iso8601);
-
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    const simplifiedIso = `${year}-${month}-${day}T${hours}:${minutes}`;
-    return simplifiedIso;
-  }
-
   return (
     <Modal isOpen={isOpen} toggleModal={toggle}>
       <h3 className={c.modalTitle}>{title}</h3>
@@ -154,8 +142,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             type='datetime-local'
             id='datumPocetka'
             placeholder='Unesi datum početka'
-            defaultValue={changeDateIsoFormat(modalData?.startsAt || '')}
-            onChange={(e) => onInputChange('startsAt', e.target.value)}
+            defaultValue={TimeHelper.changeDateIsoFormat(
+              modalData?.startsAt || '',
+            )}
+            onChange={(e) =>
+              onInputChange('startsAt', TimeHelper.addHour(e.target.value))
+            }
           />
         </div>
         <div>
@@ -164,8 +156,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             type='datetime-local'
             id='datumKraja'
             placeholder='Unesi datum kraja'
-            defaultValue={changeDateIsoFormat(modalData?.endsAt || '')}
-            onChange={(e) => onInputChange('endsAt', e.target.value)}
+            defaultValue={TimeHelper.changeDateIsoFormat(
+              modalData?.endsAt || '',
+            )}
+            onChange={(e) =>
+              onInputChange('endsAt', TimeHelper.addHour(e.target.value))
+            }
           />
         </div>
         <br />
