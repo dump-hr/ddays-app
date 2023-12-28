@@ -28,7 +28,7 @@ export const useUpdateFrequentlyAskedQuestion = () => {
       queryClient.invalidateQueries(['faq']);
     },
     onError: () => {
-      console.log("Couldn't update survey question");
+      console.log("Couldn't update faq");
     },
   });
 };
