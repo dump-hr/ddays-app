@@ -7,7 +7,7 @@ type FrequentlyAskedQuestion = InstanceType<
   ReturnType<typeof getCreateFrequentlyAskedQuestionDto>
 >;
 
-const createEvent = async (
+const createFrequentlyAskedQuestion = async (
   newFrequentlyAskedQuestion: FrequentlyAskedQuestion,
 ) =>
   await api.post<FrequentlyAskedQuestion, never>(
@@ -15,10 +15,10 @@ const createEvent = async (
     newFrequentlyAskedQuestion,
   );
 
-export const useCreateEvent = () => {
+export const useCreateFrequentlyAskedQuestion = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(createEvent, {
+  return useMutation(createFrequentlyAskedQuestion, {
     onSuccess: () => {
       queryClient.invalidateQueries('faq');
     },
