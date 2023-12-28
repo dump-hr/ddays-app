@@ -107,6 +107,24 @@ const SurveyQuestionsPage = () => {
   const createSurveyQuestionForm = useForm<FieldValues>();
   const editSurveyQuestionForm = useForm<FieldValues>();
 
+  const handleCreateSurveyQuestion = (data: CreateSurveyQuestionDto) => {
+    createSurveyQuestion(data);
+    if (!createSurveyQuestionForm.formState.isValid) {
+      setIsOpenAddModal(!isOpenAddModal);
+      createSurveyQuestionForm.reset();
+    }
+  };
+
+  const handleEditSurveyQuestion = (data: UpdateSurveyQuestionDto) => {
+    editSurveyQuestion({
+      id: questionToEdit?.id as number,
+      surveyQuestion: data,
+    });
+    if (!editSurveyQuestionForm.formState.isValid) {
+      setIsOpenEditModal(!isOpenEditModal);
+    }
+  };
+
   useEffect(() => {
     if (questionToEdit) {
       editSurveyQuestionForm.reset({
@@ -132,7 +150,7 @@ const SurveyQuestionsPage = () => {
         }}>
         <Button
           onClick={createSurveyQuestionForm.handleSubmit((s) =>
-            createSurveyQuestion(s as CreateSurveyQuestionDto),
+            handleCreateSurveyQuestion(s as CreateSurveyQuestionDto),
           )}>
           Submit
         </Button>
@@ -151,12 +169,9 @@ const SurveyQuestionsPage = () => {
           setIsOpenEditModal(!isOpenEditModal);
         }}>
         <Button
-          onClick={editSurveyQuestionForm.handleSubmit((s) =>
-            editSurveyQuestion({
-              id: questionToEdit?.id as number,
-              surveyQuestion: s as UpdateSurveyQuestionDto,
-            }),
-          )}>
+          onClick={editSurveyQuestionForm.handleSubmit((s) => {
+            handleEditSurveyQuestion(s as UpdateSurveyQuestionDto);
+          })}>
           Submit
         </Button>
         {questions.map((q) => (

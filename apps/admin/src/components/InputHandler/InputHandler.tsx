@@ -66,7 +66,7 @@ const getInputComponent = (
           label={undefined}
           {...controlProps}
         />
-      ); //TODO: toma <SelectInput/>
+      );
     case QuestionType.MultipleSelect:
       return <></>; //TODO: toma
     default:
