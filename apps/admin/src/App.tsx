@@ -1,6 +1,5 @@
 import './App.scss';
 
-import { getCreateEventDto } from '@ddays-app/types';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'wouter';
 
@@ -12,9 +11,6 @@ import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
 
 const queryClient = new QueryClient();
-
-const createEventDto = getCreateEventDto();
-console.log(createEventDto);
 
 export const App = () => {
   return (

@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { api } from '.';
 
-type DetailedEvent = {
+type Event = {
   name: string;
   description: string;
   startsAt: string;
@@ -19,7 +19,7 @@ type DetailedEvent = {
 };
 
 const fetchEvent = async (id: number) =>
-  await api.get<number, DetailedEvent>(`/events/${id}`);
+  await api.get<number, Event>(`/events/${id}`);
 
 export const useFetchEvent = (eventId: number) => {
   return useQuery({

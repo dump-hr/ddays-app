@@ -66,11 +66,7 @@ const EventsPage = () => {
     {
       label: 'Uredi',
       action: (row: object) => {
-        console.log('Uredi', row);
-
         const data = findEventById((row as Event).id);
-        console.log('found data', data);
-
         setModalData(data);
         toggleModal('edit');
       },
@@ -78,10 +74,7 @@ const EventsPage = () => {
     {
       label: 'Obriši',
       action: (row: object) => {
-        console.log('Obriši', row);
-
         const data = findEventById((row as Event).id);
-
         setModalData(data);
         toggleModal('delete');
       },
@@ -154,11 +147,8 @@ const EventsPage = () => {
 
     const eventToCreate = {
       ...event,
-      footageLink: 'https://www.youtube.com/watch?v=3f9Y5fjw2G8',
-      codeId: 1,
+      codeId: 1, // TODO: generate code
     };
-
-    console.log(eventToCreate);
 
     createEvent(eventToCreate);
     clearModalData();
@@ -174,15 +164,12 @@ const EventsPage = () => {
   async function editEventHandler() {
     const editedEvent = getModalData();
 
-    console.log(editedEvent);
-
     editEvent(editedEvent);
     setEditEventModalIsOpen(false);
     clearModalData();
   }
 
   function editModalData(key: string, value: string | number) {
-    console.log(key, value);
     setModalData({ ...getModalData(), [key]: value });
   }
 
@@ -211,15 +198,6 @@ const EventsPage = () => {
       <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
-      <button
-        onClick={() =>
-          console.log(
-            events![0].startsAt,
-            TimeHelper.formatDate(events![0].startsAt),
-          )
-        }>
-        cl
-      </button>
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}

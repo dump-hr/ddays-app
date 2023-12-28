@@ -1,5 +1,3 @@
-import { useId } from 'react';
-
 import c from './SelectInput.module.scss';
 
 type SelectInputProps = {
@@ -14,15 +12,17 @@ const SelectInput: React.FC<SelectInputProps> = ({
   isAllowedEmpty = false,
   ...handlers
 }) => {
-  const id = useId();
-
   return (
     <>
-      <label htmlFor={id} className={c.selectLabel}>
+      <label htmlFor={handlers.id} className={c.selectLabel}>
         {label}
       </label>
-      <select defaultValue="" id={id} className={c.selectInput} {...handlers}>
-        <option value="" disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
+      <select
+        defaultValue=''
+        id={handlers.id}
+        className={c.selectInput}
+        {...handlers}>
+        <option value='' disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
           -
         </option>
         {options.map((option) => (

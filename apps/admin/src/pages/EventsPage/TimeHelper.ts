@@ -18,12 +18,6 @@ class TimeHelper {
     return dateObj.toISOString();
   }
 
-  static subtractHour(date: string) {
-    const dateObj = new Date(date);
-    dateObj.setHours(dateObj.getHours() - 1);
-    return dateObj.toString();
-  }
-
   static formatDate(date: string) {
     const dateObj = new Date(date);
 

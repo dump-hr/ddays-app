@@ -7,7 +7,7 @@ import SelectInput from '../../components/SelectInput';
 import c from './ModalStyles.module.scss';
 import TimeHelper from './TimeHelper';
 
-type ModalData = {
+type Event = {
   id: number;
   name: string;
   description: string;
@@ -29,7 +29,7 @@ type ModalProps = {
   actionButtonText: string;
   actionButtonHandler: () => void;
   onInputChange: (key: string, value: string | number) => void;
-  modalData?: ModalData;
+  modalData?: Event;
 };
 
 const eventTypes: string[] = Object.values(EventType);
@@ -46,9 +46,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   modalData,
 }) => {
   function validateForm() {
-    const data = JSON.parse(
-      localStorage.getItem('modalData') || '',
-    ) as ModalData;
+    const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
 
     if (!data.name) {
       alert('Ime mora biti uneseno.');
@@ -158,16 +156,18 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       <h3 className={c.modalTitle}>{title}</h3>
       <div className={c.editModalLayout}>
         <div>
-          <label htmlFor=''>Ime</label>
+          <label htmlFor='name'>Ime</label>
           <Input
+            id='name'
             placeholder='Unesi ime'
             defaultValue={modalData?.name || ''}
             onChange={(e) => onInputChange('name', e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor=''>Opis</label>
+          <label htmlFor='description'>Opis</label>
           <Input
+            id='description'
             placeholder='Unesi opis'
             defaultValue={modalData?.description || ''}
             onChange={(e) => onInputChange('description', e.target.value)}
@@ -175,82 +175,75 @@ const AddEditEventModal: React.FC<ModalProps> = ({
         </div>
         <br />
         <div>
-          <label htmlFor='tip'>Tip</label>
-          <br />
           <SelectInput
-            id='tip'
+            id='type'
             placeholder='Unesi tip'
             options={eventTypes}
             defaultValue={modalData?.eventType || ''}
             onChange={(e) => onInputChange('eventType', e.target.value)}
-            label=''
+            label='Tip'
             isAllowedEmpty={false}
           />
         </div>
         <div>
-          <label htmlFor='tema'>Tema</label>
-          <br />
           <SelectInput
-            id='tema'
+            id='theme'
             placeholder='Unesi temu'
             options={themeTypes}
             defaultValue={modalData?.eventTheme || ''}
             onChange={(e) => onInputChange('eventTheme', e.target.value)}
-            label=''
+            label='Tema'
             isAllowedEmpty={false}
           />
         </div>
         <div>
-          <label htmlFor='mjesto'>Mjesto</label>
-          <br />
           <SelectInput
-            id='mjesto'
+            id='place'
             placeholder='Unesi mjesto'
             options={placeTypes}
             defaultValue={modalData?.eventPlace || ''}
             onChange={(e) => onInputChange('eventPlace', e.target.value)}
-            label=''
+            label='Mjesto'
             isAllowedEmpty={false}
           />
         </div>
         <div>
-          <label htmlFor='najveciBrojSudionika'>Najveći broj sudionika</label>
+          <label htmlFor='maxParticipants'>Najveći broj sudionika</label>
           <Input
+            id='maxParticipants'
             type='number'
             min={0}
             max={1000}
-            id='najveciBrojSudionika'
             placeholder='Unesi broj'
             defaultValue={modalData?.maxParticipants || ''}
             onChange={(e) => onInputChange('maxParticipants', +e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor='zahtjevi'>Zahtjevi</label>
+          <label htmlFor='requirements'>Zahtjevi</label>
           <br />
           <textarea
-            name=''
-            id='zahtjevi'
+            id='requirements'
             defaultValue={modalData?.requirements || ''}
             onChange={(e) => onInputChange('requirements', e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor='poveznicaNaVideo'>Poveznica na video</label>
+          <label htmlFor='footageLink'>Poveznica na video</label>
           <br />
           <Input
+            id='footageLink'
             type='text'
-            id='poveznicaNaVideo'
             placeholder='Unesi poveznicu'
             defaultValue={modalData?.footageLink || ''}
             onChange={(e) => onInputChange('footageLink', e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor='datumPocetka'>Datum početka</label>
+          <label htmlFor='startsAt'>Datum početka</label>
           <Input
+            id='startsAt'
             type='datetime-local'
-            id='datumPocetka'
             placeholder='Unesi datum početka'
             defaultValue={TimeHelper.changeDateIsoFormat(
               modalData?.startsAt || '',
@@ -261,10 +254,10 @@ const AddEditEventModal: React.FC<ModalProps> = ({
           />
         </div>
         <div>
-          <label htmlFor='datumKraja'>Datum kraja</label>
+          <label htmlFor='endsAt'>Datum kraja</label>
           <Input
+            id='endsAt'
             type='datetime-local'
-            id='datumKraja'
             placeholder='Unesi datum kraja'
             defaultValue={TimeHelper.changeDateIsoFormat(
               modalData?.endsAt || '',
