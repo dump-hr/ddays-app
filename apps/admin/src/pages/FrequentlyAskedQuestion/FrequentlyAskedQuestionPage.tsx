@@ -5,6 +5,7 @@ import { useFetchAllFrequentlyAskedQuestions } from '../../api/useFetchFrequentl
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import Table from '../../components/Table';
+import AddEditFrequentlyAskedQuestionModal from './AddEditFrequentlyAskedQuestionModal';
 
 const headers = ['Id', 'Pitanje', 'Odgovor', 'Akcije'];
 
@@ -15,10 +16,8 @@ const FrequentlyAskedQuestionPage = () => {
     useState<FrequentlyAskedQuestion | null>(null);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [
-    frequentlyAskedQuestionToDeleteId,
-    setFrequentlyAskedQuestionToDeleteId,
-  ] = useState<number | null>(null);
+  const [frequentlyAskedQuestionToDelete, setFrequentlyAskedQuestionToDelete] =
+    useState<FrequentlyAskedQuestion | null>(null);
 
   const buttonActions = [
     {
@@ -32,7 +31,7 @@ const FrequentlyAskedQuestionPage = () => {
       label: 'Obriši',
       action: (row: FrequentlyAskedQuestion) => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
-        setFrequentlyAskedQuestionToDeleteId(row.id);
+        setFrequentlyAskedQuestionToDelete(row);
       },
     },
   ];
@@ -41,14 +40,18 @@ const FrequentlyAskedQuestionPage = () => {
     useFetchAllFrequentlyAskedQuestions();
 
   const DeleteFrequentlyAskedQuestionModal = () => {
+    if (!frequentlyAskedQuestionToDelete) return;
+
+    const { id, question, answer } = frequentlyAskedQuestionToDelete;
+
     return (
       <Modal
         isOpen={isDeleteModalOpen}
         toggleModal={() => setIsDeleteModalOpen(!isDeleteModalOpen)}>
-        <h2>Obriši faq</h2>
-        <p>ime</p>
-        <p>Jesi li siguran?</p>
-
+        <h3>Jesi li siguran da želiš izbrisati faq?</h3>
+        <p>Id: {id}</p>
+        <p>Pitanje: {question}</p>
+        <p>Odgovor: {answer}</p>
         <Button variant='secondary'>Obriši</Button>
       </Modal>
     );
@@ -58,16 +61,36 @@ const FrequentlyAskedQuestionPage = () => {
 
   return (
     <>
-      <Button style={{ marginTop: '10px' }} variant='secondary'>
+      <Button
+        style={{ marginTop: '10px' }}
+        variant='secondary'
+        onClick={() => setIsAddModalOpen(!isAddModalOpen)}>
         Dodaj novo pitanje
       </Button>
-
       <Table
         headers={headers}
         data={frequentlyAskedQuestions}
         buttonActions={buttonActions}
       />
-
+      <AddEditFrequentlyAskedQuestionModal
+        isOpen={isAddModalOpen}
+        toggle={() => setIsAddModalOpen(!isAddModalOpen)}
+        title='Dodaj FAQ'
+        actionButtonText='Dodaj'
+        actionButtonHandler={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+      />
+      <AddEditFrequentlyAskedQuestionModal
+        isOpen={isEditModalOpen}
+        toggle={() => setIsEditModalOpen(!isEditModalOpen)}
+        title='Uredi FAQ'
+        actionButtonText='Spremi'
+        actionButtonHandler={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+        frequentlyAskedQuestion={frequentlyAskedQuestionToEdit}
+      />
       <DeleteFrequentlyAskedQuestionModal />
     </>
   );
