@@ -10,14 +10,19 @@ export const api = axios.create({
 type ErrorResponse = AxiosError & {
   response: {
     message: string;
+    data: {
+      statusCode: number;
+      message: string;
+      error: string;
+    };
   };
 };
 
 api.interceptors.response.use(
   (response) => response.data,
   (error: ErrorResponse) => {
-    if (error.response) {
-      return Promise.reject(error.response.message);
+    if (error.response.status) {
+      return Promise.reject(error.response.data.message);
     }
 
     return Promise.reject(error.message);
