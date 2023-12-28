@@ -26,8 +26,8 @@ export const useUpdateSurveyQuestion = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['survey-question']);
     },
-    onError: () => {
-      toast.error("Couldn't update survey question");
+    onError: (error: string) => {
+      toast.error(error);
     },
   });
 };

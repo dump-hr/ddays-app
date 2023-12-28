@@ -9,8 +9,6 @@ const createSurveyQuestion = async (
 ) => {
   const data = await api.post(`/survey-questions`, surveyQuestion);
 
-  console.log('api', data);
-
   return data;
 };
 
@@ -24,7 +22,6 @@ export const useCreateSurveyQuestion = () => {
         queryClient.invalidateQueries(['survey-question']);
       },
       onError: (error: string) => {
-        // toast.error("Couldn't create survey question");
         toast.error(error);
       },
     },
