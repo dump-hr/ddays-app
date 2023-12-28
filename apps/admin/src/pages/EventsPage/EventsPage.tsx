@@ -1,7 +1,7 @@
 import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 
-import { useCreateEvents } from '../../api/useCreateEvents';
+import { useCreateEvent } from '../../api/useCreateEvent';
 import { useDeleteEvent } from '../../api/useDeleteEvent';
 import { useEditEvents } from '../../api/useEditEvent';
 import { useFetchEvents } from '../../api/useFetchEvents';
@@ -56,7 +56,7 @@ const EventsPage = () => {
 
   const [tableData, setTableData] = useState<TableDataRow[]>([]);
 
-  const { mutate: createEvent } = useCreateEvents();
+  const { mutate: createEvent } = useCreateEvent();
   const { mutate: deleteEvent } = useDeleteEvent();
   const { mutate: editEvent } = useEditEvents();
   const { data: events } = useFetchEvents();
@@ -120,17 +120,19 @@ const EventsPage = () => {
   function formatDate(date: string) {
     const dateObj = new Date(date);
 
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1;
-    const year = dateObj.getFullYear();
+    const day = dateObj.getUTCDate();
+    const month = dateObj.getUTCMonth() + 1;
+    const year = dateObj.getUTCFullYear();
 
     const hours =
-      dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours();
+      dateObj.getUTCHours() < 10
+        ? `0${dateObj.getUTCHours()}`
+        : dateObj.getUTCHours();
 
     const minutes =
-      dateObj.getMinutes() < 10
-        ? `0${dateObj.getMinutes()}`
-        : dateObj.getMinutes();
+      dateObj.getUTCMinutes() < 10
+        ? `0${dateObj.getUTCMinutes()}`
+        : dateObj.getUTCMinutes();
 
     return `${day}.${month}.${year}. u ${hours}:${minutes}`;
   }
@@ -190,12 +192,15 @@ const EventsPage = () => {
   async function editEventHandler() {
     const editedEvent = getModalData();
 
+    console.log(editedEvent);
+
     editEvent(editedEvent);
     setEditEventModalIsOpen(false);
     clearModalData();
   }
 
   function editModalData(key: string, value: string | number) {
+    console.log(key, value);
     setModalData({ ...getModalData(), [key]: value });
   }
 
@@ -224,6 +229,12 @@ const EventsPage = () => {
       <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
+      <button
+        onClick={() =>
+          console.log(events![0].startsAt, formatDate(events![0].startsAt))
+        }>
+        cl
+      </button>
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}

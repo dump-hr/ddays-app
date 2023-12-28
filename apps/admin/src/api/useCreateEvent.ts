@@ -8,7 +8,7 @@ type Event = InstanceType<ReturnType<typeof getCreateEventDto>>;
 const createEvent = async (newEvent: Event) =>
   await api.post<Event, never>('/events', newEvent);
 
-export const useCreateEvents = () => {
+export const useCreateEvent = () => {
   const queryClient = useQueryClient();
 
   return useMutation(createEvent, {
