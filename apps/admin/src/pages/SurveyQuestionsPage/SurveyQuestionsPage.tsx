@@ -184,12 +184,16 @@ const SurveyQuestionsPage = () => {
         toggleModal={() => {
           setIsOpenDeleteModal(!isOpenDeleteModal);
         }}>
-        <Button
-          onClick={() => {
-            deleteSurveyQuestion(questionToDeleteId as number);
-          }}>
-          Delete
-        </Button>
+        <div style={{ display: 'flex' }}>
+          <p>Are you sure you want to delete this question?</p>
+          <Button
+            onClick={() => {
+              deleteSurveyQuestion(questionToDeleteId as number);
+              setIsOpenDeleteModal(!isOpenDeleteModal);
+            }}>
+            Delete
+          </Button>
+        </div>
       </Modal>
 
       <Button
