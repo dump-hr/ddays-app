@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from 'react-query';
-import { api } from '..';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '..';
 
 const deleteSurveyQuestion = async (id: number) => {
   const data = await api.delete(`/survey-questions/${id}`);

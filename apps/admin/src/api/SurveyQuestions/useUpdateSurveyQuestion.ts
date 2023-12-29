@@ -1,11 +1,11 @@
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { api } from '..';
 import {
   SurveyQuestion,
   UpdateSurveyQuestionDto,
 } from '../../types/surveyQuestion';
-import toast from 'react-hot-toast';
+import { api } from '..';
 
 const updateSurveyQuestion = async (req: {
   id: number;

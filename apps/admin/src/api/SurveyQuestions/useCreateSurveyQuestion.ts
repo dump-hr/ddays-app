@@ -1,13 +1,19 @@
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
+import {
+  CreateSurveyQuestionDto,
+  SurveyQuestion,
+} from '../../types/surveyQuestion';
 import { api } from '..';
-import { CreateSurveyQuestionDto } from '../../types/surveyQuestion';
-import toast from 'react-hot-toast';
 
 const createSurveyQuestion = async (
   surveyQuestion: CreateSurveyQuestionDto,
 ) => {
-  const data = await api.post(`/survey-questions`, surveyQuestion);
+  const data = await api.post<CreateSurveyQuestionDto, SurveyQuestion>(
+    `/survey-questions`,
+    surveyQuestion,
+  );
 
   return data;
 };

@@ -9,7 +9,6 @@ export const api = axios.create({
 
 type ErrorResponse = AxiosError & {
   response: {
-    message: string;
     data: {
       statusCode: number;
       message: string;

@@ -1,11 +1,11 @@
 import { useId } from 'react';
+import { RefCallBack } from 'react-hook-form';
 
 import c from './SelectInput.module.scss';
-import { RefCallBack } from 'react-hook-form';
 
 type SelectInputProps = {
   options: string[];
-  label?: string;
+  label: string;
   isAllowedEmpty?: boolean;
   innerRef?: RefCallBack;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;

@@ -1,24 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useFetchSurveyQuestions } from '../../api/SurveyQuestions/useFetchSurveyQuestions';
-import Button from '../../components/Button';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
 import {
   Question,
   QuestionType,
   SurveyQuestionInputType,
   SurveyQuestionType,
 } from '@ddays-app/types';
-import InputHandler from '../../components/InputHandler';
+import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+
 import { useCreateSurveyQuestion } from '../../api/SurveyQuestions/useCreateSurveyQuestion';
+import { useDeleteSurveyQuestion } from '../../api/SurveyQuestions/useDeleteSurveyQuestion';
+import { useFetchSurveyQuestions } from '../../api/SurveyQuestions/useFetchSurveyQuestions';
+import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
+import Button from '../../components/Button';
+import InputHandler from '../../components/InputHandler';
+import Modal from '../../components/Modal';
+import Table from '../../components/Table';
 import {
   CreateSurveyQuestionDto,
   SurveyQuestion,
   UpdateSurveyQuestionDto,
 } from '../../types/surveyQuestion';
-import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
-import { useDeleteSurveyQuestion } from '../../api/SurveyQuestions/useDeleteSurveyQuestion';
 
 const headers = [
   'Broj',
@@ -128,11 +129,11 @@ const SurveyQuestionsPage = () => {
   useEffect(() => {
     if (questionToEdit) {
       editSurveyQuestionForm.reset({
-        question: questionToEdit?.question,
-        description: questionToEdit?.description,
-        inputLabel: questionToEdit?.inputLabel,
-        surveyQuestionInputType: questionToEdit?.surveyQuestionInputType,
-        surveyQuestionType: questionToEdit?.surveyQuestionType,
+        question: questionToEdit.question,
+        description: questionToEdit.description,
+        inputLabel: questionToEdit.inputLabel,
+        surveyQuestionInputType: questionToEdit.surveyQuestionInputType,
+        surveyQuestionType: questionToEdit.surveyQuestionType,
       });
     }
   }, [questionToEdit]);

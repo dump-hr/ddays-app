@@ -12,7 +12,7 @@ type TableProps<T> = {
 
 const Table = <T extends object>({
   headers,
-  data,
+  data = [],
   buttonActions = [],
 }: TableProps<T>) => {
   return (
@@ -29,32 +29,31 @@ const Table = <T extends object>({
         </tr>
       </thead>
       <tbody>
-        {!!data &&
-          data.map((row, i) => {
-            return (
-              <tr key={i}>
-                {Object.values(row).map((value, i) => {
+        {data.map((row, i) => {
+          return (
+            <tr key={i}>
+              {Object.values(row).map((value, i) => {
+                return (
+                  <td className={c.td} key={i}>
+                    {value}
+                  </td>
+                );
+              })}
+              <td className={c.buttonActions}>
+                {buttonActions.map((action, i) => {
                   return (
-                    <td className={c.td} key={i}>
-                      {value}
-                    </td>
+                    <Button
+                      variant='secondary'
+                      onClick={() => action.action(row)}
+                      key={i}>
+                      {action.label}
+                    </Button>
                   );
                 })}
-                <td className={c.buttonActions}>
-                  {buttonActions.map((action, i) => {
-                    return (
-                      <Button
-                        variant='secondary'
-                        onClick={() => action.action(row)}
-                        key={i}>
-                        {action.label}
-                      </Button>
-                    );
-                  })}
-                </td>
-              </tr>
-            );
-          })}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
