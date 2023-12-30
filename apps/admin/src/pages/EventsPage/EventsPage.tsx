@@ -60,7 +60,9 @@ const EventsPage = () => {
   const { mutate: createEvent } = useCreateEvent();
   const { mutate: deleteEvent } = useDeleteEvent();
   const { mutate: editEvent } = useEditEvents();
-  const { data: events } = useFetchEvents();
+  const { data: fetchedEvents } = useFetchEvents();
+
+  const [events, setEvents] = useState<Event[] | undefined>(undefined);
 
   const buttonActions = [
     {
@@ -82,8 +84,23 @@ const EventsPage = () => {
   ];
 
   useEffect(() => {
+    if (fetchedEvents) {
+      const modifiedEvents = fetchedEvents.map((event) => {
+        return {
+          ...event,
+          startsAt: TimeHelper.addHours(event.startsAt),
+          endsAt: TimeHelper.addHours(event.endsAt),
+        } as Event;
+      });
+
+      setEvents(modifiedEvents);
+    }
+  }, [fetchedEvents]);
+
+  useEffect(() => {
     if (events) {
       setTableData([]);
+
       events.forEach((event) => {
         const tableRow: TableDataRow = {
           id: event.id,
@@ -165,6 +182,11 @@ const EventsPage = () => {
 
   async function editEventHandler() {
     const editedEvent = getModalData();
+    editedEvent.startsAt = TimeHelper.subtractHours(editedEvent.startsAt);
+
+    editedEvent.endsAt = TimeHelper.subtractHours(editedEvent.endsAt);
+
+    console.log('edited event', editedEvent);
 
     editEvent(editedEvent);
     setEditEventModalIsOpen(false);
@@ -200,7 +222,8 @@ const EventsPage = () => {
       <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
-      <button onClick={() => console.log(events)}>cl</button>
+      <button onClick={() => console.log(events)}>cl1</button>
+      <button onClick={() => console.log(fetchedEvents)}>cl2</button>
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}

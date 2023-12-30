@@ -1,13 +1,10 @@
 class TimeHelper {
   static changeDateIsoFormat(iso8601: string) {
-    if (!iso8601) return '';
-    const newDate = this.addHours(iso8601);
-    return newDate.substring(0, 16);
+    return iso8601.substring(0, 16);
   }
 
   static formatDate(date: string) {
-    const newDate = this.addHours(date);
-    const dateObj = new Date(newDate);
+    const dateObj = new Date(date);
 
     const day = dateObj.getUTCDate();
     const month = dateObj.getUTCMonth() + 1;
@@ -35,6 +32,16 @@ class TimeHelper {
 
     const dateObj = new Date(date);
     dateObj.setHours(dateObj.getHours() + diff);
+
+    return dateObj.toISOString();
+  }
+
+  static subtractHours(date: string) {
+    const DST = this.daylightSavingIsObserved(date);
+    const diff = DST ? 2 : 1;
+
+    const dateObj = new Date(date);
+    dateObj.setHours(dateObj.getHours() - diff);
 
     return dateObj.toISOString();
   }

@@ -250,7 +250,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             )}
             onChange={(e) => {
               console.log(e.target.value);
-              onInputChange('startsAt', e.target.value);
+              onInputChange('startsAt', e.target.value + ':00.000Z');
             }}
           />
         </div>
@@ -263,7 +263,9 @@ const AddEditEventModal: React.FC<ModalProps> = ({
             defaultValue={TimeHelper.changeDateIsoFormat(
               modalData?.endsAt || '',
             )}
-            onChange={(e) => onInputChange('endsAt', e.target.value)}
+            onChange={(e) =>
+              onInputChange('endsAt', e.target.value + ':00.000Z')
+            }
           />
         </div>
         <br />
