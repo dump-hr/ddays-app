@@ -150,6 +150,8 @@ const EventsPage = () => {
       codeId: 1, // TODO: generate code
     };
 
+    console.log('event to create', eventToCreate);
+
     createEvent(eventToCreate);
     clearModalData();
     setAddEventModalIsOpen(false);
@@ -198,6 +200,7 @@ const EventsPage = () => {
       <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
+      <button onClick={() => console.log(events)}>cl</button>
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}

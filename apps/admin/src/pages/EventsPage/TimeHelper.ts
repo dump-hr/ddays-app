@@ -1,36 +1,42 @@
 class TimeHelper {
   static changeDateIsoFormat(iso8601: string) {
-    const date = new Date(iso8601);
-
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    const simplifiedIso = `${year}-${month}-${day}T${hours}:${minutes}`;
-    return simplifiedIso;
-  }
-
-  static addHour(date: string, hours: number = 1) {
-    const dateObj = new Date(date);
-    dateObj.setHours(dateObj.getHours() + hours);
-    return dateObj.toISOString();
+    if (!iso8601) return '';
+    const newDate = this.addHours(iso8601);
+    return newDate.substring(0, 16);
   }
 
   static formatDate(date: string) {
-    const dateObj = new Date(date);
+    const newDate = this.addHours(date);
+    const dateObj = new Date(newDate);
 
     const day = dateObj.getUTCDate();
     const month = dateObj.getUTCMonth() + 1;
     const year = dateObj.getUTCFullYear();
 
-    const hours = (dateObj.getUTCHours() + 1) % 24;
+    const hours = dateObj.getUTCHours();
     const minutes = dateObj.getUTCMinutes();
 
     return `${day}.${month}.${year}. u ${hours
       .toString()
       .padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+
+  static daylightSavingIsObserved(date: string) {
+    const dateObj = new Date(date);
+    const january = new Date(dateObj.getFullYear(), 0, 1).getTimezoneOffset();
+    const july = new Date(dateObj.getFullYear(), 6, 1).getTimezoneOffset();
+
+    return Math.max(january, july) !== dateObj.getTimezoneOffset();
+  }
+
+  static addHours(date: string) {
+    const DST = this.daylightSavingIsObserved(date);
+    const diff = (DST ? 2 : 1) * 2;
+
+    const dateObj = new Date(date);
+    dateObj.setHours(dateObj.getHours() + diff);
+
+    return dateObj.toISOString();
   }
 }
 
