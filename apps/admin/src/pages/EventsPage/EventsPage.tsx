@@ -167,8 +167,6 @@ const EventsPage = () => {
       codeId: 1, // TODO: generate code
     };
 
-    console.log('event to create', eventToCreate);
-
     createEvent(eventToCreate);
     clearModalData();
     setAddEventModalIsOpen(false);
@@ -182,11 +180,6 @@ const EventsPage = () => {
 
   async function editEventHandler() {
     const editedEvent = getModalData();
-    editedEvent.startsAt = TimeHelper.subtractHours(editedEvent.startsAt);
-
-    editedEvent.endsAt = TimeHelper.subtractHours(editedEvent.endsAt);
-
-    console.log('edited event', editedEvent);
 
     editEvent(editedEvent);
     setEditEventModalIsOpen(false);
@@ -204,7 +197,7 @@ const EventsPage = () => {
         toggleModal={() => toggleModal('delete')}>
         <h3 className={c.modalTitle}>Obriši event</h3>
         <p className={c.modalSubtitle}>{getModalData().name}</p>
-        <p>Jesi li siguran da želiš izbrisati ovaj event?</p>
+        <p>Jesi li siguran da želiš obrisati ovaj event?</p>
 
         <Button
           variant='secondary'
@@ -222,8 +215,6 @@ const EventsPage = () => {
       <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
         Dodaj event
       </Button>
-      <button onClick={() => console.log(events)}>cl1</button>
-      <button onClick={() => console.log(fetchedEvents)}>cl2</button>
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}
