@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '.';
@@ -11,6 +12,10 @@ export const useDeleteEvent = () => {
   return useMutation(deleteEvent, {
     onSuccess: () => {
       queryClient.invalidateQueries('events');
+      toast.success('Event uspješno obrisan!');
+    },
+    onError: () => {
+      toast.error('Došlo je do greške!');
     },
   });
 };

@@ -1,4 +1,5 @@
 import { getCreateEventDto } from '@ddays-app/types';
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '.';
@@ -14,6 +15,10 @@ export const useCreateEvent = () => {
   return useMutation(createEvent, {
     onSuccess: () => {
       queryClient.invalidateQueries('events');
+      toast.success('Event uspješno dodan!');
+    },
+    onError: () => {
+      toast.error('Došlo je do greške!');
     },
   });
 };
