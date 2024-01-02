@@ -27,7 +27,7 @@ export const useUpdateNotification = () => {
     {
       onSuccess: () => {
         toast.success('Notification updated');
-        queryClient.invalidateQueries('notification');
+        queryClient.invalidateQueries(['notification']);
       },
       onError: (error: string) => {
         toast.error(error);

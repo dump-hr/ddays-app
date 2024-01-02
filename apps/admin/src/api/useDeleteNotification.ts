@@ -13,7 +13,7 @@ export const useDeleteNotification = () => {
   return useMutation(deleteNotification, {
     onSuccess: () => {
       toast.success('Notification delete');
-      queryClient.invalidateQueries('notification');
+      queryClient.invalidateQueries(['notification']);
     },
     onError: (error: string) => {
       toast.error(error);
