@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS "code" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "company" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"official_email" text NOT NULL,
+	"email" text NOT NULL,
 	"password" text NOT NULL,
 	"sponsor_category" "sponsor_category",
 	"name" text,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS "company" (
 	"landing_image" text,
 	"company_video" text,
 	"code_id" integer NOT NULL,
-	CONSTRAINT "company_official_email_unique" UNIQUE("official_email")
+	CONSTRAINT "company_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "companyInterests" (

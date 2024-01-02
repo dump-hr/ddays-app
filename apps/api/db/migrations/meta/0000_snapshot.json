@@ -1,5 +1,5 @@
 {
-  "id": "8b1e5131-cb35-40e1-b50e-88e842a108ae",
+  "id": "c6f80f58-53a3-4375-a095-82ac2cee00dc",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -194,8 +194,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "official_email": {
-          "name": "official_email",
+        "email": {
+          "name": "email",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -279,11 +279,11 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "company_official_email_unique": {
-          "name": "company_official_email_unique",
+        "company_email_unique": {
+          "name": "company_email_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "official_email"
+            "email"
           ]
         }
       }
