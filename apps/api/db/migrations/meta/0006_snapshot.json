@@ -1,4 +1,5 @@
 {
+  "id": "80249ef2-effb-4fe7-8805-7af54f5b3f23",
   "id": "c57a1af3-b372-4e56-9784-1cc0519b9332",
   "prevId": "c93f3e1a-279a-4f10-b53c-45c144b1b27a",
   "version": "5",
@@ -77,7 +78,8 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "achievementToCode_achievement_id_achievement_id_fk": {
+        "achievementToCode_achievement_id_achievement_id_fk": { Resolved
+
           "name": "achievementToCode_achievement_id_achievement_id_fk",
           "tableFrom": "achievementToCode",
           "tableTo": "achievement",
@@ -194,18 +196,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "official_email": {
-          "name": "official_email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "password": {
-          "name": "password",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "sponsor_category": {
           "name": "sponsor_category",
           "type": "sponsor_category",
@@ -236,24 +226,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "logo_image": {
-          "name": "logo_image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "landing_image": {
-          "name": "landing_image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "company_video": {
-          "name": "company_video",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "code_id": {
           "name": "code_id",
           "type": "integer",
@@ -278,15 +250,64 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "company_official_email_unique": {
-          "name": "company_official_email_unique",
-          "nullsNotDistinct": false,
+      "uniqueConstraints": {}
+    },
+    "companyInterests": {
+      "name": "companyInterests",
+      "schema": "",
+      "columns": {
+        "companyId": {
+          "name": "companyId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interestId": {
+          "name": "interestId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "companyInterests_companyId_company_id_fk": {
+          "name": "companyInterests_companyId_company_id_fk",
+          "tableFrom": "companyInterests",
+          "tableTo": "company",
+          "columnsFrom": [
+            "companyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "companyInterests_interestId_interests_id_fk": {
+          "name": "companyInterests_interestId_interests_id_fk",
+          "tableFrom": "companyInterests",
+          "tableTo": "interests",
+          "columnsFrom": [
+            "interestId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "companyInterests_companyId_interestId_pk": {
+          "name": "companyInterests_companyId_interestId_pk",
           "columns": [
-            "official_email"
+            "companyId",
+            "interestId"
           ]
         }
-      }
+      },
+      "uniqueConstraints": {}
     },
     "event": {
       "name": "event",
@@ -384,6 +405,63 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "eventInterests": {
+      "name": "eventInterests",
+      "schema": "",
+      "columns": {
+        "eventId": {
+          "name": "eventId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interestId": {
+          "name": "interestId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "eventInterests_eventId_event_id_fk": {
+          "name": "eventInterests_eventId_event_id_fk",
+          "tableFrom": "eventInterests",
+          "tableTo": "event",
+          "columnsFrom": [
+            "eventId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "eventInterests_interestId_interests_id_fk": {
+          "name": "eventInterests_interestId_interests_id_fk",
+          "tableFrom": "eventInterests",
+          "tableTo": "interests",
+          "columnsFrom": [
+            "interestId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "eventInterests_eventId_interestId_pk": {
+          "name": "eventInterests_eventId_interestId_pk",
+          "columns": [
+            "eventId",
+            "interestId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "frequentlyAskedQuestion": {
       "name": "frequentlyAskedQuestion",
       "schema": "",
@@ -403,6 +481,34 @@
         "answer": {
           "name": "answer",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "interests": {
+      "name": "interests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "theme": {
+          "name": "theme",
+          "type": "event_theme",
           "primaryKey": false,
           "notNull": true
         }
