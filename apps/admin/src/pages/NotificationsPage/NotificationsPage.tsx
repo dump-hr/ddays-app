@@ -124,7 +124,7 @@ const NotificationsPage = () => {
           .map((n) => ({
             ...n,
             isActive:
-              n.activatedAt.getTime() > new Date().getTime()
+              n.activatedAt?.getTime() > new Date().getTime()
                 ? 'Aktivan'
                 : 'Neaktivan',
           }))}
