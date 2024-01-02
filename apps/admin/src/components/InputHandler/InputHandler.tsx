@@ -1,15 +1,15 @@
 import { Question, QuestionType } from '@ddays-app/types';
-import c from './InputHandler.module.scss';
-
+import dayjs from 'dayjs';
 import {
   Controller,
   ControllerRenderProps,
   FieldValues,
   UseFormReturn,
 } from 'react-hook-form';
+
 import Input from '../Input';
-import dayjs from 'dayjs';
 import SelectInput from '../SelectInput';
+import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
   question: Question;
@@ -63,7 +63,7 @@ const getInputComponent = (
       return (
         <SelectInput
           options={question.options}
-          label={undefined}
+          label={controlProps.name}
           {...controlProps}
         />
       );
