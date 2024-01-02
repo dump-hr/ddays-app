@@ -20,10 +20,28 @@
   background: #f1f1f1;
   padding: 14px 28px;
   border-radius: 3px;
-  max-width: 600px;
+  max-width: 700px;
   min-width: 300px;
+  max-height: 400px;
+  overflow-y: scroll;
 
   .close {
     float: right;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

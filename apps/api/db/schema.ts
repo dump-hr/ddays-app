@@ -88,12 +88,16 @@ export const sponsorCategory = pgEnum('sponsor_category', [
 
 export const company = pgTable('company', {
   id: serial('id').primaryKey().notNull(),
+  email: text('official_email').notNull().unique(), //TODO: Use this for stuff like password reset and email validation
+  password: text('password').notNull(),
   sponsorCategory: sponsorCategory('sponsor_category'),
   name: text('name'),
   description: text('description'),
   websiteUrl: text('website_url'),
   boothLocation: text('booth_location'),
-  //TODO: add logoImage, landingImage ids to schema
+  logoImage: text('logo_image'),
+  landingImage: text('landing_image'),
+  companyVideo: text('company_video'),
   codeId: integer('code_id')
     .notNull()
     .references(() => code.id),
