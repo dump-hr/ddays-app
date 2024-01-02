@@ -13,6 +13,7 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
 
 @Module({
   imports: [
+    AuthModule,
     AchievementModule,
     CompaniesModule,
     EventsModule,

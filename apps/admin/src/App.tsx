@@ -1,8 +1,9 @@
 import './App.scss';
 
+import { InteractionType } from '@azure/msal-browser';
+import { useMsalAuthentication } from '@azure/msal-react';
 import { getCreateEventDto } from '@ddays-app/types';
 import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'wouter';
 
 import Layout from './components/Layout';
@@ -15,14 +16,14 @@ import HomePage from './pages/HomePage';
 import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
 import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
 
-const queryClient = new QueryClient();
-
 const createEventDto = getCreateEventDto();
 console.log(createEventDto);
 
 export const App = () => {
+  useMsalAuthentication(InteractionType.Redirect);
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Layout>
         <Switch>
           <Route path={Path.Home} component={HomePage} />
@@ -38,7 +39,7 @@ export const App = () => {
         </Switch>
       </Layout>
       <Toaster />
-    </QueryClientProvider>
+    </>
   );
 };
 

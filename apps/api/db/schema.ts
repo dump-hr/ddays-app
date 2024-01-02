@@ -1,5 +1,4 @@
 import { relations } from 'drizzle-orm';
-import { int } from 'drizzle-orm/mysql-core';
 import {
   boolean,
   integer,
@@ -11,7 +10,6 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { throwIfEmpty } from 'rxjs';
 
 export const achievement = pgTable('achievement', {
   id: serial('id').primaryKey().notNull(),

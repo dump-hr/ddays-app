@@ -13,7 +13,7 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/authentcatedRequest';
 
-import { SponsorAuthGuard } from '../auth/sponsor/jwt-auth-guard';
+import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
   AddSponsorDescriptionDto,
   AddSponsorLandingImageDto,
