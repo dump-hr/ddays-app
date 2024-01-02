@@ -25,6 +25,10 @@ const navLinks = [
     text: 'Achievements',
   },
   {
+    href: '/notifications',
+    text: 'Notifications',
+  },
+  {
     href: '/faqs',
     text: 'FAQ',
   },

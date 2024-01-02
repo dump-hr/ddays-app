@@ -7,7 +7,7 @@ type CheckboxProps = {
 const Checkbox: React.FC<CheckboxProps> = ({ label, ...handlers }) => {
   return (
     <label className={c.checkboxContainer}>
-      <input type="checkbox" {...handlers} className={c.checkbox} />
+      <input type='checkbox' {...handlers} className={c.checkbox} />
       <span className={c.checkmark}></span>
       {label}
     </label>

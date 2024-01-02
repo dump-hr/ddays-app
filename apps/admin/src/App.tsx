@@ -1,6 +1,7 @@
 import './App.scss';
 
 import { getCreateEventDto } from '@ddays-app/types';
+import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'wouter';
 
@@ -11,8 +12,8 @@ import EventsPage from './pages/EventsPage';
 import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
+import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
 import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
-import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ export const App = () => {
             component={FrequentlyAskedQuestionPage}
           />
           <Route path={Path.SurveyQuestions} component={SurveyQuestionsPage} />
+          <Route path={Path.Notifications} component={NotificationsPage} />
         </Switch>
       </Layout>
       <Toaster />

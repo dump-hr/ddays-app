@@ -16,7 +16,7 @@ export class NotificationService {
       .values({
         title: createNotificationDto.title,
         content: createNotificationDto.content,
-        isActive: false,
+        isActive: createNotificationDto.isActive,
       })
       .returning();
 
