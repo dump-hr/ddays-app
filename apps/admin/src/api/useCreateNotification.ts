@@ -13,7 +13,7 @@ export const useCreateNotification = () => {
   return useMutation(createNotification, {
     onSuccess: () => {
       toast.success('Notification created');
-      queryClient.invalidateQueries('notification');
+      queryClient.invalidateQueries(['notification']);
     },
     onError: (error: string) => {
       toast.error(error);

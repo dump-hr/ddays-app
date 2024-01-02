@@ -20,7 +20,7 @@ export const useCreateFrequentlyAskedQuestion = () => {
 
   return useMutation(createFrequentlyAskedQuestion, {
     onSuccess: () => {
-      queryClient.invalidateQueries('faq');
+      queryClient.invalidateQueries(['faq']);
     },
     onError: () => {
       console.log('Error');
