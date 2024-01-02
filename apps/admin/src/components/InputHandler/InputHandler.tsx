@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 
 import Input from '../Input';
+import SelectInput from '../SelectInput';
 import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
@@ -59,7 +60,13 @@ const getInputComponent = (
     case QuestionType.DateTime:
       return <Input {...controlProps} type='datetime-local' />;
     case QuestionType.Select:
-      return <></>; //TODO: toma
+      return (
+        <SelectInput
+          options={question.options}
+          label={controlProps.name}
+          {...controlProps}
+        />
+      );
     case QuestionType.MultipleSelect:
       return <></>; //TODO: toma
     default:

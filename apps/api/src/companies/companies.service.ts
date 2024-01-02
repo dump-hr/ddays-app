@@ -1,9 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto, UpdateCompanyDto } from './companies.dto';
 import { SponsorCategory } from '@ddays-app/types';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import bcrypt from 'bcrypt';
+import { db } from 'db';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
-import { db } from 'db';
+
+import {
+  AddSponsorDescriptionDto,
+  AddSponsorLandingImageDto,
+  AddSponsorLogoDto,
+  AddSponsorVideoDto,
+  CreateCompanyDto,
+  UpdateCompanyDto,
+} from './companies.dto';
 
 @Injectable()
 export class CompaniesService {
@@ -11,6 +20,8 @@ export class CompaniesService {
     const createdComapny = await db
       .insert(company)
       .values({
+        email: createCompanyDto.email,
+        password: await bcrypt.hash(createCompanyDto.password, 10),
         name: createCompanyDto.name,
         description: createCompanyDto.description,
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
@@ -50,11 +61,52 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
+        email: company.email,
       })
       .from(company)
       .where(eq(company.id, id));
 
     return companyToGet;
+  }
+
+  async getOneByEmail(email: string) {
+    const companyToGet = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        description: company.description,
+        sponsorCategory: company.sponsorCategory,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
+      .from(company)
+      .where(eq(company.email, email));
+
+    return companyToGet;
+  }
+
+  async login(email: string, password: string) {
+    const companyToLogin = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        password: company.password,
+      })
+      .from(company)
+      .where(eq(company.email, email))
+      .limit(1);
+
+    if (!companyToLogin) {
+      throw new NotFoundException('Company not found');
+    }
+
+    const passwordMatch = await bcrypt.compare(
+      password,
+      companyToLogin[0].password,
+    );
+
+    return passwordMatch && companyToLogin[0];
   }
 
   async update(id: number, updateCompanyDto: UpdateCompanyDto) {
@@ -75,11 +127,113 @@ export class CompaniesService {
   }
 
   async remove(id: number) {
-    const deletedCompany = await db
+    const removedCompany = await db
       .delete(company)
       .where(eq(company.id, id))
       .returning();
 
-    return deletedCompany;
+    return removedCompany;
+  }
+
+  async addDescription(
+    id: number,
+    addSponsorDescriptionDto: AddSponsorDescriptionDto,
+  ) {
+    const addedDescription = await db
+      .update(company)
+      .set({
+        description: addSponsorDescriptionDto.description,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedDescription;
+  }
+
+  async addLogo(id: number, addSponsorLogoDto: AddSponsorLogoDto) {
+    const addedLogo = await db
+      .update(company)
+      .set({
+        logoImage: addSponsorLogoDto.imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLogo;
+  }
+
+  async addVideo(id: number, addSponsorVideoDto: AddSponsorVideoDto) {
+    const addedVideo = await db
+      .update(company)
+      .set({
+        companyVideo: addSponsorVideoDto.videoUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedVideo;
+  }
+
+  async addLandingImage(
+    id: number,
+    addSponsorLandingImageDto: AddSponsorLandingImageDto,
+  ) {
+    const addedLandingImage = await db
+      .update(company)
+      .set({
+        landingImage: addSponsorLandingImageDto.imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLandingImage;
+  }
+
+  async removeDescription(id: number) {
+    const removedDescription = await db
+      .update(company)
+      .set({
+        description: null,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedDescription;
+  }
+
+  async removeLogo(id: number) {
+    const removedLogo = await db
+      .update(company)
+      .set({
+        logoImage: null,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedLogo;
+  }
+
+  async removeVideo(id: number) {
+    const removedVideo = await db
+      .update(company)
+      .set({
+        companyVideo: null,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedVideo;
+  }
+
+  async removeLandingImage(id: number) {
+    const removedLandingImage = await db
+      .update(company)
+      .set({
+        landingImage: null,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedLandingImage;
   }
 }

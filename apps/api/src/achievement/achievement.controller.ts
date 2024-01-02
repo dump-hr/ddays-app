@@ -1,5 +1,5 @@
 import { Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { PrinterGuard } from 'src/auth/azure-ad.guard';
+import { PrinterGuard } from 'src/auth/admin.guard';
 
 import { AchievementService } from './achievement.service';
 

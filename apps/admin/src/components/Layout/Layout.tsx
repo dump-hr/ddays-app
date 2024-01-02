@@ -25,6 +25,14 @@ const navLinks = [
     href: '/achievements',
     text: 'Achievements',
   },
+  {
+    href: '/notifications',
+    text: 'Notifications',
+  },
+  {
+    href: '/faqs',
+    text: 'FAQ',
+  },
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

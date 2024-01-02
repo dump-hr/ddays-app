@@ -36,7 +36,11 @@ api.interceptors.request.use(async (config) => {
 
 type ErrorResponse = AxiosError & {
   response: {
-    message: string;
+    data: {
+      statusCode: number;
+      message: string;
+      error: string;
+    };
   };
 };
 
@@ -54,7 +58,7 @@ api.interceptors.response.use(
         await msalInstance.acquireTokenRedirect(silentRequest);
       }
 
-      return Promise.reject(error.response.message);
+      return Promise.reject(error.response.data.message);
     }
 
     return Promise.reject(error.message);
