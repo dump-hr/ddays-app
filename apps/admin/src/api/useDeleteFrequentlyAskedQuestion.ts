@@ -10,7 +10,7 @@ export const useDeleteFrequentlyAskedQuestion = () => {
 
   return useMutation(deleteFrequentlyAskedQuestion, {
     onSuccess: () => {
-      queryClient.invalidateQueries('faq');
+      queryClient.invalidateQueries(['faq']);
     },
   });
 };
