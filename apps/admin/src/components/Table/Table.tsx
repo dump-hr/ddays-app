@@ -1,16 +1,20 @@
 import Button from '../Button';
 import c from './Table.module.scss';
 
-type TableProps = {
+type TableProps<T> = {
   headers: string[];
-  data: object[];
+  data: T[] | undefined;
   buttonActions?: {
     label: string;
-    action: (row: object) => void;
+    action: (row: T) => void;
   }[];
 };
 
-const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
+const Table = <T extends object>({
+  headers,
+  data = [],
+  buttonActions = [],
+}: TableProps<T>) => {
   return (
     <table>
       <thead>
@@ -39,10 +43,9 @@ const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
                 {buttonActions.map((action, i) => {
                   return (
                     <Button
-                      variant="secondary"
+                      variant='secondary'
                       onClick={() => action.action(row)}
-                      key={i}
-                    >
+                      key={i}>
                       {action.label}
                     </Button>
                   );
