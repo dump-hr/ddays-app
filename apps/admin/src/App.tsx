@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import { Path } from './constants/paths';
 import AchievementsPage from './pages/AchievementsPage';
 import EventsPage from './pages/EventsPage';
+import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
 import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
@@ -27,6 +28,10 @@ export const App = () => {
           <Route path={Path.Guest} component={GuestPage} />˝
           <Route path={Path.Events} component={EventsPage} />
           <Route path={Path.Achievements} component={AchievementsPage} />
+          <Route
+            path={Path.FrequentlyAskedQuestions}
+            component={FrequentlyAskedQuestionPage}
+          />
           <Route path={Path.SurveyQuestions} component={SurveyQuestionsPage} />
         </Switch>
       </Layout>
