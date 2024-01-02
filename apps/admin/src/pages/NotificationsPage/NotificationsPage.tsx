@@ -1,5 +1,4 @@
 import { Question, QuestionType } from '@ddays-app/types';
-import { isBefore } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -64,28 +63,6 @@ const NotificationsPage = () => {
 
   const form = useForm<FieldValues>();
 
-  const buttonActions = [
-    {
-      label: 'Uredi',
-      action: (notification: NotificationDto) => {
-        setSelectedNotification(notification);
-        setIsOpenUpdateModal(true);
-      },
-    },
-    {
-      label: 'Obriši',
-      action: ({ id }: NotificationDto) => {
-        deleteNotification(id);
-      },
-    },
-    {
-      label: 'Aktiviraj',
-      action: (row: object) => {
-        console.log('Aktiviraj', row); //todo
-      },
-    },
-  ];
-
   useEffect(() => {
     form.reset({
       title: selectedNotification?.title,
@@ -146,11 +123,35 @@ const NotificationsPage = () => {
           ?.sort((a, b) => a.id - b.id)
           .map((n) => ({
             ...n,
-            isActive: isBefore(n.activatedAt, new Date())
-              ? 'Aktivan'
-              : 'Neaktivan',
+            isActive:
+              n.activatedAt.getTime() > new Date().getTime()
+                ? 'Aktivan'
+                : 'Neaktivan',
           }))}
-        buttonActions={buttonActions}
+        buttonActions={[
+          {
+            label: 'Uredi',
+            action: (notification) => {
+              setSelectedNotification({
+                ...notification,
+                isActive: notification.isActive === 'Aktivan',
+              });
+              setIsOpenUpdateModal(true);
+            },
+          },
+          {
+            label: 'Obriši',
+            action: ({ id }) => {
+              deleteNotification(id);
+            },
+          },
+          {
+            label: 'Aktiviraj',
+            action: (row) => {
+              console.log('Aktiviraj', row); //todo
+            },
+          },
+        ]}
       />
     </div>
   );

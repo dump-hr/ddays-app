@@ -3,7 +3,7 @@ import c from './Table.module.scss';
 
 type TableProps<T> = {
   headers: string[];
-  data: (T | object)[] | undefined;
+  data: T[] | undefined;
   buttonActions?: {
     label: string;
     action: (row: T) => void;
