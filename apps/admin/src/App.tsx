@@ -11,6 +11,8 @@ import EventsPage from './pages/EventsPage';
 import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
+import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
@@ -30,8 +32,10 @@ export const App = () => {
             path={Path.FrequentlyAskedQuestions}
             component={FrequentlyAskedQuestionPage}
           />
+          <Route path={Path.SurveyQuestions} component={SurveyQuestionsPage} />
         </Switch>
       </Layout>
+      <Toaster />
     </QueryClientProvider>
   );
 };
