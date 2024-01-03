@@ -43,6 +43,13 @@
       "when": 1702795862003,
       "tag": "0005_elite_silvermane",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1704309472668,
+      "tag": "0006_new_stature",
+      "breakpoints": true
     }
   ]
 }

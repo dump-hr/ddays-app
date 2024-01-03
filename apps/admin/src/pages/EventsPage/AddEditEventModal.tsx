@@ -1,6 +1,6 @@
 import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
-import toast from 'react-hot-toast';
 
+//import toast from 'react-hot-toast';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -47,8 +47,9 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   modalData,
 }) => {
   function validateForm() {
-    const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
+    //const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
 
+    /*
     if (!data.name) {
       toast.error('Ime mora biti uneseno.');
       return false;
@@ -129,10 +130,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       toast.error('Datum početka ne smije biti veći od datuma kraja.');
       return false;
     }
+    */
 
     return true;
   }
 
+  /*
   function isValidUrl(urlString: string) {
     const urlPattern = new RegExp(
       '^(https?:\\/\\/)?' +
@@ -145,6 +148,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
     );
     return !!urlPattern.test(urlString);
   }
+  */
 
   function submitHandler() {
     if (validateForm()) {
