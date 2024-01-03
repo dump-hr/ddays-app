@@ -28,6 +28,8 @@ const InterestsPage = () => {
     null,
   );
 
+  //this is still work in progress, wil do soon, just waited for approval of other pages
+
   const { data: interests, isLoading } = useFetchInterests();
   const { mutate: deleteInterest } = useDeleteInterest();
   const { mutate: createInterest } = useCreateInterest();
