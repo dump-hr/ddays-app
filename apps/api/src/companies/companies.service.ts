@@ -97,7 +97,7 @@ export class CompaniesService {
       .where(eq(company.email, email))
       .limit(1);
 
-    if (!companyToLogin) {
+    if (!companyToLogin.length) {
       throw new NotFoundException('Company not found');
     }
 

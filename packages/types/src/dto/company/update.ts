@@ -1,9 +1,15 @@
-import { IsEmail, IsEnum, IsNumber, IsString, IsStrongPassword } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsString,
+  IsStrongPassword,
+} from 'class-validator';
 import { SponsorCategory } from 'src/model';
 
 export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
-  
+
   class UpdateCompanyDto {
     @IsString()
     @ApiProperty()
@@ -34,7 +40,7 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     email?: string;
 
     @IsString()
-    @IsStrongPassword()
+    // @IsStrongPassword()
     @ApiProperty()
     password?: string;
   }
