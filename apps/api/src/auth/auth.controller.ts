@@ -13,7 +13,7 @@ export class AuthController {
 
   @Post('login/sponsor')
   async login(@Body() login: SponsorLoginDto) {
-    const accessToken = await this.authService.CompanyPasswordLogin(
+    const accessToken = await this.authService.companyPasswordLogin(
       login.email,
       login.password,
     );
