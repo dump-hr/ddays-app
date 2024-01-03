@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthenticatedRequest } from 'src/auth/authentcatedRequest';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor/jwt-auth-guard';
 import {
@@ -43,7 +43,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/description')
-  async addSponsorDescription(
+  async addDescription(
     @Req() req: AuthenticatedRequest,
     @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
   ) {
@@ -58,7 +58,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/logo')
-  async addSponsorLogo(
+  async addLogo(
     @Req() req: AuthenticatedRequest,
     @Body() addSponsorLogoDto: AddSponsorLogoDto,
   ) {
@@ -73,7 +73,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/video')
-  async addSponsorVideo(
+  async addVideo(
     @Req() req: AuthenticatedRequest,
     @Body() addSponsorVideoDto: AddSponsorVideoDto,
   ) {
@@ -88,7 +88,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/landing-image')
-  async addSponsorLandingImage(
+  async addLandingImage(
     @Body() addSponsorLandingImageDto: AddSponsorLandingImageDto,
     @Req() req: AuthenticatedRequest,
   ) {
@@ -103,7 +103,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/description')
-  async removeSponsorDescription(@Req() req: AuthenticatedRequest) {
+  async removeDescription(@Req() req: AuthenticatedRequest) {
     const removedSponsorDescription =
       await this.companiesService.removeDescription(req.user.id);
 
@@ -113,7 +113,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/logo')
-  async removeSponsorLogo(@Req() req: AuthenticatedRequest) {
+  async removeLogo(@Req() req: AuthenticatedRequest) {
     const removedSponsorLogo = await this.companiesService.removeLogo(
       req.user.id,
     );
@@ -124,7 +124,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/video')
-  async removeSponsorVideo(@Req() req: AuthenticatedRequest) {
+  async removeVideo(@Req() req: AuthenticatedRequest) {
     const removedSponsorVideo = await this.companiesService.removeVideo(
       req.user.id,
     );
@@ -135,7 +135,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/landing-image')
-  async removeSponsorLandingImage(@Req() req: AuthenticatedRequest) {
+  async removeLandingImage(@Req() req: AuthenticatedRequest) {
     const removedSponsorLandingImage =
       await this.companiesService.removeLandingImage(req.user.id);
 

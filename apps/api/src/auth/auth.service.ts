@@ -9,7 +9,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async companyPasswordLogin(email: string, password: string) {
+  async CompanyPasswordLogin(email: string, password: string) {
     if (!email) {
       throw new BadRequestException('email is required');
     }

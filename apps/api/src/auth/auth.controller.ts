@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SponsorLoginDto } from './login.dto';
 import { SponsorAuthGuard } from './sponsor/jwt-auth-guard';
-import { AuthenticatedRequest } from './authentcatedRequest';
+import { AuthenticatedRequest } from './auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -13,7 +13,7 @@ export class AuthController {
 
   @Post('login/sponsor')
   async login(@Body() login: SponsorLoginDto) {
-    const accessToken = await this.authService.companyPasswordLogin(
+    const accessToken = await this.authService.CompanyPasswordLogin(
       login.email,
       login.password,
     );
