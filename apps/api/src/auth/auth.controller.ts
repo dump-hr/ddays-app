@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-import { AuthenticatedRequest } from './authentcatedRequest';
+import { AuthenticatedRequest } from './auth.dto';
 import { SponsorLoginDto } from './sponsor.dto';
 import { SponsorAuthGuard } from './sponsor.guard';
 import { AuthService } from './sponsor.service';

@@ -11,7 +11,7 @@ export class AuthService {
 
   async companyPasswordLogin(email: string, password: string) {
     if (!email) {
-      throw new BadRequestException('email is required');
+      throw new BadRequestException('Email is required');
     }
 
     if (!password) {
