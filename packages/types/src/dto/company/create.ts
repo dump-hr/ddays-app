@@ -1,5 +1,11 @@
-import { IsEnum, IsNumber, IsString } from "class-validator";
-import { SponsorCategory } from "src/model";
+import {
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsString,
+  IsStrongPassword,
+} from 'class-validator';
+import { SponsorCategory } from 'src/model';
 
 export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -27,6 +33,15 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @IsNumber()
     @ApiProperty()
     codeId: number;
+
+    @IsEmail()
+    @ApiProperty()
+    email: string;
+
+    @IsString()
+    // @IsStrongPassword()
+    @ApiProperty()
+    password: string;
   }
-  return CreateCompanyDto
-}
+  return CreateCompanyDto;
+};
