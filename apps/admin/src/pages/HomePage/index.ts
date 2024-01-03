@@ -1,2 +1,2 @@
-import HompePage from './HomePage';
-export default HompePage;
+import HomePage from './HomePage';
+export default HomePage;

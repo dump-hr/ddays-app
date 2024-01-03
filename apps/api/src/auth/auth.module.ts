@@ -5,9 +5,10 @@ import { env } from 'process';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { CompaniesService } from 'src/companies/companies.service';
 
+import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './sponsor/jwt.strategy';
+import { AuthService } from './sponsor.service';
+import { JwtStrategy } from './sponsor.strategy';
 
 export const jwtSecret = env.JWT_SECRET;
 
@@ -21,6 +22,6 @@ export const jwtSecret = env.JWT_SECRET;
     CompaniesModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, CompaniesService, JwtStrategy],
+  providers: [AzureADStrategy, AuthService, CompaniesService, JwtStrategy],
 })
 export class AuthModule {}

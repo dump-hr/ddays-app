@@ -86,7 +86,7 @@ export const sponsorCategory = pgEnum('sponsor_category', [
 
 export const company = pgTable('company', {
   id: serial('id').primaryKey().notNull(),
-  email: text('official_email').notNull().unique(), //TODO: Use this for stuff like password reset and email validation
+  email: text('email').notNull().unique(), //TODO: Use this for stuff like password reset and email validation
   password: text('password').notNull(),
   sponsorCategory: sponsorCategory('sponsor_category'),
   name: text('name'),
@@ -101,11 +101,12 @@ export const company = pgTable('company', {
     .references(() => code.id),
 });
 
-export const companyRelations = relations(company, ({ one }) => ({
+export const companyRelations = relations(company, ({ one, many }) => ({
   codes: one(code, {
     fields: [company.codeId],
     references: [code.id],
   }),
+  interest: many(interest),
 }));
 
 export const eventTheme = pgEnum('event_theme', [
@@ -141,11 +142,12 @@ export const event = pgTable('event', {
   //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
 });
 
-export const eventRelations = relations(event, ({ one }) => ({
+export const eventRelations = relations(event, ({ one, many }) => ({
   codes: one(code, {
     fields: [event.codeId],
     references: [code.id],
   }),
+  interest: many(interest),
 }));
 
 export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
@@ -154,11 +156,73 @@ export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
   answer: text('answer').notNull(),
 });
 
+export const interest = pgTable('interests', {
+  id: serial('id').primaryKey().notNull(),
+  name: text('name').notNull(),
+  theme: eventTheme('theme').notNull(),
+});
+
+export const companyInterests = pgTable(
+  'companyInterests',
+  {
+    companyId: integer('companyId')
+      .notNull()
+      .references(() => company.id),
+    interestId: integer('interestId')
+      .notNull()
+      .references(() => interest.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.companyId, t.interestId] }),
+  }),
+);
+
+export const eventInterests = pgTable(
+  'eventInterests',
+  {
+    eventId: integer('eventId')
+      .notNull()
+      .references(() => event.id),
+    interestId: integer('interestId')
+      .notNull()
+      .references(() => interest.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.eventId, t.interestId] }),
+  }),
+);
+
+export const companyInterestsRelations = relations(
+  companyInterests,
+  ({ one }) => ({
+    company: one(company, {
+      fields: [companyInterests.companyId],
+      references: [company.id],
+    }),
+    interest: one(interest, {
+      fields: [companyInterests.interestId],
+      references: [interest.id],
+    }),
+  }),
+);
+
+export const eventInterestsRelations = relations(eventInterests, ({ one }) => ({
+  company: one(company, {
+    fields: [eventInterests.eventId],
+    references: [company.id],
+  }),
+  interest: one(interest, {
+    fields: [eventInterests.interestId],
+    references: [interest.id],
+  }),
+}));
+
 export const surveyQuestionInputType = pgEnum('surveyQuestionInputType', [
   'input',
   'textarea',
   'rating',
 ]);
+
 export const surveyQuestionType = pgEnum('surveyQuestionType', [
   'workshop',
   'lecture',
@@ -172,4 +236,12 @@ export const surveyQuestion = pgTable('surveyQuestion', {
   inputLabel: text('inputLabel'),
   surveyQuestionInputType: surveyQuestionInputType('inputType').notNull(),
   surveyQuestionType: surveyQuestionType('type').notNull(),
+});
+
+export const notification = pgTable('notification', {
+  id: serial('id').primaryKey().notNull(),
+  title: text('title').notNull(),
+  content: text('description').notNull(),
+  isActive: boolean('is_active').default(false),
+  activatedAt: timestamp('activated_at', { mode: 'string' }),
 });

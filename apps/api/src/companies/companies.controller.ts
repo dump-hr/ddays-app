@@ -13,7 +13,7 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
-import { SponsorAuthGuard } from '../auth/sponsor/jwt-auth-guard';
+import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
   AddSponsorDescriptionDto,
   AddSponsorLandingImageDto,
@@ -141,12 +141,36 @@ export class CompaniesController {
 
     return removedSponsorLandingImage;
   }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Get('/interests')
+  async getMyInterests(@Req() req: AuthenticatedRequest) {
+    const interests = await this.companiesService.getInterests(req.user.id);
+
+    return interests;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/interests/:interestId')
+  async toggleInterest(
+    @Req() req: AuthenticatedRequest,
+    @Param('interestId', ParseIntPipe) interestId: number,
+  ) {
+    const updatedCompany = await this.companiesService.toggleInterest(
+      req.user.id,
+      interestId,
+    );
+
+    return updatedCompany;
+  }
+
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  }
-
+  } //fun fact this returns an array with one element, not sure if that is good behaviour
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -164,5 +188,12 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
+  }
+
+  @Get(':id/interests')
+  async getInterestsForCompany(@Param('id', ParseIntPipe) id: number) {
+    const companies = await this.companiesService.getInterests(id);
+
+    return companies;
   }
 }
