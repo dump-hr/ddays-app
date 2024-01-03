@@ -54,6 +54,7 @@ const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
   const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
   const [editEventModalIsOpen, setEditEventModalIsOpen] = useState(false);
+  const [confirmCloseModalIsOpen, setConfirmCloseModalIsOpen] = useState(false);
 
   const [tableData, setTableData] = useState<TableDataRow[]>([]);
 
@@ -138,7 +139,15 @@ const EventsPage = () => {
   }
 
   function toggleModal(modal: 'add' | 'delete' | 'edit') {
-    if (addEventModalIsOpen || deleteEventModalIsOpen || editEventModalIsOpen) {
+    if (
+      Object.keys(getModalData()).length !== 0 &&
+      (addEventModalIsOpen || editEventModalIsOpen)
+    ) {
+      setConfirmCloseModalIsOpen(true);
+      return;
+    }
+
+    if (deleteEventModalIsOpen) {
       clearModalData();
     }
 
@@ -193,18 +202,56 @@ const EventsPage = () => {
   const DeleteEventModal = () => {
     return (
       <Modal
+        noButton
         isOpen={deleteEventModalIsOpen}
         toggleModal={() => toggleModal('delete')}>
         <h3 className={c.modalTitle}>Obriši event</h3>
         <p className={c.modalSubtitle}>{getModalData().name}</p>
         <p>Jesi li siguran da želiš obrisati ovaj event?</p>
 
-        <Button
-          variant='secondary'
-          onClick={() => deleteEventHandler()}
-          style={{ marginBottom: '20px' }}>
-          Obriši
-        </Button>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Button
+            variant='primary'
+            onClick={() => setDeleteEventModalIsOpen(false)}>
+            Odustani
+          </Button>
+          <Button variant='secondary' onClick={() => deleteEventHandler()}>
+            Obriši
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const ConfirmCloseModal = () => {
+    function handleModalClose(closeAll: boolean) {
+      if (closeAll) {
+        setAddEventModalIsOpen(false);
+        setEditEventModalIsOpen(false);
+        clearModalData();
+      }
+      setConfirmCloseModalIsOpen(false);
+    }
+
+    return (
+      <Modal
+        noButton
+        isOpen={confirmCloseModalIsOpen}
+        toggleModal={() => setConfirmCloseModalIsOpen(false)}>
+        <h3 className={c.modalTitle}>Zatvaranje modala</h3>
+        <p>
+          Jesi li siguran za želiš odustati od unosa podataka?
+          <br /> Podaci neće biti spremljeni.
+        </p>
+
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Button variant='primary' onClick={() => handleModalClose(false)}>
+            Ne
+          </Button>
+          <Button variant='secondary' onClick={() => handleModalClose(true)}>
+            Da
+          </Button>
+        </div>
       </Modal>
     );
   };
@@ -236,6 +283,7 @@ const EventsPage = () => {
       />
 
       <DeleteEventModal />
+      <ConfirmCloseModal />
     </>
   );
 };

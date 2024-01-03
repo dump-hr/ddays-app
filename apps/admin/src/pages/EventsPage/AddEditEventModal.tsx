@@ -153,7 +153,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} toggleModal={toggle}>
+    <Modal isOpen={isOpen} toggleModal={toggle} noButton>
       <h3 className={c.modalTitle}>{title}</h3>
       <div className={c.editModalLayout}>
         <div>
@@ -268,6 +268,9 @@ const AddEditEventModal: React.FC<ModalProps> = ({
         </div>
         <br />
 
+        <Button variant='primary' onClick={() => toggle()}>
+          Odustani
+        </Button>
         <Button variant='secondary' onClick={submitHandler}>
           {actionButtonText}
         </Button>
