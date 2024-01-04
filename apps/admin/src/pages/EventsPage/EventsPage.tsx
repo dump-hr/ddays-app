@@ -68,7 +68,7 @@ const EventsPage = () => {
   const buttonActions = [
     {
       label: 'Uredi',
-      action: (row: object) => {
+      action: (row: TableDataRow) => {
         const data = findEventById((row as Event).id);
         setModalData(data);
         toggleModal('edit');
@@ -76,7 +76,7 @@ const EventsPage = () => {
     },
     {
       label: 'Obriši',
-      action: (row: object) => {
+      action: (row: TableDataRow) => {
         const data = findEventById((row as Event).id);
         setModalData(data);
         toggleModal('delete');
@@ -190,6 +190,8 @@ const EventsPage = () => {
   async function editEventHandler() {
     const editedEvent = getModalData();
 
+    console.log(JSON.stringify(editedEvent));
+
     try {
       editEvent(editedEvent);
     } catch {
@@ -198,10 +200,6 @@ const EventsPage = () => {
 
     setEditEventModalIsOpen(false);
     clearModalData();
-  }
-
-  function editModalData(key: string, value: string | number) {
-    setModalData({ ...getModalData(), [key]: value });
   }
 
   const DeleteEventModal = () => {
@@ -274,7 +272,6 @@ const EventsPage = () => {
         title='Dodaj event'
         actionButtonHandler={createEventHandler}
         actionButtonText='Dodaj Event'
-        onInputChange={editModalData}
       />
 
       <AddEditEventModal
@@ -283,7 +280,6 @@ const EventsPage = () => {
         title='Uredi event'
         actionButtonHandler={editEventHandler}
         actionButtonText='Spremi promjene'
-        onInputChange={editModalData}
         modalData={getModalData()}
       />
 

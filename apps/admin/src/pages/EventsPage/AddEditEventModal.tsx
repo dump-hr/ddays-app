@@ -1,10 +1,16 @@
-import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
+import {
+  EventPlace,
+  EventTheme,
+  EventType,
+  Question,
+  QuestionType,
+} from '@ddays-app/types';
+import { FieldValues, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import Button from '../../components/Button';
-import Input from '../../components/Input';
+import InputHandler from '../../components/InputHandler';
 import Modal from '../../components/Modal';
-import SelectInput from '../../components/SelectInput';
 import c from './ModalStyles.module.scss';
 import TimeHelper from './TimeHelper';
 
@@ -29,7 +35,6 @@ type ModalProps = {
   title: string;
   actionButtonText: string;
   actionButtonHandler: () => void;
-  onInputChange: (key: string, value: string | number) => void;
   modalData?: Event;
 };
 
@@ -43,10 +48,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   title,
   actionButtonText,
   actionButtonHandler,
-  onInputChange,
   modalData,
 }) => {
+  const form = useForm<FieldValues>();
+
   function validateForm() {
+    updateModalData();
     const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
 
     if (!data.name) {
@@ -90,126 +97,128 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   function submitHandler() {
     if (validateForm()) {
       actionButtonHandler();
+      form.reset();
     }
+  }
+
+  const questions: Question[] = [
+    {
+      type: QuestionType.Field,
+      title: 'Ime',
+      id: 'name',
+      defaultValue: modalData?.name || '',
+      rules: { required: 'true' },
+    },
+    {
+      type: QuestionType.Field,
+      title: 'Opis',
+      id: 'description',
+      defaultValue: modalData?.description || '',
+    },
+    {
+      type: QuestionType.Select,
+      title: 'Tip',
+      id: 'eventType',
+      defaultValue: modalData?.eventType || '',
+      options: eventTypes,
+    },
+    {
+      type: QuestionType.Select,
+      title: 'Tema',
+      id: 'eventTheme',
+      defaultValue: modalData?.eventTheme || '',
+      options: themeTypes,
+    },
+    {
+      type: QuestionType.Select,
+      title: 'Mjesto',
+      id: 'eventPlace',
+      defaultValue: modalData?.eventPlace || '',
+      options: placeTypes,
+    },
+    {
+      type: QuestionType.Number,
+      title: 'Najveći broj sudionika',
+      id: 'maxParticipants',
+      defaultValue: modalData?.maxParticipants || '',
+    },
+    {
+      type: QuestionType.Field,
+      title: 'Zahtjevi',
+      id: 'requirements',
+      defaultValue: modalData?.requirements || '',
+    },
+    {
+      type: QuestionType.Field,
+      title: 'Poveznica na video',
+      id: 'footageLink',
+      defaultValue: modalData?.footageLink || '',
+    },
+    {
+      type: QuestionType.DateTime,
+      title: 'Datum početka',
+      id: 'startsAt',
+      defaultValue: TimeHelper.changeDateIsoFormat(modalData?.startsAt || ''),
+      rules: { required: 'true' },
+    },
+    {
+      type: QuestionType.DateTime,
+      title: 'Datum kraja',
+      id: 'endsAt',
+      defaultValue: TimeHelper.changeDateIsoFormat(modalData?.endsAt || ''),
+    },
+  ];
+
+  function updateModalData() {
+    const formValues = form.getValues() as Event;
+    const oldData = JSON.parse(
+      localStorage.getItem('modalData') || '',
+    ) as Event;
+
+    const data = {
+      name: formValues.name,
+      description: formValues.description || null,
+      eventType: formValues.eventType || null,
+      eventTheme: formValues.eventTheme || null,
+      eventPlace: formValues.eventPlace || null,
+      startsAt: formValues.startsAt,
+      endsAt: formValues.endsAt || null,
+      maxParticipants: formValues.maxParticipants || null,
+      requirements: formValues.requirements || null,
+      footageLink: formValues.footageLink || null,
+      codeId: oldData.codeId,
+      id: oldData.id,
+    };
+
+    localStorage.setItem('modalData', JSON.stringify(data));
+  }
+
+  function toggleAndResetData() {
+    toggle();
+    form.reset();
   }
 
   return (
     <Modal isOpen={isOpen} toggleModal={toggle} noButton>
       <h3 className={c.modalTitle}>{title}</h3>
       <div className={c.editModalLayout}>
-        <div>
-          <label htmlFor='name'>Ime</label>
-          <Input
-            id='name'
-            placeholder='Unesi ime'
-            defaultValue={modalData?.name || ''}
-            onChange={(e) => onInputChange('name', e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor='description'>Opis</label>
-          <Input
-            id='description'
-            placeholder='Unesi opis'
-            defaultValue={modalData?.description || ''}
-            onChange={(e) => onInputChange('description', e.target.value)}
-          />
-        </div>
-        <br />
-        <div>
-          <SelectInput
-            id='type'
-            placeholder='Unesi tip'
-            options={eventTypes}
-            defaultValue={modalData?.eventType || ''}
-            onChange={(e) => onInputChange('eventType', e.target.value)}
-            label='Tip'
-            isAllowedEmpty={false}
-          />
-        </div>
-        <div>
-          <SelectInput
-            id='theme'
-            placeholder='Unesi temu'
-            options={themeTypes}
-            defaultValue={modalData?.eventTheme || ''}
-            onChange={(e) => onInputChange('eventTheme', e.target.value)}
-            label='Tema'
-            isAllowedEmpty={false}
-          />
-        </div>
-        <div>
-          <SelectInput
-            id='place'
-            placeholder='Unesi mjesto'
-            options={placeTypes}
-            defaultValue={modalData?.eventPlace || ''}
-            onChange={(e) => onInputChange('eventPlace', e.target.value)}
-            label='Mjesto'
-            isAllowedEmpty={false}
-          />
-        </div>
-        <div>
-          <label htmlFor='maxParticipants'>Najveći broj sudionika</label>
-          <Input
-            id='maxParticipants'
-            type='number'
-            min={0}
-            max={1000}
-            placeholder='Unesi broj'
-            defaultValue={modalData?.maxParticipants || ''}
-            onChange={(e) => onInputChange('maxParticipants', +e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor='requirements'>Zahtjevi</label>
-          <br />
-          <textarea
-            id='requirements'
-            defaultValue={modalData?.requirements || ''}
-            onChange={(e) => onInputChange('requirements', e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor='footageLink'>Poveznica na video</label>
-          <br />
-          <Input
-            id='footageLink'
-            type='text'
-            placeholder='Unesi poveznicu'
-            defaultValue={modalData?.footageLink || ''}
-            onChange={(e) => onInputChange('footageLink', e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor='startsAt'>Datum početka</label>
-          <Input
-            id='startsAt'
-            type='datetime-local'
-            placeholder='Unesi datum početka'
-            defaultValue={TimeHelper.changeDateIsoFormat(
-              modalData?.startsAt || '',
-            )}
-            onChange={(e) => {
-              onInputChange('startsAt', e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor='endsAt'>Datum kraja</label>
-          <Input
-            id='endsAt'
-            type='datetime-local'
-            placeholder='Unesi datum kraja'
-            defaultValue={TimeHelper.changeDateIsoFormat(
-              modalData?.endsAt || '',
-            )}
-            onChange={(e) => onInputChange('endsAt', e.target.value)}
-          />
-        </div>
+        {questions.map((question, i) => {
+          return (
+            <>
+              {i == 2 ? <br /> : null}
+              <div>
+                <InputHandler
+                  question={question}
+                  form={form}
+                  key={question.id}
+                />
+              </div>
+            </>
+          );
+        })}
         <br />
 
-        <Button variant='primary' onClick={() => toggle()}>
+        <Button variant='primary' onClick={() => toggleAndResetData()}>
           Odustani
         </Button>
         <Button variant='secondary' onClick={submitHandler}>
