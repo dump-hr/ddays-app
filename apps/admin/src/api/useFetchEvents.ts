@@ -1,19 +1,9 @@
+import { getCreateEventDto } from '@ddays-app/types';
 import { useQuery } from 'react-query';
 
 import { api } from '.';
 
-type Event = {
-  name: string;
-  description: string;
-  startsAt: string;
-  endsAt: string;
-  maxParticipants: number;
-  requirements: string;
-  footageLink: string;
-  eventType: string;
-  eventTheme: string;
-  eventPlace: string;
-  codeId: number;
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
   id: number;
 };
 
