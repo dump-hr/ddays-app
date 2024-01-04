@@ -32,11 +32,6 @@ export const getUpdateEventDto = (ApiPropertySwagger?: any) => {
     @ApiProperty({ enum: EventTheme })
     eventTheme: EventTheme;
 
-    @IsOptional()
-    @IsEnum(EventPlace)
-    @ApiProperty({ enum: EventPlace })
-    eventPlace: EventPlace;
-
     @IsDateString()
     @ApiProperty()
     startsAt: string;

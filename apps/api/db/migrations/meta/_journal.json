@@ -22,6 +22,13 @@
       "when": 1704311626011,
       "tag": "0007_boring_harrier",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1704368373614,
+      "tag": "0008_daily_maggott",
+      "breakpoints": true
     }
   ]
 }

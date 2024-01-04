@@ -2,10 +2,10 @@ import {
   EventPlace,
   EventTheme,
   EventType,
+  getCreateEventDto,
   Question,
   QuestionType,
 } from '@ddays-app/types';
-import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -15,19 +15,8 @@ import Modal from '../../components/Modal';
 import c from './ModalStyles.module.scss';
 import TimeHelper from './TimeHelper';
 
-type Event = {
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
   id: number;
-  name: string;
-  description: string;
-  eventType: EventType;
-  eventTheme: EventTheme;
-  eventPlace: EventPlace;
-  startsAt: string;
-  endsAt: string;
-  maxParticipants: number;
-  requirements: string;
-  footageLink: string;
-  codeId: number;
 };
 
 type ModalProps = {
@@ -41,7 +30,6 @@ type ModalProps = {
 
 const eventTypes: string[] = Object.values(EventType);
 const themeTypes: string[] = Object.values(EventTheme);
-const placeTypes: string[] = Object.values(EventPlace);
 
 const AddEditEventModal: React.FC<ModalProps> = ({
   isOpen,
@@ -131,13 +119,6 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       options: themeTypes,
     },
     {
-      type: QuestionType.Select,
-      title: 'Mjesto',
-      id: 'eventPlace',
-      defaultValue: modalData?.eventPlace || '',
-      options: placeTypes,
-    },
-    {
       type: QuestionType.Number,
       title: 'Najveći broj sudionika',
       id: 'maxParticipants',
@@ -181,7 +162,6 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       description: formValues.description || null,
       eventType: formValues.eventType || null,
       eventTheme: formValues.eventTheme || null,
-      eventPlace: formValues.eventPlace || null,
       startsAt: formValues.startsAt,
       endsAt: formValues.endsAt || null,
       maxParticipants: formValues.maxParticipants || null,

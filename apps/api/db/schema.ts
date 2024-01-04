@@ -124,15 +124,12 @@ export const eventType = pgEnum('event_type', [
   'other',
 ]);
 
-export const eventPlace = pgEnum('event_place', ['online', 'inPerson']);
-
 export const event = pgTable('event', {
   id: serial('id').primaryKey().notNull(),
   name: text('name').notNull(),
   description: text('description'),
   eventType: eventType('event_type'),
   eventTheme: eventTheme('event_theme'),
-  eventPlace: eventPlace('event_place'),
   startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
   endsAt: timestamp('ends_at', { mode: 'string' }),
   requirements: text('requirements'),

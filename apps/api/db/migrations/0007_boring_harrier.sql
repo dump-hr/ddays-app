@@ -26,11 +26,6 @@ CREATE TABLE IF NOT EXISTS "notification" (
 --> statement-breakpoint
 ALTER TABLE "event" DROP CONSTRAINT "event_code_id_code_id_fk";
 --> statement-breakpoint
-ALTER TABLE "company" ADD COLUMN "email" text NOT NULL;--> statement-breakpoint
-ALTER TABLE "company" ADD COLUMN "password" text NOT NULL;--> statement-breakpoint
-ALTER TABLE "company" ADD COLUMN "logo_image" text;--> statement-breakpoint
-ALTER TABLE "company" ADD COLUMN "landing_image" text;--> statement-breakpoint
-ALTER TABLE "company" ADD COLUMN "company_video" text;--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_companyId_company_id_fk" FOREIGN KEY ("companyId") REFERENCES "company"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
@@ -55,4 +50,3 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
-ALTER TABLE "company" ADD CONSTRAINT "company_email_unique" UNIQUE("email");

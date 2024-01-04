@@ -1,4 +1,4 @@
-import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
+import { getCreateEventDto } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 
 import { useCreateEvent } from '../../api/useCreateEvent';
@@ -18,7 +18,6 @@ const headers = [
   'Opis',
   'Tip',
   'Tema',
-  'Mjesto',
   'Početak',
   'Kraj',
   'Akcije',
@@ -30,24 +29,12 @@ type TableDataRow = {
   description: string;
   eventType: string;
   eventTheme: string;
-  eventPlace: string;
   startsAt: string;
   endsAt: string;
 };
 
-type Event = {
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
   id: number;
-  name: string;
-  description: string;
-  eventType: EventType;
-  eventTheme: EventTheme;
-  eventPlace: EventPlace;
-  startsAt: string;
-  endsAt: string;
-  maxParticipants: number;
-  requirements: string;
-  footageLink: string;
-  codeId: number;
 };
 
 const EventsPage = () => {
@@ -109,7 +96,6 @@ const EventsPage = () => {
           description: event.description,
           eventType: event.eventType,
           eventTheme: event.eventTheme,
-          eventPlace: event.eventPlace,
           startsAt: TimeHelper.formatDate(event.startsAt),
           endsAt: event.endsAt ? TimeHelper.formatDate(event.endsAt) : '',
         };
