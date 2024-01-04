@@ -111,7 +111,7 @@ const EventsPage = () => {
           eventTheme: event.eventTheme,
           eventPlace: event.eventPlace,
           startsAt: TimeHelper.formatDate(event.startsAt),
-          endsAt: TimeHelper.formatDate(event.endsAt),
+          endsAt: event.endsAt ? TimeHelper.formatDate(event.endsAt) : '',
         };
         setTableData((prevData) => [...prevData, tableRow]);
       });

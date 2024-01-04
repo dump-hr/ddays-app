@@ -35,7 +35,10 @@ class TimeHelper {
     return dateObj >= startDst && dateObj < endDst;
   }
 
-  static addHours(date: string) {
+  // Remove when time is fixed
+  static addHours(date: string | null) {
+    if (!date) return null;
+
     const dateObj = new Date(date);
 
     const DST = this.daylightSavingIsObserved(date, dateObj.getFullYear());
