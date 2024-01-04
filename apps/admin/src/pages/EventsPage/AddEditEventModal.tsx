@@ -1,5 +1,4 @@
 import {
-  EventPlace,
   EventTheme,
   EventType,
   getCreateEventDto,

@@ -1,7 +1,7 @@
 import { PublicClientApplication } from '@azure/msal-browser';
 import axios, { AxiosError } from 'axios';
 
-import { msalConfig } from '../configs/authConfig';
+import { msalConfig } from '../../../admin/src/configs/authConfig';
 
 export const api = axios.create({
   baseURL: '/api',
