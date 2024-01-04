@@ -5,6 +5,7 @@ import {
   Question,
   QuestionType,
 } from '@ddays-app/types';
+import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -205,16 +206,9 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       <div className={c.editModalLayout}>
         {questions.map((question, i) => {
           return (
-            <>
-              {i == 2 ? <br /> : null}
-              <div>
-                <InputHandler
-                  question={question}
-                  form={form}
-                  key={question.id}
-                />
-              </div>
-            </>
+            <div key={question.id}>
+              <InputHandler question={question} form={form} key={i} />
+            </div>
           );
         })}
         <br />

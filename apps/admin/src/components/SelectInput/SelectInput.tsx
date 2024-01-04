@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { RefCallBack } from 'react-hook-form';
 
 import c from './SelectInput.module.scss';
@@ -16,16 +17,14 @@ const SelectInput: React.FC<SelectInputProps> = ({
   innerRef,
   ...handlers
 }) => {
+  const id = useId();
+
   return (
     <>
-      <label htmlFor={handlers.id} className={c.selectLabel}>
+      <label htmlFor={id} className={c.selectLabel}>
         {label}
       </label>
-      <select
-        ref={innerRef}
-        id={handlers.id}
-        className={c.selectInput}
-        {...handlers}>
+      <select ref={innerRef} id={id} className={c.selectInput} {...handlers}>
         <option value='' disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
           -
         </option>
