@@ -194,6 +194,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   }
 
   function toggleAndResetData() {
+    updateModalData();
     toggle();
     form.reset();
   }

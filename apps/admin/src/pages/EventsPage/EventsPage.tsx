@@ -139,10 +139,13 @@ const EventsPage = () => {
   }
 
   function toggleModal(modal: 'add' | 'delete' | 'edit') {
-    if (
-      Object.keys(getModalData()).length !== 0 &&
-      (addEventModalIsOpen || editEventModalIsOpen)
-    ) {
+    const filteredProps = Object.entries(getModalData()).filter(
+      ([, value]) => value !== null && value !== '',
+    );
+
+    const modalIsEmpty = filteredProps.length === 0;
+
+    if (!modalIsEmpty && (addEventModalIsOpen || editEventModalIsOpen)) {
       setConfirmCloseModalIsOpen(true);
       return;
     }
@@ -189,8 +192,6 @@ const EventsPage = () => {
 
   async function editEventHandler() {
     const editedEvent = getModalData();
-
-    console.log(JSON.stringify(editedEvent));
 
     try {
       editEvent(editedEvent);
