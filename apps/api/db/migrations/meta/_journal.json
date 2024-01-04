@@ -15,6 +15,13 @@
       "when": 1704309472668,
       "tag": "0006_new_stature",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1704311626011,
+      "tag": "0007_boring_harrier",
+      "breakpoints": true
     }
   ]
 }

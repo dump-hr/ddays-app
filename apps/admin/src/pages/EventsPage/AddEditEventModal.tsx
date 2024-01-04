@@ -1,6 +1,6 @@
 import { EventPlace, EventTheme, EventType } from '@ddays-app/types';
+import toast from 'react-hot-toast';
 
-//import toast from 'react-hot-toast';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -47,72 +47,15 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   modalData,
 }) => {
   function validateForm() {
-    //const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
+    const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
 
-    /*
     if (!data.name) {
       toast.error('Ime mora biti uneseno.');
       return false;
-    } else if (data.name.length < 3) {
-      toast.error('Ime mora imati barem 3 znaka.');
-      return false;
-    } else if (data.name.length > 50) {
-      toast.error('Ime ne smije imati više od 50 znakova.');
-      return false;
     }
 
-    if (!data.description) {
-      toast.error('Opis mora biti unesen.');
-      return false;
-    } else if (data.description.length < 5) {
-      toast.error('Opis mora imati barem 5 znakova.');
-      return false;
-    } else if (data.description.length > 50) {
-      toast.error('Opis ne smije imati više od 50 znakova.');
-      return false;
-    }
-
-    if (!data.eventType) {
-      toast.error('Tip mora biti unesen.');
-      return false;
-    }
-
-    if (!data.eventTheme) {
-      toast.error('Tema mora biti unesena.');
-      return false;
-    }
-
-    if (!data.eventPlace) {
-      toast.error('Mjesto mora biti uneseno.');
-      return false;
-    }
-
-    if (!data.maxParticipants) {
-      toast.error('Najveći broj sudionika mora biti unesen.');
-      return false;
-    } else if (data.maxParticipants < 0) {
-      toast.error('Najveći broj sudionika ne smije biti manji od 0.');
-      return false;
-    } else if (data.maxParticipants > 1000) {
-      toast.error('Najveći broj sudionika ne smije biti veći od 1000.');
-      return false;
-    }
-
-    if (!data.requirements) {
-      localStorage.setItem(
-        'modalData',
-        JSON.stringify({ ...data, requirements: 'Nema' }),
-      );
-    } else if (data.requirements.length > 500) {
-      toast.error('Zahtjevi ne smiju imati više od 500 znakova.');
-      return false;
-    }
-
-    if (!data.footageLink) {
-      toast.error('Poveznica na video mora biti unesena.');
-      return false;
-    } else if (!isValidUrl(data.footageLink)) {
-      toast.error('Poveznica nije ispravnog formata.');
+    if (data.footageLink && !isValidUrl(data.footageLink)) {
+      toast.error('Poveznica nije u ispravnom formatu.');
       return false;
     }
 
@@ -121,21 +64,16 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       return false;
     }
 
-    if (!data.endsAt) {
-      toast.error('Datum kraja mora biti unesen.');
-      return false;
+    if (data.endsAt) {
+      if (new Date(data.startsAt) > new Date(data.endsAt)) {
+        toast.error('Datum početka ne smije biti veći od datuma kraja.');
+        return false;
+      }
     }
-
-    if (new Date(data.startsAt) > new Date(data.endsAt)) {
-      toast.error('Datum početka ne smije biti veći od datuma kraja.');
-      return false;
-    }
-    */
 
     return true;
   }
 
-  /*
   function isValidUrl(urlString: string) {
     const urlPattern = new RegExp(
       '^(https?:\\/\\/)?' +
@@ -148,7 +86,6 @@ const AddEditEventModal: React.FC<ModalProps> = ({
     );
     return !!urlPattern.test(urlString);
   }
-  */
 
   function submitHandler() {
     if (validateForm()) {

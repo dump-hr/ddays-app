@@ -138,7 +138,7 @@ export const event = pgTable('event', {
   requirements: text('requirements'),
   footageLink: text('footage_link'),
   maxParticipants: integer('max_participants'),
-  codeId: integer('code_id').references(() => code.id),
+  codeId: integer('code_id'),
   //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
 });
 

@@ -1,0 +1,58 @@
+CREATE TABLE IF NOT EXISTS "companyInterests" (
+	"companyId" integer NOT NULL,
+	"interestId" integer NOT NULL,
+	CONSTRAINT "companyInterests_companyId_interestId_pk" PRIMARY KEY("companyId","interestId")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "eventInterests" (
+	"eventId" integer NOT NULL,
+	"interestId" integer NOT NULL,
+	CONSTRAINT "eventInterests_eventId_interestId_pk" PRIMARY KEY("eventId","interestId")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "interests" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"theme" "event_theme" NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "notification" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" text NOT NULL,
+	"description" text NOT NULL,
+	"is_active" boolean DEFAULT false,
+	"activated_at" timestamp
+);
+--> statement-breakpoint
+ALTER TABLE "event" DROP CONSTRAINT "event_code_id_code_id_fk";
+--> statement-breakpoint
+ALTER TABLE "company" ADD COLUMN "email" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "company" ADD COLUMN "password" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "company" ADD COLUMN "logo_image" text;--> statement-breakpoint
+ALTER TABLE "company" ADD COLUMN "landing_image" text;--> statement-breakpoint
+ALTER TABLE "company" ADD COLUMN "company_video" text;--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_companyId_company_id_fk" FOREIGN KEY ("companyId") REFERENCES "company"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_interestId_interests_id_fk" FOREIGN KEY ("interestId") REFERENCES "interests"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "eventInterests" ADD CONSTRAINT "eventInterests_eventId_event_id_fk" FOREIGN KEY ("eventId") REFERENCES "event"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "eventInterests" ADD CONSTRAINT "eventInterests_interestId_interests_id_fk" FOREIGN KEY ("interestId") REFERENCES "interests"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+ALTER TABLE "company" ADD CONSTRAINT "company_email_unique" UNIQUE("email");

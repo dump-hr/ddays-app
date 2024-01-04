@@ -169,14 +169,14 @@ const EventsPage = () => {
   }
 
   function createEventHandler() {
-    const event = getModalData();
+    const eventToCreate = getModalData();
 
-    const eventToCreate = {
-      ...event,
-      codeId: 1, // TODO: generate code
-    };
+    try {
+      createEvent(eventToCreate);
+    } catch {
+      return;
+    }
 
-    createEvent(eventToCreate);
     clearModalData();
     setAddEventModalIsOpen(false);
   }
@@ -190,7 +190,12 @@ const EventsPage = () => {
   async function editEventHandler() {
     const editedEvent = getModalData();
 
-    editEvent(editedEvent);
+    try {
+      editEvent(editedEvent);
+    } catch {
+      return;
+    }
+
     setEditEventModalIsOpen(false);
     clearModalData();
   }
