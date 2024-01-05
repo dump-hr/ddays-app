@@ -101,10 +101,7 @@ export class CompaniesService {
       throw new NotFoundException('Company not found');
     }
 
-    const passwordMatch = await bcrypt.compare(
-      password,
-      companyToLogin[0].password,
-    );
+    const passwordMatch = password === companyToLogin[0].password;
 
     return passwordMatch && companyToLogin[0];
   }

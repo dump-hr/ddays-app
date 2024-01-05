@@ -5,8 +5,9 @@ type TableProps<T> = {
   headers: string[];
   data: T[] | undefined;
   buttonActions?: {
-    label: string;
+    label: string | ((row: T) => string);
     action: (row: T) => void;
+    isDisabled?: (row: T) => boolean;
   }[];
 };
 
@@ -45,9 +46,12 @@ const Table = <T extends object>({
                     return (
                       <Button
                         variant='secondary'
-                        onClick={() => action.action(row as T)}
+                        disabled={action.isDisabled?.(row)}
+                        onClick={() => action.action(row)}
                         key={i}>
-                        {action.label}
+                        {typeof action.label === 'function'
+                          ? action.label(row)
+                          : action.label}
                       </Button>
                     );
                   })}
