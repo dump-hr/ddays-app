@@ -92,7 +92,8 @@ const LoginForm = () => {
         />
         <button
           onClick={handleVisibilityIconClick}
-          className={c.visibilityButton}>
+          className={c.visibilityButton}
+          type='button'>
           <svg width={128} height={32}>
             <use href={`/password-visibility.svg#${visibilityIcon}`} />
           </svg>
