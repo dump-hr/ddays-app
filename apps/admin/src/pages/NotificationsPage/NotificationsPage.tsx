@@ -2,6 +2,7 @@ import { Question, QuestionType } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+import { useActivateNotification } from '../../api/useActivateNotification';
 import { useCreateNotification } from '../../api/useCreateNotification';
 import { useDeleteNotification } from '../../api/useDeleteNotification';
 import { useFetchNotifications } from '../../api/useFetchNotifications';
@@ -16,14 +17,7 @@ import {
   UpdateNotificationDto,
 } from '../../types/notification';
 
-const headers = [
-  'Broj',
-  'Naslov',
-  'Content',
-  'Aktiviran prije',
-  'Status',
-  'Akcije',
-];
+const headers = ['Broj', 'Naslov', 'Content', 'Aktivan od', 'Akcije'];
 
 const questions: Question[] = [
   {
@@ -42,12 +36,6 @@ const questions: Question[] = [
       required: 'Obavezno!',
     },
   },
-  {
-    type: QuestionType.Checkbox,
-    title: 'Aktivan',
-    id: 'isActive',
-    defaultValue: false,
-  },
 ];
 
 const NotificationsPage = () => {
@@ -59,6 +47,7 @@ const NotificationsPage = () => {
   const { data: notifications, isLoading } = useFetchNotifications();
   const { mutate: createNotification } = useCreateNotification();
   const { mutate: updateNotification } = useUpdateNotification();
+  const { mutate: activateNotification } = useActivateNotification();
   const { mutate: deleteNotification } = useDeleteNotification();
 
   const form = useForm<FieldValues>();
@@ -67,7 +56,6 @@ const NotificationsPage = () => {
     form.reset({
       title: selectedNotification?.title,
       content: selectedNotification?.content,
-      isActive: selectedNotification?.isActive,
     });
   }, [form, selectedNotification, isOpenUpdate]);
 
@@ -111,6 +99,7 @@ const NotificationsPage = () => {
               id: selectedNotification.id,
               notification: notification as UpdateNotificationDto,
             });
+
             setIsOpenUpdateModal(false);
           })}>
           Save
@@ -123,19 +112,13 @@ const NotificationsPage = () => {
           ?.sort((a, b) => a.id - b.id)
           .map((n) => ({
             ...n,
-            isActive:
-              n.activatedAt?.getTime() > new Date().getTime()
-                ? 'Aktivan'
-                : 'Neaktivan',
+            activatedAt: n.activatedAt,
           }))}
         buttonActions={[
           {
             label: 'Uredi',
             action: (notification) => {
-              setSelectedNotification({
-                ...notification,
-                isActive: notification.isActive === 'Aktivan',
-              });
+              setSelectedNotification(notification);
               setIsOpenUpdateModal(true);
             },
           },
@@ -146,10 +129,11 @@ const NotificationsPage = () => {
             },
           },
           {
-            label: 'Aktiviraj',
-            action: (row) => {
-              console.log('Aktiviraj', row); //todo
+            label: ({ activatedAt }) => (activatedAt ? 'Aktivan' : 'Aktiviraj'),
+            action: ({ id }) => {
+              activateNotification(id);
             },
+            isDisabled: ({ activatedAt }) => !!activatedAt,
           },
         ]}
       />

@@ -16,7 +16,6 @@ export class NotificationService {
       .values({
         title: createNotificationDto.title,
         content: createNotificationDto.content,
-        isActive: createNotificationDto.isActive,
       })
       .returning();
 
@@ -29,7 +28,7 @@ export class NotificationService {
         id: notification.id,
         title: notification.title,
         content: notification.content,
-        isActive: notification.isActive,
+        activatedAt: notification.activatedAt,
       })
       .from(notification)
       .orderBy(desc(notification.activatedAt));
@@ -43,7 +42,7 @@ export class NotificationService {
         id: notification.id,
         title: notification.title,
         content: notification.content,
-        isActive: notification.isActive,
+        activatedAt: notification.activatedAt,
       })
       .from(notification)
       .where(eq(notification.isActive, true))
@@ -58,7 +57,6 @@ export class NotificationService {
       .set({
         title: updatedNotificationDto.title,
         content: updatedNotificationDto.content,
-        isActive: updatedNotificationDto.isActive,
       })
       .where(eq(notification.id, id))
       .returning();
@@ -70,8 +68,7 @@ export class NotificationService {
     const activatedNotification = await db
       .update(notification)
       .set({
-        isActive: true,
-        activatedAt: Date.now().toString(),
+        activatedAt: new Date().toString(),
       })
       .where(eq(notification.id, id))
       .returning();

@@ -15,10 +15,6 @@ export const getNotificationDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     content: string;
 
-    @IsBoolean()
-    @ApiProperty()
-    isActive: boolean;
-
     @IsDate()
     @ApiProperty()
     activatedAt: Date;
