@@ -10,10 +10,6 @@ export const getCreateNotificationDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     content: string;
-
-    @IsBoolean()
-    @ApiProperty()
-    isActive: boolean;
   }
 
   return CreateNotificationDto;
