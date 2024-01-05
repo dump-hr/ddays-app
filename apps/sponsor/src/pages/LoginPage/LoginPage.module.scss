@@ -1,0 +1,42 @@
+.background {
+  background-color: #000000;
+  height: 100vh;
+}
+
+.backgroundImg {
+  background: url('../../../public/login-background.png');
+  background-repeat: no-repeat;
+  width: 660px;
+  height: 300px;
+}
+
+.formWrapper {
+  max-width: 1200px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+
+  position: absolute;
+  background-color: transparent;
+}
+
+.loginTitle {
+  color: #FFF;
+  text-align: center;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+  margin-bottom: 64px
+}
