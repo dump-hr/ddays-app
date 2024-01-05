@@ -4,6 +4,7 @@ import { useLocation } from 'wouter';
 
 import { useLogin } from '../../api/useLogin';
 import { Path } from '../../constants/paths';
+import c from './LoginForm.module.scss';
 
 const LoginForm = () => {
   const [, navigate] = useLocation();
@@ -44,17 +45,26 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={c.form} onSubmit={handleSubmit}>
       <input
         type='email'
         name='email'
-        placeholder='Email'
+        placeholder='Ime tvrtke'
         value={email}
         onChange={handleEmailChange}
+        className={c.formInput}
       />
-      <input type='password' name='password' placeholder='Password' />
+      <input
+        type='password'
+        name='password'
+        placeholder='Lozinka'
+        className={c.formInput}
+      />
+      <p className={c.formParagraph}>
+        Unesite informacije koje ste dobili putem maila
+      </p>
       <button type='submit' disabled={!isValid}>
-        Login
+        Nastavi
       </button>
     </form>
   );
