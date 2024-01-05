@@ -1,0 +1,3 @@
+creation_rules:
+  - kms: arn:aws:kms:us-east-1:763640948377:alias/ddays-app
+    aws_profile: ddays-app
