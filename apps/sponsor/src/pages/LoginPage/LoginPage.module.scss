@@ -24,11 +24,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 400px;
+  width: 460px;
   height: 400px;
 
   position: absolute;
   background-color: transparent;
+
+  top: 90px;
 }
 
 .loginTitle {
@@ -38,5 +40,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: 27px;
-  margin-bottom: 64px
+  margin-bottom: 64px;
+  margin-top: 0px;
+}
+
+.logoSvg {
+  margin-bottom: 66px;
 }

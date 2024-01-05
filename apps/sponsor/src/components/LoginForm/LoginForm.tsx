@@ -63,7 +63,7 @@ const LoginForm = () => {
       <p className={c.formParagraph}>
         Unesite informacije koje ste dobili putem maila
       </p>
-      <button type='submit' disabled={!isValid}>
+      <button type='submit' disabled={!isValid} className={c.formButton}>
         Nastavi
       </button>
     </form>

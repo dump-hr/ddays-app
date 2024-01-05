@@ -7,9 +7,11 @@ const LoginPage = () => {
       <div className={c.formWrapper}>
         <div className={c.backgroundImg}></div>
         <div className={c.formContainer}>
-          <svg>
-            <use href={`/logo.svg#logo`} />
-          </svg>
+          <div className={c.logoSvg}>
+            <svg width={128} height={32}>
+              <use href={`/logo.svg#logo`} />
+            </svg>
+          </div>
           <h1 className={c.loginTitle}>Prijava u Partners App</h1>
           <LoginForm />
         </div>
