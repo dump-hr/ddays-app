@@ -44,6 +44,34 @@ const LoginForm = () => {
     });
   };
 
+  const [visibilityIcon, setVisibilityIcon] = useState<
+    'none' | 'visible' | 'hidden'
+  >('none');
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value.length) {
+      setVisibilityIcon('none');
+      return;
+    }
+
+    if (visibilityIcon === 'none') {
+      setVisibilityIcon('hidden');
+      return;
+    }
+  };
+
+  const handleVisibilityIconClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+
+    if (visibilityIcon === 'hidden') {
+      setVisibilityIcon('visible');
+    } else {
+      setVisibilityIcon('hidden');
+    }
+  };
+
   return (
     <form className={c.form} onSubmit={handleSubmit}>
       <input
@@ -54,12 +82,22 @@ const LoginForm = () => {
         onChange={handleEmailChange}
         className={c.formInput}
       />
-      <input
-        type='password'
-        name='password'
-        placeholder='Lozinka'
-        className={c.formInput}
-      />
+      <div className={c.passwordInputContainer}>
+        <input
+          type={visibilityIcon === 'visible' ? 'text' : 'password'}
+          name='password'
+          placeholder='Lozinka'
+          className={c.formInput}
+          onChange={handlePasswordChange}
+        />
+        <button
+          onClick={handleVisibilityIconClick}
+          className={c.visibilityButton}>
+          <svg width={128} height={32}>
+            <use href={`/password-visibility.svg#${visibilityIcon}`} />
+          </svg>
+        </button>
+      </div>
       <p className={c.formParagraph}>
         Unesite informacije koje ste dobili putem maila
       </p>

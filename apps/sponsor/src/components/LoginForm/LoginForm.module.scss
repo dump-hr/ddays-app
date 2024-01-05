@@ -53,3 +53,20 @@
 
   cursor: pointer;
 }
+
+.passwordInputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.visibilityButton {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  bottom: 0;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
