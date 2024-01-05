@@ -59,6 +59,10 @@ const NotificationsPage = () => {
     });
   }, [form, selectedNotification, isOpenUpdate]);
 
+  useEffect(() => {
+    form.reset();
+  }, [form, form.formState.isSubmitSuccessful]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
