@@ -5,11 +5,6 @@ import Input from '../../components/Input';
 import MultipleSelectInput from '../../components/MultipleSelectInput';
 import SelectInput from '../../components/SelectInput';
 
-type Option = {
-  label: string;
-  value: string;
-};
-
 const options = [
   { label: 'Option 1', value: 'option-1' },
   { label: 'Option 2', value: 'option-2' },
@@ -47,17 +42,16 @@ const options = [
 ];
 
 const GuestPage = () => {
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return (
     <div>
       <h1>Guest Page</h1>
-      <SelectInput label='Uloga' options={['Guest', 'User']} />
+      <SelectInput options={['Guest', 'User']} />
       <Input type='date' />
       <Input type='datetime-local' />
 
       <MultipleSelectInput
-        label='Multiple select'
         options={options}
         setSelectedOptions={setSelectedOptions}
         selectedOptions={selectedOptions}
