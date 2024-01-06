@@ -62,3 +62,29 @@ h3 {
     }
   }
 }
+
+.mainCards {
+  width: 100%;
+  min-height: 800px;
+  background-color: #181717;
+
+  .cardsLayout {
+    padding-top: 40px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+}
+
+.card {
+  width: 100%;
+  height: 200px;
+  background-color: cyan;
+}

@@ -23,6 +23,19 @@ const CompanyProfile = () => {
           </div>
         </LayoutSpacing>
       </section>
+      <section className={c.mainCards}>
+        <LayoutSpacing>
+          <div className={c.cardsLayout}>
+            <div className={c.left}>
+              <div className={c.card}></div>
+              <div className={c.card}></div>
+            </div>
+            <div className={c.right}>
+              <div className={c.card}></div>
+            </div>
+          </div>
+        </LayoutSpacing>
+      </section>
     </>
   );
 };
