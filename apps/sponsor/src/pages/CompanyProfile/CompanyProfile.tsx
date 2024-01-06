@@ -1,3 +1,4 @@
+import CircularButton from '../../components/CircularButton';
 import LayoutSpacing from '../../components/LayoutSpacing';
 import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
@@ -15,7 +16,7 @@ const CompanyProfile = () => {
                 <h3>Profico</h3>
                 <p>profi.co</p>
               </div>
-              <button className={c.submitButton}>Predaj materijale</button>
+              <CircularButton>Predaj materijale</CircularButton>
             </div>
           </div>
         </LayoutSpacing>
