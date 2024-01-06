@@ -32,6 +32,8 @@ h3 {
       height: 225px;
       width: 225px;
       background-color: black;
+      border-radius: 4px;
+      outline: 2px solid rgba(0, 0, 0, 0.5);
     }
 
     .infoContainer {
@@ -51,6 +53,11 @@ h3 {
           font-size: 16px;
           //font-family: "Fuse V.2 Display";
         }
+      }
+
+      .submitButton {
+        position: relative;
+        left: -64px;
       }
     }
   }

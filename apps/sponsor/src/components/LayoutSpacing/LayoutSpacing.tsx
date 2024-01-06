@@ -6,8 +6,8 @@ type Props = {
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const LayoutSpacing = ({ children, ...handlers }: Props) => {
-  const classes = clsx(c.layoutSpacing, handlers.className);
+const LayoutSpacing = ({ children, className, ...handlers }: Props) => {
+  const classes = clsx(c.layoutSpacing, className);
 
   return (
     <div className={classes} {...handlers}>

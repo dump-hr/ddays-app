@@ -16,7 +16,9 @@ const CompanyProfile = () => {
                 <h3>Profico</h3>
                 <p>profi.co</p>
               </div>
-              <CircularButton>Predaj materijale</CircularButton>
+              <CircularButton className={c.submitButton}>
+                Predaj materijale
+              </CircularButton>
             </div>
           </div>
         </LayoutSpacing>
