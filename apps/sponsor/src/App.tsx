@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
 import { Path } from './constants/paths';
+import CompanyProfile from './pages/CompanyProfile';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 
@@ -13,6 +14,7 @@ export const App = () => {
       <Switch>
         <Route path={Path.Home} component={HomePage} />
         <Route path={Path.Login} component={LoginPage} />
+        <Route path={Path.Profile} component={CompanyProfile} />
       </Switch>
       <Toaster />
     </>
