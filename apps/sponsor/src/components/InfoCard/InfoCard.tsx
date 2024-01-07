@@ -1,3 +1,4 @@
+import Button from '../Button';
 import c from './InfoCard.module.scss';
 
 type InfoCardProps = {
@@ -12,7 +13,9 @@ const InfoCard = ({ children, title, buttonText, onClick }: InfoCardProps) => {
     <div className={c.infoCard}>
       <h3>{title}</h3>
       {children}
-      <button onClick={onClick}>{buttonText}</button>
+      <Button className={c.button} onClick={onClick}>
+        {buttonText}
+      </Button>
     </div>
   );
 };

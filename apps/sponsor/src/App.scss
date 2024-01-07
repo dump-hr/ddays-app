@@ -28,6 +28,14 @@ body {
 @font-face {
   font-family: 'Fuse';
   font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/FuseV.2Display-Bold.otf') format('opentype');
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'Fuse';
+  font-style: normal;
   font-weight: 500;
   src: url('/fonts/FuseV.2Display-Book.woff2') format('woff2');
   font-display: fallback;
