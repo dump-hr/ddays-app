@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -37,6 +38,10 @@ export class InterestsController {
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const interest = await this.interestsService.getOne(id);
+
+    if (!interest) {
+      throw new NotFoundException();
+    }
 
     return interest;
   }

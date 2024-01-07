@@ -1,12 +1,7 @@
 import { SponsorCategory } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import {
-  company,
-  companyInterests,
-  companyInterests,
-  interest,
-} from 'db/schema';
+import { company, companyInterests } from 'db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
 
 import {
@@ -14,6 +9,7 @@ import {
   AddSponsorLandingImageDto,
   AddSponsorLogoDto,
   AddSponsorVideoDto,
+  CompanyDetailsDto,
   CompanyDto,
   CreateCompanyDto,
   UpdateCompanyDto,
@@ -38,6 +34,8 @@ export class CompaniesService {
       })
       .returning();
 
+    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
+
     return createdComapny;
   }
 
@@ -61,7 +59,7 @@ export class CompaniesService {
     return companies;
   }
 
-  async getOne(id: number): Promise<CompanyDto | undefined> {
+  async getOne(id: number): Promise<CompanyDetailsDto | undefined> {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -132,6 +130,8 @@ export class CompaniesService {
       })
       .where(eq(company.id, id))
       .returning();
+
+    await this.setInterests(updatedCompany[0].id, updateCompanyDto.interests);
 
     return updatedCompany;
   }
@@ -288,6 +288,8 @@ export class CompaniesService {
   }
 
   async setInterests(companyId: number, interestIds: number[]) {
+    //TODO: implement error handling for ids that do not extist
+
     const interests = await db
       .select()
       .from(companyInterests)

@@ -3,7 +3,11 @@ import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
-import { CreateInterestDto, UpdateInterestDto } from './interests.dto';
+import {
+  CreateInterestDto,
+  InterestDto,
+  UpdateInterestDto,
+} from './interests.dto';
 
 @Injectable()
 export class InterestsService {
@@ -32,7 +36,7 @@ export class InterestsService {
     return interests;
   }
 
-  async getOne(id: number) {
+  async getOne(id: number): Promise<InterestDto> {
     const interestToFind = await db
       .select({
         name: interest.name,
@@ -42,7 +46,7 @@ export class InterestsService {
       .from(interest)
       .where(eq(interest.id, id));
 
-    return interestToFind;
+    return interestToFind[0];
   }
 
   async update(id: number, updateInterestDto: UpdateInterestDto) {
