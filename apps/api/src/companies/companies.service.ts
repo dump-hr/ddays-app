@@ -188,7 +188,7 @@ export class CompaniesService {
   async addLandingImage(id: number, file: Express.Multer.File) {
     const imageUrl = await this.blobService.upload(
       'companies-landing-images',
-      file.filename,
+      file.originalname,
       file.buffer,
       file.mimetype,
     );

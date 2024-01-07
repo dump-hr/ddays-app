@@ -16,7 +16,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
@@ -60,8 +60,20 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/logo')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('file'))
   async addLogo(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
@@ -84,15 +96,27 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/video')
-  @UseInterceptors(FileInterceptor('video'))
+  @UseInterceptors(FileInterceptor('file'))
   async addVideo(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'video/mp4' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 50 }),
         ],
       }),
     )
@@ -108,8 +132,20 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/landing-image')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('file'))
   async addLandingImage(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
@@ -123,10 +159,11 @@ export class CompaniesController {
     file: Express.Multer.File,
   ) {
     const addedSponsorLandingImage =
-      await this.companiesService.addLandingImage(req.user.id, file);
+      await this.companiesService.addLandingImage(+req.user.id, file);
 
     return addedSponsorLandingImage;
   }
+
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/description')

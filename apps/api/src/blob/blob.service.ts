@@ -1,6 +1,5 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import mime from 'mime-types';
 
 @Injectable()
 export class BlobService {
@@ -21,15 +20,13 @@ export class BlobService {
     buffer: Buffer,
     mimetype: string,
   ) {
-    const extension = mime.extension(mimetype);
-
-    const key = `${directory}/${filename}.${extension}`;
+    const key = `${directory}/${filename}`;
 
     const command = new PutObjectCommand({
       Bucket: this.bucket,
       Key: key,
       Body: buffer,
-      ContentType: extension,
+      ContentType: mimetype,
     });
 
     try {
