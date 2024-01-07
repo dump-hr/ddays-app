@@ -1,0 +1,14 @@
+.inputField {
+    display: flex;
+    width: 491px;
+    height: 326px;
+    padding: 40px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    background: rgba(25, 26, 32, 0.30);
+    border-radius: 16px;
+    border: 1px dashed rgba(255, 255, 255, 0.40);
+}

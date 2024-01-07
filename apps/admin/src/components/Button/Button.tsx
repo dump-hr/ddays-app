@@ -18,8 +18,7 @@ const Button: React.FC<ButtonProps> = ({
         [c.primary]: variant === 'primary',
         [c.secondary]: variant === 'secondary',
       })}
-      {...handlers}
-    >
+      {...handlers}>
       {children}
     </button>
   );
