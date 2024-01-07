@@ -1,4 +1,16 @@
+import { getCreateEventDto } from '@ddays-app/types';
+import { useEffect, useState } from 'react';
+
+import { useCreateEvent } from '../../api/useCreateEvent';
+import { useDeleteEvent } from '../../api/useDeleteEvent';
+import { useEditEvents } from '../../api/useEditEvent';
+import { useFetchEvents } from '../../api/useFetchEvents';
+import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 import Table from '../../components/Table';
+import AddEditEventModal from './AddEditEventModal';
+import c from './ModalStyles.module.scss';
+import TimeHelper from './TimeHelper';
 
 const headers = [
   'Id',
@@ -6,72 +18,262 @@ const headers = [
   'Opis',
   'Tip',
   'Tema',
-  'Mjesto',
   'Početak',
   'Kraj',
   'Akcije',
 ];
 
-const data = [
-  {
-    id: 1,
-    name: 'Kampiranje',
-    description: 'Kampiranje u prirodi',
-    type: 'Kampiranje',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 2,
-    name: 'Krstarenje',
-    description: 'Krstarenje Jadranom',
-    type: 'Krstarenje',
-    theme: 'Priroda',
-    place: 'Jadran',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 3,
-    name: 'Izlet',
-    description: 'Izlet u prirodu',
-    type: 'Izlet',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-  {
-    id: 4,
-    name: 'Penjanje',
-    description: 'Penjanje po stijenama',
-    type: 'Penjanje',
-    theme: 'Priroda',
-    place: 'Plitvice',
-    start: '2021-06-01',
-    end: '2021-06-10',
-  },
-];
+type TableDataRow = {
+  id: number;
+  name: string;
+  description: string;
+  eventType: string;
+  eventTheme: string;
+  startsAt: string;
+  endsAt: string;
+};
 
-const buttonActions = [
-  {
-    label: 'Uredi',
-    action: (row: object) => {
-      console.log('Uredi', row);
-    },
-  },
-  {
-    label: 'Obriši',
-    action: (row: object) => {
-      console.log('Obriši', row);
-    },
-  },
-];
+type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
+  id: number;
+};
 
 const EventsPage = () => {
-  return <Table headers={headers} data={data} buttonActions={buttonActions} />;
+  const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
+  const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
+  const [editEventModalIsOpen, setEditEventModalIsOpen] = useState(false);
+  const [confirmCloseModalIsOpen, setConfirmCloseModalIsOpen] = useState(false);
+
+  const [tableData, setTableData] = useState<TableDataRow[]>([]);
+
+  const { mutate: createEvent } = useCreateEvent();
+  const { mutate: deleteEvent } = useDeleteEvent();
+  const { mutate: editEvent } = useEditEvents();
+  const { data: fetchedEvents } = useFetchEvents();
+
+  const [events, setEvents] = useState<Event[] | undefined>(undefined);
+
+  const buttonActions = [
+    {
+      label: 'Uredi',
+      action: (row: TableDataRow) => {
+        const data = findEventById((row as Event).id);
+        setModalData(data);
+        toggleModal('edit');
+      },
+    },
+    {
+      label: 'Obriši',
+      action: (row: TableDataRow) => {
+        const data = findEventById((row as Event).id);
+        setModalData(data);
+        toggleModal('delete');
+      },
+    },
+  ];
+
+  useEffect(() => {
+    if (fetchedEvents) {
+      const modifiedEvents = fetchedEvents.map((event) => {
+        return {
+          ...event,
+          startsAt: TimeHelper.addHours(event.startsAt),
+          endsAt: TimeHelper.addHours(event.endsAt),
+        } as Event;
+      });
+
+      setEvents(modifiedEvents);
+    }
+  }, [fetchedEvents]);
+
+  useEffect(() => {
+    if (events) {
+      setTableData([]);
+
+      events.forEach((event) => {
+        const tableRow: TableDataRow = {
+          id: event.id,
+          name: event.name,
+          description: event.description,
+          eventType: event.eventType,
+          eventTheme: event.eventTheme,
+          startsAt: TimeHelper.formatDate(event.startsAt),
+          endsAt: event.endsAt ? TimeHelper.formatDate(event.endsAt) : '',
+        };
+        setTableData((prevData) => [...prevData, tableRow]);
+      });
+    }
+  }, [events]);
+
+  function setModalData(data: Event) {
+    localStorage.setItem('modalData', JSON.stringify(data));
+  }
+
+  function getModalData() {
+    const data = localStorage.getItem('modalData');
+    if (data) {
+      return JSON.parse(data) as Event;
+    }
+    return {} as Event;
+  }
+
+  function findEventById(id: number) {
+    const event = events?.find((event) => event.id === id) as Event;
+    if (event) {
+      return event;
+    }
+    return {} as Event;
+  }
+
+  function toggleModal(modal: 'add' | 'delete' | 'edit') {
+    const filteredProps = Object.entries(getModalData()).filter(
+      ([, value]) => value !== null && value !== '',
+    );
+
+    const modalIsEmpty = filteredProps.length === 0;
+
+    if (!modalIsEmpty && (addEventModalIsOpen || editEventModalIsOpen)) {
+      setConfirmCloseModalIsOpen(true);
+      return;
+    }
+
+    if (deleteEventModalIsOpen) {
+      clearModalData();
+    }
+
+    switch (modal) {
+      case 'add':
+        setAddEventModalIsOpen(!addEventModalIsOpen);
+        break;
+      case 'delete':
+        setDeleteEventModalIsOpen(!deleteEventModalIsOpen);
+        break;
+      case 'edit':
+        setEditEventModalIsOpen(!editEventModalIsOpen);
+        break;
+    }
+  }
+
+  function clearModalData() {
+    setModalData({} as Event);
+  }
+
+  function createEventHandler() {
+    const eventToCreate = getModalData();
+
+    try {
+      createEvent(eventToCreate);
+    } catch {
+      return;
+    }
+
+    clearModalData();
+    setAddEventModalIsOpen(false);
+  }
+
+  function deleteEventHandler() {
+    deleteEvent(getModalData().id);
+    setDeleteEventModalIsOpen(false);
+    clearModalData();
+  }
+
+  async function editEventHandler() {
+    const editedEvent = getModalData();
+
+    try {
+      editEvent(editedEvent);
+    } catch {
+      return;
+    }
+
+    setEditEventModalIsOpen(false);
+    clearModalData();
+  }
+
+  const DeleteEventModal = () => {
+    return (
+      <Modal
+        noButton
+        isOpen={deleteEventModalIsOpen}
+        toggleModal={() => toggleModal('delete')}>
+        <h3 className={c.modalTitle}>Obriši event</h3>
+        <p className={c.modalSubtitle}>{getModalData().name}</p>
+        <p>Jesi li siguran da želiš obrisati ovaj event?</p>
+
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Button
+            variant='primary'
+            onClick={() => setDeleteEventModalIsOpen(false)}>
+            Odustani
+          </Button>
+          <Button variant='secondary' onClick={() => deleteEventHandler()}>
+            Obriši
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const ConfirmCloseModal = () => {
+    function handleModalClose(closeAll: boolean) {
+      if (closeAll) {
+        setAddEventModalIsOpen(false);
+        setEditEventModalIsOpen(false);
+        clearModalData();
+      }
+      setConfirmCloseModalIsOpen(false);
+    }
+
+    return (
+      <Modal
+        noButton
+        isOpen={confirmCloseModalIsOpen}
+        toggleModal={() => setConfirmCloseModalIsOpen(false)}>
+        <h3 className={c.modalTitle}>Zatvaranje modala</h3>
+        <p>
+          Jesi li siguran za želiš odustati od unosa podataka?
+          <br /> Podaci neće biti spremljeni.
+        </p>
+
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Button variant='primary' onClick={() => handleModalClose(false)}>
+            Ne
+          </Button>
+          <Button variant='secondary' onClick={() => handleModalClose(true)}>
+            Da
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
+  return (
+    <>
+      <Table headers={headers} data={tableData} buttonActions={buttonActions} />
+      <Button style={{ marginTop: '20px' }} onClick={() => toggleModal('add')}>
+        Dodaj event
+      </Button>
+
+      <AddEditEventModal
+        isOpen={addEventModalIsOpen}
+        toggle={() => toggleModal('add')}
+        title='Dodaj event'
+        actionButtonHandler={createEventHandler}
+        actionButtonText='Dodaj Event'
+      />
+
+      <AddEditEventModal
+        isOpen={editEventModalIsOpen}
+        toggle={() => toggleModal('edit')}
+        title='Uredi event'
+        actionButtonHandler={editEventHandler}
+        actionButtonText='Spremi promjene'
+        modalData={getModalData()}
+      />
+
+      <DeleteEventModal />
+      <ConfirmCloseModal />
+    </>
+  );
 };
 
 export default EventsPage;

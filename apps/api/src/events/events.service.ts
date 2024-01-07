@@ -16,7 +16,6 @@ export class EventsService {
         description: createEventDto.description,
         eventType: createEventDto.eventType,
         eventTheme: createEventDto.eventTheme,
-        eventPlace: createEventDto.eventPlace,
         startsAt: createEventDto.startsAt,
         endsAt: createEventDto.endsAt,
         requirements: createEventDto.requirements,
@@ -31,12 +30,17 @@ export class EventsService {
   async getAll() {
     const events = await db
       .select({
-        id: event.id,
         name: event.name,
         description: event.description,
         startsAt: event.startsAt,
         endsAt: event.endsAt,
         maxParticipants: event.maxParticipants,
+        requirements: event.requirements,
+        footageLink: event.footageLink,
+        eventType: event.eventType,
+        eventTheme: event.eventTheme,
+        codeId: event.codeId,
+        id: event.id,
       })
       .from(event)
       .orderBy(event.name);
@@ -56,7 +60,6 @@ export class EventsService {
         footageLink: event.footageLink,
         eventType: event.eventType,
         eventTheme: event.eventTheme,
-        eventPlace: event.eventPlace,
         codeId: event.codeId,
         id: event.id,
       })
@@ -75,7 +78,6 @@ export class EventsService {
         description: updateEventDto.description,
         eventType: updateEventDto.eventType,
         eventTheme: updateEventDto.eventTheme,
-        eventPlace: updateEventDto.eventPlace,
         startsAt: updateEventDto.startsAt,
         endsAt: updateEventDto.endsAt,
         requirements: updateEventDto.requirements,
