@@ -1,10 +1,14 @@
+import { FormSteps } from '@ddays-app/types';
+import { useState } from 'react';
 import { useLocation } from 'wouter';
 
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import JobOffer from '../../components/InfoCard/JobOffer';
 import LayoutSpacing from '../../components/LayoutSpacing';
+import Modal from '../../components/Modal';
 import Pill from '../../components/Pill';
+import { sponsorForm } from '../../constants/forms';
 import CoverImage from './assets/cover.png';
 import ProficoLogo from './assets/profico-logo.png';
 import c from './CompanyProfile.module.scss';
@@ -67,6 +71,8 @@ const JobOffersCardContent = () => {
 
 const CompanyProfile = () => {
   const [, setLocation] = useLocation();
+  const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
+
   function dataIsEmpty() {
     return (
       data.interests.development.length == 0 &&
@@ -78,6 +84,12 @@ const CompanyProfile = () => {
 
   return (
     <>
+      {currentModal !== undefined && (
+        <Modal
+          form={sponsorForm[currentModal]}
+          close={() => setCurrentModal(undefined)}
+        />
+      )}
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <img src={CoverImage} className={c.coverImage} alt='Cover' />
@@ -104,7 +116,7 @@ const CompanyProfile = () => {
               <InfoCard
                 title='Uvod'
                 buttonText='Dodajte svoje kratko predstavljanje'
-                onClick={() => console.log('Clicked')}>
+                onClick={() => setCurrentModal(FormSteps.Description)}>
                 <p className={c.cardContentParagraph}>
                   {data.description || 'Nema opisa'}
                 </p>
@@ -112,7 +124,7 @@ const CompanyProfile = () => {
               <InfoCard
                 title='Interesi'
                 buttonText='Odaberite svoje interese'
-                onClick={() => console.log('Clicked')}>
+                onClick={() => setCurrentModal(FormSteps.Interests)}>
                 <InterestsCardContent />
               </InfoCard>
             </div>
@@ -120,7 +132,7 @@ const CompanyProfile = () => {
               <InfoCard
                 title='Oglasi za posao'
                 buttonText='Postavite oglase za posao'
-                onClick={() => console.log('Clicked')}>
+                onClick={() => setCurrentModal(FormSteps.Jobs)}>
                 {data.jobOffers.length == 0 ? (
                   <p className={c.cardContentParagraph}>
                     Nema postavljenih oglasa

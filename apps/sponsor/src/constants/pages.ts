@@ -1,4 +1,4 @@
-import CompanyProfile from '../formSteps/CompanyProfile';
+import CompanyProfile from '../pages/CompanyProfile';
 import HomePage from '../pages/HomePage';
 import MaterialsPage from '../pages/MaterialsPage';
 import { Path } from './paths';
