@@ -47,3 +47,45 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
 
   return CompanyDto;
 };
+
+export const CompanyDetailsDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class CompanyDetailsDto {
+    @IsNumber()
+    @ApiProperty()
+    id: number;
+
+    @IsString()
+    @ApiProperty()
+    name: string;
+
+    @IsString()
+    @ApiProperty()
+    description: string;
+
+    @IsUrl()
+    @ApiProperty()
+    url: string;
+
+    @IsString()
+    @ApiProperty()
+    sponsorCategory: SponsorType;
+
+    @IsString()
+    @ApiProperty()
+    boothLocation: string;
+
+    @IsEmail()
+    @ApiProperty()
+    email: string;
+
+    @IsString()
+    @ApiProperty()
+    codeId: string;
+
+    //After blob add for files like pcitures and others
+  }
+
+  return CompanyDetailsDto;
+};
