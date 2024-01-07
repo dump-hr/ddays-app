@@ -1,8 +1,13 @@
 import { SponsorCategory } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { company, companyInterests, interest } from 'db/schema';
-import { and, eq } from 'drizzle-orm';
+import {
+  company,
+  companyInterests,
+  companyInterests,
+  interest,
+} from 'db/schema';
+import { and, eq, inArray } from 'drizzle-orm';
 
 import {
   AddSponsorDescriptionDto,
@@ -282,6 +287,33 @@ export class CompaniesService {
     return interest.length > 0;
   }
 
+  async setInterests(companyId: number, interestIds: number[]) {
+    const interests = await db
+      .select()
+      .from(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    const interestsToRemove = interests.filter(
+      (interest) => !interestIds.includes(interest.interestId),
+    );
+
+    const interestIdsToAdd = interestIds.filter(
+      (interestId) =>
+        !interests.map((interest) => interest.interestId).includes(interestId),
+    );
+
+    const interestsToAdd = interestIdsToAdd.map((interestId) => ({
+      companyId,
+      interestId,
+    }));
+
+    await db
+      .delete(companyInterests)
+      .where(inArray(companyInterests, interestsToRemove));
+
+    await db.insert(companyInterests).values(interestsToAdd);
+  }
+
   async toggleInterest(companyId: number, interestId: number) {
     const interestExists = await this.interestExists(companyId, interestId);
 
@@ -292,17 +324,5 @@ export class CompaniesService {
     return action;
   }
 
-  async getInterests(companyId: number) {
-    const interests = await db
-      .select({
-        id: interest.id,
-        name: interest.name,
-        theme: interest.theme,
-      })
-      .from(companyInterests)
-      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
-      .where(eq(companyInterests.companyId, companyId));
-
-    return interests;
-  }
+  async getInterests(companyId: number) {}
 }

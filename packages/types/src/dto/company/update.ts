@@ -39,10 +39,17 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     email?: string;
 
-    @IsString()
-    // @IsStrongPassword()
+    @IsNumber(
+      {
+        allowNaN: false,
+        maxDecimalPlaces: 0,
+      },
+      {
+        each: true,
+      },
+    )
     @ApiProperty()
-    password?: string;
+    interests?: number[];
   }
 
   return UpdateCompanyDto;

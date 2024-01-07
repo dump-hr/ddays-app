@@ -37,6 +37,18 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @IsEmail()
     @ApiProperty()
     email: string;
+
+    @IsNumber(
+      {
+        allowNaN: false,
+        maxDecimalPlaces: 0,
+      },
+      {
+        each: true,
+      },
+    )
+    @ApiProperty()
+    interests?: number[];
   }
   return CreateCompanyDto;
 };
