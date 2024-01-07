@@ -96,7 +96,7 @@ export const CompaniesPage = () => {
     if (interests) {
       const interestsOptions = interests.map((interest) => ({
         label: interest.name,
-        value: interest.id,
+        value: interest.id.toString(),
       }));
 
       const newQuesiton: Question = {
@@ -158,7 +158,9 @@ export const CompaniesPage = () => {
         boothLocation: companyToEdit.boothLocation,
         codeId: companyToEdit.codeId,
         sponsorCategory: companyToEdit.sponsorCategory,
-        interests: interestsForCompany?.map((interest) => interest.id),
+        interests: interestsForCompany?.map((interest) =>
+          interest.id.toString(),
+        ),
       });
     }
   }, [companyToEdit, interestsForCompany]);

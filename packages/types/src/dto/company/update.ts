@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsEnum,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsString,
   IsStrongPassword,
@@ -38,8 +39,9 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     email?: string;
 
     @IsArray()
+    @IsNumberString({}, { each: true })
     @ApiProperty()
-    interests: number[];
+    interests: string[];
   }
 
   return UpdateCompanyDto;

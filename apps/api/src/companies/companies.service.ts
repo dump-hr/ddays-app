@@ -2,7 +2,7 @@ import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { code, company, companyInterests, interest } from 'db/schema';
-import { and, desc, eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
@@ -36,9 +36,11 @@ export class CompaniesService {
       })
       .returning();
 
-    console.log(createCompanyDto);
+    const numericalInterests = createCompanyDto.interests.map(
+      (interest) => +interest,
+    );
 
-    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
+    await this.setInterests(createdComapny[0].id, numericalInterests);
 
     return createdComapny;
   }
@@ -148,7 +150,11 @@ export class CompaniesService {
       .where(eq(company.id, id))
       .returning();
 
-    await this.setInterests(updatedCompany[0].id, updateCompanyDto.interests);
+    const numericalInterests = updateCompanyDto.interests.map(
+      (interest) => +interest,
+    );
+
+    await this.setInterests(updatedCompany[0].id, numericalInterests);
 
     return updatedCompany;
   }
@@ -335,9 +341,9 @@ export class CompaniesService {
       .from(companyInterests)
       .where(eq(companyInterests.companyId, companyId));
 
-    const interestsToRemove = interests.filter(
-      (interest) => !interestIds.includes(interest.interestId),
-    );
+    const interestsToRemove = interests
+      .filter((interest) => !interestIds.includes(interest.interestId))
+      .map((interest) => interest.interestId);
 
     const interestIdsToAdd = interestIds.filter(
       (interestId) =>
@@ -352,9 +358,10 @@ export class CompaniesService {
     interestsToRemove.length > 0 &&
       (await db
         .delete(companyInterests)
-        .where(inArray(companyInterests, interestsToRemove)));
+        .where(inArray(companyInterests.interestId, interestsToRemove)));
 
-    await db.insert(companyInterests).values(interestsToAdd);
+    interestIdsToAdd.length > 0 &&
+      (await db.insert(companyInterests).values(interestsToAdd));
   }
 
   async toggleInterest(companyId: number, interestId: number) {
