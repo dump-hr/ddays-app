@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsNumber,
@@ -35,8 +36,9 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     email: string;
 
+    @IsArray()
     @ApiProperty()
-    interests?: number[];
+    interests: number[];
   }
   return CreateCompanyDto;
 };

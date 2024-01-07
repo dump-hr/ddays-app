@@ -7,6 +7,8 @@ import { useDeleteCompany } from '../../api/Companies/useDeleteCompany';
 import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
 import { useFetchCompany } from '../../api/Companies/useFetchCompany';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
+import { useFetchCompanyInterests } from '../../api/Interests/useFetchCompanyInterests';
+import { useFetchInterests } from '../../api/Interests/useFetchInterests';
 import Button from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
 import Modal from '../../components/Modal';
@@ -79,12 +81,34 @@ export const CompaniesPage = () => {
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
   );
+  const [fields, setFields] = useState(questions);
 
   const { data: companies, isLoading } = useFetchCompanies();
   const { data: companyToEdit } = useFetchCompany(companyToEditId);
+  const { data: interests } = useFetchInterests();
+  const { data: interestsForCompany } =
+    useFetchCompanyInterests(companyToEditId);
   const { mutate: createCompany } = useCreateCompany();
   const { mutate: editCompany } = useUpdateCompany();
   const { mutate: deleteCompany } = useDeleteCompany();
+
+  useEffect(() => {
+    if (interests) {
+      const interestsOptions = interests.map((interest) => ({
+        label: interest.name,
+        value: interest.id.toString(),
+      }));
+
+      const newQuesiton: Question = {
+        id: 'interests',
+        type: QuestionType.MultipleSelect,
+        title: 'Interesi',
+        options: interestsOptions,
+      };
+
+      setFields((prev) => [...prev, newQuesiton]);
+    }
+  }, [interests]);
 
   const createCompanyForm = useForm<FieldValues>();
   const editCompanyForm = useForm<FieldValues>();
@@ -134,9 +158,10 @@ export const CompaniesPage = () => {
         boothLocation: companyToEdit.boothLocation,
         codeId: companyToEdit.codeId,
         sponsorCategory: companyToEdit.sponsorCategory,
+        interests: interestsForCompany?.map((interest) => interest.id),
       });
     }
-  }, [companyToEdit]);
+  }, [companyToEdit, interestsForCompany]);
 
   if (isLoading) {
     console.log('loading');
@@ -156,7 +181,7 @@ export const CompaniesPage = () => {
           )}>
           Submit
         </Button>
-        {questions.map((q) => (
+        {fields.map((q) => (
           <InputHandler question={q} form={createCompanyForm} key={q.id} />
         ))}
       </Modal>
@@ -172,7 +197,7 @@ export const CompaniesPage = () => {
           })}>
           Submit
         </Button>
-        {questions.map((q) => (
+        {fields.map((q) => (
           <InputHandler question={q} form={editCompanyForm} key={q.id} />
         ))}
       </Modal>

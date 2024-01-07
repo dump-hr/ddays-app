@@ -36,6 +36,8 @@ export class CompaniesService {
       })
       .returning();
 
+    console.log(createCompanyDto);
+
     await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
 
     return createdComapny;
@@ -321,7 +323,8 @@ export class CompaniesService {
   }
 
   async setInterests(companyId: number, interestIds: number[]) {
-    //TODO: implement error handling for ids that do not extist
+    //TODO: implement error handling for ids that do not extistž
+    console.log(interestIds, companyId);
 
     if (!interestIds) {
       return;
@@ -346,9 +349,10 @@ export class CompaniesService {
       interestId,
     }));
 
-    await db
-      .delete(companyInterests)
-      .where(inArray(companyInterests, interestsToRemove));
+    interestsToRemove.length > 0 &&
+      (await db
+        .delete(companyInterests)
+        .where(inArray(companyInterests, interestsToRemove)));
 
     await db.insert(companyInterests).values(interestsToAdd);
   }
