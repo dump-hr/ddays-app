@@ -1,14 +1,66 @@
-.inputField {
-    display: flex;
-    width: 491px;
-    height: 326px;
-    padding: 40px 24px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-    background: rgba(25, 26, 32, 0.30);
-    border-radius: 16px;
-    border: 1px dashed rgba(255, 255, 255, 0.40);
+//TODO variables for colors and remove bakcground color on body
+.input {
+    &Area {
+        &Container {
+
+        }
+    }
+    &Field {
+        display: flex;
+        width: 491px;
+        height: 326px;
+        padding: 40px 24px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        background: rgba(25, 26, 32, 0.30);
+        border-radius: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.40);
+        visibility: hidden;
+    }
+    &FieldLabel {
+        display: flex;
+        max-width: 150px;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.label {
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.labelArea {
+    &Title {
+        color: #FFF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        margin-top: 0px;
+        margin-bottom: 4px;
+    }
+    &Content {
+        color: rgba(255, 255, 255, 0.50);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}
+
+body {
+    background: #080407;
 }
