@@ -6,7 +6,7 @@ import { api } from '..';
 
 const createCompany = async (company: CreateCompanyDto) => {
   const data = await api.post<CreateCompanyDto, CompanyDto>(
-    `/company`,
+    `/companies`,
     company,
   );
 
