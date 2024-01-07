@@ -7,8 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { SponsorAuthGuard } from 'src/auth/sponsor.guard';
 
 import { CreateInterestDto } from './interests.dto';
 import { UpdateInterestDto } from './interests.dto';
@@ -30,6 +34,15 @@ export class InterestsController {
   @Get()
   async getAll() {
     const interests = await this.interestsService.getAll();
+
+    return interests;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Get('/sponsor')
+  async getByCompany(@Req() req: AuthenticatedRequest) {
+    const interests = await this.interestsService.getForSponsor(+req.user.id);
 
     return interests;
   }

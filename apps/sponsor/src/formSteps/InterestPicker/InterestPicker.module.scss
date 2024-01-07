@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 640px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.33px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+.button {
+  border-radius: 12px;
+  background: #fff;
+  width: 100%;
+  height: 56px;
+  cursor: pointer;
+  margin-top: auto;
+}
