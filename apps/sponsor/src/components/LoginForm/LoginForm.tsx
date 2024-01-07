@@ -103,7 +103,7 @@ const LoginForm = () => {
         Unesite informacije koje ste dobili putem maila
       </p>
       <button type='submit' disabled={!isValid} className={c.formButton}>
-        Nastavi
+        Spremi
       </button>
     </form>
   );

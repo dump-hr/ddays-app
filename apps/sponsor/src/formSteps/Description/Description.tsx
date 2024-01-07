@@ -37,7 +37,7 @@ const Description: FormComponent = ({ close }) => {
         )}
       </div>
       <button onClick={close} className={c.button}>
-        Nastavi
+        Spremi
       </button>
     </div>
   );
