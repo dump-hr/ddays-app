@@ -12,7 +12,7 @@ const InfoCard = ({ children, title, buttonText, onClick }: InfoCardProps) => {
   return (
     <div className={c.infoCard}>
       <h3>{title}</h3>
-      {children}
+      <div className={c.content}>{children}</div>
       <Button className={c.button} onClick={onClick}>
         {buttonText}
       </Button>

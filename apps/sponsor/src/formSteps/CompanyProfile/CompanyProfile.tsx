@@ -4,6 +4,51 @@ import LayoutSpacing from '../../components/LayoutSpacing';
 import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
 
+const data = {
+  description: '',
+  jobOffers: [
+    {
+      title: '',
+      description: '',
+      location: '',
+    },
+    {
+      title: '',
+      description: '',
+      location: '',
+    },
+  ],
+  interests: {
+    development: [],
+    design: [],
+    marketing: [],
+    tech: [],
+  },
+};
+
+const InterestsCardContent = () => {
+  return (
+    <>
+      <p className={c.cardContentParagraph}>
+        Development ({data.interests.development.length})
+      </p>
+      <p className={c.cardContentParagraph}>
+        Design ({data.interests.design.length})
+      </p>
+      <p className={c.cardContentParagraph}>
+        Marketing ({data.interests.marketing.length})
+      </p>
+      <p className={c.cardContentParagraph}>
+        Tech ({data.interests.tech.length})
+      </p>
+    </>
+  );
+};
+
+const JobOffersCardContent = () => {
+  return <></>;
+};
+
 const CompanyProfile = () => {
   return (
     <>
@@ -29,19 +74,33 @@ const CompanyProfile = () => {
           <div className={c.cardsLayout}>
             <div className={c.left}>
               <InfoCard
-                title='O nama'
-                buttonText='Saznaj više'
-                onClick={() => console.log('Clicked')}></InfoCard>
+                title='Uvod'
+                buttonText='Dodajte svoje kratko predstavljanje'
+                onClick={() => console.log('Clicked')}>
+                <p className={c.cardContentParagraph}>
+                  {data.description || 'Nema opisa'}
+                </p>
+              </InfoCard>
               <InfoCard
                 title='Kontakt'
-                buttonText='Pošalji poruku'
-                onClick={() => console.log('Clicked')}></InfoCard>
+                buttonText='Odaberite svoje interese'
+                onClick={() => console.log('Clicked')}>
+                <InterestsCardContent />
+              </InfoCard>
             </div>
             <div className={c.right}>
               <InfoCard
-                title='Proizvodi'
-                buttonText='Pogledaj sve'
-                onClick={() => console.log('Clicked')}></InfoCard>
+                title='Oglasi za posao'
+                buttonText='Postavite oglase za posao'
+                onClick={() => console.log('Clicked')}>
+                {data.jobOffers.length > 0 ? (
+                  <p className={c.cardContentParagraph}>
+                    Nema postavljenih oglasa
+                  </p>
+                ) : (
+                  <JobOffersCardContent />
+                )}
+              </InfoCard>
             </div>
           </div>
         </LayoutSpacing>
