@@ -1,4 +1,4 @@
-import { FormComponent } from '@ddays-app/types';
+import { FormComponent } from '../../types/form';
 
 const InterestPicker: FormComponent = ({ close }) => {
   return (

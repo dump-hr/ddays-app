@@ -1,8 +1,8 @@
-import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
+import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
 
 const statusChips = {
@@ -30,7 +30,7 @@ const initialState = {
 };
 
 const MaterialsPage: React.FC = () => {
-  const [statuses, setStatuses] = useState<StepStatus[]>(initialState.statuses); //BE
+  const [statuses] = useState<StepStatus[]>(initialState.statuses); //BE
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
   );

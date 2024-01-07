@@ -1,7 +1,6 @@
-import { FormSteps, SponsorForm } from '@ddays-app/types';
-
 import Description from '../formSteps/Description';
 import InterestPicker from '../formSteps/InterestPicker';
+import { FormSteps, SponsorForm } from '../types/form';
 
 export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {

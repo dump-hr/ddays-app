@@ -1,7 +1,7 @@
-import { FormComponent } from '@ddays-app/types';
 import { useState } from 'react';
 
 import TextArea from '../../components/TextArea';
+import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
 const isGold = true;
