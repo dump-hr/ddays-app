@@ -1,0 +1,21 @@
+.textArea {
+  font-size: 16px;
+  background-color: transparent;
+  font-weight: 400;
+  border: none;
+  border-bottom: 2px solid #5cc2a045;
+  transition: all 0.3s ease-in-out;
+  padding: 10px 10px;
+  display: block;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: #5cc2a0;
+    color: #000;
+  }
+
+  &.error {
+    border-bottom-color: #ff0000;
+  }
+}
