@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
 import { useUpdateSponsorDescription } from '../../api/useUpdateSponsorDescription';
@@ -7,31 +7,25 @@ import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
 const Description: FormComponent = ({ close }) => {
-  const [companyDescriptionText, setCompanyDescriptionText] = useState('');
+  const [description, setDescription] = useState<string>();
 
   const { data, error, isLoading } = useGetSponsorDescription();
-
   const updateSponsorDescription = useUpdateSponsorDescription();
-
-  const handleSubmit = async () => {
-    await updateSponsorDescription.mutateAsync({
-      description: companyDescriptionText,
-    });
-    close();
-  };
-
-  useEffect(() => {
-    if (!data) return;
-    setCompanyDescriptionText(data.description);
-  }, [data]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
     return <div>{error.toString()}</div>;
   }
+
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
+  const handleSubmit = async () => {
+    await updateSponsorDescription.mutateAsync({
+      description: description ?? data.description,
+    });
+    close();
+  };
 
   return (
     <div className={c.container}>
@@ -43,15 +37,15 @@ const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={companyDescriptionText}
-          onChange={(value) => setCompanyDescriptionText(value)}
+          value={description ?? data.description}
+          onChange={(value) => setDescription(value)}
           limit={70}
           deviation={5}
           label='Opis tvrtke'
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>
-        Nastavi
+        Spremi
       </button>
     </div>
   );

@@ -351,6 +351,7 @@ export class CompaniesService {
   async getSponsorFormStatus(companyId: number) {
     const company = await this.getOne(companyId);
     const status = {};
+
     status[FormSteps.Description] = company?.description.length
       ? StepStatus.Good
       : StepStatus.Pending;
@@ -361,8 +362,6 @@ export class CompaniesService {
     status[FormSteps.Jobs] = StepStatus.Pending;
     status[FormSteps.Interests] = StepStatus.Good;
     status[FormSteps.SwagBag] = StepStatus.Pending;
-
-    console.log(companyId);
 
     return { status };
   }

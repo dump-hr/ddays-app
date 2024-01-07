@@ -13,6 +13,7 @@ export const useUpdateSponsorDescription = () => {
 
   return useMutation(updateSponsorDescription, {
     onSuccess: () => {
+      queryClient.invalidateQueries(['sponsorDescription']);
       queryClient.invalidateQueries(['sponsorFormStatus']);
       toast.success('Opis tvrtke uspješno spremljen');
     },
