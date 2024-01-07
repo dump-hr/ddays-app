@@ -7,6 +7,6 @@ export enum Path {
   FrequentlyAskedQuestions = '/faqs',
   CatchAll = '/:path*',
   Admin = '/admin',
-  Companies = '/admin/companies',
+  Companies = '/companies',
   SurveyQuestions = '/admin/survey-questions',
 }

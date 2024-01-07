@@ -51,7 +51,6 @@ export class CompaniesService {
         sponsorCategory: company.sponsorCategory,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
-        codeId: company.codeId,
         url: company.websiteUrl,
         email: company.email,
       })
@@ -323,6 +322,10 @@ export class CompaniesService {
 
   async setInterests(companyId: number, interestIds: number[]) {
     //TODO: implement error handling for ids that do not extist
+
+    if (!interestIds) {
+      return;
+    }
 
     const interests = await db
       .select()

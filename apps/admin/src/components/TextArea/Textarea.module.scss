@@ -1,4 +1,4 @@
-.textArea {
+.textarea {
   font-size: 16px;
   background-color: transparent;
   font-weight: 400;
@@ -6,7 +6,7 @@
   border-bottom: 2px solid #5cc2a045;
   transition: all 0.3s ease-in-out;
   padding: 10px 10px;
-  display: block;
+  display: flex;
   resize: vertical;
 
   &:focus {

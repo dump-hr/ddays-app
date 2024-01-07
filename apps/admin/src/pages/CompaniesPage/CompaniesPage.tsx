@@ -18,13 +18,14 @@ import {
 } from '../../types/company';
 
 const headers = [
+  'Broj',
   'Ime',
   'Opis',
-  'Website',
-  'Email',
-  'Lokacija štanda',
-  'Kod',
   'Kategorija sponzorstva',
+  'Website',
+  'Lokacija štanda',
+  'Stranica',
+  'Email',
   'Akcije',
 ];
 
@@ -42,7 +43,7 @@ const questions: Question[] = [
     rules: { required: 'Obavezno polje' },
   },
   {
-    id: 'website',
+    id: 'websiteUrl',
     type: QuestionType.Field,
     title: 'Website',
   },
@@ -56,11 +57,6 @@ const questions: Question[] = [
     id: 'boothLocation',
     type: QuestionType.Field,
     title: 'Lokacija štanda',
-  },
-  {
-    id: 'codeId',
-    type: QuestionType.Field,
-    title: 'Kod', //TODO: ovo ce bit select nakon sto se napravi kodovi endpoint
   },
   {
     id: 'sponsorCategory',
@@ -78,7 +74,7 @@ const questions: Question[] = [
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEditId, setCompanyToEdit] = useState<number>(0);
+  const [companyToEditId, setCompanyToEdit] = useState<number>(1);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
@@ -143,6 +139,7 @@ export const CompaniesPage = () => {
   }, [companyToEdit]);
 
   if (isLoading) {
+    console.log('loading');
     return <div>Loading...</div>;
   }
 
