@@ -5,6 +5,7 @@ import { desc, eq } from 'drizzle-orm';
 
 import {
   CreateNotificationDto,
+  NotificationDto,
   UpdateNotificationDto,
 } from './notification.dto';
 
@@ -22,7 +23,7 @@ export class NotificationService {
     return createdNotification;
   }
 
-  async getAll() {
+  async getAll(): Promise<NotificationDto[]> {
     const notifications = await db
       .select({
         id: notification.id,

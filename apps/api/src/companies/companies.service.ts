@@ -1,22 +1,20 @@
-import { SponsorCategory } from '@ddays-app/types';
+import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { company, companyInterests } from 'db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
+import { BlobService } from 'src/blob/blob.service';
 
 import {
   AddSponsorDescriptionDto,
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
-  CompanyDetailsDto,
-  CompanyDto,
   CreateCompanyDto,
   UpdateCompanyDto,
 } from './companies.dto';
 
 @Injectable()
 export class CompaniesService {
+  constructor(private readonly blobService: BlobService) {}
+
   async create(createCompanyDto: CreateCompanyDto) {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
@@ -160,11 +158,18 @@ export class CompaniesService {
     return addedDescription;
   }
 
-  async addLogo(id: number, addSponsorLogoDto: AddSponsorLogoDto) {
+  async addLogo(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-logos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLogo = await db
       .update(company)
       .set({
-        logoImage: addSponsorLogoDto.imageUrl,
+        logoImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -172,11 +177,18 @@ export class CompaniesService {
     return addedLogo;
   }
 
-  async addVideo(id: number, addSponsorVideoDto: AddSponsorVideoDto) {
+  async addVideo(id: number, file: Express.Multer.File) {
+    const videoUrl = await this.blobService.upload(
+      'companies-videos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedVideo = await db
       .update(company)
       .set({
-        companyVideo: addSponsorVideoDto.videoUrl,
+        companyVideo: videoUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -184,14 +196,18 @@ export class CompaniesService {
     return addedVideo;
   }
 
-  async addLandingImage(
-    id: number,
-    addSponsorLandingImageDto: AddSponsorLandingImageDto,
-  ) {
+  async addLandingImage(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-landing-images',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLandingImage = await db
       .update(company)
       .set({
-        landingImage: addSponsorLandingImageDto.imageUrl,
+        landingImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -326,5 +342,30 @@ export class CompaniesService {
     return action;
   }
 
-  async getInterests(companyId: number) {}
+  async getInterests(companyId: number) {
+    const interests = await db
+      .select({
+        id: interest.id,
+        name: interest.name,
+        theme: interest.theme,
+      })
+      .from(companyInterests)
+      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
+      .where(eq(companyInterests.companyId, companyId));
+
+    return interests;
+  }
+
+  async getSponsorFormStatus(companyId: number) {
+    const status = {};
+    status[FormSteps.Description] = StepStatus.Pending;
+    status[FormSteps.Logo] = StepStatus.Pending;
+    status[FormSteps.Photos] = StepStatus.Pending;
+    status[FormSteps.Videos] = StepStatus.Pending;
+    status[FormSteps.Jobs] = StepStatus.Pending;
+    status[FormSteps.Interests] = StepStatus.Good;
+    status[FormSteps.SwagBag] = StepStatus.Pending;
+
+    return { status };
+  }
 }
