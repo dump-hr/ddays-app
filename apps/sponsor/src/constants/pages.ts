@@ -1,4 +1,5 @@
 import HomePage from '../pages/HomePage';
+import MaterialsPage from '../pages/MaterialsPage';
 import { Path } from './paths';
 
 type Page = {
@@ -13,7 +14,7 @@ export const pages: Page[] = [
     path: Path.Materials,
     name: 'Predaja materijala',
     icon: '/materials.svg',
-    component: HomePage,
+    component: MaterialsPage,
   },
   {
     path: Path.Stand,

@@ -1,51 +1,58 @@
 .navWrapper {
-    background: black;
-    padding: 30px;
+  background: black;
+  padding: 30px;
 
-    border-bottom-width: 4px;
-    border-bottom-style: solid;
-    border-image: linear-gradient(125deg, #0D8ED3 5.44%, #0B60BB 17.95%, #0A3AA7 36.44%, #6A387D 69.53%, #C53754 105.59%, #FA5240 117.57%) 1;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-image: linear-gradient(
+      125deg,
+      #0d8ed3 5.44%,
+      #0b60bb 17.95%,
+      #0a3aa7 36.44%,
+      #6a387d 69.53%,
+      #c53754 105.59%,
+      #fa5240 117.57%
+    )
+    1;
 }
 
 .nav {
-    max-width: 1050px;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
+  max-width: 1050px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
 }
 
 .navLogo {
-    height: 24px;
+  height: 24px;
 }
 
 .navItemsWrapper {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-
+  display: flex;
+  align-items: center;
+  gap: 80px;
 }
 
 .navItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    
-    cursor: pointer;
-    opacity: 0.64;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    img {
-        height: 24px;
-    }
+  cursor: pointer;
+  opacity: 0.64;
 
-    p {
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        margin: 0;
-        margin-left: 8px;
-    }
+  img {
+    height: 24px;
+  }
+
+  p {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+  }
 }
 
 .activeItem {
-    opacity: 1;
+  opacity: 1;
 }
