@@ -4,6 +4,7 @@ import JobOffer from '../../components/InfoCard/JobOffer';
 import LayoutSpacing from '../../components/LayoutSpacing';
 import Pill from '../../components/Pill';
 import CoverImage from './assets/cover.png';
+import ProficoLogo from './assets/profico-logo.png';
 import c from './CompanyProfile.module.scss';
 
 const data = {
@@ -78,7 +79,7 @@ const CompanyProfile = () => {
         <LayoutSpacing style={{ height: '100%' }}>
           <img src={CoverImage} className={c.coverImage} alt='Cover' />
           <div className={c.basicInfo}>
-            <div className={c.logoImage}></div>
+            <img src={ProficoLogo} className={c.logoImage} />
             <div className={c.infoContainer}>
               <div className={c.companyName}>
                 <h3>Profico</h3>
