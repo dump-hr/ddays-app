@@ -13,7 +13,9 @@ import {
   Req,
   UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
@@ -59,6 +61,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/logo')
+  @UseInterceptors(FileInterceptor('image'))
   async addLogo(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
@@ -82,6 +85,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/video')
+  @UseInterceptors(FileInterceptor('video'))
   async addVideo(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
@@ -105,6 +109,7 @@ export class CompaniesController {
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/landing-image')
+  @UseInterceptors(FileInterceptor('image'))
   async addLandingImage(
     @Req() req: AuthenticatedRequest,
     @UploadedFile(
