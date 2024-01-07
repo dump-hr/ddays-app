@@ -1,8 +1,9 @@
+import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 
+import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
-import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
 
 const statusChips = {
@@ -25,15 +26,12 @@ const statusChips = {
   ),
 };
 
-const initialState = {
-  statuses: Array(Object.keys(sponsorForm).length).fill(StepStatus.Pending),
-};
-
 const MaterialsPage: React.FC = () => {
-  const [statuses] = useState<StepStatus[]>(initialState.statuses); //BE
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
   );
+
+  const { data } = useGetSponsorFormStatus();
 
   return (
     <main className={c.page}>
@@ -53,7 +51,8 @@ const MaterialsPage: React.FC = () => {
                   </div>
                 </div>
                 <div className={c.itemAction}>
-                  {statusChips[statuses[index]]}
+                  {data?.status &&
+                    statusChips[data?.status[key as keyof typeof FormSteps]]}
                   <img src='/arrow-right.svg' alt='Open' />
                 </div>
               </article>

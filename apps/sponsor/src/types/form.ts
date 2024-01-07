@@ -1,20 +1,8 @@
+import { FormSteps, getSponsorFormStatusDto } from '@ddays-app/types';
 import React from 'react';
 
-export enum FormSteps {
-  Description = 'Description',
-  Logo = 'Logo',
-  Photos = 'Photos',
-  Videos = 'Videos',
-  Jobs = 'Jobs',
-  Interests = 'Interests',
-  SwagBag = 'SwagBag',
-}
-
-export enum StepStatus {
-  Pending = 'Pending',
-  Good = 'Good',
-  Bad = 'Bad',
-}
+export const _SponsorFormStatusDto = getSponsorFormStatusDto();
+export class SponsorFormStatusDto extends _SponsorFormStatusDto {}
 
 export type FormComponent = React.FC<{
   close: () => void;
