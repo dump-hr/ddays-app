@@ -1,11 +1,14 @@
 import { QueryOptions, useQuery } from 'react-query';
 
-import { CompanyDto } from '../../types/company';
+import { CompanyDetailsDto } from '../../types/company';
 import { api } from '..';
 
-const fetchAllCompanies = async () =>
-  await api.get<never, CompanyDto[]>('/companies');
+const fetchCompany = async (id: number) =>
+  await api.get<never, CompanyDetailsDto>(`/companies/${id}`);
 
-export const useFetchCompanies = (options?: QueryOptions<CompanyDto[]>) => {
-  return useQuery(['company'], fetchAllCompanies, options);
+export const useFetchCompany = (
+  id: number,
+  options?: QueryOptions<CompanyDetailsDto>,
+) => {
+  return useQuery(['company', id], () => fetchCompany(id), options);
 };

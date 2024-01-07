@@ -5,8 +5,18 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { useCreateCompany } from '../../api/Companies/useCreateCompany';
 import { useDeleteCompany } from '../../api/Companies/useDeleteCompany';
 import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
+import { useFetchCompany } from '../../api/Companies/useFetchCompany';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
-import { CompanyDto, UpdateCompanyDto } from '../../types/company';
+import Button from '../../components/Button';
+import InputHandler from '../../components/InputHandler';
+import Modal from '../../components/Modal';
+import Table from '../../components/Table';
+import {
+  CompanyDetailsDto,
+  CompanyDto,
+  CreateCompanyDto,
+  UpdateCompanyDto,
+} from '../../types/company';
 
 const headers = [
   'Ime',
@@ -69,13 +79,15 @@ const questions = [
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEdit, setCompanyToEdit] = useState<CompanyDto | null>(null);
+  const [companyToEditId, setCompanyToEdit] = useState<number>(0);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
   );
 
   const { data: companies, isLoading } = useFetchCompanies();
+  const { data: companyToEdit, isLoadingOne } =
+    useFetchCompany(companyToEditId);
   const { mutate: createCompany } = useCreateCompany();
   const { mutate: editCompany } = useUpdateCompany();
   const { mutate: deleteCompany } = useDeleteCompany();
@@ -108,7 +120,7 @@ export const CompaniesPage = () => {
     }
   };
 
-  const handleEditCompany = (data: CompanyDto) => {
+  const handleEditCompany = (data: UpdateCompanyDto) => {
     editCompany({
       id: companyToEdit?.id as number,
       company: data,
@@ -118,10 +130,6 @@ export const CompaniesPage = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   useEffect(() => {
     if (companyToEdit) {
       editCompanyForm.reset({
@@ -130,10 +138,75 @@ export const CompaniesPage = () => {
         websiteUrl: companyToEdit.url,
         email: companyToEdit.email,
         boothLocation: companyToEdit.boothLocation,
-        codeId: companyToEdit.,
+        codeId: companyToEdit.codeId,
         sponsorCategory: companyToEdit.sponsorCategory,
       });
     }
-  }, [companyToEdit]);
-  return <div></div>;
+  }, [companyToEditId]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <Modal
+        isOpen={isOpenAddModal}
+        toggleModal={() => {
+          setIsOpenAddModal(!isOpenAddModal);
+        }}>
+        <Button
+          onClick={createCompanyForm.handleSubmit((s) =>
+            handleCreateCompany(s as CreateCompanyDto),
+          )}>
+          Submit
+        </Button>
+        {questions.map((q) => (
+          <InputHandler question={q} form={createCompanyForm} key={q.id} />
+        ))}
+      </Modal>
+
+      <Modal
+        isOpen={isOpenEditModal}
+        toggleModal={() => {
+          setIsOpenEditModal(!isOpenEditModal);
+        }}>
+        <Button
+          onClick={editCompanyForm.handleSubmit((s) => {
+            handleEditCompany(s as UpdateCompanyDto);
+          })}>
+          Submit
+        </Button>
+        {questions.map((q) => (
+          <InputHandler question={q} form={editCompanyForm} key={q.id} />
+        ))}
+      </Modal>
+
+      <Modal
+        isOpen={isOpenDeleteModal}
+        toggleModal={() => {
+          setIsOpenDeleteModal(!isOpenDeleteModal);
+        }}>
+        <div style={{ display: 'flex' }}>
+          <p>Are you sure you want to delete this question?</p>
+          <Button
+            onClick={() => {
+              deleteCompany(questionToDeleteId as number);
+              setIsOpenDeleteModal(!isOpenDeleteModal);
+            }}>
+            Delete
+          </Button>
+        </div>
+      </Modal>
+
+      <Button
+        variant='primary'
+        onClick={() => {
+          setIsOpenAddModal(!isOpenAddModal);
+        }}>
+        Dodaj novo pitanje
+      </Button>
+      <Table headers={headers} data={companies} buttonActions={buttonActions} />
+    </>
+  );
 };

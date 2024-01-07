@@ -48,7 +48,7 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
   return CompanyDto;
 };
 
-export const CompanyDetailsDto = (ApiPropertySwagger?: any) => {
+export const getCompanyDetailsDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CompanyDetailsDto {
