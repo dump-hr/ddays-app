@@ -1,11 +1,11 @@
+import { FormStep } from '@ddays-app/types';
 import React from 'react';
 
-import { Form } from '../../types';
 import c from './Modal.module.scss';
 
 interface ModalProps {
   close: () => void;
-  form: Form;
+  form: FormStep;
 }
 
 const Modal: React.FC<ModalProps> = ({ form, close }) => {
