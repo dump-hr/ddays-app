@@ -85,8 +85,7 @@ export const CompaniesPage = () => {
   );
 
   const { data: companies, isLoading } = useFetchCompanies();
-  const { data: companyToEdit, isLoadingOne } =
-    useFetchCompany(companyToEditId);
+  const { data: companyToEdit } = useFetchCompany(companyToEditId);
   const { mutate: createCompany } = useCreateCompany();
   const { mutate: editCompany } = useUpdateCompany();
   const { mutate: deleteCompany } = useDeleteCompany();

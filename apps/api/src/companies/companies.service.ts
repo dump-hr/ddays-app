@@ -1,8 +1,8 @@
 import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { company, companyInterests, interest } from 'db/schema';
-import { and, eq, inArray } from 'drizzle-orm';
+import { code, company, companyInterests, interest } from 'db/schema';
+import { and, desc, eq, inArray } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
@@ -20,6 +20,8 @@ export class CompaniesService {
   async create(createCompanyDto: CreateCompanyDto) {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
+    const generatedCode = await this.generateCodeForCompany(createCompanyDto);
+
     const createdComapny = await db
       .insert(company)
       .values({
@@ -30,7 +32,7 @@ export class CompaniesService {
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: createCompanyDto.websiteUrl,
         boothLocation: createCompanyDto.boothLocation,
-        codeId: createCompanyDto.codeId,
+        codeId: generatedCode[0].id,
       })
       .returning();
 
@@ -57,6 +59,21 @@ export class CompaniesService {
       .orderBy(company.name);
 
     return companies;
+  }
+
+  async generateCodeForCompany(company: CreateCompanyDto) {
+    const codeValue = Math.random().toString(36).slice(-8);
+    const newCode = {
+      value: codeValue,
+      description: `Code for ${company.name}`,
+      points: 0, //TODO: Set this for later and other required things
+      isSingleUse: false,
+      isActive: true,
+    };
+
+    const createdCode = await db.insert(code).values(newCode).returning();
+
+    return createdCode;
   }
 
   async getOne(id: number): Promise<CompanyDetailsDto | undefined> {
@@ -126,7 +143,6 @@ export class CompaniesService {
         sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: updateCompanyDto.websiteUrl,
         boothLocation: updateCompanyDto.boothLocation,
-        codeId: updateCompanyDto.codeId,
       })
       .where(eq(company.id, id))
       .returning();

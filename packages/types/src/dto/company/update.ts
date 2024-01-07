@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsNumber,
+  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
@@ -31,23 +32,10 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     boothLocation?: string;
 
-    @IsNumber()
-    @ApiProperty()
-    codeId?: number;
-
     @IsEmail()
     @ApiProperty()
     email?: string;
 
-    @IsNumber(
-      {
-        allowNaN: false,
-        maxDecimalPlaces: 0,
-      },
-      {
-        each: true,
-      },
-    )
     @ApiProperty()
     interests?: number[];
   }

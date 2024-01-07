@@ -30,6 +30,10 @@ const navLinks = [
     text: 'Notifications',
   },
   {
+    href: '/companies',
+    text: 'Companies',
+  },
+  {
     href: '/faqs',
     text: 'FAQ',
   },
