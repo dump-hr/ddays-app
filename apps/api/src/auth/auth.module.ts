@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { env } from 'process';
+import { BlobModule } from 'src/blob/blob.module';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { CompaniesService } from 'src/companies/companies.service';
 
@@ -20,6 +21,7 @@ export const jwtSecret = env.JWT_SECRET;
       signOptions: { expiresIn: '14d' },
     }),
     CompaniesModule,
+    BlobModule,
   ],
   controllers: [AuthController],
   providers: [AzureADStrategy, AuthService, CompaniesService, JwtStrategy],
