@@ -1,0 +1,22 @@
+.description {
+    &Container {
+        margin-bottom: 24px;
+    }
+    &Title {
+        color: #FFF;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: -0.33px;
+        margin-bottom: 8px;
+        margin-top: 0px;
+    }
+    &Content {
+        color: rgba(255, 255, 255, 0.50);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}
