@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -14,7 +15,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { SponsorAuthGuard } from 'src/auth/sponsor.guard';
 
-import { CreateInterestDto } from './interests.dto';
+import { CreateInterestDto, UpdateCompanyInterestsDto } from './interests.dto';
 import { UpdateInterestDto } from './interests.dto';
 import { InterestsService } from './interests.service';
 
@@ -45,6 +46,21 @@ export class InterestsController {
     const interests = await this.interestsService.getForSponsor(+req.user.id);
 
     return interests;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Put('/sponsor')
+  async updateSponsorInterests(
+    @Req() req: AuthenticatedRequest,
+    @Body() data: UpdateCompanyInterestsDto,
+  ) {
+    const updatedInterests = await this.interestsService.updateCompanyInterests(
+      +req.user.id,
+      data,
+    );
+
+    return updatedInterests;
   }
 
   @Get(':id')

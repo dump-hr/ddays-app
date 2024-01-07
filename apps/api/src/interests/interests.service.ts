@@ -3,7 +3,11 @@ import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
-import { CreateInterestDto, UpdateInterestDto } from './interests.dto';
+import {
+  CreateInterestDto,
+  UpdateCompanyInterestsDto,
+  UpdateInterestDto,
+} from './interests.dto';
 
 @Injectable()
 export class InterestsService {
@@ -108,5 +112,25 @@ export class InterestsService {
       .where(eq(companyInterests.interestId, interestId));
 
     return companies;
+  }
+
+  async updateCompanyInterests(
+    companyId: number,
+    data: UpdateCompanyInterestsDto,
+  ) {
+    const { ids } = data;
+
+    await db
+      .delete(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    const newInterests = ids.map((interestId) => ({
+      companyId,
+      interestId,
+    }));
+
+    if (ids.length) await db.insert(companyInterests).values(newInterests);
+
+    return newInterests;
   }
 }

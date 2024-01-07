@@ -21,9 +21,6 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,

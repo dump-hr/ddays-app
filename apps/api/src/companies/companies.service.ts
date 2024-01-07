@@ -7,13 +7,10 @@ import {
 import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company, companyInterests } from 'db/schema';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
   UpdateCompanyDto,
@@ -342,11 +339,21 @@ export class CompaniesService {
       ? StepStatus.Good
       : StepStatus.Pending;
 
+    const {
+      0: { count: interestsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    status[FormSteps.Interests] = interestsCount
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
     status[FormSteps.Videos] = StepStatus.Pending;
     status[FormSteps.Jobs] = StepStatus.Pending;
-    status[FormSteps.Interests] = StepStatus.Good;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 
     return { status };

@@ -7,5 +7,5 @@ const getSponsorInterest = async () =>
   await api.get<never, SponsorInterestDto[]>('/interests/sponsor');
 
 export const useGetSponsorInterest = () => {
-  return useQuery(['sponsorInterest'], getSponsorInterest);
+  return useQuery(['sponsorInterests'], getSponsorInterest);
 };
