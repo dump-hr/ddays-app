@@ -96,7 +96,7 @@ export const CompaniesPage = () => {
     if (interests) {
       const interestsOptions = interests.map((interest) => ({
         label: interest.name,
-        value: interest.id.toString(),
+        value: interest.id,
       }));
 
       const newQuesiton: Question = {
