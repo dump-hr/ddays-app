@@ -1,30 +1,22 @@
-import { useId } from 'react';
 import { RefCallBack } from 'react-hook-form';
 
 import c from './SelectInput.module.scss';
 
 type SelectInputProps = {
   options: string[];
-  label: string;
   isAllowedEmpty?: boolean;
   innerRef?: RefCallBack;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
 const SelectInput: React.FC<SelectInputProps> = ({
   options,
-  label,
   isAllowedEmpty = false,
   innerRef,
   ...handlers
 }) => {
-  const id = useId();
-
   return (
     <>
-      <label htmlFor={id} className={c.selectLabel}>
-        {label}
-      </label>
-      <select ref={innerRef} id={id} className={c.selectInput} {...handlers}>
+      <select ref={innerRef} className={c.selectInput} {...handlers}>
         <option value='' disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
           -
         </option>
