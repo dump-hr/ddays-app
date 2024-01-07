@@ -1,17 +1,24 @@
 import HomePage from '../pages/HomePage';
 import { Path } from './paths';
 
-export const pages = [
+type Page = {
+  path: Path;
+  name: string;
+  icon: string;
+  component: React.FC;
+};
+
+export const pages: Page[] = [
   {
     path: Path.Materials,
-    name: 'Materials',
+    name: 'Predaja materijala',
     icon: '/materials.svg',
     component: HomePage,
   },
   {
     path: Path.Stand,
     icon: '/stand.svg',
-    name: 'Stand',
+    name: 'Štand',
     component: HomePage,
   },
   {
@@ -23,7 +30,7 @@ export const pages = [
   {
     path: Path.Profile,
     icon: '/profile.svg',
-    name: 'Profile',
+    name: 'Profil tvrtke',
     component: HomePage,
   },
 ];
