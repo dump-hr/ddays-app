@@ -151,6 +151,15 @@ export class CompaniesController {
     return interests;
   }
 
+  @Get('/sponsorFormStatus')
+  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
+    const status = await this.companiesService.getSponsorFormStatus(
+      req.user.id,
+    );
+
+    return status;
+  }
+
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Patch('/interests/:interestId')

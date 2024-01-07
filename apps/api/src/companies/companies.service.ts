@@ -1,4 +1,4 @@
-import { SponsorCategory } from '@ddays-app/types';
+import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
@@ -296,5 +296,18 @@ export class CompaniesService {
       .where(eq(companyInterests.companyId, companyId));
 
     return interests;
+  }
+
+  async getSponsorFormStatus(companyId: number) {
+    const status = {};
+    status[FormSteps.Description] = StepStatus.Pending;
+    status[FormSteps.Logo] = StepStatus.Pending;
+    status[FormSteps.Photos] = StepStatus.Pending;
+    status[FormSteps.Videos] = StepStatus.Pending;
+    status[FormSteps.Jobs] = StepStatus.Pending;
+    status[FormSteps.Interests] = StepStatus.Good;
+    status[FormSteps.SwagBag] = StepStatus.Pending;
+
+    return { status };
   }
 }
