@@ -8,6 +8,7 @@ import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { and, eq } from 'drizzle-orm';
+import { BlobService } from 'src/blob/blob.service';
 
 import {
   AddSponsorLandingImageDto,
@@ -21,6 +22,8 @@ import {
 
 @Injectable()
 export class CompaniesService {
+  constructor(private readonly blobService: BlobService) {}
+
   async create(createCompanyDto: CreateCompanyDto) {
     const createdComapny = await db
       .insert(company)
@@ -176,11 +179,18 @@ export class CompaniesService {
     return updatedCompany[0] ?? null;
   }
 
-  async addLogo(id: number, addSponsorLogoDto: AddSponsorLogoDto) {
+  async addLogo(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-logos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLogo = await db
       .update(company)
       .set({
-        logoImage: addSponsorLogoDto.imageUrl,
+        logoImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -188,11 +198,18 @@ export class CompaniesService {
     return addedLogo;
   }
 
-  async addVideo(id: number, addSponsorVideoDto: AddSponsorVideoDto) {
+  async addVideo(id: number, file: Express.Multer.File) {
+    const videoUrl = await this.blobService.upload(
+      'companies-videos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedVideo = await db
       .update(company)
       .set({
-        companyVideo: addSponsorVideoDto.videoUrl,
+        companyVideo: videoUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -200,14 +217,18 @@ export class CompaniesService {
     return addedVideo;
   }
 
-  async addLandingImage(
-    id: number,
-    addSponsorLandingImageDto: AddSponsorLandingImageDto,
-  ) {
+  async addLandingImage(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-landing-images',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLandingImage = await db
       .update(company)
       .set({
-        landingImage: addSponsorLandingImageDto.imageUrl,
+        landingImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
