@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import useLocation from 'wouter/use-location';
 
@@ -20,9 +21,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className={c.navItemsWrapper}>
             {pages.map(({ path, name, icon }) => (
               <div
-                className={`${c.navItem} ${
-                  isCurrentPage(path) && c.activeItem
-                }`}
+                className={clsx(c.navItem, {
+                  [c.activeItem]: isCurrentPage(path),
+                })}
                 onClick={() => navigate(path)}
                 key={path}>
                 <img src={icon} alt={name} />
