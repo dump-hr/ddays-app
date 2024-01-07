@@ -1,4 +1,5 @@
 import CircularButton from '../../components/CircularButton';
+import InfoCard from '../../components/InfoCard';
 import LayoutSpacing from '../../components/LayoutSpacing';
 import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
@@ -27,11 +28,20 @@ const CompanyProfile = () => {
         <LayoutSpacing>
           <div className={c.cardsLayout}>
             <div className={c.left}>
-              <div className={c.card}></div>
-              <div className={c.card}></div>
+              <InfoCard
+                title='O nama'
+                buttonText='Saznaj više'
+                onClick={() => console.log('Clicked')}></InfoCard>
+              <InfoCard
+                title='Kontakt'
+                buttonText='Pošalji poruku'
+                onClick={() => console.log('Clicked')}></InfoCard>
             </div>
             <div className={c.right}>
-              <div className={c.card}></div>
+              <InfoCard
+                title='Proizvodi'
+                buttonText='Pogledaj sve'
+                onClick={() => console.log('Clicked')}></InfoCard>
             </div>
           </div>
         </LayoutSpacing>
