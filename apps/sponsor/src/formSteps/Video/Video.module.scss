@@ -75,3 +75,33 @@
   margin-top: auto;
   margin-bottom: 56px;
 }
+
+.videoContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.remove {
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 0px 2px;
+  background: #fff;
+  color: #b40000;
+  height: 20px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.error {
+  color: #b40000;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 24px;
+}
