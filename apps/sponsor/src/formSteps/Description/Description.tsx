@@ -1,14 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
+import { useUpdateSponsorDescription } from '../../api/useUpdateSponsorDescription';
 import TextArea from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
-const isGold = true;
-
 const Description: FormComponent = ({ close }) => {
-  const [aboutCompanyText, setAboutCompanyText] = useState('');
-  const [aboutProjectsText, setAboutProjectsText] = useState('');
+  const [companyDescriptionText, setCompanyDescriptionText] = useState('');
+
+  const { data, error, isLoading } = useGetSponsorDescription();
+
+  const updateSponsorDescription = useUpdateSponsorDescription();
+
+  const handleSubmit = async () => {
+    await updateSponsorDescription.mutateAsync({
+      description: companyDescriptionText,
+    });
+    close();
+  };
+
+  useEffect(() => {
+    if (!data) return;
+    setCompanyDescriptionText(data.description);
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.toString()}</div>;
+  }
 
   return (
     <div className={c.container}>
@@ -20,23 +43,14 @@ const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={aboutCompanyText}
-          onChange={(value) => setAboutCompanyText(value)}
+          value={companyDescriptionText}
+          onChange={(value) => setCompanyDescriptionText(value)}
           limit={70}
           deviation={5}
           label='Opis tvrtke'
         />
-        {isGold && (
-          <TextArea
-            value={aboutProjectsText}
-            onChange={(value) => setAboutProjectsText(value)}
-            limit={70}
-            deviation={5}
-            label='Poslovne prilike, o poslovima i projektima'
-          />
-        )}
       </div>
-      <button onClick={close} className={c.button}>
+      <button onClick={handleSubmit} className={c.button}>
         Nastavi
       </button>
     </div>
