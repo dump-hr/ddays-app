@@ -1,8 +1,13 @@
 //TODO variables for colors and remove bakcground color on body
 .input {
     &Area {
+        margin-bottom: 40px;
         &Container {
-
+            border: rgba(255, 255, 255, 0.40);
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%23333' stroke-width='1' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+            border-radius: 16px;
+            margin-bottom: 8px;
+            background-color: rgba(25, 26, 32, 0.30);
         }
     }
     &Field {
@@ -17,7 +22,6 @@
         flex-shrink: 0;
         background: rgba(25, 26, 32, 0.30);
         border-radius: 16px;
-        border: 1px dashed rgba(255, 255, 255, 0.40);
         visibility: hidden;
     }
     &FieldLabel {
@@ -29,7 +33,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
     }
 }
 
@@ -43,6 +47,7 @@
 }
 
 .labelArea {
+    margin-bottom: 24px;
     &Title {
         color: #FFF;
         font-size: 14px;

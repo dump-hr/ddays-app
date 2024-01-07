@@ -53,7 +53,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
                     <svg height='21px' width='24px'>
                         <use href={`${sprite}#upload-materials`} />
                     </svg>
-                    {label?.uploadArea ?? ''}
+                    {label?.uploadArea}
                 </div>
             </label>
         </div>
