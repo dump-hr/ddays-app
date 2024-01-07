@@ -1,14 +1,31 @@
 import { useState } from 'react';
 
+import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
+import { useUpdateSponsorDescription } from '../../api/useUpdateSponsorDescription';
 import TextArea from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
-const isGold = true;
-
 const Description: FormComponent = ({ close }) => {
-  const [aboutCompanyText, setAboutCompanyText] = useState('');
-  const [aboutProjectsText, setAboutProjectsText] = useState('');
+  const [description, setDescription] = useState<string>();
+
+  const { data, error, isLoading } = useGetSponsorDescription();
+  const updateSponsorDescription = useUpdateSponsorDescription();
+
+  if (error) {
+    return <div>{error.toString()}</div>;
+  }
+
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
+  const handleSubmit = async () => {
+    await updateSponsorDescription.mutateAsync({
+      description: description ?? data.description,
+    });
+    close();
+  };
 
   return (
     <div className={c.container}>
@@ -20,24 +37,15 @@ const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={aboutCompanyText}
-          onChange={(value) => setAboutCompanyText(value)}
+          value={description ?? data.description}
+          onChange={(value) => setDescription(value)}
           limit={70}
           deviation={5}
           label='Opis tvrtke'
         />
-        {isGold && (
-          <TextArea
-            value={aboutProjectsText}
-            onChange={(value) => setAboutProjectsText(value)}
-            limit={70}
-            deviation={5}
-            label='Poslovne prilike, o poslovima i projektima'
-          />
-        )}
       </div>
-      <button onClick={close} className={c.button}>
-        Nastavi
+      <button onClick={handleSubmit} className={c.button}>
+        Spremi
       </button>
     </div>
   );

@@ -1,21 +1,29 @@
 import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { and, eq } from 'drizzle-orm';
+import { BlobService } from 'src/blob/blob.service';
 
 import {
-  AddSponsorDescriptionDto,
   AddSponsorLandingImageDto,
   AddSponsorLogoDto,
   AddSponsorVideoDto,
   CreateCompanyDto,
+  SponsorDescriptionDto,
   UpdateCompanyDto,
+  UpdateSponsorDescriptionDto,
 } from './companies.dto';
 
 @Injectable()
 export class CompaniesService {
+  constructor(private readonly blobService: BlobService) {}
+
   async create(createCompanyDto: CreateCompanyDto) {
     const createdComapny = await db
       .insert(company)
@@ -66,7 +74,7 @@ export class CompaniesService {
       .from(company)
       .where(eq(company.id, id));
 
-    return companyToGet;
+    return companyToGet[0] ?? null;
   }
 
   async getOneByEmail(email: string) {
@@ -132,26 +140,57 @@ export class CompaniesService {
     return removedCompany;
   }
 
-  async addDescription(
-    id: number,
-    addSponsorDescriptionDto: AddSponsorDescriptionDto,
-  ) {
-    const addedDescription = await db
-      .update(company)
-      .set({
-        description: addSponsorDescriptionDto.description,
+  async getDescription(companyId: number): Promise<SponsorDescriptionDto> {
+    const description = await db
+      .select({
+        description: company.description,
       })
-      .where(eq(company.id, id))
-      .returning();
+      .from(company)
+      .where(eq(company.id, companyId));
 
-    return addedDescription;
+    return description[0] ?? null;
   }
 
-  async addLogo(id: number, addSponsorLogoDto: AddSponsorLogoDto) {
+  private validateWordCount(str: string, limit: number, deviation: number) {
+    const lowerBound = limit - deviation;
+    const upperBound = limit + deviation;
+
+    const wc = str.match(/\S+/g)?.length || 0;
+
+    return wc >= lowerBound && wc <= upperBound;
+  }
+
+  async updateDescription(
+    companyId: number,
+    { description }: UpdateSponsorDescriptionDto,
+  ) {
+    if (!this.validateWordCount(description, 70, 5)) {
+      throw new BadRequestException('Description text out of bounds');
+    }
+
+    const updatedCompany = await db
+      .update(company)
+      .set({
+        description,
+      })
+      .where(eq(company.id, companyId))
+      .returning();
+
+    return updatedCompany[0] ?? null;
+  }
+
+  async addLogo(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-logos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLogo = await db
       .update(company)
       .set({
-        logoImage: addSponsorLogoDto.imageUrl,
+        logoImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -159,11 +198,18 @@ export class CompaniesService {
     return addedLogo;
   }
 
-  async addVideo(id: number, addSponsorVideoDto: AddSponsorVideoDto) {
+  async addVideo(id: number, file: Express.Multer.File) {
+    const videoUrl = await this.blobService.upload(
+      'companies-videos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedVideo = await db
       .update(company)
       .set({
-        companyVideo: addSponsorVideoDto.videoUrl,
+        companyVideo: videoUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -171,14 +217,18 @@ export class CompaniesService {
     return addedVideo;
   }
 
-  async addLandingImage(
-    id: number,
-    addSponsorLandingImageDto: AddSponsorLandingImageDto,
-  ) {
+  async addLandingImage(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-landing-images',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
     const addedLandingImage = await db
       .update(company)
       .set({
-        landingImage: addSponsorLandingImageDto.imageUrl,
+        landingImage: imageUrl,
       })
       .where(eq(company.id, id))
       .returning();
@@ -299,8 +349,13 @@ export class CompaniesService {
   }
 
   async getSponsorFormStatus(companyId: number) {
+    const company = await this.getOne(companyId);
     const status = {};
-    status[FormSteps.Description] = StepStatus.Pending;
+
+    status[FormSteps.Description] = company?.description.length
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
     status[FormSteps.Videos] = StepStatus.Pending;
