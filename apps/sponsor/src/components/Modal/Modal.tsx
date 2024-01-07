@@ -1,6 +1,6 @@
-import { FormStep } from '@ddays-app/types';
 import React from 'react';
 
+import { FormStep } from '../../types/form';
 import c from './Modal.module.scss';
 
 interface ModalProps {
