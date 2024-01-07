@@ -18,4 +18,11 @@
     background-color: #fff;
     color: #5cc2a0;
   }
+
+  &:disabled {
+    background-color: #ccc;
+    color: #fff;
+    border: 2px solid #ccc;
+    cursor: not-allowed;
+  }
 }

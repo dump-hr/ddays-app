@@ -1,4 +1,5 @@
 import { RefCallBack } from 'react-hook-form';
+
 import c from './Input.module.scss';
 
 type InputProps = {

@@ -30,18 +30,48 @@ export enum QuestionType {
   MultipleSelect = 'MultipleSelect',
 }
 
+export type Option = {
+  label: string;
+  value: string;
+};
+
 export type Question = {
   id: string;
   title?: string;
   defaultValue?: any;
   rules?: CommonRules;
 } & (
-  | { type: QuestionType.Field; rules?: StringRules }
-  | { type: QuestionType.Number; rules?: NumbericRules }
-  | { type: QuestionType.TextArea; rows: number; rules?: StringRules }
-  | { type: QuestionType.Checkbox }
-  | { type: QuestionType.Date; rules?: NumbericRules }
-  | { type: QuestionType.DateTime; rules?: NumbericRules }
-  | { type: QuestionType.Select; options: string[] }
-  | { type: QuestionType.MultipleSelect; options: string[] }
+  | {
+      type: QuestionType.Field;
+      rules?: StringRules;
+    }
+  | {
+      type: QuestionType.Number;
+      rules?: NumbericRules;
+    }
+  | {
+      type: QuestionType.TextArea;
+      rows: number;
+      rules?: StringRules;
+    }
+  | {
+      type: QuestionType.Checkbox;
+    }
+  | {
+      type: QuestionType.Date;
+      rules?: NumbericRules;
+    }
+  | {
+      type: QuestionType.DateTime;
+      rules?: NumbericRules;
+    }
+  | {
+      type: QuestionType.Select;
+      options: string[];
+      isAllowedEmpty?: boolean;
+    }
+  | {
+      type: QuestionType.MultipleSelect;
+      options: Option[];
+    }
 );

@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  async healthCheck(): Promise<string> {
+    // todo: check db conn
+    return 'ok';
   }
 }

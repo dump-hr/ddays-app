@@ -1,5 +1,6 @@
 import { Dispatch } from 'react';
 
+import { toggleArrayElement } from '../../helpers';
 import Button from '../Button';
 import c from './MultipleSelectInput.module.scss';
 
@@ -9,38 +10,31 @@ type Option = {
 };
 
 type MultipleSelectInputProps = {
-  label: string;
   options: Option[];
-  selectedOptions: Option[];
-  setSelectedOptions: Dispatch<Option[]>;
+  selectedOptions: string[];
+  setSelectedOptions: Dispatch<string[]>;
 };
 
 const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
-  label,
   options,
   selectedOptions,
   setSelectedOptions,
 }) => {
   const toggleSelectOption = (option: Option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((opt) => opt !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
+    const toggledArray = toggleArrayElement(selectedOptions, option.value);
+    setSelectedOptions(toggledArray);
   };
 
   return (
     <div>
-      <p>{label}</p>
       <div className={c.multipleSelectInputWrapper}>
         {options.map((option) => (
           <Button
-            variant={selectedOptions.includes(option) ? 'primary' : 'secondary'}
-            onClick={() => {
-              toggleSelectOption(option);
-            }}
-            key={option.value}
-          >
+            variant={
+              selectedOptions.includes(option.value) ? 'primary' : 'secondary'
+            }
+            onClick={() => toggleSelectOption(option)}
+            key={option.value}>
             {option.label}
           </Button>
         ))}

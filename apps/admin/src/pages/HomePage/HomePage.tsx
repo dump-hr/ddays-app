@@ -45,6 +45,15 @@ const questions: Question[] = [
     id: 'isFail',
     defaultValue: false,
   },
+  {
+    type: QuestionType.MultipleSelect,
+    title: 'Multiple select',
+    id: 'multipleSelect',
+    options: [
+      { label: 'Option 1', value: 'option-1' },
+      { label: 'Option 2', value: 'option-2' },
+    ],
+  },
 ];
 
 const HomePage = () => {

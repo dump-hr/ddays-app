@@ -1,16 +1,21 @@
 import Button from '../Button';
 import c from './Table.module.scss';
 
-type TableProps = {
+type TableProps<T> = {
   headers: string[];
-  data: object[];
+  data: T[] | undefined;
   buttonActions?: {
-    label: string;
-    action: (row: object) => void;
+    label: string | ((row: T) => string);
+    action: (row: T) => void;
+    isDisabled?: (row: T) => boolean;
   }[];
 };
 
-const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
+const Table = <T extends object>({
+  headers,
+  data,
+  buttonActions = [],
+}: TableProps<T>) => {
   return (
     <table>
       <thead>
@@ -25,32 +30,35 @@ const Table: React.FC<TableProps> = ({ headers, data, buttonActions = [] }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((row, i) => {
-          return (
-            <tr key={i}>
-              {Object.values(row).map((value, i) => {
-                return (
-                  <td className={c.td} key={i}>
-                    {value}
-                  </td>
-                );
-              })}
-              <td className={c.buttonActions}>
-                {buttonActions.map((action, i) => {
+        {!!data &&
+          data.map((row, i) => {
+            return (
+              <tr key={i}>
+                {Object.values(row).map((value, i) => {
                   return (
-                    <Button
-                      variant="secondary"
-                      onClick={() => action.action(row)}
-                      key={i}
-                    >
-                      {action.label}
-                    </Button>
+                    <td className={c.td} key={i}>
+                      {value}
+                    </td>
                   );
                 })}
-              </td>
-            </tr>
-          );
-        })}
+                <td className={c.buttonActions}>
+                  {buttonActions.map((action, i) => {
+                    return (
+                      <Button
+                        variant='secondary'
+                        disabled={action.isDisabled?.(row)}
+                        onClick={() => action.action(row)}
+                        key={i}>
+                        {typeof action.label === 'function'
+                          ? action.label(row)
+                          : action.label}
+                      </Button>
+                    );
+                  })}
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
