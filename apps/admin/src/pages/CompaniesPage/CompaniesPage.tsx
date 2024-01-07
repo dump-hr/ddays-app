@@ -1,4 +1,4 @@
-import { QuestionType, SponsorCategory } from '@ddays-app/types';
+import { Question, QuestionType, SponsorCategory } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -12,7 +12,6 @@ import InputHandler from '../../components/InputHandler';
 import Modal from '../../components/Modal';
 import Table from '../../components/Table';
 import {
-  CompanyDetailsDto,
   CompanyDto,
   CreateCompanyDto,
   UpdateCompanyDto,
@@ -29,7 +28,7 @@ const headers = [
   'Akcije',
 ];
 
-const questions = [
+const questions: Question[] = [
   {
     id: 'name',
     type: QuestionType.Field,
@@ -99,7 +98,7 @@ export const CompaniesPage = () => {
     {
       label: 'Uredi',
       action: (row: CompanyDto) => {
-        setCompanyToEdit(row);
+        setCompanyToEdit(row.id);
         setIsOpenEditModal(!isOpenEditModal);
       },
     },
@@ -142,7 +141,7 @@ export const CompaniesPage = () => {
         sponsorCategory: companyToEdit.sponsorCategory,
       });
     }
-  }, [companyToEditId]);
+  }, [companyToEdit]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -188,10 +187,10 @@ export const CompaniesPage = () => {
           setIsOpenDeleteModal(!isOpenDeleteModal);
         }}>
         <div style={{ display: 'flex' }}>
-          <p>Are you sure you want to delete this question?</p>
+          <p>Jeste li sigurni da želite izbrisati ovu kompaniju?</p>
           <Button
             onClick={() => {
-              deleteCompany(questionToDeleteId as number);
+              deleteCompany(companyToDeleteId as number);
               setIsOpenDeleteModal(!isOpenDeleteModal);
             }}>
             Delete
@@ -204,7 +203,7 @@ export const CompaniesPage = () => {
         onClick={() => {
           setIsOpenAddModal(!isOpenAddModal);
         }}>
-        Dodaj novo pitanje
+        Dodaj novu kompaniju
       </Button>
       <Table headers={headers} data={companies} buttonActions={buttonActions} />
     </>

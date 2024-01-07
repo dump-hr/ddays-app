@@ -1,12 +1,14 @@
 import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { company, companyInterests } from 'db/schema';
+import { company, companyInterests, interest } from 'db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
   AddSponsorDescriptionDto,
+  CompanyDetailsDto,
+  CompanyDto,
   CreateCompanyDto,
   UpdateCompanyDto,
 } from './companies.dto';
