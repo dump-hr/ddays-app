@@ -216,15 +216,6 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Get('/interests')
-  async getMyInterests(@Req() req: AuthenticatedRequest) {
-    const interests = await this.companiesService.getInterests(req.user.id);
-
-    return interests;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
   @Get('/sponsorFormStatus')
   async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
     const status = await this.companiesService.getSponsorFormStatus(
