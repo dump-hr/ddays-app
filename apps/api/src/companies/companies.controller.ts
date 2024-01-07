@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -169,6 +170,9 @@ export class CompaniesController {
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
+
+    if (!company) throw new NotFoundException('Company not found');
+
     return company;
   } //fun fact this returns an array with one element, not sure if that is good behaviour
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
@@ -180,6 +184,7 @@ export class CompaniesController {
       id,
       updateCompanyDto,
     );
+
     return updatedCmopany;
   }
 

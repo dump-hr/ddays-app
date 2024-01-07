@@ -10,6 +10,7 @@ import {
   AddSponsorLandingImageDto,
   AddSponsorLogoDto,
   AddSponsorVideoDto,
+  CompanyDto,
   CreateCompanyDto,
   UpdateCompanyDto,
 } from './companies.dto';
@@ -34,7 +35,8 @@ export class CompaniesService {
     return createdComapny;
   }
 
-  async getAll() {
+  async getAll(): Promise<CompanyDto[]> {
+    //TODO: Implement backend mapping and fix drizzle bugs
     const companies = await db
       .select({
         id: company.id,
@@ -44,6 +46,8 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
+        url: company.websiteUrl,
+        email: company.email,
       })
       .from(company)
       .orderBy(company.name);
@@ -51,7 +55,7 @@ export class CompaniesService {
     return companies;
   }
 
-  async getOne(id: number) {
+  async getOne(id: number): Promise<CompanyDto | undefined> {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -62,14 +66,15 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
+        url: company.websiteUrl,
       })
       .from(company)
       .where(eq(company.id, id));
 
-    return companyToGet;
+    return companyToGet[0];
   }
 
-  async getOneByEmail(email: string) {
+  async getOneByEmail(email: string): Promise<CompanyDto | undefined> {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -79,11 +84,13 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
+        email: company.email,
+        url: company.websiteUrl,
       })
       .from(company)
       .where(eq(company.email, email));
 
-    return companyToGet;
+    return companyToGet[0];
   }
 
   async login(email: string, password: string) {
