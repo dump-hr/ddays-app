@@ -1,6 +1,5 @@
 import { SponsorCategory } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import bcrypt from 'bcrypt';
 import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { and, eq } from 'drizzle-orm';
@@ -18,11 +17,13 @@ import {
 @Injectable()
 export class CompaniesService {
   async create(createCompanyDto: CreateCompanyDto) {
+    const generatedPassword = Math.random().toString(36).slice(-8);
+
     const createdComapny = await db
       .insert(company)
       .values({
         email: createCompanyDto.email,
-        password: await bcrypt.hash(createCompanyDto.password, 10),
+        password: generatedPassword,
         name: createCompanyDto.name,
         description: createCompanyDto.description,
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,

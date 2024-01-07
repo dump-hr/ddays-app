@@ -16,32 +16,27 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    description: string;
+    description?: string;
 
     @IsEnum(SponsorCategory)
     @ApiProperty()
-    sponsorCategory: string;
+    sponsorCategory?: string;
 
     @IsString()
     @ApiProperty()
-    websiteUrl: string;
+    websiteUrl?: string;
 
     @IsString()
     @ApiProperty()
-    boothLocation: string;
+    boothLocation?: string;
 
     @IsNumber()
     @ApiProperty()
-    codeId: number;
+    codeId?: number;
 
     @IsEmail()
     @ApiProperty()
     email: string;
-
-    @IsString()
-    // @IsStrongPassword()
-    @ApiProperty()
-    password: string;
   }
   return CreateCompanyDto;
 };

@@ -9,7 +9,7 @@ const questions = [
   },
   {
     id: 'description',
-    type: QuestionType.Field,
+    type: QuestionType.TextArea,
     title: 'Opis',
     rules: { required: 'Obavezno polje' },
   },
@@ -17,6 +17,9 @@ const questions = [
     id: 'website',
     type: QuestionType.Field,
     title: 'Website',
+  },
+  {
+    
   },
 ];
 
