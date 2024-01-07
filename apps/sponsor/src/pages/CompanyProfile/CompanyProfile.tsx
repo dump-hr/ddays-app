@@ -1,3 +1,5 @@
+import { useLocation } from 'wouter';
+
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import JobOffer from '../../components/InfoCard/JobOffer';
@@ -64,6 +66,7 @@ const JobOffersCardContent = () => {
 };
 
 const CompanyProfile = () => {
+  const [, setLocation] = useLocation();
   function dataIsEmpty() {
     return (
       data.interests.development.length == 0 &&
@@ -85,7 +88,9 @@ const CompanyProfile = () => {
                 <h3>Profico</h3>
                 <p>profi.co</p>
               </div>
-              <CircularButton className={c.submitButton}>
+              <CircularButton
+                className={c.submitButton}
+                onClick={() => setLocation('/materials')}>
                 {dataIsEmpty() ? 'Predaj materijale' : 'Uredi materijale'}
               </CircularButton>
             </div>
