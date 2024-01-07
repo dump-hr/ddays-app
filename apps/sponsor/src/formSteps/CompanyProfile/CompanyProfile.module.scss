@@ -88,3 +88,11 @@ h3 {
   size: 14px;
   color: rgba(255, 255, 255, 0.5);
 }
+
+.pillGroup {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}

@@ -1,6 +1,7 @@
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import LayoutSpacing from '../../components/LayoutSpacing';
+import Pill from '../../components/Pill';
 import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
 
@@ -19,7 +20,7 @@ const data = {
     },
   ],
   interests: {
-    development: [],
+    development: ['react', 'angular', 'vue', 'node', 'php', 'java', 'python'],
     design: [],
     marketing: [],
     tech: [],
@@ -32,6 +33,11 @@ const InterestsCardContent = () => {
       <p className={c.cardContentParagraph}>
         Development ({data.interests.development.length})
       </p>
+      <div className={c.pillGroup}>
+        {data.interests.development.map((interest) => (
+          <Pill key={interest} text={interest} />
+        ))}
+      </div>
       <p className={c.cardContentParagraph}>
         Design ({data.interests.design.length})
       </p>
@@ -82,7 +88,7 @@ const CompanyProfile = () => {
                 </p>
               </InfoCard>
               <InfoCard
-                title='Kontakt'
+                title='Interesi'
                 buttonText='Odaberite svoje interese'
                 onClick={() => console.log('Clicked')}>
                 <InterestsCardContent />
