@@ -29,3 +29,59 @@
   cursor: pointer;
   margin-top: auto;
 }
+
+.themes {
+  display: flex;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.themeLabel {
+  position: relative;
+  color: white;
+  opacity: 0.5;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  cursor: pointer;
+
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.themeLabel.selected {
+  opacity: 1;
+}
+
+.themeLabel.empty::after {
+  content: '\2022';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  font-size: 1.5em;
+  color: #ff8a00;
+}
+
+.wrapper {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pill {
+  padding: 4px 12px;
+  border-radius: 30px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+
+  cursor: pointer;
+}
+
+.pill.active {
+  background: white;
+  color: black;
+}
