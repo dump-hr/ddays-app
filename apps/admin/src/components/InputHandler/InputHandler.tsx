@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 
 import Input from '../Input';
+import MultipleSelectInput from '../MultipleSelectInput';
 import SelectInput from '../SelectInput';
 import c from './InputHandler.module.scss';
 
@@ -63,12 +64,19 @@ const getInputComponent = (
       return (
         <SelectInput
           options={question.options}
-          label={controlProps.name}
+          isAllowedEmpty={question.isAllowedEmpty}
           {...controlProps}
         />
       );
     case QuestionType.MultipleSelect:
-      return <></>; //TODO: toma
+      return (
+        <MultipleSelectInput
+          options={question.options}
+          selectedOptions={controlProps.value}
+          setSelectedOptions={controlProps.onChange}
+          {...controlProps}
+        />
+      );
     default:
       return <></>;
   }

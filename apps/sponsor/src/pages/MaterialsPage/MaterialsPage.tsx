@@ -1,9 +1,9 @@
-import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
+import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
 
 const statusChips = {
