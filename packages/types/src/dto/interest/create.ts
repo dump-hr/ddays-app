@@ -1,5 +1,5 @@
 import { EventTheme } from '@src/model';
-import { IsEnum, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsString } from 'class-validator';
 
 export const getCreateInterestDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -15,4 +15,16 @@ export const getCreateInterestDto = (ApiPropertySwagger?: any) => {
   }
 
   return CreateInterestDto;
+};
+
+export const getUpdateCompanyInterestsDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateCompanyInterestsDto {
+    @IsArray()
+    @ApiProperty()
+    ids: number[];
+  }
+
+  return UpdateCompanyInterestsDto;
 };
