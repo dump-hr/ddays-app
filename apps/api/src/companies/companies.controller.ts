@@ -21,13 +21,17 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorDescriptionDto,
+  AddSponsorLandingImageDto,
+  AddSponsorLogoDto,
+  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
+  UpdateSponsorDescriptionDto,
 } from './companies.dto';
 import { CompaniesService } from './companies.service';
-@ApiTags('companies')
-@Controller('companies')
+
+@ApiTags('company')
+@Controller('company')
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
@@ -45,17 +49,24 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @Get('/description')
+  async getDescription(@Req() req: AuthenticatedRequest) {
+    return await this.companiesService.getDescription(+req.user.id);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
   @Patch('/description')
-  async addDescription(
+  async updateDescription(
     @Req() req: AuthenticatedRequest,
-    @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
+    @Body() updateSponsorDescriptionDto: UpdateSponsorDescriptionDto,
   ) {
-    const addedSponsorDescription = await this.companiesService.addDescription(
+    const updatedCompany = await this.companiesService.updateDescription(
       +req.user.id,
-      addSponsorDescriptionDto,
+      updateSponsorDescriptionDto,
     );
 
-    return addedSponsorDescription;
+    return updatedCompany;
   }
 
   @UseGuards(SponsorAuthGuard)
@@ -215,6 +226,8 @@ export class CompaniesController {
     return interests;
   }
 
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
   @Get('/sponsorFormStatus')
   async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
     const status = await this.companiesService.getSponsorFormStatus(
@@ -243,7 +256,8 @@ export class CompaniesController {
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  } //fun fact this returns an array with one element, not sure if that is good behaviour
+  }
+
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
     @Param('id', ParseIntPipe) id: number,

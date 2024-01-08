@@ -4,6 +4,7 @@
 
 .textarea {
   height: 150px;
+  max-height: 300px;
   padding: 16px 18px;
   width: 100%;
   resize: vertical;
@@ -13,7 +14,6 @@
   outline: none;
   border: none;
   font-size: 16px;
-  overflow: hidden;
 
   ::placeholder {
     color: rgba(255, 255, 255, 0.4);

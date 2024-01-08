@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export const getAddSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
+export const getUpdateSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   class AddDescriptionDto {
     @IsString()
