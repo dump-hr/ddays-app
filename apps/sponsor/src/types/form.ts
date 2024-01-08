@@ -6,6 +6,7 @@ export class SponsorFormStatusDto extends _SponsorFormStatusDto {}
 
 export type FormComponent = React.FC<{
   close: () => void;
+  initialSrc?: string;
 }>;
 
 export type FormStep = {
