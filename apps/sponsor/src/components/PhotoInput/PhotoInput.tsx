@@ -1,19 +1,16 @@
+import {useDropzone} from 'react-dropzone';
+
 import styles from './PhotoInput.module.scss';
 import sprite from '../../../public/sprite.svg';
 
 type PhotoInputProps = {
   crop?: boolean;
-  label?: {
-    title?: string;
-    content?: string;
-    uploadArea?: string;
-  };
+  label?: string
   errorMessage?: {
     display: boolean;
     content: string;
   };
   inputConstraints?: {
-    imageCount?: number;
     imageType?: string;
     aspectRatio?: number;
     mimeType?: string;
@@ -35,26 +32,25 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
     console.log(event);
   };
 
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone();
+
   return (
     <div className={styles.inputArea}>
-        <div className={styles.labelArea}>
-            <h4 className={styles.labelAreaTitle}>{label?.title}</h4>
-            <div className={styles.labelAreaContent}>{label?.content}</div>
-        </div>
         <div className={styles.inputAreaContainer}>
-            <label className={styles.label}>
-                <input
-                className={styles.inputField}
-                type='file'
-                accept={inputConstraints?.mimeType ?? 'image/*'}
-                onChange={handleFileUpload}
-                />
-                <div className={styles.inputFieldLabel}>
-                    <svg height='21px' width='24px'>
-                        <use href={`${sprite}#upload-materials`} />
-                    </svg>
-                    {label?.uploadArea}
-                </div>
+            <label className={styles.inputAreaLabel}>
+                {!acceptedFiles.length && (
+                    <div {...getRootProps()}>
+                        <input {...getInputProps()}/>
+                        <div className={styles.inputFieldLabel}>
+                            <svg height='21px' width='24px'>
+                                <use href={`${sprite}#upload-materials`} />
+                            </svg>
+                            <p>
+                                {label}
+                            </p>
+                        </div>
+                    </div>
+                )}
             </label>
         </div>
     </div>

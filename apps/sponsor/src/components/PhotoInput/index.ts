@@ -1,3 +1,4 @@
 import PhotoInput from './PhotoInput';
+import PhotoInputLabel from './PhotoInputLabel';
 
-export default PhotoInput;
+export {PhotoInput, PhotoInputLabel};
