@@ -22,10 +22,12 @@ const LogoUpload: FormComponent = ({ close }) => {
         <PhotoInput
             label='Prenesite logo u pozitivu'
             errorMessage={{ display: true, content: 'Error Message' }}
+            inputConstraints={{mimeTypes: ['svg+xml']}}
         />
         <PhotoInput
             label='Prenesite logo u negativu'
             errorMessage={{ display: true, content: 'Error Message' }}
+            inputConstraints={{mimeTypes: ['svg+xml']}}
         />
       </div>
       
