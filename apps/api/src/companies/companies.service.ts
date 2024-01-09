@@ -350,6 +350,7 @@ export class CompaniesService {
 
   async getSponsorFormStatus(companyId: number) {
     const company = await this.getOne(companyId);
+    console.log(company);
     const status = {};
 
     status[FormSteps.Description] = company?.description.length

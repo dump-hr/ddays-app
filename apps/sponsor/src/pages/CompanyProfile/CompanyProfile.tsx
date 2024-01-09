@@ -2,6 +2,7 @@ import { FormSteps } from '@ddays-app/types';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 
+import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import JobOffer from '../../components/InfoCard/JobOffer';
@@ -73,6 +74,8 @@ const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
+  const { data: sponsorDescription } = useGetSponsorDescription();
+
   function dataIsEmpty() {
     return (
       data.interests.development.length == 0 &&
@@ -118,7 +121,7 @@ const CompanyProfile = () => {
                 buttonText='Dodajte svoje kratko predstavljanje'
                 onClick={() => setCurrentModal(FormSteps.Description)}>
                 <p className={c.cardContentParagraph}>
-                  {data.description || 'Nema opisa'}
+                  {sponsorDescription?.description || 'Nema opisa'}
                 </p>
               </InfoCard>
               <InfoCard
