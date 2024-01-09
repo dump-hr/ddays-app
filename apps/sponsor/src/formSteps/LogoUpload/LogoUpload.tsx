@@ -16,7 +16,6 @@ const LogoUpload: FormComponent = ({ close }) => {
           materijalima.
         </div>
       </div>
-        {/* todo wrap this */}
       <PhotoInputLabel title='Logo tvrtke' content='Pozitiv ili negativ u svg formatu' />
       <div className={styles.uploadArea}>
         <PhotoInput

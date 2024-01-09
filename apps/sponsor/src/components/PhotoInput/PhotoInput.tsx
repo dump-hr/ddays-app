@@ -34,6 +34,11 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
   inputConstraints,
   height=362,
 }) => {
+  const errorMessages = {
+    blackAndWhite: 'Logo mora biti crno bijeli',
+    wrongDimensions: 'Fotografija mora imati dimenzije manje od {width}x{height}',
+  }
+
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
   const [isWithinDimensions, setIsWithinDimensions] = useState<boolean | null>(null);
@@ -65,11 +70,6 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
         );
       },
     });
-
-    const errorMessages = {
-      blackAndWhite: 'Logo mora biti crno bijeli',
-      wrongDimensions: 'Fotografija mora imati dimenzije manje od {width}x{height}',
-    }
 
   const thumbs = files.map((file) => (
     <div className={styles.thumb}>
