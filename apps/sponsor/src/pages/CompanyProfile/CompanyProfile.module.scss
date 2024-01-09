@@ -2,6 +2,10 @@ section {
   width: 100%;
 }
 
+body {
+  background-color: #181717;
+}
+
 p,
 h3 {
   margin: 0;
@@ -64,8 +68,6 @@ h3 {
 
 .mainCards {
   width: 100%;
-  min-height: 800px;
-  background-color: #181717;
 
   .cardsLayout {
     padding-top: 40px;

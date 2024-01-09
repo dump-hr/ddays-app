@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-//import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import JobOffer from '../../components/InfoCard/JobOffer';
@@ -13,8 +12,8 @@ import Pill from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
 import c from './CompanyProfile.module.scss';
 
+// Until API can is implemented
 const data = {
-  description: '',
   jobOffers: [
     {
       title: 'Java Developer',
@@ -25,32 +24,37 @@ const data = {
   ],
   interests: {
     development: ['react', 'angular', 'vue', 'node', 'php', 'java', 'python'],
-    design: [],
-    marketing: [],
-    tech: [],
+    design: ['ui', 'ux', 'graphic', 'web', 'illustration'],
+    marketing: ['seo', 'social', 'email', 'content', 'analytics '],
+    tech: ['hardware', 'software', 'networking', 'security'],
   },
 };
 
 const InterestsCardContent = () => {
+  const interestCategories = Object.keys(data.interests);
+  type Category = keyof typeof data.interests;
+
   return (
     <>
-      <p className={c.cardContentParagraph}>
-        Development ({data.interests.development.length})
-      </p>
-      <div className={c.pillGroup}>
-        {data.interests.development.map((interest) => (
-          <Pill key={interest} text={interest} />
-        ))}
-      </div>
-      <p className={c.cardContentParagraph}>
-        Design ({data.interests.design.length})
-      </p>
-      <p className={c.cardContentParagraph}>
-        Marketing ({data.interests.marketing.length})
-      </p>
-      <p className={c.cardContentParagraph}>
-        Tech ({data.interests.tech.length})
-      </p>
+      {interestCategories.map((category) => {
+        const categoryName = `${
+          category.charAt(0).toUpperCase() + category.slice(1)
+        }`;
+        const interests = data.interests[category as Category];
+
+        return (
+          <>
+            <p className={c.cardContentParagraph}>
+              {`${categoryName} (${interests.length})`}
+            </p>
+            <div className={c.pillGroup}>
+              {interests.map((interest) => (
+                <Pill key={interest} text={interest} />
+              ))}
+            </div>
+          </>
+        );
+      })}
     </>
   );
 };
