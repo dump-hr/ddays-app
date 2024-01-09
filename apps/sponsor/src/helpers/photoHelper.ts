@@ -1,3 +1,8 @@
+type Dimensions = {
+  width: number;
+  height: number;
+};
+
 const checkBlackAndWhite = (file: File) => {
   return new Promise<boolean>((resolve) => {
     const img = new Image();
@@ -38,6 +43,23 @@ const checkBlackAndWhite = (file: File) => {
   });
 };
 
+const checkImageDimensions = (
+  file: File,
+  maxDimensions: Dimensions,
+): Promise<boolean> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    img.onload = () => {
+      const exceedsDimensions =
+        img.width > maxDimensions.width || img.height > maxDimensions.height;
+      resolve(!exceedsDimensions);
+    };
+  });
+};
+
 export const photoHelper = {
   checkBlackAndWhite,
+  checkImageDimensions,
 };

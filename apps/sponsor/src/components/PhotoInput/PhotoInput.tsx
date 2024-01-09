@@ -36,7 +36,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
 }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
-
+  const [isWithinDimensions, setIsWithinDimensions] = useState<boolean | null>(null);
 
   const { acceptedFiles, getRootProps, getInputProps } =
     useDropzone({
@@ -46,6 +46,14 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
             let blackAndWhitePromises = acceptedFiles.map(photoHelper.checkBlackAndWhite);
             const results = await Promise.all(blackAndWhitePromises);
             setIsBlackAndWhite(results.every((result) => result));
+        }
+
+        if(inputConstraints?.maxDimensions) {
+            const dimensionsPromises = acceptedFiles.map((file) =>
+            photoHelper.checkImageDimensions(file, inputConstraints.maxDimensions || { width: 0, height: 0 })
+          );
+          const dimensionsResults = await Promise.all(dimensionsPromises);
+          setIsWithinDimensions(dimensionsResults.every((result) => result));
         }
 
         setFiles(
@@ -103,7 +111,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
           </aside>
         </label>
       </div>
-
+{/* TODO handle message */}
       <div className={styles.errorContainer}>
         <ErrorMessage display={displayErrorMessages && isBlackAndWhite !== null && (inputConstraints?.checkBlackAndWhite ?? false)} message={"Logo mora biti crno bijeli"}/>
       </div>
