@@ -10,9 +10,10 @@ import LayoutSpacing from '../../components/LayoutSpacing';
 import Modal from '../../components/Modal';
 import Pill from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
+import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
 
-// Until API can is implemented
+// Until API is implemented
 const data = {
   jobOffers: [
     {
@@ -100,7 +101,7 @@ const CompanyProfile = () => {
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <img
-            src={company?.landingImage}
+            src={company?.landingImage || CoverImage}
             className={c.coverImage}
             alt='Cover'
           />
