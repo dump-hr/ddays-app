@@ -21,6 +21,7 @@ type PhotoInputProps = {
       height: number;
     };
   };
+  height?: number;
 };
 
 interface FileWithPreview extends File {
@@ -31,6 +32,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
   label,
   errorMessage,
   inputConstraints,
+  height=362,
 }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
@@ -72,8 +74,8 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
   }, []);
 
   return (
-    <div className={styles.inputArea}>
-      <div className={styles.inputAreaContainer}>
+    <div className={styles.inputArea} style={{height: `${height}px`}}>
+      <div className={styles.inputAreaContainer} style={{height: `${height}px`}}>
         <label className={styles.inputAreaLabel}>
           {!acceptedFiles.length && (
             <div {...getRootProps()}>
