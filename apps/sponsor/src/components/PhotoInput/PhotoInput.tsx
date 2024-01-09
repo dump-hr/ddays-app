@@ -3,14 +3,13 @@ import { useState, useEffect } from 'react';
 
 import styles from './PhotoInput.module.scss';
 import sprite from '../../../public/sprite.svg';
+import { photoHelper } from '../../helpers/photoHelper';
+import { ErrorMessage } from '.';
 
 type PhotoInputProps = {
   crop?: boolean;
   label?: string;
-  errorMessage?: {
-    display: boolean;
-    content: string;
-  };
+  displayErrorMessages?: boolean;
   inputConstraints?: {
     imageType?: string;
     aspectRatio?: number;
@@ -20,6 +19,7 @@ type PhotoInputProps = {
       width: number;
       height: number;
     };
+    checkBlackAndWhite?: boolean;
   };
   height?: number;
 };
@@ -30,15 +30,24 @@ interface FileWithPreview extends File {
 
 const PhotoInput: React.FC<PhotoInputProps> = ({
   label,
-  errorMessage,
+  displayErrorMessages = false,
   inputConstraints,
   height=362,
 }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
+  const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
+
+
+  const { acceptedFiles, getRootProps, getInputProps } =
     useDropzone({
       accept: inputConstraints?.mimeTypes?.reduce((acc, type) => ({ ...acc, [`image/${type}`]: [] }), {}) || { 'image/*': [] },
-      onDrop: (acceptedFiles) => {
+      onDrop: async (acceptedFiles) => {
+        if (inputConstraints?.checkBlackAndWhite) {
+            let blackAndWhitePromises = acceptedFiles.map(photoHelper.checkBlackAndWhite);
+            const results = await Promise.all(blackAndWhitePromises);
+            setIsBlackAndWhite(results.every((result) => result));
+        }
+
         setFiles(
           acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -60,6 +69,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
                 URL.revokeObjectURL(file?.preview);
             }
           }}
+          style={{maxHeight: `${height}px`}}
         />
       </div>
     </div>
@@ -92,6 +102,10 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
             {thumbs}
           </aside>
         </label>
+      </div>
+
+      <div className={styles.errorContainer}>
+        <ErrorMessage display={displayErrorMessages && isBlackAndWhite !== null && (inputConstraints?.checkBlackAndWhite ?? false)} message={"Logo mora biti crno bijeli"}/>
       </div>
     </div>
   );

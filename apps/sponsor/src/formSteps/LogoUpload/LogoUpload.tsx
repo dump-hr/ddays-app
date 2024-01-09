@@ -17,19 +17,13 @@ const LogoUpload: FormComponent = ({ close }) => {
         </div>
       </div>
         {/* todo wrap this */}
-      <PhotoInputLabel title='Logo tvrtke' content='Pozitiv i negativ u svg formatu' />
+      <PhotoInputLabel title='Logo tvrtke' content='Pozitiv ili negativ u svg formatu' />
       <div className={styles.uploadArea}>
         <PhotoInput
             label='Prenesite logo u pozitivu'
-            errorMessage={{ display: true, content: 'Error Message' }}
-            inputConstraints={{mimeTypes: ['svg+xml']}}
-            height={163}
-        />
-        <PhotoInput
-            label='Prenesite logo u negativu'
-            errorMessage={{ display: true, content: 'Error Message' }}
-            inputConstraints={{mimeTypes: ['svg+xml']}}
-            height={163}
+            displayErrorMessages={true}
+            inputConstraints={{mimeTypes: ['svg+xml'], checkBlackAndWhite: true}}
+            height={326}
         />
       </div>
       
