@@ -66,6 +66,11 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
       },
     });
 
+    const errorMessages = {
+      blackAndWhite: 'Logo mora biti crno bijeli',
+      wrongDimensions: 'Fotografija mora imati dimenzije manje od {width}x{height}',
+    }
+
   const thumbs = files.map((file) => (
     <div className={styles.thumb}>
       <div className={styles.thumbInner}>
@@ -111,9 +116,23 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
           </aside>
         </label>
       </div>
-{/* TODO handle message */}
       <div className={styles.errorContainer}>
-        <ErrorMessage display={displayErrorMessages && isBlackAndWhite !== null && (inputConstraints?.checkBlackAndWhite ?? false)} message={"Logo mora biti crno bijeli"}/>
+        {displayErrorMessages && (
+          <>
+            {isBlackAndWhite === false && inputConstraints?.checkBlackAndWhite && (
+              <ErrorMessage display={true} message={errorMessages.blackAndWhite} />
+            )}
+            {isWithinDimensions === false && inputConstraints?.maxDimensions && (
+              <ErrorMessage
+                display={true}
+                message={errorMessages.wrongDimensions.replace(
+                  '{width}',
+                  `${inputConstraints.maxDimensions.width}`,
+                ).replace('{height}', `${inputConstraints.maxDimensions.height}`)}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

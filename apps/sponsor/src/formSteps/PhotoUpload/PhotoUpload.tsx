@@ -1,3 +1,4 @@
+import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
 
@@ -6,7 +7,7 @@ const PhotoUpload: FormComponent = ({ close }) => {
     <div>
       <div className={styles.descriptionContainer}>
         <h2 className={styles.descriptionTitle}>
-            Predaja sponzorskih materijala
+          Predaja sponzorskih materijala
         </h2>
         <div className={styles.descriptionContent}>
           Ovdje možete podijeliti materijale koji će predstaviti vašu tvrtku na
@@ -15,21 +16,23 @@ const PhotoUpload: FormComponent = ({ close }) => {
           materijalima.
         </div>
       </div>
-      {/* <PhotoInputLabel
-        title='Logo tvrtke'
-        content='Pozitiv ili negativ u svg formatu'
+      <PhotoInputLabel
+        title='Fotografije '
+        content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
       />
       <div className={styles.uploadArea}>
         <PhotoInput
-          label='Prenesite logo u pozitivu'
+          label='Prenesite fotografije (max. 443px x 326px)'
           displayErrorMessages={true}
           inputConstraints={{
-            mimeTypes: ['svg+xml'],
-            checkBlackAndWhite: true,
+            maxDimensions: {
+              width: 443,
+              height: 326,
+            },
           }}
           height={326}
         />
-      </div> */}
+      </div>
 
       <button onClick={close} className={styles.button}>
         Nastavi
