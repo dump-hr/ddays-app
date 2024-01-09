@@ -21,9 +21,6 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
@@ -44,6 +41,14 @@ export class CompaniesController {
   @Get()
   async getAll() {
     const company = await this.companiesService.getAll();
+    return company;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Get('/logged')
+  async getLogged(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
     return company;
   }
 

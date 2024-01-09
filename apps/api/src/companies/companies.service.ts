@@ -11,9 +11,6 @@ import { and, eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
   UpdateCompanyDto,
@@ -70,6 +67,8 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
       })
       .from(company)
       .where(eq(company.id, id));
@@ -350,7 +349,6 @@ export class CompaniesService {
 
   async getSponsorFormStatus(companyId: number) {
     const company = await this.getOne(companyId);
-    console.log(company);
     const status = {};
 
     status[FormSteps.Description] = company?.description.length

@@ -2,7 +2,8 @@ import { FormSteps } from '@ddays-app/types';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 
-import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
+import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
+//import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
 import CircularButton from '../../components/CircularButton';
 import InfoCard from '../../components/InfoCard';
 import JobOffer from '../../components/InfoCard/JobOffer';
@@ -10,8 +11,6 @@ import LayoutSpacing from '../../components/LayoutSpacing';
 import Modal from '../../components/Modal';
 import Pill from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
-import CoverImage from './assets/cover.png';
-import ProficoLogo from './assets/profico-logo.png';
 import c from './CompanyProfile.module.scss';
 
 const data = {
@@ -74,7 +73,8 @@ const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
-  const { data: sponsorDescription } = useGetSponsorDescription();
+  //const { data: sponsorDescription } = useGetSponsorDescription();
+  const { data: company } = useGetLoggedCompany();
 
   function dataIsEmpty() {
     return (
@@ -95,13 +95,17 @@ const CompanyProfile = () => {
       )}
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
-          <img src={CoverImage} className={c.coverImage} alt='Cover' />
+          <img
+            src={company?.landingImage}
+            className={c.coverImage}
+            alt='Cover'
+          />
           <div className={c.basicInfo}>
-            <img src={ProficoLogo} className={c.logoImage} />
+            <img src={company?.logoImage} className={c.logoImage} />
             <div className={c.infoContainer}>
               <div className={c.companyName}>
-                <h3>Profico</h3>
-                <p>profi.co</p>
+                <h3>{company?.name}</h3>
+                <p>{company?.email}</p>
               </div>
               <CircularButton
                 className={c.submitButton}
@@ -121,7 +125,7 @@ const CompanyProfile = () => {
                 buttonText='Dodajte svoje kratko predstavljanje'
                 onClick={() => setCurrentModal(FormSteps.Description)}>
                 <p className={c.cardContentParagraph}>
-                  {sponsorDescription?.description || 'Nema opisa'}
+                  {company?.description || 'Nema opisa'}
                 </p>
               </InfoCard>
               <InfoCard
