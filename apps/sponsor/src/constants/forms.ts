@@ -5,6 +5,7 @@ import InterestPicker from '../formSteps/InterestPicker';
 import LogoUpload from '../formSteps/LogoUpload';
 import Video from '../formSteps/Video';
 import { SponsorForm } from '../types/form';
+import PhotoUpload from '../formSteps/PhotoUpload';
 
 export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {
@@ -20,7 +21,7 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Photos]: {
     title: 'Fotografije tvrtke',
     description: 'Predaja do x x',
-    component: InterestPicker,
+    component: PhotoUpload,
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',
