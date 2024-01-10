@@ -1,5 +1,4 @@
 import { relations } from 'drizzle-orm';
-import { int } from 'drizzle-orm/mysql-core';
 import {
   boolean,
   integer,
@@ -11,7 +10,6 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { throwIfEmpty } from 'rxjs';
 
 export const achievement = pgTable('achievement', {
   id: serial('id').primaryKey().notNull(),
@@ -224,6 +222,7 @@ export const surveyQuestionInputType = pgEnum('surveyQuestionInputType', [
   'textarea',
   'rating',
 ]);
+
 export const surveyQuestionType = pgEnum('surveyQuestionType', [
   'workshop',
   'lecture',
@@ -237,4 +236,12 @@ export const surveyQuestion = pgTable('surveyQuestion', {
   inputLabel: text('inputLabel'),
   surveyQuestionInputType: surveyQuestionInputType('inputType').notNull(),
   surveyQuestionType: surveyQuestionType('type').notNull(),
+});
+
+export const notification = pgTable('notification', {
+  id: serial('id').primaryKey().notNull(),
+  title: text('title').notNull(),
+  content: text('description').notNull(),
+  isActive: boolean('is_active').default(false),
+  activatedAt: timestamp('activated_at', { mode: 'string' }),
 });

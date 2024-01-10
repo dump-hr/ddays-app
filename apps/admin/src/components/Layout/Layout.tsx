@@ -1,5 +1,6 @@
 import useLocation from 'wouter/use-location';
 
+import { useAccount } from '../../hooks/useUser';
 import Button from '../Button';
 import c from './Layout.module.scss';
 
@@ -28,22 +29,42 @@ const navLinks = [
     href: '/interests',
     text: 'Interests',
   },
+  {
+    href: '/notifications',
+    text: 'Notifications',
+  },
+  {
+    href: '/faqs',
+    text: 'FAQ',
+  },
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
+  const { user, logout } = useAccount();
 
   return (
     <div className={c.layout}>
       <nav className={c.nav}>
-        {navLinks.map(({ href, text }) => (
-          <Button
-            key={href}
-            variant={location === href ? 'primary' : 'secondary'}
-            onClick={() => navigate(href)}>
-            {text}
+        <div className={c.pages}>
+          {navLinks.map(({ href, text }) => (
+            <Button
+              key={href}
+              variant={location === href ? 'primary' : 'secondary'}
+              onClick={() => navigate(href)}>
+              {text}
+            </Button>
+          ))}
+        </div>
+        <div className={c.account}>
+          <div className={c.user}>
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+          </div>
+          <Button onClick={() => logout()} variant='secondary'>
+            Logout
           </Button>
-        ))}
+        </div>
       </nav>
       {children}
     </div>

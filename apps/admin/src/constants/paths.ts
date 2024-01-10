@@ -3,6 +3,10 @@ export enum Path {
   Guest = '/guest',
   Achievements = '/achievements',
   Events = '/events',
-  Interests = '/interests',
+  Notifications = '/notifications',
+  FrequentlyAskedQuestions = '/faqs',
   CatchAll = '/:path*',
+  Admin = '/admin',
+  Interests = '/interests',
+  SurveyQuestions = '/admin/survey-questions',
 }

@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { env } from 'process';
+import { BlobModule } from 'src/blob/blob.module';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { CompaniesService } from 'src/companies/companies.service';
 
+import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './sponsor/jwt.strategy';
+import { AuthService } from './sponsor.service';
+import { JwtStrategy } from './sponsor.strategy';
 
 export const jwtSecret = env.JWT_SECRET;
 
@@ -16,11 +18,12 @@ export const jwtSecret = env.JWT_SECRET;
     PassportModule,
     JwtModule.register({
       secret: jwtSecret,
-      signOptions: { expiresIn: '336h' },
+      signOptions: { expiresIn: '14d' },
     }),
     CompaniesModule,
+    BlobModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, CompaniesService, JwtStrategy],
+  providers: [AzureADStrategy, AuthService, CompaniesService, JwtStrategy],
 })
 export class AuthModule {}

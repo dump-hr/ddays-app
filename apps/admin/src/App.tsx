@@ -1,25 +1,26 @@
 import './App.scss';
 
-import { getCreateEventDto } from '@ddays-app/types';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { InteractionType } from '@azure/msal-browser';
+import { useMsalAuthentication } from '@azure/msal-react';
+import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
 import Layout from './components/Layout';
 import { Path } from './constants/paths';
 import AchievementsPage from './pages/AchievementsPage';
 import EventsPage from './pages/EventsPage';
+import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
 import InterestsPage from './pages/InterestsPage';
-
-const queryClient = new QueryClient();
-
-const createEventDto = getCreateEventDto();
-console.log(createEventDto);
+import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
+import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
 
 export const App = () => {
+  useMsalAuthentication(InteractionType.Redirect);
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Layout>
         <Switch>
           <Route path={Path.Home} component={HomePage} />
@@ -27,9 +28,16 @@ export const App = () => {
           <Route path={Path.Events} component={EventsPage} />
           <Route path={Path.Achievements} component={AchievementsPage} />
           <Route path={Path.Interests} component={InterestsPage} />
+          <Route
+            path={Path.FrequentlyAskedQuestions}
+            component={FrequentlyAskedQuestionPage}
+          />
+          <Route path={Path.SurveyQuestions} component={SurveyQuestionsPage} />
+          <Route path={Path.Notifications} component={NotificationsPage} />
         </Switch>
       </Layout>
-    </QueryClientProvider>
+      <Toaster />
+    </>
   );
 };
 

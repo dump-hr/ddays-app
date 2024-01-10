@@ -7,7 +7,7 @@ import {
 
 export const getSponsorLoginDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
-  
+
   class SponsorLoginDto {
     @IsEmail()
     @IsNotEmpty()
@@ -15,7 +15,7 @@ export const getSponsorLoginDto = (ApiPropertySwagger?: any) => {
     email: string;
 
     @IsString()
-    @IsStrongPassword()
+    // @IsStrongPassword()
     @ApiProperty()
     password: string;
   }
