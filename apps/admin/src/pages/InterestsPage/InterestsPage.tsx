@@ -49,8 +49,8 @@ const InterestsPage = () => {
   const { data: interestToEdit } = useFetchInterest(interestToEditId ?? 0);
   const { mutate: updateInterest } = useUpdateInterest();
 
-  const createInterestForm = useForm<FieldValues>();
-  const editInterestForm = useForm<FieldValues>();
+  const createInterestForm = useForm<FieldValues>(questions);
+  const editInterestForm = useForm<FieldValues>(questions);
 
   useEffect(() => {
     interestToEdit &&
@@ -125,6 +125,18 @@ const InterestsPage = () => {
             handleEditInterest(data as CreateInterestDto),
           )}>
           Uredi
+        </Button>
+      </Modal>
+
+      <Modal
+        isOpen={isOpenDeleteModal}
+        toggleModal={() => setIsOpenDeleteModal((prev) => !prev)}>
+        <Button
+          onClick={() => {
+            deleteInterest(interestToDeleteId!);
+            setIsOpenDeleteModal((prev) => !prev);
+          }}>
+          Obriši
         </Button>
       </Modal>
 
