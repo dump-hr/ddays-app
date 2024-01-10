@@ -35,13 +35,11 @@ const questions: Question[] = [
 const InterestsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [interestToEdit, setInterestToEdit] = useState<Interest>(0);
+  const [interestToEdit, setInterestToEdit] = useState<Interest>();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [interestToDeleteId, setInterestToDeleteId] = useState<number | null>(
     null,
   );
-
-  //this is still work in progress, wil do soon, just waited for approval of other pages
 
   const { data: interests, isLoading } = useFetchInterests();
   const { mutate: deleteInterest } = useDeleteInterest();
@@ -89,6 +87,8 @@ const InterestsPage = () => {
   };
 
   const handleEditInterest = (data: CreateInterestDto) => {
+    if (!interestToEdit) return;
+
     updateInterest({
       id: interestToEdit.id,
       interest: data,
