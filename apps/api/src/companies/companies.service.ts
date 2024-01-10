@@ -67,6 +67,7 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
+        videoUrl: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
       })
@@ -200,7 +201,7 @@ export class CompaniesService {
   async addVideo(id: number, file: Express.Multer.File) {
     const videoUrl = await this.blobService.upload(
       'companies-videos',
-      file.filename,
+      file.originalname,
       file.buffer,
       file.mimetype,
     );

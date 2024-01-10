@@ -1,73 +1,80 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import toast from 'react-hot-toast';
 
+import { useFetchCompany } from '../../api/useFetchCompany';
+import { useUploadVideo } from '../../api/useUploadVideo';
 import { FormComponent } from '../../types/form';
-import { State } from './types';
 import c from './Video.module.scss';
 
-const Video: FormComponent = ({ close, initialSrc = '' }) => {
-  const [state, setState] = useState(
-    initialSrc ? State.fileDisplay : State.input,
-  );
+const Video: FormComponent = ({ close }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [isFileDirty, setIsFileDirty] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { mutate: uploadVideo, progress } = useUploadVideo();
+  const { data: companyData } = useFetchCompany();
 
-  useEffect(() => {
-    if (videoFile) {
-      setState(State.fileDisplay);
-    }
-  }, [videoFile]);
+  const getVideoMetadata = (file: File): Promise<HTMLVideoElement> => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
 
-  useEffect(() => {
-    if (!videoRef.current || !videoFile || state === State.input) {
-      return;
-    }
+      video.preload = 'metadata';
 
-    const reader = new FileReader();
+      video.onloadedmetadata = () => {
+        URL.revokeObjectURL(video.src);
+        resolve(video);
+      };
 
-    videoRef.current.title = videoFile.name;
+      video.onerror = (error) => {
+        reject(error);
+      };
 
-    reader.onload = (event) => {
-      if (!videoRef.current) {
+      video.src = URL.createObjectURL(file);
+    });
+  };
+
+  const onDrop = useCallback(async (droppedFiles: File[]) => {
+    try {
+      const [droppedFile] = droppedFiles;
+
+      if (!droppedFile) {
         return;
       }
 
-      const potentialSrc = event.target?.result;
+      const { duration } = await getVideoMetadata(droppedFile);
 
-      if (typeof potentialSrc !== 'string') {
-        videoRef.current.src = potentialSrc;
+      const fileType = droppedFile.type.split('/')[0];
+
+      if (fileType !== 'video' && duration > 20) {
+        throw new Error(
+          'Uploadani file mora biti video u trajanju maksimalno do 20 sekundi',
+        );
       }
-    };
 
-    reader.readAsDataURL(videoFile);
-  }, [videoFile, state]);
+      setIsUploading(true);
+      uploadVideo(droppedFile);
+      setVideoFile(droppedFile);
 
-  const onDrop = useCallback((droppedFiles) => {
-    const [droppedFile] = droppedFiles;
-
-    if (!droppedFile) {
-      return;
+      toast.success('Video je uspješno prenesen');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    } finally {
+      setIsUploading(false);
     }
-
-    const fileType = droppedFile.type.split('/')[0];
-
-    if (fileType !== 'video') {
-      alert('Molimo vas da prenesete video materijale');
-      return;
-    }
-
-    setVideoFile(droppedFile);
-
-    setIsFileDirty(true);
   }, []);
 
-  const handleRemoveFile = () => {
-    setVideoFile(null);
-    setState(State.input);
-
-    setIsFileDirty(true);
+  const handleRemoveVideo = () => {
+    try {
+      //todo: delete api call
+      setVideoFile(null);
+      toast.success('Video je uspješno uklonjen');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const { getRootProps, getInputProps, fileRejections, isDragActive } =
@@ -79,32 +86,30 @@ const Video: FormComponent = ({ close, initialSrc = '' }) => {
     });
 
   const getContent = () => {
-    switch (state) {
-      case State.input:
-        return (
-          <div {...getRootProps()} className={c.uploadContainer}>
-            <input {...getInputProps()} />
-            <img src='/upload.svg' alt='Upload' className={c.upload} />
-            <p className={c.instruction}>
-              {isDragActive
-                ? 'Droppajte video'
-                : 'Prenesite video materijale (max. 50MB)'}
-            </p>
-          </div>
-        );
-      case State.fileDisplay:
-        return (
-          <div className={c.videoContainer}>
-            <span className={c.remove} onClick={handleRemoveFile}>
-              Ukloni
-            </span>
-
-            <video controls ref={videoRef} className={c.video}>
-              <source src={videoFile?.name} type='video/mp4' />
-            </video>
-          </div>
-        );
-    }
+    return !videoFile ? (
+      <div {...getRootProps()} className={c.uploadContainer}>
+        <input {...getInputProps()} />
+        <img src='/upload.svg' alt='Upload' className={c.upload} />
+        {!isUploading ? (
+          <p className={c.instruction}>
+            {isDragActive
+              ? 'Droppajte video'
+              : 'Prenesite video materijale (max. 75MB)'}
+          </p>
+        ) : (
+          <p className={c.instruction}>Uploadavanje u procesu...{progress}%</p>
+        )}
+      </div>
+    ) : (
+      <div className={c.videoContainer}>
+        <video controls className={c.video} height={300} width={500}>
+          <source src={companyData?.videoUrl} type='video/mp4' />
+        </video>
+        <span className={c.remove} onClick={handleRemoveVideo}>
+          Ukloni
+        </span>
+      </div>
+    );
   };
 
   return (

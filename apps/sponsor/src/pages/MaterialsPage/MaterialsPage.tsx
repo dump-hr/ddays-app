@@ -1,6 +1,7 @@
 import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 
+import { useFetchCompany } from '../../api/useFetchCompany';
 import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
@@ -32,6 +33,7 @@ const MaterialsPage: React.FC = () => {
   );
 
   const { data } = useGetSponsorFormStatus();
+  useFetchCompany();
 
   return (
     <main className={c.page}>
