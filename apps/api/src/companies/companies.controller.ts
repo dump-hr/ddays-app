@@ -21,9 +21,6 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
@@ -219,15 +216,6 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Get('/interests')
-  async getMyInterests(@Req() req: AuthenticatedRequest) {
-    const interests = await this.companiesService.getInterests(req.user.id);
-
-    return interests;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
   @Get('/sponsorFormStatus')
   async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
     const status = await this.companiesService.getSponsorFormStatus(
@@ -275,12 +263,5 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
-  }
-
-  @Get(':id/interests')
-  async getInterestsForCompany(@Param('id', ParseIntPipe) id: number) {
-    const companies = await this.companiesService.getInterests(id);
-
-    return companies;
   }
 }
