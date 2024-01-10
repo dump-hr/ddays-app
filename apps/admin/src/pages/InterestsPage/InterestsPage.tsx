@@ -7,10 +7,10 @@ import {
   useCreateInterest,
 } from '../../api/Interests/useCreateInterest';
 import { useDeleteInterest } from '../../api/Interests/useDeleteInterest';
-import { useFetchInterest } from '../../api/Interests/useFetchInterest';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
 import { useUpdateInterest } from '../../api/Interests/useUpdateInterestDto';
 import Button from '../../components/Button';
+import InputHandler from '../../components/InputHandler';
 import Modal from '../../components/Modal';
 import Table from '../../components/Table';
 
@@ -35,7 +35,7 @@ const questions: Question[] = [
 const InterestsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [interestToEditId, setInterestToEdit] = useState<number | null>(0);
+  const [interestToEdit, setInterestToEdit] = useState<Interest>(0);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [interestToDeleteId, setInterestToDeleteId] = useState<number | null>(
     null,
@@ -46,21 +46,17 @@ const InterestsPage = () => {
   const { data: interests, isLoading } = useFetchInterests();
   const { mutate: deleteInterest } = useDeleteInterest();
   const { mutate: createInterest } = useCreateInterest();
-  const { data: interestToEdit } = useFetchInterest(interestToEditId ?? 0);
   const { mutate: updateInterest } = useUpdateInterest();
 
-  const createInterestForm = useForm<FieldValues>(questions);
-  const editInterestForm = useForm<FieldValues>(questions);
+  const createInterestForm = useForm<FieldValues>();
+  const editInterestForm = useForm<FieldValues>();
 
   useEffect(() => {
     interestToEdit &&
-      editInterestForm.reset(
-        {
-          name: interestToEdit.name,
-          theme: interestToEdit.theme,
-        },
-        { keepValues: false },
-      );
+      editInterestForm.reset({
+        name: interestToEdit.name,
+        theme: interestToEdit.theme,
+      });
   }, [interestToEdit]);
 
   if (isLoading) {
@@ -71,8 +67,8 @@ const InterestsPage = () => {
     {
       label: 'Uredi',
       action: (row: Interest) => {
+        setInterestToEdit(row);
         setIsOpenEditModal((prev) => !prev);
-        setInterestToEdit(row.id);
       },
     },
     {
@@ -94,7 +90,7 @@ const InterestsPage = () => {
 
   const handleEditInterest = (data: CreateInterestDto) => {
     updateInterest({
-      id: interestToEditId!,
+      id: interestToEdit.id,
       interest: data,
     });
     if (!editInterestForm.formState.isValid) {
@@ -115,6 +111,9 @@ const InterestsPage = () => {
           )}>
           Dodaj
         </Button>
+        {questions.map((q) => (
+          <InputHandler question={q} form={createInterestForm} key={q.id} />
+        ))}
       </Modal>
 
       <Modal
@@ -125,7 +124,10 @@ const InterestsPage = () => {
             handleEditInterest(data as CreateInterestDto),
           )}>
           Uredi
-        </Button>
+        </Button>{' '}
+        {questions.map((q) => (
+          <InputHandler question={q} form={editInterestForm} key={q.id} />
+        ))}
       </Modal>
 
       <Modal
