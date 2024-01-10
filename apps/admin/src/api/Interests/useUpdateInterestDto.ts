@@ -1,7 +1,7 @@
 import { getUpdateInterestDto, Interest } from '@ddays-app/types';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { api } from '.';
+import { api } from '..';
 
 const _updateInterestDto = getUpdateInterestDto();
 
@@ -9,11 +9,11 @@ export class UpdateInterestDto extends _updateInterestDto {}
 
 export const updatedInterest = async (params: {
   id: number;
-  dto: UpdateInterestDto;
+  interest: UpdateInterestDto;
 }) => {
   const action = await api.patch<UpdateInterestDto, Interest>(
     '/interests/' + params.id,
-    params.dto,
+    params.interest,
   );
 
   return action;

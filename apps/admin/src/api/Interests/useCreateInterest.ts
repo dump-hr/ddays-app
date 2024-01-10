@@ -1,7 +1,7 @@
 import { getCreateInterestDto, Interest } from '@ddays-app/types';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { api } from '.';
+import { api } from '..';
 
 const _createInterestDto = getCreateInterestDto();
 

@@ -1,28 +1,41 @@
-import { Interest } from '@ddays-app/types';
+import { Interest, Question, QuestionType } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
-import { act } from 'react-dom/test-utils';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import {
   CreateInterestDto,
   useCreateInterest,
-} from '../../api/useCreateInterest';
-import {
-  deletedInterest,
-  useDeleteInterest,
-} from '../../api/useDeleteInterest';
-import { useFetchInterests } from '../../api/useFetchInterests';
-import { useUpdateInterest } from '../../api/useUpdateInterestDto';
+} from '../../api/Interests/useCreateInterest';
+import { useDeleteInterest } from '../../api/Interests/useDeleteInterest';
+import { useFetchInterest } from '../../api/Interests/useFetchInterest';
+import { useFetchInterests } from '../../api/Interests/useFetchInterests';
+import { useUpdateInterest } from '../../api/Interests/useUpdateInterestDto';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import Table from '../../components/Table';
 
 const headers = ['id', 'name', 'theme'];
 
+const questions: Question[] = [
+  {
+    id: 'name',
+    type: QuestionType.Field,
+    title: 'Ime',
+    rules: { required: 'Obavezno polje' },
+  },
+  {
+    id: 'theme',
+    type: QuestionType.Select,
+    title: 'Tema',
+    options: ['dev', 'design', 'tech', 'marketing'],
+    rules: { required: 'Obavezno polje' },
+  },
+];
+
 const InterestsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [interestToEdit, setInterestToEdit] = useState<Interest | null>(null);
+  const [interestToEditId, setInterestToEdit] = useState<number | null>(0);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [interestToDeleteId, setInterestToDeleteId] = useState<number | null>(
     null,
@@ -33,6 +46,7 @@ const InterestsPage = () => {
   const { data: interests, isLoading } = useFetchInterests();
   const { mutate: deleteInterest } = useDeleteInterest();
   const { mutate: createInterest } = useCreateInterest();
+  const { data: interestToEdit } = useFetchInterest(interestToEditId ?? 0);
   const { mutate: updateInterest } = useUpdateInterest();
 
   const createInterestForm = useForm<FieldValues>();
@@ -58,7 +72,7 @@ const InterestsPage = () => {
       label: 'Uredi',
       action: (row: Interest) => {
         setIsOpenEditModal((prev) => !prev);
-        setInterestToEdit(row);
+        setInterestToEdit(row.id);
       },
     },
     {
@@ -70,6 +84,25 @@ const InterestsPage = () => {
     },
   ];
 
+  const handleCreateInterest = (data: CreateInterestDto) => {
+    createInterest(data);
+    if (!createInterestForm.formState.isValid) {
+      setIsOpenAddModal((prev) => !prev);
+      createInterestForm.reset();
+    }
+  };
+
+  const handleEditInterest = (data: CreateInterestDto) => {
+    updateInterest({
+      id: interestToEditId!,
+      interest: data,
+    });
+    if (!editInterestForm.formState.isValid) {
+      setIsOpenEditModal((prev) => !prev);
+      editInterestForm.reset();
+    }
+  };
+
   return (
     <>
       <h1>Interests</h1>
@@ -78,11 +111,31 @@ const InterestsPage = () => {
         toggleModal={() => setIsOpenAddModal((prev) => !prev)}>
         <Button
           onClick={createInterestForm.handleSubmit((data) =>
-            createInterest(data as CreateInterestDto),
+            handleCreateInterest(data as CreateInterestDto),
           )}>
           Dodaj
         </Button>
       </Modal>
+
+      <Modal
+        isOpen={isOpenEditModal}
+        toggleModal={() => setIsOpenEditModal((prev) => !prev)}>
+        <Button
+          onClick={editInterestForm.handleSubmit((data) =>
+            handleEditInterest(data as CreateInterestDto),
+          )}>
+          Uredi
+        </Button>
+      </Modal>
+
+      <Button
+        variant='primary'
+        onClick={() => {
+          setIsOpenAddModal(!isOpenAddModal);
+        }}>
+        Dodaj novi interes
+      </Button>
+
       <Table
         headers={headers}
         data={interests!}

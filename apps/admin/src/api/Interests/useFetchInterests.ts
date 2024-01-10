@@ -1,7 +1,7 @@
 import { Interest } from '@ddays-app/types';
 import { QueryOptions, useQuery } from 'react-query';
 
-import { api } from '.';
+import { api } from '..';
 
 const fetchAllInterests = async () =>
   await api.get<never, Interest[]>('/interests');
