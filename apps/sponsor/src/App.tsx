@@ -15,11 +15,11 @@ export const App = () => {
       <Switch>
         <Route path={Path.Home} component={HomePage} />
 
-        {pages.map(({ path, component }) => (
+        {pages.map(({ path, component: Component }) => (
           <Route
             key={path}
             path={path}
-            children={<Layout>{component({})}</Layout>}
+            children={<Layout children={<Component />} />}
           />
         ))}
 
