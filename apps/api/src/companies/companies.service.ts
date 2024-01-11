@@ -67,6 +67,8 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
       })
       .from(company)
       .where(eq(company.id, id));

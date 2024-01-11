@@ -1,0 +1,51 @@
+.jobOffer {
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #27292e;
+  border-radius: 8px;
+  gap: 24px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    .location {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      .icon {
+        align-self: center;
+      }
+
+      .text {
+        color: white;
+        font-weight: 400;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 16px;
+    color: #e9e9ec;
+  }
+
+  .learnMore {
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+  }
+}

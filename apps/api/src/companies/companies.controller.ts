@@ -46,6 +46,14 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @Get('/logged')
+  async getLogged(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
+    return company;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
   @Get('/description')
   async getDescription(@Req() req: AuthenticatedRequest) {
     return await this.companiesService.getDescription(+req.user.id);
