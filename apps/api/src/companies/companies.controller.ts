@@ -132,7 +132,7 @@ export class CompaniesController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'video/mp4' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 50 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
         ],
       }),
     )

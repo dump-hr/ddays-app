@@ -1,18 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
-import { useFetchCompany } from '../../api/useFetchCompany';
+import { useDeleteVideo } from '../../api/useDeleteVideo';
+import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadVideo } from '../../api/useUploadVideo';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
 
 const Video: FormComponent = ({ close }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
 
-  const { mutate: uploadVideo, progress } = useUploadVideo();
-  const { data: companyData } = useFetchCompany();
+  const { mutate: uploadVideo, isLoading } = useUploadVideo();
+  const { mutate: deleteVideo } = useDeleteVideo();
+
+  const { data: companyData } = useGetLoggedCompany();
 
   const getVideoMetadata = (file: File): Promise<HTMLVideoElement> => {
     return new Promise((resolve, reject) => {
@@ -51,25 +53,20 @@ const Video: FormComponent = ({ close }) => {
         );
       }
 
-      setIsUploading(true);
       uploadVideo(droppedFile);
       setVideoFile(droppedFile);
-
-      toast.success('Video je uspješno prenesen');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       }
-    } finally {
-      setIsUploading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRemoveVideo = () => {
     try {
-      //todo: delete api call
+      deleteVideo();
       setVideoFile(null);
-      toast.success('Video je uspješno uklonjen');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -86,28 +83,31 @@ const Video: FormComponent = ({ close }) => {
     });
 
   const getContent = () => {
-    return !videoFile ? (
+    if (companyData?.companyVideo)
+      return (
+        <div className={c.videoContainer}>
+          <video controls className={c.video} height={300} width={500}>
+            <source src={companyData?.companyVideo} type='video/mp4' />
+          </video>
+          <span className={c.remove} onClick={handleRemoveVideo}>
+            Ukloni
+          </span>
+        </div>
+      );
+
+    return (
       <div {...getRootProps()} className={c.uploadContainer}>
         <input {...getInputProps()} />
         <img src='/upload.svg' alt='Upload' className={c.upload} />
-        {!isUploading ? (
+        {!isLoading ? (
           <p className={c.instruction}>
             {isDragActive
               ? 'Droppajte video'
               : 'Prenesite video materijale (max. 75MB)'}
           </p>
         ) : (
-          <p className={c.instruction}>Uploadavanje u procesu...{progress}%</p>
+          <p className={c.instruction}>Uploadavanje u procesu...</p>
         )}
-      </div>
-    ) : (
-      <div className={c.videoContainer}>
-        <video controls className={c.video} height={300} width={500}>
-          <source src={companyData?.videoUrl} type='video/mp4' />
-        </video>
-        <span className={c.remove} onClick={handleRemoveVideo}>
-          Ukloni
-        </span>
       </div>
     );
   };
@@ -134,7 +134,7 @@ const Video: FormComponent = ({ close }) => {
 
       <div className={c.inputContainer}>
         <button onClick={close} className={c.button}>
-          Spremi
+          Zatvori
         </button>
       </div>
     </div>

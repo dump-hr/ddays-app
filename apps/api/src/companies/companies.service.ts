@@ -67,7 +67,7 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
-        videoUrl: company.companyVideo,
+        companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
       })
