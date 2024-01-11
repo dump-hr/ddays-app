@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { db } from 'db';
-import { company, companyInterests, interest } from 'db/schema';
-import { and, eq } from 'drizzle-orm';
+import { company, companyInterests } from 'db/schema';
+import { and, eq, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
@@ -333,20 +333,6 @@ export class CompaniesService {
     return action;
   }
 
-  async getInterests(companyId: number) {
-    const interests = await db
-      .select({
-        id: interest.id,
-        name: interest.name,
-        theme: interest.theme,
-      })
-      .from(companyInterests)
-      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
-      .where(eq(companyInterests.companyId, companyId));
-
-    return interests;
-  }
-
   async getSponsorFormStatus(companyId: number) {
     const company = await this.getOne(companyId);
     const status = {};
@@ -355,11 +341,21 @@ export class CompaniesService {
       ? StepStatus.Good
       : StepStatus.Pending;
 
+    const {
+      0: { count: interestsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    status[FormSteps.Interests] = interestsCount
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
     status[FormSteps.Videos] = StepStatus.Pending;
     status[FormSteps.Jobs] = StepStatus.Pending;
-    status[FormSteps.Interests] = StepStatus.Good;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 
     return { status };

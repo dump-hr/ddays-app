@@ -5,3 +5,4 @@ export * from './role';
 export * from './surveyQuestion';
 export * from './auth';
 export * from './form';
+export * from './interest';
