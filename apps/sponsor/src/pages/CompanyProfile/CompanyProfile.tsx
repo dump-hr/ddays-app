@@ -10,10 +10,8 @@ import LayoutSpacing from '../../components/LayoutSpacing';
 import Modal from '../../components/Modal';
 import Pill from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
-import CoverImage from './assets/cover.png';
 import c from './CompanyProfile.module.scss';
 
-// Until API is implemented
 const data = {
   jobOffers: [
     {
@@ -37,9 +35,8 @@ const InterestsCardContent = () => {
   return (
     <>
       {interestCategories.map((category) => {
-        const categoryName = `${
-          category.charAt(0).toUpperCase() + category.slice(1)
-        }`;
+        const categoryName =
+          category.charAt(0).toUpperCase() + category.slice(1);
         const interests = data.interests[category as Category];
 
         return (
@@ -77,17 +74,7 @@ const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
-  //const { data: sponsorDescription } = useGetSponsorDescription();
   const { data: company } = useGetLoggedCompany();
-
-  function dataIsEmpty() {
-    return (
-      data.interests.development.length == 0 &&
-      data.interests.design.length == 0 &&
-      data.interests.marketing.length == 0 &&
-      data.interests.tech.length == 0
-    );
-  }
 
   return (
     <>
@@ -99,11 +86,9 @@ const CompanyProfile = () => {
       )}
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
-          <img
-            src={company?.landingImage || CoverImage}
-            className={c.coverImage}
-            alt='Cover'
-          />
+          <div className={c.coverImage}>
+            <img src={company?.landingImage} alt='Cover' />
+          </div>
           <div className={c.basicInfo}>
             <img src={company?.logoImage} className={c.logoImage} />
             <div className={c.infoContainer}>
@@ -114,7 +99,7 @@ const CompanyProfile = () => {
               <CircularButton
                 className={c.submitButton}
                 onClick={() => setLocation('/materials')}>
-                {dataIsEmpty() ? 'Predaj materijale' : 'Uredi materijale'}
+                Predaj materijale
               </CircularButton>
             </div>
           </div>
