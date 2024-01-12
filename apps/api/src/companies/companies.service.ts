@@ -67,6 +67,7 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
         email: company.email,
+        companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
       })
@@ -200,7 +201,7 @@ export class CompaniesService {
   async addVideo(id: number, file: Express.Multer.File) {
     const videoUrl = await this.blobService.upload(
       'companies-videos',
-      file.filename,
+      file.originalname,
       file.buffer,
       file.mimetype,
     );
@@ -354,7 +355,10 @@ export class CompaniesService {
 
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
-    status[FormSteps.Videos] = StepStatus.Pending;
+    status[FormSteps.Videos] =
+      !!company.companyVideo && company.companyVideo !== ''
+        ? StepStatus.Good
+        : StepStatus.Pending;
     status[FormSteps.Jobs] = StepStatus.Pending;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 

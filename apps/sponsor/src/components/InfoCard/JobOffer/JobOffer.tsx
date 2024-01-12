@@ -1,5 +1,5 @@
-import ArrowRightSvg from '../../../../public/arrow-right.svg';
-import PinSvg from '../../../../public/pin.svg';
+import ArrowRightSvg from '../../../assets/arrow-right.svg';
+import PinSvg from '../../../assets/pin.svg';
 import c from './JobOffer.module.scss';
 
 type JobOfferProps = {

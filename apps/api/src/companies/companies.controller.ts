@@ -132,7 +132,7 @@ export class CompaniesController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'video/mp4' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 50 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
         ],
       }),
     )
@@ -251,6 +251,12 @@ export class CompaniesController {
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
+    return company;
+  }
+
+  @Get('/sponsor-data')
+  async getSponsorData(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
     return company;
   }
 
