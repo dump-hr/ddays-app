@@ -95,6 +95,8 @@ export class CompaniesService {
       .from(company)
       .where(eq(company.id, id));
 
+    if (!companyToGet.length) throw new NotFoundException('Company not found');
+
     return companyToGet[0];
   }
 
@@ -355,13 +357,13 @@ export class CompaniesService {
       interestId,
     }));
 
-    interestsToRemove.length > 0 &&
-      (await db
+    if (interestsToRemove.length)
+      await db
         .delete(companyInterests)
-        .where(inArray(companyInterests.interestId, interestsToRemove)));
+        .where(inArray(companyInterests.interestId, interestsToRemove));
 
-    interestIdsToAdd.length > 0 &&
-      (await db.insert(companyInterests).values(interestsToAdd));
+    if (interestsToAdd.length)
+      await db.insert(companyInterests).values(interestsToAdd);
   }
 
   async toggleInterest(companyId: number, interestId: number) {

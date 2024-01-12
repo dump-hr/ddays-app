@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
@@ -45,6 +45,8 @@ export class InterestsService {
       })
       .from(interest)
       .where(eq(interest.id, id));
+
+    if (!interestToFind.length) throw new NotFoundException();
 
     return interestToFind[0];
   }

@@ -76,7 +76,7 @@ const questions: Question[] = [
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEditId, setCompanyToEdit] = useState<number>(1);
+  const [companyToEditId, setCompanyToEdit] = useState();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
@@ -93,21 +93,20 @@ export const CompaniesPage = () => {
   const { mutate: deleteCompany } = useDeleteCompany();
 
   useEffect(() => {
-    if (interests) {
-      const interestsOptions = interests.map((interest) => ({
-        label: interest.name,
-        value: interest.id.toString(),
-      }));
+    if (!interests) return;
+    const interestsOptions = interests.map((interest) => ({
+      label: interest.name,
+      value: interest.id.toString(),
+    }));
 
-      const newQuesiton: Question = {
-        id: 'interests',
-        type: QuestionType.MultipleSelect,
-        title: 'Interesi',
-        options: interestsOptions,
-      };
+    const newQuesiton: Question = {
+      id: 'interests',
+      type: QuestionType.MultipleSelect,
+      title: 'Interesi',
+      options: interestsOptions,
+    };
 
-      setFields((prev) => [...prev, newQuesiton]);
-    }
+    setFields((prev) => [...prev, newQuesiton]);
   }, [interests]);
 
   const createCompanyForm = useForm<FieldValues>();
@@ -139,6 +138,8 @@ export const CompaniesPage = () => {
   };
 
   const handleEditCompany = (data: UpdateCompanyDto) => {
+    if (!companyToEdit) return;
+
     editCompany({
       id: companyToEdit?.id as number,
       company: data,
@@ -149,26 +150,19 @@ export const CompaniesPage = () => {
   };
 
   useEffect(() => {
-    if (companyToEdit) {
-      editCompanyForm.reset({
-        name: companyToEdit.name,
-        description: companyToEdit.description,
-        websiteUrl: companyToEdit.url,
-        email: companyToEdit.email,
-        boothLocation: companyToEdit.boothLocation,
-        codeId: companyToEdit.codeId,
-        sponsorCategory: companyToEdit.sponsorCategory,
-        interests: interestsForCompany?.map((interest) =>
-          interest.id.toString(),
-        ),
-      });
-    }
-  }, [companyToEdit, interestsForCompany]);
+    if (!companyToEdit) return;
 
-  if (isLoading) {
-    console.log('loading');
-    return <div>Loading...</div>;
-  }
+    editCompanyForm.reset({
+      name: companyToEdit.name,
+      description: companyToEdit.description,
+      websiteUrl: companyToEdit.url,
+      email: companyToEdit.email,
+      boothLocation: companyToEdit.boothLocation,
+      codeId: companyToEdit.codeId,
+      sponsorCategory: companyToEdit.sponsorCategory,
+      interests: interestsForCompany?.map((interest) => interest.id.toString()),
+    });
+  }, [companyToEdit, interestsForCompany]);
 
   return (
     <>

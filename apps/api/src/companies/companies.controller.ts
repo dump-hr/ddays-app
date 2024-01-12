@@ -5,7 +5,6 @@ import {
   FileTypeValidator,
   Get,
   MaxFileSizeValidator,
-  NotFoundException,
   Param,
   ParseFilePipe,
   ParseIntPipe,
@@ -243,8 +242,6 @@ export class CompaniesController {
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
-
-    if (!company) throw new NotFoundException('Company not found');
 
     return company;
   } //fun fact this returns an array with one element, not sure if that is good behaviour
