@@ -1,16 +1,22 @@
 import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import bcrypt from 'bcrypt';
 import { db } from 'db';
-import { code, company, companyInterests, interest } from 'db/schema';
-import { and, eq, inArray } from 'drizzle-orm';
+import { code, company, companyInterests } from 'db/schema';
+import { and, eq, inArray, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
-  AddSponsorDescriptionDto,
   CompanyDetailsDto,
   CompanyDto,
   CreateCompanyDto,
+  SponsorDescriptionDto,
   UpdateCompanyDto,
+  UpdateSponsorDescriptionDto,
 } from './companies.dto';
 
 @Injectable()
@@ -91,6 +97,8 @@ export class CompaniesService {
         codeId: company.codeId,
         email: company.email,
         url: company.websiteUrl,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
       })
       .from(company)
       .where(eq(company.id, id));
@@ -170,19 +178,43 @@ export class CompaniesService {
     return removedCompany;
   }
 
-  async addDescription(
-    id: number,
-    addSponsorDescriptionDto: AddSponsorDescriptionDto,
+  async getDescription(companyId: number): Promise<SponsorDescriptionDto> {
+    const description = await db
+      .select({
+        description: company.description,
+      })
+      .from(company)
+      .where(eq(company.id, companyId));
+
+    return description[0] ?? null;
+  }
+
+  private validateWordCount(str: string, limit: number, deviation: number) {
+    const lowerBound = limit - deviation;
+    const upperBound = limit + deviation;
+
+    const wc = str.match(/\S+/g)?.length || 0;
+
+    return wc >= lowerBound && wc <= upperBound;
+  }
+
+  async updateDescription(
+    companyId: number,
+    { description }: UpdateSponsorDescriptionDto,
   ) {
-    const addedDescription = await db
+    if (!this.validateWordCount(description, 70, 5)) {
+      throw new BadRequestException('Description text out of bounds');
+    }
+
+    const updatedCompany = await db
       .update(company)
       .set({
-        description: addSponsorDescriptionDto.description,
+        description,
       })
-      .where(eq(company.id, id))
+      .where(eq(company.id, companyId))
       .returning();
 
-    return addedDescription;
+    return updatedCompany[0] ?? null;
   }
 
   async addLogo(id: number, file: Express.Multer.File) {
@@ -376,28 +408,29 @@ export class CompaniesService {
     return action;
   }
 
-  async getInterests(companyId: number) {
-    const interests = await db
-      .select({
-        id: interest.id,
-        name: interest.name,
-        theme: interest.theme,
-      })
+  async getSponsorFormStatus(companyId: number) {
+    const company = await this.getOne(companyId);
+    const status = {};
+
+    status[FormSteps.Description] = company?.description.length
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
+    const {
+      0: { count: interestsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
       .from(companyInterests)
-      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
       .where(eq(companyInterests.companyId, companyId));
 
-    return interests;
-  }
+    status[FormSteps.Interests] = interestsCount
+      ? StepStatus.Good
+      : StepStatus.Pending;
 
-  async getSponsorFormStatus(companyId: number) {
-    const status = {};
-    status[FormSteps.Description] = StepStatus.Pending;
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
     status[FormSteps.Videos] = StepStatus.Pending;
     status[FormSteps.Jobs] = StepStatus.Pending;
-    status[FormSteps.Interests] = StepStatus.Good;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 
     return { status };

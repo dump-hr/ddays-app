@@ -27,9 +27,9 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
     }
 
     return {
-      id: sponsor[0].id,
-      email: sponsor[0].email,
-      name: sponsor[0].name,
+      id: sponsor.id,
+      email: sponsor.email,
+      name: sponsor.name,
       role: 'sponsor',
     };
   }

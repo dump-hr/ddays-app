@@ -1,11 +1,12 @@
 import {
-  getAddSponsorDescriptionDto,
   getAddSponsorLandingImageDto,
   getAddSponsorLogoDto,
   getAddSponsorVideoDto,
   getCompanyDto,
   getCreateCompanyDto,
+  getSponsorDescriptionDto,
   getUpdateCompanyDto,
+  getUpdateSponsorDescriptionDto,
 } from '@ddays-app/types';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -21,9 +22,13 @@ export class CompanyDto extends _GetCompanyDto {}
 export const _GetCompanyDetailsDto = getCompanyDto(ApiProperty);
 export class CompanyDetailsDto extends _GetCompanyDetailsDto {}
 
-export const _addSponsorDescriptionDto =
-  getAddSponsorDescriptionDto(ApiProperty);
-export class AddSponsorDescriptionDto extends _addSponsorDescriptionDto {}
+export const _updateSponsorDescriptionDto =
+  getUpdateSponsorDescriptionDto(ApiProperty);
+export class UpdateSponsorDescriptionDto extends _updateSponsorDescriptionDto {}
+
+export class SponsorDescriptionDto extends getSponsorDescriptionDto(
+  ApiProperty,
+) {}
 
 export const _addSponsorLogoDto = getAddSponsorLogoDto(ApiProperty);
 export class AddSponsorLogoDto extends _addSponsorLogoDto {}

@@ -1,23 +1,25 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { EventTheme } from '@src/model';
+import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
 
-type EventThemeType = 'dev' | 'design' | 'tech' | 'marketing';
-
-export const getInterestDto = (ApiPropertySwagger?: any) => {
+export const getSponsorInterestDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
+  class SponsorInterestDto {
+    @IsNumber()
+    @ApiProperty()
+    id: number;
 
-  class InterestDto {
     @IsString()
     @ApiProperty()
     name: string;
 
-    @IsString()
+    @IsEnum(EventTheme)
     @ApiProperty()
-    theme: EventThemeType;
+    theme: EventTheme;
 
-    @IsNumber()
+    @IsBoolean()
     @ApiProperty()
-    id: number;
+    isActive: boolean;
   }
 
-  return InterestDto;
+  return SponsorInterestDto;
 };

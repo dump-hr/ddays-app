@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import {
   CreateInterestDto,
   InterestDto,
+  UpdateCompanyInterestsDto,
   UpdateInterestDto,
 } from './interests.dto';
 
@@ -51,6 +52,30 @@ export class InterestsService {
     return interestToFind[0];
   }
 
+  async getForSponsor(companyId: number) {
+    const allInterests = await db
+      .select({
+        id: interest.id,
+        theme: interest.theme,
+        name: interest.name,
+      })
+      .from(interest);
+
+    const sponsorInterests = await db
+      .select({
+        id: companyInterests.interestId,
+      })
+      .from(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    const response = allInterests.map((interest) => ({
+      ...interest,
+      isActive: sponsorInterests.some((si) => si.id === interest.id),
+    }));
+
+    return response;
+  }
+
   async update(id: number, updateInterestDto: UpdateInterestDto) {
     const updatedInterest = await db
       .update(interest)
@@ -90,5 +115,25 @@ export class InterestsService {
       .where(eq(companyInterests.interestId, interestId));
 
     return companies;
+  }
+
+  async updateCompanyInterests(
+    companyId: number,
+    data: UpdateCompanyInterestsDto,
+  ) {
+    const { ids } = data;
+
+    await db
+      .delete(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    const newInterests = ids.map((interestId) => ({
+      companyId,
+      interestId,
+    }));
+
+    if (ids.length) await db.insert(companyInterests).values(newInterests);
+
+    return newInterests;
   }
 }
