@@ -355,7 +355,10 @@ export class CompaniesService {
 
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
-    status[FormSteps.Videos] = StepStatus.Pending;
+    status[FormSteps.Videos] =
+      !!company.companyVideo && company.companyVideo !== ''
+        ? StepStatus.Good
+        : StepStatus.Pending;
     status[FormSteps.Jobs] = StepStatus.Pending;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 

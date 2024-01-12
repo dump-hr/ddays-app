@@ -13,9 +13,10 @@ export const useDeleteVideo = () => {
 
   const mutation = useMutation(deleteVideo, {
     onSuccess: () => {
-      toast.success('Video uspješno izbrisan');
-
+      queryClient.invalidateQueries(['sponsorFormStatus']);
       queryClient.invalidateQueries(['loggedCompany']);
+
+      toast.success('Video uspješno izbrisan');
     },
     onError: (error: AxiosError) => {
       toast.error(error.message);

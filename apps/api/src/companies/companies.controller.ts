@@ -252,7 +252,7 @@ export class CompaniesController {
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  } //fun fact this returns an array with one element, not sure if that is good behaviour
+  }
 
   @Get('/sponsor-data')
   async getSponsorData(@Req() req: AuthenticatedRequest) {

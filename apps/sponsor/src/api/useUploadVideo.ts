@@ -19,11 +19,11 @@ const uploadVideo = async (file: File) => {
 export const useUploadVideo = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation((file: File) => uploadVideo(file), {
+  const mutation = useMutation(uploadVideo, {
     onSuccess: () => {
-      toast.success('Video uspješno uploadan');
-
+      queryClient.invalidateQueries(['sponsorFormStatus']);
       queryClient.invalidateQueries(['loggedCompany']);
+      toast.success('Video uspješno uploadan');
     },
     onError: (error: AxiosError) => {
       toast.error(error.message);

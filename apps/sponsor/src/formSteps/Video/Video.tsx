@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
 import { useDeleteVideo } from '../../api/useDeleteVideo';
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadVideo } from '../../api/useUploadVideo';
+import { getVideoMetadata } from '../../helpers/fileHelpers';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
 
@@ -16,26 +17,7 @@ const Video: FormComponent = ({ close }) => {
 
   const { data: companyData } = useGetLoggedCompany();
 
-  const getVideoMetadata = (file: File): Promise<HTMLVideoElement> => {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement('video');
-
-      video.preload = 'metadata';
-
-      video.onloadedmetadata = () => {
-        URL.revokeObjectURL(video.src);
-        resolve(video);
-      };
-
-      video.onerror = (error) => {
-        reject(error);
-      };
-
-      video.src = URL.createObjectURL(file);
-    });
-  };
-
-  const onDrop = useCallback(async (droppedFiles: File[]) => {
+  const onDrop = async (droppedFiles: File[]) => {
     try {
       const [droppedFile] = droppedFiles;
 
@@ -60,8 +42,7 @@ const Video: FormComponent = ({ close }) => {
         toast.error(error.message);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   const handleRemoveVideo = () => {
     try {
@@ -134,7 +115,7 @@ const Video: FormComponent = ({ close }) => {
 
       <div className={c.inputContainer}>
         <button onClick={close} className={c.button}>
-          Zatvori
+          Spremi
         </button>
       </div>
     </div>
