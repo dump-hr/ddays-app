@@ -76,14 +76,14 @@ const questions: Question[] = [
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEditId, setCompanyToEdit] = useState();
+  const [companyToEditId, setCompanyToEdit] = useState<number | undefined>();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
   );
   const [fields, setFields] = useState(questions);
 
-  const { data: companies, isLoading } = useFetchCompanies();
+  const { data: companies } = useFetchCompanies();
   const { data: companyToEdit } = useFetchCompany(companyToEditId);
   const { data: interests } = useFetchInterests();
   const { data: interestsForCompany } =
