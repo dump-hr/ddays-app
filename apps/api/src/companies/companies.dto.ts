@@ -19,9 +19,6 @@ export class UpdateCompanyDto extends _UpdateCompanyDto {}
 export const _GetCompanyDto = getCompanyDto(ApiProperty);
 export class CompanyDto extends _GetCompanyDto {}
 
-export const _GetCompanyDetailsDto = getCompanyDto(ApiProperty);
-export class CompanyDetailsDto extends _GetCompanyDetailsDto {}
-
 export const _updateSponsorDescriptionDto =
   getUpdateSponsorDescriptionDto(ApiProperty);
 export class UpdateSponsorDescriptionDto extends _updateSponsorDescriptionDto {}

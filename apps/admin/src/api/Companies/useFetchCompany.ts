@@ -1,15 +1,15 @@
 import { QueryOptions, useQuery } from 'react-query';
 
-import { CompanyDetailsDto } from '../../types/company';
+import { CompanyDto } from '../../types/company';
 import { api } from '..';
 
 const fetchCompany = async (id: number | undefined) => {
   if (!id) return undefined;
-  await api.get<never, CompanyDetailsDto>(`/companies/${id}`);
+  await api.get<never, CompanyDto>(`/companies/${id}`);
 };
 export const useFetchCompany = (
   id: number | undefined,
-  options?: QueryOptions<CompanyDetailsDto | undefined>,
+  options?: QueryOptions<CompanyDto | undefined>,
 ) => {
   return useQuery(['company', id], () => fetchCompany(id), options);
 };

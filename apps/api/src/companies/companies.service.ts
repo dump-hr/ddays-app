@@ -4,13 +4,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { log } from 'console';
 import { db } from 'db';
 import { code, company, companyInterests } from 'db/schema';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
-  CompanyDetailsDto,
   CompanyDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
@@ -62,6 +62,10 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         url: company.websiteUrl,
         email: company.email,
+        companyVideo: company.companyVideo,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        codeId: company.codeId,
       })
       .from(company)
       .orderBy(company.name);
@@ -84,7 +88,7 @@ export class CompaniesService {
     return createdCode;
   }
 
-  async getOne(id: number): Promise<CompanyDetailsDto | undefined> {
+  async getOne(id: number): Promise<CompanyDto | undefined> {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -120,6 +124,9 @@ export class CompaniesService {
         codeId: company.codeId,
         email: company.email,
         url: company.websiteUrl,
+        companyVideo: company.companyVideo,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
       })
       .from(company)
       .where(eq(company.email, email));
