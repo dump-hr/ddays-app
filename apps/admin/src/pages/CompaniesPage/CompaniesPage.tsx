@@ -90,9 +90,9 @@ export const CompaniesPage = () => {
 
   useEffect(() => {
     if (!interests) return;
-    const interestsOptions = interests.map((interest) => ({
+    const interestsOptions = interests?.map((interest) => ({
       label: interest.name,
-      value: interest.id.toString(),
+      value: interest.id,
     }));
 
     const newQuesiton: Question = {
@@ -159,7 +159,7 @@ export const CompaniesPage = () => {
       boothLocation: companyToEdit?.boothLocation,
       codeId: companyToEdit?.codeId,
       sponsorCategory: companyToEdit?.sponsorCategory,
-      interests: interestsForCompany?.map((interest) => interest.id.toString()),
+      interests: interestsForCompany?.map((interest) => interest.id),
     });
   }, [companyToEditId, interestsForCompany]);
 
@@ -218,7 +218,7 @@ export const CompaniesPage = () => {
       <Button
         variant='primary'
         onClick={() => {
-          setIsOpenAddModal(!isOpenAddModal);
+          setIsOpenAddModal((prev) => !prev);
         }}>
         Dodaj novu kompaniju
       </Button>
