@@ -5,7 +5,8 @@ type TextAreaProps = {
   deviation: number;
   value: string;
   label: string;
-  onChange: (value: string) => void;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
 };
 
 const TextArea = ({
@@ -13,7 +14,8 @@ const TextArea = ({
   deviation,
   value,
   label,
-  onChange,
+  disabled = false,
+  onChange = () => {},
 }: TextAreaProps) => {
   const lowerBound = limit - deviation;
   const upperBound = limit + deviation;
@@ -31,6 +33,7 @@ const TextArea = ({
           className={c.textarea}
           rows={6}
           placeholder={label}
+          disabled={disabled}
         />
         <p className={c.wc}>
           {wc}/{limit}

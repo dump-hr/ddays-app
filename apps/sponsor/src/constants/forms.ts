@@ -2,6 +2,7 @@ import { FormSteps } from '@ddays-app/types';
 
 import Description from '../formSteps/Description';
 import InterestPicker from '../formSteps/InterestPicker';
+import Job from '../formSteps/Job/Job';
 import Video from '../formSteps/Video';
 import { SponsorForm } from '../types/form';
 
@@ -29,7 +30,7 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Jobs]: {
     title: 'Oglasi za posao',
     description: 'Predaja do x x',
-    component: InterestPicker,
+    component: Job,
   },
   [FormSteps.Interests]: {
     title: 'App career matching',
