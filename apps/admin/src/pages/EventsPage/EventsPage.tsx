@@ -159,12 +159,9 @@ const EventsPage = () => {
 
   function createEventHandler() {
     const eventToCreate = getModalData();
+    if (!eventToCreate) return;
 
-    try {
-      createEvent(eventToCreate);
-    } catch {
-      return;
-    }
+    createEvent(eventToCreate);
 
     clearModalData();
     setAddEventModalIsOpen(false);
@@ -179,11 +176,7 @@ const EventsPage = () => {
   async function editEventHandler() {
     const editedEvent = getModalData();
 
-    try {
-      editEvent(editedEvent);
-    } catch {
-      return;
-    }
+    editEvent(editedEvent);
 
     setEditEventModalIsOpen(false);
     clearModalData();
