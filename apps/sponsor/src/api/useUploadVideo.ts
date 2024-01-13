@@ -9,7 +9,7 @@ const uploadVideo = async (file: File) => {
   data.append('file', file);
   data.append('type', 'video/mp4');
 
-  return await api.patch('/company/video', data, {
+  return await api.patch('/companies/video', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

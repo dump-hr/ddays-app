@@ -4,7 +4,7 @@ import { SponsorDescriptionDto } from '../types/company';
 import { api } from '.';
 
 const getSponsorDescription = async () =>
-  await api.get<never, SponsorDescriptionDto>('/company/description');
+  await api.get<never, SponsorDescriptionDto>('/companies/description');
 
 export const useGetSponsorDescription = () => {
   return useQuery(['sponsorDescription'], getSponsorDescription);

@@ -282,7 +282,7 @@ export class CompaniesController {
     return deletedCompany;
   }
 
-  @Get('/company/:id')
+  @Get('/companies/:id')
   async getCompaniesWithInterest(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getCompaniesWIthInterest(id);
 

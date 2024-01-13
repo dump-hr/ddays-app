@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '.';
 
 const deleteVideo = async () => {
-  return await api.delete('/company/video');
+  return await api.delete('/companies/video');
 };
 
 export const useDeleteVideo = () => {
