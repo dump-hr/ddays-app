@@ -116,15 +116,15 @@ const InterestsPage = () => {
       <Modal
         isOpen={isOpenEditModal}
         toggleModal={() => setIsOpenEditModal((prev) => !prev)}>
+        {questions.map((q) => (
+          <InputHandler question={q} form={editInterestForm} key={q.id} />
+        ))}
         <Button
           onClick={editInterestForm.handleSubmit((data) =>
             handleEditInterest(data as CreateInterestDto),
           )}>
           Uredi
-        </Button>{' '}
-        {questions.map((q) => (
-          <InputHandler question={q} form={editInterestForm} key={q.id} />
-        ))}
+        </Button>
       </Modal>
 
       <Modal
