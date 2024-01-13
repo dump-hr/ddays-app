@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 class TimeHelper {
   static changeDateIsoFormat(iso8601: string) {
     return iso8601.substring(0, 16);
@@ -5,25 +7,7 @@ class TimeHelper {
 
   static formatDate(date: string) {
     const dateObj = new Date(date);
-
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1;
-    const year = dateObj.getFullYear();
-
-    const hours = dateObj.getHours();
-    const minutes = dateObj.getMinutes();
-
-    return `${day}.${month}.${year}. u ${hours
-      .toString()
-      .padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-  }
-
-  static daylightSavingIsObserved1(date: string) {
-    const dateObj = new Date(date);
-    const january = new Date(dateObj.getFullYear(), 0, 1).getTimezoneOffset();
-    const july = new Date(dateObj.getFullYear(), 6, 1).getTimezoneOffset();
-
-    return Math.max(january, july) !== dateObj.getTimezoneOffset();
+    return dayjs(dateObj).format('DD.MM.YYYY. u HH:mm');
   }
 
   static daylightSavingIsObserved(date: string, year: number) {
@@ -40,6 +24,7 @@ class TimeHelper {
     if (!date) return null;
 
     const dateObj = new Date(date);
+    console.log(dateObj);
 
     const DST = this.daylightSavingIsObserved(date, dateObj.getFullYear());
     const diff = (DST ? 2 : 1) * 2;
