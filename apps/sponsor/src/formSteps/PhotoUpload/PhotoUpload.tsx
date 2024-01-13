@@ -17,7 +17,7 @@ const PhotoUpload: FormComponent = ({ close }) => {
         </div>
       </div>
       <PhotoInputLabel
-        title='Fotografije '
+        title='Fotografije'
         content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
       />
       <div className={styles.uploadArea}>
