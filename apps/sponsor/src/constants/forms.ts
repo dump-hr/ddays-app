@@ -3,9 +3,9 @@ import { FormSteps } from '@ddays-app/types';
 import Description from '../formSteps/Description';
 import InterestPicker from '../formSteps/InterestPicker';
 import LogoUpload from '../formSteps/LogoUpload';
+import PhotoUpload from '../formSteps/PhotoUpload';
 import Video from '../formSteps/Video';
 import { SponsorForm } from '../types/form';
-import PhotoUpload from '../formSteps/PhotoUpload';
 
 export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {

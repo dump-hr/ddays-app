@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import sprite from '../../../public/sprite.svg';
+import RemoveSvg from '../../assets/remove.svg';
 import { Message } from '../../constants/messages';
 import { photoHelper } from '../../helpers/photoHelper';
 import { ErrorMessage } from '.';
@@ -37,13 +38,12 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
     null,
   );
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: inputConstraints?.mimeTypes?.reduce(
       (acc, type) => ({ ...acc, [`image/${type}`]: [] }),
       {},
     ) || { 'image/*': [] },
     onDrop: async (acceptedFiles) => {
-      console.log('drop', acceptedFiles);
       if (inputConstraints?.checkBlackAndWhite) {
         const blackAndWhitePromises = acceptedFiles.map(
           photoHelper.checkBlackAndWhite,
@@ -99,12 +99,10 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
       });
   }, []);
 
-  console.log(files);
-
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
       <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
-        {!acceptedFiles.length && (
+        {!files.length && (
           <div className={c.inputField} {...getRootProps()}>
             <input {...getInputProps()} />
             <div className={c.inputFieldLabel}>
@@ -116,6 +114,13 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
           </div>
         )}
         <aside className={c.thumbsContainer}>{thumbs}</aside>
+
+        {!!files.length && (
+          <button className={c.removeButton} onClick={() => setFiles([])}>
+            <img className={c.removeSvg} src={RemoveSvg} alt='Ukloni' />
+            <p>Ukloni</p>
+          </button>
+        )}
       </div>
       <div className={c.errorContainer}>
         {displayErrorMessages && (
