@@ -182,6 +182,17 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @Get('/sponsorFormStatus')
+  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
+    const status = await this.companiesService.getSponsorFormStatus(
+      req.user.id,
+    );
+
+    return status;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
   @Delete('/description')
   async removeDescription(@Req() req: AuthenticatedRequest) {
     const removedSponsorDescription =
@@ -220,17 +231,6 @@ export class CompaniesController {
       await this.companiesService.removeLandingImage(req.user.id);
 
     return removedSponsorLandingImage;
-  }
-
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Get('/sponsorFormStatus')
-  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
-    const status = await this.companiesService.getSponsorFormStatus(
-      req.user.id,
-    );
-
-    return status;
   }
 
   @UseGuards(SponsorAuthGuard)

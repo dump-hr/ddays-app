@@ -13,6 +13,7 @@ import EventsPage from './pages/EventsPage';
 import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
+import InterestsPage from './pages/InterestsPage';
 import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
 import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
 
@@ -27,6 +28,7 @@ export const App = () => {
           <Route path={Path.Guest} component={GuestPage} />˝
           <Route path={Path.Events} component={EventsPage} />
           <Route path={Path.Achievements} component={AchievementsPage} />
+          <Route path={Path.Interests} component={InterestsPage} />
           <Route
             path={Path.FrequentlyAskedQuestions}
             component={FrequentlyAskedQuestionPage}
