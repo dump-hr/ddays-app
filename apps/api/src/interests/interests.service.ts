@@ -136,4 +136,18 @@ export class InterestsService {
 
     return newInterests;
   }
+
+  async getCompanyInterests(companyId: number) {
+    const interests = await db
+      .select({
+        id: interest.id,
+        name: interest.name,
+        theme: interest.theme,
+      })
+      .from(companyInterests)
+      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
+      .where(eq(companyInterests.companyId, companyId));
+
+    return interests;
+  }
 }

@@ -4,7 +4,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { log } from 'console';
 import { db } from 'db';
 import { code, company, companyInterests } from 'db/schema';
 import { and, eq, inArray, sql } from 'drizzle-orm';
@@ -413,6 +412,25 @@ export class CompaniesService {
       : await this.addInterest(companyId, interestId);
 
     return action;
+  }
+
+  async getCompaniesWIthInterest(interestId: number) {
+    const companies = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        logo: company.logoImage,
+        description: company.description,
+        website: company.websiteUrl,
+        email: company.email,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
+      .from(companyInterests)
+      .rightJoin(company, eq(companyInterests.interestId, company.id))
+      .where(eq(companyInterests.interestId, interestId));
+
+    return companies;
   }
 
   async getSponsorFormStatus(companyId: number) {

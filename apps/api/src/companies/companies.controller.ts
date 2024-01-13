@@ -255,6 +255,7 @@ export class CompaniesController {
     return company;
   }
 
+  @ApiBearerAuth()
   @Get('/sponsor-data')
   async getSponsorData(@Req() req: AuthenticatedRequest) {
     const company = await this.companiesService.getOne(req.user.id);
@@ -279,5 +280,12 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
+  }
+
+  @Get('/company/:id')
+  async getCompaniesWithInterest(@Param('id', ParseIntPipe) id: number) {
+    const company = await this.companiesService.getCompaniesWIthInterest(id);
+
+    return company;
   }
 }
