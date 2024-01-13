@@ -105,21 +105,6 @@ const EventsPage = () => {
     }
   }, [events]);
 
-  /*
-  function setModalData(data: Event) {
-    localStorage.setItem('modalData', JSON.stringify(data));
-  }
-  */
-  /*
-  function getModalData() {
-    const data = localStorage.getItem('modalData');
-    if (data) {
-      return JSON.parse(data) as Event;
-    }
-    return {} as Event;
-  }
-  */
-
   function findEventById(id: number) {
     const event = events?.find((event) => event.id === id) as Event;
     if (event) {
@@ -163,7 +148,6 @@ const EventsPage = () => {
 
   function createEventHandler(data: object) {
     const eventToCreate = data as Event;
-    console.log('eventToCreate', eventToCreate);
     if (!eventToCreate) return;
 
     createEvent(eventToCreate);
@@ -180,7 +164,6 @@ const EventsPage = () => {
 
   async function editEventHandler(data: object) {
     const editedEvent = data as Event;
-    console.log('editedEvent', editedEvent);
     editEvent(editedEvent);
 
     setEditEventModalIsOpen(false);

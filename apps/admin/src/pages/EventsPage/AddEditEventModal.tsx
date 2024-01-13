@@ -41,8 +41,6 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   const form = useForm<FieldValues>();
 
   function validateForm() {
-    //updateModalData();
-    //const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
     const data = form.getValues() as Event;
 
     if (!data.name) {
@@ -167,36 +165,8 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       defaultValue: TimeHelper.changeDateIsoFormat(modalData?.endsAt || ''),
     },
   ];
-  /*
-
-  function updateModalData() {
-    const formValues = form.getValues() as Event;
-    const oldData = JSON.parse(
-      localStorage.getItem('modalData') || '',
-    ) as Event;
-
-    type NullableProps<T> = {
-      [K in keyof T]: T[K] | null;
-    };
-
-    const data: NullableProps<Event> = {
-      ...formValues,
-      id: oldData.id,
-      codeId: oldData.codeId,
-    };
-
-    for (const key in data) {
-      if (data[key as keyof typeof data] === '') {
-        data[key as keyof typeof data] = null;
-      }
-    }
-
-    localStorage.setItem('modalData', JSON.stringify(data));
-  }
-  */
 
   function toggleAndResetData() {
-    //updateModalData();
     toggle();
     form.reset();
   }

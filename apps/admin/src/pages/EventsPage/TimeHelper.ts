@@ -24,7 +24,6 @@ class TimeHelper {
     if (!date) return null;
 
     const dateObj = new Date(date);
-    console.log(dateObj);
 
     const DST = this.daylightSavingIsObserved(date, dateObj.getFullYear());
     const diff = (DST ? 2 : 1) * 2;
