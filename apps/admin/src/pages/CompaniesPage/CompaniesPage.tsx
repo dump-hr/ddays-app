@@ -156,7 +156,6 @@ export const CompaniesPage = () => {
       name: companyToEdit?.name,
       description: companyToEdit?.description,
       websiteUrl: companyToEdit?.url,
-      email: companyToEdit?.email,
       username: companyToEdit?.username,
       boothLocation: companyToEdit?.boothLocation,
       codeId: companyToEdit?.codeId,

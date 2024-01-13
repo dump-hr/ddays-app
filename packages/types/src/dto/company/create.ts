@@ -1,7 +1,9 @@
 import {
   IsArray,
   IsEnum,
+  IsNumber,
   IsNumberString,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { SponsorCategory } from 'src/model';
