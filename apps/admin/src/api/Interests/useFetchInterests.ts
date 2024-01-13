@@ -1,11 +1,11 @@
-import { Interest } from '@ddays-app/types';
 import { QueryOptions, useQuery } from 'react-query';
 
+import { InterestDto } from '../../types/interest';
 import { api } from '..';
 
 const fetchAllInterests = async () =>
-  await api.get<never, Interest[]>('/interests');
+  await api.get<never, InterestDto[]>('/interests');
 
-export const useFetchInterests = (options?: QueryOptions<Interest[]>) => {
-  return useQuery(['interests'], fetchAllInterests, options);
+export const useFetchInterests = (options?: QueryOptions<InterestDto[]>) => {
+  return useQuery(['interest'], fetchAllInterests, options);
 };

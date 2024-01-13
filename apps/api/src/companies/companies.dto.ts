@@ -3,6 +3,7 @@ import {
   getAddSponsorLandingImageDto,
   getAddSponsorLogoDto,
   getAddSponsorVideoDto,
+  getCompanyDto,
   getCreateCompanyDto,
   getSponsorDescriptionDto,
   getSponsorJobDto,
@@ -16,6 +17,9 @@ export class CreateCompanyDto extends _CreateCompanyDto {}
 
 export const _UpdateCompanyDto = getUpdateCompanyDto(ApiProperty);
 export class UpdateCompanyDto extends _UpdateCompanyDto {}
+
+export const _GetCompanyDto = getCompanyDto(ApiProperty);
+export class CompanyDto extends _GetCompanyDto {}
 
 export const _updateSponsorDescriptionDto =
   getUpdateSponsorDescriptionDto(ApiProperty);

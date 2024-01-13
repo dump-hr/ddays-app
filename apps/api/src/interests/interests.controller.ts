@@ -90,9 +90,9 @@ export class InterestsController {
     return deletedInterest;
   }
 
-  @Get(':id/companies')
-  async getCompanies(@Param('id', ParseIntPipe) id: number) {
-    const companies = await this.interestsService.getCompanies(id);
+  @Get('company/:id')
+  async getInterestsForCompany(@Param('id', ParseIntPipe) id: number) {
+    const companies = await this.interestsService.getCompanyInterests(id);
 
     return companies;
   }
