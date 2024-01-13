@@ -111,7 +111,7 @@ export class CompaniesService {
     return companyToGet[0];
   }
 
-  async login(name: string, password: string) {
+  async login(username: string, password: string) {
     const companyToLogin = await db
       .select({
         id: company.id,
@@ -120,7 +120,7 @@ export class CompaniesService {
         username: company.username,
       })
       .from(company)
-      .where(eq(company.name, name))
+      .where(eq(company.username, username))
       .limit(1);
 
     if (!companyToLogin.length) {

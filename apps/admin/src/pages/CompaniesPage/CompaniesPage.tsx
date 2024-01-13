@@ -37,6 +37,12 @@ const questions: Question[] = [
     rules: { required: 'Obavezno polje' },
   },
   {
+    id: 'username',
+    type: QuestionType.Field,
+    title: 'Username',
+    rules: { required: 'Obavezno polje' },
+  },
+  {
     id: 'description',
     type: QuestionType.TextArea,
     title: 'Opis',

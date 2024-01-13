@@ -9,8 +9,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async companyPasswordLogin(name: string, password: string) {
-    if (!name) {
+  async companyPasswordLogin(username: string, password: string) {
+    if (!username) {
       throw new BadRequestException('Name is required');
     }
 
@@ -18,7 +18,7 @@ export class AuthService {
       throw new BadRequestException('Password is required');
     }
 
-    const company = await this.companyService.login(name, password);
+    const company = await this.companyService.login(username, password);
 
     if (!company) {
       throw new BadRequestException('Invalid credentials');
