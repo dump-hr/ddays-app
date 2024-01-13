@@ -130,6 +130,7 @@ const InterestsPage = () => {
       <Modal
         isOpen={isOpenDeleteModal}
         toggleModal={() => setIsOpenDeleteModal((prev) => !prev)}>
+        Jeste li sigurni da želite obrisati interes?
         <Button
           onClick={() => {
             deleteInterest(interestToDeleteId!);
