@@ -5,7 +5,7 @@ import { api } from '..';
 
 const fetchCompany = async (id: number | undefined) => {
   if (!id) return undefined;
-  await api.get<never, CompanyDto>(`/companies/${id}`);
+  return await api.get<never, CompanyDto>(`/companies/${id}`);
 };
 export const useFetchCompany = (
   id: number | undefined,

@@ -5,7 +5,7 @@ import { api } from '..';
 
 const fetchCompanyInterests = async (id: number | undefined) => {
   if (!id) return [];
-  return await api.get<never, InterestDto[]>(`/companies/${id}/interests`);
+  return await api.get<never, InterestDto[]>(`/interests/company/${id}`);
 };
 
 export const useFetchCompanyInterests = (
