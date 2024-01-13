@@ -13,16 +13,16 @@
 
 .modalContent {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: #f1f1f1;
   padding: 14px 28px;
   border-radius: 3px;
-  max-width: 700px;
+  max-width: 90vw;
   min-width: 300px;
-  max-height: 400px;
+  max-height: 90vh;
   overflow-y: scroll;
 
   .close {

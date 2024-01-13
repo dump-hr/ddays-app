@@ -1,0 +1,71 @@
+.description {
+  &Container {
+    margin-bottom: 24px;
+  }
+  &Title {
+    color: #fff;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.33px;
+    margin-bottom: 8px;
+    margin-top: 0px;
+  }
+  &Content {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.uploadArea {
+  width: 491px;
+  padding-bottom: 40px;
+}
+
+.button {
+  border-radius: 12px;
+  background: #fff;
+  width: 100%;
+  height: 56px;
+  cursor: pointer;
+  margin-top: auto;
+  border: none;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 56px;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #397524 #ffffff33;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #ffffff33;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff99;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #ffffff99;
+}

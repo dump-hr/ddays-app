@@ -9,6 +9,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { EventsModule } from './events/events.module';
 import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
 import { InterestsModule } from './interests/interests.module';
+import { JobsModule } from './jobs/jobs.module';
 import { NotificationModule } from './notification/notification.module';
 import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module';
 
@@ -24,6 +25,7 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
     SurveyQuestionsModule,
     AuthModule,
     NotificationModule,
+    JobsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
