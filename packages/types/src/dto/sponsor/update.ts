@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export const getUpdateSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -8,6 +8,29 @@ export const getUpdateSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
     description: string;
   }
   return AddDescriptionDto;
+};
+
+export const getAddSponsorJobDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+  class AddSponsorJobDto {
+    @IsNumber()
+    @ApiProperty()
+    companyId: number;
+
+    @IsString()
+    @ApiProperty()
+    position: string;
+
+    @IsString()
+    @ApiProperty()
+    location: string;
+
+    @IsString()
+    @ApiProperty()
+    details: string;
+  }
+
+  return AddSponsorJobDto;
 };
 
 export const getAddSponsorLogoDto = (ApiPropertySwagger?: any) => {
