@@ -112,7 +112,7 @@ export const companyRelations = relations(company, ({ one, many }) => ({
 
 export const job = pgTable('job', {
   id: serial('id').primaryKey().notNull(),
-  position: text('position').notNull().unique(),
+  position: text('position').notNull(),
   location: text('location').notNull(),
   details: text('details').notNull(),
   //todo: requirements, benefits, link

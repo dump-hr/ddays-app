@@ -17,7 +17,7 @@ const Job: FormComponent = () => {
   const { data: companyData } = useGetLoggedCompany();
   const sponsorId = companyData?.id;
 
-  const addSponsorJob = useAddSponsorJob();
+  const addSponsorJob = useAddSponsorJob(sponsorId);
   const deleteSponsorJob = useDeleteSponsorJob();
   const { data: jobs, error, isLoading } = useGetSponsorJobs(sponsorId);
 
@@ -41,6 +41,10 @@ const Job: FormComponent = () => {
       location,
       details,
     });
+
+    setPosition('');
+    setLocation('');
+    setDetails('');
   };
 
   const handleRemove = async (id: number) => {
@@ -59,10 +63,12 @@ const Job: FormComponent = () => {
         {jobs &&
           jobs.map(({ id, details, location, position }, index) => (
             <div className={c.inputContainer}>
-              <h2 className={c.subtitle}># {index} Oglas</h2>
-              <button onClick={() => handleRemove(id)} className={c.button}>
-                Ukloni
-              </button>
+              <div className={c.subtitleContainer}>
+                <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
+                <span onClick={() => handleRemove(id)} className={c.label}>
+                  Ukloni
+                </span>
+              </div>
               <TextArea
                 value={position}
                 limit={20}
@@ -89,7 +95,7 @@ const Job: FormComponent = () => {
       </div>
 
       <div className={c.inputContainer}>
-        <h2 className={c.subtitle}># {jobs?.length || 0 + 1} Oglas</h2>
+        <h2 className={c.subtitle}>#{jobs?.length || 0 + 1} Oglas</h2>
         <TextArea
           value={position}
           onChange={(value) => setPosition(value)}

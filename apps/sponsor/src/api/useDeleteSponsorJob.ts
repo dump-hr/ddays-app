@@ -13,6 +13,7 @@ export const useDeleteSponsorJob = () => {
 
   const mutation = useMutation((id: number) => deleteSponsorJob(id), {
     onSuccess: () => {
+      queryClient.invalidateQueries(['sponsorJobs']);
       queryClient.invalidateQueries(['sponsorFormStatus']);
       queryClient.invalidateQueries(['loggedCompany']);
 

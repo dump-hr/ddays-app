@@ -8,12 +8,12 @@ const addSponsorJob = async (dto: AddSponsorJobDto) => {
   return await api.post('/jobs', dto);
 };
 
-export const useAddSponsorJob = () => {
+export const useAddSponsorJob = (sponsorId: number | undefined) => {
   const queryClient = useQueryClient();
 
   return useMutation(addSponsorJob, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['sponsorJobs']);
+      queryClient.invalidateQueries(['sponsorJobs', sponsorId]);
       queryClient.invalidateQueries(['sponsorFormStatus']);
       queryClient.invalidateQueries(['loggedCompany']);
 

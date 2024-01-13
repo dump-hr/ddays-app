@@ -21,6 +21,22 @@
   margin-bottom: 4px;
 }
 
+.subtitleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
 .description {
   color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
