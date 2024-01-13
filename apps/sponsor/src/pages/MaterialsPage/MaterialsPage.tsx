@@ -2,6 +2,7 @@ import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
+import ArrowRightSvg from '../../assets/arrow-right.svg';
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import c from './MaterialsPage.module.scss';
@@ -53,7 +54,7 @@ const MaterialsPage: React.FC = () => {
                 <div className={c.itemAction}>
                   {data?.status &&
                     statusChips[data?.status[key as keyof typeof FormSteps]]}
-                  <img src='/arrow-right.svg' alt='Open' />
+                  <img src={ArrowRightSvg} alt='Open' />
                 </div>
               </article>
             ),

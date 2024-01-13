@@ -22,6 +22,10 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
+    email: string;
+
+    @IsString()
+    @ApiProperty()
     name: string;
 
     @IsString()
@@ -35,14 +39,25 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     sponsorCategory: SponsorType;
+    @IsString()
+    @ApiProperty()
+    websiteUrl: string;
 
     @IsString()
     @ApiProperty()
     boothLocation: string;
 
-    @IsEmail()
+    @IsString()
     @ApiProperty()
-    email: string;
+    logoImage: string;
+
+    @IsString()
+    @ApiProperty()
+    landingImage: string;
+
+    @IsString()
+    @ApiProperty()
+    companyVideo: string;
   }
 
   return CompanyDto;
