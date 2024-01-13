@@ -55,7 +55,7 @@ const InterestsPage = () => {
         name: interestToEdit.name,
         theme: interestToEdit.theme,
       });
-  }, [interestToEdit]);
+  }, [interestToEdit, editInterestForm]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -80,10 +80,6 @@ const InterestsPage = () => {
 
   const handleCreateInterest = (data: CreateInterestDto) => {
     createInterest(data);
-    if (!createInterestForm.formState.isValid) {
-      setIsOpenAddModal((prev) => !prev);
-      createInterestForm.reset();
-    }
   };
 
   const handleEditInterest = (data: CreateInterestDto) => {
@@ -93,10 +89,6 @@ const InterestsPage = () => {
       id: interestToEdit.id,
       interest: data,
     });
-    if (!editInterestForm.formState.isValid) {
-      setIsOpenEditModal((prev) => !prev);
-      editInterestForm.reset();
-    }
   };
 
   return (
@@ -105,15 +97,15 @@ const InterestsPage = () => {
       <Modal
         isOpen={isOpenAddModal}
         toggleModal={() => setIsOpenAddModal((prev) => !prev)}>
+        {questions.map((q) => (
+          <InputHandler question={q} form={createInterestForm} key={q.id} />
+        ))}
         <Button
           onClick={createInterestForm.handleSubmit((data) =>
             handleCreateInterest(data as CreateInterestDto),
           )}>
           Dodaj
         </Button>
-        {questions.map((q) => (
-          <InputHandler question={q} form={createInterestForm} key={q.id} />
-        ))}
       </Modal>
 
       <Modal
@@ -138,14 +130,14 @@ const InterestsPage = () => {
             deleteInterest(interestToDeleteId!);
             setIsOpenDeleteModal((prev) => !prev);
           }}>
-          Obriši
+          Jeste li sigurni da želite izbrisati ovaj interes?
         </Button>
       </Modal>
 
       <Button
         variant='primary'
         onClick={() => {
-          setIsOpenAddModal(!isOpenAddModal);
+          setIsOpenAddModal((prev) => !prev);
         }}>
         Dodaj novi interes
       </Button>

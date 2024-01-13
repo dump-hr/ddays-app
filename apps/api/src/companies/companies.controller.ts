@@ -21,9 +21,6 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
@@ -173,6 +170,17 @@ export class CompaniesController {
       await this.companiesService.addLandingImage(+req.user.id, file);
 
     return addedSponsorLandingImage;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Get('/sponsorFormStatus')
+  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
+    const status = await this.companiesService.getSponsorFormStatus(
+      req.user.id,
+    );
+
+    return status;
   }
 
   @UseGuards(SponsorAuthGuard)
