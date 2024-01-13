@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { useLocation } from 'wouter';
 
 import { useLogin } from '../../api/useLogin';
@@ -9,37 +8,27 @@ import c from './LoginForm.module.scss';
 const LoginForm = () => {
   const [, navigate] = useLocation();
 
-  const [email, setEmail] = useState('');
-  const [isValid, setIsValid] = useState(false);
+  const [username, setUsername] = useState('');
 
   const login = useLogin(() => navigate(Path.Home, { replace: true }));
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
-  };
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUsername = e.target.value;
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    setIsValid(validateEmail(newEmail));
+    setUsername(newUsername);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isValid) {
-      toast.error('Invalid email');
-      return;
-    }
 
     const form = e.currentTarget;
     const formElements = form.elements as typeof form.elements & {
-      email: HTMLInputElement;
+      username: HTMLInputElement;
       password: HTMLInputElement;
     };
 
     login.mutate({
-      email: formElements.email.value,
+      username: formElements.username.value,
       password: formElements.password.value,
     });
   };
@@ -75,11 +64,11 @@ const LoginForm = () => {
   return (
     <form className={c.form} onSubmit={handleSubmit}>
       <input
-        type='email'
-        name='email'
+        type='username'
+        name='username'
         placeholder='Ime tvrtke'
-        value={email}
-        onChange={handleEmailChange}
+        value={username}
+        onChange={handleUsernameChange}
         className={c.formInput}
       />
       <div className={c.passwordInputContainer}>
@@ -102,7 +91,7 @@ const LoginForm = () => {
       <p className={c.formParagraph}>
         Unesite informacije koje ste dobili putem maila
       </p>
-      <button type='submit' disabled={!isValid} className={c.formButton}>
+      <button type='submit' className={c.formButton}>
         Spremi
       </button>
     </form>

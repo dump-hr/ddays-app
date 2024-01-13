@@ -89,6 +89,7 @@ export const company = pgTable('company', {
   password: text('password').notNull(),
   sponsorCategory: sponsorCategory('sponsor_category'),
   name: text('name'),
+  username: text('username').unique().notNull(),
   description: text('description'),
   websiteUrl: text('website_url'),
   boothLocation: text('booth_location'),

@@ -1,12 +1,8 @@
 import {
   IsArray,
-  IsEmail,
   IsEnum,
-  IsNumber,
   IsNumberString,
-  IsOptional,
   IsString,
-  IsStrongPassword,
 } from 'class-validator';
 import { SponsorCategory } from 'src/model';
 
@@ -34,9 +30,9 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     boothLocation?: string;
 
-    @IsEmail()
+    @IsString()
     @ApiProperty()
-    email?: string;
+    username?: string;
 
     @IsArray()
     @IsNumberString({}, { each: true })

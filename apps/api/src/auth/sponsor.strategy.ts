@@ -8,6 +8,7 @@ import { jwtSecret } from './auth.module';
 export type JwtPayload = {
   id: number;
   name: string;
+  username: string;
 };
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
@@ -28,6 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
     return {
       id: sponsor.id,
       name: sponsor.name,
+      username: sponsor.username,
       role: 'sponsor',
     };
   }

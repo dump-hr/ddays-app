@@ -26,6 +26,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign({
       id: company.id,
+      username: company.username,
       name: company.name,
     });
 

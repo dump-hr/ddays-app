@@ -29,7 +29,6 @@ export class CompaniesService {
     const createdComapny = await db
       .insert(company)
       .values({
-        email: createCompanyDto.email,
         password: generatedPassword,
         name: createCompanyDto.name,
         description: createCompanyDto.description,
@@ -37,6 +36,7 @@ export class CompaniesService {
         websiteUrl: createCompanyDto.websiteUrl,
         boothLocation: createCompanyDto.boothLocation,
         codeId: generatedCode[0].id,
+        username: createCompanyDto.username,
       })
       .returning();
 
@@ -60,11 +60,11 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         url: company.websiteUrl,
-        email: company.email,
         companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         codeId: company.codeId,
+        username: company.username,
       })
       .from(company)
       .orderBy(company.name);
@@ -97,11 +97,11 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
-        email: company.email,
         url: company.websiteUrl,
         companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
+        username: company.username,
       })
       .from(company)
       .where(eq(company.id, id));
@@ -111,37 +111,16 @@ export class CompaniesService {
     return companyToGet[0];
   }
 
-  async getOneByEmail(email: string): Promise<CompanyDto | undefined> {
-    const companyToGet = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        description: company.description,
-        sponsorCategory: company.sponsorCategory,
-        websiteUrl: company.websiteUrl,
-        boothLocation: company.boothLocation,
-        codeId: company.codeId,
-        email: company.email,
-        url: company.websiteUrl,
-        companyVideo: company.companyVideo,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-      })
-      .from(company)
-      .where(eq(company.email, email));
-
-    return companyToGet[0];
-  }
-
-  async login(email: string, password: string) {
+  async login(name: string, password: string) {
     const companyToLogin = await db
       .select({
         id: company.id,
         name: company.name,
         password: company.password,
+        username: company.username,
       })
       .from(company)
-      .where(eq(company.email, email))
+      .where(eq(company.name, name))
       .limit(1);
 
     if (!companyToLogin.length) {
@@ -162,6 +141,7 @@ export class CompaniesService {
         sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: updateCompanyDto.websiteUrl,
         boothLocation: updateCompanyDto.boothLocation,
+        username: updateCompanyDto.username,
       })
       .where(eq(company.id, id))
       .returning();
@@ -422,7 +402,6 @@ export class CompaniesService {
         logo: company.logoImage,
         description: company.description,
         website: company.websiteUrl,
-        email: company.email,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
       })

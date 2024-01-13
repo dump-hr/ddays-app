@@ -106,7 +106,6 @@ export class InterestsService {
         logo: company.logoImage,
         description: company.description,
         website: company.websiteUrl,
-        email: company.email,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
       })

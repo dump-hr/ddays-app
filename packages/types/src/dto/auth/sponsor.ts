@@ -1,18 +1,16 @@
 import {
-  IsEmail,
   IsNotEmpty,
   IsString,
-  IsStrongPassword,
 } from 'class-validator';
 
 export const getSponsorLoginDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class SponsorLoginDto {
-    @IsEmail()
+    @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    email: string;
+    username: string;
 
     @IsString()
     // @IsStrongPassword()

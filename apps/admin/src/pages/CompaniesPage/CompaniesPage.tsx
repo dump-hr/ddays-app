@@ -22,6 +22,7 @@ import {
 const headers = [
   'Broj',
   'Ime',
+  'Username',
   'Kategorija sponzorstva',
   'Lokacija štanda',
   'CodeId',
@@ -147,7 +148,6 @@ export const CompaniesPage = () => {
       name: companyToEdit.name,
       description: companyToEdit.description,
       websiteUrl: companyToEdit.url,
-      email: companyToEdit.email,
       boothLocation: companyToEdit.boothLocation,
       codeId: companyToEdit.codeId,
       sponsorCategory: companyToEdit.sponsorCategory,
@@ -221,6 +221,7 @@ export const CompaniesPage = () => {
             .map((c) => ({
               id: c.id,
               name: c.name,
+              username: c.username,
               sponsorCategory: c.sponsorCategory,
               boothLocation: c.boothLocation,
               codeId: c.codeId,
