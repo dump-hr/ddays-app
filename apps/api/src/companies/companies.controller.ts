@@ -2,29 +2,33 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   ParseIntPipe,
   Patch,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
 import {
-  AddSponsorDescriptionDto,
-  AddSponsorLandingImageDto,
-  AddSponsorLogoDto,
-  AddSponsorVideoDto,
   CreateCompanyDto,
   UpdateCompanyDto,
+  UpdateSponsorDescriptionDto,
 } from './companies.dto';
 import { CompaniesService } from './companies.service';
-@ApiTags('companies')
-@Controller('companies')
+
+@ApiTags('company')
+@Controller('company')
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
@@ -42,29 +46,65 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Patch('/description')
-  async addDescription(
-    @Req() req: AuthenticatedRequest,
-    @Body() addSponsorDescriptionDto: AddSponsorDescriptionDto,
-  ) {
-    const addedSponsorDescription = await this.companiesService.addDescription(
-      +req.user.id,
-      addSponsorDescriptionDto,
-    );
-
-    return addedSponsorDescription;
+  @Get('/logged')
+  async getLogged(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
+    return company;
   }
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @Get('/description')
+  async getDescription(@Req() req: AuthenticatedRequest) {
+    return await this.companiesService.getDescription(+req.user.id);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/description')
+  async updateDescription(
+    @Req() req: AuthenticatedRequest,
+    @Body() updateSponsorDescriptionDto: UpdateSponsorDescriptionDto,
+  ) {
+    const updatedCompany = await this.companiesService.updateDescription(
+      +req.user.id,
+      updateSponsorDescriptionDto,
+    );
+
+    return updatedCompany;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/logo')
+  @UseInterceptors(FileInterceptor('file'))
   async addLogo(
     @Req() req: AuthenticatedRequest,
-    @Body() addSponsorLogoDto: AddSponsorLogoDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     const addedSponsorLogo = await this.companiesService.addLogo(
       +req.user.id,
-      addSponsorLogoDto,
+      file,
     );
 
     return addedSponsorLogo;
@@ -72,14 +112,35 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/video')
+  @UseInterceptors(FileInterceptor('file'))
   async addVideo(
     @Req() req: AuthenticatedRequest,
-    @Body() addSponsorVideoDto: AddSponsorVideoDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'video/mp4' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     const addedSponsorVideo = await this.companiesService.addVideo(
-      req.user.id,
-      addSponsorVideoDto,
+      +req.user.id,
+      file,
     );
 
     return addedSponsorVideo;
@@ -87,19 +148,38 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/landing-image')
+  @UseInterceptors(FileInterceptor('file'))
   async addLandingImage(
-    @Body() addSponsorLandingImageDto: AddSponsorLandingImageDto,
     @Req() req: AuthenticatedRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     const addedSponsorLandingImage =
-      await this.companiesService.addLandingImage(
-        req.user.id,
-        addSponsorLandingImageDto,
-      );
+      await this.companiesService.addLandingImage(+req.user.id, file);
 
     return addedSponsorLandingImage;
   }
+
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @Delete('/description')
@@ -144,11 +224,13 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
-  @Get('/interests')
-  async getMyInterests(@Req() req: AuthenticatedRequest) {
-    const interests = await this.companiesService.getInterests(req.user.id);
+  @Get('/sponsorFormStatus')
+  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
+    const status = await this.companiesService.getSponsorFormStatus(
+      req.user.id,
+    );
 
-    return interests;
+    return status;
   }
 
   @UseGuards(SponsorAuthGuard)
@@ -170,7 +252,14 @@ export class CompaniesController {
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  } //fun fact this returns an array with one element, not sure if that is good behaviour
+  }
+
+  @Get('/sponsor-data')
+  async getSponsorData(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
+    return company;
+  }
+
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -188,12 +277,5 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
-  }
-
-  @Get(':id/interests')
-  async getInterestsForCompany(@Param('id', ParseIntPipe) id: number) {
-    const companies = await this.companiesService.getInterests(id);
-
-    return companies;
   }
 }

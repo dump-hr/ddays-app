@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 640px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.33px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.upload {
+  height: 24px;
+  width: 24px;
+  margin-bottom: 12px;
+}
+
+.instruction {
+  max-width: 167px;
+  text-align: center;
+  color: rgba(255, 255, 255);
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 325px;
+  width: 490px;
+  border-radius: 4px;
+  padding: 40px 24px;
+  gap: 8px;
+  margin-bottom: 40px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%23333' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='9' stroke-linecap='square'/%3e%3c/svg%3e");
+  background-color: #191a204d;
+  cursor: pointer;
+}
+
+.button {
+  border-radius: 12px;
+  background: #fff;
+  width: 100%;
+  height: 56px;
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: 56px;
+}
+
+.videoContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.video {
+  width: auto;
+  height: 275px;
+}
+
+.remove {
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 0px 2px;
+  background: #fff;
+  color: #b40000;
+  height: 20px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.error {
+  color: #b40000;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 24px;
+}

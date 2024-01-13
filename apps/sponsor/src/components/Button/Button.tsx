@@ -10,11 +10,12 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
+  className,
   ...handlers
 }) => {
   return (
     <button
-      className={clsx(c.button, {
+      className={clsx(c.button, className, {
         [c.primary]: variant === 'primary',
         [c.secondary]: variant === 'secondary',
       })}
