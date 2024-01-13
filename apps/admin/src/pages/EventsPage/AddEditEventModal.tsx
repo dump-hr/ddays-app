@@ -20,7 +20,7 @@ type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
 
 type ModalProps = {
   isOpen: boolean;
-  toggle: () => void;
+  toggle: (event: Event) => void;
   title: string;
   actionButtonText: string;
   actionButtonHandler: (data: object) => void;
@@ -167,12 +167,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   ];
 
   function toggleAndResetData() {
-    toggle();
+    toggle(form.getValues() as Event);
     form.reset();
   }
 
   return (
-    <Modal isOpen={isOpen} toggleModal={toggle}>
+    <Modal isOpen={isOpen} toggleModal={() => toggleAndResetData()}>
       <h3 className={c.modalTitle}>{title}</h3>
       <div className={c.editModalLayout}>
         {questions.map((question, i) => {

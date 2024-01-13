@@ -113,8 +113,11 @@ const EventsPage = () => {
     return {} as Event;
   }
 
-  function toggleModal(modal: 'add' | 'delete' | 'edit') {
-    const filteredProps = Object.entries(modalData).filter(
+  function toggleModal(
+    modal: 'add' | 'delete' | 'edit',
+    event: Event = {} as Event,
+  ) {
+    const filteredProps = Object.entries(event).filter(
       ([, value]) => value !== null && value !== '',
     );
 
@@ -234,7 +237,7 @@ const EventsPage = () => {
 
       <AddEditEventModal
         isOpen={addEventModalIsOpen}
-        toggle={() => toggleModal('add')}
+        toggle={(event) => toggleModal('add', event)}
         title='Dodaj event'
         actionButtonHandler={createEventHandler}
         actionButtonText='Dodaj Event'
@@ -242,7 +245,7 @@ const EventsPage = () => {
 
       <AddEditEventModal
         isOpen={editEventModalIsOpen}
-        toggle={() => toggleModal('edit')}
+        toggle={(event) => toggleModal('edit', event)}
         title='Uredi event'
         actionButtonHandler={editEventHandler}
         actionButtonText='Spremi promjene'
