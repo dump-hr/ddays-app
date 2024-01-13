@@ -1,5 +1,5 @@
 import { FormSteps, StepStatus } from '@src/model';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export const getSponsorFormStatusDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -20,4 +20,27 @@ export const getSponsorDescriptionDto = (ApiPropertySwagger?: any) => {
     description: string;
   }
   return SponsorDescriptionDto;
+};
+
+export const getSponsorJobDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+  class SponsorJobDto {
+    @IsNumber()
+    @ApiProperty()
+    id: number;
+
+    @IsString()
+    @ApiProperty()
+    position: string;
+
+    @IsString()
+    @ApiProperty()
+    location: string;
+
+    @IsString()
+    @ApiProperty()
+    details: string;
+  }
+
+  return SponsorJobDto;
 };

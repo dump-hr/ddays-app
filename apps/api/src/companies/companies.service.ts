@@ -13,6 +13,7 @@ import { BlobService } from 'src/blob/blob.service';
 import {
   CreateCompanyDto,
   SponsorDescriptionDto,
+  SponsorJobsDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
 } from './companies.dto';
@@ -338,7 +339,7 @@ export class CompaniesService {
     const company = await this.getOne(companyId);
     const status = {};
 
-    status[FormSteps.Description] = company?.description.length
+    status[FormSteps.Description] = company?.description?.length
       ? StepStatus.Good
       : StepStatus.Pending;
 
