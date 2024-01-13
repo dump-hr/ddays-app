@@ -192,7 +192,6 @@ const EventsPage = () => {
   const DeleteEventModal = () => {
     return (
       <Modal
-        noButton
         isOpen={deleteEventModalIsOpen}
         toggleModal={() => toggleModal('delete')}>
         <h3 className={c.modalTitle}>Obriši event</h3>
@@ -225,7 +224,6 @@ const EventsPage = () => {
 
     return (
       <Modal
-        noButton
         isOpen={confirmCloseModalIsOpen}
         toggleModal={() => setConfirmCloseModalIsOpen(false)}>
         <h3 className={c.modalTitle}>Zatvaranje modala</h3>

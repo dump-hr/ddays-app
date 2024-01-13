@@ -4,14 +4,14 @@ import c from './Modal.module.scss';
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
-  noButton?: boolean;
+  showCloseButton?: boolean;
   toggleModal: () => void;
 };
 
 const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
-  noButton = false,
+  showCloseButton = false,
   toggleModal,
 }) => {
   if (!isOpen) return null;
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({
       <div onClick={toggleModal} className={c.overlay}></div>
       <div className={c.modalContent}>
         {children}
-        {!noButton && <Button onClick={toggleModal}>Close</Button>}
+        {showCloseButton && <Button onClick={toggleModal}>Close</Button>}
       </div>
     </div>
   );

@@ -73,6 +73,7 @@ const NotificationsPage = () => {
       <Button onClick={() => setIsOpenCreateModal(true)}>+Add new notif</Button>
 
       <Modal
+        showCloseButton
         isOpen={isOpenCreate}
         toggleModal={() => setIsOpenCreateModal(!isOpenCreate)}>
         {questions.map((q) => (
@@ -88,6 +89,7 @@ const NotificationsPage = () => {
       </Modal>
 
       <Modal
+        showCloseButton
         isOpen={isOpenUpdate}
         toggleModal={() => {
           setIsOpenUpdateModal(!isOpenUpdate);
