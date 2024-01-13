@@ -1,4 +1,4 @@
-import {PhotoInput, PhotoInputLabel} from '../../components/PhotoInput';
+import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './LogoUpload.module.scss';
 
@@ -16,16 +16,22 @@ const LogoUpload: FormComponent = ({ close }) => {
           materijalima.
         </div>
       </div>
-      <PhotoInputLabel title='Logo tvrtke' content='Pozitiv ili negativ u svg formatu' />
+      <PhotoInputLabel
+        title='Logo tvrtke'
+        content='Pozitiv ili negativ u svg formatu'
+      />
       <div className={styles.uploadArea}>
         <PhotoInput
-            label='Prenesite logo u pozitivu'
-            displayErrorMessages={true}
-            inputConstraints={{mimeTypes: ['svg+xml'], checkBlackAndWhite: true}}
-            height={326}
+          label='Prenesite logo u pozitivu'
+          displayErrorMessages={true}
+          inputConstraints={{
+            mimeTypes: ['svg+xml'],
+            checkBlackAndWhite: true,
+          }}
+          height={326}
         />
       </div>
-      
+
       <button onClick={close} className={styles.button}>
         Nastavi
       </button>

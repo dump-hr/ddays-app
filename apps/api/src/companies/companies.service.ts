@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { db } from 'db';
-import { code, company, companyInterests } from 'db/schema';
+import { code, company, companyInterests, job } from 'db/schema';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
@@ -427,13 +427,22 @@ export class CompaniesService {
       ? StepStatus.Good
       : StepStatus.Pending;
 
+    const {
+      0: { count: jobsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(job)
+      .where(eq(job.companyId, companyId));
+
+    status[FormSteps.Jobs] =
+      jobsCount <= 0 ? StepStatus.Pending : StepStatus.Good;
+
     status[FormSteps.Logo] = StepStatus.Pending;
     status[FormSteps.Photos] = StepStatus.Pending;
     status[FormSteps.Videos] =
       !!company.companyVideo && company.companyVideo !== ''
         ? StepStatus.Good
         : StepStatus.Pending;
-    status[FormSteps.Jobs] = StepStatus.Pending;
     status[FormSteps.SwagBag] = StepStatus.Pending;
 
     return { status };

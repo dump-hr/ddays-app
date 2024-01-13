@@ -62,7 +62,7 @@ const Job: FormComponent = () => {
       <div>
         {jobs &&
           jobs.map(({ id, details, location, position }, index) => (
-            <div className={c.inputContainer}>
+            <div key={id} className={c.inputContainer}>
               <div className={c.subtitleContainer}>
                 <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
                 <span onClick={() => handleRemove(id)} className={c.label}>
@@ -95,7 +95,7 @@ const Job: FormComponent = () => {
       </div>
 
       <div className={c.inputContainer}>
-        <h2 className={c.subtitle}>#{jobs?.length || 0 + 1} Oglas</h2>
+        <h2 className={c.subtitle}>#0 Oglas</h2>
         <TextArea
           value={position}
           onChange={(value) => setPosition(value)}
@@ -118,8 +118,15 @@ const Job: FormComponent = () => {
           label='Detalji o oglasu'
         />
       </div>
+
       <div className={c.inputContainer}>
-        <button onClick={handleAdd} className={c.button}>
+        <button onClick={handleAdd} className={c.secondaryButton}>
+          + Dodaj oglas
+        </button>
+      </div>
+
+      <div className={c.inputContainer}>
+        <button onClick={handleAdd} className={c.primaryButton}>
           Spremi
         </button>
       </div>

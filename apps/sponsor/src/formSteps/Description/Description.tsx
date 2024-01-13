@@ -37,7 +37,7 @@ const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={description ?? data.description}
+          value={description ?? data.description ?? ''}
           onChange={(value) => setDescription(value)}
           limit={70}
           deviation={5}
