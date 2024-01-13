@@ -156,19 +156,23 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       localStorage.getItem('modalData') || '',
     ) as Event;
 
-    const data = {
-      name: formValues.name,
-      description: formValues.description || null,
-      eventType: formValues.eventType || null,
-      eventTheme: formValues.eventTheme || null,
-      startsAt: formValues.startsAt,
-      endsAt: formValues.endsAt || null,
-      maxParticipants: formValues.maxParticipants || null,
-      requirements: formValues.requirements || null,
-      footageLink: formValues.footageLink || null,
-      codeId: oldData.codeId,
-      id: oldData.id,
+    type NullableProps<T> = {
+      [K in keyof T]: T[K] | null;
     };
+
+    const data: NullableProps<Event> = {
+      ...formValues,
+      id: oldData.id,
+      codeId: oldData.codeId,
+    };
+
+    for (const key in data) {
+      if (data[key as keyof typeof data] === '') {
+        data[key as keyof typeof data] = null;
+      }
+    }
+
+    console.log('data', data);
 
     localStorage.setItem('modalData', JSON.stringify(data));
   }
@@ -180,7 +184,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} toggleModal={toggle} noButton>
+    <Modal isOpen={isOpen} toggleModal={toggle}>
       <h3 className={c.modalTitle}>{title}</h3>
       <div className={c.editModalLayout}>
         {questions.map((question, i) => {
