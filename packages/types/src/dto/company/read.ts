@@ -1,4 +1,4 @@
-import { IsEmail, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsNumber, IsString, IsUrl } from 'class-validator';
 
 type SponsorType =
   | 'general'
@@ -39,6 +39,7 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     sponsorCategory: SponsorType;
+
     @IsString()
     @ApiProperty()
     websiteUrl: string;

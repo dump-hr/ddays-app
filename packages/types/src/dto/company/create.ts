@@ -17,18 +17,22 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     name: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     description?: string;
 
+    @IsOptional()
     @IsEnum(SponsorCategory)
     @ApiProperty()
     sponsorCategory?: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     websiteUrl?: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     boothLocation?: string;

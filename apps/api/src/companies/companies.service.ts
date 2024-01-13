@@ -370,7 +370,6 @@ export class CompaniesService {
 
   async setInterests(companyId: number, interestIds: number[]) {
     //TODO: implement error handling for ids that do not extistž
-    console.log(interestIds, companyId);
 
     if (!interestIds) {
       return;

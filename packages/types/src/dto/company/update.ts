@@ -2,11 +2,8 @@ import {
   IsArray,
   IsEmail,
   IsEnum,
-  IsNumber,
   IsNumberString,
-  IsOptional,
   IsString,
-  IsStrongPassword,
 } from 'class-validator';
 import { SponsorCategory } from 'src/model';
 
