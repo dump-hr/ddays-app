@@ -6,6 +6,7 @@ import { useCreateCompany } from '../../api/Companies/useCreateCompany';
 import { useDeleteCompany } from '../../api/Companies/useDeleteCompany';
 import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
+import { useFetchCompanyInterests } from '../../api/Interests/useFetchCompanyInterests';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
 import Button from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
@@ -37,7 +38,6 @@ const questions: Question[] = [
     id: 'description',
     type: QuestionType.TextArea,
     title: 'Opis',
-    rules: { required: 'Obavezno polje' },
   },
   {
     id: 'websiteUrl',
@@ -70,7 +70,7 @@ const questions: Question[] = [
 
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
-  const [companyToEdit, setCompanyToEdit] = useState<CompanyDto>();
+  const [companyToEditId, setCompanyToEditId] = useState<number>();
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
@@ -79,6 +79,8 @@ export const CompaniesPage = () => {
   const [fields, setFields] = useState(questions);
 
   const { data: companies } = useFetchCompanies();
+  const { data: interestsForCompany } =
+    useFetchCompanyInterests(companyToEditId);
 
   const { data: interests } = useFetchInterests();
 
@@ -100,7 +102,7 @@ export const CompaniesPage = () => {
       options: interestsOptions,
     };
 
-    setFields((prev) => [...prev, newQuesiton]);
+    setFields([...questions, newQuesiton]);
   }, [interests]);
 
   const createCompanyForm = useForm<FieldValues>();
@@ -110,14 +112,14 @@ export const CompaniesPage = () => {
     {
       label: 'Uredi',
       action: (row: CompanyDto) => {
-        setCompanyToEdit(row);
-        setIsOpenEditModal(!isOpenEditModal);
+        setCompanyToEditId(row.id);
+        setIsOpenEditModal((prev) => !prev);
       },
     },
     {
       label: 'Obriši',
       action: (row: CompanyDto) => {
-        setIsOpenDeleteModal(!isOpenDeleteModal);
+        setIsOpenDeleteModal((prev) => !prev);
         setCompanyToDeleteId(row.id);
       },
     },
@@ -131,16 +133,35 @@ export const CompaniesPage = () => {
   };
 
   const handleEditCompany = (data: UpdateCompanyDto) => {
-    if (!companyToEdit) return;
+    if (!companyToEditId) return;
 
     editCompany({
-      id: companyToEdit?.id as number,
+      id: companyToEditId as number,
       company: data,
     }).then(() => {
       setIsOpenEditModal((prev) => !prev);
       editCompanyForm.reset();
     });
   };
+
+  useEffect(() => {
+    if (!companyToEditId) return;
+
+    const companyToEdit = companies?.find(
+      (company) => company.id === companyToEditId,
+    );
+
+    editCompanyForm.reset({
+      name: companyToEdit?.name,
+      description: companyToEdit?.description,
+      websiteUrl: companyToEdit?.url,
+      email: companyToEdit?.email,
+      boothLocation: companyToEdit?.boothLocation,
+      codeId: companyToEdit?.codeId,
+      sponsorCategory: companyToEdit?.sponsorCategory,
+      interests: interestsForCompany?.map((interest) => interest.id.toString()),
+    });
+  }, [companyToEditId, interestsForCompany]);
 
   return (
     <>

@@ -40,11 +40,7 @@ export class CompaniesService {
       })
       .returning();
 
-    const numericalInterests = createCompanyDto.interests.map(
-      (interest) => +interest,
-    );
-
-    await this.setInterests(createdComapny[0].id, numericalInterests);
+    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
 
     return createdComapny;
   }

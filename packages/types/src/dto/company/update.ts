@@ -2,6 +2,7 @@ import {
   IsArray,
   IsEmail,
   IsEnum,
+  IsNumber,
   IsNumberString,
   IsString,
 } from 'class-validator';
@@ -36,9 +37,9 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     email?: string;
 
     @IsArray()
-    @IsNumberString({}, { each: true })
+    @IsNumber({}, { each: true })
     @ApiProperty()
-    interests: string[];
+    interests: number[];
   }
 
   return UpdateCompanyDto;

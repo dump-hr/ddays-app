@@ -32,7 +32,7 @@ export enum QuestionType {
 
 export type Option = {
   label: string;
-  value: string;
+  value: any;
 };
 
 export type Question = {
