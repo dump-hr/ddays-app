@@ -107,6 +107,26 @@ export const companyRelations = relations(company, ({ one, many }) => ({
     references: [code.id],
   }),
   interest: many(interest),
+  jobs: many(job),
+}));
+
+export const job = pgTable('job', {
+  id: serial('id').primaryKey().notNull(),
+  position: text('position').notNull(),
+  location: text('location').notNull(),
+  details: text('details').notNull(),
+  //todo: requirements, benefits, link
+  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
+  companyId: integer('company_id')
+    .notNull()
+    .references(() => company.id),
+});
+
+export const jobRelations = relations(job, ({ one }) => ({
+  company: one(company, {
+    fields: [job.companyId],
+    references: [company.id],
+  }),
 }));
 
 export const eventTheme = pgEnum('event_theme', [
@@ -123,22 +143,19 @@ export const eventType = pgEnum('event_type', [
   'campfireTalk',
   'other',
 ]);
-export const eventPlace = pgEnum('event_place', ['online', 'inPerson']);
+
 export const event = pgTable('event', {
   id: serial('id').primaryKey().notNull(),
   name: text('name').notNull(),
-  description: text('description').notNull(),
-  eventType: eventType('event_type').notNull(),
-  eventTheme: eventTheme('event_theme').notNull(),
-  eventPlace: eventPlace('event_place').notNull(),
+  description: text('description'),
+  eventType: eventType('event_type'),
+  eventTheme: eventTheme('event_theme'),
   startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
-  endsAt: timestamp('ends_at', { mode: 'string' }).notNull(),
-  requirements: text('requirements').notNull(),
-  footageLink: text('footage_link').notNull(),
-  maxParticipants: integer('max_participants').notNull(),
-  codeId: integer('code_id')
-    .notNull()
-    .references(() => code.id),
+  endsAt: timestamp('ends_at', { mode: 'string' }),
+  requirements: text('requirements'),
+  footageLink: text('footage_link'),
+  maxParticipants: integer('max_participants'),
+  codeId: integer('code_id').references(() => code.id),
   //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
 });
 

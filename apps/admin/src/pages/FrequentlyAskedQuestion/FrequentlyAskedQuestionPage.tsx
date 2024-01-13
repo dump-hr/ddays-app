@@ -84,6 +84,7 @@ const FrequentlyAskedQuestionPage = () => {
 
     return (
       <Modal
+        showCloseButton
         isOpen={isDeleteModalOpen}
         toggleModal={() => setIsDeleteModalOpen(!isDeleteModalOpen)}>
         <h3>Jesi li siguran da želiš izbrisati faq?</h3>

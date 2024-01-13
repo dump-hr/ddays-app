@@ -35,9 +35,9 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     username?: string;
 
     @IsArray()
-    @IsNumberString({}, { each: true })
+    @IsNumber({}, { each: true })
     @ApiProperty()
-    interests: string[];
+    interests: number[];
   }
 
   return UpdateCompanyDto;

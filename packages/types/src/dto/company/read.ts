@@ -39,6 +39,7 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     sponsorCategory: SponsorType;
+
     @IsString()
     @ApiProperty()
     websiteUrl: string;

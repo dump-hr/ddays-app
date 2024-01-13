@@ -13,6 +13,7 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     name: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     username: string;
@@ -21,22 +22,25 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     description?: string;
 
+    @IsOptional()
     @IsEnum(SponsorCategory)
     @ApiProperty()
     sponsorCategory?: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     websiteUrl?: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     boothLocation?: string;
 
     @IsArray()
-    @IsNumberString({}, { each: true })
+    @IsNumber({}, { each: true })
     @ApiProperty()
-    interests: string[];
+    interests: number[];
   }
   return CreateCompanyDto;
 };

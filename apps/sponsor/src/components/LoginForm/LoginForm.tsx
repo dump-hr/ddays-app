@@ -10,7 +10,7 @@ const LoginForm = () => {
 
   const [username, setUsername] = useState('');
 
-  const login = useLogin(() => navigate(Path.Home, { replace: true }));
+  const login = useLogin(() => navigate(Path.Profile, { replace: true }));
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newUsername = e.target.value;

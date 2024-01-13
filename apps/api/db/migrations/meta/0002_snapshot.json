@@ -1,6 +1,6 @@
 {
-  "id": "11564a90-3d7c-4821-af93-b5f2f3448b84",
-  "prevId": "8a4d9abf-47ca-4fc4-9b02-7f3be1f870d5",
+  "id": "b4b33b51-4a17-46c5-b8b0-e88af67b9493",
+  "prevId": "09570f56-c559-47a0-bde8-05fbbc3a0829",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -194,6 +194,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "password": {
           "name": "password",
           "type": "text",
@@ -208,12 +214,6 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "username": {
-          "name": "username",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -278,13 +278,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": { "company_username_unique": {
-        "name": "company_username_unique",
-        "nullsNotDistinct": false,
-        "columns": [
-          "username"
-        ]
-      }}
+      "uniqueConstraints": {
+        "company_email_unique": {
+          "name": "company_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
     },
     "companyInterests": {
       "name": "companyInterests",
@@ -363,25 +365,19 @@
           "name": "description",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "event_type": {
           "name": "event_type",
           "type": "event_type",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "event_theme": {
           "name": "event_theme",
           "type": "event_theme",
           "primaryKey": false,
-          "notNull": true
-        },
-        "event_place": {
-          "name": "event_place",
-          "type": "event_place",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "starts_at": {
           "name": "starts_at",
@@ -393,31 +389,31 @@
           "name": "ends_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "requirements": {
           "name": "requirements",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "footage_link": {
           "name": "footage_link",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "max_participants": {
           "name": "max_participants",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "code_id": {
           "name": "code_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         }
       },
       "indexes": {},
@@ -552,6 +548,67 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "job": {
+      "name": "job",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "location": {
+          "name": "location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "job_company_id_company_id_fk": {
+          "name": "job_company_id_company_id_fk",
+          "tableFrom": "job",
+          "tableTo": "company",
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "notification": {
       "name": "notification",
       "schema": "",
@@ -641,13 +698,6 @@
     }
   },
   "enums": {
-    "event_place": {
-      "name": "event_place",
-      "values": {
-        "online": "online",
-        "inPerson": "inPerson"
-      }
-    },
     "event_theme": {
       "name": "event_theme",
       "values": {

@@ -13,6 +13,7 @@ import {
   CompanyDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
+  SponsorJobsDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
 } from './companies.dto';
@@ -40,11 +41,7 @@ export class CompaniesService {
       })
       .returning();
 
-    const numericalInterests = createCompanyDto.interests.map(
-      (interest) => +interest,
-    );
-
-    await this.setInterests(createdComapny[0].id, numericalInterests);
+    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
 
     return createdComapny;
   }
@@ -350,7 +347,6 @@ export class CompaniesService {
 
   async setInterests(companyId: number, interestIds: number[]) {
     //TODO: implement error handling for ids that do not extistž
-    console.log(interestIds, companyId);
 
     if (!interestIds) {
       return;
@@ -416,7 +412,7 @@ export class CompaniesService {
     const company = await this.getOne(companyId);
     const status = {};
 
-    status[FormSteps.Description] = company?.description.length
+    status[FormSteps.Description] = company?.description?.length
       ? StepStatus.Good
       : StepStatus.Pending;
 

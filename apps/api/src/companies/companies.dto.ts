@@ -1,10 +1,12 @@
 import {
+  getAddSponsorJobDto,
   getAddSponsorLandingImageDto,
   getAddSponsorLogoDto,
   getAddSponsorVideoDto,
   getCompanyDto,
   getCreateCompanyDto,
   getSponsorDescriptionDto,
+  getSponsorJobDto,
   getUpdateCompanyDto,
   getUpdateSponsorDescriptionDto,
 } from '@ddays-app/types';
@@ -23,9 +25,16 @@ export const _updateSponsorDescriptionDto =
   getUpdateSponsorDescriptionDto(ApiProperty);
 export class UpdateSponsorDescriptionDto extends _updateSponsorDescriptionDto {}
 
+export const _getSponsorDescriptionDto = getSponsorDescriptionDto(ApiProperty);
 export class SponsorDescriptionDto extends getSponsorDescriptionDto(
   ApiProperty,
 ) {}
+
+export const _getSponsorJobDto = getSponsorJobDto(ApiProperty);
+export class SponsorJobsDto extends _getSponsorJobDto {}
+
+export const _addSponsorJobDto = getAddSponsorJobDto(ApiProperty);
+export class AddSponsorJobDto extends _addSponsorJobDto {}
 
 export const _addSponsorLogoDto = getAddSponsorLogoDto(ApiProperty);
 export class AddSponsorLogoDto extends _addSponsorLogoDto {}

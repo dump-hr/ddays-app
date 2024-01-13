@@ -8,6 +8,8 @@ const updateCompany = async (req: {
   id: number;
   company: UpdateCompanyDto;
 }) => {
+  req.company.interests = req.company.interests?.map((interest) => +interest);
+
   const data = await api.patch<UpdateCompanyDto, CompanyDto>(
     `/companies/${req.id}`,
     req.company,

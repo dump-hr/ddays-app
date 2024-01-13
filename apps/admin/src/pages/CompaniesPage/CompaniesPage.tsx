@@ -5,7 +5,6 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { useCreateCompany } from '../../api/Companies/useCreateCompany';
 import { useDeleteCompany } from '../../api/Companies/useDeleteCompany';
 import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
-import { useFetchCompany } from '../../api/Companies/useFetchCompany';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
 import { useFetchCompanyInterests } from '../../api/Interests/useFetchCompanyInterests';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
@@ -46,7 +45,6 @@ const questions: Question[] = [
     id: 'description',
     type: QuestionType.TextArea,
     title: 'Opis',
-    rules: { required: 'Obavezno polje' },
   },
   {
     id: 'websiteUrl',
@@ -73,8 +71,8 @@ const questions: Question[] = [
 
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const [companyToEditId, setCompanyToEditId] = useState<number>();
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEditId, setCompanyToEdit] = useState<number | undefined>();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
@@ -82,19 +80,20 @@ export const CompaniesPage = () => {
   const [fields, setFields] = useState(questions);
 
   const { data: companies } = useFetchCompanies();
-  const { data: companyToEdit } = useFetchCompany(companyToEditId);
-  const { data: interests } = useFetchInterests();
   const { data: interestsForCompany } =
     useFetchCompanyInterests(companyToEditId);
-  const { mutate: createCompany } = useCreateCompany();
-  const { mutate: editCompany } = useUpdateCompany();
-  const { mutate: deleteCompany } = useDeleteCompany();
+
+  const { data: interests } = useFetchInterests();
+
+  const { mutateAsync: createCompany } = useCreateCompany();
+  const { mutateAsync: editCompany } = useUpdateCompany();
+  const { mutateAsync: deleteCompany } = useDeleteCompany();
 
   useEffect(() => {
     if (!interests) return;
-    const interestsOptions = interests.map((interest) => ({
+    const interestsOptions = interests?.map((interest) => ({
       label: interest.name,
-      value: interest.id.toString(),
+      value: interest.id,
     }));
 
     const newQuesiton: Question = {
@@ -104,7 +103,7 @@ export const CompaniesPage = () => {
       options: interestsOptions,
     };
 
-    setFields((prev) => [...prev, newQuesiton]);
+    setFields([...questions, newQuesiton]);
   }, [interests]);
 
   const createCompanyForm = useForm<FieldValues>();
@@ -114,60 +113,64 @@ export const CompaniesPage = () => {
     {
       label: 'Uredi',
       action: (row: CompanyDto) => {
-        setCompanyToEdit(row.id);
-        setIsOpenEditModal(!isOpenEditModal);
+        setCompanyToEditId(row.id);
+        setIsOpenEditModal((prev) => !prev);
       },
     },
     {
       label: 'Obriši',
       action: (row: CompanyDto) => {
-        setIsOpenDeleteModal(!isOpenDeleteModal);
+        setIsOpenDeleteModal((prev) => !prev);
         setCompanyToDeleteId(row.id);
       },
     },
   ];
 
   const handleCreateCompany = (data: CreateCompanyDto) => {
-    createCompany(data);
-    if (!createCompanyForm.formState.isValid) {
-      setIsOpenAddModal(!isOpenAddModal);
+    createCompany(data).then(() => {
+      setIsOpenAddModal((prev) => !prev);
       createCompanyForm.reset();
-    }
+    });
   };
 
   const handleEditCompany = (data: UpdateCompanyDto) => {
-    if (!companyToEdit) return;
+    if (!companyToEditId) return;
 
     editCompany({
-      id: companyToEdit?.id as number,
+      id: companyToEditId as number,
       company: data,
+    }).then(() => {
+      setIsOpenEditModal((prev) => !prev);
+      editCompanyForm.reset();
     });
-    if (!editCompanyForm.formState.isValid) {
-      setIsOpenEditModal(!isOpenEditModal);
-    }
   };
 
   useEffect(() => {
-    if (!companyToEdit) return;
+    if (!companyToEditId) return;
+
+    const companyToEdit = companies?.find(
+      (company) => company.id === companyToEditId,
+    );
 
     editCompanyForm.reset({
-      name: companyToEdit.name,
-      description: companyToEdit.description,
-      websiteUrl: companyToEdit.url,
-      boothLocation: companyToEdit.boothLocation,
-      codeId: companyToEdit.codeId,
-      username: companyToEdit.username,
-      sponsorCategory: companyToEdit.sponsorCategory,
-      interests: interestsForCompany?.map((interest) => interest.id.toString()),
+      name: companyToEdit?.name,
+      description: companyToEdit?.description,
+      websiteUrl: companyToEdit?.url,
+      email: companyToEdit?.email,
+      username: companyToEdit?.username,
+      boothLocation: companyToEdit?.boothLocation,
+      codeId: companyToEdit?.codeId,
+      sponsorCategory: companyToEdit?.sponsorCategory,
+      interests: interestsForCompany?.map((interest) => interest.id),
     });
-  }, [companyToEdit, interestsForCompany]);
+  }, [companyToEditId, interestsForCompany]);
 
   return (
     <>
       <Modal
         isOpen={isOpenAddModal}
         toggleModal={() => {
-          setIsOpenAddModal(!isOpenAddModal);
+          setIsOpenAddModal((prev) => !prev);
         }}>
         <Button
           onClick={createCompanyForm.handleSubmit((s) =>
@@ -205,8 +208,9 @@ export const CompaniesPage = () => {
           <p>Jeste li sigurni da želite izbrisati ovu kompaniju?</p>
           <Button
             onClick={() => {
-              deleteCompany(companyToDeleteId as number);
-              setIsOpenDeleteModal(!isOpenDeleteModal);
+              deleteCompany(companyToDeleteId as number).then(() => {
+                setIsOpenDeleteModal((prev) => !prev);
+              });
             }}>
             Delete
           </Button>
@@ -216,10 +220,11 @@ export const CompaniesPage = () => {
       <Button
         variant='primary'
         onClick={() => {
-          setIsOpenAddModal(!isOpenAddModal);
+          setIsOpenAddModal((prev) => !prev);
         }}>
         Dodaj novu kompaniju
       </Button>
+
       <Table
         headers={headers}
         data={
