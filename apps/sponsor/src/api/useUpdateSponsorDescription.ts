@@ -5,7 +5,7 @@ import { UpdateSponsorDescriptionDto } from '../types/company';
 import { api } from '.';
 
 const updateSponsorDescription = async (dto: UpdateSponsorDescriptionDto) => {
-  return await api.patch('/company/description', dto);
+  return await api.patch('/companies/description', dto);
 };
 
 export const useUpdateSponsorDescription = () => {

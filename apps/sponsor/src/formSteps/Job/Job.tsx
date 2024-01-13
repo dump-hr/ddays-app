@@ -126,7 +126,7 @@ const Job: FormComponent = () => {
       </div>
 
       <div className={c.inputContainer}>
-        <button onClick={handleAdd} className={c.primaryButton}>
+        <button onClick={close} className={c.primaryButton}>
           Spremi
         </button>
       </div>
