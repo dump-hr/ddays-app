@@ -1,4 +1,4 @@
-import { Interest, Question, QuestionType } from '@ddays-app/types';
+import { Question, QuestionType } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
 import Modal from '../../components/Modal';
 import Table from '../../components/Table';
+import { InterestDto } from '../../types/interest';
 
 const headers = ['id', 'name', 'theme'];
 
@@ -35,7 +36,7 @@ const questions: Question[] = [
 const InterestsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [interestToEdit, setInterestToEdit] = useState<Interest>();
+  const [interestToEdit, setInterestToEdit] = useState<InterestDto>();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [interestToDeleteId, setInterestToDeleteId] = useState<number | null>(
     null,
@@ -64,14 +65,14 @@ const InterestsPage = () => {
   const buttonActions = [
     {
       label: 'Uredi',
-      action: (row: Interest) => {
+      action: (row: InterestDto) => {
         setInterestToEdit(row);
         setIsOpenEditModal((prev) => !prev);
       },
     },
     {
       label: 'Obriši',
-      action: (row: Interest) => {
+      action: (row: InterestDto) => {
         setIsOpenDeleteModal((prev) => !prev);
         setInterestToDeleteId(row.id);
       },
