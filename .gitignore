@@ -1,3 +1,2 @@
 node_modules
 .turbo
-apps/api/.env
