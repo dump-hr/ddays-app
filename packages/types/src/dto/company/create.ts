@@ -1,7 +1,10 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsNumber,
+  IsNumberString,
+  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
@@ -16,32 +19,28 @@ export const getCreateCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    description: string;
+    description?: string;
 
     @IsEnum(SponsorCategory)
     @ApiProperty()
-    sponsorCategory: string;
+    sponsorCategory?: string;
 
     @IsString()
     @ApiProperty()
-    websiteUrl: string;
+    websiteUrl?: string;
 
     @IsString()
     @ApiProperty()
-    boothLocation: string;
-
-    @IsNumber()
-    @ApiProperty()
-    codeId: number;
+    boothLocation?: string;
 
     @IsEmail()
     @ApiProperty()
     email: string;
 
-    @IsString()
-    // @IsStrongPassword()
+    @IsArray()
+    @IsNumberString({}, { each: true })
     @ApiProperty()
-    password: string;
+    interests: string[];
   }
   return CreateCompanyDto;
 };

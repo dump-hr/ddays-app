@@ -51,7 +51,7 @@ export type Question = {
     }
   | {
       type: QuestionType.TextArea;
-      rows: number;
+      rows?: number;
       rules?: StringRules;
     }
   | {

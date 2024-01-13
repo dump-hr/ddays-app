@@ -1,7 +1,10 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsNumber,
+  IsNumberString,
+  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
@@ -31,18 +34,14 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     boothLocation?: string;
 
-    @IsNumber()
-    @ApiProperty()
-    codeId?: number;
-
     @IsEmail()
     @ApiProperty()
     email?: string;
 
-    @IsString()
-    // @IsStrongPassword()
+    @IsArray()
+    @IsNumberString({}, { each: true })
     @ApiProperty()
-    password?: string;
+    interests: string[];
   }
 
   return UpdateCompanyDto;

@@ -166,10 +166,10 @@ export const companyInterests = pgTable(
   {
     companyId: integer('companyId')
       .notNull()
-      .references(() => company.id),
+      .references(() => company.id, { onDelete: 'cascade' }),
     interestId: integer('interestId')
       .notNull()
-      .references(() => interest.id),
+      .references(() => interest.id, { onDelete: 'cascade' }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.companyId, t.interestId] }),

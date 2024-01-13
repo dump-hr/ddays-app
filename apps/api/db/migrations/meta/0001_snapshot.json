@@ -1,5 +1,5 @@
 {
-  "id": "cc341fa5-2437-4730-9713-55c0bab8e2b1",
+  "id": "8a4d9abf-47ca-4fc4-9b02-7f3be1f870d5",
   "prevId": "c6f80f58-53a3-4375-a095-82ac2cee00dc",
   "version": "5",
   "dialect": "pg",
@@ -272,7 +272,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "company_email_unique": {
+          "name": "company_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
     },
     "companyInterests": {
       "name": "companyInterests",
@@ -303,7 +311,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "companyInterests_interestId_interests_id_fk": {
@@ -316,7 +324,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

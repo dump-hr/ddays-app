@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { company, companyInterests, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 import {
   CreateInterestDto,
+  InterestDto,
   UpdateCompanyInterestsDto,
   UpdateInterestDto,
 } from './interests.dto';
@@ -36,7 +37,7 @@ export class InterestsService {
     return interests;
   }
 
-  async getOne(id: number) {
+  async getOne(id: number): Promise<InterestDto> {
     const interestToFind = await db
       .select({
         name: interest.name,
@@ -46,7 +47,9 @@ export class InterestsService {
       .from(interest)
       .where(eq(interest.id, id));
 
-    return interestToFind;
+    if (!interestToFind.length) throw new NotFoundException();
+
+    return interestToFind[0];
   }
 
   async getForSponsor(companyId: number) {
@@ -132,5 +135,19 @@ export class InterestsService {
     if (ids.length) await db.insert(companyInterests).values(newInterests);
 
     return newInterests;
+  }
+
+  async getCompanyInterests(companyId: number) {
+    const interests = await db
+      .select({
+        id: interest.id,
+        name: interest.name,
+        theme: interest.theme,
+      })
+      .from(companyInterests)
+      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
+      .where(eq(companyInterests.companyId, companyId));
+
+    return interests;
   }
 }
