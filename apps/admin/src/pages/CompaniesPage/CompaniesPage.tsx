@@ -1,13 +1,11 @@
-gfimport { Question, QuestionType, SponsorCategory } from '@ddays-app/types';
+import { Question, QuestionType, SponsorCategory } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import { useCreateCompany } from '../../api/Companies/useCreateCompany';
 import { useDeleteCompany } from '../../api/Companies/useDeleteCompany';
 import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
-import { useFetchCompany } from '../../api/Companies/useFetchCompany';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
-import { useFetchCompanyInterests } from '../../api/Interests/useFetchCompanyInterests';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
 import Button from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
@@ -72,8 +70,8 @@ const questions: Question[] = [
 
 export const CompaniesPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const [companyToEdit, setCompanyToEdit] = useState<CompanyDto>();
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-  const [companyToEditId, setCompanyToEdit] = useState<number | undefined>();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [companyToDeleteId, setCompanyToDeleteId] = useState<number | null>(
     null,
@@ -81,11 +79,8 @@ export const CompaniesPage = () => {
   const [fields, setFields] = useState(questions);
 
   const { data: companies } = useFetchCompanies();
-  const { data: companyToEdit } = useFetchCompany(companyToEditId);
-  
+
   const { data: interests } = useFetchInterests();
-  const { data: interestsForCompany } =
-    useFetchCompanyInterests(companyToEditId);
 
   const { mutateAsync: createCompany } = useCreateCompany();
   const { mutateAsync: editCompany } = useUpdateCompany();
@@ -115,7 +110,7 @@ export const CompaniesPage = () => {
     {
       label: 'Uredi',
       action: (row: CompanyDto) => {
-        setCompanyToEdit(row.id);
+        setCompanyToEdit(row);
         setIsOpenEditModal(!isOpenEditModal);
       },
     },
@@ -142,25 +137,10 @@ export const CompaniesPage = () => {
       id: companyToEdit?.id as number,
       company: data,
     }).then(() => {
-      setIsOpenEditModal((prev)=>!prev);
+      setIsOpenEditModal((prev) => !prev);
       editCompanyForm.reset();
     });
   };
-
-  useEffect(() => {
-    if (!companyToEdit) return;
-
-    editCompanyForm.reset({
-      name: companyToEdit.name,
-      description: companyToEdit.description,
-      websiteUrl: companyToEdit.url,
-      email: companyToEdit.email,
-      boothLocation: companyToEdit.boothLocation,
-      codeId: companyToEdit.codeId,
-      sponsorCategory: companyToEdit.sponsorCategory,
-      interests: interestsForCompany?.map((interest) => interest.id.toString()),
-    });
-  }, [companyToEdit, interestsForCompany]);
 
   return (
     <>
@@ -205,8 +185,8 @@ export const CompaniesPage = () => {
           <p>Jeste li sigurni da želite izbrisati ovu kompaniju?</p>
           <Button
             onClick={() => {
-              deleteCompany(companyToDeleteId as number).then(() => { 
-              setIsOpenDeleteModal((prev)=>!prev);
+              deleteCompany(companyToDeleteId as number).then(() => {
+                setIsOpenDeleteModal((prev) => !prev);
               });
             }}>
             Delete
