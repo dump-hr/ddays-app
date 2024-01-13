@@ -27,8 +27,8 @@ import {
 } from './companies.dto';
 import { CompaniesService } from './companies.service';
 
-@ApiTags('company')
-@Controller('company')
+@ApiTags('companies')
+@Controller('companies')
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
@@ -251,9 +251,11 @@ export class CompaniesController {
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
+
     return company;
   }
 
+  @ApiBearerAuth()
   @Get('/sponsor-data')
   async getSponsorData(@Req() req: AuthenticatedRequest) {
     const company = await this.companiesService.getOne(req.user.id);
@@ -269,6 +271,7 @@ export class CompaniesController {
       id,
       updateCompanyDto,
     );
+
     return updatedCmopany;
   }
 
@@ -277,5 +280,12 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
+  }
+
+  @Get('/company/:id')
+  async getCompaniesWithInterest(@Param('id', ParseIntPipe) id: number) {
+    const company = await this.companiesService.getCompaniesWIthInterest(id);
+
+    return company;
   }
 }

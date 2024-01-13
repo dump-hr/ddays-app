@@ -6,7 +6,7 @@ import { FormStep } from '../../types/form';
 import c from './Modal.module.scss';
 
 interface ModalProps {
-  currentForm: keyof typeof FormSteps | null;
+  currentForm?: keyof typeof FormSteps | null;
   close: () => void;
   form: FormStep;
 }

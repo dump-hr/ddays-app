@@ -1,4 +1,17 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, IsUrl } from 'class-validator';
+
+type SponsorType =
+  | 'general'
+  | 'gold'
+  | 'silver'
+  | 'bronze'
+  | 'workshop'
+  | 'foodAndBeverage'
+  | 'generalMedia'
+  | 'media'
+  | 'organizational'
+  | 'prizeGame'
+  | 'friend';
 
 export const getCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -9,15 +22,23 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    email: string;
-
-    @IsString()
-    @ApiProperty()
     name: string;
 
     @IsString()
     @ApiProperty()
+    username: string;
+
+    @IsString()
+    @ApiProperty()
     description: string;
+
+    @IsUrl()
+    @ApiProperty()
+    url: string;
+
+    @IsString()
+    @ApiProperty()
+    sponsorCategory: SponsorType;
 
     @IsString()
     @ApiProperty()
@@ -38,6 +59,10 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     companyVideo: string;
+
+    @IsString()
+    @ApiProperty()
+    codeId?: number;
   }
 
   return CompanyDto;

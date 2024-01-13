@@ -4,13 +4,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import bcrypt from 'bcrypt';
 import { db } from 'db';
-import { company, companyInterests } from 'db/schema';
-import { and, eq, sql } from 'drizzle-orm';
+import { code, company, companyInterests } from 'db/schema';
+import { and, eq, inArray, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
 import {
+  CompanyDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
   SponsorJobsDto,
@@ -23,24 +23,31 @@ export class CompaniesService {
   constructor(private readonly blobService: BlobService) {}
 
   async create(createCompanyDto: CreateCompanyDto) {
+    const generatedPassword = Math.random().toString(36).slice(-8);
+
+    const generatedCode = await this.generateCodeForCompany(createCompanyDto);
+
     const createdComapny = await db
       .insert(company)
       .values({
-        email: createCompanyDto.email,
-        password: await bcrypt.hash(createCompanyDto.password, 10),
+        password: generatedPassword,
         name: createCompanyDto.name,
         description: createCompanyDto.description,
         sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: createCompanyDto.websiteUrl,
         boothLocation: createCompanyDto.boothLocation,
-        codeId: createCompanyDto.codeId,
+        codeId: generatedCode[0].id,
+        username: createCompanyDto.username,
       })
       .returning();
+
+    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
 
     return createdComapny;
   }
 
-  async getAll() {
+  async getAll(): Promise<CompanyDto[]> {
+    //TODO: Implement backend mapping and fix drizzle bugs
     const companies = await db
       .select({
         id: company.id,
@@ -49,7 +56,12 @@ export class CompaniesService {
         sponsorCategory: company.sponsorCategory,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
+        url: company.websiteUrl,
+        companyVideo: company.companyVideo,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
         codeId: company.codeId,
+        username: company.username,
       })
       .from(company)
       .orderBy(company.name);
@@ -57,7 +69,22 @@ export class CompaniesService {
     return companies;
   }
 
-  async getOne(id: number) {
+  async generateCodeForCompany(company: CreateCompanyDto) {
+    const codeValue = Math.random().toString(36).slice(-8);
+    const newCode = {
+      value: codeValue,
+      description: `Code for ${company.name}`,
+      points: 0, //TODO: Set this for later and other required things
+      isSingleUse: false,
+      isActive: true,
+    };
+
+    const createdCode = await db.insert(code).values(newCode).returning();
+
+    return createdCode;
+  }
+
+  async getOne(id: number): Promise<CompanyDto | undefined> {
     const companyToGet = await db
       .select({
         id: company.id,
@@ -67,43 +94,30 @@ export class CompaniesService {
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
-        email: company.email,
+        url: company.websiteUrl,
         companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
+        username: company.username,
       })
       .from(company)
       .where(eq(company.id, id));
 
-    return companyToGet[0] ?? null;
+    if (!companyToGet.length) throw new NotFoundException('Company not found');
+
+    return companyToGet[0];
   }
 
-  async getOneByEmail(email: string) {
-    const companyToGet = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        description: company.description,
-        sponsorCategory: company.sponsorCategory,
-        websiteUrl: company.websiteUrl,
-        boothLocation: company.boothLocation,
-        codeId: company.codeId,
-      })
-      .from(company)
-      .where(eq(company.email, email));
-
-    return companyToGet;
-  }
-
-  async login(email: string, password: string) {
+  async login(username: string, password: string) {
     const companyToLogin = await db
       .select({
         id: company.id,
         name: company.name,
         password: company.password,
+        username: company.username,
       })
       .from(company)
-      .where(eq(company.email, email))
+      .where(eq(company.username, username))
       .limit(1);
 
     if (!companyToLogin.length) {
@@ -124,10 +138,16 @@ export class CompaniesService {
         sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: updateCompanyDto.websiteUrl,
         boothLocation: updateCompanyDto.boothLocation,
-        codeId: updateCompanyDto.codeId,
+        username: updateCompanyDto.username,
       })
       .where(eq(company.id, id))
       .returning();
+
+    const numericalInterests = updateCompanyDto.interests.map(
+      (interest) => +interest,
+    );
+
+    await this.setInterests(updatedCompany[0].id, numericalInterests);
 
     return updatedCompany;
   }
@@ -325,6 +345,41 @@ export class CompaniesService {
     return interest.length > 0;
   }
 
+  async setInterests(companyId: number, interestIds: number[]) {
+    //TODO: implement error handling for ids that do not extistž
+
+    if (!interestIds) {
+      return;
+    }
+
+    const interests = await db
+      .select()
+      .from(companyInterests)
+      .where(eq(companyInterests.companyId, companyId));
+
+    const interestsToRemove = interests
+      .filter((interest) => !interestIds.includes(interest.interestId))
+      .map((interest) => interest.interestId);
+
+    const interestIdsToAdd = interestIds.filter(
+      (interestId) =>
+        !interests.map((interest) => interest.interestId).includes(interestId),
+    );
+
+    const interestsToAdd = interestIdsToAdd.map((interestId) => ({
+      companyId,
+      interestId,
+    }));
+
+    if (interestsToRemove.length)
+      await db
+        .delete(companyInterests)
+        .where(inArray(companyInterests.interestId, interestsToRemove));
+
+    if (interestsToAdd.length)
+      await db.insert(companyInterests).values(interestsToAdd);
+  }
+
   async toggleInterest(companyId: number, interestId: number) {
     const interestExists = await this.interestExists(companyId, interestId);
 
@@ -333,6 +388,24 @@ export class CompaniesService {
       : await this.addInterest(companyId, interestId);
 
     return action;
+  }
+
+  async getCompaniesWIthInterest(interestId: number) {
+    const companies = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        logo: company.logoImage,
+        description: company.description,
+        website: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
+      .from(companyInterests)
+      .rightJoin(company, eq(companyInterests.interestId, company.id))
+      .where(eq(companyInterests.interestId, interestId));
+
+    return companies;
   }
 
   async getSponsorFormStatus(companyId: number) {

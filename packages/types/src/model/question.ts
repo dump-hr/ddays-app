@@ -32,7 +32,7 @@ export enum QuestionType {
 
 export type Option = {
   label: string;
-  value: string;
+  value: any;
 };
 
 export type Question = {
@@ -51,7 +51,7 @@ export type Question = {
     }
   | {
       type: QuestionType.TextArea;
-      rows: number;
+      rows?: number;
       rules?: StringRules;
     }
   | {
