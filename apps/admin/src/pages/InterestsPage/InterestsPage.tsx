@@ -80,6 +80,8 @@ const InterestsPage = () => {
 
   const handleCreateInterest = (data: CreateInterestDto) => {
     createInterest(data);
+    setIsOpenAddModal((prev) => !prev);
+    createInterestForm.reset();
   };
 
   const handleEditInterest = (data: CreateInterestDto) => {
@@ -89,6 +91,9 @@ const InterestsPage = () => {
       id: interestToEdit.id,
       interest: data,
     });
+
+    setIsOpenEditModal((prev) => !prev);
+    editInterestForm.reset();
   };
 
   return (
@@ -130,7 +135,7 @@ const InterestsPage = () => {
             deleteInterest(interestToDeleteId!);
             setIsOpenDeleteModal((prev) => !prev);
           }}>
-          Jeste li sigurni da želite izbrisati ovaj interes?
+          Obriši
         </Button>
       </Modal>
 
