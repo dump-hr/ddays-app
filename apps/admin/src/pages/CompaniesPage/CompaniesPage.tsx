@@ -22,12 +22,9 @@ import {
 const headers = [
   'Broj',
   'Ime',
-  'Opis',
   'Kategorija sponzorstva',
-  'Website',
   'Lokacija štanda',
-  'Stranica',
-  'Email',
+  'CodeId',
   'Akcije',
 ];
 
@@ -222,7 +219,21 @@ export const CompaniesPage = () => {
         }}>
         Dodaj novu kompaniju
       </Button>
-      <Table headers={headers} data={companies} buttonActions={buttonActions} />
+      <Table
+        headers={headers}
+        data={
+          companies
+            ?.sort((a, b) => a.id - b.id)
+            .map((c) => ({
+              id: c.id,
+              name: c.name,
+              sponsorCategory: c.sponsorCategory,
+              boothLocation: c.boothLocation,
+              codeId: c.codeId,
+            })) as CompanyDto[]
+        }
+        buttonActions={buttonActions}
+      />
     </>
   );
 };

@@ -27,8 +27,8 @@ import {
 } from './companies.dto';
 import { CompaniesService } from './companies.service';
 
-@ApiTags('company')
-@Controller('company')
+@ApiTags('companies')
+@Controller('companies')
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
