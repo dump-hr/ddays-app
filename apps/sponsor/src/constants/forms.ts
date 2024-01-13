@@ -2,6 +2,7 @@ import { FormSteps } from '@ddays-app/types';
 
 import Description from '../formSteps/Description';
 import InterestPicker from '../formSteps/InterestPicker';
+import Video from '../formSteps/Video';
 import { SponsorForm } from '../types/form';
 
 export const sponsorForm: SponsorForm = {
@@ -23,7 +24,7 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',
     description: 'Predaja do x x',
-    component: InterestPicker,
+    component: Video,
   },
   [FormSteps.Jobs]: {
     title: 'Oglasi za posao',

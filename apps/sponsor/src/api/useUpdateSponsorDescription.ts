@@ -15,6 +15,7 @@ export const useUpdateSponsorDescription = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['sponsorDescription']);
       queryClient.invalidateQueries(['sponsorFormStatus']);
+      queryClient.invalidateQueries(['loggedCompany']);
       toast.success('Opis tvrtke uspješno spremljen');
     },
     onError: (err: string) => {

@@ -1,3 +1,4 @@
+import CompanyProfile from '../pages/CompanyProfile';
 import HomePage from '../pages/HomePage';
 import MaterialsPage from '../pages/MaterialsPage';
 import { Path } from './paths';
@@ -32,6 +33,6 @@ export const pages: Page[] = [
     path: Path.Profile,
     icon: '/profile.svg',
     name: 'Profil tvrtke',
-    component: HomePage,
+    component: CompanyProfile,
   },
 ];

@@ -6,3 +6,4 @@ export * from './surveyQuestion';
 export * from './interest';
 export * from './auth';
 export * from './form';
+export * from './interest';

@@ -1,0 +1,25 @@
+.infoCard {
+  background-color: #202022;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+
+  h3 {
+    font-family: 'Fuse';
+    font-weight: 700;
+    color: white;
+    font-size: 24px;
+  }
+
+  .content {
+    margin: 24px 0;
+  }
+
+  .button {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    height: 56px;
+  }
+}

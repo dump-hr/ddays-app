@@ -46,6 +46,14 @@ export class CompaniesController {
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
+  @Get('/logged')
+  async getLogged(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
+    return company;
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
   @Get('/description')
   async getDescription(@Req() req: AuthenticatedRequest) {
     return await this.companiesService.getDescription(+req.user.id);
@@ -124,7 +132,7 @@ export class CompaniesController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'video/mp4' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 50 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
         ],
       }),
     )
@@ -224,11 +232,34 @@ export class CompaniesController {
 
     return removedSponsorLandingImage;
   }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/interests/:interestId')
+  async toggleInterest(
+    @Req() req: AuthenticatedRequest,
+    @Param('interestId', ParseIntPipe) interestId: number,
+  ) {
+    const updatedCompany = await this.companiesService.toggleInterest(
+      req.user.id,
+      interestId,
+    );
+
+    return updatedCompany;
+  }
+
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companiesService.getOne(id);
     return company;
-  } //fun fact this returns an array with one element, not sure if that is good behaviour
+  }
+
+  @Get('/sponsor-data')
+  async getSponsorData(@Req() req: AuthenticatedRequest) {
+    const company = await this.companiesService.getOne(req.user.id);
+    return company;
+  }
+
   @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -246,12 +277,5 @@ export class CompaniesController {
     const deletedCompany = await this.companiesService.remove(id);
 
     return deletedCompany;
-  }
-
-  @Get(':id/interests')
-  async getInterestsForCompany(@Param('id', ParseIntPipe) id: number) {
-    const companies = await this.companiesService.getInterests(id);
-
-    return companies;
   }
 }
