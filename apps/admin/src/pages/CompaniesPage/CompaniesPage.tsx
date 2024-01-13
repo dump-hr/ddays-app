@@ -156,6 +156,7 @@ export const CompaniesPage = () => {
       websiteUrl: companyToEdit.url,
       boothLocation: companyToEdit.boothLocation,
       codeId: companyToEdit.codeId,
+      username: companyToEdit.username,
       sponsorCategory: companyToEdit.sponsorCategory,
       interests: interestsForCompany?.map((interest) => interest.id.toString()),
     });
