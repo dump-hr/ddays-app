@@ -107,6 +107,26 @@ export const companyRelations = relations(company, ({ one, many }) => ({
     references: [code.id],
   }),
   interest: many(interest),
+  jobs: many(job),
+}));
+
+export const job = pgTable('job', {
+  id: serial('id').primaryKey().notNull(),
+  position: text('position').notNull().unique(),
+  location: text('location').notNull(),
+  details: text('details').notNull(),
+  //todo: requirements, benefits, link
+  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
+  companyId: integer('company_id')
+    .notNull()
+    .references(() => company.id),
+});
+
+export const jobRelations = relations(job, ({ one }) => ({
+  company: one(company, {
+    fields: [job.companyId],
+    references: [company.id],
+  }),
 }));
 
 export const eventTheme = pgEnum('event_theme', [
