@@ -5,7 +5,7 @@ import sprite from '../../../public/sprite.svg';
 import { Message } from '../../constants/messages';
 import { photoHelper } from '../../helpers/photoHelper';
 import { ErrorMessage } from '.';
-import styles from './PhotoInput.module.scss';
+import c from './PhotoInput.module.scss';
 
 type PhotoInputProps = {
   label?: string;
@@ -72,12 +72,12 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
     },
   });
 
-  const thumbs = files.map((file) => (
-    <div className={styles.thumb}>
-      <div className={styles.thumbInner}>
+  const thumbs = files.map((file, index) => (
+    <div key={index} className={c.thumb}>
+      <div className={c.thumbInner}>
         <img
           src={file.preview}
-          className={styles.image}
+          className={c.image}
           onLoad={() => {
             if (file.preview) {
               URL.revokeObjectURL(file?.preview);
@@ -99,15 +99,13 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
   }, []);
 
   return (
-    <div className={styles.inputArea} style={{ height: `${height}px` }}>
-      <div
-        className={styles.inputAreaContainer}
-        style={{ height: `${height}px` }}>
-        <label className={styles.inputAreaLabel}>
+    <div className={c.inputArea} style={{ height: `${height}px` }}>
+      <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
+        <label className={c.inputAreaLabel}>
           {!acceptedFiles.length && (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <div className={styles.inputFieldLabel}>
+              <div className={c.inputFieldLabel}>
                 <svg height='21px' width='24px'>
                   <use href={`${sprite}#upload-materials`} />
                 </svg>
@@ -115,10 +113,10 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
               </div>
             </div>
           )}
-          <aside className={styles.thumbsContainer}>{thumbs}</aside>
+          <aside className={c.thumbsContainer}>{thumbs}</aside>
         </label>
       </div>
-      <div className={styles.errorContainer}>
+      <div className={c.errorContainer}>
         {displayErrorMessages && (
           <>
             {isBlackAndWhite === false &&
