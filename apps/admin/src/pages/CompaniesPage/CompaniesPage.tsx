@@ -21,6 +21,7 @@ import {
 const headers = [
   'Broj',
   'Ime',
+  'Username',
   'Kategorija sponzorstva',
   'Lokacija štanda',
   'CodeId',
@@ -35,6 +36,12 @@ const questions: Question[] = [
     rules: { required: 'Obavezno polje' },
   },
   {
+    id: 'username',
+    type: QuestionType.Field,
+    title: 'Username',
+    rules: { required: 'Obavezno polje' },
+  },
+  {
     id: 'description',
     type: QuestionType.TextArea,
     title: 'Opis',
@@ -43,12 +50,6 @@ const questions: Question[] = [
     id: 'websiteUrl',
     type: QuestionType.Field,
     title: 'Website',
-  },
-  {
-    id: 'email',
-    type: QuestionType.Field,
-    title: 'Email',
-    rules: { required: 'Obavezno polje' },
   },
   {
     id: 'boothLocation',
@@ -155,7 +156,7 @@ export const CompaniesPage = () => {
       name: companyToEdit?.name,
       description: companyToEdit?.description,
       websiteUrl: companyToEdit?.url,
-      email: companyToEdit?.email,
+      username: companyToEdit?.username,
       boothLocation: companyToEdit?.boothLocation,
       codeId: companyToEdit?.codeId,
       sponsorCategory: companyToEdit?.sponsorCategory,
@@ -231,6 +232,7 @@ export const CompaniesPage = () => {
             .map((c) => ({
               id: c.id,
               name: c.name,
+              username: c.username,
               sponsorCategory: c.sponsorCategory,
               boothLocation: c.boothLocation,
               codeId: c.codeId,

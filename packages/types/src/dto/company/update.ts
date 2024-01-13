@@ -1,6 +1,5 @@
 import {
   IsArray,
-  IsEmail,
   IsEnum,
   IsNumber,
   IsNumberString,
@@ -32,9 +31,9 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     boothLocation?: string;
 
-    @IsEmail()
+    @IsString()
     @ApiProperty()
-    email?: string;
+    username?: string;
 
     @IsArray()
     @IsNumber({}, { each: true })

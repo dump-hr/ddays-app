@@ -94,7 +94,7 @@ const CompanyProfile = () => {
             <div className={c.infoContainer}>
               <div className={c.companyName}>
                 <h3>{company?.name}</h3>
-                <p>{company?.email}</p>
+                <p>{company?.username}</p>
               </div>
               <CircularButton
                 className={c.submitButton}

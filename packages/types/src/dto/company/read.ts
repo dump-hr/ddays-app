@@ -22,11 +22,11 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    email: string;
+    name: string;
 
     @IsString()
     @ApiProperty()
-    name: string;
+    username: string;
 
     @IsString()
     @ApiProperty()
