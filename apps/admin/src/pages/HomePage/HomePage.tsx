@@ -70,7 +70,7 @@ const HomePage = () => {
       <h1>Home Page</h1>
       <Input placeholder='placeholder' />
       <Button onClick={toggleModal}>Open modal</Button>
-      <Modal isOpen={isOpen} toggleModal={toggleModal}>
+      <Modal showCloseButton isOpen={isOpen} toggleModal={toggleModal}>
         <Input placeholder='Username' />
         <Input placeholder='Password' />
       </Modal>
