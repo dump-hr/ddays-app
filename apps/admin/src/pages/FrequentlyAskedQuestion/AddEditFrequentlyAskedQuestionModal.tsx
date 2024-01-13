@@ -24,7 +24,7 @@ const AddEditFrequentlyAskedQuestionModal: React.FC<ModalProps> = ({
   frequentlyAskedQuestion,
 }) => {
   return (
-    <Modal isOpen={isOpen} toggleModal={toggle}>
+    <Modal isOpen={isOpen} toggleModal={toggle} showCloseButton>
       <h2>{title}</h2>
       <div>
         <label htmlFor='question'>Pitanje</label>

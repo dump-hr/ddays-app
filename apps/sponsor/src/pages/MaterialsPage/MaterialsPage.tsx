@@ -42,7 +42,9 @@ const MaterialsPage: React.FC = () => {
             ([key, { description, title }], index) => (
               <article
                 className={c.item}
-                onClick={() => setCurrentForm(key as keyof typeof FormSteps)}
+                onClick={() => {
+                  setCurrentForm(key as keyof typeof FormSteps);
+                }}
                 key={key}>
                 <div className={c.itemInfo}>
                   <p className={c.itemIndex}>{index + 1}</p>
@@ -59,10 +61,14 @@ const MaterialsPage: React.FC = () => {
               </article>
             ),
           )}
-          {currentForm !== null && (
+
+          {currentForm && (
             <Modal
+              currentForm={currentForm}
               form={sponsorForm[currentForm]}
-              close={() => setCurrentForm(null)}
+              close={() => {
+                setCurrentForm(null);
+              }}
             />
           )}
         </section>
