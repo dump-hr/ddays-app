@@ -89,7 +89,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
         [K in keyof T]: T[K] | null;
       };
 
-      const data = form.getValues() as NullableProps<Event>;
+      const formValues = form.getValues() as NullableProps<Event>;
+      const data = {
+        ...formValues,
+        id: modalData?.id || null,
+        codeId: modalData?.codeId || null,
+      };
 
       for (const key in data) {
         if (data[key as keyof typeof data] === '') {

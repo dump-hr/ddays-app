@@ -29,6 +29,13 @@
       "when": 1704368373614,
       "tag": "0008_daily_maggott",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1705143938056,
+      "tag": "0009_volatile_veda",
+      "breakpoints": true
     }
   ]
 }

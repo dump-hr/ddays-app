@@ -51,6 +51,7 @@ const EventsPage = () => {
   const { data: fetchedEvents } = useFetchEvents();
 
   const [events, setEvents] = useState<Event[] | undefined>(undefined);
+  const [modalData, setModalData] = useState<Event>({} as Event);
 
   const buttonActions = [
     {
@@ -104,10 +105,12 @@ const EventsPage = () => {
     }
   }, [events]);
 
+  /*
   function setModalData(data: Event) {
     localStorage.setItem('modalData', JSON.stringify(data));
   }
-
+  */
+  /*
   function getModalData() {
     const data = localStorage.getItem('modalData');
     if (data) {
@@ -115,6 +118,7 @@ const EventsPage = () => {
     }
     return {} as Event;
   }
+  */
 
   function findEventById(id: number) {
     const event = events?.find((event) => event.id === id) as Event;
@@ -125,7 +129,7 @@ const EventsPage = () => {
   }
 
   function toggleModal(modal: 'add' | 'delete' | 'edit') {
-    const filteredProps = Object.entries(getModalData()).filter(
+    const filteredProps = Object.entries(modalData).filter(
       ([, value]) => value !== null && value !== '',
     );
 
@@ -169,14 +173,14 @@ const EventsPage = () => {
   }
 
   function deleteEventHandler() {
-    deleteEvent(getModalData().id);
+    deleteEvent(modalData.id);
     setDeleteEventModalIsOpen(false);
     clearModalData();
   }
 
   async function editEventHandler(data: object) {
     const editedEvent = data as Event;
-
+    console.log('editedEvent', editedEvent);
     editEvent(editedEvent);
 
     setEditEventModalIsOpen(false);
@@ -189,7 +193,7 @@ const EventsPage = () => {
         isOpen={deleteEventModalIsOpen}
         toggleModal={() => toggleModal('delete')}>
         <h3 className={c.modalTitle}>Obriši event</h3>
-        <p className={c.modalSubtitle}>{getModalData().name}</p>
+        <p className={c.modalSubtitle}>{modalData.name}</p>
         <p>Jesi li siguran da želiš obrisati ovaj event?</p>
 
         <div style={{ display: 'flex', gap: '20px' }}>
@@ -259,7 +263,7 @@ const EventsPage = () => {
         title='Uredi event'
         actionButtonHandler={editEventHandler}
         actionButtonText='Spremi promjene'
-        modalData={getModalData()}
+        modalData={modalData}
       />
 
       <DeleteEventModal />
