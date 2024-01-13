@@ -43,6 +43,7 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
       {},
     ) || { 'image/*': [] },
     onDrop: async (acceptedFiles) => {
+      console.log('drop', acceptedFiles);
       if (inputConstraints?.checkBlackAndWhite) {
         const blackAndWhitePromises = acceptedFiles.map(
           photoHelper.checkBlackAndWhite,
@@ -98,23 +99,23 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
       });
   }, []);
 
+  console.log(files);
+
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
       <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
-        <label className={c.inputAreaLabel}>
-          {!acceptedFiles.length && (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <div className={c.inputFieldLabel}>
-                <svg height='21px' width='24px'>
-                  <use href={`${sprite}#upload-materials`} />
-                </svg>
-                <p>{label}</p>
-              </div>
+        {!acceptedFiles.length && (
+          <div className={c.inputField} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <div className={c.inputFieldLabel}>
+              <svg height='21px' width='24px'>
+                <use href={`${sprite}#upload-materials`} />
+              </svg>
+              <p>{label}</p>
             </div>
-          )}
-          <aside className={c.thumbsContainer}>{thumbs}</aside>
-        </label>
+          </div>
+        )}
+        <aside className={c.thumbsContainer}>{thumbs}</aside>
       </div>
       <div className={c.errorContainer}>
         {displayErrorMessages && (

@@ -11,11 +11,17 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ form, close }) => {
   return (
     <>
-      <div className={c.container}>
-        <img src='/close.svg' alt='Close' className={c.close} onClick={close} />
-        {form.component({ close })}
+      <div className={c.background}>
+        <div className={c.container}>
+          <img
+            src='/close.svg'
+            alt='Close'
+            className={c.close}
+            onClick={close}
+          />
+          {form.component({ close })}
+        </div>
       </div>
-      <div className={c.background}></div>
     </>
   );
 };
