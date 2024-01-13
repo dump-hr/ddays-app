@@ -7,7 +7,6 @@ import { jwtSecret } from './auth.module';
 
 export type JwtPayload = {
   id: number;
-  email: string;
   name: string;
 };
 @Injectable()
@@ -28,7 +27,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
 
     return {
       id: sponsor.id,
-      email: sponsor.email,
       name: sponsor.name,
       role: 'sponsor',
     };
