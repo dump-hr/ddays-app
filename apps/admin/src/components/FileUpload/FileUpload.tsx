@@ -51,7 +51,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
       {src && (
         <div className={c.previewWrapper}>
-          <img className={c.img} src={src as string} alt="preview" />
+          <img className={c.img} src={src as string} alt='preview' />
           <Button onClick={handleFileRemove}>Remove</Button>
         </div>
       )}
