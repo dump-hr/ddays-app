@@ -157,8 +157,9 @@ const EventsPage = () => {
     setModalData({} as Event);
   }
 
-  function createEventHandler() {
-    const eventToCreate = getModalData();
+  function createEventHandler(data: object) {
+    const eventToCreate = data as Event;
+    console.log('eventToCreate', eventToCreate);
     if (!eventToCreate) return;
 
     createEvent(eventToCreate);
@@ -173,8 +174,8 @@ const EventsPage = () => {
     clearModalData();
   }
 
-  async function editEventHandler() {
-    const editedEvent = getModalData();
+  async function editEventHandler(data: object) {
+    const editedEvent = data as Event;
 
     editEvent(editedEvent);
 

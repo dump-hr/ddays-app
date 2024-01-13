@@ -23,7 +23,7 @@ type ModalProps = {
   toggle: () => void;
   title: string;
   actionButtonText: string;
-  actionButtonHandler: () => void;
+  actionButtonHandler: (data: object) => void;
   modalData?: Event;
 };
 
@@ -41,8 +41,9 @@ const AddEditEventModal: React.FC<ModalProps> = ({
   const form = useForm<FieldValues>();
 
   function validateForm() {
-    updateModalData();
-    const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
+    //updateModalData();
+    //const data = JSON.parse(localStorage.getItem('modalData') || '') as Event;
+    const data = form.getValues() as Event;
 
     if (!data.name) {
       toast.error('Ime mora biti uneseno.');
@@ -84,7 +85,19 @@ const AddEditEventModal: React.FC<ModalProps> = ({
 
   function submitHandler() {
     if (validateForm()) {
-      actionButtonHandler();
+      type NullableProps<T> = {
+        [K in keyof T]: T[K] | null;
+      };
+
+      const data = form.getValues() as NullableProps<Event>;
+
+      for (const key in data) {
+        if (data[key as keyof typeof data] === '') {
+          data[key as keyof typeof data] = null;
+        }
+      }
+
+      actionButtonHandler(data);
       form.reset();
     }
   }
@@ -149,6 +162,7 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       defaultValue: TimeHelper.changeDateIsoFormat(modalData?.endsAt || ''),
     },
   ];
+  /*
 
   function updateModalData() {
     const formValues = form.getValues() as Event;
@@ -172,13 +186,12 @@ const AddEditEventModal: React.FC<ModalProps> = ({
       }
     }
 
-    console.log('data', data);
-
     localStorage.setItem('modalData', JSON.stringify(data));
   }
+  */
 
   function toggleAndResetData() {
-    updateModalData();
+    //updateModalData();
     toggle();
     form.reset();
   }
