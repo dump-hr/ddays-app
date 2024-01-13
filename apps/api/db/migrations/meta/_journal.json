@@ -8,34 +8,6 @@
       "when": 1704232736097,
       "tag": "0000_majestic_krista_starr",
       "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1704309472668,
-      "tag": "0006_new_stature",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1704311626011,
-      "tag": "0007_boring_harrier",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1704368373614,
-      "tag": "0008_daily_maggott",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1705143938056,
-      "tag": "0009_volatile_veda",
-      "breakpoints": true
     }
   ]
 }
