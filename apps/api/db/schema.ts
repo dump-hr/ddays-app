@@ -262,6 +262,3 @@ export const notification = pgTable('notification', {
   isActive: boolean('is_active').default(false),
   activatedAt: timestamp('activated_at', { mode: 'string' }),
 });
-
-// trigger
-// no schema changes but file changed

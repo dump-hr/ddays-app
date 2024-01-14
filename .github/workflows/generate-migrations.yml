@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'apps/api/db/schema.ts'
+      - apps/api/db/schema.ts
 
 jobs:
   generate_migrations:
