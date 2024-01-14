@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/sponsor',
   server: {
     port: 3003,
     proxy: {

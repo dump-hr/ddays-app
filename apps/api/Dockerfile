@@ -37,5 +37,6 @@ USER nestjs
 COPY --from=installer --chown=nestjs:nestjs /app .
 # todo: add other frontend apps to build
 COPY --chown=nestjs:nestjs apps/admin/dist ./apps/admin/dist
+COPY --chown=nestjs:nestjs apps/sponsor/dist ./apps/sponsor/dist
 
 CMD node apps/api/dist/src/main.js

@@ -1,5 +1,6 @@
 import useLocation from 'wouter/use-location';
 
+import { Path } from '../../constants/paths';
 import { useAccount } from '../../hooks/useUser';
 import Button from '../Button';
 import c from './Layout.module.scss';
@@ -9,38 +10,14 @@ type LayoutProps = {
 };
 
 const navLinks = [
-  {
-    href: '/',
-    text: 'Home',
-  },
-  {
-    href: '/guest',
-    text: 'Guest',
-  },
-  {
-    href: '/events',
-    text: 'Events',
-  },
-  {
-    href: '/achievements',
-    text: 'Achievements',
-  },
-  {
-    href: '/interests',
-    text: 'Interests',
-  },
-  {
-    href: '/notifications',
-    text: 'Notifications',
-  },
-  {
-    href: '/companies',
-    text: 'Companies',
-  },
-  {
-    href: '/faqs',
-    text: 'FAQ',
-  },
+  { href: Path.Home, text: 'Home' },
+  { href: Path.Guest, text: 'Guest' },
+  { href: Path.Events, text: 'Events' },
+  { href: Path.Achievements, text: 'Achievements' },
+  { href: Path.Interests, text: 'Interests' },
+  { href: Path.Notifications, text: 'Notifications' },
+  { href: Path.Companies, text: 'Companies' },
+  { href: Path.FrequentlyAskedQuestions, text: 'FAQ' },
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { AchievementModule } from './achievement/achievement.module';
 import { AppController } from './app.controller';
@@ -26,6 +28,22 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
     AuthModule,
     NotificationModule,
     JobsModule,
+    ...(process.env.NODE_ENV !== 'dev'
+      ? [
+          ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+            exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
+          }),
+          ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
+            serveRoot: '/sponsor',
+          }),
+          ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', '..', '..', 'admin', 'dist'),
+            serveRoot: '/admin',
+          }),
+        ]
+      : []),
   ],
   controllers: [AppController],
   providers: [AppService],

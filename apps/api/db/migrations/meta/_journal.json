@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1704232736097,
-      "tag": "0000_majestic_krista_starr",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1705164436736,
-      "tag": "0001_omniscient_xavin",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1705174403407,
-      "tag": "0002_familiar_baron_strucker",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1705179045511,
-      "tag": "0003_aromatic_pepper_potts",
+      "when": 1705192842953,
+      "tag": "0000_green_turbo",
       "breakpoints": true
     }
   ]

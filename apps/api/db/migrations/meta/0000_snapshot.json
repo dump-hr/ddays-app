@@ -1,5 +1,5 @@
 {
-  "id": "c6f80f58-53a3-4375-a095-82ac2cee00dc",
+  "id": "02e17b33-36d6-4e10-a6f2-a274da145ce1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -194,12 +194,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "password": {
           "name": "password",
           "type": "text",
@@ -217,6 +211,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         },
         "description": {
           "name": "description",
@@ -279,11 +279,11 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "company_email_unique": {
-          "name": "company_email_unique",
+        "company_username_unique": {
+          "name": "company_username_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "email"
+            "username"
           ]
         }
       }
@@ -317,7 +317,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "companyInterests_interestId_interests_id_fk": {
@@ -330,7 +330,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -365,25 +365,19 @@
           "name": "description",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "event_type": {
           "name": "event_type",
           "type": "event_type",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "event_theme": {
           "name": "event_theme",
           "type": "event_theme",
           "primaryKey": false,
-          "notNull": true
-        },
-        "event_place": {
-          "name": "event_place",
-          "type": "event_place",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "starts_at": {
           "name": "starts_at",
@@ -395,31 +389,31 @@
           "name": "ends_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "requirements": {
           "name": "requirements",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "footage_link": {
           "name": "footage_link",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "max_participants": {
           "name": "max_participants",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "code_id": {
           "name": "code_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         }
       },
       "indexes": {},
@@ -554,6 +548,67 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "job": {
+      "name": "job",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "location": {
+          "name": "location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "job_company_id_company_id_fk": {
+          "name": "job_company_id_company_id_fk",
+          "tableFrom": "job",
+          "tableTo": "company",
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "notification": {
       "name": "notification",
       "schema": "",
@@ -643,13 +698,6 @@
     }
   },
   "enums": {
-    "event_place": {
-      "name": "event_place",
-      "values": {
-        "online": "online",
-        "inPerson": "inPerson"
-      }
-    },
     "event_theme": {
       "name": "event_theme",
       "values": {

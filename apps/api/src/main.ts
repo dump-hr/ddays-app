@@ -1,6 +1,7 @@
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { AppModule } from './app.module';
 
@@ -9,7 +10,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('DDays API')
@@ -21,8 +21,21 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/swagger', app, document);
 
-  await app.listen(process.env.PORT || 3000);
+  app.setGlobalPrefix('api');
 
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  if (process.env.NODE_ENV === 'dev') {
+    app.use(
+      '/admin',
+      createProxyMiddleware({ target: 'http://localhost:3002' }),
+    );
+    app.use(
+      '/sponsor',
+      createProxyMiddleware({ target: 'http://localhost:3003' }),
+    );
+  }
+
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();
