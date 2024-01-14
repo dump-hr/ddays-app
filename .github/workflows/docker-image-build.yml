@@ -2,9 +2,8 @@ name: Docker image build
 
 on:
   push:
-    # todo: uncomment when deployment is done, this is just dummy build
-    # branches-ignore:
-    #   - main
+    branches-ignore:
+      - main
   workflow_dispatch:
 
 jobs:
