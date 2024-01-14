@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'apps/api/db/schema.ts'
 
 jobs:
   generate_migrations:
@@ -35,42 +37,21 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
+          GIT_BRANCH="migrations-$(date +%s)"
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+          git checkout -b $GIT_BRANCH
+
           git add -f apps/api/db/migrations
-          if ! git diff --staged --quiet apps/api/db/migrations; then
-            git commit -m "Generate migrations"
-            git push
-          fi
+          git commit -m "Generate migrations"
+          git push origin $GIT_BRANCH
 
-      # - name: Git add
-      #   continue-on-error: true
-      #   id: has-migrations
-      #   run: |
-      #     git add -f apps/api/db/migrations
-      #     git diff --staged --quiet apps/api/db/migrations && exit 1 || exit 0
-
-      # - name: Git commit and push
-      #   if: ${{ steps.has-migrations.conclusion == 'success' }}
-      #   env:
-      #     GIT_USER: ${{ github.actor }}
-      #   run: |
-      #     git config --global user.name "$GIT_USER"
-      #     git config --global user.email "$GIT_USER@users.noreply.github.com"
-
-      #     GIT_BRANCH="migrations-$(date +%s)"
-      #     echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
-      #     git checkout -b $GIT_BRANCH
-
-      #     git commit -m "Generate migrations"
-      #     git push origin $GIT_BRANCH
-
-      # - uses: actions/github-script@v6
-      #   if: ${{ steps.has-migrations.conclusion == 'success' }}
-      #   with:
-      #     script: |
-      #       github.rest.pulls.create({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         head: process.env.GIT_BRANCH,
-      #         base: 'main',
-      #         title: 'Generate migrations',
-      #       })
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: process.env.GIT_BRANCH,
+              base: 'main',
+              title: 'Generate migrations',
+            })
