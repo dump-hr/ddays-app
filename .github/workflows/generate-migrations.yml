@@ -1,0 +1,76 @@
+name: Generate migrations
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_migrations:
+    name: Generate migrations
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Generate migrations
+        run: yarn generate
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+          git add -f apps/api/db/migrations
+          if ! git diff --staged --quiet apps/api/db/migrations; then
+            git commit -m "Generate migrations"
+            git push
+          fi
+
+      # - name: Git add
+      #   continue-on-error: true
+      #   id: has-migrations
+      #   run: |
+      #     git add -f apps/api/db/migrations
+      #     git diff --staged --quiet apps/api/db/migrations && exit 1 || exit 0
+
+      # - name: Git commit and push
+      #   if: ${{ steps.has-migrations.conclusion == 'success' }}
+      #   env:
+      #     GIT_USER: ${{ github.actor }}
+      #   run: |
+      #     git config --global user.name "$GIT_USER"
+      #     git config --global user.email "$GIT_USER@users.noreply.github.com"
+
+      #     GIT_BRANCH="migrations-$(date +%s)"
+      #     echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+      #     git checkout -b $GIT_BRANCH
+
+      #     git commit -m "Generate migrations"
+      #     git push origin $GIT_BRANCH
+
+      # - uses: actions/github-script@v6
+      #   if: ${{ steps.has-migrations.conclusion == 'success' }}
+      #   with:
+      #     script: |
+      #       github.rest.pulls.create({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         head: process.env.GIT_BRANCH,
+      #         base: 'main',
+      #         title: 'Generate migrations',
+      #       })
