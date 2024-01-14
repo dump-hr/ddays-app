@@ -1,9 +1,9 @@
 export enum Path {
-  Home = '/',
-  Login = '/login',
-  Profile = '/profile',
-  Materials = '/materials',
-  Stand = '/stand',
-  FlyTalks = '/fly-talks',
-  CatchAll = '/:path*',
+  Home = '/sponsor',
+  Login = '/sponsor/login',
+  Profile = '/sponsor/profile',
+  Materials = '/sponsor/materials',
+  Stand = '/sponsor/stand',
+  FlyTalks = '/sponsor/fly-talks',
+  CatchAll = '/sponsor/:path*',
 }

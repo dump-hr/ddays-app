@@ -7,7 +7,7 @@ type Page = {
   path: Path;
   name: string;
   icon: string;
-  component: React.FC;
+  Component: React.FC;
 };
 
 export const pages: Page[] = [
@@ -15,24 +15,24 @@ export const pages: Page[] = [
     path: Path.Materials,
     name: 'Predaja materijala',
     icon: '/materials.svg',
-    component: MaterialsPage,
+    Component: MaterialsPage,
   },
   {
     path: Path.Stand,
     icon: '/stand.svg',
     name: 'Štand',
-    component: HomePage,
+    Component: HomePage,
   },
   {
     path: Path.FlyTalks,
     icon: '/fly-talks.svg',
     name: 'Fly Talks',
-    component: HomePage,
+    Component: HomePage,
   },
   {
     path: Path.Profile,
     icon: '/profile.svg',
     name: 'Profil tvrtke',
-    component: CompanyProfile,
+    Component: CompanyProfile,
   },
 ];

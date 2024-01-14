@@ -1,10 +1,4 @@
 DO $$ BEGIN
- CREATE TYPE "event_place" AS ENUM('online', 'inPerson');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
  CREATE TYPE "event_theme" AS ENUM('dev', 'design', 'tech', 'marketing');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -64,10 +58,10 @@ CREATE TABLE IF NOT EXISTS "code" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "company" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"email" text NOT NULL,
 	"password" text NOT NULL,
 	"sponsor_category" "sponsor_category",
 	"name" text,
+	"username" text NOT NULL,
 	"description" text,
 	"website_url" text,
 	"booth_location" text,
@@ -75,7 +69,7 @@ CREATE TABLE IF NOT EXISTS "company" (
 	"landing_image" text,
 	"company_video" text,
 	"code_id" integer NOT NULL,
-	CONSTRAINT "company_email_unique" UNIQUE("email")
+	CONSTRAINT "company_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "companyInterests" (
@@ -87,16 +81,15 @@ CREATE TABLE IF NOT EXISTS "companyInterests" (
 CREATE TABLE IF NOT EXISTS "event" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
-	"description" text NOT NULL,
-	"event_type" "event_type" NOT NULL,
-	"event_theme" "event_theme" NOT NULL,
-	"event_place" "event_place" NOT NULL,
+	"description" text,
+	"event_type" "event_type",
+	"event_theme" "event_theme",
 	"starts_at" timestamp NOT NULL,
-	"ends_at" timestamp NOT NULL,
-	"requirements" text NOT NULL,
-	"footage_link" text NOT NULL,
-	"max_participants" integer NOT NULL,
-	"code_id" integer NOT NULL
+	"ends_at" timestamp,
+	"requirements" text,
+	"footage_link" text,
+	"max_participants" integer,
+	"code_id" integer
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "eventInterests" (
@@ -115,6 +108,15 @@ CREATE TABLE IF NOT EXISTS "interests" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"theme" "event_theme" NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "job" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"position" text NOT NULL,
+	"location" text NOT NULL,
+	"details" text NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"company_id" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "notification" (
@@ -153,13 +155,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_companyId_company_id_fk" FOREIGN KEY ("companyId") REFERENCES "company"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_companyId_company_id_fk" FOREIGN KEY ("companyId") REFERENCES "company"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_interestId_interests_id_fk" FOREIGN KEY ("interestId") REFERENCES "interests"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "companyInterests" ADD CONSTRAINT "companyInterests_interestId_interests_id_fk" FOREIGN KEY ("interestId") REFERENCES "interests"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -178,6 +180,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "eventInterests" ADD CONSTRAINT "eventInterests_interestId_interests_id_fk" FOREIGN KEY ("interestId") REFERENCES "interests"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "job" ADD CONSTRAINT "job_company_id_company_id_fk" FOREIGN KEY ("company_id") REFERENCES "company"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

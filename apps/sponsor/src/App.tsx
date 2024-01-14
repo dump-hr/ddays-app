@@ -15,7 +15,7 @@ export const App = () => {
       <Switch>
         <Route path={Path.Home} component={HomePage} />
 
-        {pages.map(({ path, component: Component }) => (
+        {pages.map(({ path, Component }) => (
           <Route
             key={path}
             path={path}

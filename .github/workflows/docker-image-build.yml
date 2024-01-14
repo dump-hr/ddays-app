@@ -30,8 +30,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build frontend web apps
-        run: yarn turbo run build --filter=admin...
-        # todo: add moar
+        run: yarn turbo run build --filter=admin... --filter=sponsor...
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
