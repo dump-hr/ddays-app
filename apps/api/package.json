@@ -13,6 +13,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "introspect": "dotenv -c -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
     "generate": "dotenv -c -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
+    "studio": "dotenv -c -- drizzle-kit studio --config ./db/drizzle.config.ts",
     "migrate": "dotenv -c -- tsx ./db/migrate"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "jwks-rsa": "^3.1.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "pg": "^8.11.3",
     "postgres": "^3.4.3",
     "react-dropzone": "^14.2.3",
     "reflect-metadata": "^0.1.13",
