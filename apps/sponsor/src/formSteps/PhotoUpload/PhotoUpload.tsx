@@ -1,8 +1,21 @@
+import { useDeleteImage } from '../../api/useDeleteImage';
+import { useUploadImage } from '../../api/useUploadImage';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
 
 const PhotoUpload: FormComponent = ({ close }) => {
+  const { mutate: uploadImage, isLoading } = useUploadImage();
+  const { mutate: deleteLogo } = useDeleteImage();
+
+  const handleUpload = (files: File[]) => {
+    uploadImage(files[0]);
+  };
+
+  const handleRemove = () => {
+    deleteLogo();
+  };
+
   return (
     <div>
       <div className={styles.descriptionContainer}>
@@ -21,17 +34,23 @@ const PhotoUpload: FormComponent = ({ close }) => {
         content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
       />
       <div className={styles.uploadArea}>
-        <PhotoInput
-          label='Prenesite fotografije (max. 443px x 326px)'
-          displayErrorMessages={true}
-          inputConstraints={{
-            maxDimensions: {
-              width: 443,
-              height: 326,
-            },
-          }}
-          height={326}
-        />
+        {!isLoading ? (
+          <PhotoInput
+            label='Prenesite fotografije (max. 443px x 326px)'
+            displayErrorMessages={true}
+            inputConstraints={{
+              maxDimensions: {
+                width: 443,
+                height: 326,
+              },
+            }}
+            height={326}
+            handleUpload={handleUpload}
+            handleRemove={handleRemove}
+          />
+        ) : (
+          <p className={styles.uploading}>Uploadavanje u procesu...</p>
+        )}
       </div>
 
       <button onClick={close} className={styles.button}>
