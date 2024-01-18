@@ -36,7 +36,6 @@ RUN adduser --system --uid 1001 nestjs
 USER nestjs
 COPY --from=installer --chown=nestjs:nestjs /app .
 # todo: add other frontend apps to build
-COPY --chown=nestjs:nestjs apps/api/db/migrations ./apps/api/db/migrations
 COPY --chown=nestjs:nestjs apps/admin/dist ./apps/admin/dist
 COPY --chown=nestjs:nestjs apps/sponsor/dist ./apps/sponsor/dist
 
