@@ -31,13 +31,16 @@ const setupSwagger = (app: INestApplication) => {
 };
 
 const setupFrontendDevServerProxies = (app: INestApplication) => {
-  app.use(
-    '/',
-    createProxyMiddleware({
-      target: 'https://ddays.azureedge.net/',
-      changeOrigin: true,
-    }),
-  );
+  const oldLandingProxy = createProxyMiddleware({
+    target: 'https://ddays.azureedge.net/',
+    changeOrigin: true,
+  });
+  app.use('/', (req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    return oldLandingProxy(req, res, next);
+  });
 
   if (process.env.NODE_ENV !== 'dev') return;
 
