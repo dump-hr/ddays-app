@@ -17,51 +17,39 @@ export const getCompanyDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   class CompanyDto {
     @IsNumber()
-    @ApiProperty()
     id: number;
 
     @IsString()
-    @ApiProperty()
     name: string;
 
     @IsString()
-    @ApiProperty()
     username: string;
 
     @IsString()
-    @ApiProperty()
     description: string;
 
     @IsUrl()
-    @ApiProperty()
     url: string;
 
     @IsString()
-    @ApiProperty()
     sponsorCategory: SponsorType;
 
     @IsString()
-    @ApiProperty()
     websiteUrl: string;
 
     @IsString()
-    @ApiProperty()
     boothLocation: string;
 
     @IsString()
-    @ApiProperty()
     logoImage: string;
 
     @IsString()
-    @ApiProperty()
     landingImage: string;
 
     @IsString()
-    @ApiProperty()
     companyVideo: string;
 
     @IsString()
-    @ApiProperty()
     codeId?: number;
   }
 

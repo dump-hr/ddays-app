@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { frequentlyAskedQuestion } from 'db/schema';
 import { eq } from 'drizzle-orm';
+
 import { CreateFrequentlyAskedQuestionDto } from './dto/create-frequentlyAskedQuestion.dto';
 import { UpdateFrequentlyAskedQuestionDto } from './dto/update-frequentlyAskedQuestion.dto';
 

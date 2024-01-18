@@ -1,8 +1,7 @@
 import { getCreateEventDto, getUpdateEventDto } from '@ddays-app/types';
-import { ApiProperty } from '@nestjs/swagger';
 
-export const _CreateEventDto = getCreateEventDto(ApiProperty);
+export const _CreateEventDto = getCreateEventDto();
 export class CreateEventDto extends _CreateEventDto {}
 
-export const _UpdateEventDto = getUpdateEventDto(ApiProperty);
+export const _UpdateEventDto = getUpdateEventDto();
 export class UpdateEventDto extends _UpdateEventDto {}

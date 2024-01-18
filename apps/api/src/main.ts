@@ -8,6 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as migrator from 'drizzle-orm/node-postgres/migrator';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { join } from 'path';
 import postgres from 'postgres';
 
 import { AppModule } from './app.module';
@@ -45,6 +46,14 @@ const setupFrontendDevServerProxies = (app: INestApplication) => {
       target: 'http://localhost:3003',
     }),
   );
+
+  app.use(
+    '/',
+    createProxyMiddleware({
+      target: 'https://ddays.azureedge.net/',
+      changeOrigin: true,
+    }),
+  );
 };
 
 const migrate = async () => {
@@ -52,16 +61,20 @@ const migrate = async () => {
     max: 1,
   });
 
-  await migrator.migrate(drizzle(sql), { migrationsFolder: './db/migrations' });
+  await migrator.migrate(drizzle(sql), {
+    migrationsFolder: join(__dirname, '..', '..', 'db', 'migrations'),
+  });
 };
 
 const run = async (app: INestApplication) => {
   app.setGlobalPrefix('api');
 
   const port = process.env.PORT || 3000;
+  const database = new URL(process.env.DATABASE_URL).pathname.slice(1);
 
   await app.listen(port);
 
+  console.log(`Connected to "${database}" database`);
   console.log(`Application is running on: http://localhost:${port}`);
 };
 

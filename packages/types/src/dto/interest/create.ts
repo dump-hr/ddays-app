@@ -6,11 +6,9 @@ export const getCreateInterestDto = (ApiPropertySwagger?: any) => {
 
   class CreateInterestDto {
     @IsString()
-    @ApiProperty()
     name: string;
 
     @IsEnum(EventTheme)
-    @ApiProperty({ enum: EventTheme })
     theme: EventTheme;
   }
 
@@ -22,7 +20,6 @@ export const getUpdateCompanyInterestsDto = (ApiPropertySwagger?: any) => {
 
   class UpdateCompanyInterestsDto {
     @IsArray()
-    @ApiProperty()
     ids: number[];
   }
 

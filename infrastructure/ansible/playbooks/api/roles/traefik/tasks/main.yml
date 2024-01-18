@@ -1,0 +1,23 @@
+---
+- name: Create traefik docker network
+  docker_network:
+    name: traefiknet
+    state: present
+
+- name: Create traefik docker container
+  docker_container:
+    name: traefik
+    image: traefik:v2.10
+    restart_policy: unless-stopped
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefiknet"
+      - "--entrypoints.web.address=:80"
+      - "--accesslog=true"
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - name: traefiknet
