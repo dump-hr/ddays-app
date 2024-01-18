@@ -30,10 +30,10 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
     JobsModule,
     ...(process.env.NODE_ENV !== 'dev'
       ? [
-          ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-            exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
-          }),
+          // ServeStaticModule.forRoot({
+          //   rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+          //   exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
+          // }),
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
             serveRoot: '/sponsor',

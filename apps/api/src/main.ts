@@ -31,6 +31,14 @@ const setupSwagger = (app: INestApplication) => {
 };
 
 const setupFrontendDevServerProxies = (app: INestApplication) => {
+  app.use(
+    '/',
+    createProxyMiddleware({
+      target: 'https://ddays.azureedge.net/',
+      changeOrigin: true,
+    }),
+  );
+
   if (process.env.NODE_ENV !== 'dev') return;
 
   app.use(
@@ -44,14 +52,6 @@ const setupFrontendDevServerProxies = (app: INestApplication) => {
     '/sponsor',
     createProxyMiddleware({
       target: 'http://localhost:3003',
-    }),
-  );
-
-  app.use(
-    '/',
-    createProxyMiddleware({
-      target: 'https://ddays.azureedge.net/',
-      changeOrigin: true,
     }),
   );
 };
