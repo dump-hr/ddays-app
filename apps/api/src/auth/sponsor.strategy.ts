@@ -3,13 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { CompaniesService } from 'src/companies/companies.service';
 
+import { JwtPayload } from './auth.dto';
 import { jwtSecret } from './auth.module';
 
-export type JwtPayload = {
-  id: number;
-  name: string;
-  username: string;
-};
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'sponsor') {
   constructor(private companiesService: CompaniesService) {

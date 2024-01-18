@@ -7,15 +7,12 @@ export const getInterestDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   class InterestDto {
     @IsNumber()
-    @ApiProperty()
     id: number;
 
     @IsString()
-    @ApiProperty()
     name: string;
 
     @IsEnum(EventTheme)
-    @ApiProperty()
     theme: eventThemeType;
   }
 
@@ -26,19 +23,15 @@ export const getSponsorInterestDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   class SponsorInterestDto {
     @IsNumber()
-    @ApiProperty()
     id: number;
 
     @IsString()
-    @ApiProperty()
     name: string;
 
     @IsEnum(EventTheme)
-    @ApiProperty()
     theme: EventTheme;
 
     @IsBoolean()
-    @ApiProperty()
     isActive: boolean;
   }
 

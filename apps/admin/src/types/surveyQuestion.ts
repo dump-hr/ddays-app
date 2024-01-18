@@ -2,12 +2,11 @@ import {
   getCreateSurveyQuestionDto,
   getUpdateSurveyQuestionDto,
 } from '@ddays-app/types';
-import { ApiProperty } from '@nestjs/swagger';
 
-export const _CreateSurveyQuestionDto = getCreateSurveyQuestionDto(ApiProperty);
+export const _CreateSurveyQuestionDto = getCreateSurveyQuestionDto();
 export class CreateSurveyQuestionDto extends _CreateSurveyQuestionDto {}
 
-export const _UpdateSurveyQuestionDto = getUpdateSurveyQuestionDto(ApiProperty);
+export const _UpdateSurveyQuestionDto = getUpdateSurveyQuestionDto();
 export class UpdateSurveyQuestionDto extends _UpdateSurveyQuestionDto {}
 
 export type SurveyQuestion = {

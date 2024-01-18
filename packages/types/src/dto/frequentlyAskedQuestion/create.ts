@@ -7,11 +7,9 @@ export const getCreateFrequentlyAskedQuestionDto = (
 
   class CreateFrequentlyAskedQuestionDto {
     @IsString()
-    @ApiProperty()
     question: string;
 
     @IsString()
-    @ApiProperty()
     answer: string;
   }
 

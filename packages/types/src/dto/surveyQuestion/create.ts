@@ -9,23 +9,18 @@ export const getCreateSurveyQuestionDto = (ApiPropertySwagger?: any) => {
 
   class CreateSurveyQuestionDto {
     @IsString()
-    @ApiProperty()
     question: string;
 
     @IsString()
-    @ApiProperty()
     description: string;
 
     @IsString()
-    @ApiProperty()
     inputLabel: string;
 
     @IsEnum(SurveyQuestionInputType)
-    @ApiProperty({ enum: SurveyQuestionInputType })
     surveyQuestionInputType: SurveyQuestionInputType;
 
     @IsEnum(SurveyQuestionType)
-    @ApiProperty({ enum: SurveyQuestionType })
     surveyQuestionType: SurveyQuestionType;
   }
 

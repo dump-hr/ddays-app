@@ -6,11 +6,9 @@ export const getUpdateInterestDto = (ApiPropertySwagger?: any) => {
 
   class UpdateInterestDto {
     @IsString()
-    @ApiProperty({ required: false })
     name?: string;
 
     @IsEnum(EventTheme)
-    @ApiProperty({ enum: EventTheme })
     theme?: EventTheme;
   }
 
