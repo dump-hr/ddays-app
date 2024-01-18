@@ -33,7 +33,7 @@ const setupSwagger = (app: INestApplication) => {
 const setupFrontendDevServerProxies = (app: INestApplication) => {
   app.use(
     '/',
-    createProxyMiddleware(['!/api/**'], {
+    createProxyMiddleware(['!/api/**', '!/sponsor/**', '!/admin/**'], {
       target: 'https://ddays.azureedge.net/',
       changeOrigin: true,
     }),
