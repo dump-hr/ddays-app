@@ -67,8 +67,6 @@ const migrate = async () => {
 };
 
 const run = async (app: INestApplication) => {
-  app.setGlobalPrefix('api');
-
   const port = process.env.PORT || 3000;
   const database = new URL(process.env.DATABASE_URL).pathname.slice(1);
 
@@ -80,6 +78,7 @@ const run = async (app: INestApplication) => {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
 
   setupClassValidator(app);
   setupSwagger(app);

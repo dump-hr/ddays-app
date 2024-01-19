@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm';
 import { CreateEventDto, UpdateEventDto } from './events.dto';
 
 @Injectable()
-export class EventsService {
+export class EventService {
   async create(createEventDto: CreateEventDto) {
     const createdEvent = await db
       .insert(event)
@@ -69,6 +69,14 @@ export class EventsService {
     return eventToFind;
   }
 
+  async remove(id: number) {
+    const deletedUser = await db
+      .delete(event)
+      .where(eq(event.id, id))
+      .returning();
+
+    return deletedUser;
+  }
   async update(id: number, updateEventDto: UpdateEventDto) {
     const updatedEvent = await db
       .update(event)
@@ -88,14 +96,5 @@ export class EventsService {
       .returning();
 
     return updatedEvent;
-  }
-
-  async remove(id: number) {
-    const deletedUser = await db
-      .delete(event)
-      .where(eq(event.id, id))
-      .returning();
-
-    return deletedUser;
   }
 }

@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import { AddSponsorJobDto } from 'src/companies/companies.dto';
 
 @Injectable()
-export class JobsService {
+export class JobService {
   async create(addSponsorJob: AddSponsorJobDto) {
     const addedJob = await db
       .insert(job)

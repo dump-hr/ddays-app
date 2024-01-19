@@ -7,26 +7,26 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BlobModule } from './blob/blob.module';
-import { CompaniesModule } from './companies/companies.module';
-import { EventsModule } from './events/events.module';
-import { FrequentlyAskedQuestionModule } from './frequentlyAskedQuestion/frequentlyAskedQuestion.module';
-import { InterestsModule } from './interests/interests.module';
-import { JobsModule } from './jobs/jobs.module';
+import { CompanyModule } from './company/company.module';
+import { EventModule } from './event/event.module';
+import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
+import { InterestModule } from './interest/interest.module';
+import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
-import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module';
+import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
 @Module({
   imports: [
     BlobModule,
     AuthModule,
     AchievementModule,
-    CompaniesModule,
-    EventsModule,
+    CompanyModule,
+    EventModule,
     FrequentlyAskedQuestionModule,
-    InterestsModule,
-    SurveyQuestionsModule,
+    InterestModule,
+    SurveyQuestionModule,
     NotificationModule,
-    JobsModule,
+    JobModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

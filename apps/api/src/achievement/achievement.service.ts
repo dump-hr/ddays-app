@@ -8,17 +8,25 @@ import { desc } from 'drizzle-orm';
 export class AchievementService {
   async getAll() {
     const achievements = await db
-      .select()
+      .select({
+        id: achievement.id,
+        name: achievement.name,
+        description: achievement.description,
+        points: achievement.points,
+        fulfillmentCodeCount: achievement.fulfillmentCodeCount,
+        isHidden: achievement.isHidden,
+        createdAt: achievement.createdAt,
+      })
       .from(achievement)
       .orderBy(desc(achievement.points));
 
     return achievements;
   }
 
-  async create(body: AchievementCreateReqDto) {
+  async create(dto: AchievementCreateReqDto) {
     const [createdAchievement] = await db
       .insert(achievement)
-      .values(body)
+      .values(dto)
       .returning();
 
     return createdAchievement;

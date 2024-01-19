@@ -10,62 +10,7 @@ import {
 } from './surveyQuestions.dto';
 
 @Injectable()
-export class SurveyQuestionsService {
-  async getAll() {
-    const surveyQuestions = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .orderBy(surveyQuestion.inputLabel);
-
-    return surveyQuestions;
-  }
-
-  async getOne(id: number) {
-    const surveyQuestionsToFind = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.id, id));
-
-    if (!surveyQuestionsToFind.length) {
-      return null;
-    }
-
-    const surveyQuestionToFind = surveyQuestionsToFind[0];
-
-    return surveyQuestionToFind;
-  }
-
-  async getAllOfType(type: SurveyQuestionType) {
-    const surveyQuestions = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.type, type))
-      .orderBy(surveyQuestion.inputLabel);
-
-    return surveyQuestions;
-  }
-
+export class SurveyQuestionService {
   async create(createSurveyQuestionDto: CreateSurveyQuestionDto) {
     if (createSurveyQuestionDto.question.trim() === '') {
       throw new HttpException('Question cannot be empty', 400);
@@ -97,7 +42,74 @@ export class SurveyQuestionsService {
 
     return createdSurveyQuestion;
   }
+  async getAll() {
+    const surveyQuestions = await db
+      .select({
+        id: surveyQuestion.id,
+        question: surveyQuestion.question,
+        description: surveyQuestion.description,
+        inputLabel: surveyQuestion.inputLabel,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
+      })
+      .from(surveyQuestion)
+      .orderBy(surveyQuestion.inputLabel);
 
+    return surveyQuestions;
+  }
+
+  async getAllOfType(type: SurveyQuestionType) {
+    const surveyQuestions = await db
+      .select({
+        id: surveyQuestion.id,
+        question: surveyQuestion.question,
+        description: surveyQuestion.description,
+        inputLabel: surveyQuestion.inputLabel,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
+      })
+      .from(surveyQuestion)
+      .where(eq(surveyQuestion.type, type))
+      .orderBy(surveyQuestion.inputLabel);
+
+    return surveyQuestions;
+  }
+  async getOne(id: number) {
+    const surveyQuestionsToFind = await db
+      .select({
+        id: surveyQuestion.id,
+        question: surveyQuestion.question,
+        description: surveyQuestion.description,
+        inputLabel: surveyQuestion.inputLabel,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
+      })
+      .from(surveyQuestion)
+      .where(eq(surveyQuestion.id, id));
+
+    if (!surveyQuestionsToFind.length) {
+      return null;
+    }
+
+    const surveyQuestionToFind = surveyQuestionsToFind[0];
+
+    return surveyQuestionToFind;
+  }
+
+  async remove(id: number) {
+    const deletedSurveyQuestions = await db
+      .delete(surveyQuestion)
+      .where(eq(surveyQuestion.id, id))
+      .returning();
+
+    if (!deletedSurveyQuestions.length) {
+      throw new HttpException('Survey question not found', 404);
+    }
+
+    const deletedSurveyQuestion = deletedSurveyQuestions[0];
+
+    return deletedSurveyQuestion;
+  }
   async update(id: number, updateSurveyQuestionDto: UpdateSurveyQuestionDto) {
     if (updateSurveyQuestionDto.question.trim() === '') {
       throw new HttpException('Question cannot be empty', 400);
@@ -133,20 +145,5 @@ export class SurveyQuestionsService {
     const updatedSurveyQuestion = updatedSurveyQuestions[0];
 
     return updatedSurveyQuestion;
-  }
-
-  async remove(id: number) {
-    const deletedSurveyQuestions = await db
-      .delete(surveyQuestion)
-      .where(eq(surveyQuestion.id, id))
-      .returning();
-
-    if (!deletedSurveyQuestions.length) {
-      throw new HttpException('Survey question not found', 404);
-    }
-
-    const deletedSurveyQuestion = deletedSurveyQuestions[0];
-
-    return deletedSurveyQuestion;
   }
 }

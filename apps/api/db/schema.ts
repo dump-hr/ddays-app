@@ -120,12 +120,7 @@ export const jobRelations = relations(job, ({ one }) => ({
   }),
 }));
 
-export const eventTheme = pgEnum('event_theme', [
-  'dev',
-  'design',
-  'marketing',
-  'tech',
-]);
+export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
 
 export const eventType = pgEnum('event_type', [
   'lecture',
@@ -140,7 +135,7 @@ export const event = pgTable('event', {
   name: text('name').notNull(),
   description: text('description'),
   type: eventType('type'),
-  theme: eventTheme('theme'),
+  theme: theme('theme'),
   startsAt: timestamp('starts_at').notNull(),
   endsAt: timestamp('ends_at').notNull(),
   requirements: text('requirements'),
@@ -160,7 +155,7 @@ export const eventRelations = relations(event, ({ one, many }) => ({
 export const interest = pgTable('interests', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
-  theme: eventTheme('theme').notNull(),
+  theme: theme('theme').notNull(),
 });
 
 export const interestRelations = relations(interest, ({ many }) => ({

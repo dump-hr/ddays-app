@@ -32,9 +32,7 @@ export class BlobService {
     try {
       await this.client.send(command);
 
-      const imageUrl = `${this.url}/${key}`;
-
-      return imageUrl;
+      return `${this.url}/${key}`;
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error.message);

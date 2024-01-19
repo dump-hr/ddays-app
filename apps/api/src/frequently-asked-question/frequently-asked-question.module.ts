@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { FrequentlyAskedQuestionController } from './frequentlyAskedQuestion.controller';
-import { FrequentlyAskedQuestionService } from './frequentlyAskedQuestion.service';
+import { FrequentlyAskedQuestionController } from './frequently-asked-question.controller';
+import { FrequentlyAskedQuestionService } from './frequently-asked-question.service';
 
 @Module({
   imports: [],

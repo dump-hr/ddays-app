@@ -113,14 +113,8 @@ const NotificationsPage = () => {
       </Modal>
 
       <Table
-        headers={headers}
-        data={notifications
-          ?.sort((a, b) => a.id - b.id)
-          .map((n) => ({
-            ...n,
-            activatedAt: n.activatedAt,
-          }))}
-        buttonActions={[
+        data={notifications?.sort((a, b) => a.id - b.id)}
+        actions={[
           {
             label: 'Uredi',
             action: (notification) => {

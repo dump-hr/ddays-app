@@ -1,7 +1,7 @@
 import { QueryOptions, useQuery } from 'react-query';
 
-import { api } from '..';
 import { SurveyQuestion } from '../../types/surveyQuestion';
+import { api } from '..';
 
 const fetchAllSurveyQuestions = async () =>
   await api.get<never, SurveyQuestion[]>('/survey-questions');

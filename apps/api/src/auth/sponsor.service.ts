@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CompaniesService } from 'src/companies/companies.service';
+import { CompanyService } from 'src/company/company.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private companyService: CompaniesService,
+    private companyService: CompanyService,
     private jwtService: JwtService,
   ) {}
 

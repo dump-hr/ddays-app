@@ -21,8 +21,8 @@ export class AchievementController {
   @UseGuards(AdminGuard)
   @Post()
   async create(
-    @Body() body: AchievementCreateReqDto,
+    @Body() dto: AchievementCreateReqDto,
   ): Promise<AchievementCreateResDto> {
-    return await this.achievementService.create(body);
+    return await this.achievementService.create(dto);
   }
 }

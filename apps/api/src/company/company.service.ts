@@ -18,9 +18,74 @@ import {
 } from './companies.dto';
 
 @Injectable()
-export class CompaniesService {
+export class CompanyService {
   constructor(private readonly blobService: BlobService) {}
 
+  async addInterest(companyId: number, interestId: number) {
+    const addedInterest = await db
+      .insert(companyToInterest)
+      .values({
+        interestId: interestId,
+        companyId: companyId,
+      })
+      .returning();
+
+    return addedInterest;
+  }
+  async addLandingImage(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-landing-images',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
+    const addedLandingImage = await db
+      .update(company)
+      .set({
+        landingImage: imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLandingImage;
+  }
+  async addLogo(id: number, file: Express.Multer.File) {
+    const imageUrl = await this.blobService.upload(
+      'companies-logos',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
+
+    const addedLogo = await db
+      .update(company)
+      .set({
+        logoImage: imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedLogo;
+  }
+  async addVideo(id: number, file: Express.Multer.File) {
+    const videoUrl = await this.blobService.upload(
+      'companies-videos',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
+    const addedVideo = await db
+      .update(company)
+      .set({
+        companyVideo: videoUrl,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return addedVideo;
+  }
   async create(createCompanyDto: CreateCompanyDto) {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
@@ -46,6 +111,20 @@ export class CompaniesService {
     return createdComapny;
   }
 
+  async generateCodeForCompany(company: CreateCompanyDto) {
+    const codeValue = Math.random().toString(36).slice(-8);
+    const newCode = {
+      value: codeValue,
+      description: `Code for ${company.name}`,
+      points: 0, //TODO: Set this for later and other required things
+      isSingleUse: false,
+      isActive: true,
+    };
+
+    const createdCode = await db.insert(code).values(newCode).returning();
+
+    return createdCode;
+  }
   async getAll(): Promise<CompanyDto[]> {
     //TODO: Implement backend mapping and fix drizzle bugs
     const companies = await db
@@ -69,21 +148,33 @@ export class CompaniesService {
     return companies;
   }
 
-  async generateCodeForCompany(company: CreateCompanyDto) {
-    const codeValue = Math.random().toString(36).slice(-8);
-    const newCode = {
-      value: codeValue,
-      description: `Code for ${company.name}`,
-      points: 0, //TODO: Set this for later and other required things
-      isSingleUse: false,
-      isActive: true,
-    };
+  async getCompaniesWIthInterest(interestId: number) {
+    const companies = await db
+      .select({
+        id: company.id,
+        name: company.name,
+        logo: company.logoImage,
+        description: company.description,
+        website: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        codeId: company.codeId,
+      })
+      .from(companyToInterest)
+      .rightJoin(company, eq(companyToInterest.interestId, company.id))
+      .where(eq(companyToInterest.interestId, interestId));
 
-    const createdCode = await db.insert(code).values(newCode).returning();
-
-    return createdCode;
+    return companies;
   }
+  async getDescription(companyId: number): Promise<SponsorDescriptionDto> {
+    const description = await db
+      .select({
+        description: company.description,
+      })
+      .from(company)
+      .where(eq(company.id, companyId));
 
+    return description[0] ?? null;
+  }
   async getOne(id: number): Promise<CompanyDto | undefined> {
     const companyToGet = await db
       .select({
@@ -108,6 +199,58 @@ export class CompaniesService {
     return companyToGet[0];
   }
 
+  async getSponsorFormStatus(companyId: number) {
+    const company = await this.getOne(companyId);
+    const status = {};
+
+    status[FormSteps.Description] = company?.description?.length
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
+    const {
+      0: { count: interestsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(companyToInterest)
+      .where(eq(companyToInterest.companyId, companyId));
+
+    status[FormSteps.Interests] = interestsCount
+      ? StepStatus.Good
+      : StepStatus.Pending;
+
+    const {
+      0: { count: jobsCount },
+    } = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(job)
+      .where(eq(job.companyId, companyId));
+
+    status[FormSteps.Jobs] =
+      jobsCount <= 0 ? StepStatus.Pending : StepStatus.Good;
+
+    status[FormSteps.Logo] = StepStatus.Pending;
+    status[FormSteps.Photos] = StepStatus.Pending;
+    status[FormSteps.Videos] =
+      !!company.companyVideo && company.companyVideo !== ''
+        ? StepStatus.Good
+        : StepStatus.Pending;
+    status[FormSteps.SwagBag] = StepStatus.Pending;
+
+    return { status };
+  }
+  async interestExists(companyId: number, interestId: number) {
+    const interest = await db
+      .select()
+      .from(companyToInterest)
+      .where(
+        and(
+          eq(companyToInterest.companyId, companyId),
+          eq(companyToInterest.interestId, interestId),
+        ),
+      );
+
+    return interest.length > 0;
+  }
   async login(username: string, password: string) {
     const companyToLogin = await db
       .select({
@@ -129,6 +272,25 @@ export class CompaniesService {
     return passwordMatch && companyToLogin[0];
   }
 
+  async remove(id: number) {
+    const removedCompany = await db
+      .delete(company)
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedCompany;
+  }
+  async removeDescription(id: number) {
+    const removedDescription = await db
+      .update(company)
+      .set({
+        description: null,
+      })
+      .where(eq(company.id, id))
+      .returning();
+
+    return removedDescription;
+  }
   async update(id: number, updateCompanyDto: UpdateCompanyDto) {
     const updatedCompany = await db
       .update(company)
@@ -153,35 +315,6 @@ export class CompaniesService {
     return updatedCompany;
   }
 
-  async remove(id: number) {
-    const removedCompany = await db
-      .delete(company)
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedCompany;
-  }
-
-  async getDescription(companyId: number): Promise<SponsorDescriptionDto> {
-    const description = await db
-      .select({
-        description: company.description,
-      })
-      .from(company)
-      .where(eq(company.id, companyId));
-
-    return description[0] ?? null;
-  }
-
-  private validateWordCount(str: string, limit: number, deviation: number) {
-    const lowerBound = limit - deviation;
-    const upperBound = limit + deviation;
-
-    const wc = str.match(/\S+/g)?.length || 0;
-
-    return wc >= lowerBound && wc <= upperBound;
-  }
-
   async updateDescription(
     companyId: number,
     { description }: UpdateSponsorDescriptionDto,
@@ -201,73 +334,38 @@ export class CompaniesService {
     return updatedCompany[0] ?? null;
   }
 
-  async addLogo(id: number, file: Express.Multer.File) {
-    const imageUrl = await this.blobService.upload(
-      'companies-logos',
-      file.filename,
-      file.buffer,
-      file.mimetype,
-    );
+  private validateWordCount(str: string, limit: number, deviation: number) {
+    const lowerBound = limit - deviation;
+    const upperBound = limit + deviation;
 
-    const addedLogo = await db
-      .update(company)
-      .set({
-        logoImage: imageUrl,
-      })
-      .where(eq(company.id, id))
-      .returning();
+    const wc = str.match(/\S+/g)?.length || 0;
 
-    return addedLogo;
+    return wc >= lowerBound && wc <= upperBound;
   }
 
-  async addVideo(id: number, file: Express.Multer.File) {
-    const videoUrl = await this.blobService.upload(
-      'companies-videos',
-      file.originalname,
-      file.buffer,
-      file.mimetype,
-    );
-
-    const addedVideo = await db
-      .update(company)
-      .set({
-        companyVideo: videoUrl,
-      })
-      .where(eq(company.id, id))
+  async removeInterest(companyId: number, interestId: number) {
+    const removedInterest = await db
+      .delete(companyToInterest)
+      .where(
+        and(
+          eq(companyToInterest.companyId, companyId),
+          eq(companyToInterest.interestId, interestId),
+        ),
+      )
       .returning();
 
-    return addedVideo;
+    return removedInterest;
   }
-
-  async addLandingImage(id: number, file: Express.Multer.File) {
-    const imageUrl = await this.blobService.upload(
-      'companies-landing-images',
-      file.originalname,
-      file.buffer,
-      file.mimetype,
-    );
-
-    const addedLandingImage = await db
+  async removeLandingImage(id: number) {
+    const removedLandingImage = await db
       .update(company)
       .set({
-        landingImage: imageUrl,
+        landingImage: null,
       })
       .where(eq(company.id, id))
       .returning();
 
-    return addedLandingImage;
-  }
-
-  async removeDescription(id: number) {
-    const removedDescription = await db
-      .update(company)
-      .set({
-        description: null,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedDescription;
+    return removedLandingImage;
   }
 
   async removeLogo(id: number) {
@@ -292,58 +390,6 @@ export class CompaniesService {
       .returning();
 
     return removedVideo;
-  }
-
-  async removeLandingImage(id: number) {
-    const removedLandingImage = await db
-      .update(company)
-      .set({
-        landingImage: null,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedLandingImage;
-  }
-
-  async addInterest(companyId: number, interestId: number) {
-    const addedInterest = await db
-      .insert(companyToInterest)
-      .values({
-        interestId: interestId,
-        companyId: companyId,
-      })
-      .returning();
-
-    return addedInterest;
-  }
-
-  async removeInterest(companyId: number, interestId: number) {
-    const removedInterest = await db
-      .delete(companyToInterest)
-      .where(
-        and(
-          eq(companyToInterest.companyId, companyId),
-          eq(companyToInterest.interestId, interestId),
-        ),
-      )
-      .returning();
-
-    return removedInterest;
-  }
-
-  async interestExists(companyId: number, interestId: number) {
-    const interest = await db
-      .select()
-      .from(companyToInterest)
-      .where(
-        and(
-          eq(companyToInterest.companyId, companyId),
-          eq(companyToInterest.interestId, interestId),
-        ),
-      );
-
-    return interest.length > 0;
   }
 
   async setInterests(companyId: number, interestIds: number[]) {
@@ -389,63 +435,5 @@ export class CompaniesService {
       : await this.addInterest(companyId, interestId);
 
     return action;
-  }
-
-  async getCompaniesWIthInterest(interestId: number) {
-    const companies = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        logo: company.logoImage,
-        description: company.description,
-        website: company.websiteUrl,
-        boothLocation: company.boothLocation,
-        codeId: company.codeId,
-      })
-      .from(companyToInterest)
-      .rightJoin(company, eq(companyToInterest.interestId, company.id))
-      .where(eq(companyToInterest.interestId, interestId));
-
-    return companies;
-  }
-
-  async getSponsorFormStatus(companyId: number) {
-    const company = await this.getOne(companyId);
-    const status = {};
-
-    status[FormSteps.Description] = company?.description?.length
-      ? StepStatus.Good
-      : StepStatus.Pending;
-
-    const {
-      0: { count: interestsCount },
-    } = await db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(companyToInterest)
-      .where(eq(companyToInterest.companyId, companyId));
-
-    status[FormSteps.Interests] = interestsCount
-      ? StepStatus.Good
-      : StepStatus.Pending;
-
-    const {
-      0: { count: jobsCount },
-    } = await db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(job)
-      .where(eq(job.companyId, companyId));
-
-    status[FormSteps.Jobs] =
-      jobsCount <= 0 ? StepStatus.Pending : StepStatus.Good;
-
-    status[FormSteps.Logo] = StepStatus.Pending;
-    status[FormSteps.Photos] = StepStatus.Pending;
-    status[FormSteps.Videos] =
-      !!company.companyVideo && company.companyVideo !== ''
-        ? StepStatus.Good
-        : StepStatus.Pending;
-    status[FormSteps.SwagBag] = StepStatus.Pending;
-
-    return { status };
   }
 }

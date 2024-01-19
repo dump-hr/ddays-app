@@ -1,0 +1,68 @@
+import {
+  InterestConnectToCompanyDto,
+  InterestDto,
+  InterestModifyDto,
+} from '@ddays-app/types';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { SponsorAuthGuard } from 'src/auth/sponsor.guard';
+
+import { InterestService } from './interest.service';
+
+@Controller('interest')
+export class InterestController {
+  constructor(private readonly interestService: InterestService) {}
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Put('/company')
+  async connectToCompany(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() dto: InterestConnectToCompanyDto,
+  ): Promise<void> {
+    return await this.interestService.connectToCompany(user.id, dto);
+  }
+
+  @Post()
+  async create(@Body() dto: InterestModifyDto): Promise<InterestDto> {
+    return await this.interestService.create(dto);
+  }
+
+  @Get()
+  async getAll(): Promise<InterestDto[]> {
+    return await this.interestService.getAll();
+  }
+
+  @Get('company/:id')
+  async getForCompany(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<InterestDto[]> {
+    return await this.interestService.getForCompany(id);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<InterestDto> {
+    return await this.interestService.remove(id);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: InterestModifyDto,
+  ): Promise<InterestDto> {
+    return await this.interestService.update(id, dto);
+  }
+}

@@ -1,6 +1,6 @@
 import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export type AchievementGetAllResDto = {
+export type AchievementDto = {
   id: number;
   name: string;
   description: string;
@@ -8,9 +8,9 @@ export type AchievementGetAllResDto = {
   fulfillmentCodeCount: number;
   isHidden: boolean;
   createdAt: Date;
-}[];
+};
 
-export class AchievementCreateReqDto {
+export class AchievementModifyDto {
   @IsString()
   name: string;
 
@@ -30,13 +30,3 @@ export class AchievementCreateReqDto {
   @IsBoolean()
   isHidden: boolean;
 }
-
-export type AchievementCreateResDto = {
-  id: number;
-  name: string;
-  description: string;
-  points: number;
-  fulfillmentCodeCount: number;
-  isHidden: boolean;
-  createdAt: Date;
-};

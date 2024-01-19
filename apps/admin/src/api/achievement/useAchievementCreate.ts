@@ -7,10 +7,10 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const achievementCreate = async (body: AchievementCreateReqDto) => {
+const achievementCreate = async (dto: AchievementCreateReqDto) => {
   return api.post<AchievementCreateReqDto, AchievementCreateResDto>(
     '/achievement',
-    body,
+    dto,
   );
 };
 

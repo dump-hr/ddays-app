@@ -7,27 +7,26 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { AddSponsorJobDto } from 'src/companies/companies.dto';
 
-import { JobsService } from './jobs.service';
+import { JobService } from './job.service';
 
-@ApiTags('jobs')
-@Controller('jobs')
-export class JobsController {
-  constructor(private readonly jobsService: JobsService) {}
+@Controller('job')
+export class JobController {
+  constructor(private readonly jobService: JobService) {}
 
   @ApiBearerAuth()
   @Post()
   async async(@Body() jobDto: AddSponsorJobDto) {
-    const createdJob = await this.jobsService.create(jobDto);
+    const createdJob = await this.jobService.create(jobDto);
 
     return createdJob;
   }
 
   @Get(':id')
   async getSponsorJobs(@Param('id', ParseIntPipe) id: number) {
-    const sponsorJobs = await this.jobsService.getSponsorJobs(id);
+    const sponsorJobs = await this.jobService.getSponsorJobs(id);
 
     return sponsorJobs;
   }
@@ -35,7 +34,7 @@ export class JobsController {
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    const deletedJob = await this.jobsService.remove(id);
+    const deletedJob = await this.jobService.remove(id);
 
     return deletedJob;
   }
