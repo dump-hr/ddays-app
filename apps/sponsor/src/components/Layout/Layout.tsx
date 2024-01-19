@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import useLocation from 'wouter/use-location';
 
+import appSvg from '../../assets/app.svg';
 import { pages } from '../../constants/pages';
 import c from './Layout.module.scss';
 
@@ -17,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <nav className={c.navWrapper}>
         <div className={c.nav}>
-          <img src='/app.svg' alt='App logo' className={c.navLogo} />
+          <img src={appSvg} alt='App logo' className={c.navLogo} />
           <div className={c.navItemsWrapper}>
             {pages.map(({ path, name, icon }) => (
               <div

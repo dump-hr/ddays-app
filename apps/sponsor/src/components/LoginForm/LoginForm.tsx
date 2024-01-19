@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 
 import { useLogin } from '../../api/useLogin';
+import passwordVisibilitySvg from '../../assets/password-visibility.svg';
 import { Path } from '../../constants/paths';
 import c from './LoginForm.module.scss';
 
@@ -84,7 +85,7 @@ const LoginForm = () => {
           className={c.visibilityButton}
           type='button'>
           <svg width={128} height={32}>
-            <use href={`/password-visibility.svg#${visibilityIcon}`} />
+            <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
           </svg>
         </button>
       </div>
