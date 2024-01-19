@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
 import ArrowRightSvg from '../../assets/arrow-right.svg';
+import StatusErrorSvg from '../../assets/status-error.svg';
+import StatusSuccessSvg from '../../assets/status-success.svg';
 import Modal from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import c from './MaterialsPage.module.scss';
@@ -15,13 +17,13 @@ const statusChips = {
   ),
   [StepStatus.Good]: (
     <div className={c.statusChip}>
-      <img src='/status-success.svg' />
+      <img src={StatusSuccessSvg} />
       <p>Uredi</p>
     </div>
   ),
   [StepStatus.Bad]: (
     <div className={c.statusChip}>
-      <img src='/status-error.svg' />
+      <img src={StatusErrorSvg} />
       <p>Uredi</p>
     </div>
   ),

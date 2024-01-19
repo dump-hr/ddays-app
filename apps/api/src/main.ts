@@ -61,6 +61,8 @@ const migrate = async () => {
     max: 1,
   });
 
+  console.log('JOIN', join(__dirname, '..', '..', 'db', 'migrations'));
+
   await migrator.migrate(drizzle(sql), {
     migrationsFolder: join(__dirname, '..', '..', 'db', 'migrations'),
   });

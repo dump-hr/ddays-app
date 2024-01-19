@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useDeleteVideo } from '../../api/useDeleteVideo';
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadVideo } from '../../api/useUploadVideo';
+import UploadSvg from '../../assets/upload.svg';
 import { getVideoMetadata } from '../../helpers/fileHelpers';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
@@ -79,7 +80,7 @@ const Video: FormComponent = ({ close }) => {
     return (
       <div {...getRootProps()} className={c.uploadContainer}>
         <input {...getInputProps()} />
-        <img src='/upload.svg' alt='Upload' className={c.upload} />
+        <img src={UploadSvg} alt='Upload' className={c.upload} />
         {!isLoading ? (
           <p className={c.instruction}>
             {isDragActive

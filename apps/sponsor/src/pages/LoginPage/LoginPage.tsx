@@ -1,3 +1,4 @@
+import logoSvg from '../../assets/logo.svg';
 import LoginForm from '../../components/LoginForm';
 import c from './LoginPage.module.scss';
 
@@ -9,7 +10,7 @@ const LoginPage = () => {
         <div className={c.formContainer}>
           <div className={c.logoSvg}>
             <svg width={128} height={32}>
-              <use href={`/logo.svg#logo`} />
+              <use href={`${logoSvg}#logo`} />
             </svg>
           </div>
           <h1 className={c.loginTitle}>Prijava u Partners App</h1>

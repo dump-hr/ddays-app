@@ -1,5 +1,5 @@
 {
-  "id": "83beffd9-ce87-412e-8b1b-3efea7cb849f",
+  "id": "9b8c84c6-3fb3-483f-a69f-05807cacee45",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -37,7 +37,7 @@
           "name": "fulfillment_code_count",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "is_hidden": {
           "name": "is_hidden",

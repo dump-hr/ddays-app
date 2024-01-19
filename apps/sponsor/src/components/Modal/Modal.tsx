@@ -2,6 +2,7 @@ import { FormSteps } from '@ddays-app/types';
 import React from 'react';
 import { useEffect } from 'react';
 
+import closeSvg from '../../assets/close.svg';
 import { FormStep } from '../../types/form';
 import c from './Modal.module.scss';
 
@@ -46,12 +47,7 @@ const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
     <>
       <div className={c.background}>
         <div className={c.container}>
-          <img
-            src='/close.svg'
-            alt='Close'
-            className={c.close}
-            onClick={close}
-          />
+          <img src={closeSvg} alt='Close' className={c.close} onClick={close} />
           {form.component({ close })}
         </div>
       </div>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import sprite from '../../../public/sprite.svg';
 import RemoveSvg from '../../assets/remove.svg';
+import sprite from '../../assets/sprite.svg';
 import { Message } from '../../constants/messages';
 import { photoHelper } from '../../helpers/photoHelper';
 import { ErrorMessage } from '.';
