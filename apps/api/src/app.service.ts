@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { db } from 'db';
+import { sql } from 'drizzle-orm';
 
 @Injectable()
 export class AppService {
   async healthCheck(): Promise<string> {
-    // todo: check db conn
+    await db.execute(sql`SELECT 1`);
     return 'ok';
   }
 }

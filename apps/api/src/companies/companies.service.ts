@@ -1,11 +1,11 @@
-import { FormSteps, SponsorCategory, StepStatus } from '@ddays-app/types';
+import { FormSteps, StepStatus } from '@ddays-app/types';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { db } from 'db';
-import { code, company, companyInterests, job } from 'db/schema';
+import { code, company, companyToInterest, job } from 'db/schema';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
@@ -13,7 +13,6 @@ import {
   CompanyDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
-  SponsorJobsDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
 } from './companies.dto';
@@ -33,7 +32,8 @@ export class CompaniesService {
         password: generatedPassword,
         name: createCompanyDto.name,
         description: createCompanyDto.description,
-        sponsorCategory: createCompanyDto.sponsorCategory as SponsorCategory,
+        // TODO: fix
+        // category: createCompanyDto.sponsorCategory,
         websiteUrl: createCompanyDto.websiteUrl,
         boothLocation: createCompanyDto.boothLocation,
         codeId: generatedCode[0].id,
@@ -53,7 +53,7 @@ export class CompaniesService {
         id: company.id,
         name: company.name,
         description: company.description,
-        sponsorCategory: company.sponsorCategory,
+        sponsorCategory: company.category,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         url: company.websiteUrl,
@@ -90,7 +90,7 @@ export class CompaniesService {
         id: company.id,
         name: company.name,
         description: company.description,
-        sponsorCategory: company.sponsorCategory,
+        sponsorCategory: company.category,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
         codeId: company.codeId,
@@ -135,7 +135,8 @@ export class CompaniesService {
       .set({
         name: updateCompanyDto.name,
         description: updateCompanyDto.description,
-        sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
+        // TODO: fix
+        // sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
         websiteUrl: updateCompanyDto.websiteUrl,
         boothLocation: updateCompanyDto.boothLocation,
         username: updateCompanyDto.username,
@@ -307,7 +308,7 @@ export class CompaniesService {
 
   async addInterest(companyId: number, interestId: number) {
     const addedInterest = await db
-      .insert(companyInterests)
+      .insert(companyToInterest)
       .values({
         interestId: interestId,
         companyId: companyId,
@@ -319,11 +320,11 @@ export class CompaniesService {
 
   async removeInterest(companyId: number, interestId: number) {
     const removedInterest = await db
-      .delete(companyInterests)
+      .delete(companyToInterest)
       .where(
         and(
-          eq(companyInterests.companyId, companyId),
-          eq(companyInterests.interestId, interestId),
+          eq(companyToInterest.companyId, companyId),
+          eq(companyToInterest.interestId, interestId),
         ),
       )
       .returning();
@@ -334,11 +335,11 @@ export class CompaniesService {
   async interestExists(companyId: number, interestId: number) {
     const interest = await db
       .select()
-      .from(companyInterests)
+      .from(companyToInterest)
       .where(
         and(
-          eq(companyInterests.companyId, companyId),
-          eq(companyInterests.interestId, interestId),
+          eq(companyToInterest.companyId, companyId),
+          eq(companyToInterest.interestId, interestId),
         ),
       );
 
@@ -354,8 +355,8 @@ export class CompaniesService {
 
     const interests = await db
       .select()
-      .from(companyInterests)
-      .where(eq(companyInterests.companyId, companyId));
+      .from(companyToInterest)
+      .where(eq(companyToInterest.companyId, companyId));
 
     const interestsToRemove = interests
       .filter((interest) => !interestIds.includes(interest.interestId))
@@ -373,11 +374,11 @@ export class CompaniesService {
 
     if (interestsToRemove.length)
       await db
-        .delete(companyInterests)
-        .where(inArray(companyInterests.interestId, interestsToRemove));
+        .delete(companyToInterest)
+        .where(inArray(companyToInterest.interestId, interestsToRemove));
 
     if (interestsToAdd.length)
-      await db.insert(companyInterests).values(interestsToAdd);
+      await db.insert(companyToInterest).values(interestsToAdd);
   }
 
   async toggleInterest(companyId: number, interestId: number) {
@@ -401,9 +402,9 @@ export class CompaniesService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
       })
-      .from(companyInterests)
-      .rightJoin(company, eq(companyInterests.interestId, company.id))
-      .where(eq(companyInterests.interestId, interestId));
+      .from(companyToInterest)
+      .rightJoin(company, eq(companyToInterest.interestId, company.id))
+      .where(eq(companyToInterest.interestId, interestId));
 
     return companies;
   }
@@ -420,8 +421,8 @@ export class CompaniesService {
       0: { count: interestsCount },
     } = await db
       .select({ count: sql<number>`count(*)::int` })
-      .from(companyInterests)
-      .where(eq(companyInterests.companyId, companyId));
+      .from(companyToInterest)
+      .where(eq(companyToInterest.companyId, companyId));
 
     status[FormSteps.Interests] = interestsCount
       ? StepStatus.Good

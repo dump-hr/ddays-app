@@ -1,6 +1,8 @@
 <h1 align="center">DUMP Days App</h1>
 
-DUMP Days App
+Env        | CI status
+---------- | ---------
+Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/deploy.yml/badge.svg?branch=main) ![Lint](https://github.com/dump-hr/ddays-app/actions/workflows/lint.yml/badge.svg?branch=main)
 
 ## Development
 
@@ -11,15 +13,11 @@ DUMP Days App
 
 #### Setup environment
 
-1. Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally. 
+1. Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally.
 
-    If you use local postgres db server, create manually new database named `ddays` 
-
+   If you use local postgres db server, create manually new database named `ddays-app` 
 
 2. Create `.env.local` file that can override configuration options from `.env` in web/api apps.
-
-    Add required env variables for `api`:
-   - `DATABASE_URL`
 
 #### Install dependencies
 
@@ -32,28 +30,24 @@ yarn
 #### Generate new database migrations (after adding models)
 
 ```
-yarn generate
+yarn db:generate
 ```
 
 #### Run database migrations
 
 ```
-yarn migrate
+yarn db:migrate
 ```
 
-#### Run database seed
+or just restart development server
 
-```
-//todo
-```
-
-#### Run app
+#### Run development server
 
 ```
 yarn dev
 ```
 
-App is now accessible on <http://localhost:5173/>. API routes are prefixed with `/api`.
+App is now accessible on <http://localhost:3000/>. API routes are prefixed with `/api`, Admin app is prefixed with `/admin` and Sponsor app is prefixed with `/sponsor`.
 
 ## Cookbook
 

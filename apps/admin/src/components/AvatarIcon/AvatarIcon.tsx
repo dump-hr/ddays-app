@@ -11,7 +11,7 @@ const AvatarIcon: React.FC<AvatarIconProps> = ({
 }) => {
   return (
     <svg width={width} height={height}>
-      <use href={`/avatars.svg#${avatarId}`} />
+      <use href={`/admin/avatars.svg#${avatarId}`} />
     </svg>
   );
 };

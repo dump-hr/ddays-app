@@ -69,7 +69,7 @@ export class NotificationService {
     const activatedNotification = await db
       .update(notification)
       .set({
-        activatedAt: new Date().toString(),
+        activatedAt: new Date(),
       })
       .where(eq(notification.id, id))
       .returning();

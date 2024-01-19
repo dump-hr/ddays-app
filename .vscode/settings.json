@@ -1,8 +1,8 @@
 {
-    "eslint.workingDirectories": [{ "mode": "auto" }],
-    "eslint.format.enable": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.fixAll.eslint": "explicit"
-    }
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  }
 }

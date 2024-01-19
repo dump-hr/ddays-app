@@ -11,6 +11,9 @@
   display: flex;
   min-width: 1000px;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .pages {
@@ -21,11 +24,14 @@
 
 .account {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .user {
   display: flex;
   flex-direction: column;
-  p { margin: 0; }
+  p {
+    margin: 0;
+  }
 }

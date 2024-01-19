@@ -1,5 +1,5 @@
 {
-  "id": "32069ffe-2925-496c-b803-6fdfab029ebd",
+  "id": "83beffd9-ce87-412e-8b1b-3efea7cb849f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -16,21 +16,22 @@
         },
         "name": {
           "name": "name",
-          "type": "varchar(50)",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "description": {
           "name": "description",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "points": {
           "name": "points",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "default": 0
         },
         "fulfillment_code_count": {
           "name": "fulfillment_code_count",
@@ -58,8 +59,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "achievementToCode": {
-      "name": "achievementToCode",
+    "achievement_to_code": {
+      "name": "achievement_to_code",
       "schema": "",
       "columns": {
         "achievement_id": {
@@ -77,9 +78,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "achievementToCode_achievement_id_achievement_id_fk": {
-          "name": "achievementToCode_achievement_id_achievement_id_fk",
-          "tableFrom": "achievementToCode",
+        "achievement_to_code_achievement_id_achievement_id_fk": {
+          "name": "achievement_to_code_achievement_id_achievement_id_fk",
+          "tableFrom": "achievement_to_code",
           "tableTo": "achievement",
           "columnsFrom": [
             "achievement_id"
@@ -87,12 +88,12 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "achievementToCode_code_id_code_id_fk": {
-          "name": "achievementToCode_code_id_code_id_fk",
-          "tableFrom": "achievementToCode",
+        "achievement_to_code_code_id_code_id_fk": {
+          "name": "achievement_to_code_code_id_code_id_fk",
+          "tableFrom": "achievement_to_code",
           "tableTo": "code",
           "columnsFrom": [
             "code_id"
@@ -100,13 +101,13 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
-        "achievementToCode_achievement_id_code_id_pk": {
-          "name": "achievementToCode_achievement_id_code_id_pk",
+        "achievement_to_code_achievement_id_code_id_pk": {
+          "name": "achievement_to_code_achievement_id_code_id_pk",
           "columns": [
             "achievement_id",
             "code_id"
@@ -127,21 +128,22 @@
         },
         "value": {
           "name": "value",
-          "type": "varchar(10)",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "description": {
           "name": "description",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "points": {
           "name": "points",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "default": 0
         },
         "is_active": {
           "name": "is_active",
@@ -168,8 +170,7 @@
           "name": "expiration_date",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -198,11 +199,11 @@
           "name": "password",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "sponsor_category": {
-          "name": "sponsor_category",
-          "type": "sponsor_category",
+        "category": {
+          "name": "category",
+          "type": "company_category",
           "primaryKey": false,
           "notNull": false
         },
@@ -210,7 +211,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "username": {
           "name": "username",
@@ -258,7 +259,7 @@
           "name": "code_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         }
       },
       "indexes": {},
@@ -288,18 +289,18 @@
         }
       }
     },
-    "companyInterests": {
-      "name": "companyInterests",
+    "company_to_interest": {
+      "name": "company_to_interest",
       "schema": "",
       "columns": {
-        "companyId": {
-          "name": "companyId",
+        "company_id": {
+          "name": "company_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "interestId": {
-          "name": "interestId",
+        "interest_id": {
+          "name": "interest_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -307,12 +308,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "companyInterests_companyId_company_id_fk": {
-          "name": "companyInterests_companyId_company_id_fk",
-          "tableFrom": "companyInterests",
+        "company_to_interest_company_id_company_id_fk": {
+          "name": "company_to_interest_company_id_company_id_fk",
+          "tableFrom": "company_to_interest",
           "tableTo": "company",
           "columnsFrom": [
-            "companyId"
+            "company_id"
           ],
           "columnsTo": [
             "id"
@@ -320,12 +321,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "companyInterests_interestId_interests_id_fk": {
-          "name": "companyInterests_interestId_interests_id_fk",
-          "tableFrom": "companyInterests",
+        "company_to_interest_interest_id_interests_id_fk": {
+          "name": "company_to_interest_interest_id_interests_id_fk",
+          "tableFrom": "company_to_interest",
           "tableTo": "interests",
           "columnsFrom": [
-            "interestId"
+            "interest_id"
           ],
           "columnsTo": [
             "id"
@@ -335,11 +336,11 @@
         }
       },
       "compositePrimaryKeys": {
-        "companyInterests_companyId_interestId_pk": {
-          "name": "companyInterests_companyId_interestId_pk",
+        "company_to_interest_company_id_interest_id_pk": {
+          "name": "company_to_interest_company_id_interest_id_pk",
           "columns": [
-            "companyId",
-            "interestId"
+            "company_id",
+            "interest_id"
           ]
         }
       },
@@ -367,14 +368,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "event_type": {
-          "name": "event_type",
+        "type": {
+          "name": "type",
           "type": "event_type",
           "primaryKey": false,
           "notNull": false
         },
-        "event_theme": {
-          "name": "event_theme",
+        "theme": {
+          "name": "theme",
           "type": "event_theme",
           "primaryKey": false,
           "notNull": false
@@ -389,7 +390,7 @@
           "name": "ends_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "requirements": {
           "name": "requirements",
@@ -435,18 +436,18 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "eventInterests": {
-      "name": "eventInterests",
+    "event_to_interest": {
+      "name": "event_to_interest",
       "schema": "",
       "columns": {
-        "eventId": {
-          "name": "eventId",
+        "event_id": {
+          "name": "event_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "interestId": {
-          "name": "interestId",
+        "interest_id": {
+          "name": "interest_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -454,46 +455,46 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "eventInterests_eventId_event_id_fk": {
-          "name": "eventInterests_eventId_event_id_fk",
-          "tableFrom": "eventInterests",
+        "event_to_interest_event_id_event_id_fk": {
+          "name": "event_to_interest_event_id_event_id_fk",
+          "tableFrom": "event_to_interest",
           "tableTo": "event",
           "columnsFrom": [
-            "eventId"
+            "event_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "eventInterests_interestId_interests_id_fk": {
-          "name": "eventInterests_interestId_interests_id_fk",
-          "tableFrom": "eventInterests",
+        "event_to_interest_interest_id_interests_id_fk": {
+          "name": "event_to_interest_interest_id_interests_id_fk",
+          "tableFrom": "event_to_interest",
           "tableTo": "interests",
           "columnsFrom": [
-            "interestId"
+            "interest_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
-        "eventInterests_eventId_interestId_pk": {
-          "name": "eventInterests_eventId_interestId_pk",
+        "event_to_interest_event_id_interest_id_pk": {
+          "name": "event_to_interest_event_id_interest_id_pk",
           "columns": [
-            "eventId",
-            "interestId"
+            "event_id",
+            "interest_id"
           ]
         }
       },
       "uniqueConstraints": {}
     },
-    "frequentlyAskedQuestion": {
-      "name": "frequentlyAskedQuestion",
+    "frequently_asked_question": {
+      "name": "frequently_asked_question",
       "schema": "",
       "columns": {
         "id": {
@@ -568,13 +569,19 @@
           "name": "location",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "details": {
           "name": "details",
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "link": {
+          "name": "link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -629,7 +636,7 @@
           "name": "description",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "is_active": {
           "name": "is_active",
@@ -650,8 +657,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "surveyQuestion": {
-      "name": "surveyQuestion",
+    "survey_question": {
+      "name": "survey_question",
       "schema": "",
       "columns": {
         "id": {
@@ -664,7 +671,7 @@
           "name": "question",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "description": {
           "name": "description",
@@ -680,13 +687,13 @@
         },
         "inputType": {
           "name": "inputType",
-          "type": "surveyQuestionInputType",
+          "type": "survey_question_input_type",
           "primaryKey": false,
           "notNull": true
         },
         "type": {
           "name": "type",
-          "type": "surveyQuestionType",
+          "type": "survey_question_type",
           "primaryKey": false,
           "notNull": true
         }
@@ -698,13 +705,23 @@
     }
   },
   "enums": {
+    "company_category": {
+      "name": "company_category",
+      "values": {
+        "gold": "gold",
+        "silver": "silver",
+        "bronze": "bronze",
+        "media": "media",
+        "friend": "friend"
+      }
+    },
     "event_theme": {
       "name": "event_theme",
       "values": {
         "dev": "dev",
         "design": "design",
-        "tech": "tech",
-        "marketing": "marketing"
+        "marketing": "marketing",
+        "tech": "tech"
       }
     },
     "event_type": {
@@ -717,32 +734,16 @@
         "other": "other"
       }
     },
-    "sponsor_category": {
-      "name": "sponsor_category",
-      "values": {
-        "general": "general",
-        "gold": "gold",
-        "silver": "silver",
-        "bronze": "bronze",
-        "workshop": "workshop",
-        "foodAndBeverage": "foodAndBeverage",
-        "generalMedia": "generalMedia",
-        "media": "media",
-        "organizational": "organizational",
-        "prizeGame": "prizeGame",
-        "friend": "friend"
-      }
-    },
-    "surveyQuestionInputType": {
-      "name": "surveyQuestionInputType",
+    "survey_question_input_type": {
+      "name": "survey_question_input_type",
       "values": {
         "input": "input",
         "textarea": "textarea",
         "rating": "rating"
       }
     },
-    "surveyQuestionType": {
-      "name": "surveyQuestionType",
+    "survey_question_type": {
+      "name": "survey_question_type",
       "values": {
         "workshop": "workshop",
         "lecture": "lecture",

@@ -7,7 +7,7 @@ import { Route, Switch } from 'wouter';
 
 import Layout from './components/Layout';
 import { Path } from './constants/paths';
-import AchievementsPage from './pages/AchievementsPage';
+import { AchievementsPage } from './pages/AchievementsPage';
 import CompaniesPage from './pages/CompaniesPage';
 import EventsPage from './pages/EventsPage';
 import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';

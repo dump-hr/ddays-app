@@ -6,3 +6,4 @@ export * from './interest';
 export * from './sponsor';
 export * from './auth';
 export * from './notification';
+export * from './achievement';

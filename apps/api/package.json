@@ -6,15 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "dotenv -c -- nest build",
-    "start": "dotenv -c -- node dist/src/main.js",
     "dev": "dotenv -c -- nest start --watch --preserveWatchOutput",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "build": "dotenv -c -- nest build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "introspect": "dotenv -c -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
-    "generate": "dotenv -c -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
-    "studio": "dotenv -c -- drizzle-kit studio --config ./db/drizzle.config.ts",
-    "migrate": "dotenv -c -- tsx ./db/migrate"
+    "db:generate": "dotenv -c -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
+    "db:migrate": "dotenv -c -- tsx ./db/migrate",
+    "db:studio": "dotenv -c -- drizzle-kit studio --config ./db/drizzle.config.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.485.0",
@@ -52,7 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "dotenv-cli": "^7.3.0",
-    "drizzle-kit": "^0.20.4",
+    "drizzle-kit": "^0.20.13",
     "eslint": "^8.42.0",
     "eslint-config-ddays": "*",
     "eslint-config-prettier": "^9.0.0",

@@ -18,8 +18,8 @@ export class SurveyQuestionsService {
         question: surveyQuestion.question,
         description: surveyQuestion.description,
         inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.surveyQuestionInputType,
-        surveyQuestionType: surveyQuestion.surveyQuestionType,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
       })
       .from(surveyQuestion)
       .orderBy(surveyQuestion.inputLabel);
@@ -34,8 +34,8 @@ export class SurveyQuestionsService {
         question: surveyQuestion.question,
         description: surveyQuestion.description,
         inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.surveyQuestionInputType,
-        surveyQuestionType: surveyQuestion.surveyQuestionType,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
       })
       .from(surveyQuestion)
       .where(eq(surveyQuestion.id, id));
@@ -56,11 +56,11 @@ export class SurveyQuestionsService {
         question: surveyQuestion.question,
         description: surveyQuestion.description,
         inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.surveyQuestionInputType,
-        surveyQuestionType: surveyQuestion.surveyQuestionType,
+        surveyQuestionInputType: surveyQuestion.inputType,
+        surveyQuestionType: surveyQuestion.type,
       })
       .from(surveyQuestion)
-      .where(eq(surveyQuestion.surveyQuestionType, type))
+      .where(eq(surveyQuestion.type, type))
       .orderBy(surveyQuestion.inputLabel);
 
     return surveyQuestions;
@@ -88,9 +88,8 @@ export class SurveyQuestionsService {
         question: createSurveyQuestionDto.question,
         description: createSurveyQuestionDto.description,
         inputLabel: createSurveyQuestionDto.inputLabel,
-        surveyQuestionInputType:
-          createSurveyQuestionDto.surveyQuestionInputType,
-        surveyQuestionType: createSurveyQuestionDto.surveyQuestionType,
+        inputType: createSurveyQuestionDto.surveyQuestionInputType,
+        type: createSurveyQuestionDto.surveyQuestionType,
       })
       .returning();
 
@@ -121,9 +120,8 @@ export class SurveyQuestionsService {
         question: updateSurveyQuestionDto.question,
         description: updateSurveyQuestionDto.description,
         inputLabel: updateSurveyQuestionDto.inputLabel,
-        surveyQuestionInputType:
-          updateSurveyQuestionDto.surveyQuestionInputType,
-        surveyQuestionType: updateSurveyQuestionDto.surveyQuestionType,
+        inputType: updateSurveyQuestionDto.surveyQuestionInputType,
+        type: updateSurveyQuestionDto.surveyQuestionType,
       })
       .where(eq(surveyQuestion.id, id))
       .returning();

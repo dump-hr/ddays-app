@@ -1,23 +1,30 @@
-import { useFetchAchievements } from '../../api/useFetchAchievements';
+import { useAchievementGetAll } from '../../api/achievement/useAchievementGetAll';
+import Table from '../../components/Table';
 
-const AchievementsPage = () => {
-  const { data: achievements, isLoading } = useFetchAchievements();
+export const AchievementsPage = () => {
+  const { data, isError, isLoading } = useAchievementGetAll();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  if (isError) {
+    return <div>Pogreška pri fetchanju podataka. Pogledaj konzolu.</div>;
+  }
+
   return (
-    <div>
-      {achievements?.map((achievement, i) => (
-        <div key={i}>
-          <h2>{achievement.name}</h2>
-          <p>{achievement.description}</p>
-          <span>{achievement.points} pts</span>
-        </div>
-      ))}
-    </div>
+    <Table
+      data={data}
+      actions={[
+        {
+          label: 'test',
+          action: (row) => console.log(row),
+        },
+        {
+          label: 'test',
+          action: (row) => console.log(row),
+        },
+      ]}
+    />
   );
 };
-
-export default AchievementsPage;

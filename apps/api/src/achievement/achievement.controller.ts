@@ -1,5 +1,10 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { PrinterGuard } from 'src/auth/admin.guard';
+import {
+  AchievementCreateReqDto,
+  AchievementCreateResDto,
+  AchievementGetAllResDto,
+} from '@ddays-app/types';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { AdminGuard, PrinterGuard } from 'src/auth/admin.guard';
 
 import { AchievementService } from './achievement.service';
 
@@ -9,16 +14,15 @@ export class AchievementController {
 
   @UseGuards(PrinterGuard)
   @Get()
-  async getAll() {
-    const achievements = await this.achievementService.getAll();
-
-    return achievements;
+  async getAll(): Promise<AchievementGetAllResDto> {
+    return await this.achievementService.getAll();
   }
 
+  @UseGuards(AdminGuard)
   @Post()
-  async create() {
-    const createdAchievement = await this.achievementService.create();
-
-    return createdAchievement;
+  async create(
+    @Body() body: AchievementCreateReqDto,
+  ): Promise<AchievementCreateResDto> {
+    return await this.achievementService.create(body);
   }
 }

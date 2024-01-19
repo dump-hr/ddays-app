@@ -1,64 +1,69 @@
+import { unCamelCase } from '../../helpers/text';
 import Button from '../Button';
 import c from './Table.module.scss';
 
 type TableProps<T> = {
-  headers: string[];
-  data: T[] | undefined;
-  buttonActions?: {
+  data?: T[];
+  actions?: {
     label: string | ((row: T) => string);
     action: (row: T) => void;
     isDisabled?: (row: T) => boolean;
   }[];
 };
 
-const Table = <T extends object>({
-  headers,
-  data,
-  buttonActions = [],
+export const Table = <T extends object>({
+  data = [],
+  actions = [],
 }: TableProps<T>) => {
+  if (!data.length) return null;
+
+  const transformValue = (value: unknown) => {
+    if (value === undefined) {
+      return <span>[undefined]</span>;
+    }
+    if (value === null) {
+      return <span>[null]</span>;
+    }
+    // TODO: format date
+    // TODO: format boolean
+    return value.toString();
+  };
+
   return (
-    <table>
+    <table className={c.table}>
       <thead>
         <tr>
-          {headers.map((header) => {
-            return (
-              <th className={c.th} key={header}>
-                {header}
-              </th>
-            );
-          })}
+          {Object.keys(data[0]).map((key) => (
+            <th className={c.th} key={key}>
+              {unCamelCase(key)}
+            </th>
+          ))}
+          {actions.length > 0 && <th className={c.th}>Actions</th>}
         </tr>
       </thead>
       <tbody>
-        {!!data &&
-          data.map((row, i) => {
-            return (
-              <tr key={i}>
-                {Object.values(row).map((value, i) => {
-                  return (
-                    <td className={c.td} key={i}>
-                      {value}
-                    </td>
-                  );
-                })}
-                <td className={c.buttonActions}>
-                  {buttonActions.map((action, i) => {
-                    return (
-                      <Button
-                        variant='secondary'
-                        disabled={action.isDisabled?.(row)}
-                        onClick={() => action.action(row)}
-                        key={i}>
-                        {typeof action.label === 'function'
-                          ? action.label(row)
-                          : action.label}
-                      </Button>
-                    );
-                  })}
-                </td>
-              </tr>
-            );
-          })}
+        {data.map((row, i) => (
+          <tr key={i}>
+            {Object.values(row).map((value, i) => (
+              <td className={c.td} key={i}>
+                {transformValue(value)}
+              </td>
+            ))}
+            <td className={c.actions}>
+              {actions.map((action, i) => (
+                <Button
+                  variant='secondary'
+                  disabled={action.isDisabled?.(row)}
+                  onClick={() => action.action(row)}
+                  key={i}>
+                  {typeof action.label === 'function'
+                    ? action.label(row)
+                    : action.label}
+                </Button>
+              ))}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

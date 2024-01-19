@@ -25,11 +25,12 @@ import { SurveyQuestionsModule } from './surveyQuestions/surveyQuestions.module'
     FrequentlyAskedQuestionModule,
     InterestsModule,
     SurveyQuestionsModule,
-    AuthModule,
     NotificationModule,
     JobsModule,
+
     ...(process.env.NODE_ENV !== 'dev'
       ? [
+          // TODO: add when landing project setup is done
           // ServeStaticModule.forRoot({
           //   rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
           //   exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],

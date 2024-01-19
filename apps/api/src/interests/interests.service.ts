@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { company, companyInterests, interest } from 'db/schema';
+import { company, companyToInterest, interest } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 import {
@@ -63,10 +63,10 @@ export class InterestsService {
 
     const sponsorInterests = await db
       .select({
-        id: companyInterests.interestId,
+        id: companyToInterest.interestId,
       })
-      .from(companyInterests)
-      .where(eq(companyInterests.companyId, companyId));
+      .from(companyToInterest)
+      .where(eq(companyToInterest.companyId, companyId));
 
     const response = allInterests.map((interest) => ({
       ...interest,
@@ -109,9 +109,9 @@ export class InterestsService {
         boothLocation: company.boothLocation,
         codeId: company.codeId,
       })
-      .from(companyInterests)
-      .rightJoin(company, eq(companyInterests.interestId, company.id))
-      .where(eq(companyInterests.interestId, interestId));
+      .from(companyToInterest)
+      .rightJoin(company, eq(companyToInterest.interestId, company.id))
+      .where(eq(companyToInterest.interestId, interestId));
 
     return companies;
   }
@@ -123,15 +123,15 @@ export class InterestsService {
     const { ids } = data;
 
     await db
-      .delete(companyInterests)
-      .where(eq(companyInterests.companyId, companyId));
+      .delete(companyToInterest)
+      .where(eq(companyToInterest.companyId, companyId));
 
     const newInterests = ids.map((interestId) => ({
       companyId,
       interestId,
     }));
 
-    if (ids.length) await db.insert(companyInterests).values(newInterests);
+    if (ids.length) await db.insert(companyToInterest).values(newInterests);
 
     return newInterests;
   }
@@ -143,9 +143,9 @@ export class InterestsService {
         name: interest.name,
         theme: interest.theme,
       })
-      .from(companyInterests)
-      .rightJoin(interest, eq(companyInterests.interestId, interest.id))
-      .where(eq(companyInterests.companyId, companyId));
+      .from(companyToInterest)
+      .rightJoin(interest, eq(companyToInterest.interestId, interest.id))
+      .where(eq(companyToInterest.companyId, companyId));
 
     return interests;
   }
