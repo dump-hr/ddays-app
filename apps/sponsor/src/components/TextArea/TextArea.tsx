@@ -1,3 +1,4 @@
+import { FormEvent } from 'react';
 import c from './TextArea.module.scss';
 
 type TextAreaProps = {
@@ -22,14 +23,27 @@ const TextArea = ({
 
   const wc = value.match(/\S+/g)?.length || 0;
   const textTooShort = wc > 0 && wc < lowerBound;
-  const textTooLong = wc > 0 && wc > upperBound;
+  const textTooLong = wc > 0 && wc >= upperBound;
+
+  const handleInputChange = (event: FormEvent<HTMLTextAreaElement>) => {
+    if (onChange) {
+      const { value } = event.currentTarget;
+      const valueWc = value.match(/\S+/g)?.length || 0;
+
+      if (valueWc > upperBound) {
+        return;
+      }
+
+      onChange(value);
+    }
+  };
 
   return (
     <div>
       <div className={c.textareaContainer}>
         <textarea
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={handleInputChange}
           className={c.textarea}
           rows={6}
           placeholder={label}
@@ -47,7 +61,7 @@ const TextArea = ({
       )}
       {textTooLong && (
         <p className={c.error}>
-          Text too long (target length: {limit} words, +/-{deviation})
+          Text maximum (target length: {limit} words, +/-{deviation})
         </p>
       )}
     </div>
