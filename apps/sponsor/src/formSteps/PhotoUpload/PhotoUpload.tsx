@@ -1,4 +1,5 @@
 import { useDeleteImage } from '../../api/useDeleteImage';
+import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadImage } from '../../api/useUploadImage';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
@@ -7,6 +8,7 @@ import styles from './PhotoUpload.module.scss';
 const PhotoUpload: FormComponent = ({ close }) => {
   const { mutate: uploadImage, isLoading } = useUploadImage();
   const { mutate: deleteLogo } = useDeleteImage();
+  const { data: companyData } = useGetLoggedCompany();
 
   const handleUpload = (files: File[]) => {
     uploadImage(files[0]);
@@ -45,6 +47,7 @@ const PhotoUpload: FormComponent = ({ close }) => {
               },
             }}
             height={326}
+            fileSrc={companyData?.landingImage}
             handleUpload={handleUpload}
             handleRemove={handleRemove}
           />

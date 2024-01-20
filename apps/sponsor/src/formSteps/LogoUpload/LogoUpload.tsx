@@ -1,4 +1,5 @@
 import { useDeleteLogo } from '../../api/useDeleteLogo';
+import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadLogo } from '../../api/useUploadLogo';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
@@ -7,6 +8,7 @@ import styles from './LogoUpload.module.scss';
 const LogoUpload: FormComponent = ({ close }) => {
   const { mutate: uploadLogo, isLoading } = useUploadLogo();
   const { mutate: deleteLogo } = useDeleteLogo();
+  const { data: companyData } = useGetLoggedCompany();
 
   const handleUpload = (files: File[]) => {
     uploadLogo(files[0]);
@@ -43,6 +45,7 @@ const LogoUpload: FormComponent = ({ close }) => {
               checkBlackAndWhite: true,
             }}
             height={326}
+            fileSrc={companyData?.logoImage}
             handleUpload={handleUpload}
             handleRemove={handleRemove}
           />
