@@ -10,7 +10,7 @@
     "start": "dotenv -c -- node dist/src/main.js",
     "dev": "dotenv -c -- nest start --watch --preserveWatchOutput",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "introspect": "dotenv -c -- drizzle-kit introspect:pg --config ./db/drizzle.config.ts",
     "generate": "dotenv -c -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
     "studio": "dotenv -c -- drizzle-kit studio --config ./db/drizzle.config.ts",

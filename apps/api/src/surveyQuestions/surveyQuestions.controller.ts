@@ -1,5 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
-import { SurveyQuestionsService } from './surveyQuestions.service';
+import { SurveyQuestionType } from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -11,13 +10,14 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { SurveyQuestionType } from '@ddays-app/types';
 import {
+  _UpdateSurveyQuestionDto,
   CreateSurveyQuestionDto,
   UpdateSurveyQuestionDto,
-  _UpdateSurveyQuestionDto,
 } from './surveyQuestions.dto';
+import { SurveyQuestionsService } from './surveyQuestions.service';
 
 @ApiTags('surveyQuestions')
 @Controller('survey-questions')

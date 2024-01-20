@@ -12,32 +12,25 @@ export const getUpdateCompanyDto = (ApiPropertySwagger?: any) => {
 
   class UpdateCompanyDto {
     @IsString()
-    @ApiProperty()
     name?: string;
 
     @IsString()
-    @ApiProperty()
     description?: string;
 
     @IsEnum(SponsorCategory)
-    @ApiProperty()
     sponsorCategory?: string;
 
     @IsString()
-    @ApiProperty()
     websiteUrl?: string;
 
     @IsString()
-    @ApiProperty()
     boothLocation?: string;
 
     @IsString()
-    @ApiProperty()
-    username?: string;
+    username: string;
 
     @IsArray()
     @IsNumber({}, { each: true })
-    @ApiProperty()
     interests: number[];
   }
 

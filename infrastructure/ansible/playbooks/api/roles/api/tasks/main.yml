@@ -1,0 +1,59 @@
+---
+- name: Generate random container suffix
+  set_fact:
+    container_name: "api-{{ lookup('community.general.random_string', length=8, special=false, upper=false) }}"
+
+- name: Copy .env file
+  copy:
+    content: "{{ lookup('community.sops.sops', role_path + '/files/' + env_file + '.enc.env') }}"
+    dest: '/home/{{ ansible_user }}/{{ env_file }}.env'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0600
+
+- name: Create new api docker container
+  docker_container:
+    name: '{{ container_name }}'
+    image: 'ghcr.io/dump-hr/ddays-app:{{ docker_tag }}'
+    pull: true
+    restart_policy: unless-stopped
+    env_file: '/home/{{ ansible_user }}/{{ env_file }}.env'
+    networks:
+      - name: traefiknet
+    labels:
+      traefik.enable: 'true'
+      traefik.http.routers.api.rule: 'Host(`{{ api_domain }}`)'
+      traefik.http.middlewares.api-retry.retry.attempts: '5'
+      traefik.http.middlewares.api-retry.retry.initialinterval: '100ms'
+      traefik.http.middlewares.api-cors.headers.accesscontrolallowmethods: '*'
+      traefik.http.middlewares.api-cors.headers.accesscontrolalloworiginlist: '*'
+      traefik.http.middlewares.api-cors.headers.accesscontrolmaxage: '100'
+      traefik.http.middlewares.api-cors.headers.addvaryheader: 'true'
+      traefik.http.routers.api.middlewares: 'api-retry, api-cors'
+      # Setting a service property ensures that the generated service name will be consistent between versions
+      traefik.http.services.api.loadbalancer.server.scheme: 'http'
+
+- name: Swap docker containers if new one is healthy
+  block:
+    - name: Check if api docker container is healthy
+      docker_container_info:
+        name: '{{ container_name }}'
+      register: api
+      until: api.exists and api.container.State.Health.Status != 'starting'
+      failed_when: api.container.State.Health.Status != 'healthy'
+      retries: 20
+      delay: 5
+
+    - name: Remove old api docker container
+      docker_container:
+        name: api
+        state: absent
+
+    - name: Rename new api docker container
+      shell: docker rename "{{ container_name }}" api
+
+  rescue:
+    - name: Remove new unhealthy api docker container
+      docker_container:
+        name: '{{ container_name }}'
+        state: absent

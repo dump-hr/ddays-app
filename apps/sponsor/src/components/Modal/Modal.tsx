@@ -44,8 +44,8 @@ const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
 
   return (
     <>
-      <div className={c.background}>
-        <div className={c.container}>
+      <div className={c.background} onClick={close}>
+        <div className={c.container} onClick={(e) => e.stopPropagation()}>
           <img
             src='/close.svg'
             alt='Close'

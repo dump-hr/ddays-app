@@ -1,6 +1,7 @@
-import { Module } from "@nestjs/common";
-import { SurveyQuestionsController } from "./surveyQuestions.controller";
-import { SurveyQuestionsService } from "./surveyQuestions.service";
+import { Module } from '@nestjs/common';
+
+import { SurveyQuestionsController } from './surveyQuestions.controller';
+import { SurveyQuestionsService } from './surveyQuestions.service';
 
 @Module({
   controllers: [SurveyQuestionsController],

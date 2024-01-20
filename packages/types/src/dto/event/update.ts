@@ -14,51 +14,41 @@ export const getUpdateEventDto = (ApiPropertySwagger?: any) => {
 
   class UpdateEventDto {
     @IsString()
-    @ApiProperty()
     name: string;
 
     @IsOptional()
     @IsString()
-    @ApiProperty()
     description: string;
 
     @IsOptional()
     @IsEnum(EventType)
-    @ApiProperty({ enum: EventType })
     eventType: EventType;
 
     @IsOptional()
     @IsEnum(EventTheme)
-    @ApiProperty({ enum: EventTheme })
     eventTheme: EventTheme;
 
     @IsDateString()
-    @ApiProperty()
     startsAt: string;
 
     @IsOptional()
     @IsDateString()
-    @ApiProperty()
     endsAt: string;
 
     @IsOptional()
     @IsString()
-    @ApiProperty()
     requirements: string;
 
     @IsOptional()
     @IsString()
-    @ApiProperty()
     footageLink: string;
 
     @IsOptional()
     @IsNumber()
-    @ApiProperty()
     maxParticipants: number;
 
     @IsOptional()
     @IsNumber()
-    @ApiProperty()
     codeId: number;
   }
 

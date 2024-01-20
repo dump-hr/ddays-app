@@ -10,38 +10,33 @@ import {
   getUpdateCompanyDto,
   getUpdateSponsorDescriptionDto,
 } from '@ddays-app/types';
-import { ApiProperty } from '@nestjs/swagger';
 
-export const _CreateCompanyDto = getCreateCompanyDto(ApiProperty);
+export const _CreateCompanyDto = getCreateCompanyDto();
 export class CreateCompanyDto extends _CreateCompanyDto {}
 
-export const _UpdateCompanyDto = getUpdateCompanyDto(ApiProperty);
+export const _UpdateCompanyDto = getUpdateCompanyDto();
 export class UpdateCompanyDto extends _UpdateCompanyDto {}
 
-export const _GetCompanyDto = getCompanyDto(ApiProperty);
+export const _GetCompanyDto = getCompanyDto();
 export class CompanyDto extends _GetCompanyDto {}
 
-export const _updateSponsorDescriptionDto =
-  getUpdateSponsorDescriptionDto(ApiProperty);
+export const _updateSponsorDescriptionDto = getUpdateSponsorDescriptionDto();
 export class UpdateSponsorDescriptionDto extends _updateSponsorDescriptionDto {}
 
-export const _getSponsorDescriptionDto = getSponsorDescriptionDto(ApiProperty);
-export class SponsorDescriptionDto extends getSponsorDescriptionDto(
-  ApiProperty,
-) {}
+export const _getSponsorDescriptionDto = getSponsorDescriptionDto();
+export class SponsorDescriptionDto extends getSponsorDescriptionDto() {}
 
-export const _getSponsorJobDto = getSponsorJobDto(ApiProperty);
+export const _getSponsorJobDto = getSponsorJobDto();
 export class SponsorJobsDto extends _getSponsorJobDto {}
 
-export const _addSponsorJobDto = getAddSponsorJobDto(ApiProperty);
+export const _addSponsorJobDto = getAddSponsorJobDto();
 export class AddSponsorJobDto extends _addSponsorJobDto {}
 
-export const _addSponsorLogoDto = getAddSponsorLogoDto(ApiProperty);
+export const _addSponsorLogoDto = getAddSponsorLogoDto();
 export class AddSponsorLogoDto extends _addSponsorLogoDto {}
 
-export const _addSponsorVideoDto = getAddSponsorVideoDto(ApiProperty);
+export const _addSponsorVideoDto = getAddSponsorVideoDto();
 export class AddSponsorVideoDto extends _addSponsorVideoDto {}
 
-export const _addSponsorLandingImageDto =
-  getAddSponsorLandingImageDto(ApiProperty);
+export const _addSponsorLandingImageDto = getAddSponsorLandingImageDto();
 export class AddSponsorLandingImageDto extends _addSponsorLandingImageDto {}
