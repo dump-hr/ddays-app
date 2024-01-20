@@ -42,6 +42,7 @@ const Description: FormComponent = ({ close }) => {
           limit={70}
           deviation={5}
           label='Opis tvrtke'
+          rows={16}
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>
