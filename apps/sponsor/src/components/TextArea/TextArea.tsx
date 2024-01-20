@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+
 import c from './TextArea.module.scss';
 
 type TextAreaProps = {
@@ -7,6 +8,7 @@ type TextAreaProps = {
   value: string;
   label: string;
   disabled?: boolean;
+  rows?: number;
   onChange?: (value: string) => void;
 };
 
@@ -16,6 +18,7 @@ const TextArea = ({
   value,
   label,
   disabled = false,
+  rows = 6,
   onChange = () => {},
 }: TextAreaProps) => {
   const lowerBound = limit - deviation;
@@ -45,7 +48,7 @@ const TextArea = ({
           value={value}
           onChange={handleInputChange}
           className={c.textarea}
-          rows={6}
+          rows={rows}
           placeholder={label}
           disabled={disabled}
         />
