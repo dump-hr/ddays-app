@@ -1,5 +1,6 @@
 import { FormSteps } from '@ddays-app/types';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
@@ -10,6 +11,7 @@ import LayoutSpacing from '../../components/LayoutSpacing';
 import Modal from '../../components/Modal';
 import Pill from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
+import { getPageTitle } from '../../helpers';
 import c from './CompanyProfile.module.scss';
 
 const data = {
@@ -78,6 +80,9 @@ const CompanyProfile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{getPageTitle('Profile')}</title>
+      </Helmet>
       {currentModal !== undefined && (
         <Modal
           form={sponsorForm[currentModal]}
