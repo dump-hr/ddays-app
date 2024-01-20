@@ -4,26 +4,19 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '.';
 
-const uploadLogo = (file: File) => {
-  const data = new FormData();
-  data.append('file', file);
-  data.append('type', 'image/svg+xml');
-
-  return api.patch('/companies/logo', data, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+const deleteLogo = async () => {
+  return await api.delete('/companies/logo');
 };
 
-export const useUploadLogo = () => {
+export const useDeleteLogo = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(uploadLogo, {
+  const mutation = useMutation(deleteLogo, {
     onSuccess: () => {
       queryClient.invalidateQueries(['sponsorFormStatus']);
       queryClient.invalidateQueries(['loggedCompany']);
-      toast.success('Logo uspješno uploadan');
+
+      toast.success('Slika uspješno izbrisana');
     },
     onError: (error: AxiosError) => {
       toast.error(error.message);
