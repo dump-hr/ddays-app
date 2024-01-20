@@ -52,21 +52,22 @@ const TextArea = ({
           placeholder={label}
           disabled={disabled}
         />
+      </div>
+      <div className={c.textareaInfo}>
         <p className={c.wc}>
           {wc}/{limit}
         </p>
+        {textTooShort && (
+          <p className={c.error}>
+            Text too short (target length: {limit} words, +/-{deviation})
+          </p>
+        )}
+        {textTooLong && (
+          <p className={c.error}>
+            Text maximum (target length: {limit} words, +/-{deviation})
+          </p>
+        )}
       </div>
-
-      {textTooShort && (
-        <p className={c.error}>
-          Text too short (target length: {limit} words, +/-{deviation})
-        </p>
-      )}
-      {textTooLong && (
-        <p className={c.error}>
-          Text maximum (target length: {limit} words, +/-{deviation})
-        </p>
-      )}
     </div>
   );
 };

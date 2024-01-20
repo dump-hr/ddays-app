@@ -19,12 +19,16 @@
   }
 }
 
+.textareaInfo {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
 .wc {
   color: rgba(255, 255, 255, 0.4);
-  position: absolute;
-  bottom: 0;
-  right: 18px;
   font-weight: 700;
+  margin-right: 12px;
 }
 
 .error {
