@@ -31,9 +31,9 @@ export class InterestController {
   @Put('/company')
   async connectToCompany(
     @Req() { user }: AuthenticatedRequest,
-    @Body() dto: InterestConnectToCompanyDto,
-  ): Promise<void> {
-    return await this.interestService.connectToCompany(user.id, dto);
+    @Body() { interestIds }: InterestConnectToCompanyDto,
+  ): Promise<InterestDto[]> {
+    return await this.interestService.connectToCompany(user.id, interestIds);
   }
 
   @Post()

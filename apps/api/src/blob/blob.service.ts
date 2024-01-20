@@ -19,7 +19,7 @@ export class BlobService {
     filename: string,
     buffer: Buffer,
     mimetype: string,
-  ) {
+  ): Promise<string> {
     const key = `${directory}/${filename}`;
 
     const command = new PutObjectCommand({

@@ -1,3 +1,4 @@
+import { EventDto, EventModifyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -8,49 +9,38 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 
 import { EventService } from './event.service';
-import { CreateEventDto } from './events.dto';
-import { UpdateEventDto } from './events.dto';
 
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
   @Post()
-  async create(@Body() createEventDto: CreateEventDto) {
-    const createdEvent = await this.eventService.create(createEventDto);
-
-    return createdEvent;
+  async create(@Body() dto: EventModifyDto): Promise<EventDto> {
+    return await this.eventService.create(dto);
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    const event = await this.eventService.getOne(id);
-
-    return event;
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
+    return await this.eventService.getOne(id);
   }
-  @Get()
-  async getAll() {
-    const events = await this.eventService.getAll();
 
-    return events;
+  @Get()
+  async getAll(): Promise<EventDto[]> {
+    return await this.eventService.getAll();
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    const deletedEvent = await this.eventService.remove(id);
-
-    return deletedEvent;
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
+    return await this.eventService.remove(id);
   }
+
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateEventDto: UpdateEventDto,
-  ) {
-    const updatedEvent = await this.eventService.update(id, updateEventDto);
-
-    return updatedEvent;
+    @Body() dto: EventModifyDto,
+  ): Promise<EventDto> {
+    return await this.eventService.update(id, dto);
   }
 }

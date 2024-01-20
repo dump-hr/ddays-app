@@ -1,4 +1,4 @@
-import { Theme } from '@src/enum';
+import { Theme } from '../enum';
 import { IsArray, IsEnum, IsNumber, IsString } from 'class-validator';
 
 export type InterestDto = {
@@ -17,6 +17,6 @@ export class InterestModifyDto {
 
 export class InterestConnectToCompanyDto {
   @IsArray()
-  @IsNumber({}, { each: true })
+  @IsNumber(null, { each: true })
   interestIds: number[];
 }

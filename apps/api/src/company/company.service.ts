@@ -1,146 +1,53 @@
-import { FormSteps, StepStatus } from '@ddays-app/types';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { db } from 'db';
-import { code, company, companyToInterest, job } from 'db/schema';
-import { and, eq, inArray, sql } from 'drizzle-orm';
-import { BlobService } from 'src/blob/blob.service';
-
 import {
   CompanyDto,
-  CreateCompanyDto,
-  SponsorDescriptionDto,
-  UpdateCompanyDto,
-  UpdateSponsorDescriptionDto,
-} from './companies.dto';
+  CompanyModifyDto,
+  CompanyPublicDto,
+} from '@ddays-app/types';
+import { Injectable } from '@nestjs/common';
+import { db } from 'db';
+import { company } from 'db/schema';
+import { eq } from 'drizzle-orm';
+import { BlobService } from 'src/blob/blob.service';
+import { InterestService } from 'src/interest/interest.service';
 
 @Injectable()
 export class CompanyService {
-  constructor(private readonly blobService: BlobService) {}
+  constructor(
+    private readonly blobService: BlobService,
+    private readonly interestService: InterestService,
+  ) {}
 
-  async addInterest(companyId: number, interestId: number) {
-    const addedInterest = await db
-      .insert(companyToInterest)
-      .values({
-        interestId: interestId,
-        companyId: companyId,
-      })
-      .returning();
-
-    return addedInterest;
-  }
-  async addLandingImage(id: number, file: Express.Multer.File) {
-    const imageUrl = await this.blobService.upload(
-      'companies-landing-images',
-      file.originalname,
-      file.buffer,
-      file.mimetype,
-    );
-
-    const addedLandingImage = await db
-      .update(company)
-      .set({
-        landingImage: imageUrl,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return addedLandingImage;
-  }
-  async addLogo(id: number, file: Express.Multer.File) {
-    const imageUrl = await this.blobService.upload(
-      'companies-logos',
-      file.filename,
-      file.buffer,
-      file.mimetype,
-    );
-
-    const addedLogo = await db
-      .update(company)
-      .set({
-        logoImage: imageUrl,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return addedLogo;
-  }
-  async addVideo(id: number, file: Express.Multer.File) {
-    const videoUrl = await this.blobService.upload(
-      'companies-videos',
-      file.originalname,
-      file.buffer,
-      file.mimetype,
-    );
-
-    const addedVideo = await db
-      .update(company)
-      .set({
-        companyVideo: videoUrl,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return addedVideo;
-  }
-  async create(createCompanyDto: CreateCompanyDto) {
+  async create(dto: CompanyModifyDto): Promise<CompanyDto> {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
-    const generatedCode = await this.generateCodeForCompany(createCompanyDto);
-
-    const createdComapny = await db
+    const [createdComapny] = await db
       .insert(company)
       .values({
+        ...dto,
         password: generatedPassword,
-        name: createCompanyDto.name,
-        description: createCompanyDto.description,
-        // TODO: fix
-        // category: createCompanyDto.sponsorCategory,
-        websiteUrl: createCompanyDto.websiteUrl,
-        boothLocation: createCompanyDto.boothLocation,
-        codeId: generatedCode[0].id,
-        username: createCompanyDto.username,
       })
       .returning();
 
-    await this.setInterests(createdComapny[0].id, createCompanyDto.interests);
+    const interests = await this.interestService.connectToCompany(
+      createdComapny.id,
+      dto.interestIds,
+    );
 
-    return createdComapny;
+    return { ...createdComapny, interests };
   }
 
-  async generateCodeForCompany(company: CreateCompanyDto) {
-    const codeValue = Math.random().toString(36).slice(-8);
-    const newCode = {
-      value: codeValue,
-      description: `Code for ${company.name}`,
-      points: 0, //TODO: Set this for later and other required things
-      isSingleUse: false,
-      isActive: true,
-    };
-
-    const createdCode = await db.insert(code).values(newCode).returning();
-
-    return createdCode;
-  }
-  async getAll(): Promise<CompanyDto[]> {
-    //TODO: Implement backend mapping and fix drizzle bugs
+  async getAllPublic(): Promise<CompanyPublicDto[]> {
     const companies = await db
       .select({
         id: company.id,
+        category: company.category,
         name: company.name,
         description: company.description,
-        sponsorCategory: company.category,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
-        url: company.websiteUrl,
-        companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
-        codeId: company.codeId,
-        username: company.username,
+        video: company.video,
       })
       .from(company)
       .orderBy(company.name);
@@ -148,292 +55,215 @@ export class CompanyService {
     return companies;
   }
 
-  async getCompaniesWIthInterest(interestId: number) {
-    const companies = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        logo: company.logoImage,
-        description: company.description,
-        website: company.websiteUrl,
-        boothLocation: company.boothLocation,
-        codeId: company.codeId,
-      })
-      .from(companyToInterest)
-      .rightJoin(company, eq(companyToInterest.interestId, company.id))
-      .where(eq(companyToInterest.interestId, interestId));
-
-    return companies;
-  }
-  async getDescription(companyId: number): Promise<SponsorDescriptionDto> {
-    const description = await db
-      .select({
-        description: company.description,
-      })
+  async getOne(id: number): Promise<CompanyDto> {
+    const [foundCompany] = await db
+      .select()
       .from(company)
-      .where(eq(company.id, companyId));
+      .where(eq(company.id, id));
 
-    return description[0] ?? null;
+    const interests = await this.interestService.getForCompany(id);
+
+    return { ...foundCompany, interests };
   }
-  async getOne(id: number): Promise<CompanyDto | undefined> {
-    const companyToGet = await db
+
+  async getOnePublic(id: number): Promise<CompanyPublicDto> {
+    const [foundCompany] = await db
       .select({
         id: company.id,
+        category: company.category,
         name: company.name,
         description: company.description,
-        sponsorCategory: company.category,
         websiteUrl: company.websiteUrl,
         boothLocation: company.boothLocation,
-        codeId: company.codeId,
-        url: company.websiteUrl,
-        companyVideo: company.companyVideo,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
-        username: company.username,
+        video: company.video,
       })
       .from(company)
       .where(eq(company.id, id));
 
-    if (!companyToGet.length) throw new NotFoundException('Company not found');
+    const interests = await this.interestService.getForCompany(id);
 
-    return companyToGet[0];
+    return { ...foundCompany, interests };
   }
 
-  async getSponsorFormStatus(companyId: number) {
-    const company = await this.getOne(companyId);
-    const status = {};
-
-    status[FormSteps.Description] = company?.description?.length
-      ? StepStatus.Good
-      : StepStatus.Pending;
-
-    const {
-      0: { count: interestsCount },
-    } = await db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(companyToInterest)
-      .where(eq(companyToInterest.companyId, companyId));
-
-    status[FormSteps.Interests] = interestsCount
-      ? StepStatus.Good
-      : StepStatus.Pending;
-
-    const {
-      0: { count: jobsCount },
-    } = await db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(job)
-      .where(eq(job.companyId, companyId));
-
-    status[FormSteps.Jobs] =
-      jobsCount <= 0 ? StepStatus.Pending : StepStatus.Good;
-
-    status[FormSteps.Logo] = StepStatus.Pending;
-    status[FormSteps.Photos] = StepStatus.Pending;
-    status[FormSteps.Videos] =
-      !!company.companyVideo && company.companyVideo !== ''
-        ? StepStatus.Good
-        : StepStatus.Pending;
-    status[FormSteps.SwagBag] = StepStatus.Pending;
-
-    return { status };
-  }
-  async interestExists(companyId: number, interestId: number) {
-    const interest = await db
-      .select()
-      .from(companyToInterest)
-      .where(
-        and(
-          eq(companyToInterest.companyId, companyId),
-          eq(companyToInterest.interestId, interestId),
-        ),
-      );
-
-    return interest.length > 0;
-  }
-  async login(username: string, password: string) {
-    const companyToLogin = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        password: company.password,
-        username: company.username,
-      })
-      .from(company)
-      .where(eq(company.username, username))
-      .limit(1);
-
-    if (!companyToLogin.length) {
-      throw new NotFoundException('Company not found');
-    }
-
-    const passwordMatch = password === companyToLogin[0].password;
-
-    return passwordMatch && companyToLogin[0];
-  }
-
-  async remove(id: number) {
-    const removedCompany = await db
+  async remove(id: number): Promise<CompanyDto> {
+    const [removedCompany] = await db
       .delete(company)
       .where(eq(company.id, id))
       .returning();
 
     return removedCompany;
   }
-  async removeDescription(id: number) {
-    const removedDescription = await db
+
+  async removeLandingImage(id: number): Promise<void> {
+    await db
       .update(company)
       .set({
-        description: null,
+        landingImage: null,
       })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedDescription;
+      .where(eq(company.id, id));
   }
-  async update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    const updatedCompany = await db
+
+  async removeLogo(id: number): Promise<void> {
+    await db
       .update(company)
       .set({
-        name: updateCompanyDto.name,
-        description: updateCompanyDto.description,
-        // TODO: fix
-        // sponsorCategory: updateCompanyDto.sponsorCategory as SponsorCategory,
-        websiteUrl: updateCompanyDto.websiteUrl,
-        boothLocation: updateCompanyDto.boothLocation,
-        username: updateCompanyDto.username,
+        logoImage: null,
+      })
+      .where(eq(company.id, id));
+  }
+
+  async removeVideo(id: number): Promise<void> {
+    await db
+      .update(company)
+      .set({
+        video: null,
+      })
+      .where(eq(company.id, id));
+  }
+
+  async update(id: number, dto: CompanyModifyDto): Promise<CompanyDto> {
+    const [updatedCompany] = await db
+      .update(company)
+      .set({
+        category: dto.category,
+        name: dto.name,
+        username: dto.username,
+        description: dto.description,
+        websiteUrl: dto.websiteUrl,
+        boothLocation: dto.boothLocation,
+        codeId: dto.codeId,
       })
       .where(eq(company.id, id))
       .returning();
 
-    const numericalInterests = updateCompanyDto.interests.map(
-      (interest) => +interest,
+    const interests = await this.interestService.connectToCompany(
+      id,
+      dto.interestIds,
     );
 
-    await this.setInterests(updatedCompany[0].id, numericalInterests);
-
-    return updatedCompany;
+    return { ...updatedCompany, interests };
   }
 
   async updateDescription(
     companyId: number,
-    { description }: UpdateSponsorDescriptionDto,
-  ) {
-    if (!this.validateWordCount(description, 70, 5)) {
-      throw new BadRequestException('Description text out of bounds');
-    }
-
-    const updatedCompany = await db
+    description: string,
+  ): Promise<CompanyPublicDto> {
+    const [updatedCompany] = await db
       .update(company)
       .set({
         description,
       })
       .where(eq(company.id, companyId))
-      .returning();
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        video: company.video,
+      });
 
-    return updatedCompany[0] ?? null;
+    return updatedCompany;
   }
 
-  private validateWordCount(str: string, limit: number, deviation: number) {
-    const lowerBound = limit - deviation;
-    const upperBound = limit + deviation;
-
-    const wc = str.match(/\S+/g)?.length || 0;
-
-    return wc >= lowerBound && wc <= upperBound;
-  }
-
-  async removeInterest(companyId: number, interestId: number) {
-    const removedInterest = await db
-      .delete(companyToInterest)
-      .where(
-        and(
-          eq(companyToInterest.companyId, companyId),
-          eq(companyToInterest.interestId, interestId),
-        ),
-      )
-      .returning();
-
-    return removedInterest;
-  }
-  async removeLandingImage(id: number) {
-    const removedLandingImage = await db
-      .update(company)
-      .set({
-        landingImage: null,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedLandingImage;
-  }
-
-  async removeLogo(id: number) {
-    const removedLogo = await db
-      .update(company)
-      .set({
-        logoImage: null,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedLogo;
-  }
-
-  async removeVideo(id: number) {
-    const removedVideo = await db
-      .update(company)
-      .set({
-        companyVideo: null,
-      })
-      .where(eq(company.id, id))
-      .returning();
-
-    return removedVideo;
-  }
-
-  async setInterests(companyId: number, interestIds: number[]) {
-    //TODO: implement error handling for ids that do not extistž
-
-    if (!interestIds) {
-      return;
-    }
-
-    const interests = await db
-      .select()
-      .from(companyToInterest)
-      .where(eq(companyToInterest.companyId, companyId));
-
-    const interestsToRemove = interests
-      .filter((interest) => !interestIds.includes(interest.interestId))
-      .map((interest) => interest.interestId);
-
-    const interestIdsToAdd = interestIds.filter(
-      (interestId) =>
-        !interests.map((interest) => interest.interestId).includes(interestId),
+  async updateLandingImage(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    const imageUrl = await this.blobService.upload(
+      'company-landing-image',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
     );
 
-    const interestsToAdd = interestIdsToAdd.map((interestId) => ({
-      companyId,
-      interestId,
-    }));
+    const [updatedCompany] = await db
+      .update(company)
+      .set({
+        landingImage: imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        video: company.video,
+      });
 
-    if (interestsToRemove.length)
-      await db
-        .delete(companyToInterest)
-        .where(inArray(companyToInterest.interestId, interestsToRemove));
-
-    if (interestsToAdd.length)
-      await db.insert(companyToInterest).values(interestsToAdd);
+    return updatedCompany;
   }
 
-  async toggleInterest(companyId: number, interestId: number) {
-    const interestExists = await this.interestExists(companyId, interestId);
+  async updateLogo(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    const imageUrl = await this.blobService.upload(
+      'company-logo',
+      file.filename,
+      file.buffer,
+      file.mimetype,
+    );
 
-    const action = interestExists
-      ? await this.removeInterest(companyId, interestId)
-      : await this.addInterest(companyId, interestId);
+    const [updatedCompany] = await db
+      .update(company)
+      .set({
+        logoImage: imageUrl,
+      })
+      .where(eq(company.id, id))
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        video: company.video,
+      });
 
-    return action;
+    return updatedCompany;
+  }
+
+  async updateVideo(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    const videoUrl = await this.blobService.upload(
+      'company-video',
+      file.originalname,
+      file.buffer,
+      file.mimetype,
+    );
+
+    const [updatedCompany] = await db
+      .update(company)
+      .set({
+        video: videoUrl,
+      })
+      .where(eq(company.id, id))
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        websiteUrl: company.websiteUrl,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        video: company.video,
+      });
+
+    return updatedCompany;
   }
 }

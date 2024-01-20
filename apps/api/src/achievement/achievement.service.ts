@@ -1,4 +1,4 @@
-import { AchievementCreateReqDto } from '@ddays-app/types';
+import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { achievement } from 'db/schema';
@@ -6,7 +6,16 @@ import { desc } from 'drizzle-orm';
 
 @Injectable()
 export class AchievementService {
-  async getAll() {
+  async create(dto: AchievementModifyDto): Promise<AchievementDto> {
+    const [createdAchievement] = await db
+      .insert(achievement)
+      .values(dto)
+      .returning();
+
+    return createdAchievement;
+  }
+
+  async getAll(): Promise<AchievementDto[]> {
     const achievements = await db
       .select({
         id: achievement.id,
@@ -21,14 +30,5 @@ export class AchievementService {
       .orderBy(desc(achievement.points));
 
     return achievements;
-  }
-
-  async create(dto: AchievementCreateReqDto) {
-    const [createdAchievement] = await db
-      .insert(achievement)
-      .values(dto)
-      .returning();
-
-    return createdAchievement;
   }
 }

@@ -1,31 +1,52 @@
-import {
-  InterestConnectToCompanyDto,
-  InterestDto,
-  InterestModifyDto,
-} from '@ddays-app/types';
+import { InterestDto, InterestModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { companyToInterest, interest } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 @Injectable()
 export class InterestService {
   async connectToCompany(
     companyId: number,
-    { interestIds }: InterestConnectToCompanyDto,
-  ): Promise<void> {
-    // TODO: optimize so we only delete unused and insert new interests
-    await db
-      .delete(companyToInterest)
+    interestIds: number[],
+  ): Promise<InterestDto[]> {
+    if (!interestIds.length) {
+      return [];
+    }
+
+    // TODO: throw error when some interestIds don't exist
+    const interests = await db
+      .select()
+      .from(companyToInterest)
       .where(eq(companyToInterest.companyId, companyId));
 
-    const newInterests = interestIds.map((interestId) => ({
+    const interestIdsToRemove = interests
+      .filter((interest) => !interestIds.includes(interest.interestId))
+      .map((interest) => interest.interestId);
+
+    const interestIdsToAdd = interestIds.filter(
+      (interestId) =>
+        !interests.map((interest) => interest.interestId).includes(interestId),
+    );
+
+    const interestsToAdd = interestIdsToAdd.map((interestId) => ({
       companyId,
       interestId,
     }));
 
-    if (interestIds.length)
-      await db.insert(companyToInterest).values(newInterests);
+    // TODO: stavit u db transakciju
+
+    if (interestIdsToRemove.length > 0) {
+      await db
+        .delete(companyToInterest)
+        .where(inArray(companyToInterest.interestId, interestIdsToRemove));
+    }
+
+    if (interestsToAdd.length > 0) {
+      await db.insert(companyToInterest).values(interestsToAdd);
+    }
+
+    return this.getForCompany(companyId);
   }
 
   async create(dto: InterestModifyDto): Promise<InterestDto> {

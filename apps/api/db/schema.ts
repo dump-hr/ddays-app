@@ -88,7 +88,7 @@ export const company = pgTable('company', {
   boothLocation: text('booth_location'),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
-  companyVideo: text('company_video'),
+  video: text('video'),
   codeId: integer('code_id').references(() => code.id),
 });
 
@@ -252,6 +252,5 @@ export const notification = pgTable('notification', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   content: text('description'),
-  isActive: boolean('is_active').default(false),
   activatedAt: timestamp('activated_at'),
 });

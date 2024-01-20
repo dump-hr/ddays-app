@@ -1,4 +1,8 @@
-import { SurveyQuestionType } from '@ddays-app/types';
+import {
+  SurveyQuestionDto,
+  SurveyQuestionModifyDto,
+  SurveyQuestionType,
+} from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -10,66 +14,45 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 
 import { SurveyQuestionService } from './survey-question.service';
-import {
-  _UpdateSurveyQuestionDto,
-  CreateSurveyQuestionDto,
-  UpdateSurveyQuestionDto,
-} from './surveyQuestions.dto';
 
 @Controller('survey-question')
 export class SurveyQuestionController {
   constructor(private readonly surveyQuestionService: SurveyQuestionService) {}
 
   @Post()
-  async create(@Body() createSurveyQuestionDto: CreateSurveyQuestionDto) {
-    const surveyQuestion = await this.surveyQuestionService.create(
-      createSurveyQuestionDto,
-    );
-
-    return surveyQuestion;
+  async create(
+    @Body() dto: SurveyQuestionModifyDto,
+  ): Promise<SurveyQuestionDto> {
+    return await this.surveyQuestionService.create(dto);
   }
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    const surveyQuestion = await this.surveyQuestionService.getOne(id);
 
-    return surveyQuestion;
-  }
   @Get()
-  async getAll() {
-    const surveyQuestions = await this.surveyQuestionService.getAll();
-
-    return surveyQuestions;
+  async getAll(): Promise<SurveyQuestionDto[]> {
+    return await this.surveyQuestionService.getAll();
   }
 
   @Get('/type/:type')
   async getAllOfType(
     @Param('type', new ParseEnumPipe(SurveyQuestionType))
     type: SurveyQuestionType,
-  ) {
-    const surveyQuestions = await this.surveyQuestionService.getAllOfType(type);
-
-    return surveyQuestions;
+  ): Promise<SurveyQuestionDto[]> {
+    return await this.surveyQuestionService.getAllOfType(type);
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    const surveyQuestion = await this.surveyQuestionService.remove(id);
-
-    return surveyQuestion;
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<SurveyQuestionDto> {
+    return await this.surveyQuestionService.remove(id);
   }
+
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateSurveyQuestionDto: UpdateSurveyQuestionDto,
-  ) {
-    const surveyQuestion = await this.surveyQuestionService.update(
-      id,
-      updateSurveyQuestionDto,
-    );
-
-    return surveyQuestion;
+    @Body() dto: SurveyQuestionModifyDto,
+  ): Promise<SurveyQuestionDto> {
+    return await this.surveyQuestionService.update(id, dto);
   }
 }

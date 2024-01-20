@@ -3,10 +3,10 @@ import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 export type AchievementDto = {
   id: number;
   name: string;
-  description: string;
-  points: number;
-  fulfillmentCodeCount: number;
-  isHidden: boolean;
+  description?: string;
+  points?: number;
+  fulfillmentCodeCount?: number;
+  isHidden?: boolean;
   createdAt: Date;
 };
 
@@ -16,17 +16,17 @@ export class AchievementModifyDto {
 
   @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
 
   @IsOptional()
   @IsNumber()
-  points: number;
+  points?: number;
 
   @IsOptional()
   @IsNumber()
-  fulfillmentCodeCount: number;
+  fulfillmentCodeCount?: number;
 
   @IsOptional()
   @IsBoolean()
-  isHidden: boolean;
+  isHidden?: boolean;
 }

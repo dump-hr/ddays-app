@@ -1,4 +1,10 @@
 import {
+  CompanyDto,
+  CompanyModifyDescriptionDto,
+  CompanyModifyDto,
+  CompanyPublicDto,
+} from '@ddays-app/types';
+import {
   Body,
   Controller,
   Delete,
@@ -16,20 +22,83 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorAuthGuard } from '../auth/sponsor.guard';
-import {
-  CreateCompanyDto,
-  UpdateCompanyDto,
-  UpdateSponsorDescriptionDto,
-} from './companies.dto';
 import { CompanyService } from './company.service';
 
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
+
+  @Post()
+  async create(@Body() dto: CompanyModifyDto): Promise<CompanyDto> {
+    return await this.companyService.create(dto);
+  }
+
+  @Get()
+  async getAllPublic(): Promise<CompanyPublicDto[]> {
+    return await this.companyService.getAllPublic();
+  }
+
+  @Get('include-sensitive-info/:id')
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
+    return await this.companyService.getOne(id);
+  }
+
+  @Get(':id')
+  async getOnePublic(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.getOnePublic(id);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
+    return await this.companyService.remove(id);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/landing-image')
+  async removeLandingImage(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<void> {
+    return await this.companyService.removeLandingImage(user.id);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/logo')
+  async removeLogo(@Req() { user }: AuthenticatedRequest) {
+    return await this.companyService.removeLogo(user.id);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Delete('/video')
+  async removeVideo(@Req() { user }: AuthenticatedRequest) {
+    return await this.companyService.removeVideo(user.id);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CompanyModifyDto,
+  ) {
+    return await this.companyService.update(id, dto);
+  }
+
+  @UseGuards(SponsorAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/description')
+  async updateDescription(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() { description }: CompanyModifyDescriptionDto,
+  ) {
+    return await this.companyService.updateDescription(user.id, description);
+  }
 
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
@@ -47,8 +116,8 @@ export class CompanyController {
   })
   @Patch('/landing-image')
   @UseInterceptors(FileInterceptor('file'))
-  async addLandingImage(
-    @Req() req: AuthenticatedRequest,
+  async updateLandingImage(
+    @Req() { user }: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -58,14 +127,10 @@ export class CompanyController {
       }),
     )
     file: Express.Multer.File,
-  ) {
-    const addedSponsorLandingImage = await this.companyService.addLandingImage(
-      +req.user.id,
-      file,
-    );
-
-    return addedSponsorLandingImage;
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.updateLandingImage(user.id, file);
   }
+
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
@@ -82,8 +147,8 @@ export class CompanyController {
   })
   @Patch('/logo')
   @UseInterceptors(FileInterceptor('file'))
-  async addLogo(
-    @Req() req: AuthenticatedRequest,
+  async updateLogo(
+    @Req() { user }: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -93,14 +158,10 @@ export class CompanyController {
       }),
     )
     file: Express.Multer.File,
-  ) {
-    const addedSponsorLogo = await this.companyService.addLogo(
-      +req.user.id,
-      file,
-    );
-
-    return addedSponsorLogo;
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.updateLogo(user.id, file);
   }
+
   @UseGuards(SponsorAuthGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
@@ -117,8 +178,8 @@ export class CompanyController {
   })
   @Patch('/video')
   @UseInterceptors(FileInterceptor('file'))
-  async addVideo(
-    @Req() req: AuthenticatedRequest,
+  async updateVideo(
+    @Req() { user }: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -128,148 +189,7 @@ export class CompanyController {
       }),
     )
     file: Express.Multer.File,
-  ) {
-    const addedSponsorVideo = await this.companyService.addVideo(
-      +req.user.id,
-      file,
-    );
-
-    return addedSponsorVideo;
-  }
-  @Post()
-  async create(@Body() createCompanyDto: CreateCompanyDto) {
-    const createdCompany = await this.companyService.create(createCompanyDto);
-    return createdCompany;
-  }
-
-  @Get()
-  async getAll() {
-    const company = await this.companyService.getAll();
-    return company;
-  }
-
-  @Get('/companies/:id')
-  async getCompaniesWithInterest(@Param('id', ParseIntPipe) id: number) {
-    const company = await this.companyService.getCompaniesWIthInterest(id);
-
-    return company;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Get('/description')
-  async getDescription(@Req() req: AuthenticatedRequest) {
-    return await this.companyService.getDescription(+req.user.id);
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Get('/logged')
-  async getLogged(@Req() req: AuthenticatedRequest) {
-    const company = await this.companyService.getOne(req.user.id);
-    return company;
-  }
-
-  @Get('/:id')
-  async getOne(@Param('id', ParseIntPipe) id: number) {
-    const company = await this.companyService.getOne(id);
-
-    return company;
-  }
-  @ApiBearerAuth()
-  @Get('/sponsor-data')
-  async getSponsorData(@Req() req: AuthenticatedRequest) {
-    const company = await this.companyService.getOne(req.user.id);
-    return company;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Get('/sponsorFormStatus')
-  async getSponsorFormStatus(@Req() req: AuthenticatedRequest) {
-    const status = await this.companyService.getSponsorFormStatus(req.user.id);
-
-    return status;
-  }
-  @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    const deletedCompany = await this.companyService.remove(id);
-
-    return deletedCompany;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('/description')
-  async removeDescription(@Req() req: AuthenticatedRequest) {
-    const removedSponsorDescription =
-      await this.companyService.removeDescription(req.user.id);
-
-    return removedSponsorDescription;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('/landing-image')
-  async removeLandingImage(@Req() req: AuthenticatedRequest) {
-    const removedSponsorLandingImage =
-      await this.companyService.removeLandingImage(req.user.id);
-
-    return removedSponsorLandingImage;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('/logo')
-  async removeLogo(@Req() req: AuthenticatedRequest) {
-    const removedSponsorLogo = await this.companyService.removeLogo(
-      req.user.id,
-    );
-
-    return removedSponsorLogo;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Delete('/video')
-  async removeVideo(@Req() req: AuthenticatedRequest) {
-    const removedSponsorVideo = await this.companyService.removeVideo(
-      req.user.id,
-    );
-
-    return removedSponsorVideo;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('/interests/:interestId')
-  async toggleInterest(
-    @Req() req: AuthenticatedRequest,
-    @Param('interestId', ParseIntPipe) interestId: number,
-  ) {
-    const updatedCompany = await this.companyService.toggleInterest(
-      req.user.id,
-      interestId,
-    );
-
-    return updatedCompany;
-  }
-  @Patch('/:id') //TODO: If theese deafault CRUDS are kept, then we also need to make specific admin guards
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateCompanyDto: UpdateCompanyDto,
-  ) {
-    const updatedCmopany = await this.companyService.update(
-      id,
-      updateCompanyDto,
-    );
-
-    return updatedCmopany;
-  }
-  @UseGuards(SponsorAuthGuard)
-  @ApiBearerAuth()
-  @Patch('/description')
-  async updateDescription(
-    @Req() req: AuthenticatedRequest,
-    @Body() updateSponsorDescriptionDto: UpdateSponsorDescriptionDto,
-  ) {
-    const updatedCompany = await this.companyService.updateDescription(
-      +req.user.id,
-      updateSponsorDescriptionDto,
-    );
-
-    return updatedCompany;
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.updateVideo(user.id, file);
   }
 }

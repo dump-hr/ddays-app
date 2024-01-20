@@ -1,5 +1,5 @@
 {
-  "id": "83beffd9-ce87-412e-8b1b-3efea7cb849f",
+  "id": "ef7c7277-3369-4e0b-b0b2-8cf57951dcd7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -37,7 +37,7 @@
           "name": "fulfillment_code_count",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "is_hidden": {
           "name": "is_hidden",
@@ -82,8 +82,12 @@
           "name": "achievement_to_code_achievement_id_achievement_id_fk",
           "tableFrom": "achievement_to_code",
           "tableTo": "achievement",
-          "columnsFrom": ["achievement_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "achievement_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -91,8 +95,12 @@
           "name": "achievement_to_code_code_id_code_id_fk",
           "tableFrom": "achievement_to_code",
           "tableTo": "code",
-          "columnsFrom": ["code_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "code_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -100,7 +108,10 @@
       "compositePrimaryKeys": {
         "achievement_to_code_achievement_id_code_id_pk": {
           "name": "achievement_to_code_achievement_id_code_id_pk",
-          "columns": ["achievement_id", "code_id"]
+          "columns": [
+            "achievement_id",
+            "code_id"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -238,8 +249,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "company_video": {
-          "name": "company_video",
+        "video": {
+          "name": "video",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -257,8 +268,12 @@
           "name": "company_code_id_code_id_fk",
           "tableFrom": "company",
           "tableTo": "code",
-          "columnsFrom": ["code_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "code_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -268,7 +283,9 @@
         "company_username_unique": {
           "name": "company_username_unique",
           "nullsNotDistinct": false,
-          "columns": ["username"]
+          "columns": [
+            "username"
+          ]
         }
       }
     },
@@ -295,8 +312,12 @@
           "name": "company_to_interest_company_id_company_id_fk",
           "tableFrom": "company_to_interest",
           "tableTo": "company",
-          "columnsFrom": ["company_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -304,8 +325,12 @@
           "name": "company_to_interest_interest_id_interests_id_fk",
           "tableFrom": "company_to_interest",
           "tableTo": "interests",
-          "columnsFrom": ["interest_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "interest_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -313,7 +338,10 @@
       "compositePrimaryKeys": {
         "company_to_interest_company_id_interest_id_pk": {
           "name": "company_to_interest_company_id_interest_id_pk",
-          "columns": ["company_id", "interest_id"]
+          "columns": [
+            "company_id",
+            "interest_id"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -348,7 +376,7 @@
         },
         "theme": {
           "name": "theme",
-          "type": "event_theme",
+          "type": "theme",
           "primaryKey": false,
           "notNull": false
         },
@@ -395,8 +423,12 @@
           "name": "event_code_id_code_id_fk",
           "tableFrom": "event",
           "tableTo": "code",
-          "columnsFrom": ["code_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "code_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -427,8 +459,12 @@
           "name": "event_to_interest_event_id_event_id_fk",
           "tableFrom": "event_to_interest",
           "tableTo": "event",
-          "columnsFrom": ["event_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -436,8 +472,12 @@
           "name": "event_to_interest_interest_id_interests_id_fk",
           "tableFrom": "event_to_interest",
           "tableTo": "interests",
-          "columnsFrom": ["interest_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "interest_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -445,7 +485,10 @@
       "compositePrimaryKeys": {
         "event_to_interest_event_id_interest_id_pk": {
           "name": "event_to_interest_event_id_interest_id_pk",
-          "columns": ["event_id", "interest_id"]
+          "columns": [
+            "event_id",
+            "interest_id"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -496,7 +539,7 @@
         },
         "theme": {
           "name": "theme",
-          "type": "event_theme",
+          "type": "theme",
           "primaryKey": false,
           "notNull": true
         }
@@ -560,8 +603,12 @@
           "name": "job_company_id_company_id_fk",
           "tableFrom": "job",
           "tableTo": "company",
-          "columnsFrom": ["company_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -590,13 +637,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "is_active": {
-          "name": "is_active",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
         },
         "activated_at": {
           "name": "activated_at",
@@ -668,15 +708,6 @@
         "friend": "friend"
       }
     },
-    "event_theme": {
-      "name": "event_theme",
-      "values": {
-        "dev": "dev",
-        "design": "design",
-        "marketing": "marketing",
-        "tech": "tech"
-      }
-    },
     "event_type": {
       "name": "event_type",
       "values": {
@@ -701,6 +732,15 @@
         "workshop": "workshop",
         "lecture": "lecture",
         "company": "company"
+      }
+    },
+    "theme": {
+      "name": "theme",
+      "values": {
+        "dev": "dev",
+        "design": "design",
+        "marketing": "marketing",
+        "tech": "tech"
       }
     }
   },

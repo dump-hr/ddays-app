@@ -1,56 +1,33 @@
-import { SurveyQuestionType } from '@ddays-app/types';
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  SurveyQuestionDto,
+  SurveyQuestionModifyDto,
+  SurveyQuestionType,
+} from '@ddays-app/types';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { surveyQuestion } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
-import {
-  CreateSurveyQuestionDto,
-  UpdateSurveyQuestionDto,
-} from './surveyQuestions.dto';
-
 @Injectable()
 export class SurveyQuestionService {
-  async create(createSurveyQuestionDto: CreateSurveyQuestionDto) {
-    if (createSurveyQuestionDto.question.trim() === '') {
-      throw new HttpException('Question cannot be empty', 400);
-    }
-
-    const surveyQuestionsToFind = await db
-      .select({
-        question: surveyQuestion.question,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.question, createSurveyQuestionDto.question));
-
-    if (surveyQuestionsToFind.length) {
-      throw new HttpException('Question already exists', 400);
-    }
-
-    const createdSurveyQuestions = await db
+  async create(dto: SurveyQuestionModifyDto): Promise<SurveyQuestionDto> {
+    const [createdSurveyQuestion] = await db
       .insert(surveyQuestion)
-      .values({
-        question: createSurveyQuestionDto.question,
-        description: createSurveyQuestionDto.description,
-        inputLabel: createSurveyQuestionDto.inputLabel,
-        inputType: createSurveyQuestionDto.surveyQuestionInputType,
-        type: createSurveyQuestionDto.surveyQuestionType,
-      })
+      .values(dto)
       .returning();
-
-    const createdSurveyQuestion = createdSurveyQuestions[0];
 
     return createdSurveyQuestion;
   }
-  async getAll() {
+
+  async getAll(): Promise<SurveyQuestionDto[]> {
     const surveyQuestions = await db
       .select({
         id: surveyQuestion.id,
         question: surveyQuestion.question,
         description: surveyQuestion.description,
         inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
+        inputType: surveyQuestion.inputType,
+        type: surveyQuestion.type,
       })
       .from(surveyQuestion)
       .orderBy(surveyQuestion.inputLabel);
@@ -58,15 +35,15 @@ export class SurveyQuestionService {
     return surveyQuestions;
   }
 
-  async getAllOfType(type: SurveyQuestionType) {
+  async getAllOfType(type: SurveyQuestionType): Promise<SurveyQuestionDto[]> {
     const surveyQuestions = await db
       .select({
         id: surveyQuestion.id,
         question: surveyQuestion.question,
         description: surveyQuestion.description,
         inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
+        inputType: surveyQuestion.inputType,
+        type: surveyQuestion.type,
       })
       .from(surveyQuestion)
       .where(eq(surveyQuestion.type, type))
@@ -74,75 +51,33 @@ export class SurveyQuestionService {
 
     return surveyQuestions;
   }
-  async getOne(id: number) {
-    const surveyQuestionsToFind = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        surveyQuestionInputType: surveyQuestion.inputType,
-        surveyQuestionType: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.id, id));
 
-    if (!surveyQuestionsToFind.length) {
-      return null;
-    }
-
-    const surveyQuestionToFind = surveyQuestionsToFind[0];
-
-    return surveyQuestionToFind;
-  }
-
-  async remove(id: number) {
-    const deletedSurveyQuestions = await db
+  async remove(id: number): Promise<SurveyQuestionDto> {
+    const [deletedSurveyQuestion] = await db
       .delete(surveyQuestion)
       .where(eq(surveyQuestion.id, id))
       .returning();
 
-    if (!deletedSurveyQuestions.length) {
-      throw new HttpException('Survey question not found', 404);
+    if (!deletedSurveyQuestion) {
+      throw new NotFoundException('Survey question not found');
     }
-
-    const deletedSurveyQuestion = deletedSurveyQuestions[0];
 
     return deletedSurveyQuestion;
   }
-  async update(id: number, updateSurveyQuestionDto: UpdateSurveyQuestionDto) {
-    if (updateSurveyQuestionDto.question.trim() === '') {
-      throw new HttpException('Question cannot be empty', 400);
-    }
 
-    const surveyQuestionsToFind = await db
-      .select({
-        question: surveyQuestion.question,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.question, updateSurveyQuestionDto.question));
-
-    if (surveyQuestionsToFind.length) {
-      throw new HttpException('Question already exists', 400);
-    }
-
-    const updatedSurveyQuestions = await db
+  async update(
+    id: number,
+    dto: SurveyQuestionModifyDto,
+  ): Promise<SurveyQuestionDto> {
+    const [updatedSurveyQuestion] = await db
       .update(surveyQuestion)
-      .set({
-        question: updateSurveyQuestionDto.question,
-        description: updateSurveyQuestionDto.description,
-        inputLabel: updateSurveyQuestionDto.inputLabel,
-        inputType: updateSurveyQuestionDto.surveyQuestionInputType,
-        type: updateSurveyQuestionDto.surveyQuestionType,
-      })
+      .set(dto)
       .where(eq(surveyQuestion.id, id))
       .returning();
 
-    if (!updatedSurveyQuestions.length) {
-      throw new HttpException('Survey question not found', 404);
+    if (!updatedSurveyQuestion) {
+      throw new NotFoundException('Survey question not found');
     }
-
-    const updatedSurveyQuestion = updatedSurveyQuestions[0];
 
     return updatedSurveyQuestion;
   }

@@ -1,28 +1,13 @@
+import { EventDto, EventModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { event } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
-import { CreateEventDto, UpdateEventDto } from './events.dto';
-
 @Injectable()
 export class EventService {
-  async create(createEventDto: CreateEventDto) {
-    const createdEvent = await db
-      .insert(event)
-      .values({
-        name: createEventDto.name,
-        codeId: createEventDto.codeId,
-        description: createEventDto.description,
-        type: createEventDto.eventType,
-        theme: createEventDto.eventTheme,
-        startsAt: new Date(createEventDto.startsAt),
-        endsAt: new Date(createEventDto.endsAt),
-        requirements: createEventDto.requirements,
-        footageLink: createEventDto.footageLink,
-        maxParticipants: createEventDto.maxParticipants,
-      })
-      .returning();
+  async create(dto: EventModifyDto): Promise<EventDto> {
+    const [createdEvent] = await db.insert(event).values(dto).returning();
 
     return createdEvent;
   }
@@ -30,6 +15,7 @@ export class EventService {
   async getAll() {
     const events = await db
       .select({
+        id: event.id,
         name: event.name,
         description: event.description,
         startsAt: event.startsAt,
@@ -37,10 +23,9 @@ export class EventService {
         maxParticipants: event.maxParticipants,
         requirements: event.requirements,
         footageLink: event.footageLink,
-        eventType: event.type,
-        eventTheme: event.theme,
+        type: event.type,
+        theme: event.theme,
         codeId: event.codeId,
-        id: event.id,
       })
       .from(event)
       .orderBy(event.name);
@@ -49,8 +34,9 @@ export class EventService {
   }
 
   async getOne(id: number) {
-    const eventToFind = await db
+    const [foundEvent] = await db
       .select({
+        id: event.id,
         name: event.name,
         description: event.description,
         startsAt: event.startsAt,
@@ -58,40 +44,29 @@ export class EventService {
         maxParticipants: event.maxParticipants,
         requirements: event.requirements,
         footageLink: event.footageLink,
-        eventType: event.type,
-        eventTheme: event.theme,
+        type: event.type,
+        theme: event.theme,
         codeId: event.codeId,
-        id: event.id,
       })
       .from(event)
       .where(eq(event.id, id));
 
-    return eventToFind;
+    return foundEvent;
   }
 
   async remove(id: number) {
-    const deletedUser = await db
+    const [deletedEvent] = await db
       .delete(event)
       .where(eq(event.id, id))
       .returning();
 
-    return deletedUser;
+    return deletedEvent;
   }
-  async update(id: number, updateEventDto: UpdateEventDto) {
-    const updatedEvent = await db
+
+  async update(id: number, dto: EventModifyDto) {
+    const [updatedEvent] = await db
       .update(event)
-      .set({
-        name: updateEventDto.name,
-        codeId: updateEventDto.codeId,
-        description: updateEventDto.description,
-        type: updateEventDto.eventType,
-        theme: updateEventDto.eventTheme,
-        startsAt: new Date(updateEventDto.startsAt),
-        endsAt: new Date(updateEventDto.endsAt),
-        requirements: updateEventDto.requirements,
-        footageLink: updateEventDto.footageLink,
-        maxParticipants: updateEventDto.maxParticipants,
-      })
+      .set(dto)
       .where(eq(event.id, id))
       .returning();
 
