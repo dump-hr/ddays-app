@@ -1,16 +1,11 @@
 import styles from './PhotoInput.module.scss';
 
 type ErrorMessageProps = {
-    display: boolean;
-    message: string;
-}
+  message: string;
+};
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({display, message}) => {
-  return (
-    <div>
-        {display && <p className={styles.errorMessage}>{message}</p>}
-    </div>
-  );
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
+  return <p className={styles.errorMessage}>{message}</p>;
 };
 
 export default ErrorMessage;
