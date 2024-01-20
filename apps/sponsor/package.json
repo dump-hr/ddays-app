@@ -12,6 +12,7 @@
   "dependencies": {
     "@azure/msal-browser": "^3.6.0",
     "@azure/msal-react": "^2.0.8",
+    "@types/react-helmet": "^6.1.11",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
