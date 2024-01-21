@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
-import { useGetSponsorDescription } from '../../api/useGetSponsorDescription';
-import { useUpdateSponsorDescription } from '../../api/useUpdateSponsorDescription';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyUpdateDescription } from '../../api/company/useCompanyUpdateDescription';
 import TextArea from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
-const Description: FormComponent = ({ close }) => {
-  const [description, setDescription] = useState<string>();
+export const Description: FormComponent = ({ close }) => {
+  const [description, setDescription] = useState('');
 
-  const { data, error, isLoading } = useGetSponsorDescription();
-  const updateSponsorDescription = useUpdateSponsorDescription();
+  const { data, error, isLoading } = useCompanyGetCurrentPublic();
+  const updateDescription = useCompanyUpdateDescription();
 
   if (error) {
     return <div>{error.toString()}</div>;
@@ -21,7 +21,7 @@ const Description: FormComponent = ({ close }) => {
   }
 
   const handleSubmit = async () => {
-    await updateSponsorDescription.mutateAsync({
+    await updateDescription.mutateAsync({
       description: description ?? data.description,
     });
     close();
@@ -37,7 +37,7 @@ const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={description ?? data.description ?? ''}
+          value={description ?? data.description}
           onChange={(value) => setDescription(value)}
           limit={70}
           deviation={5}
@@ -51,5 +51,3 @@ const Description: FormComponent = ({ close }) => {
     </div>
   );
 };
-
-export default Description;

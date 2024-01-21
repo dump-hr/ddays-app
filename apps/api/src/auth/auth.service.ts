@@ -1,3 +1,4 @@
+import { JwtResponseDto } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { db } from 'db';
@@ -8,7 +9,10 @@ import { eq } from 'drizzle-orm';
 export class AuthService {
   constructor(private jwtService: JwtService) {}
 
-  async companyPasswordLogin(username: string, password: string) {
+  async companyPasswordLogin(
+    username: string,
+    password: string,
+  ): Promise<JwtResponseDto> {
     const [loginCompany] = await db
       .select({
         id: company.id,
@@ -33,6 +37,6 @@ export class AuthService {
       name: company.name,
     });
 
-    return accessToken;
+    return { accessToken };
   }
 }

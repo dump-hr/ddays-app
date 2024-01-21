@@ -28,3 +28,23 @@ export class JobModifyDto {
   @IsNumber()
   companyId: number;
 }
+
+export class JobModifyForCompanyDto {
+  @IsOptional()
+  @IsNumber()
+  id?: number;
+
+  @IsString()
+  position: string;
+
+  @IsOptional()
+  @IsString()
+  location?: string;
+
+  @IsString()
+  details: string;
+
+  @IsOptional()
+  @IsString()
+  link?: string;
+}

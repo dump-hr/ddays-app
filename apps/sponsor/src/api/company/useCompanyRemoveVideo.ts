@@ -2,19 +2,19 @@ import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { api } from '.';
+import { api } from '..';
 
-const deleteVideo = async () => {
-  return await api.delete('/companies/video');
+const companyRemoveVideo = async () => {
+  return await api.delete('/company/video');
 };
 
-export const useDeleteVideo = () => {
+// TODO: add loading toast like in useAuthCompanyPasswordLogin
+export const useCompanyRemoveVideo = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(deleteVideo, {
+  return useMutation(companyRemoveVideo, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['sponsorFormStatus']);
-      queryClient.invalidateQueries(['loggedCompany']);
+      queryClient.invalidateQueries(['company', 'current']);
 
       toast.success('Video uspješno izbrisan');
     },
@@ -22,6 +22,4 @@ export const useDeleteVideo = () => {
       toast.error(error.message);
     },
   });
-
-  return { ...mutation };
 };

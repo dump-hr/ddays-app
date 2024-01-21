@@ -1,4 +1,4 @@
-import { JobDto, JobModifyDto } from '@ddays-app/types';
+import { JobDto, JobModifyDto, JobModifyForCompanyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { job } from 'db/schema';
@@ -33,5 +33,16 @@ export class JobService {
     const [deletedjob] = await db.delete(job).where(eq(job.id, id)).returning();
 
     return deletedjob;
+  }
+
+  async updateForCompany(
+    companyId: number,
+    dto: JobModifyForCompanyDto[],
+  ): Promise<JobDto[]> {
+    const existingJobs = await this.getForCompany(companyId);
+    console.log(dto);
+    // TODO: ako dto ima id znaci da je existing job i treba ga updateat (i removeat one koji fale u toj listi)
+    // ako je id null onda treba napravit novi job
+    return existingJobs;
   }
 }

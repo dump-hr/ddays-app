@@ -1,8 +1,8 @@
-import { EventTheme } from '@ddays-app/types';
+import { Theme } from '@ddays-app/types';
 
 export const interestLabels = {
-  [EventTheme.Dev]: 'Development',
-  [EventTheme.Design]: 'Design',
-  [EventTheme.Tech]: 'Tech',
-  [EventTheme.Marketing]: 'Marketing',
+  [Theme.Dev]: 'Development',
+  [Theme.Design]: 'Design',
+  [Theme.Tech]: 'Tech',
+  [Theme.Marketing]: 'Marketing',
 };

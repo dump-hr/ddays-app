@@ -12,13 +12,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
-import { SponsorAuthGuard } from 'src/auth/sponsor.guard';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 
 import { InterestService } from './interest.service';
 
@@ -26,9 +25,9 @@ import { InterestService } from './interest.service';
 export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
-  @Put('/company')
+  @Patch('/company')
   async connectToCompany(
     @Req() { user }: AuthenticatedRequest,
     @Body() { interestIds }: InterestConnectToCompanyDto,

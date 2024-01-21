@@ -25,7 +25,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
-import { SponsorAuthGuard } from '../auth/sponsor.guard';
+import { SponsorGuard } from '../auth/sponsor.guard';
 import { CompanyService } from './company.service';
 
 @Controller('company')
@@ -40,6 +40,13 @@ export class CompanyController {
   @Get()
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
+  }
+
+  @Get('current')
+  async getCurrentPublic(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.getOnePublic(user.id);
   }
 
   @Get('include-sensitive-info/:id')
@@ -59,7 +66,7 @@ export class CompanyController {
     return await this.companyService.remove(id);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @Delete('/landing-image')
   async removeLandingImage(
@@ -68,14 +75,14 @@ export class CompanyController {
     return await this.companyService.removeLandingImage(user.id);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @Delete('/logo')
   async removeLogo(@Req() { user }: AuthenticatedRequest) {
     return await this.companyService.removeLogo(user.id);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @Delete('/video')
   async removeVideo(@Req() { user }: AuthenticatedRequest) {
@@ -90,7 +97,7 @@ export class CompanyController {
     return await this.companyService.update(id, dto);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @Patch('/description')
   async updateDescription(
@@ -100,7 +107,7 @@ export class CompanyController {
     return await this.companyService.updateDescription(user.id, description);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -131,7 +138,7 @@ export class CompanyController {
     return await this.companyService.updateLandingImage(user.id, file);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -162,7 +169,7 @@ export class CompanyController {
     return await this.companyService.updateLogo(user.id, file);
   }
 
-  @UseGuards(SponsorAuthGuard)
+  @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({

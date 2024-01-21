@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone';
 
 import RemoveSvg from '../../assets/remove.svg';
 import sprite from '../../assets/sprite.svg';
-import { Message } from '../../constants/messages';
 import { photoHelper } from '../../helpers/photoHelper';
 import { ErrorMessage } from '.';
 import c from './PhotoInput.module.scss';
@@ -109,18 +108,12 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
           <>
             {isBlackAndWhite === false &&
               inputConstraints?.checkBlackAndWhite && (
-                <ErrorMessage message={Message.BlackAndWhiteError} />
+                <ErrorMessage message='Logo mora biti crno bijeli' />
               )}
             {isWithinDimensions === false &&
               inputConstraints?.maxDimensions && (
                 <ErrorMessage
-                  message={Message.DimensionsError.replace(
-                    '{width}',
-                    `${inputConstraints.maxDimensions.width}`,
-                  ).replace(
-                    '{height}',
-                    `${inputConstraints.maxDimensions.height}`,
-                  )}
+                  message={`Fotografija mora imati dimenzije manje od ${inputConstraints.maxDimensions.width}x${inputConstraints.maxDimensions.height}`}
                 />
               )}
           </>

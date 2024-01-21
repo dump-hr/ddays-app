@@ -1,4 +1,4 @@
-import { CompanyPasswordLoginDto } from '@ddays-app/types';
+import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -7,13 +7,13 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login/sponsor')
-  async companyPasswordLogin(@Body() login: CompanyPasswordLoginDto) {
-    const accessToken = await this.authService.companyPasswordLogin(
+  @Post('company/login')
+  async companyPasswordLogin(
+    @Body() login: CompanyPasswordLoginDto,
+  ): Promise<JwtResponseDto> {
+    return await this.authService.companyPasswordLogin(
       login.username,
       login.password,
     );
-
-    return { access_token: accessToken };
   }
 }

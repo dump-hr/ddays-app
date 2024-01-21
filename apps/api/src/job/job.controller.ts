@@ -1,4 +1,4 @@
-import { JobDto, JobModifyDto } from '@ddays-app/types';
+import { JobDto, JobModifyDto, JobModifyForCompanyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -6,9 +6,15 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { AdminGuard } from 'src/auth/admin.guard';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 
 import { JobService } from './job.service';
 
@@ -16,22 +22,32 @@ import { JobService } from './job.service';
 export class JobController {
   constructor(private readonly jobService: JobService) {}
 
+  @UseGuards(AdminGuard)
   @ApiBearerAuth()
   @Post()
-  async async(@Body() dto: JobModifyDto): Promise<JobDto> {
+  async create(@Body() dto: JobModifyDto): Promise<JobDto> {
     return await this.jobService.create(dto);
   }
 
-  @Get(':id')
+  @Get('company/:id')
   async getForCompany(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<JobDto[]> {
     return await this.jobService.getForCompany(id);
   }
-
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<JobDto> {
     return await this.jobService.remove(id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Patch('company')
+  async updateForCompany(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() dto: JobModifyForCompanyDto[],
+  ): Promise<JobDto[]> {
+    return await this.jobService.updateForCompany(user.id, dto);
   }
 }
