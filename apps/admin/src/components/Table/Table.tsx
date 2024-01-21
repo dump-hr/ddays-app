@@ -1,4 +1,4 @@
-import { unCamelCase } from '../../helpers/text';
+import { unCamelCase } from '../../helpers';
 import Button from '../Button';
 import c from './Table.module.scss';
 

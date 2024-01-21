@@ -5,9 +5,8 @@ export enum Path {
   Events = '/admin/events',
   Notifications = '/admin/notifications',
   FrequentlyAskedQuestions = '/admin/faqs',
-  CatchAll = '/admin/:path*',
-  Admin = '/admin/admin',
   Interests = '/admin/interests',
   Companies = '/admin/companies',
   SurveyQuestions = '/admin/survey-questions',
+  CatchAll = '/admin/:path*',
 }

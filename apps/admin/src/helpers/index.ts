@@ -1,1 +1,2 @@
-export * from './arrayHelpers';
+export * from './array';
+export * from './text';
