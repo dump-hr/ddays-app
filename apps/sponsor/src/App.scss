@@ -9,11 +9,12 @@ body {
   margin: 0;
 }
 
+// TODO: import only woff2 for all font weights / styles
 @font-face {
   font-family: 'Fuse';
   font-style: normal;
   font-weight: 800;
-  src: url('/fonts/FuseV.2Display-ExtraBold.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Display-ExtraBold.woff2') format('woff2');
   font-display: fallback;
 }
 
@@ -21,7 +22,8 @@ body {
   font-family: 'Fuse';
   font-style: italic;
   font-weight: 800;
-  src: url('/fonts/FuseV.2Display-ExtraBoldItalic.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Display-ExtraBoldItalic.woff2')
+    format('woff2');
   font-display: fallback;
 }
 
@@ -29,7 +31,7 @@ body {
   font-family: 'Fuse';
   font-style: normal;
   font-weight: 700;
-  src: url('/fonts/FuseV.2Display-Bold.otf') format('opentype');
+  src: url('./assets/fonts/FuseV.2Display-Bold.otf') format('opentype');
   font-display: fallback;
 }
 
@@ -37,7 +39,7 @@ body {
   font-family: 'Fuse';
   font-style: normal;
   font-weight: 500;
-  src: url('/fonts/FuseV.2Display-Book.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Display-Book.woff2') format('woff2');
   font-display: fallback;
 }
 
@@ -45,7 +47,7 @@ body {
   font-family: 'Fuse';
   font-style: italic;
   font-weight: 500;
-  src: url('/fonts/FuseV.2Display-BookItalic.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Display-BookItalic.woff2') format('woff2');
   font-display: fallback;
 }
 
@@ -53,7 +55,7 @@ body {
   font-family: 'Fuse';
   font-style: normal;
   font-weight: 400;
-  src: url('/fonts/FuseV.2Text-Book.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Text-Book.woff2') format('woff2');
   font-display: fallback;
 }
 
@@ -61,6 +63,6 @@ body {
   font-family: 'Fuse';
   font-style: italic;
   font-weight: 400;
-  src: url('/fonts/FuseV.2Text-BookItalic.woff2') format('woff2');
+  src: url('./assets/fonts/FuseV.2Text-BookItalic.woff2') format('woff2');
   font-display: fallback;
 }

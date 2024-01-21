@@ -1,4 +1,4 @@
-import { EventTheme, Interest } from '@ddays-app/types';
+import { InterestDto, Theme } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -12,15 +12,15 @@ import c from './InterestPicker.module.scss';
 
 export const InterestPicker: FormComponent = () => {
   const { data: interests } = useGetSponsorInterest();
-  const [activeInterests, setActiveInterests] = useState<Interest[]>([]);
-  const [currentTheme, setCurrentTheme] = useState(EventTheme.Dev);
+  const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
+  const [currentTheme, setCurrentTheme] = useState(Theme.Dev);
   const { mutate: updateSponsorInterests } = useUpdateSponsorInterests();
 
   useEffect(() => {
     setActiveInterests(interests?.filter((i) => i.isActive) ?? []);
   }, [interests]);
 
-  const getInterestCount = (theme: EventTheme) =>
+  const getInterestCount = (theme: Theme) =>
     activeInterests.filter((interest) => interest.theme === theme).length;
 
   const handleSave = () =>
@@ -28,7 +28,7 @@ export const InterestPicker: FormComponent = () => {
       ids: activeInterests.map((interest) => interest.id),
     });
 
-  const toggleInterest = (interest: Interest) => {
+  const toggleInterest = (interest: InterestDto) => {
     const MAX_NUMBER_OF_INTERESTS = 6;
     if (
       !activeInterests.includes(interest) &&
@@ -50,7 +50,7 @@ export const InterestPicker: FormComponent = () => {
       </p>
 
       <div className={c.themes}>
-        {Object.values(EventTheme).map((theme) => (
+        {Object.values(Theme).map((theme) => (
           <p
             onClick={() => setCurrentTheme(theme)}
             className={clsx(c.themeLabel, {

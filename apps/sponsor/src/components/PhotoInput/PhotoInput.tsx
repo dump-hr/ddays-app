@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import RemoveSvg from '../../assets/remove.svg';
 import sprite from '../../assets/sprite.svg';
 import { photoHelper } from '../../helpers/photoHelper';
-import { ErrorMessage } from '.';
+import { ErrorMessage } from './ErrorMessage';
 import c from './PhotoInput.module.scss';
 
 type PhotoInputProps = {

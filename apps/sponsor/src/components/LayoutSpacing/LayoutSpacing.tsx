@@ -7,10 +7,8 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const LayoutSpacing = ({ children, className, ...handlers }: Props) => {
-  const classes = clsx(c.layoutSpacing, className);
-
   return (
-    <div className={classes} {...handlers}>
+    <div className={clsx(c.layoutSpacing, className)} {...handlers}>
       {children}
     </div>
   );

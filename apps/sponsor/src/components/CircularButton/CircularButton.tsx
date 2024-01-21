@@ -11,9 +11,8 @@ export const CircularButton = ({
   className,
   ...handlers
 }: CircularButtonProps) => {
-  const classes = clsx(c.circularButton, className);
   return (
-    <button className={classes} {...handlers}>
+    <button className={clsx(c.circularButton, className)} {...handlers}>
       {children}
     </button>
   );
