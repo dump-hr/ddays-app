@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import sprite from '../../../public/sprite.svg';
@@ -20,19 +20,20 @@ type PhotoInputProps = {
     checkBlackAndWhite?: boolean;
   };
   height?: number;
+  fileSrc?: string;
+  handleUpload: (files: File[]) => void;
+  handleRemove: () => void;
 };
-
-interface FileWithPreview extends File {
-  preview?: string;
-}
 
 const PhotoInput: React.FC<PhotoInputProps> = ({
   label,
   displayErrorMessages = false,
   inputConstraints,
   height = 362,
+  fileSrc,
+  handleUpload,
+  handleRemove,
 }) => {
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
   const [isWithinDimensions, setIsWithinDimensions] = useState<boolean | null>(
     null,
@@ -63,46 +64,14 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
         setIsWithinDimensions(dimensionsResults.every((result) => result));
       }
 
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          }),
-        ),
-      );
+      handleUpload(acceptedFiles);
     },
   });
-
-  const thumbs = files.map((file, index) => (
-    <div key={index} className={c.thumb}>
-      <div className={c.thumbInner}>
-        <img
-          src={file.preview}
-          className={c.image}
-          onLoad={() => {
-            if (file.preview) {
-              URL.revokeObjectURL(file?.preview);
-            }
-          }}
-          style={{ maxHeight: `${height}px` }}
-        />
-      </div>
-    </div>
-  ));
-
-  useEffect(() => {
-    return () =>
-      files.forEach((file) => {
-        if (file.preview) {
-          URL.revokeObjectURL(file.preview);
-        }
-      });
-  }, []);
 
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
       <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
-        {!files.length && (
+        {!fileSrc && (
           <div className={c.inputField} {...getRootProps()}>
             <input {...getInputProps()} />
             <div className={c.inputFieldLabel}>
@@ -113,10 +82,23 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
             </div>
           </div>
         )}
-        <aside className={c.thumbsContainer}>{thumbs}</aside>
+        {!!fileSrc}
+        <aside className={c.thumbsContainer}>
+          {!!fileSrc && (
+            <div className={c.thumb}>
+              <div className={c.thumbInner}>
+                <img
+                  src={fileSrc}
+                  className={c.image}
+                  style={{ maxHeight: `${height}px` }}
+                />
+              </div>
+            </div>
+          )}
+        </aside>
 
-        {!!files.length && (
-          <button className={c.removeButton} onClick={() => setFiles([])}>
+        {!!fileSrc && (
+          <button className={c.removeButton} onClick={() => handleRemove()}>
             <img className={c.removeSvg} src={RemoveSvg} alt='Ukloni' />
             <p>Ukloni</p>
           </button>
@@ -127,15 +109,11 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
           <>
             {isBlackAndWhite === false &&
               inputConstraints?.checkBlackAndWhite && (
-                <ErrorMessage
-                  display={true}
-                  message={Message.BlackAndWhiteError}
-                />
+                <ErrorMessage message={Message.BlackAndWhiteError} />
               )}
             {isWithinDimensions === false &&
               inputConstraints?.maxDimensions && (
                 <ErrorMessage
-                  display={true}
                   message={Message.DimensionsError.replace(
                     '{width}',
                     `${inputConstraints.maxDimensions.width}`,

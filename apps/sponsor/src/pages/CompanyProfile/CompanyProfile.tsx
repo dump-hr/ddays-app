@@ -103,7 +103,7 @@ const CompanyProfile = () => {
               </div>
               <CircularButton
                 className={c.submitButton}
-                onClick={() => setLocation('/materials')}>
+                onClick={() => setLocation('/sponsor/materials')}>
                 Predaj materijale
               </CircularButton>
             </div>
