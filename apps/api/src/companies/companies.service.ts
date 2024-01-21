@@ -13,7 +13,6 @@ import {
   CompanyDto,
   CreateCompanyDto,
   SponsorDescriptionDto,
-  SponsorJobsDto,
   UpdateCompanyDto,
   UpdateSponsorDescriptionDto,
 } from './companies.dto';

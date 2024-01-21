@@ -13,7 +13,6 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import {
-  _UpdateSurveyQuestionDto,
   CreateSurveyQuestionDto,
   UpdateSurveyQuestionDto,
 } from './surveyQuestions.dto';
