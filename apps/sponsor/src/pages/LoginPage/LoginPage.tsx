@@ -2,7 +2,7 @@ import logoSvg from '../../assets/logo.svg';
 import LoginForm from '../../components/LoginForm';
 import c from './LoginPage.module.scss';
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <div className={c.background}>
       <div className={c.formWrapper}>
@@ -20,5 +20,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export default LoginPage;

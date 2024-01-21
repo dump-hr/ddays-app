@@ -8,7 +8,7 @@ type JobOfferProps = {
   location: string;
 };
 
-const JobOffer = ({ title, description, location }: JobOfferProps) => {
+export const JobOffer = ({ title, description, location }: JobOfferProps) => {
   return (
     <div className={c.jobOffer}>
       <header className={c.header}>
@@ -26,5 +26,3 @@ const JobOffer = ({ title, description, location }: JobOfferProps) => {
     </div>
   );
 };
-
-export default JobOffer;

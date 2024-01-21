@@ -29,7 +29,7 @@ const statusChips = {
   ),
 };
 
-const MaterialsPage: React.FC = () => {
+export const MaterialsPage: React.FC = () => {
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
   );
@@ -78,5 +78,3 @@ const MaterialsPage: React.FC = () => {
     </main>
   );
 };
-
-export default MaterialsPage;

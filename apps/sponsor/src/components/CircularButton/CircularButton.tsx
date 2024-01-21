@@ -6,7 +6,7 @@ type CircularButtonProps = {
   children: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const CircularButton = ({
+export const CircularButton = ({
   children,
   className,
   ...handlers
@@ -18,5 +18,3 @@ const CircularButton = ({
     </button>
   );
 };
-
-export default CircularButton;

@@ -12,7 +12,7 @@ interface ModalProps {
   form: FormStep;
 }
 
-const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
+export const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
   useEffect(() => {
     if (currentForm) {
       const width = document.body.clientWidth;
@@ -47,17 +47,10 @@ const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
     <>
       <div className={c.background} onClick={close}>
         <div className={c.container} onClick={(e) => e.stopPropagation()}>
-          <img
-            src={closeSvg}
-            alt='Close'
-            className={c.close}
-            onClick={close}
-          />
+          <img src={closeSvg} alt='Close' className={c.close} onClick={close} />
           {form.component({ close })}
         </div>
       </div>
     </>
   );
 };
-
-export default Modal;

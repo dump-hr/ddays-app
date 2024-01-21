@@ -10,7 +10,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
   const isCurrentPage = (path: string) => location === path;
 
@@ -38,5 +38,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     </>
   );
 };
-
-export default Layout;

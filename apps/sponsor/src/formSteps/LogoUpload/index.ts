@@ -1,3 +1,1 @@
-import LogoUpload from './LogoUpload';
-
-export default LogoUpload;
+export * from './LogoUpload';

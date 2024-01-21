@@ -12,7 +12,7 @@ type TextAreaProps = {
   onChange?: (value: string) => void;
 };
 
-const TextArea = ({
+export const TextArea = ({
   limit,
   deviation,
   value,
@@ -71,5 +71,3 @@ const TextArea = ({
     </div>
   );
 };
-
-export default TextArea;

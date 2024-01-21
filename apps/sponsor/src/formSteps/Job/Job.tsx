@@ -9,7 +9,7 @@ import TextArea from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
-const Job: FormComponent = () => {
+export const Job: FormComponent = () => {
   const [position, setPosition] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [details, setDetails] = useState<string>('');
@@ -133,5 +133,3 @@ const Job: FormComponent = () => {
     </div>
   );
 };
-
-export default Job;

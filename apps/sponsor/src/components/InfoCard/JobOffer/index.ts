@@ -1,3 +1,1 @@
-import JobOffer from './JobOffer';
-
-export default JobOffer;
+export * from './JobOffer';

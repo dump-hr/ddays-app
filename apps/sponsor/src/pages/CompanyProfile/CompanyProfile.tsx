@@ -70,7 +70,7 @@ const JobOffersCardContent = () => {
   );
 };
 
-const CompanyProfile = () => {
+export const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
@@ -144,5 +144,3 @@ const CompanyProfile = () => {
     </>
   );
 };
-
-export default CompanyProfile;

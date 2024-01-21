@@ -10,7 +10,7 @@ import { getVideoMetadata } from '../../helpers/fileHelpers';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
 
-const Video: FormComponent = ({ close }) => {
+export const Video: FormComponent = ({ close }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
 
   const { mutate: uploadVideo, isLoading } = useUploadVideo();
@@ -122,5 +122,3 @@ const Video: FormComponent = ({ close }) => {
     </div>
   );
 };
-
-export default Video;

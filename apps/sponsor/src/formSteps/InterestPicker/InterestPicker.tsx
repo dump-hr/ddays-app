@@ -10,7 +10,7 @@ import { toggleArrayElement } from '../../helpers';
 import { FormComponent } from '../../types/form';
 import c from './InterestPicker.module.scss';
 
-const InterestPicker: FormComponent = () => {
+export const InterestPicker: FormComponent = () => {
   const { data: interests } = useGetSponsorInterest();
   const [activeInterests, setActiveInterests] = useState<Interest[]>([]);
   const [currentTheme, setCurrentTheme] = useState(EventTheme.Dev);
@@ -84,5 +84,3 @@ const InterestPicker: FormComponent = () => {
     </div>
   );
 };
-
-export default InterestPicker;

@@ -5,7 +5,7 @@ import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
 
-const PhotoUpload: FormComponent = ({ close }) => {
+export const PhotoUpload: FormComponent = ({ close }) => {
   const { mutate: uploadImage, isLoading } = useUploadImage();
   const { mutate: deleteLogo } = useDeleteImage();
   const { data: companyData } = useGetLoggedCompany();
@@ -62,5 +62,3 @@ const PhotoUpload: FormComponent = ({ close }) => {
     </div>
   );
 };
-
-export default PhotoUpload;

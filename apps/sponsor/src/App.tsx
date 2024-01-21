@@ -3,7 +3,7 @@ import './App.scss';
 import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
-import Layout from './components/Layout';
+import { Layout } from './components/Layout';
 import { pages } from './constants/pages';
 import { Path } from './constants/paths';
 import HomePage from './pages/HomePage';
@@ -29,5 +29,3 @@ export const App = () => {
     </>
   );
 };
-
-export default App;

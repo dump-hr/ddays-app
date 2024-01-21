@@ -24,7 +24,7 @@ type PhotoInputProps = {
   handleRemove: () => void;
 };
 
-const PhotoInput: React.FC<PhotoInputProps> = ({
+export const PhotoInput: React.FC<PhotoInputProps> = ({
   label,
   displayErrorMessages = false,
   inputConstraints,
@@ -122,5 +122,3 @@ const PhotoInput: React.FC<PhotoInputProps> = ({
     </div>
   );
 };
-
-export default PhotoInput;

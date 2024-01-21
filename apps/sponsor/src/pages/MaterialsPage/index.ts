@@ -1,2 +1,1 @@
-import MaterialsPage from './MaterialsPage';
-export default MaterialsPage;
+export * from './MaterialsPage';
