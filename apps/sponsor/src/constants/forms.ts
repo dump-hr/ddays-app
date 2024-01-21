@@ -1,9 +1,9 @@
-import Description from '../formSteps/Description';
-import InterestPicker from '../formSteps/InterestPicker';
-import Job from '../formSteps/Job/Job';
-import LogoUpload from '../formSteps/LogoUpload';
-import PhotoUpload from '../formSteps/PhotoUpload';
-import Video from '../formSteps/Video';
+import { Description } from '../formSteps/Description';
+import { InterestPicker } from '../formSteps/InterestPicker';
+import { Job } from '../formSteps/Job/Job';
+import { LogoUpload } from '../formSteps/LogoUpload';
+import { PhotoUpload } from '../formSteps/PhotoUpload';
+import { Video } from '../formSteps/Video';
 import { FormSteps, SponsorForm } from '../types/form';
 
 export const sponsorForm: SponsorForm = {

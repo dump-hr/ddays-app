@@ -1,17 +1,17 @@
-import { FormSteps } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import CircularButton from '../../components/CircularButton';
-import InfoCard from '../../components/InfoCard';
-import JobOffer from '../../components/InfoCard/JobOffer';
-import LayoutSpacing from '../../components/LayoutSpacing';
-import Modal from '../../components/Modal';
-import Pill from '../../components/Pill';
+import { CircularButton } from '../../components/CircularButton';
+import { InfoCard } from '../../components/InfoCard';
+import { JobOffer } from '../../components/InfoCard/JobOffer';
+import { LayoutSpacing } from '../../components/LayoutSpacing';
+import { Modal } from '../../components/Modal';
+import { Pill } from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
+import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
 
 const data = {

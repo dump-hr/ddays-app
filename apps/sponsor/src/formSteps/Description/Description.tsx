@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateDescription } from '../../api/company/useCompanyUpdateDescription';
-import TextArea from '../../components/TextArea';
+import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 

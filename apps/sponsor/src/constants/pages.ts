@@ -2,9 +2,9 @@ import flyTalksSvg from '../assets/fly-talks.svg';
 import materialsSvg from '../assets/materials.svg';
 import profileSvg from '../assets/profile.svg';
 import standSvg from '../assets/stand.svg';
-import CompanyProfile from '../pages/CompanyProfile';
-import HomePage from '../pages/HomePage';
-import MaterialsPage from '../pages/MaterialsPage';
+import { CompanyProfile } from '../pages/CompanyProfile';
+import { HomePage } from '../pages/HomePage';
+import { MaterialsPage } from '../pages/MaterialsPage';
 import { Path } from './paths';
 
 type Page = {

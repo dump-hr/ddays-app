@@ -14,7 +14,7 @@ import FrequentlyAskedQuestionPage from './pages/FrequentlyAskedQuestion';
 import GuestPage from './pages/GuestPage';
 import HomePage from './pages/HomePage';
 import InterestsPage from './pages/InterestsPage';
-import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
+import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import SurveyQuestionsPage from './pages/SurveyQuestionsPage';
 
 export const App = () => {

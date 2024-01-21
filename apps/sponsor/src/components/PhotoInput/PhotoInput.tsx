@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 
 import RemoveSvg from '../../assets/remove.svg';
 import sprite from '../../assets/sprite.svg';
-import { photoHelper } from '../../helpers/photoHelper';
+import { checkBlackAndWhite, checkImageDimensions } from '../../helpers';
 import { ErrorMessage } from './ErrorMessage';
 import c from './PhotoInput.module.scss';
 
@@ -45,16 +45,14 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
     ) || { 'image/*': [] },
     onDrop: async (acceptedFiles) => {
       if (inputConstraints?.checkBlackAndWhite) {
-        const blackAndWhitePromises = acceptedFiles.map(
-          photoHelper.checkBlackAndWhite,
-        );
+        const blackAndWhitePromises = acceptedFiles.map(checkBlackAndWhite);
         const results = await Promise.all(blackAndWhitePromises);
         setIsBlackAndWhite(results.every((result) => result));
       }
 
       if (inputConstraints?.maxDimensions) {
         const dimensionsPromises = acceptedFiles.map((file) =>
-          photoHelper.checkImageDimensions(
+          checkImageDimensions(
             file,
             inputConstraints.maxDimensions || { width: 0, height: 0 },
           ),

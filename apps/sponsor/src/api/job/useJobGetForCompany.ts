@@ -4,14 +4,14 @@ import { QueryOptions, useQuery } from 'react-query';
 import { api } from '..';
 
 const jobGetForCompany = (companyId: number) => {
-  return api.get<never, JobDto>(`/job/company/${companyId}`);
+  return api.get<never, JobDto[]>(`/job/company/${companyId}`);
 };
 
 export const useJobGetForCompany = (
-  companyId: number,
-  options?: QueryOptions<JobDto>,
+  companyId?: number,
+  options?: QueryOptions<JobDto[]>,
 ) => {
-  return useQuery(['job', companyId], () => jobGetForCompany(companyId), {
+  return useQuery(['job', companyId], () => jobGetForCompany(companyId!), {
     enabled: !!companyId,
     ...options,
   });

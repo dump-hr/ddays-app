@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+<!-- TODO: remove from sprite to separate icon -->
   <symbol id="upload-materials" viewBox="0 0 21 24" fill="none">
     <path d="M10.502 23.251V8.25098" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M15.002 12.751L10.502 8.25098L6.00195 12.751" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

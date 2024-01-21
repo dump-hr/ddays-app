@@ -3,7 +3,7 @@ type Dimensions = {
   height: number;
 };
 
-const checkBlackAndWhite = (file: File) => {
+export const checkBlackAndWhite = (file: File) => {
   return new Promise<boolean>((resolve) => {
     const img = new Image();
     img.src = URL.createObjectURL(file);
@@ -43,7 +43,7 @@ const checkBlackAndWhite = (file: File) => {
   });
 };
 
-const checkImageDimensions = (
+export const checkImageDimensions = (
   file: File,
   maxDimensions: Dimensions,
 ): Promise<boolean> => {
@@ -57,9 +57,4 @@ const checkImageDimensions = (
       resolve(!exceedsDimensions);
     };
   });
-};
-
-export const photoHelper = {
-  checkBlackAndWhite,
-  checkImageDimensions,
 };

@@ -1,4 +1,3 @@
-import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -6,9 +5,10 @@ import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
 import ArrowRightSvg from '../../assets/arrow-right.svg';
 import StatusErrorSvg from '../../assets/status-error.svg';
 import StatusSuccessSvg from '../../assets/status-success.svg';
-import Modal from '../../components/Modal';
+import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
+import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
 
 const statusChips = {

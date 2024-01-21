@@ -17,8 +17,6 @@ import {
   UpdateNotificationDto,
 } from '../../types/notification';
 
-const headers = ['Broj', 'Naslov', 'Content', 'Aktivan od', 'Akcije'];
-
 const questions: Question[] = [
   {
     type: QuestionType.Field,
@@ -38,7 +36,7 @@ const questions: Question[] = [
   },
 ];
 
-const NotificationsPage = () => {
+export const NotificationsPage = () => {
   const [isOpenCreate, setIsOpenCreateModal] = useState(false);
   const [isOpenUpdate, setIsOpenUpdateModal] = useState(false);
   const [selectedNotification, setSelectedNotification] =
@@ -140,5 +138,3 @@ const NotificationsPage = () => {
     </div>
   );
 };
-
-export default NotificationsPage;

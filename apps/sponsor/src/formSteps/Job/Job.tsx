@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { useAddSponsorJob } from '../../api/useAddSponsorJob';
 import { useDeleteSponsorJob } from '../../api/useDeleteSponsorJob';
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import { useGetSponsorJobs } from '../../api/useGetSponsorJobs';
-import TextArea from '../../components/TextArea';
+import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
@@ -14,12 +13,11 @@ export const Job: FormComponent = () => {
   const [location, setLocation] = useState<string>('');
   const [details, setDetails] = useState<string>('');
 
-  const { data: companyData } = useGetLoggedCompany();
-  const sponsorId = companyData?.id;
+  const { data: company } = useCompanyGetCurrentPublic();
 
-  const addSponsorJob = useAddSponsorJob(sponsorId);
+  const addSponsorJob = useAddSponsorJob(company?.id);
   const deleteSponsorJob = useDeleteSponsorJob();
-  const { data: jobs, error, isLoading } = useGetSponsorJobs(sponsorId);
+  const { data: jobs, error, isLoading } = useJobGetForCompany(company?.id);
 
   if (error) {
     return <div>{error.toString()}</div>;
@@ -30,13 +28,8 @@ export const Job: FormComponent = () => {
   }
 
   const handleAdd = async () => {
-    if (!sponsorId) {
-      toast.error('Niste prijavljeni');
-      return;
-    }
-
     await addSponsorJob.mutateAsync({
-      companyId: sponsorId,
+      companyId: company?.id,
       position,
       location,
       details,
@@ -60,38 +53,37 @@ export const Job: FormComponent = () => {
       </p>
 
       <div>
-        {jobs &&
-          jobs.map(({ id, details, location, position }, index) => (
-            <div key={id} className={c.inputContainer}>
-              <div className={c.subtitleContainer}>
-                <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
-                <span onClick={() => handleRemove(id)} className={c.label}>
-                  Ukloni
-                </span>
-              </div>
-              <TextArea
-                value={position}
-                limit={20}
-                deviation={5}
-                label='Pozicija'
-                disabled
-              />
-              <TextArea
-                value={location}
-                limit={20}
-                deviation={5}
-                label='Lokacija'
-                disabled
-              />
-              <TextArea
-                value={details}
-                limit={200}
-                deviation={5}
-                label='Detalji o oglasu'
-                disabled
-              />
+        {jobs.map(({ id, details, location, position }, index) => (
+          <div key={id} className={c.inputContainer}>
+            <div className={c.subtitleContainer}>
+              <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
+              <span onClick={() => handleRemove(id)} className={c.label}>
+                Ukloni
+              </span>
             </div>
-          ))}
+            <TextArea
+              value={position}
+              limit={20}
+              deviation={5}
+              label='Pozicija'
+              disabled
+            />
+            <TextArea
+              value={location ?? ''}
+              limit={20}
+              deviation={5}
+              label='Lokacija'
+              disabled
+            />
+            <TextArea
+              value={details}
+              limit={200}
+              deviation={5}
+              label='Detalji o oglasu'
+              disabled
+            />
+          </div>
+        ))}
       </div>
 
       <div className={c.inputContainer}>

@@ -1,5 +1,3 @@
-import { FormEvent } from 'react';
-
 import c from './TextArea.module.scss';
 
 type TextAreaProps = {
@@ -28,25 +26,12 @@ export const TextArea = ({
   const textTooShort = wc > 0 && wc < lowerBound;
   const textTooLong = wc > 0 && wc >= upperBound;
 
-  const handleInputChange = (event: FormEvent<HTMLTextAreaElement>) => {
-    if (onChange) {
-      const { value } = event.currentTarget;
-      const valueWc = value.match(/\S+/g)?.length || 0;
-
-      if (valueWc > upperBound) {
-        return;
-      }
-
-      onChange(value);
-    }
-  };
-
   return (
     <div>
       <div className={c.textareaContainer}>
         <textarea
           value={value}
-          onChange={handleInputChange}
+          onChange={(e) => onChange(e.target.value)}
           className={c.textarea}
           rows={rows}
           placeholder={label}

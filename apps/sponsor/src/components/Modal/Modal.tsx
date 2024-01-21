@@ -1,9 +1,8 @@
-import { FormSteps } from '@ddays-app/types';
 import React from 'react';
 import { useEffect } from 'react';
 
-import closeSvg from '../../assets/close.svg';
-import { FormStep } from '../../types/form';
+import CloseSvg from '../../assets/close.svg';
+import { FormStep, FormSteps } from '../../types/form';
 import c from './Modal.module.scss';
 
 interface ModalProps {
@@ -47,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
     <>
       <div className={c.background} onClick={close}>
         <div className={c.container} onClick={(e) => e.stopPropagation()}>
-          <img src={closeSvg} alt='Close' className={c.close} onClick={close} />
+          <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
           {form.component({ close })}
         </div>
       </div>

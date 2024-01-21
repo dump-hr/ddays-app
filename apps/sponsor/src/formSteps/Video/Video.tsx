@@ -6,7 +6,7 @@ import { useDeleteVideo } from '../../api/useDeleteVideo';
 import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
 import { useUploadVideo } from '../../api/useUploadVideo';
 import UploadSvg from '../../assets/upload.svg';
-import { getVideoMetadata } from '../../helpers/fileHelpers';
+import { getVideoMetadata } from '../../helpers/file';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
 
