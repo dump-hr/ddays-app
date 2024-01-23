@@ -5,14 +5,14 @@ import { useCreateFrequentlyAskedQuestion } from '../../api/useCreateFrequentlyA
 import { useDeleteFrequentlyAskedQuestion } from '../../api/useDeleteFrequentlyAskedQuestion';
 import { useFetchAllFrequentlyAskedQuestions } from '../../api/useFetchFrequentlyAskedQuestions';
 import { useUpdateFrequentlyAskedQuestion } from '../../api/useUpdateFrequentlyAskedQuestion';
-import Button from '../../components/Button';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
-import AddEditFrequentlyAskedQuestionModal from './AddEditFrequentlyAskedQuestionModal';
+import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
+import { AddEditFrequentlyAskedQuestionModal } from './AddEditFrequentlyAskedQuestionModal';
 
 const headers = ['Id', 'Pitanje', 'Odgovor', 'Akcije'];
 
-const FrequentlyAskedQuestionPage = () => {
+export const FrequentlyAskedQuestionsPage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -140,5 +140,3 @@ const FrequentlyAskedQuestionPage = () => {
     </>
   );
 };
-
-export default FrequentlyAskedQuestionPage;

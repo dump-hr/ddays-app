@@ -7,10 +7,10 @@ import { useCreateNotification } from '../../api/useCreateNotification';
 import { useDeleteNotification } from '../../api/useDeleteNotification';
 import { useFetchNotifications } from '../../api/useFetchNotifications';
 import { useUpdateNotification } from '../../api/useUpdateNotification';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
 import {
   CreateNotificationDto,
   NotificationDto,

@@ -9,10 +9,10 @@ import {
 import { useDeleteInterest } from '../../api/Interests/useDeleteInterest';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
 import { useUpdateInterest } from '../../api/Interests/useUpdateInterestDto';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
 import { InterestDto } from '../../types/interest';
 
 const headers = ['id', 'name', 'theme'];
@@ -33,7 +33,7 @@ const questions: Question[] = [
   },
 ];
 
-const InterestsPage = () => {
+export const InterestsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [interestToEdit, setInterestToEdit] = useState<InterestDto>();
@@ -157,5 +157,3 @@ const InterestsPage = () => {
     </>
   );
 };
-
-export default InterestsPage;

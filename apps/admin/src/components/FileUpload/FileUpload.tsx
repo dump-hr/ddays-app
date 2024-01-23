@@ -1,7 +1,6 @@
-import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import Button from '../Button';
+import { Button } from '../Button';
 import c from './FileUpload.module.scss';
 
 type FileUploadProps = {
@@ -11,23 +10,23 @@ type FileUploadProps = {
   setSrc: (result: string | ArrayBuffer | null) => void;
 };
 
-const FileUpload: React.FC<FileUploadProps> = ({
+export const FileUpload: React.FC<FileUploadProps> = ({
   src,
   label = null,
   accept = 'image/*',
   setSrc,
 }) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = new FileReader();
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles: File[]) => {
+      const file = new FileReader();
 
-    file.onload = () => {
-      setSrc(file.result);
-    };
+      file.onload = () => {
+        setSrc(file.result);
+      };
 
-    file.readAsDataURL(acceptedFiles[0]);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+      file.readAsDataURL(acceptedFiles[0]);
+    },
+  });
 
   const handleFileRemove = () => {
     setSrc(null);
@@ -58,5 +57,3 @@ const FileUpload: React.FC<FileUploadProps> = ({
     </div>
   );
 };
-
-export default FileUpload;

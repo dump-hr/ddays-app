@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 
 import { toggleArrayElement } from '../../helpers';
-import Button from '../Button';
+import { Button } from '../Button';
 import c from './MultipleSelectInput.module.scss';
 
 type Option = {
@@ -15,7 +15,7 @@ type MultipleSelectInputProps = {
   setSelectedOptions: Dispatch<string[]>;
 };
 
-const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
+export const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
   options,
   selectedOptions,
   setSelectedOptions,
@@ -42,5 +42,3 @@ const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
     </div>
   );
 };
-
-export default MultipleSelectInput;

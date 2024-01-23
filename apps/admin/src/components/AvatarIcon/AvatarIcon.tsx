@@ -4,7 +4,7 @@ type AvatarIconProps = {
   avatarId: string;
 };
 
-const AvatarIcon: React.FC<AvatarIconProps> = ({
+export const AvatarIcon: React.FC<AvatarIconProps> = ({
   width = 64,
   height = 64,
   avatarId,
@@ -15,5 +15,3 @@ const AvatarIcon: React.FC<AvatarIconProps> = ({
     </svg>
   );
 };
-
-export default AvatarIcon;

@@ -7,10 +7,10 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 
-import Input from '../Input';
-import MultipleSelectInput from '../MultipleSelectInput';
-import SelectInput from '../SelectInput';
-import Textarea from '../TextArea';
+import { Input } from '../Input';
+import { MultipleSelectInput } from '../MultipleSelectInput';
+import { SelectInput } from '../SelectInput';
+import { Textarea } from '../TextArea';
 import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
@@ -83,7 +83,7 @@ const getInputComponent = (
   }
 };
 
-const InputHandler = ({ question, form }: InputHandlerProps) => {
+export const InputHandler = ({ question, form }: InputHandlerProps) => {
   const { control } = form;
 
   return (
@@ -108,5 +108,3 @@ const InputHandler = ({ question, form }: InputHandlerProps) => {
     />
   );
 };
-
-export default InputHandler;

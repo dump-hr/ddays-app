@@ -68,5 +68,3 @@ export const Table = <T extends object>({
     </table>
   );
 };
-
-export default Table;

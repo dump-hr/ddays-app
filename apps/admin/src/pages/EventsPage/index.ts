@@ -1,3 +1,1 @@
-import EventsPage from './EventsPage';
-
-export default EventsPage;
+export * from './EventsPage';

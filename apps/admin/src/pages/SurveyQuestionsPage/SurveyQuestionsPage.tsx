@@ -11,10 +11,10 @@ import { useCreateSurveyQuestion } from '../../api/SurveyQuestions/useCreateSurv
 import { useDeleteSurveyQuestion } from '../../api/SurveyQuestions/useDeleteSurveyQuestion';
 import { useFetchSurveyQuestions } from '../../api/SurveyQuestions/useFetchSurveyQuestions';
 import { useUpdateSurveyQuestion } from '../../api/SurveyQuestions/useUpdateSurveyQuestion';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
 import {
   CreateSurveyQuestionDto,
   SurveyQuestion,
@@ -73,7 +73,7 @@ const questions: Question[] = [
   },
 ];
 
-const SurveyQuestionsPage = () => {
+export const SurveyQuestionsPage = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [questionToEdit, setQuestionToEdit] = useState<SurveyQuestion | null>(
@@ -212,5 +212,3 @@ const SurveyQuestionsPage = () => {
     </>
   );
 };
-
-export default SurveyQuestionsPage;

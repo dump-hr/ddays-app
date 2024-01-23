@@ -4,7 +4,7 @@ type CheckboxProps = {
   label: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, ...handlers }) => {
+export const Checkbox: React.FC<CheckboxProps> = ({ label, ...handlers }) => {
   return (
     <label className={c.checkboxContainer}>
       <input type='checkbox' {...handlers} className={c.checkbox} />
@@ -13,5 +13,3 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, ...handlers }) => {
     </label>
   );
 };
-
-export default Checkbox;

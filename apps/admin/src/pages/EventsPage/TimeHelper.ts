@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-class TimeHelper {
+export class TimeHelper {
   static changeDateIsoFormat(iso8601: string) {
     return iso8601.substring(0, 16);
   }
@@ -33,5 +33,3 @@ class TimeHelper {
     return dateObj.toISOString().slice(0, 16);
   }
 }
-
-export default TimeHelper;

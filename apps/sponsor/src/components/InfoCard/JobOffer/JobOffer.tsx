@@ -2,13 +2,17 @@ import ArrowRightSvg from '../../../assets/icons/arrow-right.svg';
 import PinSvg from '../../../assets/icons/pin.svg';
 import c from './JobOffer.module.scss';
 
-type Props = {
+type JobOfferProps = {
   title: string;
   description: string;
   location: string;
 };
 
-export const JobOffer: React.FC<Props> = ({ title, description, location }) => {
+export const JobOffer: React.FC<JobOfferProps> = ({
+  title,
+  description,
+  location,
+}) => {
   return (
     <div className={c.jobOffer}>
       <header className={c.header}>

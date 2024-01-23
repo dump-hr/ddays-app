@@ -2,12 +2,12 @@ import { Question, QuestionType } from '@ddays-app/types';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import FileUpload from '../../components/FileUpload';
 import Input from '../../components/Input';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
+import { Modal } from '../../components/Modal';
 
 const questions: Question[] = [
   {
@@ -56,7 +56,7 @@ const questions: Question[] = [
   },
 ];
 
-const HomePage = () => {
+export const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
   const form = useForm<FieldValues>();
@@ -90,5 +90,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;

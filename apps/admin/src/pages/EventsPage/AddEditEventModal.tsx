@@ -8,9 +8,9 @@ import {
 import { FieldValues, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
+import { Modal } from '../../components/Modal';
 import c from './ModalStyles.module.scss';
 import TimeHelper from './TimeHelper';
 
@@ -30,7 +30,7 @@ type ModalProps = {
 const eventTypes: string[] = Object.values(EventType);
 const themeTypes: string[] = Object.values(EventTheme);
 
-const AddEditEventModal: React.FC<ModalProps> = ({
+export const AddEditEventModal: React.FC<ModalProps> = ({
   isOpen,
   toggle,
   title,
@@ -194,5 +194,3 @@ const AddEditEventModal: React.FC<ModalProps> = ({
     </Modal>
   );
 };
-
-export default AddEditEventModal;

@@ -41,7 +41,7 @@ const options = [
   { label: 'Option 33', value: 'option-33' },
 ];
 
-const GuestPage = () => {
+export const GuestPage = () => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return (
@@ -61,5 +61,3 @@ const GuestPage = () => {
     </div>
   );
 };
-
-export default GuestPage;

@@ -1,3 +1,1 @@
-import InterestsPage from './InterestsPage';
-
-export default InterestsPage;
+export * from './InterestsPage';

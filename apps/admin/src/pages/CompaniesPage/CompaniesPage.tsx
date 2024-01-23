@@ -8,10 +8,10 @@ import { useFetchCompanies } from '../../api/Companies/useFetchCompanies';
 import { useUpdateCompany } from '../../api/Companies/useUpdateComapny';
 import { useFetchCompanyInterests } from '../../api/Interests/useFetchCompanyInterests';
 import { useFetchInterests } from '../../api/Interests/useFetchInterests';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import InputHandler from '../../components/InputHandler';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
 import {
   CompanyDto,
   CreateCompanyDto,

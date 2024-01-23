@@ -5,9 +5,9 @@ import { useCreateEvent } from '../../api/useCreateEvent';
 import { useDeleteEvent } from '../../api/useDeleteEvent';
 import { useEditEvents } from '../../api/useEditEvent';
 import { useFetchEvents } from '../../api/useFetchEvents';
-import Button from '../../components/Button';
-import Modal from '../../components/Modal';
-import Table from '../../components/Table';
+import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
+import { Table } from '../../components/Table';
 import AddEditEventModal from './AddEditEventModal';
 import c from './ModalStyles.module.scss';
 import TimeHelper from './TimeHelper';
@@ -37,7 +37,7 @@ type Event = InstanceType<ReturnType<typeof getCreateEventDto>> & {
   id: number;
 };
 
-const EventsPage = () => {
+export const EventsPage = () => {
   const [addEventModalIsOpen, setAddEventModalIsOpen] = useState(false);
   const [deleteEventModalIsOpen, setDeleteEventModalIsOpen] = useState(false);
   const [editEventModalIsOpen, setEditEventModalIsOpen] = useState(false);
@@ -257,5 +257,3 @@ const EventsPage = () => {
     </>
   );
 };
-
-export default EventsPage;

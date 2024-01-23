@@ -1,8 +1,8 @@
 import { FrequentlyAskedQuestion } from '@ddays-app/types/src/model/frequentlyAskedQuestion';
 
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import Input from '../../components/Input';
-import Modal from '../../components/Modal';
+import { Modal } from '../../components/Modal';
 
 type ModalProps = {
   isOpen: boolean;
@@ -14,7 +14,7 @@ type ModalProps = {
   frequentlyAskedQuestion?: FrequentlyAskedQuestion;
 };
 
-const AddEditFrequentlyAskedQuestionModal: React.FC<ModalProps> = ({
+export const AddEditFrequentlyAskedQuestionModal: React.FC<ModalProps> = ({
   isOpen,
   toggle,
   title,
@@ -50,5 +50,3 @@ const AddEditFrequentlyAskedQuestionModal: React.FC<ModalProps> = ({
     </Modal>
   );
 };
-
-export default AddEditFrequentlyAskedQuestionModal;

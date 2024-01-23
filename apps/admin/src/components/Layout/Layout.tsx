@@ -20,7 +20,7 @@ const navLinks = [
   { href: Path.FrequentlyAskedQuestions, text: 'FAQ' },
 ];
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
   const { user, logout } = useAccount();
 
@@ -51,5 +51,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     </div>
   );
 };
-
-export default Layout;

@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { App } from './App';
-import { msalConfig } from './configs/authConfig';
+import { msalConfig } from './configs/auth';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const queryClient = new QueryClient();

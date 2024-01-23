@@ -1,3 +1,1 @@
-import MultipleSelectInput from './MultipleSelectInput';
-
-export default MultipleSelectInput;
+export * from './MultipleSelectInput';

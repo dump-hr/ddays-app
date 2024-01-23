@@ -1,3 +1,1 @@
-import GuestPage from './GuestPage';
-
-export default GuestPage;
+export * from './GuestPage';
