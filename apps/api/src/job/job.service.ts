@@ -41,27 +41,39 @@ export class JobService {
   ): Promise<JobDto[]> {
     const existingJobs = await this.getForCompany(companyId);
 
-    const jobsToAdd = dto.reduce((acc, jobDto) => {
-      if (!jobDto.id) {
-        return [...acc, { ...jobDto, companyId }];
-      }
-
-      return acc;
-    }, [] as JobDto[]);
-
-    const [jobIdsToRemove, jobsToUpdate] = dto.reduce(
-      ([jobIdsToRemove, jobsToUpdate], jobDto) => {
-        if (existingJobs.find((existingJob) => jobDto.id === existingJob.id)) {
-          return [jobIdsToRemove, [...jobsToUpdate, jobDto]];
+    const [jobsToAdd, jobsToUpdate] = dto.reduce(
+      ([jobsToAdd, jobsToUpdate], jobDto) => {
+        if (!jobDto.id) {
+          return [[...jobsToAdd, { ...jobDto, companyId }], jobsToUpdate];
         }
 
-        return [[...jobIdsToRemove, jobDto.id], jobsToUpdate];
+        if (existingJobs.find((existingJob) => jobDto.id === existingJob.id)) {
+          return [jobsToAdd, [...jobsToUpdate, jobDto]];
+        }
       },
-      [[] as number[], [] as JobModifyForCompanyDto[]],
+      [[] as JobDto[], [] as JobModifyForCompanyDto[]],
     );
 
-    await db.insert(job).values(jobsToAdd);
-    await db.delete(job).where(inArray(job.id, jobIdsToRemove));
+    const jobIdsToRemove = existingJobs.reduce(
+      (jobIdsToRemove, existingJob) => {
+        if (!dto.find((jobDto) => jobDto.id === existingJob.id)) {
+          return [...jobIdsToRemove, existingJob.id];
+        }
+
+        return jobIdsToRemove;
+      },
+      [] as number[],
+    );
+
+    console.log({ jobIdsToRemove, jobsToUpdate, jobsToAdd });
+
+    if (jobsToAdd.length > 0) {
+      await db.insert(job).values(jobsToAdd);
+    }
+
+    if (jobIdsToRemove.length > 0) {
+      await db.delete(job).where(inArray(job.id, jobIdsToRemove));
+    }
 
     for (const jobToUpdate of jobsToUpdate) {
       await db.update(job).set(jobToUpdate);

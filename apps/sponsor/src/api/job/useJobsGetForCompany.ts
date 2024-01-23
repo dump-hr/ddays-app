@@ -3,15 +3,15 @@ import { QueryOptions, useQuery } from 'react-query';
 
 import { api } from '..';
 
-const jobGetForCompany = (companyId: number) => {
+const jobsGetForCompany = (companyId: number) => {
   return api.get<never, JobDto[]>(`/job/company/${companyId}`);
 };
 
-export const useJobGetForCompany = (
+export const useJobsGetForCompany = (
   companyId?: number,
   options?: QueryOptions<JobDto[]>,
 ) => {
-  return useQuery(['job', companyId], () => jobGetForCompany(companyId!), {
+  return useQuery(['job', companyId], () => jobsGetForCompany(companyId!), {
     enabled: !!companyId,
     ...options,
   });
