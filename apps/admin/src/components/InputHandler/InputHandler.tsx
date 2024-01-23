@@ -1,21 +1,21 @@
-import { Question, QuestionType } from '@ddays-app/types';
 import dayjs from 'dayjs';
 import {
   Controller,
   ControllerRenderProps,
-  FieldValues,
   UseFormReturn,
 } from 'react-hook-form';
 
+import { Question, QuestionType } from '../../types/question';
 import { Input } from '../Input';
 import { MultipleSelectInput } from '../MultipleSelectInput';
 import { SelectInput } from '../SelectInput';
-import { Textarea } from '../TextArea';
+import { Textarea } from '../Textarea';
 import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
   question: Question;
-  form: UseFormReturn<FieldValues>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  form: UseFormReturn<any>;
 };
 
 const inputDefaultValues = {
@@ -31,7 +31,7 @@ const inputDefaultValues = {
 
 const getInputComponent = (
   question: Question,
-  field: ControllerRenderProps<FieldValues>,
+  field: ControllerRenderProps,
 ) => {
   const controlProps = { ...field, ref: undefined, innerRef: field.ref };
 
@@ -71,29 +71,25 @@ const getInputComponent = (
       );
     case QuestionType.MultipleSelect:
       return (
-        <MultipleSelectInput
-          options={question.options}
-          selectedOptions={controlProps.value}
-          setSelectedOptions={controlProps.onChange}
-          {...controlProps}
-        />
+        <MultipleSelectInput options={question.options} {...controlProps} />
       );
     default:
       return <></>;
   }
 };
 
-export const InputHandler = ({ question, form }: InputHandlerProps) => {
-  const { control } = form;
-
+export const InputHandler: React.FC<InputHandlerProps> = ({
+  question,
+  form,
+}) => {
   return (
     <Controller
-      control={control}
+      control={form.control}
       name={question.id}
       defaultValue={question.defaultValue ?? inputDefaultValues[question.type]}
-      rules={question.rules}
+      disabled={question.disabled}
       render={({ field, fieldState }) => (
-        <>
+        <div>
           {question.title && (
             <label className={c.label} htmlFor={question.id}>
               {question.title}
@@ -103,7 +99,7 @@ export const InputHandler = ({ question, form }: InputHandlerProps) => {
           {fieldState.error && (
             <p className={c.error}>{fieldState.error.message || 'Error'}</p>
           )}
-        </>
+        </div>
       )}
     />
   );

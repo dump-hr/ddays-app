@@ -35,7 +35,7 @@ export class BlobService {
       return `${this.url}/${key}`;
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 }

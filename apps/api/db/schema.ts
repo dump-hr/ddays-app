@@ -84,7 +84,7 @@ export const company = pgTable('company', {
   name: text('name').notNull(),
   username: text('username').unique().notNull(),
   description: text('description'),
-  websiteUrl: text('website_url'),
+  website: text('website_url'),
   boothLocation: text('booth_location'),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
@@ -152,7 +152,7 @@ export const eventRelations = relations(event, ({ one, many }) => ({
   eventToInterest: many(eventToInterest),
 }));
 
-export const interest = pgTable('interests', {
+export const interest = pgTable('interest', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   theme: theme('theme').notNull(),

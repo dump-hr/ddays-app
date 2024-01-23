@@ -3,7 +3,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { company } from 'db/schema';
 import { eq } from 'drizzle-orm';
@@ -43,7 +43,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -61,6 +61,10 @@ export class CompanyService {
       .from(company)
       .where(eq(company.id, id));
 
+    if (!foundCompany) {
+      throw new NotFoundException('Company not found');
+    }
+
     const interests = await this.interestService.getForCompany(id);
 
     return { ...foundCompany, interests };
@@ -73,7 +77,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -81,6 +85,10 @@ export class CompanyService {
       })
       .from(company)
       .where(eq(company.id, id));
+
+    if (!foundCompany) {
+      throw new NotFoundException('Company not found');
+    }
 
     const interests = await this.interestService.getForCompany(id);
 
@@ -131,7 +139,7 @@ export class CompanyService {
         name: dto.name,
         username: dto.username,
         description: dto.description,
-        websiteUrl: dto.websiteUrl,
+        website: dto.website,
         boothLocation: dto.boothLocation,
         codeId: dto.codeId,
       })
@@ -161,7 +169,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -193,7 +201,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -225,7 +233,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -257,7 +265,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
-        websiteUrl: company.websiteUrl,
+        website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,

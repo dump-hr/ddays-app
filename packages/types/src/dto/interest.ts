@@ -17,6 +17,6 @@ export class InterestModifyDto {
 
 export class InterestConnectToCompanyDto {
   @IsArray()
-  @IsNumber(null, { each: true })
+  @IsNumber({}, { each: true })
   interestIds: number[];
 }

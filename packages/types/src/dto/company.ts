@@ -13,7 +13,7 @@ export type CompanyPublicDto = {
   category: `${CompanyCategory}`;
   name: string;
   description?: string;
-  websiteUrl?: string;
+  website?: string;
   boothLocation?: string;
   logoImage?: string;
   landingImage?: string;
@@ -28,7 +28,7 @@ export type CompanyDto = {
   username: string;
   password: string;
   description?: string;
-  websiteUrl?: string;
+  website?: string;
   boothLocation?: string;
   logoImage?: string;
   landingImage?: string;
@@ -41,10 +41,10 @@ export class CompanyModifyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
 
-  @IsString()
+  @IsString() // TODO: add is not empty
   name: string;
 
-  @IsString()
+  @IsString() // TODO: add is not empty
   username: string;
 
   // TODO: validate word count with custom decorator
@@ -67,7 +67,7 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsString()
-  websiteUrl: string;
+  website: string;
 
   @IsOptional()
   @IsString()
@@ -79,7 +79,7 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsArray()
-  @IsNumber(null, { each: true })
+  @IsNumber({}, { each: true })
   interestIds: number[];
 }
 

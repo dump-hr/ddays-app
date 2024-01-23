@@ -1,3 +1,5 @@
+import avatarsSvgSprite from '../../assets/icons/avatars.svg';
+
 type AvatarIconProps = {
   width?: number;
   height?: number;
@@ -11,7 +13,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
 }) => {
   return (
     <svg width={width} height={height}>
-      <use href={`/admin/avatars.svg#${avatarId}`} />
+      <use href={`${avatarsSvgSprite}#${avatarId}`} />
     </svg>
   );
 };

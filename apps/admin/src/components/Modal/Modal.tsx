@@ -1,4 +1,4 @@
-import Button from '../Button';
+import { Button } from '../Button';
 import c from './Modal.module.scss';
 
 type ModalProps = {
@@ -20,6 +20,7 @@ export const Modal: React.FC<ModalProps> = ({
       <div onClick={toggleModal} className={c.overlay}></div>
       <div className={c.modalContent}>
         {children}
+        {/* TODO: dodat X gore desno za zatvorit i maknit prop ili stavit defaultno true */}
         {showCloseButton && <Button onClick={toggleModal}>Close</Button>}
       </div>
     </div>

@@ -1,8 +1,8 @@
 import useLocation from 'wouter/use-location';
 
 import { Path } from '../../constants/paths';
-import { useAccount } from '../../hooks/useUser';
-import Button from '../Button';
+import { useAccount } from '../../hooks/useAccount';
+import { Button } from '../Button';
 import c from './Layout.module.scss';
 
 type LayoutProps = {
@@ -11,13 +11,7 @@ type LayoutProps = {
 
 const navLinks = [
   { href: Path.Home, text: 'Home' },
-  { href: Path.Guest, text: 'Guest' },
-  { href: Path.Events, text: 'Events' },
-  { href: Path.Achievements, text: 'Achievements' },
-  { href: Path.Interests, text: 'Interests' },
-  { href: Path.Notifications, text: 'Notifications' },
-  { href: Path.Companies, text: 'Companies' },
-  { href: Path.FrequentlyAskedQuestions, text: 'FAQ' },
+  { href: Path.Company, text: 'Company' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -37,6 +31,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </Button>
           ))}
         </div>
+
         <div className={c.account}>
           <div className={c.user}>
             <p>{user.name}</p>
@@ -47,6 +42,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Button>
         </div>
       </nav>
+
       {children}
     </div>
   );

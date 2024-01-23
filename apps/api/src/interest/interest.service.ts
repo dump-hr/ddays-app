@@ -10,7 +10,7 @@ export class InterestService {
     companyId: number,
     interestIds: number[],
   ): Promise<InterestDto[]> {
-    if (!interestIds.length) {
+    if (!interestIds || !interestIds.length) {
       return [];
     }
 
