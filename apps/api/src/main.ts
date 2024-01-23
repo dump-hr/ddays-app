@@ -30,7 +30,7 @@ const setupSwagger = (app: INestApplication) => {
   SwaggerModule.setup('/api/swagger', app, document);
 };
 
-const setupFrontendDevServerProxies = (app: INestApplication) => {
+const setupProxies = (app: INestApplication) => {
   app.use(
     '/',
     createProxyMiddleware(['!/api/**', '!/sponsor/**', '!/admin/**'], {
@@ -39,24 +39,28 @@ const setupFrontendDevServerProxies = (app: INestApplication) => {
     }),
   );
 
-  if (process.env.NODE_ENV !== 'dev') return;
+  if (process.env.NODE_ENV === 'dev') {
+    app.use(
+      '/admin',
+      createProxyMiddleware({
+        target: 'http://localhost:3002',
+        changeOrigin: true,
+      }),
+    );
 
-  app.use(
-    '/admin',
-    createProxyMiddleware({
-      target: 'http://localhost:3002',
-    }),
-  );
-
-  app.use(
-    '/sponsor',
-    createProxyMiddleware({
-      target: 'http://localhost:3003',
-    }),
-  );
+    app.use(
+      '/sponsor',
+      createProxyMiddleware({
+        target: 'http://localhost:3003',
+        changeOrigin: true,
+      }),
+    );
+  }
 };
 
 const migrate = async () => {
+  if (process.env.RUN_MIGRATIONS_ON_STARTUP !== 'true') return;
+
   const sql = postgres(process.env.DATABASE_URL, {
     max: 1,
   });
@@ -82,7 +86,7 @@ async function bootstrap() {
 
   setupClassValidator(app);
   setupSwagger(app);
-  setupFrontendDevServerProxies(app);
+  setupProxies(app);
 
   await migrate();
   await run(app);
