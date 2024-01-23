@@ -4,15 +4,15 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const companyRemoveLogo = async () => {
-  return await api.delete('/company/logo');
+const companyRemoveLogoImage = async () => {
+  return await api.delete('/company/logo-image');
 };
 
 // TODO: add loading toast like in useAuthCompanyPasswordLogin
-export const useCompanyRemoveLogo = () => {
+export const useCompanyRemoveLogoImage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(companyRemoveLogo, {
+  return useMutation(companyRemoveLogoImage, {
     onSuccess: () => {
       queryClient.invalidateQueries(['company', 'current']);
 

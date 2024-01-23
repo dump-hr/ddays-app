@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 
-import CloseSvg from '../../assets/close.svg';
+import CloseSvg from '../../assets/icons/close.svg';
 import { FormStep, FormSteps } from '../../types/form';
 import c from './Modal.module.scss';
 

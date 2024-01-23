@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import useLocation from 'wouter/use-location';
 
-import AppSvg from '../../assets/app.svg';
+import AppSvg from '../../assets/images/app.svg';
 import { pages } from '../../constants/pages';
 import c from './Layout.module.scss';
 

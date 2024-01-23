@@ -84,7 +84,6 @@ export class CompanyModifyDto {
 }
 
 export class CompanyModifyDescriptionDto {
-  @IsOptional()
   @IsString()
   description: string;
 }

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import RemoveSvg from '../../assets/remove.svg';
-import sprite from '../../assets/sprite.svg';
+import RemoveSvg from '../../assets/icons/remove.svg';
+import sprite from '../../assets/icons/sprite.svg';
 import { checkBlackAndWhite, checkImageDimensions } from '../../helpers';
 import { ErrorMessage } from './ErrorMessage';
 import c from './PhotoInput.module.scss';
@@ -12,10 +12,8 @@ type PhotoInputProps = {
   displayErrorMessages?: boolean;
   inputConstraints?: {
     mimeTypes?: string[];
-    maxDimensions?: {
-      width: number;
-      height: number;
-    };
+    maxWidth?: number;
+    maxHeight?: number;
     checkBlackAndWhite?: boolean;
   };
   height?: number;
@@ -50,11 +48,12 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         setIsBlackAndWhite(results.every((result) => result));
       }
 
-      if (inputConstraints?.maxDimensions) {
+      if (inputConstraints?.maxWidth || inputConstraints?.maxHeight) {
         const dimensionsPromises = acceptedFiles.map((file) =>
           checkImageDimensions(
             file,
-            inputConstraints.maxDimensions || { width: 0, height: 0 },
+            inputConstraints?.maxWidth || 0,
+            inputConstraints?.maxHeight || 0,
           ),
         );
         const dimensionsResults = await Promise.all(dimensionsPromises);
@@ -104,14 +103,13 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
       <div className={c.errorContainer}>
         {displayErrorMessages && (
           <>
-            {isBlackAndWhite === false &&
-              inputConstraints?.checkBlackAndWhite && (
-                <ErrorMessage message='Logo mora biti crno bijeli' />
-              )}
-            {isWithinDimensions === false &&
-              inputConstraints?.maxDimensions && (
+            {!isBlackAndWhite && inputConstraints?.checkBlackAndWhite && (
+              <ErrorMessage message='Logo mora biti crno bijeli' />
+            )}
+            {(inputConstraints?.maxWidth || inputConstraints?.maxHeight) &&
+              !isWithinDimensions && (
                 <ErrorMessage
-                  message={`Fotografija mora imati dimenzije manje od ${inputConstraints.maxDimensions.width}x${inputConstraints.maxDimensions.height}`}
+                  message={`Fotografija mora imati dimenzije manje od ${inputConstraints.maxWidth}x${inputConstraints.maxHeight}`}
                 />
               )}
           </>

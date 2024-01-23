@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 
-import logoSvg from '../../assets/logo.svg';
+import logoSvg from '../../assets/images/logo.svg';
 import { LoginForm } from '../../components/LoginForm';
 import { getPageTitle } from '../../helpers';
 import c from './LoginPage.module.scss';

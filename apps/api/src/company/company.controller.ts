@@ -42,6 +42,8 @@ export class CompanyController {
     return await this.companyService.getAllPublic();
   }
 
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Get('current')
   async getCurrentPublic(
     @Req() { user }: AuthenticatedRequest,
@@ -77,9 +79,9 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
-  @Delete('/logo')
-  async removeLogo(@Req() { user }: AuthenticatedRequest) {
-    return await this.companyService.removeLogo(user.id);
+  @Delete('/logo-image')
+  async removeLogoImage(@Req() { user }: AuthenticatedRequest) {
+    return await this.companyService.removeLogoImage(user.id);
   }
 
   @UseGuards(SponsorGuard)
@@ -87,14 +89,6 @@ export class CompanyController {
   @Delete('/video')
   async removeVideo(@Req() { user }: AuthenticatedRequest) {
     return await this.companyService.removeVideo(user.id);
-  }
-
-  @Patch(':id')
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() dto: CompanyModifyDto,
-  ) {
-    return await this.companyService.update(id, dto);
   }
 
   @UseGuards(SponsorGuard)
@@ -152,9 +146,9 @@ export class CompanyController {
       },
     },
   })
-  @Patch('/logo')
+  @Patch('/logo-image')
   @UseInterceptors(FileInterceptor('file'))
-  async updateLogo(
+  async updateLogoImage(
     @Req() { user }: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipe({
@@ -166,7 +160,7 @@ export class CompanyController {
     )
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
-    return await this.companyService.updateLogo(user.id, file);
+    return await this.companyService.updateLogoImage(user.id, file);
   }
 
   @UseGuards(SponsorGuard)
@@ -198,5 +192,13 @@ export class CompanyController {
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.updateVideo(user.id, file);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: CompanyModifyDto,
+  ) {
+    return await this.companyService.update(id, dto);
   }
 }

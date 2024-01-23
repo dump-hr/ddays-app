@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
-import { useDeleteVideo } from '../../api/useDeleteVideo';
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import { useUploadVideo } from '../../api/useUploadVideo';
-import UploadSvg from '../../assets/upload.svg';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyRemoveVideo } from '../../api/company/useCompanyRemoveVideo';
+import { useCompanyUpdateVideo } from '../../api/company/useCompanyUpdateVideo';
+import UploadSvg from '../../assets/icons/upload.svg';
 import { getVideoMetadata } from '../../helpers/file';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
@@ -13,10 +13,10 @@ import c from './Video.module.scss';
 export const Video: FormComponent = ({ close }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
 
-  const { mutate: uploadVideo, isLoading } = useUploadVideo();
-  const { mutate: deleteVideo } = useDeleteVideo();
+  const updateVideo = useCompanyUpdateVideo();
+  const removeVideo = useCompanyRemoveVideo();
 
-  const { data: companyData } = useGetLoggedCompany();
+  const { data: company } = useCompanyGetCurrentPublic();
 
   const onDrop = async (droppedFiles: File[]) => {
     try {
@@ -36,7 +36,7 @@ export const Video: FormComponent = ({ close }) => {
         );
       }
 
-      uploadVideo(droppedFile);
+      await updateVideo.mutateAsync(droppedFile);
       setVideoFile(droppedFile);
     } catch (error) {
       if (error instanceof Error) {
@@ -45,9 +45,9 @@ export const Video: FormComponent = ({ close }) => {
     }
   };
 
-  const handleRemoveVideo = () => {
+  const handleRemoveVideo = async () => {
     try {
-      deleteVideo();
+      await removeVideo.mutateAsync();
       setVideoFile(null);
     } catch (error) {
       if (error instanceof Error) {
@@ -65,23 +65,23 @@ export const Video: FormComponent = ({ close }) => {
     });
 
   const getContent = () => {
-    if (companyData?.companyVideo)
+    if (company?.video) {
       return (
         <div className={c.videoContainer}>
           <video controls className={c.video} height={300} width={500}>
-            <source src={companyData?.companyVideo} type='video/mp4' />
+            <source src={company?.video} type='video/mp4' />
           </video>
           <span className={c.remove} onClick={handleRemoveVideo}>
             Ukloni
           </span>
         </div>
       );
-
+    }
     return (
       <div {...getRootProps()} className={c.uploadContainer}>
         <input {...getInputProps()} />
         <img src={UploadSvg} alt='Upload' className={c.upload} />
-        {!isLoading ? (
+        {!updateVideo.isLoading ? (
           <p className={c.instruction}>
             {isDragActive
               ? 'Droppajte video'

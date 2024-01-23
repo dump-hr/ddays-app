@@ -18,6 +18,7 @@ export const App = () => {
         <link rel='icon' type='image/x-icon' href={favicon}></link>
         <title>DUMP Days Partners</title>
       </Helmet>
+
       <Switch>
         <Route path={Path.Home} component={HomePage} />
         <Route path={Path.Login} component={LoginPage} />

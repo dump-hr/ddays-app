@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
-import { useAddSponsorJob } from '../../api/useAddSponsorJob';
-import { useDeleteSponsorJob } from '../../api/useDeleteSponsorJob';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
@@ -15,8 +13,6 @@ export const Job: FormComponent = () => {
 
   const { data: company } = useCompanyGetCurrentPublic();
 
-  const addSponsorJob = useAddSponsorJob(company?.id);
-  const deleteSponsorJob = useDeleteSponsorJob();
   const { data: jobs, error, isLoading } = useJobGetForCompany(company?.id);
 
   if (error) {
@@ -28,12 +24,12 @@ export const Job: FormComponent = () => {
   }
 
   const handleAdd = async () => {
-    await addSponsorJob.mutateAsync({
-      companyId: company?.id,
-      position,
-      location,
-      details,
-    });
+    // await addSponsorJob.mutateAsync({
+    //   companyId: company?.id,
+    //   position,
+    //   location,
+    //   details,
+    // });
 
     setPosition('');
     setLocation('');
@@ -41,7 +37,8 @@ export const Job: FormComponent = () => {
   };
 
   const handleRemove = async (id: number) => {
-    await deleteSponsorJob.mutateAsync(id);
+    console.log('remove', id);
+    // await deleteSponsorJob.mutateAsync(id);
   };
 
   return (

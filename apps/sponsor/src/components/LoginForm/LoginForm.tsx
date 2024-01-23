@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 
 import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswordLogin';
-import passwordVisibilitySvg from '../../assets/password-visibility.svg';
+import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
 import { Path } from '../../constants/paths';
 import c from './LoginForm.module.scss';
 

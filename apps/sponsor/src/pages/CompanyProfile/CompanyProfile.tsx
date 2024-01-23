@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { CircularButton } from '../../components/CircularButton';
 import { InfoCard } from '../../components/InfoCard';
 import { JobOffer } from '../../components/InfoCard/JobOffer';
@@ -76,7 +76,7 @@ export const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
-  const { data: company } = useGetLoggedCompany();
+  const { data: company } = useCompanyGetCurrentPublic();
 
   return (
     <>
@@ -99,7 +99,6 @@ export const CompanyProfile = () => {
             <div className={c.infoContainer}>
               <div className={c.companyName}>
                 <h3>{company?.name}</h3>
-                <p>{company?.username}</p>
               </div>
               <CircularButton
                 className={c.submitButton}

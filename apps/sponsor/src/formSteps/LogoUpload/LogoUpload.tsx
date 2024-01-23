@@ -1,21 +1,21 @@
-import { useDeleteLogo } from '../../api/useDeleteLogo';
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import { useUploadLogo } from '../../api/useUploadLogo';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyRemoveLogoImage } from '../../api/company/useCompanyRemoveLogoImage';
+import { useCompanyUpdateLogoImage } from '../../api/company/useCompanyUpdateLogoImage';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './LogoUpload.module.scss';
 
 export const LogoUpload: FormComponent = ({ close }) => {
-  const { mutate: uploadLogo, isLoading } = useUploadLogo();
-  const { mutate: deleteLogo } = useDeleteLogo();
-  const { data: companyData } = useGetLoggedCompany();
+  const updateLogoImage = useCompanyUpdateLogoImage();
+  const removeLogoImage = useCompanyRemoveLogoImage();
+  const { data: company } = useCompanyGetCurrentPublic();
 
-  const handleUpload = (files: File[]) => {
-    uploadLogo(files[0]);
+  const handleUpload = async (files: File[]) => {
+    await updateLogoImage.mutateAsync(files[0]);
   };
 
-  const handleRemove = () => {
-    deleteLogo();
+  const handleRemove = async () => {
+    await removeLogoImage.mutateAsync();
   };
 
   return (
@@ -36,7 +36,7 @@ export const LogoUpload: FormComponent = ({ close }) => {
         content='Pozitiv ili negativ u svg formatu'
       />
       <div className={styles.uploadArea}>
-        {!isLoading ? (
+        {!updateLogoImage.isLoading ? (
           <PhotoInput
             label='Prenesite logo u pozitivu'
             displayErrorMessages
@@ -45,7 +45,7 @@ export const LogoUpload: FormComponent = ({ close }) => {
               checkBlackAndWhite: true,
             }}
             height={326}
-            fileSrc={companyData?.logoImage}
+            fileSrc={company?.logoImage}
             handleUpload={handleUpload}
             handleRemove={handleRemove}
           />

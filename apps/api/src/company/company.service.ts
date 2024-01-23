@@ -105,7 +105,7 @@ export class CompanyService {
       .where(eq(company.id, id));
   }
 
-  async removeLogo(id: number): Promise<void> {
+  async removeLogoImage(id: number): Promise<void> {
     await db
       .update(company)
       .set({
@@ -203,7 +203,7 @@ export class CompanyService {
     return updatedCompany;
   }
 
-  async updateLogo(
+  async updateLogoImage(
     id: number,
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {

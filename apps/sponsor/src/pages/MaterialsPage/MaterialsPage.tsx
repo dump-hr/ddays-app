@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
-import ArrowRightSvg from '../../assets/arrow-right.svg';
-import StatusErrorSvg from '../../assets/status-error.svg';
-import StatusSuccessSvg from '../../assets/status-success.svg';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
+import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
+import StatusErrorSvg from '../../assets/icons/status-error.svg';
+import StatusSuccessSvg from '../../assets/icons/status-success.svg';
 import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
@@ -36,7 +37,18 @@ export const MaterialsPage: React.FC = () => {
     null,
   );
 
-  const { data } = useGetSponsorFormStatus();
+  const { data: company } = useCompanyGetCurrentPublic();
+  const { data: jobs } = useJobGetForCompany(company?.id);
+
+  const status = {
+    [FormSteps.Description]: !!company?.description,
+    [FormSteps.Logo]: !!company?.logoImage,
+    [FormSteps.Photos]: !!company?.landingImage,
+    [FormSteps.Videos]: !!company?.video,
+    [FormSteps.Jobs]: !!jobs?.length,
+    [FormSteps.Interests]: !!company?.interests?.length,
+    [FormSteps.SwagBag]: false,
+  };
 
   return (
     <>
@@ -62,8 +74,13 @@ export const MaterialsPage: React.FC = () => {
                     </div>
                   </div>
                   <div className={c.itemAction}>
-                    {data?.status &&
-                      statusChips[data?.status[key as keyof typeof FormSteps]]}
+                    {
+                      statusChips[
+                        status[key as keyof typeof status]
+                          ? StepStatus.Good
+                          : StepStatus.Pending
+                      ]
+                    }
                     <img src={ArrowRightSvg} alt='Open' />
                   </div>
                 </article>

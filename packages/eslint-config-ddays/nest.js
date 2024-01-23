@@ -21,23 +21,24 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'sort-class-members/sort-class-members': [
-      2,
-      {
-        order: [
-          '[static-properties]',
-          '[static-methods]',
-          '[properties]',
-          '[conventional-private-properties]',
-          'constructor',
-          '[sorted-methods]',
-          '[conventional-private-methods]',
-        ],
-        groups: {
-          'sorted-methods': [{ type: 'method', sort: 'alphabetical' }],
-        },
-        accessorPairPositioning: 'getThenSet',
-      },
-    ],
+    // TODO: make this work with nestjs routes
+    // 'sort-class-members/sort-class-members': [
+    //   2,
+    //   {
+    //     order: [
+    //       '[static-properties]',
+    //       '[static-methods]',
+    //       '[properties]',
+    //       '[conventional-private-properties]',
+    //       'constructor',
+    //       '[sorted-methods]',
+    //       '[conventional-private-methods]',
+    //     ],
+    //     groups: {
+    //       'sorted-methods': [{ type: 'method', sort: 'alphabetical' }],
+    //     },
+    //     accessorPairPositioning: 'getThenSet',
+    //   },
+    // ],
   },
 };

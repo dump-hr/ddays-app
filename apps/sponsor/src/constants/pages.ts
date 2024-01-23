@@ -1,7 +1,7 @@
-import flyTalksSvg from '../assets/fly-talks.svg';
-import materialsSvg from '../assets/materials.svg';
-import profileSvg from '../assets/profile.svg';
-import standSvg from '../assets/stand.svg';
+import flyTalksSvg from '../assets/icons/fly-talks.svg';
+import materialsSvg from '../assets/icons/materials.svg';
+import profileSvg from '../assets/icons/profile.svg';
+import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { HomePage } from '../pages/HomePage';
 import { MaterialsPage } from '../pages/MaterialsPage';

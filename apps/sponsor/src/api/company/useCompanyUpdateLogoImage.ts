@@ -4,18 +4,18 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const companyUpdateLogo = async (file: File) => {
+const companyUpdateLogoImage = async (file: File) => {
   const data = new FormData();
   data.append('file', file);
 
-  return await api.patchForm('/company/logo', data);
+  return await api.patchForm('/company/logo-image', data);
 };
 
 // TODO: add loading toast like in useAuthCompanyPasswordLogin
-export const useCompanyUpdateLogo = () => {
+export const useCompanyUpdateLogoImage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(companyUpdateLogo, {
+  return useMutation(companyUpdateLogoImage, {
     onSuccess: () => {
       queryClient.invalidateQueries(['company', 'current']);
       toast.success('Logo uspješno uploadan');
