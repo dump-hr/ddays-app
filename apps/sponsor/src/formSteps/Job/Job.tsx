@@ -58,17 +58,10 @@ export const Job: FormComponent = () => {
                 Ukloni
               </span>
             </div>
-            <TextArea
-              value={position}
-              limit={20}
-              deviation={5}
-              label='Pozicija'
-              disabled
-            />
+            <TextArea value={position} limit={20} label='Pozicija' disabled />
             <TextArea
               value={location ?? ''}
               limit={20}
-              deviation={5}
               label='Lokacija'
               disabled
             />
@@ -89,14 +82,12 @@ export const Job: FormComponent = () => {
           value={position}
           onChange={(value) => setPosition(value)}
           limit={20}
-          deviation={5}
           label='Pozicija'
         />
         <TextArea
           value={location}
           onChange={(value) => setLocation(value)}
           limit={20}
-          deviation={5}
           label='Lokacija'
         />
         <TextArea

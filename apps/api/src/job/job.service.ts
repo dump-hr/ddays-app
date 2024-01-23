@@ -2,7 +2,7 @@ import { JobDto, JobModifyDto, JobModifyForCompanyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { job } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 @Injectable()
 export class JobService {
@@ -40,9 +40,34 @@ export class JobService {
     dto: JobModifyForCompanyDto[],
   ): Promise<JobDto[]> {
     const existingJobs = await this.getForCompany(companyId);
-    console.log(dto);
-    // TODO: ako dto ima id znaci da je existing job i treba ga updateat (i removeat one koji fale u toj listi)
-    // ako je id null onda treba napravit novi job
-    return existingJobs;
+
+    const jobsToAdd = dto.reduce((acc, jobDto) => {
+      if (!jobDto.id) {
+        return [...acc, { ...jobDto, companyId }];
+      }
+
+      return acc;
+    }, [] as JobDto[]);
+
+    const [jobIdsToRemove, jobsToUpdate] = dto.reduce(
+      ([jobIdsToRemove, jobsToUpdate], jobDto) => {
+        if (existingJobs.find((existingJob) => jobDto.id === existingJob.id)) {
+          return [jobIdsToRemove, [...jobsToUpdate, jobDto]];
+        }
+
+        return [[...jobIdsToRemove, jobDto.id], jobsToUpdate];
+      },
+      [[] as number[], [] as JobModifyForCompanyDto[]],
+    );
+
+    await db.insert(job).values(jobsToAdd);
+    await db.delete(job).where(inArray(job.id, jobIdsToRemove));
+
+    for (const jobToUpdate of jobsToUpdate) {
+      await db.update(job).set(jobToUpdate);
+    }
+
+    const companyJobs = await this.getForCompany(companyId);
+    return companyJobs;
   }
 }
