@@ -5,22 +5,29 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const jobUpdateForCompany = async (dto: JobModifyForCompanyDto[]) => {
-  return await api.patch<JobModifyForCompanyDto[], JobDto>('/job/company', dto);
+  return await api.patch<JobModifyForCompanyDto[], JobDto[]>(
+    '/job/company',
+    dto,
+  );
 };
 
-// TODO: add loading toast like in useAuthCompanyPasswordLogin
 export const useJobUpdateForCompany = () => {
   const queryClient = useQueryClient();
 
   return useMutation(jobUpdateForCompany, {
-    onSuccess: () => {
+    onMutate: () => {
+      return { toastId: toast.loading('Spremam poslove...') };
+    },
+    onSuccess: (_data, _variables, context) => {
       queryClient.invalidateQueries(['job']);
       queryClient.invalidateQueries(['company', 'current']);
 
-      toast.success('Poslovi tvrtke uspješno spremljeni');
+      toast.success('Poslovi tvrtke uspješno spremljeni', {
+        id: context?.toastId,
+      });
     },
-    onError: (error: string) => {
-      toast.error(error);
+    onError: (error: string, _variables, context) => {
+      toast.error(error, { id: context?.toastId });
     },
   });
 };

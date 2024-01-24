@@ -1,44 +1,54 @@
-import { useState } from 'react';
+import { JobModifyForCompanyDto } from '@ddays-app/types';
+import { useEffect, useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
+import { useJobUpdateForCompany } from '../../api/job/useJobUpdateForCompany';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
 export const Job: FormComponent = () => {
-  const [position, setPosition] = useState<string>('');
-  const [location, setLocation] = useState<string>('');
-  const [details, setDetails] = useState<string>('');
+  const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
 
   const { data: company } = useCompanyGetCurrentPublic();
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
 
-  const { data: jobs, error, isLoading } = useJobGetForCompany(company?.id);
+  const { mutate: updateSponsorJobs } = useJobUpdateForCompany();
 
-  if (error) {
-    return <div>{error.toString()}</div>;
-  }
+  useEffect(() => {
+    setJobs(companyJobs ?? []);
+  }, [companyJobs]);
 
-  if (isLoading || !jobs) {
-    return <div>Loading...</div>;
-  }
-
-  const handleAdd = async () => {
-    // await addSponsorJob.mutateAsync({
-    //   companyId: company?.id,
-    //   position,
-    //   location,
-    //   details,
-    // });
-
-    setPosition('');
-    setLocation('');
-    setDetails('');
+  const handleAdd = () => {
+    setJobs((prev) => [
+      ...prev,
+      {
+        id: undefined,
+        location: '',
+        position: '',
+        details: '',
+      },
+    ]);
   };
 
-  const handleRemove = async (id: number) => {
-    console.log('remove', id);
-    // await deleteSponsorJob.mutateAsync(id);
+  const handleRemove = (idToRemove?: number) => {
+    if (!idToRemove) return;
+
+    setJobs((prev) => {
+      return prev
+        .filter(({ id }) => id !== idToRemove)
+        .map((job) => ({ ...job }));
+    });
+  };
+
+  const handleSave = () => {
+    const jobsToSave = jobs.filter(isValid);
+    updateSponsorJobs(jobsToSave);
+  };
+
+  const isValid = (job: JobModifyForCompanyDto) => {
+    return job.position.length > 0 && job.details.length > 0;
   };
 
   return (
@@ -61,51 +71,45 @@ export const Job: FormComponent = () => {
             <TextArea
               value={position}
               limit={20}
-              deviation={5}
               label='Pozicija'
-              disabled
+              onChange={(value) => {
+                setJobs((prev) => {
+                  const newJobs = [...prev];
+                  newJobs[index].position = value;
+                  return newJobs;
+                });
+              }}
+              //  disabled
             />
             <TextArea
               value={location ?? ''}
               limit={20}
-              deviation={5}
               label='Lokacija'
-              disabled
+              onChange={(value) => {
+                setJobs((prev) => {
+                  const newJobs = [...prev];
+                  newJobs[index].location = value;
+                  return newJobs;
+                });
+              }}
+              // disabled
             />
             <TextArea
               value={details}
+              onChange={(value) => {
+                setJobs((prev) => {
+                  const newJobs = [...prev];
+                  newJobs[index].details = value;
+                  return newJobs;
+                });
+              }}
               limit={200}
               deviation={5}
               label='Detalji o oglasu'
-              disabled
+              // disabled
             />
           </div>
         ))}
-      </div>
-
-      <div className={c.inputContainer}>
-        <h2 className={c.subtitle}>#0 Oglas</h2>
-        <TextArea
-          value={position}
-          onChange={(value) => setPosition(value)}
-          limit={20}
-          deviation={5}
-          label='Pozicija'
-        />
-        <TextArea
-          value={location}
-          onChange={(value) => setLocation(value)}
-          limit={20}
-          deviation={5}
-          label='Lokacija'
-        />
-        <TextArea
-          value={details}
-          onChange={(value) => setDetails(value)}
-          limit={200}
-          deviation={5}
-          label='Detalji o oglasu'
-        />
       </div>
 
       <div className={c.inputContainer}>
@@ -115,7 +119,7 @@ export const Job: FormComponent = () => {
       </div>
 
       <div className={c.inputContainer}>
-        <button onClick={close} className={c.primaryButton}>
+        <button onClick={handleSave} className={c.primaryButton}>
           Spremi
         </button>
       </div>

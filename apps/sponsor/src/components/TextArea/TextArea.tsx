@@ -2,7 +2,7 @@ import c from './TextArea.module.scss';
 
 type TextAreaProps = {
   limit: number;
-  deviation: number;
+  deviation?: number;
   value: string;
   label: string;
   disabled?: boolean;
@@ -19,8 +19,8 @@ export const TextArea = ({
   rows = 6,
   onChange = () => {},
 }: TextAreaProps) => {
-  const lowerBound = limit - deviation;
-  const upperBound = limit + deviation;
+  const lowerBound = !deviation ? 0 : limit - deviation;
+  const upperBound = !deviation ? limit : limit + deviation;
 
   const wc = value.match(/\S+/g)?.length || 0;
   const textTooShort = wc > 0 && wc < lowerBound;
@@ -44,12 +44,14 @@ export const TextArea = ({
         </p>
         {textTooShort && (
           <p className={c.error}>
-            Text too short (target length: {limit} words, +/-{deviation})
+            Text too short (target length: {limit} words
+            {!!deviation && ` +/-${deviation}`})
           </p>
         )}
         {textTooLong && (
           <p className={c.error}>
-            Text maximum (target length: {limit} words, +/-{deviation})
+            Text maximum (target length: {limit} words
+            {!!deviation && ` +/-${deviation}`})
           </p>
         )}
       </div>
