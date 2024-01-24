@@ -51,7 +51,7 @@ export class JobService {
           return [jobsToAdd, [...jobsToUpdate, jobDto]];
         }
       },
-      [[] as JobDto[], [] as JobModifyForCompanyDto[]],
+      [[] as JobModifyDto[], [] as JobModifyForCompanyDto[]],
     );
 
     const jobIdsToRemove = existingJobs

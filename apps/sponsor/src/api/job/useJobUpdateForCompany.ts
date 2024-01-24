@@ -26,8 +26,8 @@ export const useJobUpdateForCompany = () => {
         id: context?.toastId,
       });
     },
-    onError: (error: string) => {
-      toast.error(error);
+    onError: (error: string, _variables, context) => {
+      toast.error(error, { id: context?.toastId });
     },
   });
 };
