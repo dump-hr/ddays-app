@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
-import { useJobsGetForCompany } from '../../api/job/useJobsGetForCompany';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
 import StatusErrorSvg from '../../assets/icons/status-error.svg';
 import StatusSuccessSvg from '../../assets/icons/status-success.svg';
@@ -38,7 +38,7 @@ export const MaterialsPage: React.FC = () => {
   );
 
   const { data: company } = useCompanyGetCurrentPublic();
-  const { data: jobs } = useJobsGetForCompany(company?.id);
+  const { data: jobs } = useJobGetForCompany(company?.id);
 
   const status = {
     [FormSteps.Description]: !!company?.description,

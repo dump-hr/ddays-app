@@ -54,18 +54,11 @@ export class JobService {
       [[] as JobDto[], [] as JobModifyForCompanyDto[]],
     );
 
-    const jobIdsToRemove = existingJobs.reduce(
-      (jobIdsToRemove, existingJob) => {
-        if (!dto.find((jobDto) => jobDto.id === existingJob.id)) {
-          return [...jobIdsToRemove, existingJob.id];
-        }
-
-        return jobIdsToRemove;
-      },
-      [] as number[],
-    );
-
-    console.log({ jobIdsToRemove, jobsToUpdate, jobsToAdd });
+    const jobIdsToRemove = existingJobs
+      .filter(
+        (existingJob) => !dto.find((jobDto) => jobDto.id === existingJob.id),
+      )
+      .map((job) => job.id);
 
     if (jobsToAdd.length > 0) {
       await db.insert(job).values(jobsToAdd);
@@ -76,7 +69,10 @@ export class JobService {
     }
 
     for (const jobToUpdate of jobsToUpdate) {
-      await db.update(job).set(jobToUpdate);
+      await db
+        .update(job)
+        .set({ ...jobToUpdate, createdAt: undefined })
+        .where(eq(job.id, jobToUpdate.id));
     }
 
     const companyJobs = await this.getForCompany(companyId);

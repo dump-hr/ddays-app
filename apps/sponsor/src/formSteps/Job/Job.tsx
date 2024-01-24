@@ -2,24 +2,17 @@ import { JobModifyForCompanyDto } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
-import { useJobsGetForCompany } from '../../api/job/useJobsGetForCompany';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { useJobUpdateForCompany } from '../../api/job/useJobUpdateForCompany';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
-const jobInitialState = {
-  id: undefined,
-  location: '',
-  position: '',
-  details: '',
-};
-
 export const Job: FormComponent = () => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
 
   const { data: company } = useCompanyGetCurrentPublic();
-  const { data: companyJobs } = useJobsGetForCompany(company?.id);
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
 
   const { mutate: updateSponsorJobs } = useJobUpdateForCompany();
 

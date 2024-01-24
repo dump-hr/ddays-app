@@ -11,7 +11,6 @@ const jobUpdateForCompany = async (dto: JobModifyForCompanyDto[]) => {
   );
 };
 
-// TODO: add loading toast like in useAuthCompanyPasswordLogin
 export const useJobUpdateForCompany = () => {
   const queryClient = useQueryClient();
 
