@@ -33,10 +33,16 @@ const setupSwagger = (app: INestApplication) => {
 const setupProxies = (app: INestApplication) => {
   app.use(
     '/',
-    createProxyMiddleware(['!/api/**', '!/sponsor/**', '!/admin/**'], {
-      target: 'https://ddays.azureedge.net/',
-      changeOrigin: true,
-    }),
+    createProxyMiddleware(
+      (pathname: string) =>
+        !pathname.startsWith('/api') &&
+        !pathname.startsWith('/admin') &&
+        !pathname.startsWith('/sponsor'),
+      {
+        target: 'https://ddays.azureedge.net/',
+        changeOrigin: true,
+      },
+    ),
   );
 
   if (process.env.NODE_ENV === 'dev') {
@@ -44,7 +50,6 @@ const setupProxies = (app: INestApplication) => {
       '/admin',
       createProxyMiddleware({
         target: 'http://localhost:3002',
-        changeOrigin: true,
       }),
     );
 
@@ -52,7 +57,6 @@ const setupProxies = (app: INestApplication) => {
       '/sponsor',
       createProxyMiddleware({
         target: 'http://localhost:3003',
-        changeOrigin: true,
       }),
     );
   }
