@@ -7,7 +7,7 @@ type ButtonProps = {
   variant?: 'primary' | 'secondary';
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
   className,
@@ -24,5 +24,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

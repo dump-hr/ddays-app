@@ -1,12 +1,15 @@
-import { FormSteps, StepStatus } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { useGetSponsorFormStatus } from '../../api/useGetSponsorFormStatus';
-import ArrowRightSvg from '../../assets/arrow-right.svg';
-import Modal from '../../components/Modal';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
+import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
+import StatusErrorSvg from '../../assets/icons/status-error.svg';
+import StatusSuccessSvg from '../../assets/icons/status-success.svg';
+import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
+import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
 
 const statusChips = {
@@ -17,24 +20,35 @@ const statusChips = {
   ),
   [StepStatus.Good]: (
     <div className={c.statusChip}>
-      <img src='/status-success.svg' />
+      <img src={StatusSuccessSvg} />
       <p>Uredi</p>
     </div>
   ),
   [StepStatus.Bad]: (
     <div className={c.statusChip}>
-      <img src='/status-error.svg' />
+      <img src={StatusErrorSvg} />
       <p>Uredi</p>
     </div>
   ),
 };
 
-const MaterialsPage: React.FC = () => {
+export const MaterialsPage: React.FC = () => {
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
   );
 
-  const { data } = useGetSponsorFormStatus();
+  const { data: company } = useCompanyGetCurrentPublic();
+  const { data: jobs } = useJobGetForCompany(company?.id);
+
+  const status = {
+    [FormSteps.Description]: !!company?.description,
+    [FormSteps.Logo]: !!company?.logoImage,
+    [FormSteps.Photos]: !!company?.landingImage,
+    [FormSteps.Videos]: !!company?.video,
+    [FormSteps.Jobs]: !!jobs?.length,
+    [FormSteps.Interests]: !!company?.interests?.length,
+    [FormSteps.SwagBag]: false,
+  };
 
   return (
     <>
@@ -60,8 +74,13 @@ const MaterialsPage: React.FC = () => {
                     </div>
                   </div>
                   <div className={c.itemAction}>
-                    {data?.status &&
-                      statusChips[data?.status[key as keyof typeof FormSteps]]}
+                    {
+                      statusChips[
+                        status[key as keyof typeof status]
+                          ? StepStatus.Good
+                          : StepStatus.Pending
+                      ]
+                    }
                     <img src={ArrowRightSvg} alt='Open' />
                   </div>
                 </article>
@@ -83,5 +102,3 @@ const MaterialsPage: React.FC = () => {
     </>
   );
 };
-
-export default MaterialsPage;

@@ -1,8 +1,8 @@
-import { FormSteps } from '@ddays-app/types';
 import React from 'react';
 import { useEffect } from 'react';
 
-import { FormStep } from '../../types/form';
+import CloseSvg from '../../assets/icons/close.svg';
+import { FormStep, FormSteps } from '../../types/form';
 import c from './Modal.module.scss';
 
 interface ModalProps {
@@ -11,7 +11,7 @@ interface ModalProps {
   form: FormStep;
 }
 
-const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
+export const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
   useEffect(() => {
     if (currentForm) {
       const width = document.body.clientWidth;
@@ -46,17 +46,10 @@ const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
     <>
       <div className={c.background} onClick={close}>
         <div className={c.container} onClick={(e) => e.stopPropagation()}>
-          <img
-            src='/close.svg'
-            alt='Close'
-            className={c.close}
-            onClick={close}
-          />
+          <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
           {form.component({ close })}
         </div>
       </div>
     </>
   );
 };
-
-export default Modal;

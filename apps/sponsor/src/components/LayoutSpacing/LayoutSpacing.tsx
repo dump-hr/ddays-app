@@ -2,18 +2,18 @@ import clsx from 'clsx';
 
 import c from './LayoutSpacing.module.scss';
 
-type Props = {
+type LayoutSpacingProps = {
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const LayoutSpacing = ({ children, className, ...handlers }: Props) => {
-  const classes = clsx(c.layoutSpacing, className);
-
+export const LayoutSpacing: React.FC<LayoutSpacingProps> = ({
+  children,
+  className,
+  ...handlers
+}) => {
   return (
-    <div className={classes} {...handlers}>
+    <div className={clsx(c.layoutSpacing, className)} {...handlers}>
       {children}
     </div>
   );
 };
-
-export default LayoutSpacing;

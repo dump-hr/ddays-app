@@ -1,3 +1,1 @@
-import InterestPicker from './InterestPicker';
-
-export default InterestPicker;
+export * from './InterestPicker';

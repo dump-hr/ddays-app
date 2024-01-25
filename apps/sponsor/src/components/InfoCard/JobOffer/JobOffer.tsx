@@ -1,5 +1,5 @@
-import ArrowRightSvg from '../../../assets/arrow-right.svg';
-import PinSvg from '../../../assets/pin.svg';
+import ArrowRightSvg from '../../../assets/icons/arrow-right.svg';
+import PinSvg from '../../../assets/icons/pin.svg';
 import c from './JobOffer.module.scss';
 
 type JobOfferProps = {
@@ -8,7 +8,11 @@ type JobOfferProps = {
   location: string;
 };
 
-const JobOffer = ({ title, description, location }: JobOfferProps) => {
+export const JobOffer: React.FC<JobOfferProps> = ({
+  title,
+  description,
+  location,
+}) => {
   return (
     <div className={c.jobOffer}>
       <header className={c.header}>
@@ -26,5 +30,3 @@ const JobOffer = ({ title, description, location }: JobOfferProps) => {
     </div>
   );
 };
-
-export default JobOffer;

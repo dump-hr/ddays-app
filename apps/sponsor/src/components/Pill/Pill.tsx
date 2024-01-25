@@ -6,13 +6,10 @@ type PillProps = {
   text: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const Pill = ({ text, className, ...handlers }: PillProps) => {
-  const classes = clsx(c.pill, className);
+export const Pill = ({ text, className, ...handlers }: PillProps) => {
   return (
-    <div className={classes} {...handlers}>
+    <div className={clsx(c.pill, className)} {...handlers}>
       {text}
     </div>
   );
 };
-
-export default Pill;

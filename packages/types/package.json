@@ -4,9 +4,6 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external node",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external node --watch"

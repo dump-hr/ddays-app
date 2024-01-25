@@ -5,7 +5,10 @@ type PhotoInputProps = {
   content?: string;
 };
 
-const PhotoInputLabel: React.FC<PhotoInputProps> = ({ title, content }) => {
+export const PhotoInputLabel: React.FC<PhotoInputProps> = ({
+  title,
+  content,
+}) => {
   return (
     <div className={styles.labelArea}>
       <h4 className={styles.labelAreaTitle}>{title}</h4>
@@ -13,5 +16,3 @@ const PhotoInputLabel: React.FC<PhotoInputProps> = ({ title, content }) => {
     </div>
   );
 };
-
-export default PhotoInputLabel;

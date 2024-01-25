@@ -5,9 +5,5 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   minify: true,
   target: 'node14',
-  plugins: [
-    {
-      name: 'class-transformer/storage',
-    },
-  ],
+  plugins: [{ name: 'class-transformer/storage' }],
 });

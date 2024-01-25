@@ -1,46 +1,42 @@
 import { Dispatch } from 'react';
 
 import { toggleArrayElement } from '../../helpers';
-import Button from '../Button';
+import { Button } from '../Button';
 import c from './MultipleSelectInput.module.scss';
+
+type OptionValue = string | number;
 
 type Option = {
   label: string;
-  value: string;
+  value: OptionValue;
 };
 
 type MultipleSelectInputProps = {
   options: Option[];
-  selectedOptions: string[];
-  setSelectedOptions: Dispatch<string[]>;
+  value: OptionValue[];
+  onChange: Dispatch<OptionValue[]>;
 };
 
-const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
+export const MultipleSelectInput: React.FC<MultipleSelectInputProps> = ({
   options,
-  selectedOptions,
-  setSelectedOptions,
+  value,
+  onChange,
 }) => {
   const toggleSelectOption = (option: Option) => {
-    const toggledArray = toggleArrayElement(selectedOptions, option.value);
-    setSelectedOptions(toggledArray);
+    const toggledArray = toggleArrayElement(value, option.value);
+    onChange(toggledArray);
   };
 
   return (
-    <div>
-      <div className={c.multipleSelectInputWrapper}>
-        {options.map((option) => (
-          <Button
-            variant={
-              selectedOptions.includes(option.value) ? 'primary' : 'secondary'
-            }
-            onClick={() => toggleSelectOption(option)}
-            key={option.value}>
-            {option.label}
-          </Button>
-        ))}
-      </div>
+    <div className={c.multipleSelectInputWrapper}>
+      {options.map((option) => (
+        <Button
+          variant={value.includes(option.value) ? 'primary' : 'secondary'}
+          onClick={() => toggleSelectOption(option)}
+          key={option.value}>
+          {option.label}
+        </Button>
+      ))}
     </div>
   );
 };
-
-export default MultipleSelectInput;

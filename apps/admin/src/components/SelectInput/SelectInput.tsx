@@ -8,7 +8,7 @@ type SelectInputProps = {
   innerRef?: RefCallBack;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
-const SelectInput: React.FC<SelectInputProps> = ({
+export const SelectInput: React.FC<SelectInputProps> = ({
   options,
   isAllowedEmpty = false,
   innerRef,
@@ -29,5 +29,3 @@ const SelectInput: React.FC<SelectInputProps> = ({
     </>
   );
 };
-
-export default SelectInput;

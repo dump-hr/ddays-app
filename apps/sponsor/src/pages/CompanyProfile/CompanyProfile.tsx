@@ -1,17 +1,17 @@
-import { FormSteps } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import CircularButton from '../../components/CircularButton';
-import InfoCard from '../../components/InfoCard';
-import JobOffer from '../../components/InfoCard/JobOffer';
-import LayoutSpacing from '../../components/LayoutSpacing';
-import Modal from '../../components/Modal';
-import Pill from '../../components/Pill';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { CircularButton } from '../../components/CircularButton';
+import { InfoCard } from '../../components/InfoCard';
+import { JobOffer } from '../../components/InfoCard/JobOffer';
+import { LayoutSpacing } from '../../components/LayoutSpacing';
+import { Modal } from '../../components/Modal';
+import { Pill } from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
+import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
 
 const data = {
@@ -72,11 +72,11 @@ const JobOffersCardContent = () => {
   );
 };
 
-const CompanyProfile = () => {
+export const CompanyProfile = () => {
   const [, setLocation] = useLocation();
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
-  const { data: company } = useGetLoggedCompany();
+  const { data: company } = useCompanyGetCurrentPublic();
 
   return (
     <>
@@ -99,7 +99,6 @@ const CompanyProfile = () => {
             <div className={c.infoContainer}>
               <div className={c.companyName}>
                 <h3>{company?.name}</h3>
-                <p>{company?.username}</p>
               </div>
               <CircularButton
                 className={c.submitButton}
@@ -149,5 +148,3 @@ const CompanyProfile = () => {
     </>
   );
 };
-
-export default CompanyProfile;

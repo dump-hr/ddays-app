@@ -8,48 +8,47 @@ import {
   serial,
   text,
   timestamp,
-  varchar,
 } from 'drizzle-orm/pg-core';
 
 export const achievement = pgTable('achievement', {
-  id: serial('id').primaryKey().notNull(),
-  name: varchar('name', { length: 50 }).notNull(),
-  description: varchar('description', { length: 255 }).notNull(),
-  points: integer('points').notNull(),
-  fulfillmentCodeCount: integer('fulfillment_code_count').notNull(),
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  points: integer('points').default(0),
+  fulfillmentCodeCount: integer('fulfillment_code_count'), // TODO: ???
   isHidden: boolean('is_hidden').default(false),
-  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const achievementRelations = relations(achievement, ({ many }) => ({
-  codes: many(code),
+  achievementToCode: many(achievementToCode),
 }));
 
 export const code = pgTable('code', {
-  id: serial('id').primaryKey().notNull(),
-  value: varchar('value', { length: 10 }).notNull(),
-  description: varchar('description', { length: 255 }).notNull(),
-  points: integer('points').notNull(),
+  id: serial('id').primaryKey(),
+  value: text('value').notNull(),
+  description: text('description'),
+  points: integer('points').default(0),
   isActive: boolean('is_active').default(true),
   isSingleUse: boolean('is_single_use').default(false),
   hasPage: boolean('has_page').default(false),
-  expirationDate: timestamp('expiration_date', { mode: 'string' }).defaultNow(),
-  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
+  expirationDate: timestamp('expiration_date'),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const codeRelations = relations(code, ({ many }) => ({
-  achievement: many(achievement),
+  achievementToCode: many(achievementToCode),
 }));
 
 export const achievementToCode = pgTable(
-  'achievementToCode',
+  'achievement_to_code',
   {
     achievementId: integer('achievement_id')
       .notNull()
-      .references(() => achievement.id),
+      .references(() => achievement.id, { onDelete: 'cascade' }),
     codeId: integer('code_id')
       .notNull()
-      .references(() => code.id),
+      .references(() => code.id, { onDelete: 'cascade' }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.achievementId, t.codeId] }),
@@ -70,53 +69,45 @@ export const achievementToCodeRelations = relations(
   }),
 );
 
-export const sponsorCategory = pgEnum('sponsor_category', [
-  'general',
+export const companyCategory = pgEnum('company_category', [
   'gold',
   'silver',
   'bronze',
-  'workshop',
-  'foodAndBeverage',
-  'generalMedia',
   'media',
-  'organizational',
-  'prizeGame',
   'friend',
 ]);
 
 export const company = pgTable('company', {
-  id: serial('id').primaryKey().notNull(),
-  password: text('password').notNull(),
-  sponsorCategory: sponsorCategory('sponsor_category'),
-  name: text('name'),
+  id: serial('id').primaryKey(),
+  password: text('password'),
+  category: companyCategory('category'),
+  name: text('name').notNull(),
   username: text('username').unique().notNull(),
   description: text('description'),
-  websiteUrl: text('website_url'),
+  website: text('website_url'),
   boothLocation: text('booth_location'),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
-  companyVideo: text('company_video'),
-  codeId: integer('code_id')
-    .notNull()
-    .references(() => code.id),
+  video: text('video'),
+  codeId: integer('code_id').references(() => code.id),
 });
 
 export const companyRelations = relations(company, ({ one, many }) => ({
-  codes: one(code, {
+  code: one(code, {
     fields: [company.codeId],
     references: [code.id],
   }),
-  interest: many(interest),
   jobs: many(job),
+  companyToInterest: many(companyToInterest),
 }));
 
 export const job = pgTable('job', {
-  id: serial('id').primaryKey().notNull(),
+  id: serial('id').primaryKey(),
   position: text('position').notNull(),
-  location: text('location').notNull(),
+  location: text('location'),
   details: text('details').notNull(),
-  //todo: requirements, benefits, link
-  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
+  link: text('link'),
+  createdAt: timestamp('created_at').defaultNow(),
   companyId: integer('company_id')
     .notNull()
     .references(() => company.id),
@@ -129,12 +120,7 @@ export const jobRelations = relations(job, ({ one }) => ({
   }),
 }));
 
-export const eventTheme = pgEnum('event_theme', [
-  'dev',
-  'design',
-  'tech',
-  'marketing',
-]);
+export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
 
 export const eventType = pgEnum('event_type', [
   'lecture',
@@ -145,47 +131,45 @@ export const eventType = pgEnum('event_type', [
 ]);
 
 export const event = pgTable('event', {
-  id: serial('id').primaryKey().notNull(),
+  id: serial('id').primaryKey(),
   name: text('name').notNull(),
   description: text('description'),
-  eventType: eventType('event_type'),
-  eventTheme: eventTheme('event_theme'),
-  startsAt: timestamp('starts_at', { mode: 'string' }).notNull(),
-  endsAt: timestamp('ends_at', { mode: 'string' }),
+  type: eventType('type'),
+  theme: theme('theme'),
+  startsAt: timestamp('starts_at').notNull(),
+  endsAt: timestamp('ends_at').notNull(),
   requirements: text('requirements'),
   footageLink: text('footage_link'),
   maxParticipants: integer('max_participants'),
   codeId: integer('code_id').references(() => code.id),
-  //eventUsers, eventCompanies and eventInterests to be added after thoe entities are made
 });
 
 export const eventRelations = relations(event, ({ one, many }) => ({
-  codes: one(code, {
+  code: one(code, {
     fields: [event.codeId],
     references: [code.id],
   }),
-  interest: many(interest),
+  eventToInterest: many(eventToInterest),
 }));
 
-export const frequentlyAskedQuestion = pgTable('frequentlyAskedQuestion', {
-  id: serial('id').primaryKey().notNull(),
-  question: text('question').notNull(),
-  answer: text('answer').notNull(),
-});
-
-export const interest = pgTable('interests', {
-  id: serial('id').primaryKey().notNull(),
+export const interest = pgTable('interest', {
+  id: serial('id').primaryKey(),
   name: text('name').notNull(),
-  theme: eventTheme('theme').notNull(),
+  theme: theme('theme').notNull(),
 });
 
-export const companyInterests = pgTable(
-  'companyInterests',
+export const interestRelations = relations(interest, ({ many }) => ({
+  companyToInterest: many(companyToInterest),
+  eventToInterest: many(eventToInterest),
+}));
+
+export const companyToInterest = pgTable(
+  'company_to_interest',
   {
-    companyId: integer('companyId')
+    companyId: integer('company_id')
       .notNull()
       .references(() => company.id, { onDelete: 'cascade' }),
-    interestId: integer('interestId')
+    interestId: integer('interest_id')
       .notNull()
       .references(() => interest.id, { onDelete: 'cascade' }),
   },
@@ -194,71 +178,79 @@ export const companyInterests = pgTable(
   }),
 );
 
-export const eventInterests = pgTable(
-  'eventInterests',
+export const companyToInterestRelations = relations(
+  companyToInterest,
+  ({ one }) => ({
+    company: one(company, {
+      fields: [companyToInterest.companyId],
+      references: [company.id],
+    }),
+    interest: one(interest, {
+      fields: [companyToInterest.interestId],
+      references: [interest.id],
+    }),
+  }),
+);
+
+export const eventToInterest = pgTable(
+  'event_to_interest',
   {
-    eventId: integer('eventId')
+    eventId: integer('event_id')
       .notNull()
-      .references(() => event.id),
-    interestId: integer('interestId')
+      .references(() => event.id, { onDelete: 'cascade' }),
+    interestId: integer('interest_id')
       .notNull()
-      .references(() => interest.id),
+      .references(() => interest.id, { onDelete: 'cascade' }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.eventId, t.interestId] }),
   }),
 );
 
-export const companyInterestsRelations = relations(
-  companyInterests,
+export const eventToInterestRelations = relations(
+  eventToInterest,
   ({ one }) => ({
-    company: one(company, {
-      fields: [companyInterests.companyId],
-      references: [company.id],
+    event: one(event, {
+      fields: [eventToInterest.eventId],
+      references: [event.id],
     }),
     interest: one(interest, {
-      fields: [companyInterests.interestId],
+      fields: [eventToInterest.interestId],
       references: [interest.id],
     }),
   }),
 );
 
-export const eventInterestsRelations = relations(eventInterests, ({ one }) => ({
-  company: one(company, {
-    fields: [eventInterests.eventId],
-    references: [company.id],
-  }),
-  interest: one(interest, {
-    fields: [eventInterests.interestId],
-    references: [interest.id],
-  }),
-}));
+export const frequentlyAskedQuestion = pgTable('frequently_asked_question', {
+  id: serial('id').primaryKey(),
+  question: text('question').notNull(),
+  answer: text('answer').notNull(),
+});
 
-export const surveyQuestionInputType = pgEnum('surveyQuestionInputType', [
+export const surveyQuestionInputType = pgEnum('survey_question_input_type', [
   'input',
   'textarea',
   'rating',
 ]);
 
-export const surveyQuestionType = pgEnum('surveyQuestionType', [
+export const surveyQuestionType = pgEnum('survey_question_type', [
   'workshop',
   'lecture',
   'company',
 ]);
 
-export const surveyQuestion = pgTable('surveyQuestion', {
+export const surveyQuestion = pgTable('survey_question', {
   id: serial('id').primaryKey(),
-  question: text('question'),
+  question: text('question').notNull(),
   description: text('description'),
   inputLabel: text('inputLabel'),
-  surveyQuestionInputType: surveyQuestionInputType('inputType').notNull(),
-  surveyQuestionType: surveyQuestionType('type').notNull(),
+  inputType: surveyQuestionInputType('inputType').notNull(),
+  type: surveyQuestionType('type').notNull(),
 });
 
 export const notification = pgTable('notification', {
-  id: serial('id').primaryKey().notNull(),
+  id: serial('id').primaryKey(),
   title: text('title').notNull(),
-  content: text('description').notNull(),
-  isActive: boolean('is_active').default(false),
-  activatedAt: timestamp('activated_at', { mode: 'string' }),
+  content: text('description'),
+  activatedAt: timestamp('activated_at'),
 });

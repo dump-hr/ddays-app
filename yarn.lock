@@ -947,10 +947,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@drizzle-team/studio@^0.0.37":
-  version "0.0.37"
-  resolved "https://registry.yarnpkg.com/@drizzle-team/studio/-/studio-0.0.37.tgz#f86b18954592c2457286e094ac946e6b1469bc31"
-  integrity sha512-LZyAPGJBX43jsrVZh7+w1Jig/BC6PJx63ReHUYK+GRQYNY9UJNlPXmn1uC/LMRX+A7JwYM4Sr4Fg/hnJSqlfgA==
+"@drizzle-team/studio@^0.0.39":
+  version "0.0.39"
+  resolved "https://registry.yarnpkg.com/@drizzle-team/studio/-/studio-0.0.39.tgz#70e9155503f7343e8f1917d316f93e64c23760e1"
+  integrity sha512-c5Hkm7MmQC2n5qAsKShjQrHoqlfGslB8+qWzsGGZ+2dHMRTNG60UuzalF0h0rvBax5uzPXuGkYLGaQ+TUX3yMw==
   dependencies:
     superjson "^2.2.1"
 
@@ -1336,6 +1336,11 @@
   version "8.56.0"
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
+
+"@hookform/resolvers@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.4.tgz#de9b668c2835eb06892290192de6e2a5c906229b"
+  integrity sha512-o5cgpGOuJYrd+iMKvkttOclgwRW86EsWJZZRC23prf0uU2i48Htq4PuT73AVb9ionFyZrwYEITuOFGF+BydEtQ==
 
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
@@ -3874,12 +3879,12 @@ dreamopt@~0.8.0:
   dependencies:
     wordwrap ">=0.0.2"
 
-drizzle-kit@^0.20.4:
-  version "0.20.9"
-  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.20.9.tgz#9621259add2ee444ed3b2b5d5cf49b918e707259"
-  integrity sha512-5oIbPFdfEEfzVSOB3MWGt70VSHv6W7qMAWCJ5xc6W1BxgGASipxuAuyXD59fx9S6QYTNNnuSuQFoIdnNTRWY2A==
+drizzle-kit@^0.20.13:
+  version "0.20.13"
+  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.20.13.tgz#6aa45a3b445ecfd05becb7bb679a54a3194f4fe4"
+  integrity sha512-j9oZSQXNWG+KBJm0Sg3S/zJpncHGKnpqNfFuM4NUxUMGTcihDHhP9SW6Jncqwb5vsP1Xm0a8JLm3PZUIspC/oA==
   dependencies:
-    "@drizzle-team/studio" "^0.0.37"
+    "@drizzle-team/studio" "^0.0.39"
     "@esbuild-kit/esm-loader" "^2.5.5"
     camelcase "^7.0.1"
     chalk "^5.2.0"
@@ -4160,6 +4165,11 @@ eslint-plugin-simple-import-sort@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-10.0.0.tgz#cc4ceaa81ba73252427062705b64321946f61351"
   integrity sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==
+
+eslint-plugin-sort-class-members@^1.19.0:
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sort-class-members/-/eslint-plugin-sort-class-members-1.19.0.tgz#9ad7a674c4cb477fceaddb8162515372d381c733"
+  integrity sha512-YayvASA1bavdPeRU9FMPnale2+Oi3aMcHGVC5EUm9b671oxm7ahvR+q8BfsU2aV+KAFezNfu47VPgdZK6gwYPw==
 
 eslint-plugin-turbo@1.11.2:
   version "1.11.2"

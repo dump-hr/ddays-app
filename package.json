@@ -12,10 +12,9 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "start": "yarn workspace api run start",
-    "introspect": "yarn workspace api run introspect",
-    "generate": "yarn workspace api run generate",
-    "migrate": "yarn workspace api run migrate"
+    "db:generate": "yarn workspace api run db:generate",
+    "db:migrate": "yarn workspace api run db:migrate",
+    "db:studio": "yarn workspace api run db:studio"
   },
   "dependencies": {}
 }

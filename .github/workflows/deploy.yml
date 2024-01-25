@@ -30,6 +30,7 @@ jobs:
 
       - name: Build frontend web apps
         run: yarn build --filter=admin... --filter=sponsor...
+        # TODO: web
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2

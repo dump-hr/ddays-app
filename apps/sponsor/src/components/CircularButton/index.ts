@@ -1,3 +1,1 @@
-import CircularButton from './CircularButton';
-
-export default CircularButton;
+export * from './CircularButton';

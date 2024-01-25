@@ -1,3 +1,1 @@
-import CompanyProfile from './CompanyProfile';
-
-export default CompanyProfile;
+export * from './CompanyProfile';

@@ -1,4 +1,4 @@
-import Button from '../Button';
+import { Button } from '../Button';
 import c from './InfoCard.module.scss';
 
 type InfoCardProps = {
@@ -8,7 +8,12 @@ type InfoCardProps = {
   onClick: () => void;
 };
 
-const InfoCard = ({ children, title, buttonText, onClick }: InfoCardProps) => {
+export const InfoCard = ({
+  children,
+  title,
+  buttonText,
+  onClick,
+}: InfoCardProps) => {
   return (
     <div className={c.infoCard}>
       <h3>{title}</h3>
@@ -19,5 +24,3 @@ const InfoCard = ({ children, title, buttonText, onClick }: InfoCardProps) => {
     </div>
   );
 };
-
-export default InfoCard;

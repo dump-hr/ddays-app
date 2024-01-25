@@ -6,17 +6,14 @@ type CircularButtonProps = {
   children: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const CircularButton = ({
+export const CircularButton = ({
   children,
   className,
   ...handlers
 }: CircularButtonProps) => {
-  const classes = clsx(c.circularButton, className);
   return (
-    <button className={classes} {...handlers}>
+    <button className={clsx(c.circularButton, className)} {...handlers}>
       {children}
     </button>
   );
 };
-
-export default CircularButton;

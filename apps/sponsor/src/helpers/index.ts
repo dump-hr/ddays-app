@@ -1,3 +1,3 @@
-export * from './arrayHelpers';
-export * from './fileHelpers';
-export * from './pageTitleHelper';
+export * from './array';
+export * from './file';
+export * from './pageTitle';

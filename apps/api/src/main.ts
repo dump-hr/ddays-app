@@ -30,33 +30,41 @@ const setupSwagger = (app: INestApplication) => {
   SwaggerModule.setup('/api/swagger', app, document);
 };
 
-const setupFrontendDevServerProxies = (app: INestApplication) => {
+const setupProxies = (app: INestApplication) => {
   app.use(
     '/',
-    createProxyMiddleware(['!/api/**', '!/sponsor/**', '!/admin/**'], {
-      target: 'https://ddays.azureedge.net/',
-      changeOrigin: true,
-    }),
+    createProxyMiddleware(
+      (pathname: string) =>
+        !pathname.startsWith('/api') &&
+        !pathname.startsWith('/admin') &&
+        !pathname.startsWith('/sponsor'),
+      {
+        target: 'https://ddays.azureedge.net/',
+        changeOrigin: true,
+      },
+    ),
   );
 
-  if (process.env.NODE_ENV !== 'dev') return;
+  if (process.env.NODE_ENV === 'dev') {
+    app.use(
+      '/admin',
+      createProxyMiddleware({
+        target: 'http://localhost:3002',
+      }),
+    );
 
-  app.use(
-    '/admin',
-    createProxyMiddleware({
-      target: 'http://localhost:3002',
-    }),
-  );
-
-  app.use(
-    '/sponsor',
-    createProxyMiddleware({
-      target: 'http://localhost:3003',
-    }),
-  );
+    app.use(
+      '/sponsor',
+      createProxyMiddleware({
+        target: 'http://localhost:3003',
+      }),
+    );
+  }
 };
 
 const migrate = async () => {
+  if (process.env.RUN_MIGRATIONS_ON_STARTUP !== 'true') return;
+
   const sql = postgres(process.env.DATABASE_URL, {
     max: 1,
   });
@@ -67,8 +75,6 @@ const migrate = async () => {
 };
 
 const run = async (app: INestApplication) => {
-  app.setGlobalPrefix('api');
-
   const port = process.env.PORT || 3000;
   const database = new URL(process.env.DATABASE_URL).pathname.slice(1);
 
@@ -80,10 +86,11 @@ const run = async (app: INestApplication) => {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
 
   setupClassValidator(app);
   setupSwagger(app);
-  setupFrontendDevServerProxies(app);
+  setupProxies(app);
 
   await migrate();
   await run(app);

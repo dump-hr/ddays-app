@@ -19,7 +19,7 @@ export class BlobService {
     filename: string,
     buffer: Buffer,
     mimetype: string,
-  ) {
+  ): Promise<string> {
     const key = `${directory}/${filename}`;
 
     const command = new PutObjectCommand({
@@ -32,12 +32,10 @@ export class BlobService {
     try {
       await this.client.send(command);
 
-      const imageUrl = `${this.url}/${key}`;
-
-      return imageUrl;
+      return `${this.url}/${key}`;
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 }

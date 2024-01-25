@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 
-import { useLogin } from '../../api/useLogin';
+import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswordLogin';
+import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
 import { Path } from '../../constants/paths';
 import c from './LoginForm.module.scss';
 
-const LoginForm = () => {
+// TODO: redirect to materials page when already logged in
+// TODO: if user hits /sponsor/profile and that redirects to this page
+//       this should redirect to that page after login
+export const LoginForm = () => {
   const [, navigate] = useLocation();
 
-  const [username, setUsername] = useState('');
-
-  const login = useLogin(() => navigate(Path.Profile, { replace: true }));
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newUsername = e.target.value;
-
-    setUsername(newUsername);
-  };
+  const login = useAuthCompanyPasswordLogin(() =>
+    navigate(Path.Profile, { replace: true }),
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,16 +47,8 @@ const LoginForm = () => {
     }
   };
 
-  const handleVisibilityIconClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    e.preventDefault();
-
-    if (visibilityIcon === 'hidden') {
-      setVisibilityIcon('visible');
-    } else {
-      setVisibilityIcon('hidden');
-    }
+  const handleVisibilityIconClick = () => {
+    setVisibilityIcon(visibilityIcon === 'hidden' ? 'visible' : 'hidden');
   };
 
   return (
@@ -67,8 +57,6 @@ const LoginForm = () => {
         type='username'
         name='username'
         placeholder='Ime tvrtke'
-        value={username}
-        onChange={handleUsernameChange}
         className={c.formInput}
       />
       <div className={c.passwordInputContainer}>
@@ -84,7 +72,7 @@ const LoginForm = () => {
           className={c.visibilityButton}
           type='button'>
           <svg width={128} height={32}>
-            <use href={`/password-visibility.svg#${visibilityIcon}`} />
+            <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
           </svg>
         </button>
       </div>
@@ -97,5 +85,3 @@ const LoginForm = () => {
     </form>
   );
 };
-
-export default LoginForm;

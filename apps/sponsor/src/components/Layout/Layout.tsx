@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import useLocation from 'wouter/use-location';
 
+import AppSvg from '../../assets/images/app.svg';
 import { pages } from '../../constants/pages';
 import c from './Layout.module.scss';
 
@@ -9,7 +10,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
   const isCurrentPage = (path: string) => location === path;
 
@@ -17,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <nav className={c.navWrapper}>
         <div className={c.nav}>
-          <img src='/app.svg' alt='App logo' className={c.navLogo} />
+          <img src={AppSvg} alt='App logo' className={c.navLogo} />
           <div className={c.navItemsWrapper}>
             {pages.map(({ path, name, icon }) => (
               <div
@@ -37,5 +38,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     </>
   );
 };
-
-export default Layout;

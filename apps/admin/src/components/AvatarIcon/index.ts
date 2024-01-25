@@ -1,3 +1,1 @@
-import AvatarIcon from './AvatarIcon';
-
-export default AvatarIcon;
+export * from './AvatarIcon';

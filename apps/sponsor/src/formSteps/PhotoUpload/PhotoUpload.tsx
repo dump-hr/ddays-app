@@ -1,21 +1,21 @@
-import { useDeleteImage } from '../../api/useDeleteImage';
-import { useGetLoggedCompany } from '../../api/useGetLoggedCompany';
-import { useUploadImage } from '../../api/useUploadImage';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyRemoveLandingImage } from '../../api/company/useCompanyRemoveLandingImage';
+import { useCompanyUpdateLandingImage } from '../../api/company/useCompanyUpdateLandingImage';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
 
-const PhotoUpload: FormComponent = ({ close }) => {
-  const { mutate: uploadImage, isLoading } = useUploadImage();
-  const { mutate: deleteLogo } = useDeleteImage();
-  const { data: companyData } = useGetLoggedCompany();
+export const PhotoUpload: FormComponent = ({ close }) => {
+  const updateLandingImage = useCompanyUpdateLandingImage();
+  const removeLandingImage = useCompanyRemoveLandingImage();
+  const { data: company } = useCompanyGetCurrentPublic();
 
-  const handleUpload = (files: File[]) => {
-    uploadImage(files[0]);
+  const handleUpload = async (files: File[]) => {
+    await updateLandingImage.mutateAsync(files[0]);
   };
 
-  const handleRemove = () => {
-    deleteLogo();
+  const handleRemove = async () => {
+    await removeLandingImage.mutateAsync();
   };
 
   return (
@@ -36,18 +36,16 @@ const PhotoUpload: FormComponent = ({ close }) => {
         content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
       />
       <div className={styles.uploadArea}>
-        {!isLoading ? (
+        {!updateLandingImage.isLoading ? (
           <PhotoInput
             label='Prenesite fotografije (max. 443px x 326px)'
             displayErrorMessages={true}
             inputConstraints={{
-              maxDimensions: {
-                width: 443,
-                height: 326,
-              },
+              maxWidth: 443,
+              maxHeight: 326,
             }}
             height={326}
-            fileSrc={companyData?.landingImage}
+            fileSrc={company?.landingImage}
             handleUpload={handleUpload}
             handleRemove={handleRemove}
           />
@@ -62,5 +60,3 @@ const PhotoUpload: FormComponent = ({ close }) => {
     </div>
   );
 };
-
-export default PhotoUpload;

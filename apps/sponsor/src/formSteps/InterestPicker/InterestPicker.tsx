@@ -1,35 +1,40 @@
-import { EventTheme, Interest } from '@ddays-app/types';
+import { InterestDto, Theme } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { useGetSponsorInterest } from '../../api/useGetSponsorInterests';
-import { useUpdateSponsorInterests } from '../../api/useUpdateSponsorInterests';
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useInterestConnectToCompany } from '../../api/interest/useInterestConnectToCompany';
+import { useInterestGetAll } from '../../api/interest/useInterestGetAll';
 import { interestLabels } from '../../constants/labels';
 import { toggleArrayElement } from '../../helpers';
 import { FormComponent } from '../../types/form';
 import c from './InterestPicker.module.scss';
 
-const InterestPicker: FormComponent = () => {
-  const { data: interests } = useGetSponsorInterest();
-  const [activeInterests, setActiveInterests] = useState<Interest[]>([]);
-  const [currentTheme, setCurrentTheme] = useState(EventTheme.Dev);
-  const { mutate: updateSponsorInterests } = useUpdateSponsorInterests();
+const MAX_NUMBER_OF_INTERESTS = 6;
+
+export const InterestPicker: FormComponent = () => {
+  const { data: company } = useCompanyGetCurrentPublic();
+  const { data: interests } = useInterestGetAll();
+  const connectInterests = useInterestConnectToCompany();
+
+  const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
+  const [currentTheme, setCurrentTheme] = useState(Theme.Dev);
 
   useEffect(() => {
-    setActiveInterests(interests?.filter((i) => i.isActive) ?? []);
-  }, [interests]);
+    setActiveInterests(company?.interests ?? []);
+  }, [company?.interests]);
 
-  const getInterestCount = (theme: EventTheme) =>
+  const getInterestCount = (theme: Theme) =>
     activeInterests.filter((interest) => interest.theme === theme).length;
 
-  const handleSave = () =>
-    updateSponsorInterests({
-      ids: activeInterests.map((interest) => interest.id),
+  const handleSave = async () => {
+    await connectInterests.mutateAsync({
+      interestIds: activeInterests.map((interest) => interest.id),
     });
+  };
 
-  const toggleInterest = (interest: Interest) => {
-    const MAX_NUMBER_OF_INTERESTS = 6;
+  const toggleInterest = (interest: InterestDto) => {
     if (
       !activeInterests.includes(interest) &&
       activeInterests.filter((i) => i.theme === interest.theme).length ===
@@ -50,7 +55,7 @@ const InterestPicker: FormComponent = () => {
       </p>
 
       <div className={c.themes}>
-        {Object.values(EventTheme).map((theme) => (
+        {Object.values(Theme).map((theme) => (
           <p
             onClick={() => setCurrentTheme(theme)}
             className={clsx(c.themeLabel, {
@@ -84,5 +89,3 @@ const InterestPicker: FormComponent = () => {
     </div>
   );
 };
-
-export default InterestPicker;
