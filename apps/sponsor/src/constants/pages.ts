@@ -3,7 +3,6 @@ import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
 import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
-import { HomePage } from '../pages/HomePage';
 import { MaterialsPage } from '../pages/MaterialsPage';
 import { Path } from './paths';
 
@@ -25,13 +24,13 @@ export const pages: Page[] = [
     path: Path.Stand,
     icon: standSvg,
     name: 'Štand',
-    Component: HomePage,
+    Component: MaterialsPage,
   },
   {
     path: Path.FlyTalks,
     icon: flyTalksSvg,
     name: 'Fly Talks',
-    Component: HomePage,
+    Component: MaterialsPage,
   },
   {
     path: Path.Profile,
