@@ -17,22 +17,6 @@ import { getPageTitle } from '../../helpers';
 import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
 
-const data = {
-  jobOffers: [
-    {
-      title: 'Java Developer',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      location: 'Split',
-    },
-  ],
-  interests: {
-    development: ['react', 'angular', 'vue', 'node', 'php', 'java', 'python'],
-    design: ['ui', 'ux', 'graphic', 'web', 'illustration'],
-    marketing: ['seo', 'social', 'email', 'content', 'analytics '],
-    tech: ['hardware', 'software', 'networking', 'security'],
-  },
-};
-
 type CardContentProps = {
   company: CompanyPublicDto | undefined;
 };
@@ -92,6 +76,8 @@ export const CompanyProfile = () => {
 
   const { data: company } = useCompanyGetCurrentPublic();
 
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
+
   return (
     <>
       <Helmet>
@@ -147,7 +133,7 @@ export const CompanyProfile = () => {
                 title='Oglasi za posao'
                 buttonText='Postavite oglase za posao'
                 onClick={() => setCurrentModal(FormSteps.Jobs)}>
-                {data.jobOffers.length == 0 ? (
+                {companyJobs?.length == 0 ? (
                   <p className={c.cardContentParagraph}>
                     Nema postavljenih oglasa
                   </p>
