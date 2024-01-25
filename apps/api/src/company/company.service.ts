@@ -249,7 +249,7 @@ export class CompanyService {
   ): Promise<CompanyPublicDto> {
     const videoUrl = await this.blobService.upload(
       'company-video',
-      file.originalname,
+      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
