@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -18,8 +17,8 @@ export const useCompanyRemoveVideo = () => {
 
       toast.success('Video uspješno izbrisan');
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message);
+    onError: (error: string) => {
+      toast.error(error);
     },
   });
 };

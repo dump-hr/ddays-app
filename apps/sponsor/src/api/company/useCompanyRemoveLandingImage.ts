@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -18,8 +17,8 @@ export const useCompanyRemoveLandingImage = () => {
 
       toast.success('Slika uspješno izbrisana');
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message);
+    onError: (error: string) => {
+      toast.error(error);
     },
   });
 };

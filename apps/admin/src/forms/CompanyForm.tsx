@@ -71,6 +71,17 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
         })) ?? [],
       defaultValue: company?.interests?.map((interest) => interest.id),
     },
+    ...(id
+      ? [
+          {
+            id: 'password',
+            type: QuestionType.Field,
+            title: 'Password',
+            defaultValue: company?.password,
+            disabled: true,
+          } as Question,
+        ]
+      : []),
   ];
 
   const form = useForm<CompanyModifyDto>({

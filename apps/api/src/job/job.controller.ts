@@ -35,6 +35,7 @@ export class JobController {
   ): Promise<JobDto[]> {
     return await this.jobService.getForCompany(id);
   }
+
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<JobDto> {
@@ -46,6 +47,7 @@ export class JobController {
   @Patch('company')
   async updateForCompany(
     @Req() { user }: AuthenticatedRequest,
+    // TODO: fix validation for this dto (it is an array of DTOs)
     @Body() dto: JobModifyForCompanyDto[],
   ): Promise<JobDto[]> {
     return await this.jobService.updateForCompany(user.id, dto);

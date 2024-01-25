@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -20,8 +19,8 @@ export const useCompanyUpdateLogoImage = () => {
       queryClient.invalidateQueries(['company', 'current']);
       toast.success('Logo uspješno uploadan');
     },
-    onError: (error: AxiosError) => {
-      toast.error(error.message);
+    onError: (error: string) => {
+      toast.error(error);
     },
   });
 };

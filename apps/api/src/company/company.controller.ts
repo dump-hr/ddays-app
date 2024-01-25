@@ -56,18 +56,6 @@ export class CompanyController {
     return await this.companyService.getOne(id);
   }
 
-  @Get(':id')
-  async getOnePublic(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<CompanyPublicDto> {
-    return await this.companyService.getOnePublic(id);
-  }
-
-  @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
-    return await this.companyService.remove(id);
-  }
-
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @Delete('/landing-image')
@@ -194,11 +182,23 @@ export class CompanyController {
     return await this.companyService.updateVideo(user.id, file);
   }
 
+  @Get(':id')
+  async getOnePublic(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.getOnePublic(id);
+  }
+
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: CompanyModifyDto,
   ) {
     return await this.companyService.update(id, dto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
+    return await this.companyService.remove(id);
   }
 }
