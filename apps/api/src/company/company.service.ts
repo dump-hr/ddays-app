@@ -185,7 +185,7 @@ export class CompanyService {
   ): Promise<CompanyPublicDto> {
     const imageUrl = await this.blobService.upload(
       'company-landing-image',
-      file.originalname,
+      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
@@ -217,7 +217,7 @@ export class CompanyService {
   ): Promise<CompanyPublicDto> {
     const imageUrl = await this.blobService.upload(
       'company-logo',
-      file.filename,
+      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
