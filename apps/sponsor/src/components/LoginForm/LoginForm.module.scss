@@ -69,4 +69,8 @@
   cursor: pointer;
   background: transparent;
   border: none;
+
+  &:disabled {
+    cursor: default;
+  }
 }

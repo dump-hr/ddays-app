@@ -68,10 +68,11 @@ export const LoginForm = () => {
           onChange={handlePasswordChange}
         />
         <button
+          disabled={visibilityIcon === 'none'}
           onClick={handleVisibilityIconClick}
           className={c.visibilityButton}
           type='button'>
-          <svg width={128} height={32}>
+          <svg width={25} height={23}>
             <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
           </svg>
         </button>
