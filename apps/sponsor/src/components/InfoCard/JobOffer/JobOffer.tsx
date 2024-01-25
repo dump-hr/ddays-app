@@ -23,7 +23,7 @@ export const JobOffer: React.FC<JobOfferProps> = ({
         </div>
       </header>
       <p className={c.description}>{description}</p>
-      <a className={c.learnMore} href=''>
+      <a className={c.learnMore} href={''}>
         Saznaj više
         <img src={ArrowRightSvg} alt='Strelica desno' />
       </a>

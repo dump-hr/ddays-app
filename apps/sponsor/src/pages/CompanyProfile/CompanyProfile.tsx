@@ -75,13 +75,6 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
   const { data: companyJobs } = useJobGetForCompany(company?.id);
   return (
     <>
-      {data.jobOffers.map((jobOffer) => (
-        <JobOffer
-          title={jobOffer.title}
-          description={jobOffer.description}
-          location={jobOffer.location}
-        />
-      ))}
       {companyJobs?.map((jobOffer) => (
         <JobOffer
           title={jobOffer.position}
