@@ -12,6 +12,7 @@ const companyUpdateVideo = async (file: File) => {
 
 export const useCompanyUpdateVideo = () => {
   const queryClient = useQueryClient();
+
   return useMutation(companyUpdateVideo, {
     onMutate: () => {
       return { toastId: toast.loading('Uploading video...') };
@@ -20,8 +21,8 @@ export const useCompanyUpdateVideo = () => {
       queryClient.invalidateQueries(['company', 'current']);
       toast.success('Video uspješno uploadan', { id: context?.toastId });
     },
-    onError: (error: string) => {
-      toast.error(error);
+    onError: (error: string, _variables, context) => {
+      toast.error(error, { id: context?.toastId });
     },
   });
 };
