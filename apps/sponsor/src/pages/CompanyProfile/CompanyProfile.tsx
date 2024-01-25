@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { CircularButton } from '../../components/CircularButton';
 import { InfoCard } from '../../components/InfoCard';
 import { JobOffer } from '../../components/InfoCard/JobOffer';
@@ -32,13 +33,11 @@ const data = {
   },
 };
 
-type InterestCardContentProps = {
+type CardContentProps = {
   company: CompanyPublicDto | undefined;
 };
 
-const InterestsCardContent: React.FC<InterestCardContentProps> = ({
-  company,
-}) => {
+const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
   const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
   const getInterestCount = (theme: Theme) =>
     activeInterests.filter((interest) => interest.theme === theme).length;
@@ -52,35 +51,41 @@ const InterestsCardContent: React.FC<InterestCardContentProps> = ({
 
   return (
     <>
-      <div>
-        {Object.values(Theme).map((theme: Theme) => {
-          const interests = getInterestsByTheme(theme);
+      {Object.values(Theme).map((theme: Theme) => {
+        const interests = getInterestsByTheme(theme);
 
-          return (
-            <div>
-              <p className={c.cardContentParagraph}>
-                {interestLabels[theme]} ({getInterestCount(theme)})
-              </p>
-              <div className={c.pillGroup}>
-                {interests.map((interest) => (
-                  <Pill key={interest.id} text={interest.name} />
-                ))}
-              </div>
+        return (
+          <div>
+            <p className={c.cardContentParagraph}>
+              {interestLabels[theme]} ({getInterestCount(theme)})
+            </p>
+            <div className={c.pillGroup}>
+              {interests.map((interest) => (
+                <Pill key={interest.id} text={interest.name} />
+              ))}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </>
   );
 };
 
-const JobOffersCardContent = () => {
+const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
   return (
     <>
       {data.jobOffers.map((jobOffer) => (
         <JobOffer
           title={jobOffer.title}
           description={jobOffer.description}
+          location={jobOffer.location}
+        />
+      ))}
+      {companyJobs?.map((jobOffer) => (
+        <JobOffer
+          title={jobOffer.position}
+          description={jobOffer.details}
           location={jobOffer.location}
         />
       ))}
@@ -154,7 +159,7 @@ export const CompanyProfile = () => {
                     Nema postavljenih oglasa
                   </p>
                 ) : (
-                  <JobOffersCardContent />
+                  <JobOffersCardContent company={company} />
                 )}
               </InfoCard>
             </div>
