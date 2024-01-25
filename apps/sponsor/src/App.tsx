@@ -8,7 +8,6 @@ import favicon from './assets/favicon.ico';
 import { Layout } from './components/Layout';
 import { pages } from './constants/pages';
 import { Path } from './constants/paths';
-import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 
 export const App = () => {
@@ -20,7 +19,6 @@ export const App = () => {
       </Helmet>
 
       <Switch>
-        <Route path={Path.Home} component={HomePage} />
         <Route path={Path.Login} component={LoginPage} />
 
         {pages.map(({ path, Component }) => (
