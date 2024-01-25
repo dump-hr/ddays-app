@@ -30,7 +30,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Generate migrations
-        run: yarn generate
+        run: yarn db:generate
 
       - name: Commit changes
         run: |
