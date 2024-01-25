@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 
@@ -68,10 +69,13 @@ export const LoginForm = () => {
           onChange={handlePasswordChange}
         />
         <button
+          disabled={visibilityIcon === 'none'}
           onClick={handleVisibilityIconClick}
-          className={c.visibilityButton}
+          className={clsx(c.visibilityButton, {
+            [c.visibilityButtonDisabled]: true,
+          })}
           type='button'>
-          <svg width={128} height={32}>
+          <svg width={25} height={23}>
             <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
           </svg>
         </button>
