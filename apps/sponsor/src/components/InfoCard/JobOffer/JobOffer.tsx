@@ -5,7 +5,7 @@ import c from './JobOffer.module.scss';
 type JobOfferProps = {
   title: string;
   description: string;
-  location: string;
+  location: string | undefined;
 };
 
 export const JobOffer: React.FC<JobOfferProps> = ({
