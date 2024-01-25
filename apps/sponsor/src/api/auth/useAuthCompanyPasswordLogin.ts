@@ -17,7 +17,7 @@ export const useAuthCompanyPasswordLogin = (navigate: () => void) => {
       return { toastId: toast.loading('Logging in...') };
     },
     onSuccess: ({ accessToken }, _variables, context) => {
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('sponsorAccessToken', accessToken);
       toast.success('Logged in successfully!', { id: context?.toastId });
 
       navigate();
