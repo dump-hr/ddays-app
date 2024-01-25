@@ -10,14 +10,15 @@ const companyUpdateVideo = async (file: File) => {
   return await api.patchForm('/company/video', data);
 };
 
-// TODO: add loading toast like in useAuthCompanyPasswordLogin
 export const useCompanyUpdateVideo = () => {
   const queryClient = useQueryClient();
-
   return useMutation(companyUpdateVideo, {
-    onSuccess: () => {
+    onMutate: () => {
+      return { toastId: toast.loading('Uploading video...') };
+    },
+    onSuccess: (_data, _variables, context) => {
       queryClient.invalidateQueries(['company', 'current']);
-      toast.success('Video uspješno uploadan');
+      toast.success('Video uspješno uploadan', { id: context?.toastId });
     },
     onError: (error: string) => {
       toast.error(error);
