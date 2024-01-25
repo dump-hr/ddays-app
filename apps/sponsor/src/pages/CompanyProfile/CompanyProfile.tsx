@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { CompanyPublicDto, InterestDto, Theme } from '@ddays-app/types';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
@@ -10,6 +11,7 @@ import { LayoutSpacing } from '../../components/LayoutSpacing';
 import { Modal } from '../../components/Modal';
 import { Pill } from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
+import { interestLabels } from '../../constants/labels';
 import { getPageTitle } from '../../helpers';
 import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
@@ -30,30 +32,44 @@ const data = {
   },
 };
 
-const InterestsCardContent = () => {
-  const interestCategories = Object.keys(data.interests);
-  type Category = keyof typeof data.interests;
+type InterestCardContentProps = {
+  company: CompanyPublicDto | undefined;
+};
+
+const InterestsCardContent: React.FC<InterestCardContentProps> = ({
+  company,
+}) => {
+  const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
+  const getInterestCount = (theme: Theme) =>
+    activeInterests.filter((interest) => interest.theme === theme).length;
+
+  const getInterestsByTheme = (theme: Theme) =>
+    activeInterests.filter((interest) => interest.theme === theme);
+
+  useEffect(() => {
+    setActiveInterests(company?.interests ?? []);
+  }, [company?.interests]);
 
   return (
     <>
-      {interestCategories.map((category) => {
-        const categoryName =
-          category.charAt(0).toUpperCase() + category.slice(1);
-        const interests = data.interests[category as Category];
+      <div>
+        {Object.values(Theme).map((theme: Theme) => {
+          const interests = getInterestsByTheme(theme);
 
-        return (
-          <>
-            <p className={c.cardContentParagraph}>
-              {`${categoryName} (${interests.length})`}
-            </p>
-            <div className={c.pillGroup}>
-              {interests.map((interest) => (
-                <Pill key={interest} text={interest} />
-              ))}
+          return (
+            <div>
+              <p className={c.cardContentParagraph}>
+                {interestLabels[theme]} ({getInterestCount(theme)})
+              </p>
+              <div className={c.pillGroup}>
+                {interests.map((interest) => (
+                  <Pill key={interest.id} text={interest.name} />
+                ))}
+              </div>
             </div>
-          </>
-        );
-      })}
+          );
+        })}
+      </div>
     </>
   );
 };
@@ -125,7 +141,7 @@ export const CompanyProfile = () => {
                 title='Interesi'
                 buttonText='Odaberite svoje interese'
                 onClick={() => setCurrentModal(FormSteps.Interests)}>
-                <InterestsCardContent />
+                <InterestsCardContent company={company} />
               </InfoCard>
             </div>
             <div className={c.right}>
