@@ -70,7 +70,7 @@
   background: transparent;
   border: none;
 
-  &Disabled {
+  &:disabled {
     cursor: default;
   }
 }

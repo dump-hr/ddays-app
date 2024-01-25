@@ -71,9 +71,7 @@ export const LoginForm = () => {
         <button
           disabled={visibilityIcon === 'none'}
           onClick={handleVisibilityIconClick}
-          className={clsx(c.visibilityButton, {
-            [c.visibilityButtonDisabled]: true,
-          })}
+          className={clsx(c.visibilityButton)}
           type='button'>
           <svg width={25} height={23}>
             <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
