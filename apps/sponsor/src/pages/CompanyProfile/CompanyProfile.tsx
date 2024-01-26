@@ -34,7 +34,7 @@ const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
         const interests = getInterestsByTheme(theme);
 
         return (
-          <div>
+          <div key={theme}>
             <p className={c.cardContentParagraph}>
               {interestLabels[theme]} ({getInterestCount(theme)})
             </p>
@@ -52,21 +52,24 @@ const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
 
 const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
   const { data: companyJobs } = useJobGetForCompany(company?.id);
+
+  if (!companyJobs?.length) {
+    return (
+      <p>
+        <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>
+      </p>
+    );
+  }
   return (
     <>
-      {companyJobs?.length === 0 ? (
-        <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>
-      ) : (
-        <div>
-          {companyJobs?.map((jobOffer) => (
-            <JobOffer
-              title={jobOffer.position}
-              description={jobOffer.details}
-              location={jobOffer.location}
-            />
-          ))}
-        </div>
-      )}
+      {companyJobs?.map((jobOffer) => (
+        <JobOffer
+          key={jobOffer.id}
+          title={jobOffer.position}
+          description={jobOffer.details}
+          location={jobOffer.location}
+        />
+      ))}
     </>
   );
 };
