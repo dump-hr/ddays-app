@@ -54,11 +54,7 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
   const { data: companyJobs } = useJobGetForCompany(company?.id);
 
   if (!companyJobs?.length) {
-    return (
-      <p>
-        <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>
-      </p>
-    );
+    return <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>;
   }
   return (
     <>
