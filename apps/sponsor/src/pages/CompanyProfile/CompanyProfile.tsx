@@ -1,8 +1,10 @@
+import { CompanyPublicDto, Theme } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { CircularButton } from '../../components/CircularButton';
 import { InfoCard } from '../../components/InfoCard';
 import { JobOffer } from '../../components/InfoCard/JobOffer';
@@ -10,61 +12,57 @@ import { LayoutSpacing } from '../../components/LayoutSpacing';
 import { Modal } from '../../components/Modal';
 import { Pill } from '../../components/Pill';
 import { sponsorForm } from '../../constants/forms';
+import { interestLabels } from '../../constants/labels';
 import { getPageTitle } from '../../helpers';
 import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
 
-const data = {
-  jobOffers: [
-    {
-      title: 'Java Developer',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      location: 'Split',
-    },
-  ],
-  interests: {
-    development: ['react', 'angular', 'vue', 'node', 'php', 'java', 'python'],
-    design: ['ui', 'ux', 'graphic', 'web', 'illustration'],
-    marketing: ['seo', 'social', 'email', 'content', 'analytics '],
-    tech: ['hardware', 'software', 'networking', 'security'],
-  },
+type CardContentProps = {
+  company?: CompanyPublicDto;
 };
 
-const InterestsCardContent = () => {
-  const interestCategories = Object.keys(data.interests);
-  type Category = keyof typeof data.interests;
+const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
+  const getInterestCount = (theme: Theme) =>
+    company?.interests?.filter((interest) => interest.theme === theme).length;
+
+  const getInterestsByTheme = (theme: Theme) =>
+    company?.interests?.filter((interest) => interest.theme === theme);
 
   return (
     <>
-      {interestCategories.map((category) => {
-        const categoryName =
-          category.charAt(0).toUpperCase() + category.slice(1);
-        const interests = data.interests[category as Category];
+      {Object.values(Theme).map((theme: Theme) => {
+        const interests = getInterestsByTheme(theme);
 
         return (
-          <>
+          <div key={theme}>
             <p className={c.cardContentParagraph}>
-              {`${categoryName} (${interests.length})`}
+              {interestLabels[theme]} ({getInterestCount(theme)})
             </p>
             <div className={c.pillGroup}>
-              {interests.map((interest) => (
-                <Pill key={interest} text={interest} />
+              {interests?.map((interest) => (
+                <Pill key={interest.id} text={interest.name} />
               ))}
             </div>
-          </>
+          </div>
         );
       })}
     </>
   );
 };
 
-const JobOffersCardContent = () => {
+const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
+
+  if (!companyJobs?.length) {
+    return <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>;
+  }
   return (
     <>
-      {data.jobOffers.map((jobOffer) => (
+      {companyJobs?.map((jobOffer) => (
         <JobOffer
-          title={jobOffer.title}
-          description={jobOffer.description}
+          key={jobOffer.id}
+          title={jobOffer.position}
+          description={jobOffer.details}
           location={jobOffer.location}
         />
       ))}
@@ -125,7 +123,7 @@ export const CompanyProfile = () => {
                 title='Interesi'
                 buttonText='Odaberite svoje interese'
                 onClick={() => setCurrentModal(FormSteps.Interests)}>
-                <InterestsCardContent />
+                <InterestsCardContent company={company} />
               </InfoCard>
             </div>
             <div className={c.right}>
@@ -133,13 +131,7 @@ export const CompanyProfile = () => {
                 title='Oglasi za posao'
                 buttonText='Postavite oglase za posao'
                 onClick={() => setCurrentModal(FormSteps.Jobs)}>
-                {data.jobOffers.length == 0 ? (
-                  <p className={c.cardContentParagraph}>
-                    Nema postavljenih oglasa
-                  </p>
-                ) : (
-                  <JobOffersCardContent />
-                )}
+                <JobOffersCardContent company={company} />
               </InfoCard>
             </div>
           </div>
