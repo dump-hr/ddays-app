@@ -183,9 +183,8 @@ export class CompanyService {
     id: number,
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
-    const imageUrl = await this.blobService.upload(
+    const landingImage = await this.blobService.upload(
       'company-landing-image',
-      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
@@ -193,7 +192,7 @@ export class CompanyService {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        landingImage: imageUrl,
+        landingImage,
       })
       .where(eq(company.id, id))
       .returning({
@@ -215,9 +214,8 @@ export class CompanyService {
     id: number,
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
-    const imageUrl = await this.blobService.upload(
+    const logoImage = await this.blobService.upload(
       'company-logo',
-      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
@@ -225,7 +223,7 @@ export class CompanyService {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        logoImage: imageUrl,
+        logoImage,
       })
       .where(eq(company.id, id))
       .returning({
@@ -247,9 +245,8 @@ export class CompanyService {
     id: number,
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
-    const videoUrl = await this.blobService.upload(
+    const video = await this.blobService.upload(
       'company-video',
-      crypto.randomUUID(),
       file.buffer,
       file.mimetype,
     );
@@ -257,7 +254,7 @@ export class CompanyService {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        video: videoUrl,
+        video,
       })
       .where(eq(company.id, id))
       .returning({

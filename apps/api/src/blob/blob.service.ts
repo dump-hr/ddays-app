@@ -1,6 +1,7 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { extension } from 'mime-types';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class BlobService {
@@ -17,11 +18,10 @@ export class BlobService {
 
   async upload(
     directory: string,
-    filename: string,
     buffer: Buffer,
     mimetype: string,
   ): Promise<string> {
-    const key = `${directory}/${filename}.${extension(mimetype)}`;
+    const key = `${directory}/${nanoid()}.${extension(mimetype)}`;
 
     const command = new PutObjectCommand({
       Bucket: this.bucket,
