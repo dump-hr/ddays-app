@@ -54,13 +54,19 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
   const { data: companyJobs } = useJobGetForCompany(company?.id);
   return (
     <>
-      {companyJobs?.map((jobOffer) => (
-        <JobOffer
-          title={jobOffer.position}
-          description={jobOffer.details}
-          location={jobOffer.location}
-        />
-      ))}
+      {companyJobs?.length === 0 ? (
+        <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>
+      ) : (
+        <div>
+          {companyJobs?.map((jobOffer) => (
+            <JobOffer
+              title={jobOffer.position}
+              description={jobOffer.details}
+              location={jobOffer.location}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 };
@@ -70,8 +76,6 @@ export const CompanyProfile = () => {
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
   const { data: company } = useCompanyGetCurrentPublic();
-
-  const { data: companyJobs } = useJobGetForCompany(company?.id);
 
   return (
     <>
@@ -128,13 +132,7 @@ export const CompanyProfile = () => {
                 title='Oglasi za posao'
                 buttonText='Postavite oglase za posao'
                 onClick={() => setCurrentModal(FormSteps.Jobs)}>
-                {companyJobs?.length == 0 ? (
-                  <p className={c.cardContentParagraph}>
-                    Nema postavljenih oglasa
-                  </p>
-                ) : (
-                  <JobOffersCardContent company={company} />
-                )}
+                <JobOffersCardContent company={company} />
               </InfoCard>
             </div>
           </div>

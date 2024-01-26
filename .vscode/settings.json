@@ -4,5 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
