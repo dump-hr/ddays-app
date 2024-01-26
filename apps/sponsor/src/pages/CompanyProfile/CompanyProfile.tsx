@@ -1,5 +1,5 @@
-import { CompanyPublicDto, InterestDto, Theme } from '@ddays-app/types';
-import { useEffect, useState } from 'react';
+import { CompanyPublicDto, Theme } from '@ddays-app/types';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'wouter';
 
@@ -18,20 +18,15 @@ import { FormSteps } from '../../types/form';
 import c from './CompanyProfile.module.scss';
 
 type CardContentProps = {
-  company: CompanyPublicDto | undefined;
+  company?: CompanyPublicDto;
 };
 
 const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
-  const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
   const getInterestCount = (theme: Theme) =>
-    activeInterests.filter((interest) => interest.theme === theme).length;
+    company?.interests?.filter((interest) => interest.theme === theme).length;
 
   const getInterestsByTheme = (theme: Theme) =>
-    activeInterests.filter((interest) => interest.theme === theme);
-
-  useEffect(() => {
-    setActiveInterests(company?.interests ?? []);
-  }, [company?.interests]);
+    company?.interests?.filter((interest) => interest.theme === theme);
 
   return (
     <>
@@ -44,7 +39,7 @@ const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
               {interestLabels[theme]} ({getInterestCount(theme)})
             </p>
             <div className={c.pillGroup}>
-              {interests.map((interest) => (
+              {interests?.map((interest) => (
                 <Pill key={interest.id} text={interest.name} />
               ))}
             </div>
