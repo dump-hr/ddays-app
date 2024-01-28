@@ -1,6 +1,6 @@
 import { CompanyPublicDto, Theme } from '@ddays-app/types';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';

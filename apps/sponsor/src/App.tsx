@@ -1,6 +1,6 @@
 import './App.scss';
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
