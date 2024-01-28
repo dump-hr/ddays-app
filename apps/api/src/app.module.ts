@@ -14,6 +14,7 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
+import { TestExceptionModule } from './test-exception/testException.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     SurveyQuestionModule,
     NotificationModule,
     JobModule,
+    TestExceptionModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

@@ -12,9 +12,11 @@ import { join } from 'path';
 import postgres from 'postgres';
 
 import { AppModule } from './app.module';
+import { PostgresErrorFilter } from './postgresError.filter';
 
 const setupClassValidator = (app: INestApplication) => {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalFilters(new PostgresErrorFilter());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 };
 
