@@ -90,7 +90,11 @@ export const CompanyProfile = () => {
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <div className={c.coverImage}>
-            <img src={company?.landingImage} alt='Cover' />
+            <img
+              className={c.companyImage}
+              src={company?.landingImage}
+              alt='Cover'
+            />
           </div>
           <div className={c.basicInfo}>
             <img src={company?.logoImage} className={c.logoImage} />
