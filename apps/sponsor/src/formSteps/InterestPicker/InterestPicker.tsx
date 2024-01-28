@@ -13,7 +13,7 @@ import c from './InterestPicker.module.scss';
 
 const MAX_NUMBER_OF_INTERESTS = 6;
 
-export const InterestPicker: FormComponent = () => {
+export const InterestPicker: FormComponent = ({ close }) => {
   const { data: company } = useCompanyGetCurrentPublic();
   const { data: interests } = useInterestGetAll();
   const connectInterests = useInterestConnectToCompany();
@@ -38,6 +38,8 @@ export const InterestPicker: FormComponent = () => {
     await connectInterests.mutateAsync({
       interestIds: activeInterests.map((interest) => interest.id),
     });
+
+    close();
   };
 
   const toggleInterest = (interest: InterestDto) => {
