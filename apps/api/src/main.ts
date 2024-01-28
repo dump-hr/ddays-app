@@ -12,12 +12,15 @@ import { join } from 'path';
 import postgres from 'postgres';
 
 import { AppModule } from './app.module';
-import { PostgresErrorFilter } from './postgresError.filter';
+import { PostgresErrorFilter } from './postgres-error.filter';
 
 const setupClassValidator = (app: INestApplication) => {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.useGlobalFilters(new PostgresErrorFilter());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+};
+
+const setupFilter = (app: INestApplication) => {
+  app.useGlobalFilters(new PostgresErrorFilter());
 };
 
 const setupSwagger = (app: INestApplication) => {
@@ -91,6 +94,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   setupClassValidator(app);
+  setupFilter(app);
   setupSwagger(app);
   setupProxies(app);
 
