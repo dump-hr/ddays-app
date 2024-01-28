@@ -8,10 +8,11 @@ export class PostgresErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    const status = exception.detail;
+    const message = exception.detail;
 
     response.status(500).json({
-      statusCode: status,
+      statusCode: 500,
+      message: message,
       timeStamp: new Date().toISOString(),
       path: request.url,
     });
