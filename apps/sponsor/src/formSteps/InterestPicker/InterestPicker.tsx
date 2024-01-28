@@ -22,8 +22,14 @@ export const InterestPicker: FormComponent = () => {
   const [currentTheme, setCurrentTheme] = useState(Theme.Dev);
 
   useEffect(() => {
-    setActiveInterests(company?.interests ?? []);
-  }, [company?.interests]);
+    if (!interests || !company?.interests) return;
+
+    const companyInterests = company.interests.map(
+      (ci) => interests.find((i) => i.id === ci.id) as InterestDto,
+    );
+
+    setActiveInterests(companyInterests);
+  }, [company?.interests, interests]);
 
   const getInterestCount = (theme: Theme) =>
     activeInterests.filter((interest) => interest.theme === theme).length;
@@ -37,7 +43,7 @@ export const InterestPicker: FormComponent = () => {
   const toggleInterest = (interest: InterestDto) => {
     if (
       !activeInterests.includes(interest) &&
-      activeInterests.filter((i) => i.theme === interest.theme).length ===
+      activeInterests.filter((ai) => ai.theme === interest.theme).length ===
         MAX_NUMBER_OF_INTERESTS
     )
       return toast.error('Maksimalan broj interesa po temi dosegnut!');
