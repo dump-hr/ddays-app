@@ -24,9 +24,9 @@ export const InterestPicker: FormComponent = () => {
   useEffect(() => {
     if (!interests || !company?.interests) return;
 
-    const companyInterests = company.interests.map(
-      (ci) => interests.find((i) => i.id === ci.id) as InterestDto,
-    );
+    const companyInterests = company.interests
+      .map((ci) => interests.find((i) => i.id === ci.id))
+      .filter((ci) => !!ci) as InterestDto[];
 
     setActiveInterests(companyInterests);
   }, [company?.interests, interests]);
