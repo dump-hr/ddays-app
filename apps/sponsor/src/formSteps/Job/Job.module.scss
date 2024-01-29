@@ -1,7 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 640px;
+  justify-content: space-between;
+  height: 580px;
 }
 
 .title {
@@ -43,6 +44,14 @@
   line-height: 20px;
   margin: 0;
   margin-bottom: 24px;
+}
+
+.jobsContainer {
+  overflow: auto;
+  padding: 10px;
+}
+
+.buttonsContainer {
 }
 
 .inputContainer {

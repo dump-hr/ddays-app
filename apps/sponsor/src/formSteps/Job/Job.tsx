@@ -53,13 +53,15 @@ export const Job: FormComponent = () => {
 
   return (
     <div className={c.container}>
-      <h1 className={c.title}>Oglasi za posao</h1>
-      <p className={c.description}>
-        Opišite otvorene pozicije unutar vaše tvrtke. Navedite naziv pozicije,
-        ključne odgovornosti i kvalifikacije koje kandidati trebaju imati.
-      </p>
+      <div className={c.infoContainer}>
+        <h1 className={c.title}>Oglasi za posao</h1>
+        <p className={c.description}>
+          Opišite otvorene pozicije unutar vaše tvrtke. Navedite naziv pozicije,
+          ključne odgovornosti i kvalifikacije koje kandidati trebaju imati.
+        </p>
+      </div>
 
-      <div>
+      <div className={c.jobsContainer}>
         {jobs.map(({ id, details, location, position }, index) => (
           <div key={id} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
@@ -112,16 +114,18 @@ export const Job: FormComponent = () => {
         ))}
       </div>
 
-      <div className={c.inputContainer}>
-        <button onClick={handleAdd} className={c.secondaryButton}>
-          + Dodaj oglas
-        </button>
-      </div>
+      <div className='buttonsContainer'>
+        <div className={c.inputContainer}>
+          <button onClick={handleAdd} className={c.secondaryButton}>
+            + Dodaj oglas
+          </button>
+        </div>
 
-      <div className={c.inputContainer}>
-        <button onClick={handleSave} className={c.primaryButton}>
-          Spremi
-        </button>
+        <div className={c.inputContainer}>
+          <button onClick={handleSave} className={c.primaryButton}>
+            Spremi
+          </button>
+        </div>
       </div>
     </div>
   );
