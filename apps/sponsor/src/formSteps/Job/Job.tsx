@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { useJobUpdateForCompany } from '../../api/job/useJobUpdateForCompany';
+import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
@@ -63,16 +64,15 @@ export const Job: FormComponent = () => {
 
       <div className={c.jobsContainer}>
         {jobs.map(({ id, details, location, position }, index) => (
-          <div key={id} className={c.inputContainer}>
+          <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
                 Ukloni
               </span>
             </div>
-            <TextArea
+            <Input
               value={position}
-              limit={20}
               label='Pozicija'
               onChange={(value) => {
                 setJobs((prev) => {
@@ -83,9 +83,8 @@ export const Job: FormComponent = () => {
               }}
               //  disabled
             />
-            <TextArea
+            <Input
               value={location ?? ''}
-              limit={20}
               label='Lokacija'
               onChange={(value) => {
                 setJobs((prev) => {
@@ -106,7 +105,6 @@ export const Job: FormComponent = () => {
                 });
               }}
               limit={200}
-              deviation={5}
               label='Detalji o oglasu'
               // disabled
             />
@@ -114,7 +112,7 @@ export const Job: FormComponent = () => {
         ))}
       </div>
 
-      <div className='buttonsContainer'>
+      <div className={c.buttonsContainer}>
         <div className={c.inputContainer}>
           <button onClick={handleAdd} className={c.secondaryButton}>
             + Dodaj oglas
