@@ -21,6 +21,7 @@ export class JobService {
         location: job.location,
         details: job.details,
         createdAt: job.createdAt,
+        link: job.link,
       })
       .from(job)
       .where(eq(job.companyId, companyId))

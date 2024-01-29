@@ -19,6 +19,7 @@ export const Job: FormComponent = () => {
 
   useEffect(() => {
     setJobs(companyJobs ?? []);
+    if (!companyJobs?.length) handleAdd();
   }, [companyJobs]);
 
   const handleAdd = () => {
@@ -29,13 +30,12 @@ export const Job: FormComponent = () => {
         location: '',
         position: '',
         details: '',
+        link: '',
       },
     ]);
   };
 
   const handleRemove = (idToRemove?: number) => {
-    if (!idToRemove) return;
-
     setJobs((prev) => {
       return prev
         .filter(({ id }) => id !== idToRemove)
@@ -63,8 +63,8 @@ export const Job: FormComponent = () => {
       </div>
 
       <div className={c.jobsContainer}>
-        {jobs.map(({ id, details, location, position }, index) => (
-          <div key={index} className={c.inputContainer}>
+        {jobs.map(({ id, details, location, position, link }, index) => (
+          <div key={id} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
@@ -90,6 +90,18 @@ export const Job: FormComponent = () => {
                 setJobs((prev) => {
                   const newJobs = [...prev];
                   newJobs[index].location = value;
+                  return newJobs;
+                });
+              }}
+              // disabled
+            />
+            <Input
+              value={link ?? ''}
+              label='Link na više informacija'
+              onChange={(value) => {
+                setJobs((prev) => {
+                  const newJobs = [...prev];
+                  newJobs[index].link = value;
                   return newJobs;
                 });
               }}
