@@ -9,7 +9,7 @@ import { Question, QuestionType } from '../../types/question';
 import { Input } from '../Input';
 import { MultipleSelectInput } from '../MultipleSelectInput';
 import { SelectInput } from '../SelectInput';
-import { Textarea } from '../Textarea';
+import { TextArea } from '../TextArea';
 import c from './InputHandler.module.scss';
 
 type InputHandlerProps = {
@@ -47,7 +47,7 @@ const getInputComponent = (
         />
       );
     case QuestionType.TextArea:
-      return <Textarea {...controlProps} rows={question.rows ?? 5} />;
+      return <TextArea {...controlProps} rows={question.rows ?? 5} />;
     case QuestionType.Checkbox:
       return (
         <Input

@@ -7,7 +7,7 @@ type TextareaProps = {
   rows?: number;
 } & React.InputHTMLAttributes<HTMLTextAreaElement>;
 
-export const Textarea: React.FC<TextareaProps> = ({
+export const TextArea: React.FC<TextareaProps> = ({
   innerRef,
   rows,
   ...handlers
