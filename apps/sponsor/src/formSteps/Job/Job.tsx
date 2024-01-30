@@ -124,18 +124,13 @@ export const Job: FormComponent = () => {
         ))}
       </div>
 
-      <div className={c.buttonsContainer}>
-        <div className={c.inputContainer}>
-          <button onClick={handleAdd} className={c.secondaryButton}>
-            + Dodaj oglas
-          </button>
-        </div>
-
-        <div className={c.inputContainer}>
-          <button onClick={handleSave} className={c.primaryButton}>
-            Spremi
-          </button>
-        </div>
+      <div>
+        <button onClick={handleAdd} className={c.secondaryButton}>
+          + Dodaj oglas
+        </button>
+        <button onClick={handleSave} className={c.primaryButton}>
+          Spremi
+        </button>
       </div>
     </div>
   );

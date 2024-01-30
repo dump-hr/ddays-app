@@ -1,8 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 580px;
+}
+
+.infoContainer {
+  margin-bottom: 24px;
 }
 
 .title {
@@ -43,14 +46,15 @@
   font-size: 14px;
   line-height: 20px;
   margin: 0;
-  margin-bottom: 24px;
 }
 
 .jobsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   overflow-y: auto;
-}
-
-.buttonsContainer {
+  padding-right: 8px;
+  margin-bottom: 24px;
 }
 
 .inputContainer {
@@ -65,7 +69,6 @@
   width: 100%;
   height: 56px;
   cursor: pointer;
-  margin-top: auto;
 }
 
 .secondaryButton {
@@ -75,5 +78,6 @@
   width: 100%;
   height: 56px;
   cursor: pointer;
-  margin-top: auto;
+  border: 1px solid #ffffff33;
+  margin-bottom: 16px;
 }
