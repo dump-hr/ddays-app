@@ -55,7 +55,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
       </div>
 
       <button onClick={close} className={styles.button}>
-        Nastavi
+        Spremi
       </button>
     </div>
   );

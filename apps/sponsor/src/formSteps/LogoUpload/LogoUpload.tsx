@@ -55,7 +55,7 @@ export const LogoUpload: FormComponent = ({ close }) => {
       </div>
 
       <button onClick={close} className={styles.button}>
-        Nastavi
+        Spremi
       </button>
     </div>
   );

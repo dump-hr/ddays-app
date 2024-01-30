@@ -87,7 +87,7 @@ export const LoginForm = () => {
         Unesite informacije koje ste dobili putem maila
       </p>
       <button type='submit' className={c.formButton}>
-        Spremi
+        Prijava
       </button>
     </form>
   );
