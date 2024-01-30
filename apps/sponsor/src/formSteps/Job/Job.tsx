@@ -9,7 +9,7 @@ import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
-export const Job: FormComponent = () => {
+export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
 
   const { data: company } = useCompanyGetCurrentPublic();
@@ -46,6 +46,7 @@ export const Job: FormComponent = () => {
   const handleSave = () => {
     const jobsToSave = jobs.filter(isValid);
     updateSponsorJobs(jobsToSave);
+    close();
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
