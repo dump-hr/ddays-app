@@ -81,7 +81,6 @@ export const Job: FormComponent = () => {
                   return newJobs;
                 });
               }}
-              //  disabled
             />
             <Input
               value={location ?? ''}
@@ -93,7 +92,6 @@ export const Job: FormComponent = () => {
                   return newJobs;
                 });
               }}
-              // disabled
             />
             <Input
               value={link ?? ''}
@@ -105,7 +103,6 @@ export const Job: FormComponent = () => {
                   return newJobs;
                 });
               }}
-              // disabled
             />
             <TextArea
               value={details}
@@ -118,17 +115,16 @@ export const Job: FormComponent = () => {
               }}
               limit={200}
               label='Detalji o oglasu'
-              // disabled
             />
           </div>
         ))}
       </div>
 
       <div>
-        <button onClick={handleAdd} className={c.secondaryButton}>
-          + Dodaj oglas
+        <button onClick={handleAdd} className={`${c.button} ${c.secondary}`}>
+          Dodaj oglas
         </button>
-        <button onClick={handleSave} className={c.primaryButton}>
+        <button onClick={handleSave} className={`${c.button} ${c.primary}`}>
           Spremi
         </button>
       </div>
