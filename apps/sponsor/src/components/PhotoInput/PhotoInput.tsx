@@ -18,6 +18,7 @@ type PhotoInputProps = {
   };
   height?: number;
   fileSrc?: string;
+  isDisabled?: boolean;
   handleUpload: (files: File[]) => void;
   handleRemove: () => void;
 };
@@ -28,6 +29,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
   inputConstraints,
   height = 362,
   fileSrc,
+  isDisabled = false,
   handleUpload,
   handleRemove,
 }) => {
@@ -69,7 +71,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
       <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
         {!fileSrc && (
           <div className={c.inputField} {...getRootProps()}>
-            <input {...getInputProps()} />
+            <input disabled={isDisabled} {...getInputProps()} />
             <div className={c.inputFieldLabel}>
               <svg height='21px' width='24px'>
                 <use href={`${sprite}#upload-materials`} />

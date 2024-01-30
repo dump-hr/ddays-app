@@ -36,22 +36,23 @@ export const PhotoUpload: FormComponent = ({ close }) => {
         content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
       />
       <div className={styles.uploadArea}>
-        {!updateLandingImage.isLoading ? (
-          <PhotoInput
-            label='Prenesite fotografije (max. 443px x 326px)'
-            displayErrorMessages={true}
-            inputConstraints={{
-              maxWidth: 443,
-              maxHeight: 326,
-            }}
-            height={326}
-            fileSrc={company?.landingImage}
-            handleUpload={handleUpload}
-            handleRemove={handleRemove}
-          />
-        ) : (
-          <p className={styles.uploading}>Uploadavanje u procesu...</p>
-        )}
+        <PhotoInput
+          label={
+            updateLandingImage.isLoading
+              ? 'Uploadavanje u procesu...'
+              : 'Prenesite fotografije (max. 443px x 326px)'
+          }
+          isDisabled={updateLandingImage.isLoading}
+          displayErrorMessages={true}
+          inputConstraints={{
+            maxWidth: 443,
+            maxHeight: 326,
+          }}
+          height={326}
+          fileSrc={company?.landingImage}
+          handleUpload={handleUpload}
+          handleRemove={handleRemove}
+        />
       </div>
 
       <button onClick={close} className={styles.button}>
