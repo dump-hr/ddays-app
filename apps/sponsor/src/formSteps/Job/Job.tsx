@@ -122,9 +122,11 @@ export const Job: FormComponent = ({ close }) => {
       </div>
 
       <div>
-        <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
-          Dodaj oglas
-        </button>
+        {jobs.length < 3 && (
+          <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
+            Dodaj oglas
+          </button>
+        )}
         <button onClick={handleSave} className={clsx(c.button, c.primary)}>
           Spremi
         </button>
