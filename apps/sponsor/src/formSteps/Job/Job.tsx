@@ -1,4 +1,5 @@
 import { JobModifyForCompanyDto } from '@ddays-app/types';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -26,7 +27,6 @@ export const Job: FormComponent = ({ close }) => {
     setJobs((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
         location: '',
         position: '',
         details: '',
@@ -65,7 +65,7 @@ export const Job: FormComponent = ({ close }) => {
 
       <div className={c.jobsContainer}>
         {jobs.map(({ id, details, location, position, link }, index) => (
-          <div key={id} className={c.inputContainer}>
+          <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
@@ -122,10 +122,10 @@ export const Job: FormComponent = ({ close }) => {
       </div>
 
       <div>
-        <button onClick={handleAdd} className={`${c.button} ${c.secondary}`}>
+        <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
           Dodaj oglas
         </button>
-        <button onClick={handleSave} className={`${c.button} ${c.primary}`}>
+        <button onClick={handleSave} className={clsx(c.button, c.primary)}>
           Spremi
         </button>
       </div>
