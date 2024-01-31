@@ -43,13 +43,11 @@ export const Modal: React.FC<ModalProps> = ({ form, close, currentForm }) => {
   }, [close]);
 
   return (
-    <>
-      <div className={c.background} onClick={close}>
-        <div className={c.container} onClick={(e) => e.stopPropagation()}>
-          <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
-          {form.component({ close })}
-        </div>
+    <div className={c.background} onClick={close}>
+      <div className={c.container} onClick={(e) => e.stopPropagation()}>
+        <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
+        {form.component({ close })}
       </div>
-    </>
+    </div>
   );
 };

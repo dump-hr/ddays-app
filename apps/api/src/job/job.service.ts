@@ -21,6 +21,7 @@ export class JobService {
         location: job.location,
         details: job.details,
         createdAt: job.createdAt,
+        link: job.link,
       })
       .from(job)
       .where(eq(job.companyId, companyId))
@@ -41,23 +42,16 @@ export class JobService {
   ): Promise<JobDto[]> {
     const existingJobs = await this.getForCompany(companyId);
 
-    const [jobsToAdd, jobsToUpdate] = dto.reduce(
-      ([jobsToAdd, jobsToUpdate], jobDto) => {
-        if (!jobDto.id) {
-          return [[...jobsToAdd, { ...jobDto, companyId }], jobsToUpdate];
-        }
+    const jobsToAdd = dto
+      .filter((job) => !job.id)
+      .map((job) => ({ ...job, companyId }));
 
-        if (existingJobs.find((existingJob) => jobDto.id === existingJob.id)) {
-          return [jobsToAdd, [...jobsToUpdate, jobDto]];
-        }
-      },
-      [[] as JobModifyDto[], [] as JobModifyForCompanyDto[]],
+    const jobsToUpdate = dto.filter((job) =>
+      existingJobs.find((existingJob) => job.id === existingJob.id),
     );
 
     const jobIdsToRemove = existingJobs
-      .filter(
-        (existingJob) => !dto.find((jobDto) => jobDto.id === existingJob.id),
-      )
+      .filter((existingJob) => !dto.find((job) => job.id === existingJob.id))
       .map((job) => job.id);
 
     if (jobsToAdd.length > 0) {

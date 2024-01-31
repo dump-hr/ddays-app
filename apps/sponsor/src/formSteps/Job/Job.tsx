@@ -1,14 +1,16 @@
 import { JobModifyForCompanyDto } from '@ddays-app/types';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import { useJobUpdateForCompany } from '../../api/job/useJobUpdateForCompany';
+import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
-export const Job: FormComponent = () => {
+export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
 
   const { data: company } = useCompanyGetCurrentPublic();
@@ -18,23 +20,22 @@ export const Job: FormComponent = () => {
 
   useEffect(() => {
     setJobs(companyJobs ?? []);
+    if (!companyJobs?.length) handleAdd();
   }, [companyJobs]);
 
   const handleAdd = () => {
     setJobs((prev) => [
       ...prev,
       {
-        id: undefined,
         location: '',
         position: '',
         details: '',
+        link: '',
       },
     ]);
   };
 
   const handleRemove = (idToRemove?: number) => {
-    if (!idToRemove) return;
-
     setJobs((prev) => {
       return prev
         .filter(({ id }) => id !== idToRemove)
@@ -45,6 +46,7 @@ export const Job: FormComponent = () => {
   const handleSave = () => {
     const jobsToSave = jobs.filter(isValid);
     updateSponsorJobs(jobsToSave);
+    close();
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
@@ -53,24 +55,25 @@ export const Job: FormComponent = () => {
 
   return (
     <div className={c.container}>
-      <h1 className={c.title}>Oglasi za posao</h1>
-      <p className={c.description}>
-        Opišite otvorene pozicije unutar vaše tvrtke. Navedite naziv pozicije,
-        ključne odgovornosti i kvalifikacije koje kandidati trebaju imati.
-      </p>
+      <div className={c.infoContainer}>
+        <h1 className={c.title}>Oglasi za posao</h1>
+        <p className={c.description}>
+          Opišite otvorene pozicije unutar vaše tvrtke. Navedite naziv pozicije,
+          ključne odgovornosti i kvalifikacije koje kandidati trebaju imati.
+        </p>
+      </div>
 
-      <div>
-        {jobs.map(({ id, details, location, position }, index) => (
-          <div key={id} className={c.inputContainer}>
+      <div className={c.jobsContainer}>
+        {jobs.map(({ id, details, location, position, link }, index) => (
+          <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
                 Ukloni
               </span>
             </div>
-            <TextArea
+            <Input
               value={position}
-              limit={20}
               label='Pozicija'
               onChange={(value) => {
                 setJobs((prev) => {
@@ -79,11 +82,9 @@ export const Job: FormComponent = () => {
                   return newJobs;
                 });
               }}
-              //  disabled
             />
-            <TextArea
+            <Input
               value={location ?? ''}
-              limit={20}
               label='Lokacija'
               onChange={(value) => {
                 setJobs((prev) => {
@@ -92,7 +93,17 @@ export const Job: FormComponent = () => {
                   return newJobs;
                 });
               }}
-              // disabled
+            />
+            <Input
+              value={link ?? ''}
+              label='Link na više informacija'
+              onChange={(value) => {
+                setJobs((prev) => {
+                  const newJobs = [...prev];
+                  newJobs[index].link = value;
+                  return newJobs;
+                });
+              }}
             />
             <TextArea
               value={details}
@@ -104,22 +115,19 @@ export const Job: FormComponent = () => {
                 });
               }}
               limit={200}
-              deviation={5}
               label='Detalji o oglasu'
-              // disabled
             />
           </div>
         ))}
       </div>
 
-      <div className={c.inputContainer}>
-        <button onClick={handleAdd} className={c.secondaryButton}>
-          + Dodaj oglas
-        </button>
-      </div>
-
-      <div className={c.inputContainer}>
-        <button onClick={handleSave} className={c.primaryButton}>
+      <div>
+        {jobs.length < 3 && (
+          <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
+            Dodaj oglas
+          </button>
+        )}
+        <button onClick={handleSave} className={clsx(c.button, c.primary)}>
           Spremi
         </button>
       </div>
