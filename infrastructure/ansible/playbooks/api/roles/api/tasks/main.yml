@@ -54,7 +54,7 @@
 
   rescue:
     - name: Save unhealthy api docker container logs
-      shell: docker logs "{{ container_name }}" | sed -e 's/\x1b\[[0-9;]*m//g' > "~/unhealthy-$(date +%s)-{{ container_name }}.log" 2>&1
+      shell: docker logs "{{ container_name }}" | sed -e 's/\x1b\[[0-9;]*m//g' > "/home/{{ ansible_user }}/unhealthy-$(date +%s)-{{ container_name }}.log" 2>&1
 
     - name: Remove new unhealthy api docker container
       docker_container:
