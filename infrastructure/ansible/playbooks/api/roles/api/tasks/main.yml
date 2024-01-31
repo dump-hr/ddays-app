@@ -14,7 +14,7 @@
 - name: Create new api docker container
   docker_container:
     name: '{{ container_name }}'
-    image: 'ghcr.io/dump-hr/ddays-app:{{ docker_tag }}'
+    image: '{{ docker_image }}'
     pull: true
     restart_policy: unless-stopped
     env_file: '/home/{{ ansible_user }}/{{ env_file }}.env'

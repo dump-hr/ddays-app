@@ -21,7 +21,6 @@ const setupClassValidator = (app: INestApplication) => {
 
 const setupFilter = (app: INestApplication) => {
   app.useGlobalFilters(new PostgresErrorFilter());
-  throw new Error('testinggg');
 };
 
 const setupSwagger = (app: INestApplication) => {
