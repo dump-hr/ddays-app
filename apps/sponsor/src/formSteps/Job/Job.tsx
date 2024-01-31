@@ -26,7 +26,7 @@ export const Job: FormComponent = ({ close }) => {
     setJobs((prev) => [
       ...prev,
       {
-        id: undefined,
+        id: crypto.randomUUID(),
         location: '',
         position: '',
         details: '',

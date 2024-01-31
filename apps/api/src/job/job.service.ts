@@ -44,13 +44,14 @@ export class JobService {
 
     const [jobsToAdd, jobsToUpdate] = dto.reduce(
       ([jobsToAdd, jobsToUpdate], jobDto) => {
-        if (!jobDto.id) {
-          return [[...jobsToAdd, { ...jobDto, companyId }], jobsToUpdate];
-        }
-
         if (existingJobs.find((existingJob) => jobDto.id === existingJob.id)) {
           return [jobsToAdd, [...jobsToUpdate, jobDto]];
         }
+
+        return [
+          [...jobsToAdd, { ...jobDto, id: undefined, companyId }],
+          jobsToUpdate,
+        ];
       },
       [[] as JobModifyDto[], [] as JobModifyForCompanyDto[]],
     );
