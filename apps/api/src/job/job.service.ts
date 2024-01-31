@@ -51,9 +51,7 @@ export class JobService {
     );
 
     const jobIdsToRemove = existingJobs
-      .filter(
-        (existingJob) => !dto.find((jobDto) => jobDto.id === existingJob.id),
-      )
+      .filter((existingJob) => !dto.find((job) => job.id === existingJob.id))
       .map((job) => job.id);
 
     if (jobsToAdd.length > 0) {
