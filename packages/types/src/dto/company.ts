@@ -74,5 +74,6 @@ export class CompanyModifyDto {
 
 export class CompanyModifyDescriptionDto {
   @IsString()
+  @IsBetweenWordCount(70, 5)
   description: string;
 }
