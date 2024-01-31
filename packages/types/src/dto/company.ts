@@ -7,11 +7,13 @@ import {
 } from 'class-validator';
 import { CompanyCategory } from '../enum';
 import { InterestDto } from './interest';
+import { IsBetweenWordCount } from 'src/validators/is-between-word-count';
 
 export type CompanyPublicDto = {
   id: number;
   category: `${CompanyCategory}`;
   name: string;
+
   description?: string;
   website?: string;
   boothLocation?: string;
@@ -47,22 +49,9 @@ export class CompanyModifyDto {
   @IsString() // TODO: add is not empty
   username: string;
 
-  // TODO: validate word count with custom decorator
-  //
-  // how to impelemnt:
-  // https://github.com/typestack/class-validator#custom-validation-classes
-  //
-  // comapration logic:
-  // function validateWordCount(str: string, limit: number, deviation: number) {
-  //   const lowerBound = limit - deviation;
-  //   const upperBound = limit + deviation;
-  //
-  //   const wc = str.match(/\S+/g)?.length || 0;
-  //
-  //   return wc >= lowerBound && wc <= upperBound;
-  // }
   @IsOptional()
   @IsString()
+  @IsBetweenWordCount(70, 5)
   description: string;
 
   @IsOptional()
