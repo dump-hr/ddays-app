@@ -1,6 +1,6 @@
 import { CompanyPublicDto, Theme } from '@ddays-app/types';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -90,7 +90,11 @@ export const CompanyProfile = () => {
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <div className={c.coverImage}>
-            <img src={company?.landingImage} alt='Cover' />
+            <img
+              className={c.companyImage}
+              src={company?.landingImage}
+              alt='Cover'
+            />
           </div>
           <div className={c.basicInfo}>
             <img src={company?.logoImage} className={c.logoImage} />

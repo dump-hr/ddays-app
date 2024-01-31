@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 
 import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswordLogin';
@@ -6,7 +6,6 @@ import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
 import { Path } from '../../constants/paths';
 import c from './LoginForm.module.scss';
 
-// TODO: redirect to materials page when already logged in
 // TODO: if user hits /sponsor/profile and that redirects to this page
 //       this should redirect to that page after login
 export const LoginForm = () => {
@@ -15,6 +14,13 @@ export const LoginForm = () => {
   const login = useAuthCompanyPasswordLogin(() =>
     navigate(Path.Profile, { replace: true }),
   );
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('sponsorAccessToken');
+    if (jwt) {
+      navigate(Path.Materials, { replace: true });
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,7 +87,7 @@ export const LoginForm = () => {
         Unesite informacije koje ste dobili putem maila
       </p>
       <button type='submit' className={c.formButton}>
-        Spremi
+        Prijava
       </button>
     </form>
   );

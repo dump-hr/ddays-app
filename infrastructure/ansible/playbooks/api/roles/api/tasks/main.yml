@@ -14,7 +14,7 @@
 - name: Create new api docker container
   docker_container:
     name: '{{ container_name }}'
-    image: 'ghcr.io/dump-hr/ddays-app:{{ docker_tag }}'
+    image: '{{ docker_image }}'
     pull: true
     restart_policy: unless-stopped
     env_file: '/home/{{ ansible_user }}/{{ env_file }}.env'
@@ -53,7 +53,14 @@
       shell: docker rename "{{ container_name }}" api
 
   rescue:
+    - name: Save unhealthy api docker container logs
+      shell: docker logs "{{ container_name }}" | sed -e 's/\x1b\[[0-9;]*m//g' > "/home/{{ ansible_user }}/unhealthy-$(date +%s)-{{ container_name }}.log" 2>&1
+
     - name: Remove new unhealthy api docker container
       docker_container:
         name: '{{ container_name }}'
         state: absent
+
+    - name: Return error
+      fail:
+        msg: New api docker container is unhealthy

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import logoSvg from '../../assets/images/logo.svg';
 import { LoginForm } from '../../components/LoginForm';

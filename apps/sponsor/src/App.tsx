@@ -1,6 +1,6 @@
 import './App.scss';
 
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
@@ -12,7 +12,7 @@ import { LoginPage } from './pages/LoginPage';
 
 export const App = () => {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <link rel='icon' type='image/x-icon' href={favicon}></link>
         <title>DUMP Days Partners</title>
@@ -30,6 +30,6 @@ export const App = () => {
         ))}
       </Switch>
       <Toaster />
-    </>
+    </HelmetProvider>
   );
 };
