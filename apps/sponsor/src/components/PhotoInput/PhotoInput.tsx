@@ -34,9 +34,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
   handleRemove,
 }) => {
   const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
-  const [isWithinDimensions, setIsWithinDimensions] = useState<boolean | null>(
-    null,
-  );
+  const [isWithinDimensions, setIsWithinDimensions] = useState<boolean>(true);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: inputConstraints?.mimeTypes?.reduce(
@@ -60,9 +58,11 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         );
         const dimensionsResults = await Promise.all(dimensionsPromises);
         setIsWithinDimensions(dimensionsResults.every((result) => result));
-      }
 
-      handleUpload(acceptedFiles);
+        if (dimensionsResults.every((result) => result)) {
+          handleUpload(acceptedFiles);
+        }
+      }
     },
   });
 
