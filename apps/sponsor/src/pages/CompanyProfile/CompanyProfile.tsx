@@ -5,6 +5,8 @@ import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
+import CoverPlaceholder from '../../assets/images/profile-cover-placeholder.png';
+import LogoPlaceholder from '../../assets/images/profile-logo-placeholder.png';
 import { CircularButton } from '../../components/CircularButton';
 import { InfoCard } from '../../components/InfoCard';
 import { JobOffer } from '../../components/InfoCard/JobOffer';
@@ -90,14 +92,13 @@ export const CompanyProfile = () => {
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <div className={c.coverImage}>
-            <img
-              className={c.companyImage}
-              src={company?.landingImage}
-              alt='Cover'
-            />
+            <img src={company?.landingImage || CoverPlaceholder} alt='Cover' />
           </div>
           <div className={c.basicInfo}>
-            <img src={company?.logoImage} className={c.logoImage} />
+            <img
+              src={company?.logoImage || LogoPlaceholder}
+              className={c.logoImage}
+            />
             <div className={c.infoContainer}>
               <div className={c.companyName}>
                 <h3>{company?.name}</h3>
