@@ -26,11 +26,12 @@ h3 {
     background-position: center;
   }
 
-  .companyImage {
+  .coverImage img {
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
     position: absolute;
+    background-size: cover;
   }
 
   .basicInfo {
