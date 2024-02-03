@@ -21,7 +21,6 @@ type PhotoInputProps = {
   isDisabled?: boolean;
   handleUpload: (files: File[]) => void;
   handleRemove: () => void;
-  fileType: 'logo' | 'image';
 };
 
 export const PhotoInput: React.FC<PhotoInputProps> = ({
@@ -33,7 +32,6 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
   isDisabled = false,
   handleUpload,
   handleRemove,
-  fileType,
 }) => {
   const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
   const [isWithinDimensions, setIsWithinDimensions] = useState<boolean>(true);
@@ -49,7 +47,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         const results = await Promise.all(blackAndWhitePromises);
         setIsBlackAndWhite(results.every((result) => result));
 
-        if (fileType === 'logo' && results.every((result) => result)) {
+        if (results.every((result) => result)) {
           handleUpload(acceptedFiles);
         }
       }
@@ -65,10 +63,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         const dimensionsResults = await Promise.all(dimensionsPromises);
         setIsWithinDimensions(dimensionsResults.every((result) => result));
 
-        if (
-          fileType === 'image' &&
-          dimensionsResults.every((result) => result)
-        ) {
+        if (dimensionsResults.every((result) => result)) {
           handleUpload(acceptedFiles);
         }
       }

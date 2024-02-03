@@ -52,7 +52,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           fileSrc={company?.landingImage}
           handleUpload={handleUpload}
           handleRemove={handleRemove}
-          fileType='image'
         />
       </div>
 
