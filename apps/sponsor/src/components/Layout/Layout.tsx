@@ -2,7 +2,9 @@ import clsx from 'clsx';
 import React from 'react';
 import useLocation from 'wouter/use-location';
 
+import { logout } from '../../api/auth/logout';
 import AppSvg from '../../assets/images/app.svg';
+import logoutImage from '../../assets/images/logout.svg';
 import { pages } from '../../constants/pages';
 import c from './Layout.module.scss';
 
@@ -31,6 +33,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <p>{name}</p>
               </div>
             ))}
+            <div className={c.navItem} onClick={() => logout()} key={'logout'}>
+              <img src={logoutImage} alt={'odjava'} />
+              <p>Odjava</p>
+            </div>
           </div>
         </div>
       </nav>

@@ -47,7 +47,7 @@ export const MaterialsPage: React.FC = () => {
     [FormSteps.Videos]: !!company?.video,
     [FormSteps.Jobs]: !!jobs?.length,
     [FormSteps.Interests]: !!company?.interests?.length,
-    [FormSteps.SwagBag]: false,
+    //[FormSteps.SwagBag]: false,
   };
 
   return (
