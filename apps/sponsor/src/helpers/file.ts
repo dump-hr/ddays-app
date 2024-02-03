@@ -43,20 +43,33 @@ export const checkBlackAndWhite = (file: File) => {
       let isBlackAndWhite = true;
 
       for (let i = 0; i < data.length; i += 4) {
-        if (
-          data[i] !== 0 ||
-          data[i + 1] !== 0 ||
-          data[i + 2] !== 0 ||
-          (data[i] !== 255 && data[i + 1] !== 255 && data[i + 2] !== 255)
-        ) {
-          isBlackAndWhite = false;
-          break;
+        if (data[i + 3] !== 0) {
+          if (
+            !isPixelBlack(data[i], data[i + 1], data[i + 2]) &&
+            !isPixelWhite(data[i], data[i + 1], data[i + 2])
+          ) {
+            isBlackAndWhite = false;
+          }
         }
       }
 
       resolve(isBlackAndWhite);
     };
   });
+};
+
+const isPixelBlack = (r: number, g: number, b: number) => {
+  if (r > 234 && g > 234 && b > 234) {
+    return true;
+  }
+  return false;
+};
+
+const isPixelWhite = (r: number, g: number, b: number) => {
+  if (r === 0 && g === 0 && b === 0) {
+    return true;
+  }
+  return false;
 };
 
 export const checkImageDimensions = (
