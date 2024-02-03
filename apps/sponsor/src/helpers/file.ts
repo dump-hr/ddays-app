@@ -66,7 +66,7 @@ const isPixelBlack = (r: number, g: number, b: number) => {
 };
 
 const isPixelWhite = (r: number, g: number, b: number) => {
-  if (r === 0 && g === 0 && b === 0) {
+  if (r < 40 && g < 40 && b < 40) {
     return true;
   }
   return false;
