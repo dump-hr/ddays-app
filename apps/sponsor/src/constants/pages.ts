@@ -1,10 +1,10 @@
-import flyTalksSvg from '../assets/icons/fly-talks.svg';
 import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
-import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { MaterialsPage } from '../pages/MaterialsPage';
 import { Path } from './paths';
+//import flyTalksSvg from '../assets/icons/fly-talks.svg';
+//import standSvg from '../assets/icons/stand.svg';
 
 type Page = {
   path: Path;
