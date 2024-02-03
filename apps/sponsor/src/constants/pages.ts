@@ -20,7 +20,7 @@ export const pages: Page[] = [
     icon: materialsSvg,
     Component: MaterialsPage,
   },
-  {
+  /*{
     path: Path.Stand,
     icon: standSvg,
     name: 'Štand',
@@ -31,7 +31,7 @@ export const pages: Page[] = [
     icon: flyTalksSvg,
     name: 'Fly Talks',
     Component: MaterialsPage,
-  },
+  },*/
   {
     path: Path.Profile,
     icon: profileSvg,

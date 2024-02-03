@@ -7,7 +7,7 @@ export enum FormSteps {
   Videos = 'Videos',
   Jobs = 'Jobs',
   Interests = 'Interests',
-  SwagBag = 'SwagBag',
+  // SwagBag = 'SwagBag',
 }
 
 export enum StepStatus {

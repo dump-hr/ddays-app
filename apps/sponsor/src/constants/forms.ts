@@ -37,9 +37,10 @@ export const sponsorForm: SponsorForm = {
     description: 'Predaja do x x',
     component: InterestPicker,
   },
-  [FormSteps.SwagBag]: {
-    title: 'Swag Bag',
-    description: 'Predaja do x x',
-    component: InterestPicker,
-  },
 };
+
+/*[FormSteps.SwagBag]: {
+  title: 'Swag Bag',
+  description: 'Predaja do x x',
+  component: InterestPicker,
+},*/
