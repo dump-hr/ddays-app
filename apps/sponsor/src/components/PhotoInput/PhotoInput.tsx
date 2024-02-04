@@ -33,7 +33,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
   handleUpload,
   handleRemove,
 }) => {
-  const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean | null>(null);
+  const [isBlackAndWhite, setIsBlackAndWhite] = useState<boolean>(true);
   const [isWithinDimensions, setIsWithinDimensions] = useState<boolean>(true);
 
   const { getRootProps, getInputProps } = useDropzone({
