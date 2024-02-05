@@ -7,7 +7,7 @@ import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState<string>();
 
   const { data, error, isLoading } = useCompanyGetCurrentPublic();
   const updateDescription = useCompanyUpdateDescription();
