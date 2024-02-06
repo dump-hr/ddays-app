@@ -1,3 +1,4 @@
+import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -8,21 +9,25 @@ import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
+  const [opportunitiesDescription, setOpportunitiesDescription] =
+    useState<string>();
 
-  const { data, error, isLoading } = useCompanyGetCurrentPublic();
+  const { data: company, error, isLoading } = useCompanyGetCurrentPublic();
   const updateDescription = useCompanyUpdateDescription();
 
   if (error) {
     return <div>{error.toString()}</div>;
   }
 
-  if (isLoading || !data) {
+  if (isLoading || !company) {
     return <div>Loading...</div>;
   }
 
   const handleSubmit = async () => {
     await updateDescription.mutateAsync({
-      description: description ?? data.description ?? '',
+      description: description ?? company.description ?? '',
+      opportunitiesDescription:
+        opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });
     close();
   };
@@ -37,14 +42,28 @@ export const Description: FormComponent = ({ close }) => {
       </p>
       <div className={c.inputContainer}>
         <TextArea
-          value={description ?? data.description ?? ''}
+          value={description ?? company.description ?? ''}
           onChange={(value) => setDescription(value)}
           limit={70}
           deviation={5}
           label='Opis tvrtke'
-          rows={16}
+          rows={8}
         />
       </div>
+      {company.category === CompanyCategory.Bronze && (
+        <div className={c.inputContainer}>
+          <TextArea
+            value={
+              opportunitiesDescription ?? company.opportunitiesDescription ?? ''
+            }
+            onChange={(value) => setOpportunitiesDescription(value)}
+            limit={70}
+            deviation={5}
+            label='Poslovne prilike, o poslovima i projektima'
+            rows={8}
+          />
+        </div>
+      )}
       <button onClick={handleSubmit} className={c.button}>
         Spremi
       </button>
