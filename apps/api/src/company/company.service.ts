@@ -157,11 +157,13 @@ export class CompanyService {
   async updateDescription(
     companyId: number,
     description: string,
+    website: string,
   ): Promise<CompanyPublicDto> {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        description,
+        description: description,
+        website: website,
       })
       .where(eq(company.id, companyId))
       .returning({
