@@ -40,13 +40,13 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           label={
             updateLandingImage.isLoading
               ? 'Uploadavanje u procesu...'
-              : 'Prenesite fotografije (max. 443px x 326px)'
+              : 'Prenesite fotografije (max. 1920px x 1080px)'
           }
           isDisabled={updateLandingImage.isLoading}
           displayErrorMessages={true}
           inputConstraints={{
-            maxWidth: 443,
-            maxHeight: 326,
+            maxWidth: 1920,
+            maxHeight: 1080,
           }}
           height={326}
           fileSrc={company?.landingImage}
