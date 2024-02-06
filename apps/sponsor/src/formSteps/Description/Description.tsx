@@ -9,7 +9,7 @@ import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
-  const [url, setUrl] = useState<string>('');
+  const [url, setUrl] = useState<string>();
 
   const { data, error, isLoading } = useCompanyGetCurrentPublic();
   const updateDescription = useCompanyUpdateDescription();
@@ -49,7 +49,11 @@ export const Description: FormComponent = ({ close }) => {
         />
       </div>
       <div>
-        <Input value={url} label='url' onChange={(e) => setUrl(e)} />
+        <Input
+          value={url ?? data.website ?? ''}
+          label='url'
+          onChange={(e) => setUrl(e)}
+        />
       </div>
       <button onClick={handleSubmit} className={c.button}>
         Spremi
