@@ -66,6 +66,7 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
           title={jobOffer.position}
           description={jobOffer.details}
           location={jobOffer.location}
+          link={jobOffer.link}
         />
       ))}
     </>
