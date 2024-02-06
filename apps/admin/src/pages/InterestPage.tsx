@@ -53,7 +53,7 @@ export const InterestPage = () => {
           {
             label: 'Obriši',
             action: (interest) => {
-              if (confirm('Are you sure?')) {
+              if (confirm('Jesi li siguran?')) {
                 removeInterest.mutateAsync(interest.id);
               }
             },

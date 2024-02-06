@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { useInterestCreate } from '../api/interest/useInterestCreate';
 import { useInterestGetOne } from '../api/interest/useInterestGetOne';
+import { useInterestUpdate } from '../api/interest/useInterestUpdate';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
@@ -19,6 +20,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({
 }) => {
   const { data: interest, isLoading } = useInterestGetOne(id);
 
+  const updateInterest = useInterestUpdate();
   const createInterest = useInterestCreate();
 
   const questions: Question[] = [
@@ -53,7 +55,11 @@ export const InterestForm: React.FC<InterestFormProps> = ({
 
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          await createInterest.mutateAsync(formData);
+          if (id) {
+            await updateInterest.mutateAsync({ ...formData, id });
+          } else {
+            await createInterest.mutateAsync(formData);
+          }
           onSuccess();
         })}>
         Submit
