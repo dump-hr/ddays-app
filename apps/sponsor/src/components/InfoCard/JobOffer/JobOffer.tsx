@@ -6,12 +6,14 @@ type JobOfferProps = {
   title: string;
   description: string;
   location?: string;
+  link?: string;
 };
 
 export const JobOffer: React.FC<JobOfferProps> = ({
   title,
   description,
   location,
+  link,
 }) => {
   return (
     <div className={c.jobOffer}>
@@ -23,10 +25,12 @@ export const JobOffer: React.FC<JobOfferProps> = ({
         </div>
       </header>
       <p className={c.description}>{description}</p>
-      <a className={c.learnMore} href={''}>
-        Saznaj više
-        <img src={ArrowRightSvg} alt='Strelica desno' />
-      </a>
+      {link !== '' && (
+        <a className={c.learnMore} href={link}>
+          Saznaj više
+          <img src={ArrowRightSvg} alt='Strelica desno' />
+        </a>
+      )}
     </div>
   );
 };

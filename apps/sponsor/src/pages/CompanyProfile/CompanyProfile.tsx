@@ -66,6 +66,7 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
           title={jobOffer.position}
           description={jobOffer.details}
           location={jobOffer.location}
+          link={jobOffer.link}
         />
       ))}
     </>
@@ -92,10 +93,15 @@ export const CompanyProfile = () => {
       <section className={c.headerInfo}>
         <LayoutSpacing style={{ height: '100%' }}>
           <div className={c.coverImage}>
-            <img src={company?.landingImage || CoverPlaceholder} alt='Cover' />
+            <img
+              draggable={false}
+              src={company?.landingImage || CoverPlaceholder}
+              alt='Cover'
+            />
           </div>
           <div className={c.basicInfo}>
             <img
+              draggable={false}
               src={company?.logoImage || LogoPlaceholder}
               className={c.logoImage}
             />
@@ -105,7 +111,7 @@ export const CompanyProfile = () => {
               </div>
               <CircularButton
                 className={c.submitButton}
-                onClick={() => setLocation('/sponsor/materials')}>
+                onClick={() => setLocation('/sponsor/')}>
                 Predaj materijale
               </CircularButton>
             </div>
