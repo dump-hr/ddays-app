@@ -1,8 +1,11 @@
 import { useInterestGetAllPublic } from '../api/interest/useInterestGetAllPublic';
+import { useInterestRemove } from '../api/interest/useInterestRemove';
 import { Table } from '../components/Table';
 
 export const InterestPage = () => {
   const interests = useInterestGetAllPublic();
+
+  const removeInterest = useInterestRemove();
 
   if (interests.isLoading) {
     return <div>Loading...</div>;
@@ -19,7 +22,11 @@ export const InterestPage = () => {
           },
           {
             label: 'Obriši',
-            action: (interest) => {},
+            action: (interest) => {
+              if (confirm('Are you sure?')) {
+                removeInterest.mutateAsync(interest.id);
+              }
+            },
           },
         ]}
       />
