@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useCompanyCreate } from '../api/company/useCompanyCreate';
 import { useCompanyGetOne } from '../api/company/useCompanyGetOne';
 import { useCompanyUpdate } from '../api/company/useCompanyUpdate';
-import { useInterestGetAllPublic } from '../api/interest/useInterestGetAllPublic';
+import { useInterestGetAll } from '../api/interest/useInterestGetAll';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
@@ -17,7 +17,7 @@ type CompanyFormProps = {
 
 export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
   const { data: company, isLoading } = useCompanyGetOne(id);
-  const { data: interests } = useInterestGetAllPublic();
+  const { data: interests } = useInterestGetAll();
 
   const createCompany = useCompanyCreate();
   const updateCompany = useCompanyUpdate();

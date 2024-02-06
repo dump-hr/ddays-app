@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useInterestGetAllPublic } from '../api/interest/useInterestGetAllPublic';
+import { useInterestGetAll } from '../api/interest/useInterestGetAll';
 import { useInterestRemove } from '../api/interest/useInterestRemove';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
@@ -11,7 +11,7 @@ export const InterestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [interestToEditId, setInterestToEditId] = useState<number>();
 
-  const interests = useInterestGetAllPublic();
+  const interests = useInterestGetAll();
 
   const removeInterest = useInterestRemove();
 
