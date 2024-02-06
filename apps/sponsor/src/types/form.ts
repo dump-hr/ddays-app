@@ -1,3 +1,4 @@
+import { CompanyCategory } from '@ddays-app/types';
 import React from 'react';
 
 export enum FormSteps {
@@ -25,6 +26,7 @@ export type FormStep = {
   title: string;
   description: string;
   component: FormComponent;
+  tier?: CompanyCategory[];
 };
 
 export type SponsorForm = {

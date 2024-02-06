@@ -1,3 +1,5 @@
+import { CompanyCategory } from '@ddays-app/types';
+
 import { Description } from '../formSteps/Description';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
@@ -21,6 +23,7 @@ export const sponsorForm: SponsorForm = {
     title: 'Fotografije tvrtke',
     description: 'Predaja do x x',
     component: PhotoUpload,
+    tier: [CompanyCategory.Gold],
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',

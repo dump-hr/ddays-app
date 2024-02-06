@@ -1,3 +1,4 @@
+import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
@@ -55,50 +56,56 @@ export const MaterialsPage: React.FC = () => {
       <Helmet>
         <title>{getPageTitle('Materials')}</title>
       </Helmet>
-      <main className={c.page}>
-        <div className={c.pageWrapper}>
-          <section className={c.itemsWrapper}>
-            {Object.entries(sponsorForm).map(
-              ([key, { description, title }], index) => (
-                <article
-                  className={c.item}
-                  onClick={() => {
-                    setCurrentForm(key as keyof typeof FormSteps);
-                  }}
-                  key={key}>
-                  <div className={c.itemInfo}>
-                    <p className={c.itemIndex}>{index + 1}</p>
-                    <div>
-                      <h4>{title}</h4>
-                      <p>{description}</p>
+      {company && (
+        <main className={c.page}>
+          <div className={c.pageWrapper}>
+            <section className={c.itemsWrapper}>
+              {Object.entries(sponsorForm)
+                .filter(
+                  ([, fs]) =>
+                    !fs.tier ||
+                    fs.tier.includes(company.category as CompanyCategory),
+                )
+                .map(([key, { description, title }], index) => (
+                  <article
+                    className={c.item}
+                    onClick={() => {
+                      setCurrentForm(key as keyof typeof FormSteps);
+                    }}
+                    key={key}>
+                    <div className={c.itemInfo}>
+                      <p className={c.itemIndex}>{index + 1}</p>
+                      <div>
+                        <h4>{title}</h4>
+                        <p>{description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={c.itemAction}>
-                    {
-                      statusChips[
-                        status[key as keyof typeof status]
-                          ? StepStatus.Good
-                          : StepStatus.Pending
-                      ]
-                    }
-                    <img src={ArrowRightSvg} alt='Open' />
-                  </div>
-                </article>
-              ),
-            )}
+                    <div className={c.itemAction}>
+                      {
+                        statusChips[
+                          status[key as keyof typeof status]
+                            ? StepStatus.Good
+                            : StepStatus.Pending
+                        ]
+                      }
+                      <img src={ArrowRightSvg} alt='Open' />
+                    </div>
+                  </article>
+                ))}
 
-            {currentForm && (
-              <Modal
-                currentForm={currentForm}
-                form={sponsorForm[currentForm]}
-                close={() => {
-                  setCurrentForm(null);
-                }}
-              />
-            )}
-          </section>
-        </div>
-      </main>
+              {currentForm && (
+                <Modal
+                  currentForm={currentForm}
+                  form={sponsorForm[currentForm]}
+                  close={() => {
+                    setCurrentForm(null);
+                  }}
+                />
+              )}
+            </section>
+          </div>
+        </main>
+      )}
     </>
   );
 };
