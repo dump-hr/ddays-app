@@ -50,7 +50,7 @@ export const Description: FormComponent = ({ close }) => {
           rows={8}
         />
       </div>
-      {company.category === CompanyCategory.Bronze && (
+      {company.category === CompanyCategory.Gold && (
         <div className={c.inputContainer}>
           <TextArea
             value={
