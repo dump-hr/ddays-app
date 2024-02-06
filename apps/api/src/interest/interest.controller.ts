@@ -40,6 +40,11 @@ export class InterestController {
     return await this.interestService.create(dto);
   }
 
+  @Get(':id')
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<InterestDto> {
+    return await this.interestService.getOne(id);
+  }
+
   @Get()
   async getAll(): Promise<InterestDto[]> {
     return await this.interestService.getAll();
