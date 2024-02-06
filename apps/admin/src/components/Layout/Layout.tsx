@@ -12,6 +12,7 @@ type LayoutProps = {
 const navLinks = [
   { href: Path.Home, text: 'Home' },
   { href: Path.Company, text: 'Company' },
+  { href: Path.Interest, text: 'Interest' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
