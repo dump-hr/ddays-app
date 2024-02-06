@@ -39,3 +39,4 @@ lerna-debug.log*
 
 
 db/migrations/*
+db/migrations/meta/*
