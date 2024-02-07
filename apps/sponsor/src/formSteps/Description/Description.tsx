@@ -9,7 +9,7 @@ import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
-  const [url, setUrl] = useState<string>();
+  const [website, setWebsite] = useState<string>();
 
   const { data, error, isLoading } = useCompanyGetCurrentPublic();
   const updateDescription = useCompanyUpdateDescription();
@@ -25,7 +25,7 @@ export const Description: FormComponent = ({ close }) => {
   const handleSubmit = async () => {
     await updateDescription.mutateAsync({
       description: description ?? data.description ?? '',
-      website: url ?? data.website ?? '',
+      website: website ?? data.website ?? '',
     });
     close();
   };
@@ -50,9 +50,9 @@ export const Description: FormComponent = ({ close }) => {
       </div>
       <div>
         <Input
-          value={url ?? data.website ?? ''}
+          value={website ?? data.website ?? ''}
           label='url'
-          onChange={(e) => setUrl(e)}
+          onChange={(e) => setWebsite(e)}
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>
