@@ -1,5 +1,6 @@
 import {
   CompanyDto,
+  CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
@@ -156,14 +157,13 @@ export class CompanyService {
 
   async updateDescription(
     companyId: number,
-    description: string,
-    website: string,
+    data: CompanyModifyDescriptionDto,
   ): Promise<CompanyPublicDto> {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        description: description,
-        website: website,
+        description: data.description,
+        website: data.website,
       })
       .where(eq(company.id, companyId))
       .returning({
