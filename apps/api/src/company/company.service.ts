@@ -44,6 +44,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -78,6 +79,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -164,6 +166,7 @@ export class CompanyService {
       .set({
         description: data.description,
         website: data.website,
+        opportunitiesDescription: data.opportunitiesDescription,
       })
       .where(eq(company.id, companyId))
       .returning({
@@ -171,6 +174,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -202,6 +206,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -233,6 +238,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -264,6 +270,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
