@@ -51,61 +51,61 @@ export const MaterialsPage: React.FC = () => {
     //[FormSteps.SwagBag]: false,
   };
 
+  if (!company) return null;
+
   return (
     <>
       <Helmet>
         <title>{getPageTitle('Materials')}</title>
       </Helmet>
-      {company && (
-        <main className={c.page}>
-          <div className={c.pageWrapper}>
-            <section className={c.itemsWrapper}>
-              {Object.entries(sponsorForm)
-                .filter(
-                  ([, fs]) =>
-                    !fs.tier ||
-                    fs.tier.includes(company.category as CompanyCategory),
-                )
-                .map(([key, { description, title }], index) => (
-                  <article
-                    className={c.item}
-                    onClick={() => {
-                      setCurrentForm(key as keyof typeof FormSteps);
-                    }}
-                    key={key}>
-                    <div className={c.itemInfo}>
-                      <p className={c.itemIndex}>{index + 1}</p>
-                      <div>
-                        <h4>{title}</h4>
-                        <p>{description}</p>
-                      </div>
-                    </div>
-                    <div className={c.itemAction}>
-                      {
-                        statusChips[
-                          status[key as keyof typeof status]
-                            ? StepStatus.Good
-                            : StepStatus.Pending
-                        ]
-                      }
-                      <img src={ArrowRightSvg} alt='Open' />
-                    </div>
-                  </article>
-                ))}
-
-              {currentForm && (
-                <Modal
-                  currentForm={currentForm}
-                  form={sponsorForm[currentForm]}
-                  close={() => {
-                    setCurrentForm(null);
+      <main className={c.page}>
+        <div className={c.pageWrapper}>
+          <section className={c.itemsWrapper}>
+            {Object.entries(sponsorForm)
+              .filter(
+                ([, fs]) =>
+                  !fs.tier ||
+                  fs.tier.includes(company.category as CompanyCategory),
+              )
+              .map(([key, { description, title }], index) => (
+                <article
+                  className={c.item}
+                  onClick={() => {
+                    setCurrentForm(key as keyof typeof FormSteps);
                   }}
-                />
-              )}
-            </section>
-          </div>
-        </main>
-      )}
+                  key={key}>
+                  <div className={c.itemInfo}>
+                    <p className={c.itemIndex}>{index + 1}</p>
+                    <div>
+                      <h4>{title}</h4>
+                      <p>{description}</p>
+                    </div>
+                  </div>
+                  <div className={c.itemAction}>
+                    {
+                      statusChips[
+                        status[key as keyof typeof status]
+                          ? StepStatus.Good
+                          : StepStatus.Pending
+                      ]
+                    }
+                    <img src={ArrowRightSvg} alt='Open' />
+                  </div>
+                </article>
+              ))}
+
+            {currentForm && (
+              <Modal
+                currentForm={currentForm}
+                form={sponsorForm[currentForm]}
+                close={() => {
+                  setCurrentForm(null);
+                }}
+              />
+            )}
+          </section>
+        </div>
+      </main>
     </>
   );
 };
