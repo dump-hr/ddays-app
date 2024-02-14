@@ -165,6 +165,7 @@ export class CompanyService {
       .update(company)
       .set({
         description: data.description,
+        website: data.website,
         opportunitiesDescription: data.opportunitiesDescription,
       })
       .where(eq(company.id, companyId))

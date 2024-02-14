@@ -3,12 +3,14 @@ import { useState } from 'react';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateDescription } from '../../api/company/useCompanyUpdateDescription';
+import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
+  const [website, setWebsite] = useState<string>();
   const [opportunitiesDescription, setOpportunitiesDescription] =
     useState<string>();
 
@@ -26,6 +28,7 @@ export const Description: FormComponent = ({ close }) => {
   const handleSubmit = async () => {
     await updateDescription.mutateAsync({
       description: description ?? company.description ?? '',
+      website: website ?? company.website ?? '',
       opportunitiesDescription:
         opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });
@@ -64,6 +67,13 @@ export const Description: FormComponent = ({ close }) => {
           />
         </div>
       )}
+      <div className={c.inputContainer}>
+        <Input
+          value={website ?? company.website ?? ''}
+          label='url'
+          onChange={(e) => setWebsite(e)}
+        />
+      </div>
       <button onClick={handleSubmit} className={c.button}>
         Spremi
       </button>
