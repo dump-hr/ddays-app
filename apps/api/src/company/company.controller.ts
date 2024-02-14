@@ -84,9 +84,9 @@ export class CompanyController {
   @Patch('/description')
   async updateDescription(
     @Req() { user }: AuthenticatedRequest,
-    @Body() { description }: CompanyModifyDescriptionDto,
+    @Body() data: CompanyModifyDescriptionDto,
   ) {
-    return await this.companyService.updateDescription(user.id, description);
+    return await this.companyService.updateDescription(user.id, data);
   }
 
   @UseGuards(SponsorGuard)

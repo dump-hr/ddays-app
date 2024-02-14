@@ -1,3 +1,4 @@
+import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
@@ -50,6 +51,8 @@ export const MaterialsPage: React.FC = () => {
     //[FormSteps.SwagBag]: false,
   };
 
+  if (!company) return null;
+
   return (
     <>
       <Helmet>
@@ -58,8 +61,13 @@ export const MaterialsPage: React.FC = () => {
       <main className={c.page}>
         <div className={c.pageWrapper}>
           <section className={c.itemsWrapper}>
-            {Object.entries(sponsorForm).map(
-              ([key, { description, title }], index) => (
+            {Object.entries(sponsorForm)
+              .filter(
+                ([, fs]) =>
+                  !fs.tier ||
+                  fs.tier.includes(company.category as CompanyCategory),
+              )
+              .map(([key, { description, title }], index) => (
                 <article
                   className={c.item}
                   onClick={() => {
@@ -84,8 +92,7 @@ export const MaterialsPage: React.FC = () => {
                     <img src={ArrowRightSvg} alt='Open' />
                   </div>
                 </article>
-              ),
-            )}
+              ))}
 
             {currentForm && (
               <Modal

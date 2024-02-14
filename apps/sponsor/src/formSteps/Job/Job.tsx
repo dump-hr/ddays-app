@@ -1,4 +1,4 @@
-import { JobModifyForCompanyDto } from '@ddays-app/types';
+import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -9,6 +9,19 @@ import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
+
+const getMaxJobsPerTier = (category: CompanyCategory) => {
+  switch (category) {
+    case CompanyCategory.Bronze:
+      return 1;
+    case CompanyCategory.Silver:
+      return 3;
+    case CompanyCategory.Gold:
+      return 3;
+    default:
+      return 0;
+  }
+};
 
 export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
@@ -122,7 +135,8 @@ export const Job: FormComponent = ({ close }) => {
       </div>
 
       <div>
-        {jobs.length < 3 && (
+        {jobs.length <
+          getMaxJobsPerTier(company?.category as CompanyCategory) && (
           <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
             Dodaj oglas
           </button>

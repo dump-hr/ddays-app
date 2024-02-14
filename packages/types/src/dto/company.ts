@@ -15,6 +15,7 @@ export type CompanyPublicDto = {
   name: string;
 
   description?: string;
+  opportunitiesDescription?: string;
   website?: string;
   boothLocation?: string;
   logoImage?: string;
@@ -30,6 +31,7 @@ export type CompanyDto = {
   username: string;
   password: string;
   description?: string;
+  opportunitiesDescription?: string;
   website?: string;
   boothLocation?: string;
   logoImage?: string;
@@ -56,6 +58,11 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsString()
+  @IsBetweenWordCount(70, 5)
+  opportunitiesDescription: string;
+
+  @IsOptional()
+  @IsString()
   website: string;
 
   @IsOptional()
@@ -76,4 +83,8 @@ export class CompanyModifyDescriptionDto {
   @IsString()
   @IsBetweenWordCount(70, 5)
   description: string;
+
+  @IsString()
+  @IsBetweenWordCount(70, 5)
+  opportunitiesDescription: string;
 }

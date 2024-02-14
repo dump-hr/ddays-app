@@ -1,5 +1,6 @@
 import {
   CompanyDto,
+  CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
@@ -43,6 +44,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -77,6 +79,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -156,12 +159,13 @@ export class CompanyService {
 
   async updateDescription(
     companyId: number,
-    description: string,
+    data: CompanyModifyDescriptionDto,
   ): Promise<CompanyPublicDto> {
     const [updatedCompany] = await db
       .update(company)
       .set({
-        description,
+        description: data.description,
+        opportunitiesDescription: data.opportunitiesDescription,
       })
       .where(eq(company.id, companyId))
       .returning({
@@ -169,6 +173,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -200,6 +205,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -231,6 +237,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
@@ -262,6 +269,7 @@ export class CompanyService {
         category: company.category,
         name: company.name,
         description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,

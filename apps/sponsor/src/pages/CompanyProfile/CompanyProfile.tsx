@@ -126,9 +126,12 @@ export const CompanyProfile = () => {
                 title='Uvod'
                 buttonText='Dodajte svoje kratko predstavljanje'
                 onClick={() => setCurrentModal(FormSteps.Description)}>
-                <p className={c.cardContentParagraph}>
-                  {company?.description || 'Nema opisa'}
-                </p>
+                <div className={c.cardContentParagraph}>
+                  <p>{company?.description || 'Nema opisa'}</p>
+                  {company?.opportunitiesDescription && (
+                    <p>{company.opportunitiesDescription}</p>
+                  )}
+                </div>
               </InfoCard>
               <InfoCard
                 title='Interesi'
