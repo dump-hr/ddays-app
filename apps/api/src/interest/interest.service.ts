@@ -1,5 +1,5 @@
 import { InterestDto, InterestModifyDto } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
 import { companyToInterest, interest } from 'db/schema';
 import { eq, inArray } from 'drizzle-orm';
@@ -53,6 +53,19 @@ export class InterestService {
     const [createdInterest] = await db.insert(interest).values(dto).returning();
 
     return createdInterest;
+  }
+
+  async getOne(id: number): Promise<InterestDto> {
+    const [foundInterest] = await db
+      .select()
+      .from(interest)
+      .where(eq(interest.id, id));
+
+    if (!foundInterest) {
+      throw new NotFoundException('Interest not found');
+    }
+
+    return foundInterest;
   }
 
   async getAll(): Promise<InterestDto[]> {

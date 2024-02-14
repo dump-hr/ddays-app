@@ -9,6 +9,7 @@ import { Layout } from './components/Layout';
 import { Path } from './constants/paths';
 import { CompanyPage } from './pages/CompanyPage';
 import { HomePage } from './pages/HomePage';
+import { InterestPage } from './pages/InterestPage';
 
 export const App = () => {
   useMsalAuthentication(InteractionType.Redirect);
@@ -19,6 +20,7 @@ export const App = () => {
         <Switch>
           <Route path={Path.Home} component={HomePage} />
           <Route path={Path.Company} component={CompanyPage} />
+          <Route path={Path.Interest} component={InterestPage} />
         </Switch>
       </Layout>
       <Toaster />

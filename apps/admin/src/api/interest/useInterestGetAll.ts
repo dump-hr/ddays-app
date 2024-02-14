@@ -3,8 +3,8 @@ import { QueryOptions, useQuery } from 'react-query';
 
 import { api } from '..';
 
-const interestGetAll = () => {
-  return api.get<never, InterestDto[]>('/interest');
+const interestGetAll = async () => {
+  return await api.get<never, InterestDto[]>('/interest');
 };
 
 export const useInterestGetAll = (options?: QueryOptions<InterestDto[]>) => {
