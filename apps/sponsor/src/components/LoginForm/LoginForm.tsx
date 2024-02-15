@@ -62,7 +62,7 @@ export const LoginForm = () => {
       <input
         type='username'
         name='username'
-        placeholder='Ime tvrtke'
+        placeholder='Korisnicko ime'
         className={c.formInput}
       />
       <div className={c.passwordInputContainer}>
