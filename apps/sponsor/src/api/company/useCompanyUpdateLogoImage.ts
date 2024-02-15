@@ -6,7 +6,6 @@ import { api } from '..';
 const companyUpdateLogoImage = async (file: File) => {
   const data = new FormData();
   data.append('file', file);
-  console.log('file', data);
 
   return await api.patchForm('/company/logo-image', data);
 };
@@ -21,7 +20,6 @@ export const useCompanyUpdateLogoImage = () => {
       toast.success('Logo uspješno uploadan');
     },
     onError: (error: string) => {
-      console.log('err', error);
       toast.error(error);
     },
   });
