@@ -5,8 +5,6 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const companyCreate = async (dto: CompanyModifyDto) => {
-  console.log('dto: ', dto);
-
   return await api.post<CompanyModifyDto, CompanyDto>('/company', dto);
 };
 
