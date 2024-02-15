@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { unCamelCase } from '../../helpers';
 import { Button } from '../Button';
 import c from './Table.module.scss';
@@ -11,6 +13,11 @@ type TableProps<T> = {
   }[];
 };
 
+type SlicedParagraphProps = {
+  text: string;
+  clipLength: number;
+};
+
 export const Table = <T extends object>({
   data = [],
   actions = [],
@@ -19,15 +26,43 @@ export const Table = <T extends object>({
 
   const transformValue = (value: unknown) => {
     if (value === undefined) {
-      return <span>[undefined]</span>;
+      return '[undefined]';
     }
     if (value === null) {
-      return <span>[null]</span>;
+      return '[null]';
     }
     // TODO: format date
     // TODO: format boolean
     return value.toString();
   };
+
+  function SlicedParagraph({ text, clipLength }: SlicedParagraphProps) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    if (text.length < clipLength) return text;
+
+    if (isExpanded) {
+      return (
+        <>
+          {text}
+          <br />
+          <a onClick={() => setIsExpanded(false)} className={c.showMore}>
+            show less
+          </a>
+        </>
+      );
+    } else {
+      return (
+        <>
+          {text.slice(0, 40).trim() + '...'}
+          <br />
+          <a onClick={() => setIsExpanded(true)} className={c.showMore}>
+            show more
+          </a>
+        </>
+      );
+    }
+  }
 
   return (
     <table className={c.table}>
@@ -46,7 +81,7 @@ export const Table = <T extends object>({
           <tr key={i}>
             {Object.values(row).map((value, i) => (
               <td className={c.td} key={i}>
-                {transformValue(value)}
+                <SlicedParagraph text={transformValue(value)} clipLength={50} />
               </td>
             ))}
             <td className={c.actions}>
