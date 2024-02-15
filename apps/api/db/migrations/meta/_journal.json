@@ -15,6 +15,13 @@
       "when": 1707952369963,
       "tag": "0001_steep_warbird",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708024750035,
+      "tag": "0002_fast_lady_bullseye",
+      "breakpoints": true
     }
   ]
 }
