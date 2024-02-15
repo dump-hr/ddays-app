@@ -86,3 +86,10 @@ export const checkImageDimensions = (
     };
   });
 };
+
+export const dataURItoBlobUrl = (dataURI: string) => {
+  const svg = decodeURI(dataURI).split(',')[1];
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+
+  return URL.createObjectURL(blob);
+};
