@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 768px;
+  height: 550px;
 }
 
 .infoContainer {
@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  height: 400px;
   overflow-y: auto;
   padding-right: 8px;
   margin-bottom: 24px;
