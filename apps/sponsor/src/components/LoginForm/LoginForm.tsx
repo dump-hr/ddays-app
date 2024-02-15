@@ -79,7 +79,7 @@ export const LoginForm = () => {
           className={c.visibilityButton}
           type='button'>
           <svg width={25} height={23}>
-            <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
+            <use xlinkHref={`${passwordVisibilitySvg}#${visibilityIcon}`} />
           </svg>
         </button>
       </div>
