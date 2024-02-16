@@ -10,11 +10,9 @@ import {
   Delete,
   FileTypeValidator,
   Get,
-  HttpStatus,
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
-  ParseFilePipeBuilder,
   ParseIntPipe,
   Patch,
   Post,
@@ -141,12 +139,12 @@ export class CompanyController {
   async updateLogoImage(
     @Req() { user }: AuthenticatedRequest,
     @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addFileTypeValidator({ fileType: 'svg' })
-        .addMaxSizeValidator({ maxSize: 1024 * 1024 * 10 })
-        .build({
-          errorHttpStatusCode: HttpStatus.BAD_REQUEST,
-        }),
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
+        ],
+      }),
     )
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
