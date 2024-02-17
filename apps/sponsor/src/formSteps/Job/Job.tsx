@@ -98,7 +98,7 @@ export const Job: FormComponent = ({ close }) => {
             />
             <Input
               value={location ?? ''}
-              label='Lokacija'
+              label='Mjesto rada'
               onChange={(value) => {
                 setJobs((prev) => {
                   const newJobs = [...prev];
@@ -128,7 +128,7 @@ export const Job: FormComponent = ({ close }) => {
                 });
               }}
               limit={200}
-              label='Detalji o oglasu'
+              label='Opis pozicije (ključne odgovornosti i kvalifikacije)'
             />
           </div>
         ))}

@@ -70,7 +70,7 @@ export const Description: FormComponent = ({ close }) => {
       <div className={c.inputContainer}>
         <Input
           value={website ?? company.website ?? ''}
-          label='url'
+          label='Link na web stranicu'
           onChange={(e) => setWebsite(e)}
         />
       </div>
