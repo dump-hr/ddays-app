@@ -67,6 +67,15 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
+  @Delete('/landing-image-company-culture')
+  async removeLandingImageCompanyCulture(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<void> {
+    return await this.companyService.removeLandingImageCompanyCulture(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Delete('/logo-image')
   async removeLogoImage(@Req() { user }: AuthenticatedRequest) {
     return await this.companyService.removeLogoImage(user.id);
@@ -120,6 +129,20 @@ export class CompanyController {
     return await this.companyService.updateLandingImage(user.id, file);
   }
 
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/landing-image-company-culture')
   @UseInterceptors(FileInterceptor('file'))
   async updateLandingImageCompanyCulture(
