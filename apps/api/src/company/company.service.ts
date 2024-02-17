@@ -217,6 +217,39 @@ export class CompanyService {
     return updatedCompany;
   }
 
+  async updateLandingImageCompanyCulture(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    const landingImageCompanyCulture = await this.blobService.upload(
+      'company-landing-image-company-culture',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const [updatedCompany] = await db
+      .update(company)
+      .set({
+        landingImageCompanyCulture,
+      })
+      .where(eq(company.id, id))
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
+        website: company.website,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        landingImageCompanyCulture: company.landingImageCompanyCulture,
+        video: company.video,
+      });
+
+    return updatedCompany;
+  }
+
   async updateLogoImage(
     id: number,
     file: Express.Multer.File,
