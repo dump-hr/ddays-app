@@ -116,6 +116,13 @@ export class CompanyService {
       .where(eq(company.id, id));
   }
 
+  async removeLandingImageCompanyCulture(id: number): Promise<void> {
+    await db
+      .update(company)
+      .set({ landingImageCompanyCulture: null })
+      .where(eq(company.id, id));
+  }
+
   async removeLogoImage(id: number): Promise<void> {
     await db
       .update(company)
