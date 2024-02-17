@@ -7,7 +7,7 @@ const companyUpdateLandingImageCompanyCulture = async (file: File) => {
   const data = new FormData();
   data.append('file', file);
 
-  return await api.patchForm('/copmany/landing-image-company-culture', data);
+  return await api.patchForm('/company/landing-image-company-culture', data);
 };
 
 export const useCompanyUpdateLandingImageCompanyCulture = () => {
