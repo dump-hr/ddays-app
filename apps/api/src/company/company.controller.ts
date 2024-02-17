@@ -120,6 +120,26 @@ export class CompanyController {
     return await this.companyService.updateLandingImage(user.id, file);
   }
 
+  @Patch('/landing-image-company-culture')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateLandingImageCompanyCulture(
+    @Req() { user }: AuthenticatedRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.updateLandingImageCompanyCulture(
+      user.id,
+      file,
+    );
+  }
+
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
