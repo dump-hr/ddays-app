@@ -17,8 +17,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
 
   const { data: company } = useCompanyGetCurrentPublic();
 
-  console.log('aaaa', company);
-
   const handleUpload = async (files: File[]) => {
     await updateLandingImage.mutateAsync(files[0]);
   };
@@ -71,7 +69,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           handleRemove={handleRemove}
         />
 
-        {company?.category === 'gold' && (
+        {/* {company?.category === 'gold' ? (
           <PhotoInput
             label={
               updateLandingImageCompanyCulture.isLoading
@@ -89,7 +87,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
             handleUpload={handleUploadCompanyCulture}
             handleRemove={handleRemoveCompanyCulture}
           />
-        )}
+        ) : null} */}
       </div>
 
       <button onClick={close} className={styles.button}>
