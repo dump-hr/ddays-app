@@ -69,7 +69,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           handleRemove={handleRemove}
         />
 
-        {/* {company?.category === 'gold' ? (
+        {company?.category === 'gold' && (
           <PhotoInput
             label={
               updateLandingImageCompanyCulture.isLoading
@@ -87,7 +87,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
             handleUpload={handleUploadCompanyCulture}
             handleRemove={handleRemoveCompanyCulture}
           />
-        ) : null} */}
+        )}
       </div>
 
       <button onClick={close} className={styles.button}>
