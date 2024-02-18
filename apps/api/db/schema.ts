@@ -111,7 +111,7 @@ export const job = pgTable('job', {
   createdAt: timestamp('created_at').defaultNow(),
   companyId: integer('company_id')
     .notNull()
-    .references(() => company.id),
+    .references(() => company.id, { onDelete: 'cascade' }),
 });
 
 export const jobRelations = relations(job, ({ one }) => ({

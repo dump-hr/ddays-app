@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  ValidateIf,
 } from 'class-validator';
 import { CompanyCategory } from '../enum';
 import { InterestDto } from './interest';
@@ -55,6 +56,7 @@ export class CompanyModifyDto {
   @IsOptional()
   @IsString()
   @IsBetweenWordCount(70, 5)
+  @ValidateIf((e) => e.description !== '')
   description: string;
 
   @IsOptional()
@@ -65,6 +67,7 @@ export class CompanyModifyDto {
   @IsOptional()
   @IsString()
   @IsUrl()
+  @ValidateIf((e) => e.website !== '')
   website: string;
 
   @IsOptional()

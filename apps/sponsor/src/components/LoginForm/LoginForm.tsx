@@ -4,7 +4,10 @@ import { useLocation } from 'wouter';
 import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswordLogin';
 import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
 import { Path } from '../../constants/paths';
+import { dataURItoBlobUrl } from '../../helpers';
 import c from './LoginForm.module.scss';
+
+const passwordVisibilitySvgUrl = dataURItoBlobUrl(passwordVisibilitySvg);
 
 // TODO: if user hits /sponsor/profile and that redirects to this page
 //       this should redirect to that page after login
@@ -79,7 +82,7 @@ export const LoginForm = () => {
           className={c.visibilityButton}
           type='button'>
           <svg width={25} height={23}>
-            <use href={`${passwordVisibilitySvg}#${visibilityIcon}`} />
+            <use href={`${passwordVisibilitySvgUrl}#${visibilityIcon}`} />
           </svg>
         </button>
       </div>
