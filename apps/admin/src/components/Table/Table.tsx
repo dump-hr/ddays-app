@@ -1,5 +1,6 @@
 import { unCamelCase } from '../../helpers';
 import { Button } from '../Button';
+import SlicedParagraph from './SlicedParagraph';
 import c from './Table.module.scss';
 
 type TableProps<T> = {
@@ -19,10 +20,10 @@ export const Table = <T extends object>({
 
   const transformValue = (value: unknown) => {
     if (value === undefined) {
-      return <span>[undefined]</span>;
+      return '[undefined]';
     }
     if (value === null) {
-      return <span>[null]</span>;
+      return '[null]';
     }
     // TODO: format date
     // TODO: format boolean
@@ -46,7 +47,7 @@ export const Table = <T extends object>({
           <tr key={i}>
             {Object.values(row).map((value, i) => (
               <td className={c.td} key={i}>
-                {transformValue(value)}
+                <SlicedParagraph text={transformValue(value)} clipLength={50} />
               </td>
             ))}
             <td className={c.actions}>

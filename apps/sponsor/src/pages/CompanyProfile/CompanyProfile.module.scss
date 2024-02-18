@@ -93,6 +93,14 @@ h3 {
       flex-direction: column;
       gap: 24px;
     }
+
+    .right {
+      .jobOffersWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+    }
   }
 }
 

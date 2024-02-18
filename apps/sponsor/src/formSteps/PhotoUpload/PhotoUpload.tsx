@@ -1,6 +1,8 @@
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyRemoveLandingImage } from '../../api/company/useCompanyRemoveLandingImage';
+import { useCompanyRemoveLandingImageCompanyCulture } from '../../api/company/useCompanyRemoveLandingImageCompanyCulture';
 import { useCompanyUpdateLandingImage } from '../../api/company/useCompanyUpdateLandingImage';
+import { useCompanyUpdateLandingImageCompanyCulture } from '../../api/company/useCompanyUpdateLandingImageCompanyCulture';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
@@ -8,6 +10,11 @@ import styles from './PhotoUpload.module.scss';
 export const PhotoUpload: FormComponent = ({ close }) => {
   const updateLandingImage = useCompanyUpdateLandingImage();
   const removeLandingImage = useCompanyRemoveLandingImage();
+  const updateLandingImageCompanyCulture =
+    useCompanyUpdateLandingImageCompanyCulture();
+  const removeLandingImageCompanyCulture =
+    useCompanyRemoveLandingImageCompanyCulture();
+
   const { data: company } = useCompanyGetCurrentPublic();
 
   const handleUpload = async (files: File[]) => {
@@ -16,6 +23,14 @@ export const PhotoUpload: FormComponent = ({ close }) => {
 
   const handleRemove = async () => {
     await removeLandingImage.mutateAsync();
+  };
+
+  const handleUploadCompanyCulture = async (files: File[]) => {
+    await updateLandingImageCompanyCulture.mutateAsync(files[0]);
+  };
+
+  const handleRemoveCompanyCulture = async () => {
+    await removeLandingImageCompanyCulture.mutateAsync();
   };
 
   return (
@@ -39,7 +54,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
         <PhotoInput
           label={
             updateLandingImage.isLoading
-              ? 'Uploadavanje u procesu...'
+              ? 'Uploadanje u procesu...'
               : 'Prenesite fotografije (max. 1920px x 1080px)'
           }
           isDisabled={updateLandingImage.isLoading}
@@ -53,6 +68,26 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           handleUpload={handleUpload}
           handleRemove={handleRemove}
         />
+
+        {company?.category === 'gold' && (
+          <PhotoInput
+            label={
+              updateLandingImageCompanyCulture.isLoading
+                ? 'Uploadanje u procesu...'
+                : 'Prenesite fotografije (max. 1920px x 1080px)'
+            }
+            isDisabled={updateLandingImageCompanyCulture.isLoading}
+            displayErrorMessages={true}
+            inputConstraints={{
+              maxWidth: 1920,
+              maxHeight: 1080,
+            }}
+            height={326}
+            fileSrc={company?.landingImageCompanyCulture}
+            handleUpload={handleUploadCompanyCulture}
+            handleRemove={handleRemoveCompanyCulture}
+          />
+        )}
       </div>
 
       <button onClick={close} className={styles.button}>
