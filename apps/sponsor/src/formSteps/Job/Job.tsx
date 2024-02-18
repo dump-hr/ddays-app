@@ -1,6 +1,7 @@
 import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
@@ -25,6 +26,7 @@ const getMaxJobsPerTier = (category: CompanyCategory) => {
 
 export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
+  const [displayErrors, setDisplayErrors] = useState(false);
 
   const { data: company } = useCompanyGetCurrentPublic();
   const { data: companyJobs } = useJobGetForCompany(company?.id);
@@ -58,8 +60,15 @@ export const Job: FormComponent = ({ close }) => {
 
   const handleSave = () => {
     const jobsToSave = jobs.filter(isValid);
-    updateSponsorJobs(jobsToSave);
-    close();
+
+    if (jobsToSave.length === jobs.length) {
+      updateSponsorJobs(jobsToSave);
+      close();
+      return;
+    }
+
+    toast.error('Nisu uneseni svi potrebni podaci.');
+    setDisplayErrors(true);
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
@@ -80,7 +89,13 @@ export const Job: FormComponent = ({ close }) => {
         {jobs.map(({ id, details, location, position, link }, index) => (
           <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
-              <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
+              <h2 className={c.subtitle}>
+                #{index + 1} Oglas{' '}
+                {!isValid({ details, location, position, link }) &&
+                  displayErrors && (
+                    <span className={c.error}>(nepotpuni podaci)</span>
+                  )}
+              </h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
                 Ukloni
               </span>
