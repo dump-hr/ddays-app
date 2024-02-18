@@ -1,7 +1,6 @@
-import { useState } from 'react';
-
 import { unCamelCase } from '../../helpers';
 import { Button } from '../Button';
+import SlicedParagraph from './SlicedParagraph';
 import c from './Table.module.scss';
 
 type TableProps<T> = {
@@ -11,11 +10,6 @@ type TableProps<T> = {
     action: (row: T) => void;
     isDisabled?: (row: T) => boolean;
   }[];
-};
-
-type SlicedParagraphProps = {
-  text: string;
-  clipLength: number;
 };
 
 export const Table = <T extends object>({
@@ -35,34 +29,6 @@ export const Table = <T extends object>({
     // TODO: format boolean
     return value.toString();
   };
-
-  function SlicedParagraph({ text, clipLength }: SlicedParagraphProps) {
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    if (text.length < clipLength) return text;
-
-    if (isExpanded) {
-      return (
-        <>
-          {text}
-          <br />
-          <a onClick={() => setIsExpanded(false)} className={c.showMore}>
-            show less
-          </a>
-        </>
-      );
-    } else {
-      return (
-        <>
-          {text.slice(0, 40).trim() + '...'}
-          <br />
-          <a onClick={() => setIsExpanded(true)} className={c.showMore}>
-            show more
-          </a>
-        </>
-      );
-    }
-  }
 
   return (
     <table className={c.table}>
