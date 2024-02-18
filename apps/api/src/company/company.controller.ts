@@ -142,7 +142,7 @@ export class CompanyController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'image/*' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 75 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
         ],
       }),
     )
