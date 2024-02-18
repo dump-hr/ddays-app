@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import toast from 'react-hot-toast';
 
 import RemoveSvg from '../../assets/icons/remove.svg';
 import sprite from '../../assets/icons/sprite.svg';
@@ -42,6 +43,13 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
       {},
     ) || { 'image/*': [] },
     onDrop: async (acceptedFiles) => {
+      if (
+        inputConstraints?.mimeTypes?.includes('svg+xml') &&
+        acceptedFiles.length === 0
+      ) {
+        toast.error('SVG File is required');
+        return;
+      }
       if (inputConstraints?.checkBlackAndWhite) {
         const blackAndWhitePromises = acceptedFiles.map(checkBlackAndWhite);
         const results = await Promise.all(blackAndWhitePromises);
