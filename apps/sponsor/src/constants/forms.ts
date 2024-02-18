@@ -23,7 +23,7 @@ export const sponsorForm: SponsorForm = {
     title: 'Fotografije tvrtke',
     description: 'Predaja do x x',
     component: PhotoUpload,
-    tier: [CompanyCategory.Gold],
+    tier: [CompanyCategory.Gold, CompanyCategory.Silver],
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',

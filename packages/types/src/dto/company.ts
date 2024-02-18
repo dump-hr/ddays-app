@@ -22,6 +22,7 @@ export type CompanyPublicDto = {
   boothLocation?: string;
   logoImage?: string;
   landingImage?: string;
+  landingImageCompanyCulture?: string;
   video?: string;
   interests?: InterestDto[];
 };
