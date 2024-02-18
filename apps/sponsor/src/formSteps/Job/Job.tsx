@@ -25,6 +25,7 @@ const getMaxJobsPerTier = (category: CompanyCategory) => {
 
 export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
+  const [displayErrors, setDisplayErrors] = useState(false);
 
   const { data: company } = useCompanyGetCurrentPublic();
   const { data: companyJobs } = useJobGetForCompany(company?.id);
@@ -57,9 +58,14 @@ export const Job: FormComponent = ({ close }) => {
   };
 
   const handleSave = () => {
+    alert(JSON.stringify(jobs));
     const jobsToSave = jobs.filter(isValid);
-    updateSponsorJobs(jobsToSave);
-    close();
+    //const invalidJobs = jobs.filter((job) => !isValid(job));
+
+    if (jobsToSave.length !== 0) updateSponsorJobs(jobsToSave);
+    else setDisplayErrors(true);
+
+    if (jobsToSave.length === jobs.length) close();
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
@@ -80,7 +86,13 @@ export const Job: FormComponent = ({ close }) => {
         {jobs.map(({ id, details, location, position, link }, index) => (
           <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
-              <h2 className={c.subtitle}>#{index + 1} Oglas</h2>
+              <h2 className={c.subtitle}>
+                #{index + 1} Oglas{' '}
+                {!isValid({ details, location, position, link }) &&
+                  displayErrors && (
+                    <span className={c.error}>(nepotpuni podaci)</span>
+                  )}
+              </h2>
               <span onClick={() => handleRemove(id)} className={c.label}>
                 Ukloni
               </span>
