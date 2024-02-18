@@ -61,16 +61,18 @@ export const Job: FormComponent = ({ close }) => {
   const handleSave = () => {
     const jobsToSave = jobs.filter(isValid);
 
-    if (jobsToSave.length !== 0) updateSponsorJobs(jobsToSave);
-    else {
-      toast.error('Nisu uneseni svi potrebni podaci.');
-      setDisplayErrors(true);
+    if (jobsToSave.length === jobs.length) {
+      updateSponsorJobs(jobsToSave);
+      close();
+      return;
     }
 
-    if (jobsToSave.length === jobs.length) close();
+    toast.error('Nisu uneseni svi potrebni podaci.');
+    setDisplayErrors(true);
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
+    if (job.position.length === 0 && job.details.length === 0) return true;
     return job.position.length > 0 && job.details.length > 0;
   };
 
