@@ -32,9 +32,10 @@ export const Job: FormComponent = ({ close }) => {
   const { mutate: updateSponsorJobs } = useJobUpdateForCompany();
 
   useEffect(() => {
+    if (jobs.length) return;
     setJobs(companyJobs ?? []);
     if (!companyJobs?.length) handleAdd();
-  }, [companyJobs]);
+  }, [companyJobs, jobs]);
 
   const handleAdd = () => {
     setJobs((prev) => [
