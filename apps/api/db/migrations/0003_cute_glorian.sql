@@ -1,0 +1,1 @@
+ALTER TABLE "company" ADD COLUMN "landing_image_company_culture" text;
