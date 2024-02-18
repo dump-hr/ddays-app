@@ -14,6 +14,7 @@ export const LogoUpload: FormComponent = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleUpload = async (files: File[]) => {
+    setErrorMessage('');
     await updateLogoImage
       .mutateAsync(files[0])
       .catch((err) => setErrorMessage(err));
@@ -59,7 +60,9 @@ export const LogoUpload: FormComponent = ({ close }) => {
           handleRemove={handleRemove}
         />
       </div>
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+      {errorMessage && (
+        <p className={styles.error}>Došlo je do greške: {errorMessage}</p>
+      )}
 
       <button onClick={close} className={styles.button}>
         Spremi
