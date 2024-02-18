@@ -72,7 +72,6 @@ export const Job: FormComponent = ({ close }) => {
   };
 
   const isValid = (job: JobModifyForCompanyDto) => {
-    if (job.position.length === 0 && job.details.length === 0) return true;
     return job.position.length > 0 && job.details.length > 0;
   };
 
