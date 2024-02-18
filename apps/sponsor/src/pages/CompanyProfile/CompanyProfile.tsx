@@ -59,7 +59,7 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
     return <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>;
   }
   return (
-    <>
+    <div className={c.jobOffersWrapper}>
       {companyJobs?.map((jobOffer) => (
         <JobOffer
           key={jobOffer.id}
@@ -69,7 +69,7 @@ const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
           link={jobOffer.link}
         />
       ))}
-    </>
+    </div>
   );
 };
 
