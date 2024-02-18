@@ -1,6 +1,7 @@
 import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
@@ -58,12 +59,13 @@ export const Job: FormComponent = ({ close }) => {
   };
 
   const handleSave = () => {
-    alert(JSON.stringify(jobs));
     const jobsToSave = jobs.filter(isValid);
-    //const invalidJobs = jobs.filter((job) => !isValid(job));
 
     if (jobsToSave.length !== 0) updateSponsorJobs(jobsToSave);
-    else setDisplayErrors(true);
+    else {
+      toast.error('Nisu uneseni svi potrebni podaci.');
+      setDisplayErrors(true);
+    }
 
     if (jobsToSave.length === jobs.length) close();
   };
