@@ -90,6 +90,7 @@ export const company = pgTable('company', {
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
   landingImageCompanyCulture: text('landing_image_company_culture'),
+  bookOfStandards: text('book_of_standards'),
   video: text('video'),
   codeId: integer('code_id').references(() => code.id),
 });
