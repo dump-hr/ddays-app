@@ -32,7 +32,7 @@ export const Video: FormComponent = ({ close }) => {
 
       if (fileType !== 'video' && duration > 20) {
         throw new Error(
-          'Uploadani file mora biti video u trajanju maksimalno do 20 sekundi',
+          'Prenesena datoteka mora biti video u trajanju maksimalno do 20 sekundi',
         );
       }
 
@@ -88,7 +88,7 @@ export const Video: FormComponent = ({ close }) => {
               : 'Prenesite video materijale (max. 75MB)'}
           </p>
         ) : (
-          <p className={c.instruction}>Uploadavanje u procesu...</p>
+          <p className={c.instruction}>Prenošenje u tijeku...</p>
         )}
       </div>
     );
@@ -111,7 +111,7 @@ export const Video: FormComponent = ({ close }) => {
       {getContent()}
 
       {!!fileRejections.length && (
-        <div className={c.error}>Možeš uploadati samo 1 fajl!</div>
+        <div className={c.error}>Možeš uploadati samo 1 datoteku!</div>
       )}
 
       <div className={c.inputContainer}>

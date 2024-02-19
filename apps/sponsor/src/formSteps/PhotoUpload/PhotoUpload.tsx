@@ -54,7 +54,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
         <PhotoInput
           label={
             updateLandingImage.isLoading
-              ? 'Uploadanje u procesu...'
+              ? 'Prenošenje u tijeku...'
               : 'Prenesite fotografije (max. 1920px x 1080px)'
           }
           isDisabled={updateLandingImage.isLoading}
