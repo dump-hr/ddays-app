@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyRemoveLogoImage } from '../../api/company/useCompanyRemoveLogoImage';
 import { useCompanyUpdateLogoImage } from '../../api/company/useCompanyUpdateLogoImage';
@@ -11,13 +9,9 @@ export const LogoUpload: FormComponent = ({ close }) => {
   const updateLogoImage = useCompanyUpdateLogoImage();
   const removeLogoImage = useCompanyRemoveLogoImage();
   const { data: company } = useCompanyGetCurrentPublic();
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleUpload = async (files: File[]) => {
-    setErrorMessage('');
-    await updateLogoImage
-      .mutateAsync(files[0])
-      .catch((err) => setErrorMessage(err));
+    await updateLogoImage.mutateAsync(files[0]);
   };
 
   const handleRemove = async () => {
@@ -60,9 +54,6 @@ export const LogoUpload: FormComponent = ({ close }) => {
           handleRemove={handleRemove}
         />
       </div>
-      {errorMessage && (
-        <p className={styles.error}>Došlo je do greške: {errorMessage}</p>
-      )}
 
       <button onClick={close} className={styles.button}>
         Spremi
