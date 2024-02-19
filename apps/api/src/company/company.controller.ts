@@ -76,6 +76,15 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
+  @Delete('/book-of-standards')
+  async removeBookOfStandards(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<void> {
+    return await this.companyService.removeBookOfStandards(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Delete('/logo-image')
   async removeLogoImage(@Req() { user }: AuthenticatedRequest) {
     return await this.companyService.removeLogoImage(user.id);
