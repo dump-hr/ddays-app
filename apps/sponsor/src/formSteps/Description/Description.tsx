@@ -41,7 +41,7 @@ export const Description: FormComponent = ({ close }) => {
       <p className={c.description}>
         Ispunite detalje o svojoj tvrtki. Pružite kratak pregled vaših
         projekata, rješenja ili usluga koje nudite. Opišite prilike koje nudite
-        studentima, uključujući ljetne prakse i otvorene junior pozicije.
+        studentima, uključujući ljetne prakse.
       </p>
       <div className={c.inputContainer}>
         <TextArea

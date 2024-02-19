@@ -9,7 +9,6 @@ body {
   margin: 0;
 }
 
-// TODO: import only woff2 for all font weights / styles
 @font-face {
   font-family: 'Fuse';
   font-style: normal;
@@ -31,6 +30,7 @@ body {
   font-family: 'Fuse';
   font-style: normal;
   font-weight: 700;
+  // TODO: replace with woff2
   src: url('./assets/fonts/FuseV.2Display-Bold.otf') format('opentype');
   font-display: fallback;
 }
@@ -38,7 +38,7 @@ body {
 @font-face {
   font-family: 'Fuse';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   src: url('./assets/fonts/FuseV.2Display-Book.woff2') format('woff2');
   font-display: fallback;
 }
@@ -46,23 +46,7 @@ body {
 @font-face {
   font-family: 'Fuse';
   font-style: italic;
-  font-weight: 500;
+  font-weight: 400;
   src: url('./assets/fonts/FuseV.2Display-BookItalic.woff2') format('woff2');
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: 'Fuse';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./assets/fonts/FuseV.2Text-Book.woff2') format('woff2');
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: 'Fuse';
-  font-style: italic;
-  font-weight: 400;
-  src: url('./assets/fonts/FuseV.2Text-BookItalic.woff2') format('woff2');
   font-display: fallback;
 }
