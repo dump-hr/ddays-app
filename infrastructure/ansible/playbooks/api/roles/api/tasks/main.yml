@@ -52,6 +52,9 @@
     - name: Rename new api docker container
       shell: docker rename "{{ container_name }}" api
 
+    - name: Cleanup old docker images
+      shell: docker image prune -a --filter "until=48h" -f
+
   rescue:
     - name: Save unhealthy api docker container logs
       shell: docker logs "{{ container_name }}" | sed -e 's/\x1b\[[0-9;]*m//g' > "/home/{{ ansible_user }}/unhealthy-$(date +%s)-{{ container_name }}.log" 2>&1
