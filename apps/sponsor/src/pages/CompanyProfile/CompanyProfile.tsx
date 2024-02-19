@@ -128,7 +128,9 @@ export const CompanyProfile = () => {
             <div className={c.left}>
               <InfoCard
                 title='Uvod'
-                buttonText='Dodajte svoje kratko predstavljanje'
+                buttonText={`${
+                  company?.description ? 'Uredite' : 'Dodajte'
+                } svoje kratko predstavljanje`}
                 onClick={() => setCurrentModal(FormSteps.Description)}>
                 <div className={c.cardContentParagraph}>
                   <p>{company?.description || 'Nema opisa'}</p>
