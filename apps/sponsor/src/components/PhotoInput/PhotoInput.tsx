@@ -118,7 +118,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         {displayErrorMessages && (
           <>
             {!isBlackAndWhite && inputConstraints?.checkBlackAndWhite && (
-              <ErrorMessage message='Logo mora biti crno bijeli' />
+              <ErrorMessage message='Logo mora biti u pozitivu ili negativu' />
             )}
             {(inputConstraints?.maxWidth || inputConstraints?.maxHeight) &&
               !isWithinDimensions && (

@@ -1,3 +1,4 @@
+import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
@@ -10,6 +11,21 @@ import { getVideoMetadata } from '../../helpers/file';
 import { FormComponent } from '../../types/form';
 import c from './Video.module.scss';
 
+const getMaxVideoDurationPerTier = (category: CompanyCategory) => {
+  switch (category) {
+    case CompanyCategory.Bronze:
+      return 10;
+    case CompanyCategory.Silver:
+      return 20;
+    case CompanyCategory.Gold:
+      return 30;
+    default:
+      return 0;
+  }
+};
+
+const maxVideoDurationTolerance = 0.1;
+
 export const Video: FormComponent = ({ close }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
 
@@ -17,6 +33,10 @@ export const Video: FormComponent = ({ close }) => {
   const removeVideo = useCompanyRemoveVideo();
 
   const { data: company } = useCompanyGetCurrentPublic();
+
+  const maxDuration = getMaxVideoDurationPerTier(
+    company?.category as CompanyCategory,
+  );
 
   const onDrop = async (droppedFiles: File[]) => {
     try {
@@ -28,12 +48,11 @@ export const Video: FormComponent = ({ close }) => {
 
       const { duration } = await getVideoMetadata(droppedFile);
 
-      const fileType = droppedFile.type.split('/')[0];
-
-      if (fileType !== 'video' && duration > 20) {
-        throw new Error(
-          'Prenesena datoteka mora biti video u trajanju maksimalno do 20 sekundi',
+      if (duration > maxDuration + maxVideoDurationTolerance) {
+        toast.error(
+          `Prenesena datoteka mora biti video u trajanju maksimalno do ${maxDuration} sekundi`,
         );
+        return;
       }
 
       await updateVideo.mutateAsync(droppedFile);
@@ -105,7 +124,7 @@ export const Video: FormComponent = ({ close }) => {
       </p>
       <h2 className={c.subtitle}>Videozapis</h2>
       <p className={c.description}>
-        Videozapis u trajanju od 15 sekunda, mp4 formata
+        Videozapis u trajanju od {maxDuration} sekunda, mp4 formata
       </p>
 
       {getContent()}

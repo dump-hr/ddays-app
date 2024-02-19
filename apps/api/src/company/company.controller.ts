@@ -23,6 +23,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorGuard } from '../auth/sponsor.guard';
@@ -32,6 +33,7 @@ import { CompanyService } from './company.service';
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() dto: CompanyModifyDto): Promise<CompanyDto> {
     return await this.companyService.create(dto);
@@ -43,7 +45,6 @@ export class CompanyController {
   }
 
   @UseGuards(SponsorGuard)
-  @ApiBearerAuth()
   @Get('current')
   async getCurrentPublic(
     @Req() { user }: AuthenticatedRequest,
@@ -51,6 +52,7 @@ export class CompanyController {
     return await this.companyService.getOnePublic(user.id);
   }
 
+  @UseGuards(AdminGuard)
   @Get('include-sensitive-info/:id')
   async getOne(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
     return await this.companyService.getOne(id);
@@ -232,6 +234,7 @@ export class CompanyController {
     return await this.companyService.getOnePublic(id);
   }
 
+  @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -240,6 +243,7 @@ export class CompanyController {
     return await this.companyService.update(id, dto);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {
     return await this.companyService.remove(id);

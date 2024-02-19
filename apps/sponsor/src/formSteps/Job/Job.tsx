@@ -14,7 +14,7 @@ import c from './Job.module.scss';
 const getMaxJobsPerTier = (category: CompanyCategory) => {
   switch (category) {
     case CompanyCategory.Bronze:
-      return 1;
+      return 2;
     case CompanyCategory.Silver:
       return 3;
     case CompanyCategory.Gold:
@@ -34,9 +34,10 @@ export const Job: FormComponent = ({ close }) => {
   const { mutate: updateSponsorJobs } = useJobUpdateForCompany();
 
   useEffect(() => {
+    if (jobs.length) return;
     setJobs(companyJobs ?? []);
     if (!companyJobs?.length) handleAdd();
-  }, [companyJobs]);
+  }, [companyJobs, jobs]);
 
   const handleAdd = () => {
     setJobs((prev) => [

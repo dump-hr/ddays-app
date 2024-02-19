@@ -14,8 +14,6 @@ export const getVideoMetadata = (file: File): Promise<HTMLVideoElement> => {
     };
 
     video.src = URL.createObjectURL(file);
-
-    resolve(video);
   });
 };
 
