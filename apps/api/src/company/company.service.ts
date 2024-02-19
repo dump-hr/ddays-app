@@ -133,6 +133,13 @@ export class CompanyService {
       .where(eq(company.id, id));
   }
 
+  async removeBookOfStandards(id: number): Promise<void> {
+    await db
+      .update(company)
+      .set({ landingImageCompanyCulture: null })
+      .where(eq(company.id, id));
+  }
+
   async removeVideo(id: number): Promise<void> {
     await db
       .update(company)
