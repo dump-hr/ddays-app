@@ -13,7 +13,7 @@ import c from './Job.module.scss';
 const getMaxJobsPerTier = (category: CompanyCategory) => {
   switch (category) {
     case CompanyCategory.Bronze:
-      return 1;
+      return 2;
     case CompanyCategory.Silver:
       return 3;
     case CompanyCategory.Gold:
