@@ -50,7 +50,7 @@ export const Video: FormComponent = ({ close }) => {
 
       if (duration > maxDuration + maxVideoDurationTolerance) {
         toast.error(
-          `Uploadani file mora biti video u trajanju maksimalno do ${maxDuration} sekundi`,
+          `Prenesena datoteka mora biti video u trajanju maksimalno do ${maxDuration} sekundi`,
         );
         return;
       }
@@ -107,7 +107,7 @@ export const Video: FormComponent = ({ close }) => {
               : 'Prenesite video materijale (max. 75MB)'}
           </p>
         ) : (
-          <p className={c.instruction}>Uploadavanje u procesu...</p>
+          <p className={c.instruction}>Prenošenje u tijeku...</p>
         )}
       </div>
     );
