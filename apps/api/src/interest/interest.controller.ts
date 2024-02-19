@@ -15,7 +15,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { SponsorGuard } from 'src/auth/sponsor.guard';
 
@@ -26,7 +26,6 @@ export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
   @UseGuards(SponsorGuard)
-  @ApiBearerAuth()
   @Patch('/company')
   async connectToCompany(
     @Req() { user }: AuthenticatedRequest,
@@ -35,6 +34,7 @@ export class InterestController {
     return await this.interestService.connectToCompany(user.id, interestIds);
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() dto: InterestModifyDto): Promise<InterestDto> {
     return await this.interestService.create(dto);
@@ -57,11 +57,13 @@ export class InterestController {
     return await this.interestService.getForCompany(id);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<InterestDto> {
     return await this.interestService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
