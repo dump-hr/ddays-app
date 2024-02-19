@@ -13,7 +13,9 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/auth/admin.guard';
 
 import { SurveyQuestionService } from './survey-question.service';
 
@@ -21,6 +23,7 @@ import { SurveyQuestionService } from './survey-question.service';
 export class SurveyQuestionController {
   constructor(private readonly surveyQuestionService: SurveyQuestionService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(
     @Body() dto: SurveyQuestionModifyDto,
@@ -41,6 +44,7 @@ export class SurveyQuestionController {
     return await this.surveyQuestionService.getAllOfType(type);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(
     @Param('id', ParseIntPipe) id: number,
@@ -48,6 +52,7 @@ export class SurveyQuestionController {
     return await this.surveyQuestionService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

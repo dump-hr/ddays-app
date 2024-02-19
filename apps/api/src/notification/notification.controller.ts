@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/auth/admin.guard';
 
 import { NotificationService } from './notification.service';
 
@@ -17,6 +19,7 @@ import { NotificationService } from './notification.service';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
+  @UseGuards(AdminGuard)
   @Patch('activate/:id')
   async activate(
     @Param('id', ParseIntPipe) id: number,
@@ -24,6 +27,7 @@ export class NotificationController {
     return await this.notificationService.activate(id);
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() dto: NotificationModifyDto): Promise<NotificationDto> {
     return await this.notificationService.create(dto);
@@ -34,11 +38,13 @@ export class NotificationController {
     return await this.notificationService.getActive();
   }
 
+  @UseGuards(AdminGuard)
   @Get()
   async getAll(): Promise<NotificationDto[]> {
     return await this.notificationService.getAll();
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(
     @Param('id', ParseIntPipe) id: number,
@@ -46,6 +52,7 @@ export class NotificationController {
     return await this.notificationService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
