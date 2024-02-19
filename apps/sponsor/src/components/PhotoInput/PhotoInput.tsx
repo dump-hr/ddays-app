@@ -50,13 +50,14 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         toast.error('SVG File is required');
         return;
       }
+
       if (inputConstraints?.checkBlackAndWhite) {
         const blackAndWhitePromises = acceptedFiles.map(checkBlackAndWhite);
         const results = await Promise.all(blackAndWhitePromises);
         setIsBlackAndWhite(results.every((result) => result));
 
-        if (results.every((result) => result)) {
-          handleUpload(acceptedFiles);
+        if (!results.every((result) => result)) {
+          return;
         }
       }
 
@@ -71,10 +72,12 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         const dimensionsResults = await Promise.all(dimensionsPromises);
         setIsWithinDimensions(dimensionsResults.every((result) => result));
 
-        if (dimensionsResults.every((result) => result)) {
-          handleUpload(acceptedFiles);
+        if (!dimensionsResults.every((result) => result)) {
+          return;
         }
       }
+
+      handleUpload(acceptedFiles);
     },
   });
 
