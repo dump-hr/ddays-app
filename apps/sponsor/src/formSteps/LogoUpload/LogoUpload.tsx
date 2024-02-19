@@ -33,19 +33,18 @@ export const LogoUpload: FormComponent = ({ close }) => {
       </div>
       <PhotoInputLabel
         title='Logo tvrtke'
-        content='Pozitiv ili negativ u svg formatu'
+        content='Pozitiv ili negativ u svg formatu (crni ili bijeli logo)'
       />
       <div className={styles.uploadArea}>
         <PhotoInput
           label={
             updateLogoImage.isLoading
               ? 'Uploadavanje u procesu...'
-              : 'Prenesite logo u pozitivu'
+              : 'Prenesite logo u pozitivu ili negativu'
           }
           displayErrorMessages
           inputConstraints={{
             mimeTypes: ['svg+xml'],
-            checkBlackAndWhite: true,
           }}
           isDisabled={updateLogoImage.isLoading}
           height={326}
