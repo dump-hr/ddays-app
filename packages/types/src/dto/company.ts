@@ -23,6 +23,7 @@ export type CompanyPublicDto = {
   logoImage?: string;
   landingImage?: string;
   landingImageCompanyCulture?: string;
+  bookOfStandards?: string;
   video?: string;
   interests?: InterestDto[];
 };
