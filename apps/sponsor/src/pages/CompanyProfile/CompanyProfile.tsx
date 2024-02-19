@@ -104,7 +104,10 @@ export const CompanyProfile = () => {
               draggable={false}
               src={company?.logoImage || LogoPlaceholder}
               className={c.logoImage}
-              style={{ padding: company?.logoImage ? '45px' : 0 }}
+              style={{
+                padding: company?.logoImage ? '45px' : 0,
+                objectFit: company?.logoImage ? 'contain' : 'cover',
+              }}
             />
             <div className={c.infoContainer}>
               <div className={c.companyName}>
