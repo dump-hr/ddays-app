@@ -208,6 +208,37 @@ export class CompanyController {
       },
     },
   })
+  @Patch('/book-of-standards')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateBookOfStandards(
+    @Req() { user }: AuthenticatedRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'pdf' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    return await this.companyService.updateBookOfStandards(user.id, file);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @Patch('/video')
   @UseInterceptors(FileInterceptor('file'))
   async updateVideo(
