@@ -65,7 +65,10 @@ export const LogoUpload: FormComponent = ({ close }) => {
           handleUpload={handleUpload}
           handleRemove={handleRemove}
         />
-
+        <PhotoInputLabel
+          title='Knjiga standarda'
+          content='Knjiga standarda je dokument koji sadrži uspostavljene specifikacije, smjernice ili zahtjeve za branding'
+        />
         <PdfInput
           label={
             updateBookOfStandards.isLoading
