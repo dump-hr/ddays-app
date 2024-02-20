@@ -1,4 +1,4 @@
-import { CompanyPublicDto, Theme } from '@ddays-app/types';
+import { CompanyPublicDto, JobDto, Theme } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
@@ -52,9 +52,13 @@ const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
   );
 };
 
-const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
-  const { data: companyJobs } = useJobGetForCompany(company?.id);
+type JobOffersCardContentProps = {
+  companyJobs?: JobDto[];
+};
 
+const JobOffersCardContent: React.FC<JobOffersCardContentProps> = ({
+  companyJobs,
+}) => {
   if (!companyJobs?.length) {
     return <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>;
   }
@@ -78,6 +82,7 @@ export const CompanyProfile = () => {
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
   const { data: company } = useCompanyGetCurrentPublic();
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
 
   return (
     <>
@@ -104,6 +109,10 @@ export const CompanyProfile = () => {
               draggable={false}
               src={company?.logoImage || LogoPlaceholder}
               className={c.logoImage}
+              style={{
+                padding: company?.logoImage ? '45px' : 0,
+                objectFit: company?.logoImage ? 'contain' : 'cover',
+              }}
             />
             <div className={c.infoContainer}>
               <div className={c.companyName}>
@@ -124,7 +133,9 @@ export const CompanyProfile = () => {
             <div className={c.left}>
               <InfoCard
                 title='Uvod'
-                buttonText='Dodajte svoje kratko predstavljanje'
+                buttonText={`${
+                  company?.description ? 'Uredite' : 'Dodajte'
+                } svoje kratko predstavljanje`}
                 onClick={() => setCurrentModal(FormSteps.Description)}>
                 <div className={c.cardContentParagraph}>
                   <p>{company?.description || 'Nema opisa'}</p>
@@ -135,7 +146,9 @@ export const CompanyProfile = () => {
               </InfoCard>
               <InfoCard
                 title='Interesi'
-                buttonText='Odaberite svoje interese'
+                buttonText={`${
+                  company?.interests?.length !== 0 ? 'Uredite' : 'Odaberite'
+                } svoje interese`}
                 onClick={() => setCurrentModal(FormSteps.Interests)}>
                 <InterestsCardContent company={company} />
               </InfoCard>
@@ -143,9 +156,11 @@ export const CompanyProfile = () => {
             <div className={c.right}>
               <InfoCard
                 title='Oglasi za posao'
-                buttonText='Postavite oglase za posao'
+                buttonText={`${
+                  companyJobs?.length !== 0 ? 'Uredite' : 'Postavite'
+                } oglase za posao`}
                 onClick={() => setCurrentModal(FormSteps.Jobs)}>
-                <JobOffersCardContent company={company} />
+                <JobOffersCardContent companyJobs={companyJobs} />
               </InfoCard>
             </div>
           </div>
