@@ -1,4 +1,4 @@
-import { CompanyPublicDto, Theme } from '@ddays-app/types';
+import { CompanyPublicDto, JobDto, Theme } from '@ddays-app/types';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
@@ -52,9 +52,13 @@ const InterestsCardContent: React.FC<CardContentProps> = ({ company }) => {
   );
 };
 
-const JobOffersCardContent: React.FC<CardContentProps> = ({ company }) => {
-  const { data: companyJobs } = useJobGetForCompany(company?.id);
+type JobOffersCardContentProps = {
+  companyJobs?: JobDto[];
+};
 
+const JobOffersCardContent: React.FC<JobOffersCardContentProps> = ({
+  companyJobs,
+}) => {
   if (!companyJobs?.length) {
     return <p className={c.cardContentParagraph}>Nema postavljenih oglasa</p>;
   }
@@ -78,6 +82,7 @@ export const CompanyProfile = () => {
   const [currentModal, setCurrentModal] = useState<keyof typeof FormSteps>();
 
   const { data: company } = useCompanyGetCurrentPublic();
+  const { data: companyJobs } = useJobGetForCompany(company?.id);
 
   return (
     <>
@@ -149,9 +154,11 @@ export const CompanyProfile = () => {
             <div className={c.right}>
               <InfoCard
                 title='Oglasi za posao'
-                buttonText='Postavite oglase za posao'
+                buttonText={`${
+                  companyJobs?.length !== 0 ? 'Uredite' : 'Postavite'
+                } oglase za posao`}
                 onClick={() => setCurrentModal(FormSteps.Jobs)}>
-                <JobOffersCardContent company={company} />
+                <JobOffersCardContent companyJobs={companyJobs} />
               </InfoCard>
             </div>
           </div>
