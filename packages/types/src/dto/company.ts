@@ -15,7 +15,6 @@ export type CompanyPublicDto = {
   id: number;
   category: `${CompanyCategory}`;
   name: string;
-
   description?: string;
   opportunitiesDescription?: string;
   website?: string;
@@ -23,6 +22,7 @@ export type CompanyPublicDto = {
   logoImage?: string;
   landingImage?: string;
   landingImageCompanyCulture?: string;
+  bookOfStandards?: string;
   video?: string;
   interests?: InterestDto[];
 };

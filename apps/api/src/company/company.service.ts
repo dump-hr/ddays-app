@@ -85,6 +85,7 @@ export class CompanyService {
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
+        bookOfStandards: company.bookOfStandards,
         video: company.video,
       })
       .from(company)
@@ -130,6 +131,13 @@ export class CompanyService {
       .set({
         logoImage: null,
       })
+      .where(eq(company.id, id));
+  }
+
+  async removeBookOfStandards(id: number): Promise<void> {
+    await db
+      .update(company)
+      .set({ bookOfStandards: null })
       .where(eq(company.id, id));
   }
 
@@ -256,6 +264,40 @@ export class CompanyService {
       });
 
     return updatedCompany;
+  }
+
+  async updateBookOfStandards(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<CompanyPublicDto> {
+    const bookOfStandards = await this.blobService.upload(
+      'book-of-standards',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const [updatedBookOfStandards] = await db
+      .update(company)
+      .set({
+        bookOfStandards,
+      })
+      .where(eq(company.id, id))
+      .returning({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
+        website: company.website,
+        boothLocation: company.boothLocation,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        landingImageCompanyCulture: company.landingImageCompanyCulture,
+        bookOfStandards: company.bookOfStandards,
+        video: company.video,
+      });
+
+    return updatedBookOfStandards;
   }
 
   async updateLogoImage(

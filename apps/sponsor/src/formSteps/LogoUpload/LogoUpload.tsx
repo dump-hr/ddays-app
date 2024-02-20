@@ -1,6 +1,9 @@
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyRemoveBookOfStandards } from '../../api/company/useCompanyRemoveBookOfStandards';
 import { useCompanyRemoveLogoImage } from '../../api/company/useCompanyRemoveLogoImage';
+import { useCompanyUpdateBookOfStandards } from '../../api/company/useCompanyUpdateBookOfStandards';
 import { useCompanyUpdateLogoImage } from '../../api/company/useCompanyUpdateLogoImage';
+import { PdfInput } from '../../components/PdfUpload/PdfInput';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './LogoUpload.module.scss';
@@ -9,6 +12,8 @@ export const LogoUpload: FormComponent = ({ close }) => {
   const updateLogoImage = useCompanyUpdateLogoImage();
   const removeLogoImage = useCompanyRemoveLogoImage();
   const { data: company } = useCompanyGetCurrentPublic();
+  const updateBookOfStandards = useCompanyUpdateBookOfStandards();
+  const removeBookOfStandards = useCompanyRemoveBookOfStandards();
 
   const handleUpload = async (files: File[]) => {
     await updateLogoImage.mutateAsync(files[0]);
@@ -16,6 +21,14 @@ export const LogoUpload: FormComponent = ({ close }) => {
 
   const handleRemove = async () => {
     await removeLogoImage.mutateAsync();
+  };
+
+  const handleUploadBookOfStandards = async (files: File[]) => {
+    await updateBookOfStandards.mutateAsync(files[0]);
+  };
+
+  const handleRemoveBookOfStandards = async () => {
+    await removeBookOfStandards.mutateAsync();
   };
 
   return (
@@ -51,6 +64,22 @@ export const LogoUpload: FormComponent = ({ close }) => {
           fileSrc={company?.logoImage}
           handleUpload={handleUpload}
           handleRemove={handleRemove}
+        />
+        <PhotoInputLabel
+          title='Knjiga standarda'
+          content='Knjiga standarda je dokument koji sadrži uspostavljene specifikacije, smjernice ili zahtjeve za branding'
+        />
+        <PdfInput
+          label={
+            updateBookOfStandards.isLoading
+              ? 'Uploadanje u procesu...'
+              : 'Prinesite knjigu standarda (PDF)'
+          }
+          isDisabled={false}
+          fileSrc={company?.bookOfStandards}
+          height={326}
+          handleUpload={handleUploadBookOfStandards}
+          handleRemove={handleRemoveBookOfStandards}
         />
       </div>
 
