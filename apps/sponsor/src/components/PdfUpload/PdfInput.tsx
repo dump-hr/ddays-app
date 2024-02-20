@@ -2,7 +2,7 @@ import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
 import RemoveSvg from '../../assets/icons/remove.svg';
-import sprite from '../../assets/icons/sprite.svg';
+import UploadSvg from '../../assets/icons/upload.svg';
 import c from '../PhotoInput/PhotoInput.module.scss';
 
 type PdfInputProps = {
@@ -40,9 +40,7 @@ export const PdfInput: React.FC<PdfInputProps> = ({
           <div className={c.inputField} {...getRootProps()}>
             <input disabled={isDisabled} {...getInputProps()} />
             <div className={c.inputFieldLabel}>
-              <svg height='21px' width='24px'>
-                <use href={`${sprite}#upload-materials`} />
-              </svg>
+              <img src={UploadSvg} alt='Upload' />
               <p>{label}</p>
             </div>
           </div>
