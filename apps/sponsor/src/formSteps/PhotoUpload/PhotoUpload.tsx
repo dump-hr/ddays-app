@@ -46,8 +46,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
     await removeBookOfStandards.mutateAsync();
   };
 
-  console.log('brr', company?.bookOfStandards);
-
   return (
     <div>
       <div className={styles.descriptionContainer}>
