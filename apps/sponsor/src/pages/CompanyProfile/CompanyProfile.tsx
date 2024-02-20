@@ -146,7 +146,9 @@ export const CompanyProfile = () => {
               </InfoCard>
               <InfoCard
                 title='Interesi'
-                buttonText='Odaberite svoje interese'
+                buttonText={`${
+                  company?.interests?.length !== 0 ? 'Uredite' : 'Odaberite'
+                } svoje interese`}
                 onClick={() => setCurrentModal(FormSteps.Interests)}>
                 <InterestsCardContent company={company} />
               </InfoCard>
