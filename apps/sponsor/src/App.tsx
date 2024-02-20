@@ -2,7 +2,7 @@ import './App.scss';
 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
-import { Route, Switch } from 'wouter';
+import { Redirect, Route, Router, Switch } from 'wouter';
 
 import favicon from './assets/favicon.ico';
 import { Layout } from './components/Layout';
@@ -28,6 +28,10 @@ export const App = () => {
             children={<Layout children={<Component />} />}
           />
         ))}
+        <Route
+          path='/sponsor/materials'
+          children={<Redirect to={Path.Materials} />}
+        />
       </Switch>
       <Toaster />
     </HelmetProvider>
