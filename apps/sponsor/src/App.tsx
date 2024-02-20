@@ -2,7 +2,7 @@ import './App.scss';
 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
-import { Redirect, Route, Router, Switch } from 'wouter';
+import { Redirect, Route, Switch } from 'wouter';
 
 import favicon from './assets/favicon.ico';
 import { Layout } from './components/Layout';

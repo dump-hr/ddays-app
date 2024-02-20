@@ -79,6 +79,11 @@
 
   &.primary {
     background: #ffffff;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+      background: color-mix(in srgb, #ffffff 90%, #000000 10%);
+    }
   }
 
   &.secondary {
@@ -87,6 +92,14 @@
     color: #ffffff;
     border: 1px solid #ffffff33;
     margin-bottom: 16px;
+    transition:
+      background 0.3s ease-in-out,
+      color 0.3s ease-in-out;
+
+    &:hover {
+      background: #ffffff;
+      color: #000000;
+    }
 
     &::before {
       content: '+';

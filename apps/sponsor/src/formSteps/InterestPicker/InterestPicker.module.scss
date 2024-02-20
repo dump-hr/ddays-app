@@ -30,6 +30,11 @@
   margin-top: auto;
   font-weight: bold;
   border: none;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: color-mix(in srgb, #fff 90%, #000 10%);
+  }
 }
 
 .themes {

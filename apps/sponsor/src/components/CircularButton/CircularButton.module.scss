@@ -10,4 +10,9 @@
 
   border: none;
   background-color: white;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: color-mix(in srgb, #fff 90%, #000 10%);
+  }
 }
