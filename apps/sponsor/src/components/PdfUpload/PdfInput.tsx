@@ -9,6 +9,7 @@ type PdfInputProps = {
   label?: string;
   fileSrc?: string;
   isDisabled?: boolean;
+  height?: number;
   handleUpload: (files: File[]) => void;
   handleRemove: () => void;
 };
@@ -17,6 +18,7 @@ export const PdfInput: React.FC<PdfInputProps> = ({
   label,
   fileSrc,
   isDisabled = false,
+  height = 300,
   handleRemove,
   handleUpload,
 }) => {
@@ -30,9 +32,6 @@ export const PdfInput: React.FC<PdfInputProps> = ({
       handleUpload(acceptedFiles);
     },
   });
-
-  console.log('MRTVI file', fileSrc);
-  const height = 300;
 
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
@@ -51,9 +50,7 @@ export const PdfInput: React.FC<PdfInputProps> = ({
 
         <aside className={c.thumbsContainer}>
           {!!fileSrc && (
-            // <div className={c.thumb}>
             <div className={c.inputFieldLabel}>Knjiga standarda spremljena</div>
-            // ¸¸</div>
           )}
         </aside>
 

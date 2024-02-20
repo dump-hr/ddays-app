@@ -112,6 +112,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           }
           isDisabled={false}
           fileSrc={company?.bookOfStandards}
+          height={326}
           handleUpload={handleUploadBookOfStandards}
           handleRemove={handleRemoveBookOfStandards}
         />
