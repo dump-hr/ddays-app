@@ -37,9 +37,9 @@
   font-weight: bold;
   border: none;
   margin-top: 20px;
-  transition: background 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 
   &:hover {
-    background: color-mix(in srgb, #fff 90%, #000 10%);
+    background-color: color-mix(in srgb, #fff 90%, #000 10%);
   }
 }
