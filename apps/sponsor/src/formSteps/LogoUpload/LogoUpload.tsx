@@ -52,7 +52,7 @@ export const LogoUpload: FormComponent = ({ close }) => {
         <PhotoInput
           label={
             updateLogoImage.isLoading
-              ? 'Uploadavanje u procesu...'
+              ? 'Prenošenje u tijeku...'
               : 'Prenesite logo u pozitivu ili negativu'
           }
           displayErrorMessages

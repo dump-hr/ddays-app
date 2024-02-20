@@ -35,7 +35,12 @@ export const checkBlackAndWhite = (file: File) => {
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0, img.width, img.height);
 
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const imageData = ctx.getImageData(
+        0,
+        0,
+        Math.max(1, canvas.width),
+        Math.max(1, canvas.height),
+      );
       const data = imageData.data;
 
       let isBlackAndWhite = true;

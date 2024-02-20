@@ -1,9 +1,10 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
 import RemoveSvg from '../../assets/icons/remove.svg';
-import sprite from '../../assets/icons/sprite.svg';
+import UploadSvg from '../../assets/icons/upload.svg';
 import { checkBlackAndWhite, checkImageDimensions } from '../../helpers';
 import { ErrorMessage } from './ErrorMessage';
 import c from './PhotoInput.module.scss';
@@ -50,13 +51,14 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         toast.error('SVG File is required');
         return;
       }
+
       if (inputConstraints?.checkBlackAndWhite) {
         const blackAndWhitePromises = acceptedFiles.map(checkBlackAndWhite);
         const results = await Promise.all(blackAndWhitePromises);
         setIsBlackAndWhite(results.every((result) => result));
 
-        if (results.every((result) => result)) {
-          handleUpload(acceptedFiles);
+        if (!results.every((result) => result)) {
+          return;
         }
       }
 
@@ -71,23 +73,27 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         const dimensionsResults = await Promise.all(dimensionsPromises);
         setIsWithinDimensions(dimensionsResults.every((result) => result));
 
-        if (dimensionsResults.every((result) => result)) {
-          handleUpload(acceptedFiles);
+        if (!dimensionsResults.every((result) => result)) {
+          return;
         }
       }
+
+      handleUpload(acceptedFiles);
     },
   });
 
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
-      <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
+      <div
+        className={clsx(c.inputAreaContainer, {
+          [c.inputAreaContainerFull]: !!fileSrc,
+        })}
+        style={{ height: `${height}px` }}>
         {!fileSrc && (
           <div className={c.inputField} {...getRootProps()}>
             <input disabled={isDisabled} {...getInputProps()} />
             <div className={c.inputFieldLabel}>
-              <svg height='21px' width='24px'>
-                <use href={`${sprite}#upload-materials`} />
-              </svg>
+              <img src={UploadSvg} alt='Upload' />
               <p>{label}</p>
             </div>
           </div>

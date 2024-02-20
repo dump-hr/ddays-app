@@ -8,7 +8,9 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/auth/admin.guard';
 
 import { EventService } from './event.service';
 
@@ -16,6 +18,7 @@ import { EventService } from './event.service';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() dto: EventModifyDto): Promise<EventDto> {
     return await this.eventService.create(dto);
@@ -31,11 +34,13 @@ export class EventController {
     return await this.eventService.getAll();
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

@@ -78,7 +78,7 @@ export const MaterialsPage: React.FC = () => {
                     <p className={c.itemIndex}>{index + 1}</p>
                     <div>
                       <h4>{title}</h4>
-                      <p>{description}</p>
+                      <p className={c.itemDescription}>{description}</p>
                     </div>
                   </div>
                   <div className={c.itemAction}>

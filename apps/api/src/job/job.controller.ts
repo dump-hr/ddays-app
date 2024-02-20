@@ -11,7 +11,6 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { SponsorGuard } from 'src/auth/sponsor.guard';
@@ -23,7 +22,6 @@ export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @UseGuards(AdminGuard)
-  @ApiBearerAuth()
   @Post()
   async create(@Body() dto: JobModifyDto): Promise<JobDto> {
     return await this.jobService.create(dto);
@@ -36,14 +34,13 @@ export class JobController {
     return await this.jobService.getForCompany(id);
   }
 
-  @ApiBearerAuth()
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<JobDto> {
     return await this.jobService.remove(id);
   }
 
   @UseGuards(SponsorGuard)
-  @ApiBearerAuth()
   @Patch('company')
   async updateForCompany(
     @Req() { user }: AuthenticatedRequest,
