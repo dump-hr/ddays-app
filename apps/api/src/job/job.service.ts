@@ -6,7 +6,17 @@ import { eq, inArray } from 'drizzle-orm';
 
 @Injectable()
 export class JobService {
+  isValidUrl(url: string): boolean {
+    const URL_REGEX =
+      /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+    return URL_REGEX.test(url);
+  }
+
   async create(dto: JobModifyDto): Promise<JobDto> {
+    if (!this.isValidUrl(dto.link)) {
+      throw new Error('Invalid URL');
+    }
+
     const [addedJob] = await db.insert(job).values(dto).returning();
 
     return addedJob;
@@ -49,6 +59,12 @@ export class JobService {
     const jobsToUpdate = dto.filter((job) =>
       existingJobs.find((existingJob) => job.id === existingJob.id),
     );
+
+    [...jobsToAdd, ...jobsToUpdate].forEach((job) => {
+      if (!this.isValidUrl(job.link)) {
+        throw new Error('Invalid URL');
+      }
+    });
 
     const jobIdsToRemove = existingJobs
       .filter((existingJob) => !dto.find((job) => job.id === existingJob.id))
