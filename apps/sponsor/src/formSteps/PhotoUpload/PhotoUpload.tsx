@@ -1,11 +1,8 @@
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
-import { useCompanyRemoveBookOfStandards } from '../../api/company/useCompanyRemoveBookOfStandards';
 import { useCompanyRemoveLandingImage } from '../../api/company/useCompanyRemoveLandingImage';
 import { useCompanyRemoveLandingImageCompanyCulture } from '../../api/company/useCompanyRemoveLandingImageCompanyCulture';
-import { useCompanyUpdateBookOfStandards } from '../../api/company/useCompanyUpdateBookOfStandards';
 import { useCompanyUpdateLandingImage } from '../../api/company/useCompanyUpdateLandingImage';
 import { useCompanyUpdateLandingImageCompanyCulture } from '../../api/company/useCompanyUpdateLandingImageCompanyCulture';
-import { PdfInput } from '../../components/PdfUpload/PdfInput';
 import { PhotoInput, PhotoInputLabel } from '../../components/PhotoInput';
 import { FormComponent } from '../../types/form';
 import styles from './PhotoUpload.module.scss';
@@ -17,8 +14,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
     useCompanyUpdateLandingImageCompanyCulture();
   const removeLandingImageCompanyCulture =
     useCompanyRemoveLandingImageCompanyCulture();
-  const updateBookOfStandards = useCompanyUpdateBookOfStandards();
-  const removeBookOfStandards = useCompanyRemoveBookOfStandards();
 
   const { data: company } = useCompanyGetCurrentPublic();
 
@@ -36,14 +31,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
 
   const handleRemoveCompanyCulture = async () => {
     await removeLandingImageCompanyCulture.mutateAsync();
-  };
-
-  const handleUploadBookOfStandards = async (files: File[]) => {
-    await updateBookOfStandards.mutateAsync(files[0]);
-  };
-
-  const handleRemoveBookOfStandards = async () => {
-    await removeBookOfStandards.mutateAsync();
   };
 
   return (
@@ -101,19 +88,6 @@ export const PhotoUpload: FormComponent = ({ close }) => {
             handleRemove={handleRemoveCompanyCulture}
           />
         )}
-
-        <PdfInput
-          label={
-            updateBookOfStandards.isLoading
-              ? 'Uploadanje u procesu...'
-              : 'Prinesite knjigu standarda (PDF)'
-          }
-          isDisabled={false}
-          fileSrc={company?.bookOfStandards}
-          height={326}
-          handleUpload={handleUploadBookOfStandards}
-          handleRemove={handleRemoveBookOfStandards}
-        />
       </div>
 
       <button onClick={close} className={styles.button}>
