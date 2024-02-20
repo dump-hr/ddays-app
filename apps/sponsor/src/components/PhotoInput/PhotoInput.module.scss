@@ -16,6 +16,10 @@
       font-weight: 400;
       line-height: 20px;
       cursor: pointer;
+
+      &Full {
+        background-color: #ffffff1a;
+      }
     }
   }
 
@@ -43,7 +47,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
 
-      > p {
+      >p {
         margin: 0px;
       }
     }

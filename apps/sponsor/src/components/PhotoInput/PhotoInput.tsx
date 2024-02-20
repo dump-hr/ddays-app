@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
@@ -83,7 +84,11 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
 
   return (
     <div className={c.inputArea} style={{ height: `${height}px` }}>
-      <div className={c.inputAreaContainer} style={{ height: `${height}px` }}>
+      <div
+        className={clsx(c.inputAreaContainer, {
+          [c.inputAreaContainerFull]: !!fileSrc,
+        })}
+        style={{ height: `${height}px` }}>
         {!fileSrc && (
           <div className={c.inputField} {...getRootProps()}>
             <input disabled={isDisabled} {...getInputProps()} />
