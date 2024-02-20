@@ -46,6 +46,8 @@ export const PhotoUpload: FormComponent = ({ close }) => {
     await removeBookOfStandards.mutateAsync();
   };
 
+  console.log('brr', company?.bookOfStandards);
+
   return (
     <div>
       <div className={styles.descriptionContainer}>
@@ -103,7 +105,11 @@ export const PhotoUpload: FormComponent = ({ close }) => {
         )}
 
         <PdfInput
-          label={'klošaruuu'}
+          label={
+            updateBookOfStandards.isLoading
+              ? 'Uploadanje u procesu...'
+              : 'Prinesite knjigu standarda (PDF)'
+          }
           isDisabled={false}
           fileSrc={company?.bookOfStandards}
           handleUpload={handleUploadBookOfStandards}

@@ -15,7 +15,6 @@ export type CompanyPublicDto = {
   id: number;
   category: `${CompanyCategory}`;
   name: string;
-
   description?: string;
   opportunitiesDescription?: string;
   website?: string;

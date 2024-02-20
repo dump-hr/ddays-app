@@ -1,4 +1,5 @@
 import { useDropzone } from 'react-dropzone';
+import toast from 'react-hot-toast';
 
 import RemoveSvg from '../../assets/icons/remove.svg';
 import sprite from '../../assets/icons/sprite.svg';
@@ -20,12 +21,17 @@ export const PdfInput: React.FC<PdfInputProps> = ({
   handleUpload,
 }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { pdf: ['pdf'] },
+    accept: { 'application/pdf': [] },
     onDrop: async (acceptedFiles) => {
+      if (!acceptedFiles) {
+        toast.error('PDF file is required');
+        return;
+      }
       handleUpload(acceptedFiles);
     },
   });
 
+  console.log('MRTVI file', fileSrc);
   const height = 300;
 
   return (
@@ -42,18 +48,12 @@ export const PdfInput: React.FC<PdfInputProps> = ({
             </div>
           </div>
         )}
-        {!!fileSrc}
+
         <aside className={c.thumbsContainer}>
           {!!fileSrc && (
-            <div className={c.thumb}>
-              <div className={c.thumbInner}>
-                <img
-                  src={fileSrc}
-                  className={c.image}
-                  style={{ maxHeight: `${height}px` }}
-                />
-              </div>
-            </div>
+            // <div className={c.thumb}>
+            <div className={c.inputFieldLabel}>Knjiga standarda spremljena</div>
+            // ¸¸</div>
           )}
         </aside>
 
@@ -64,7 +64,6 @@ export const PdfInput: React.FC<PdfInputProps> = ({
           </button>
         )}
       </div>
-      <div className={c.errorContainer}></div>
     </div>
   );
 };

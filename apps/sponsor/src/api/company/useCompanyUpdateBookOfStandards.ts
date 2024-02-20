@@ -7,6 +7,8 @@ const companyUpdateBookOfStandards = async (file: File) => {
   const data = new FormData();
   data.append('file', file);
 
+  console.log('data', data);
+
   return await api.patchForm('company/book-of-standards', data);
 };
 

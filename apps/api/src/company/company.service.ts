@@ -85,6 +85,7 @@ export class CompanyService {
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
+        bookOfStandards: company.bookOfStandards,
         video: company.video,
       })
       .from(company)
@@ -136,7 +137,7 @@ export class CompanyService {
   async removeBookOfStandards(id: number): Promise<void> {
     await db
       .update(company)
-      .set({ landingImageCompanyCulture: null })
+      .set({ bookOfStandards: null })
       .where(eq(company.id, id));
   }
 
