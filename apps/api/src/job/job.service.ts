@@ -1,5 +1,5 @@
 import { JobDto, JobModifyDto, JobModifyForCompanyDto } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { job } from 'db/schema';
 import { eq, inArray } from 'drizzle-orm';
@@ -14,7 +14,7 @@ export class JobService {
 
   async create(dto: JobModifyDto): Promise<JobDto> {
     if (!this.isValidUrl(dto.link)) {
-      throw new Error('Invalid URL');
+      throw new HttpException('Invalid URL', HttpStatus.BAD_REQUEST);
     }
 
     const [addedJob] = await db.insert(job).values(dto).returning();
@@ -62,7 +62,7 @@ export class JobService {
 
     [...jobsToAdd, ...jobsToUpdate].forEach((job) => {
       if (!this.isValidUrl(job.link)) {
-        throw new Error('Invalid URL');
+        throw new HttpException('Invalid URL', HttpStatus.BAD_REQUEST);
       }
     });
 
