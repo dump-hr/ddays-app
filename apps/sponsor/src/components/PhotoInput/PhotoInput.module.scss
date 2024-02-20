@@ -1,7 +1,7 @@
 .input {
   &Area {
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: 40px;
 
     &Container {
       border: rgba(255, 255, 255, 0.4);
@@ -47,7 +47,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
 
-      >p {
+      > p {
         margin: 0px;
       }
     }
@@ -169,5 +169,4 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
