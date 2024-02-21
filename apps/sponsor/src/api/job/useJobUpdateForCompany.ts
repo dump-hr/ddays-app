@@ -4,10 +4,10 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const jobUpdateForCompany = async (dto: JobModifyForCompanyDto[]) => {
-  return await api.patch<JobModifyForCompanyDto[], JobDto[]>(
+const jobUpdateForCompany = async (jobs: JobModifyForCompanyDto[]) => {
+  return await api.patch<{ jobs: JobModifyForCompanyDto[] }, JobDto[]>(
     '/job/company',
-    dto,
+    { jobs },
   );
 };
 

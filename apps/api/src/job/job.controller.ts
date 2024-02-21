@@ -1,4 +1,4 @@
-import { JobDto, JobModifyDto, JobModifyForCompanyDto } from '@ddays-app/types';
+import { JobDto, JobModifyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -15,6 +15,7 @@ import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { SponsorGuard } from 'src/auth/sponsor.guard';
 
+import { JobsModifyForCompanyDto } from './job.dto';
 import { JobService } from './job.service';
 
 @Controller('job')
@@ -44,9 +45,8 @@ export class JobController {
   @Patch('company')
   async updateForCompany(
     @Req() { user }: AuthenticatedRequest,
-    // TODO: fix validation for this dto (it is an array of DTOs)
-    @Body() dto: JobModifyForCompanyDto[],
+    @Body() { jobs }: JobsModifyForCompanyDto,
   ): Promise<JobDto[]> {
-    return await this.jobService.updateForCompany(user.id, dto);
+    return await this.jobService.updateForCompany(user.id, jobs);
   }
 }
