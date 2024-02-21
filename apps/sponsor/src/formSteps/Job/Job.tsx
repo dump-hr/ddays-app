@@ -31,7 +31,7 @@ export const Job: FormComponent = ({ close }) => {
   const { data: company } = useCompanyGetCurrentPublic();
   const { data: companyJobs } = useJobGetForCompany(company?.id);
 
-  const { mutate: updateSponsorJobs } = useJobUpdateForCompany();
+  const { mutateAsync: updateSponsorJobs } = useJobUpdateForCompany();
 
   useEffect(() => {
     if (jobs.length) return;
@@ -59,11 +59,11 @@ export const Job: FormComponent = ({ close }) => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const jobsToSave = jobs.filter(isValid);
 
     if (jobsToSave.length === jobs.length) {
-      updateSponsorJobs(jobsToSave);
+      await updateSponsorJobs(jobsToSave);
       close();
       return;
     }

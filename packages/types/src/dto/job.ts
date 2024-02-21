@@ -1,4 +1,13 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  ValidateIf,
+  ValidateNested,
+} from 'class-validator';
 
 export type JobDto = {
   id: number;
@@ -22,7 +31,8 @@ export class JobModifyDto {
   details: string;
 
   @IsOptional()
-  @IsString()
+  @IsUrl()
+  @ValidateIf((e) => e.link !== '')
   link?: string;
 
   @IsNumber()
@@ -45,6 +55,7 @@ export class JobModifyForCompanyDto {
   details: string;
 
   @IsOptional()
-  @IsString()
+  @IsUrl()
+  @ValidateIf((e) => e.link !== '')
   link?: string;
 }
