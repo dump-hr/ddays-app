@@ -78,7 +78,11 @@ export const MaterialsPage: React.FC = () => {
                     <p className={c.itemIndex}>{index + 1}</p>
                     <div>
                       <h4>{title}</h4>
-                      <p className={c.itemDescription}>{description}</p>
+                      <p className={c.itemDescription}>
+                        {typeof description === 'function'
+                          ? description(company.category as CompanyCategory)
+                          : description}
+                      </p>
                     </div>
                   </div>
                   <div className={c.itemAction}>
