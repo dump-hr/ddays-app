@@ -24,7 +24,7 @@ export type FormComponent = React.FC<{
 
 export type FormStep = {
   title: string;
-  description: string;
+  description: string | ((category: CompanyCategory) => string);
   component: FormComponent;
   tier?: CompanyCategory[];
 };

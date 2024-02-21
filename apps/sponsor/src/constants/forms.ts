@@ -11,19 +11,36 @@ import { FormSteps, SponsorForm } from '../types/form';
 export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {
     title: 'Opisi tvrtke',
-    description: 'Predaja do 1. travnja 2024.',
+    description: (category) => {
+      if (category === CompanyCategory.Bronze)
+        return 'Predaja do 8. ožujka 2024.';
+      if (category === CompanyCategory.Silver)
+        return 'Predaja do 15. ožujka 2024.';
+      return 'Predaja do 1. travnja 2024.';
+    },
     component: Description,
   },
   [FormSteps.Logo]: {
     title: 'Logotip tvrtke',
-    description: 'Predaja do 1. travnja 2024.',
+    description: (category) => {
+      if (category === CompanyCategory.Bronze)
+        return 'Predaja do 8. ožujka 2024.';
+      if (category === CompanyCategory.Silver)
+        return 'Predaja do 15. ožujka 2024.';
+      return 'Predaja do 1. travnja 2024.';
+    },
     component: LogoUpload,
   },
   [FormSteps.Photos]: {
     title: 'Fotografije tvrtke',
-    description: 'Predaja do 1. travnja 2024.',
+    description: (category) => {
+      if (category === CompanyCategory.Bronze)
+        return 'Predaja do 8. ožujka 2024.';
+      if (category === CompanyCategory.Silver)
+        return 'Predaja do 15. ožujka 2024.';
+      return 'Predaja do 1. travnja 2024.';
+    },
     component: PhotoUpload,
-    tier: [CompanyCategory.Gold, CompanyCategory.Silver],
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',
