@@ -61,7 +61,10 @@ export const MaterialsPage: React.FC = () => {
       </Helmet>
       <main className={c.page}>
         <div className={c.pageWrapper}>
-          <InfoMessage message='Ovdje možete urediti svoj profil, dodati slike, video, opis, logo, poslove i interese.' />
+          <InfoMessage
+            style={{ marginBottom: '20px' }}
+            message='Molimo vas da materijale predate na vrijeme kako bi vaša objava bila pravovremeno objavljena na društvenim mrežama.'
+          />
           <section className={c.itemsWrapper}>
             {Object.entries(sponsorForm)
               .filter(

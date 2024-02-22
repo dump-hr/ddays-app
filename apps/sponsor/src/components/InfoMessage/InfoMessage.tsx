@@ -3,11 +3,11 @@ import c from './InfoMessage.module.scss';
 
 type InfoMessageProps = {
   message: string;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const InfoMessage = ({ message }: InfoMessageProps) => {
+const InfoMessage = ({ message, ...handlers }: InfoMessageProps) => {
   return (
-    <div className={c.infoMessage}>
+    <div className={c.infoMessage} {...handlers}>
       <img src={InformationCircleIcon} />
       <p>{message}</p>
     </div>
