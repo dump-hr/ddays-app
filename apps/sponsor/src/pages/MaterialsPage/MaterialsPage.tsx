@@ -7,6 +7,7 @@ import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
 import StatusErrorSvg from '../../assets/icons/status-error.svg';
 import StatusSuccessSvg from '../../assets/icons/status-success.svg';
+import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
@@ -60,6 +61,10 @@ export const MaterialsPage: React.FC = () => {
       </Helmet>
       <main className={c.page}>
         <div className={c.pageWrapper}>
+          <InfoMessage
+            style={{ marginBottom: '20px' }}
+            message='Molimo vas da materijale predate na vrijeme kako bi vaša objava bila pravovremeno objavljena na društvenim mrežama.'
+          />
           <section className={c.itemsWrapper}>
             {Object.entries(sponsorForm)
               .filter(
