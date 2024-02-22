@@ -7,6 +7,7 @@ import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
 import StatusErrorSvg from '../../assets/icons/status-error.svg';
 import StatusSuccessSvg from '../../assets/icons/status-success.svg';
+import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
 import { getPageTitle } from '../../helpers';
@@ -60,6 +61,7 @@ export const MaterialsPage: React.FC = () => {
       </Helmet>
       <main className={c.page}>
         <div className={c.pageWrapper}>
+          <InfoMessage message='Ovdje možete urediti svoj profil, dodati slike, video, opis, logo, poslove i interese.' />
           <section className={c.itemsWrapper}>
             {Object.entries(sponsorForm)
               .filter(
