@@ -92,48 +92,45 @@ export const MaterialsPage: React.FC = () => {
                   !fs.tier ||
                   fs.tier.includes(company.category as CompanyCategory),
               )
-              .map(([key, { description, title }], index) => {
-                console.log('key', key);
-                return (
-                  <article
-                    className={c.item}
-                    onClick={() => {
-                      setCurrentForm(key as keyof typeof FormSteps);
-                    }}
-                    key={key}>
-                    <div className={c.itemInfo}>
-                      <p className={c.itemIndex}>{index + 1}</p>
-                      <div>
-                        <h4>{title}</h4>
-                        <p className={c.itemDescription}>
-                          {typeof description === 'function'
-                            ? description(company.category as CompanyCategory)
-                            : description}
-                        </p>
+              .map(([key, { description, title }], index) => (
+                <article
+                  className={c.item}
+                  onClick={() => {
+                    setCurrentForm(key as keyof typeof FormSteps);
+                  }}
+                  key={key}>
+                  <div className={c.itemInfo}>
+                    <p className={c.itemIndex}>{index + 1}</p>
+                    <div>
+                      <h4>{title}</h4>
+                      <p className={c.itemDescription}>
+                        {typeof description === 'function'
+                          ? description(company.category as CompanyCategory)
+                          : description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={c.itemAction}>
+                    {
+                      statusChips[
+                        status[key as keyof typeof status]
+                          ? StepStatus.Good
+                          : StepStatus.Pending
+                      ]
+                    }
+                    <img src={ArrowRightSvg} alt='Open' />
+                    {getShouldRenderJobsCount(
+                      currentNumberOfJobs,
+                      maxNumberOfJobs,
+                      key as FormSteps,
+                    ) && (
+                      <div className={c.jobsCount}>
+                        {currentNumberOfJobs}/{maxNumberOfJobs}
                       </div>
-                    </div>
-                    <div className={c.itemAction}>
-                      {
-                        statusChips[
-                          status[key as keyof typeof status]
-                            ? StepStatus.Good
-                            : StepStatus.Pending
-                        ]
-                      }
-                      <img src={ArrowRightSvg} alt='Open' />
-                      {getShouldRenderJobsCount(
-                        currentNumberOfJobs,
-                        maxNumberOfJobs,
-                        key as FormSteps,
-                      ) && (
-                        <div className={c.jobsCount}>
-                          {currentNumberOfJobs}/{maxNumberOfJobs}
-                        </div>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
+                    )}
+                  </div>
+                </article>
+              ))}
 
             {currentForm && (
               <Modal
