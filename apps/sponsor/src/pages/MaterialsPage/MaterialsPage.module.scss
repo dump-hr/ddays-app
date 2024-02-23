@@ -72,6 +72,14 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  position: relative
+}
+
+.jobsCount {
+  position: absolute;
+  left: -30px;
+  color: #ffffff80;
+  font-size: 14px
 }
 
 .statusChip {

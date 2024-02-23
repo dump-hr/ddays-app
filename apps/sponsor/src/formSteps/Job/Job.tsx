@@ -11,7 +11,7 @@ import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
 
-const getMaxJobsPerTier = (category: CompanyCategory) => {
+export const getMaxJobsPerTier = (category: CompanyCategory) => {
   switch (category) {
     case CompanyCategory.Bronze:
       return 2;
