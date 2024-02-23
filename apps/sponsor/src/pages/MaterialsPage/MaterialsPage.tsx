@@ -10,8 +10,7 @@ import StatusSuccessSvg from '../../assets/icons/status-success.svg';
 import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
-import { getMaxJobsPerTier } from '../../formSteps/Job';
-import { getShouldRenderJobsCount } from '../../formSteps/Job/utils';
+import { getMaxJobsPerTier } from '../../formSteps/Job/utils';
 import { getPageTitle } from '../../helpers';
 import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
@@ -34,6 +33,20 @@ const statusChips = {
       <p>Uredi</p>
     </div>
   ),
+};
+
+const getShouldRenderJobsCount = (
+  count: number | undefined,
+  max: number,
+  key: FormSteps,
+) => {
+  if (count === undefined) {
+    return false;
+  }
+  if (key === FormSteps.Jobs && count < max) {
+    return true;
+  }
+  return false;
 };
 
 export const MaterialsPage: React.FC = () => {
