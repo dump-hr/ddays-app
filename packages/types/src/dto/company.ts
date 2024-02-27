@@ -90,8 +90,10 @@ export class CompanyModifyDescriptionDto {
   @IsBetweenWordCount(70, 5)
   description: string;
 
+  @IsOptional()
   @IsString()
   @IsBetweenWordCount(70, 5)
+  @ValidateIf((e) => e.opportunitiesDescription !== '')
   opportunitiesDescription: string;
 
   @IsString()
