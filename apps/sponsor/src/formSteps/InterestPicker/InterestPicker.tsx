@@ -71,7 +71,9 @@ export const InterestPicker: FormComponent = ({ close }) => {
               [c.empty]: getInterestCount(theme) === 0,
             })}
             key={theme}>
-            {interestLabels[theme]} ({getInterestCount(theme)})
+            <div className={c.text}>
+              {interestLabels[theme]} ({getInterestCount(theme)})
+            </div>
           </p>
         ))}
       </div>
