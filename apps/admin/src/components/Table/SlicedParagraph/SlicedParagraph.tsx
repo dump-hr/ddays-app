@@ -24,7 +24,7 @@ function SlicedParagraph({ text, clipLength }: SlicedParagraphProps) {
   } else {
     return (
       <>
-        {text.slice(0, 40).trim() + '...'}
+        {text.slice(0, clipLength).trim() + '...'}
         <br />
         <a onClick={() => setIsExpanded(true)} className={c.showMore}>
           show more
