@@ -5,34 +5,21 @@
   border-collapse: collapse;
 }
 
-.td {
-  border: 1px solid #5cc2a045;
-}
-
 .th,
 .td {
   padding: 8px 16px;
+  background-color: #fff;
 }
 
 .th {
-  background-color: #fff;
   font-weight: 600;
 }
 
-.th:last-child,
-.td:last-child {
-  position: sticky;
-  right: 0;
-  z-index: 2;
-}
-
 .td {
-  background-color: #fff;
+  border: 1px solid #5cc2a045;
 }
 
 .actions {
   display: flex;
   gap: 4px;
-  background-color: #fff;
-  margin-left: 16px;
 }
