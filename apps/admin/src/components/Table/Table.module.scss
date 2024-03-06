@@ -1,16 +1,29 @@
 .table {
+  display: block;
   width: 100%;
+  overflow: auto;
+  border-collapse: collapse;
+}
+
+.td {
+  border: 1px solid #5cc2a045;
 }
 
 .th,
 .td {
-  border-radius: 5px;
-  padding: 10px 10px;
+  padding: 8px 16px;
 }
 
 .th {
-  background-color: #5cc2a045;
+  background-color: #fff;
   font-weight: 600;
+}
+
+.th:last-child,
+.td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 2;
 }
 
 .td {
@@ -20,4 +33,6 @@
 .actions {
   display: flex;
   gap: 4px;
+  background-color: #fff;
+  margin-left: 16px;
 }

@@ -44,24 +44,26 @@ export const Table = <T extends object>({
       </thead>
       <tbody>
         {data.map((row, i) => (
-          <tr key={i}>
+          <tr className={c.tr} key={i}>
             {Object.values(row).map((value, i) => (
               <td className={c.td} key={i}>
                 <SlicedParagraph text={transformValue(value)} clipLength={50} />
               </td>
             ))}
-            <td className={c.actions}>
-              {actions.map((action, i) => (
-                <Button
-                  variant='secondary'
-                  disabled={action.isDisabled?.(row)}
-                  onClick={() => action.action(row)}
-                  key={i}>
-                  {typeof action.label === 'function'
-                    ? action.label(row)
-                    : action.label}
-                </Button>
-              ))}
+            <td className={c.td}>
+              <div className={c.actions}>
+                {actions.map((action, i) => (
+                  <Button
+                    variant='secondary'
+                    disabled={action.isDisabled?.(row)}
+                    onClick={() => action.action(row)}
+                    key={i}>
+                    {typeof action.label === 'function'
+                      ? action.label(row)
+                      : action.label}
+                  </Button>
+                ))}
+              </div>
             </td>
           </tr>
         ))}
