@@ -6,7 +6,8 @@ type SlicedParagraphProps = {
   text: string;
   clipLength: number;
 };
-function SlicedParagraph({ text, clipLength }: SlicedParagraphProps) {
+
+export const SlicedParagraph = ({ text, clipLength }: SlicedParagraphProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (text.length < clipLength) return text;
@@ -21,17 +22,15 @@ function SlicedParagraph({ text, clipLength }: SlicedParagraphProps) {
         </a>
       </>
     );
-  } else {
-    return (
-      <>
-        {text.slice(0, clipLength).trim() + '...'}
-        <br />
-        <a onClick={() => setIsExpanded(true)} className={c.showMore}>
-          show more
-        </a>
-      </>
-    );
   }
-}
 
-export default SlicedParagraph;
+  return (
+    <>
+      {text.slice(0, clipLength).trim() + '...'}
+      <br />
+      <a onClick={() => setIsExpanded(true)} className={c.showMore}>
+        show more
+      </a>
+    </>
+  );
+};

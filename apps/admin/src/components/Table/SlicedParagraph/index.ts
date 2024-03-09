@@ -1,3 +1,1 @@
-import SlicedParagraph from './SlicedParagraph';
-
-export default SlicedParagraph;
+export * from './SlicedParagraph';

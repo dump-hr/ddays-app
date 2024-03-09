@@ -1,6 +1,6 @@
-import { unCamelCase } from '../../helpers';
+import { isValidHttpUrl, unCamelCase } from '../../helpers';
 import { Button } from '../Button';
-import SlicedParagraph from './SlicedParagraph';
+import { SlicedParagraph } from './SlicedParagraph';
 import c from './Table.module.scss';
 
 type TableProps<T> = {
@@ -18,16 +18,29 @@ export const Table = <T extends object>({
 }: TableProps<T>) => {
   if (!data.length) return null;
 
-  const transformValue = (value: unknown) => {
-    if (value === undefined) {
-      return '[undefined]';
+  const transformValue = (rawvalue: unknown) => {
+    if (rawvalue === undefined) {
+      return <span>[undefined]</span>;
     }
-    if (value === null) {
-      return '[null]';
+
+    if (rawvalue === null) {
+      return <span>[null]</span>;
     }
+
+    const value = rawvalue.toString();
+
+    if (isValidHttpUrl(value)) {
+      return (
+        <a href={value} target='_blank'>
+          {value}
+        </a>
+      );
+    }
+
     // TODO: format date
     // TODO: format boolean
-    return value.toString();
+
+    return <SlicedParagraph text={value} clipLength={50} />;
   };
 
   return (
@@ -47,7 +60,7 @@ export const Table = <T extends object>({
           <tr className={c.tr} key={i}>
             {Object.values(row).map((value, i) => (
               <td className={c.td} key={i}>
-                <SlicedParagraph text={transformValue(value)} clipLength={50} />
+                {transformValue(value)}
               </td>
             ))}
             <td className={c.td}>
