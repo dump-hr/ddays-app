@@ -16,6 +16,9 @@
       font-weight: 400;
       line-height: 20px;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &Full {
         background-color: #ffffff1a;
@@ -87,16 +90,6 @@ body {
 }
 
 .thumb {
-  display: 'inline-flex';
-  border-radius: 2;
-  border: '1px solid #eaeaea';
-  margin-bottom: 8;
-  margin-right: 8;
-  width: 100;
-  height: 100;
-  padding: 4;
-  box-sizing: 'border-box';
-
   &Container {
     display: flex;
     flex-direction: row;
@@ -113,9 +106,7 @@ body {
 
 .image {
   display: block;
-  width: auto;
   width: 100%;
-  border-radius: 8px;
   object-fit: contain;
 }
 

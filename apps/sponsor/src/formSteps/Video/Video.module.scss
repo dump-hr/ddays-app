@@ -97,16 +97,14 @@
 }
 
 .remove {
-  border-radius: 4px;
   font-size: 14px;
-  padding: 0px 2px;
-  background: #fff;
-  color: #b40000;
-  height: 20px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
 }
 
 .error {
