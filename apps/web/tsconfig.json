@@ -1,0 +1,5 @@
+{
+  "extends": "@ddays-app/tsconfig/react.json",
+  "include": ["src", "vite.config.ts"]
+}
+ 
