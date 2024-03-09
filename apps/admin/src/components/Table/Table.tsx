@@ -1,6 +1,6 @@
 import { isValidHttpUrl, unCamelCase } from '../../helpers';
 import { Button } from '../Button';
-import { SlicedParagraph } from './SlicedParagraph';
+import { SlicedParagraph } from '../SlicedParagraph';
 import c from './Table.module.scss';
 
 type TableProps<T> = {
