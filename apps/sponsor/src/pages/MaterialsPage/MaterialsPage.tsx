@@ -10,6 +10,7 @@ import StatusSuccessSvg from '../../assets/icons/status-success.svg';
 import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import { sponsorForm } from '../../constants/forms';
+import { getMaxJobsPerTier } from '../../formSteps/Job/utils';
 import { getPageTitle } from '../../helpers';
 import { FormSteps, StepStatus } from '../../types/form';
 import c from './MaterialsPage.module.scss';
@@ -34,6 +35,20 @@ const statusChips = {
   ),
 };
 
+const getShouldRenderJobsCount = (
+  count: number | undefined,
+  max: number,
+  key: FormSteps,
+) => {
+  if (count === undefined) {
+    return false;
+  }
+  if (key === FormSteps.Jobs && count < max) {
+    return true;
+  }
+  return false;
+};
+
 export const MaterialsPage: React.FC = () => {
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
@@ -53,6 +68,11 @@ export const MaterialsPage: React.FC = () => {
   };
 
   if (!company) return null;
+
+  const maxNumberOfJobs = getMaxJobsPerTier(
+    company?.category as CompanyCategory,
+  );
+  const currentNumberOfJobs = jobs?.length;
 
   return (
     <>
@@ -99,6 +119,15 @@ export const MaterialsPage: React.FC = () => {
                       ]
                     }
                     <img src={ArrowRightSvg} alt='Open' />
+                    {getShouldRenderJobsCount(
+                      currentNumberOfJobs,
+                      maxNumberOfJobs,
+                      key as FormSteps,
+                    ) && (
+                      <div className={c.jobsCount}>
+                        {currentNumberOfJobs}/{maxNumberOfJobs}
+                      </div>
+                    )}
                   </div>
                 </article>
               ))}

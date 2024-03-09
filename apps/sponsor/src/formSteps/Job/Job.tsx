@@ -10,19 +10,7 @@ import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { FormComponent } from '../../types/form';
 import c from './Job.module.scss';
-
-const getMaxJobsPerTier = (category: CompanyCategory) => {
-  switch (category) {
-    case CompanyCategory.Bronze:
-      return 2;
-    case CompanyCategory.Silver:
-      return 3;
-    case CompanyCategory.Gold:
-      return 3;
-    default:
-      return 0;
-  }
-};
+import { getMaxJobsPerTier } from './utils';
 
 export const Job: FormComponent = ({ close }) => {
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
