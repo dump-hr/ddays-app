@@ -9,11 +9,11 @@
 
 .nav {
   display: flex;
-  min-width: 1000px;
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 16px;
+  width: 100%;
 }
 
 .pages {
