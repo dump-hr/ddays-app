@@ -36,33 +36,42 @@ const setupSwagger = (app: INestApplication) => {
 };
 
 const setupProxies = (app: INestApplication) => {
-  app.use(
-    '/',
-    createProxyMiddleware(
-      (pathname: string) =>
-        !pathname.startsWith('/api') &&
-        !pathname.startsWith('/admin') &&
-        !pathname.startsWith('/sponsor'),
-      {
-        target: 'https://ddays.azureedge.net/',
-        changeOrigin: true,
-      },
-    ),
-  );
-
   if (process.env.NODE_ENV === 'dev') {
     app.use(
+      '/',
+      createProxyMiddleware(
+        (pathname: string) =>
+          !pathname.startsWith('/api') &&
+          !pathname.startsWith('/admin') &&
+          !pathname.startsWith('/sponsor'),
+        { target: 'http://localhost:3004' },
+      ),
+    );
+
+    app.use(
       '/admin',
-      createProxyMiddleware({
-        target: 'http://localhost:3002',
-      }),
+      createProxyMiddleware({ target: 'http://localhost:3002' }),
     );
 
     app.use(
       '/sponsor',
-      createProxyMiddleware({
-        target: 'http://localhost:3003',
-      }),
+      createProxyMiddleware({ target: 'http://localhost:3003' }),
+    );
+  }
+
+  if (process.env.NODE_ENV !== 'dev') {
+    app.use(
+      '/',
+      createProxyMiddleware(
+        (pathname: string) =>
+          !pathname.startsWith('/api') &&
+          !pathname.startsWith('/admin') &&
+          !pathname.startsWith('/sponsor'),
+        {
+          target: 'https://ddays.azureedge.net/',
+          changeOrigin: true,
+        },
+      ),
     );
   }
 };
