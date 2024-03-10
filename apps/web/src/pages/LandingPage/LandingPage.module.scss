@@ -11,5 +11,30 @@ body {
     background-size: cover;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+
+    .boxes {
+      display: flex;
+      gap: 24px;
+
+      transform: translateX(calc(100vw));
+      overflow: visible;
+      animation: animateContainer 5s linear forwards infinite;
+
+      .box {
+        height: 100px;
+        width: 100px;
+        background-color: rebeccapurple;
+      }
+    }
+  }
+}
+
+@keyframes animateContainer {
+  from {
+    transform: translateX(calc(100vw));
+  }
+  to {
+    transform: translateX(calc(-100%));
   }
 }
