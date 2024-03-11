@@ -76,11 +76,6 @@ export const EventForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
       type: QuestionType.Number,
       defaultValue: event?.maxParticipants,
     },
-    {
-      id: 'codeId',
-      type: QuestionType.Number,
-      defaultValue: event?.codeId,
-    },
   ];
 
   const form = useForm<EventModifyDto>({

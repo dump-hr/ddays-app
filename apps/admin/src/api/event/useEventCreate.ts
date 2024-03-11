@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const eventCreate = async (dto: EventModifyDto) => {
-  console.log(typeof dto.startsAt);
   return await api.post<EventModifyDto, EventDto>('/event', dto);
 };
 

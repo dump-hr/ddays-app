@@ -7,9 +7,6 @@ import { eq } from 'drizzle-orm';
 @Injectable()
 export class EventService {
   async create(dto: EventModifyDto): Promise<EventDto> {
-    if (dto.codeId === 0) {
-      dto.codeId = null;
-    }
     const [createdEvent] = await db.insert(event).values(dto).returning();
 
     return createdEvent;
@@ -67,10 +64,6 @@ export class EventService {
   }
 
   async update(id: number, dto: EventModifyDto) {
-    if (dto.codeId === 0) {
-      dto.codeId = null;
-    }
-
     const [updatedEvent] = await db
       .update(event)
       .set(dto)

@@ -36,13 +36,6 @@
       "when": 1708452812305,
       "tag": "0004_high_amphibian",
       "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1710188441319,
-      "tag": "0005_friendly_warhawk",
-      "breakpoints": true
     }
   ]
 }
