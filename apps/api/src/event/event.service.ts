@@ -67,6 +67,10 @@ export class EventService {
   }
 
   async update(id: number, dto: EventModifyDto) {
+    if (dto.codeId === 0) {
+      dto.codeId = null;
+    }
+
     const [updatedEvent] = await db
       .update(event)
       .set(dto)
