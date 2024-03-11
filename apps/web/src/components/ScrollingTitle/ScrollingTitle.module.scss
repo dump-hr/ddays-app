@@ -3,20 +3,48 @@
 }
 
 .scrollingTitle {
+  position: relative;
   overflow: hidden;
   white-space: nowrap;
-
   display: flex;
 
   .content {
     display: flex;
     align-items: center;
 
+    .people {
+      position: absolute;
+      z-index: 1;
+
+      img {
+        &:nth-of-type(1) {
+          margin-left: 110px;
+        }
+
+        &:nth-of-type(2) {
+          margin-left: 495px;
+        }
+
+        &:nth-of-type(3) {
+          margin-left: 465px;
+        }
+
+        &:nth-of-type(4) {
+          margin-left: 464px;
+        }
+
+        &:nth-of-type(5) {
+          margin-left: 359px;
+        }
+      }
+    }
+
     animation: slide var(--time) linear infinite;
 
     h1,
     img {
       margin-right: 40px;
+      z-index: 2;
     }
 
     @keyframes slide {
