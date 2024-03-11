@@ -41,7 +41,7 @@ const EventPage = () => {
         data={events.data}
         actions={[
           {
-            label: 'Ured',
+            label: 'Uredi',
             action: (event) => {
               setEventToEditId(event.id);
               setIsModalOpen(true);

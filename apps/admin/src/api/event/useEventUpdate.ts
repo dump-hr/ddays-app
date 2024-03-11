@@ -16,6 +16,7 @@ export const useEventUpdate = () => {
 
   return useMutation(eventUpdate, {
     onSuccess: (updatedEvent) => {
+      queryClient.invalidateQueries(['event']);
       queryClient.invalidateQueries(['event', updatedEvent.id]);
       toast.success('Uređivanje eventa uspješno izvršeno!');
     },

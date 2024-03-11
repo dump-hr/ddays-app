@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsDateString,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -11,8 +12,8 @@ export type EventDto = {
   id: number;
   name: string;
   description?: string;
-  startsAt: Date;
-  endsAt: Date;
+  startsAt: string;
+  endsAt: string;
   maxParticipants?: number;
   requirements?: string;
   footageLink?: string;
@@ -35,11 +36,11 @@ export class EventModifyDto {
   @IsEnum(Theme)
   theme: Theme;
 
-  @IsDate()
-  startsAt: Date;
+  @IsDateString()
+  startsAt: string;
 
-  @IsDate()
-  endsAt: Date;
+  @IsDateString()
+  endsAt: string;
 
   @IsOptional()
   @IsString()
