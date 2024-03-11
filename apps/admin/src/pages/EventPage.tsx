@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useEventGetAll } from '../api/event/useEventGetAll';
+import { useEventRemove } from '../api/event/useEventRemove';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
@@ -11,6 +12,8 @@ const EventPage = () => {
   const [eventToEditId, setEventToEditId] = useState<number>();
 
   const events = useEventGetAll();
+
+  const removeEvent = useEventRemove();
 
   if (events.isLoading) {
     return <div>Loading...</div>;
@@ -49,9 +52,9 @@ const EventPage = () => {
           },
           {
             label: 'Obriši',
-            action: () => {
+            action: (event) => {
               if (confirm('Jesi li siguran?')) {
-                return;
+                removeEvent.mutateAsync(event.id);
               }
             },
           },
