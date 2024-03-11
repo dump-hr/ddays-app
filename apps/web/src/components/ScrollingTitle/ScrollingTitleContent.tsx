@@ -1,9 +1,9 @@
 import DaysSticker from '../../assets/images/days-sticker.png';
 import c from './ScrollingTitle.module.scss';
 
-const ScrollingTitle = () => {
+const Content = () => {
   return (
-    <div className={c.scrollingTitle}>
+    <div className={c.content}>
       <h1>Digitalaca</h1>
       <img src={DaysSticker} alt='' />
       <h1>Marketingaša</h1>
@@ -14,6 +14,15 @@ const ScrollingTitle = () => {
       <img src={DaysSticker} alt='' />
       <h1>Poduzetnika</h1>
       <img src={DaysSticker} alt='' />
+    </div>
+  );
+};
+
+const ScrollingTitle = () => {
+  return (
+    <div className={c.scrollingTitle}>
+      <Content />
+      <Content />
     </div>
   );
 };
