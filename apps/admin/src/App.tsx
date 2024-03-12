@@ -8,6 +8,7 @@ import { Route, Switch } from 'wouter';
 import { Layout } from './components/Layout';
 import { Path } from './constants/paths';
 import { CompanyPage } from './pages/CompanyPage';
+import EventPage from './pages/EventPage';
 import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 
@@ -21,6 +22,7 @@ export const App = () => {
           <Route path={Path.Home} component={HomePage} />
           <Route path={Path.Company} component={CompanyPage} />
           <Route path={Path.Interest} component={InterestPage} />
+          <Route path={Path.Event} component={EventPage} />
         </Switch>
       </Layout>
       <Toaster />
