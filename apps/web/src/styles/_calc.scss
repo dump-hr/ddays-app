@@ -1,0 +1,59 @@
+$vw-base: 1440px;
+$vw-mobile: 360px;
+
+@function strip-unit($num) {
+  @if $num == auto {
+    @return $num;
+  }
+
+  @return $num / ($num * 0 + 1);
+}
+@function convert-to-vw($value, $base-value: $vw-base) {
+  @if $value == auto {
+    @return $value;
+  }
+
+  $value: strip-unit($value) / strip-unit($base-value) * 100vw;
+
+  @if ($value == 0) {
+    $value: 0;
+  } // Turn 0vw into 0
+
+  @return $value;
+}
+
+@function vw-calc($values, $base-value: $vw-base) {
+  $max: length($values);
+
+  @if $max == 1 {
+    @return convert-to-vw(nth($values, 1), $base-value);
+  }
+
+  $vwValues: ();
+
+  @for $i from 1 through $max {
+    $vwValues: append($vwValues, convert-to-vw(nth($values, $i), $base-value));
+  }
+
+  @return $vwValues;
+}
+
+@function vw-mobile-calc($values, $base-value: $vw-mobile) {
+  $max: length($values);
+
+  @if $max == 1 {
+    @return convert-to-vw(nth($values, 1), $base-value);
+  }
+
+  $vwValues: ();
+
+  @for $i from 1 through $max {
+    $vwValues: append($vwValues, convert-to-vw(nth($values, $i), $base-value));
+  }
+
+  @return $vwValues;
+}
+
+@function rem-calc($px) {
+  @return calc(($px / 16 * 1rem));
+}
