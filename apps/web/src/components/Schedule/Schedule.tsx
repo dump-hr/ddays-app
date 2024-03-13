@@ -1,27 +1,7 @@
 import { useEventGetAll } from '../../api/event/useEventGetAll';
-import PlusSvg from '../../assets/Plus.svg';
 import GrainyBackground from '../GrainyBackground';
 import c from './Schedule.module.scss';
-
-const getEventTime = (dateTimeString: string) => {
-  const timeString = dateTimeString.split('T')[1];
-  return timeString;
-};
-
-const getEventTypeTranslation = (type: string) => {
-  switch (type) {
-    case 'lecture':
-      return 'PREDAVANJE';
-    case 'workshop':
-      return 'RADIONICA';
-    case 'flyTalk':
-      return 'FLY TALK';
-    case 'campfireTalk':
-      return 'CAMPFIRE TALK';
-    case 'other':
-      return 'OSTALO';
-  }
-};
+import ScheduleCard from './ScheduleCard';
 
 const Schedule = () => {
   const events = useEventGetAll();
@@ -33,9 +13,7 @@ const Schedule = () => {
   return (
     <GrainyBackground>
       <div className={c.scheduleSectionWrapper}>
-        <div className={c.scheduleSectionBackground}>
-          {/* <img className={c.scheduleSectionBackgroundImage} src={NoiseSvg} /> */}
-        </div>
+        <div className={c.scheduleSectionBackground}></div>
         <div className={c.scheduleSection}>
           <div className={c.scheduleHeader}>
             <div className={c.scheduleHeaderLeft}>
@@ -51,37 +29,7 @@ const Schedule = () => {
             </div>
           </div>
           <div className={c.scheduleContainer}>
-            {events.data?.map((event) => (
-              <div className={c.scheduleCardContainer}>
-                <div key={event.id} className={c.scheduleCard}>
-                  <div className={c.scheduleCardLeftWrapper}>
-                    <div className={c.scheduleCardLeft}>
-                      <p className={c.timeText}>
-                        {getEventTime(event.startsAt)} -{' '}
-                        {getEventTime(event.endsAt)}
-                      </p>
-                      <p className={c.eventTypeText}>
-                        {getEventTypeTranslation(event.type)}
-                      </p>
-                    </div>
-                    <div className={c.scheduleCardCenter}>
-                      <div className={c.scheduleCardTitleWrapper}>
-                        <div className={c.themeBadge}>
-                          <p className={c.themeBadgeText}>DIZ</p>
-                        </div>
-                        <div className={c.scheduleCardTitle}>{event.name}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={c.scheduleCardRight}>
-                    <img src={PlusSvg} alt='plus' />
-                  </div>
-                </div>
-                <div className={c.dottedRuler}>
-                  ..............................................................................................................................................................................
-                </div>
-              </div>
-            ))}
+            {events.data?.map((event) => <ScheduleCard event={event} />)}
           </div>
         </div>
       </div>
