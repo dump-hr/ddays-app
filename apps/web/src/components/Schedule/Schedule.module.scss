@@ -101,14 +101,14 @@
 .themeBadge {
   width: 46px;
   height: 24px;
-  position: relative;
   margin-right: 16px;
   border-radius: 50%;
   background-color: #cb370ecc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &Text {
-    position: absolute;
-    z-index: 2;
     margin: 0;
     color: #fff;
     font-family: 'PP Neue Montreal Mono';
@@ -118,8 +118,6 @@
     line-height: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    top: 4px;
-    left: 9px;
   }
 }
 
