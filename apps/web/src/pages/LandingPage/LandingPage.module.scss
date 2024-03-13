@@ -5,6 +5,7 @@ body {
 .hero {
   height: 100vh;
   padding: 32px;
+  transition: 200ms;
 
   .content {
     background-image: url('../../assets/images/hero-background.png');
@@ -15,5 +16,11 @@ body {
 
     display: flex;
     align-items: flex-end;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 0;
   }
 }

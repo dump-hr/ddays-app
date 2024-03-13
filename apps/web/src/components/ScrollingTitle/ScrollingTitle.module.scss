@@ -21,6 +21,13 @@
       height: 100%;
     }
 
+    .stickerTitle {
+      display: flex;
+      align-items: center;
+      position: relative;
+      top: -100px;
+    }
+
     animation: slide var(--time) linear infinite;
 
     h1,
@@ -44,16 +51,27 @@
       leading-trim: both;
       text-edge: cap;
       font-family: Arial, Helvetica, sans-serif; /* Change later */
-      font-size: 18vh;
+      font-size: 17vh;
       font-style: normal;
       font-weight: 500;
       line-height: 144px; /* 120% */
-      letter-spacing: -5.025px;
       text-transform: uppercase;
     }
 
     .sticker {
-      height: 25vh;
+      height: 23vh;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .scrollingTitle {
+    height: 80vh;
+
+    .content {
+      .title {
+        font-size: 15vh;
+      }
     }
   }
 }
