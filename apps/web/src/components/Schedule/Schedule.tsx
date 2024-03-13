@@ -54,21 +54,23 @@ const Schedule = () => {
             {events.data?.map((event) => (
               <div className={c.scheduleCardContainer}>
                 <div key={event.id} className={c.scheduleCard}>
-                  <div className={c.scheduleCardLeft}>
-                    <p className={c.timeText}>
-                      {getEventTime(event.startsAt)} -{' '}
-                      {getEventTime(event.endsAt)}
-                    </p>
-                    <p className={c.eventTypeText}>
-                      {getEventTypeTranslation(event.type)}
-                    </p>
-                  </div>
-                  <div className={c.scheduleCardCenter}>
-                    <div className={c.scheduleCardTitleWrapper}>
-                      <div className={c.themeBadge}>
-                        <p className={c.themeBadgeText}>DIZ</p>
+                  <div className={c.scheduleCardLeftWrapper}>
+                    <div className={c.scheduleCardLeft}>
+                      <p className={c.timeText}>
+                        {getEventTime(event.startsAt)} -{' '}
+                        {getEventTime(event.endsAt)}
+                      </p>
+                      <p className={c.eventTypeText}>
+                        {getEventTypeTranslation(event.type)}
+                      </p>
+                    </div>
+                    <div className={c.scheduleCardCenter}>
+                      <div className={c.scheduleCardTitleWrapper}>
+                        <div className={c.themeBadge}>
+                          <p className={c.themeBadgeText}>DIZ</p>
+                        </div>
+                        <div className={c.scheduleCardTitle}>{event.name}</div>
                       </div>
-                      <div className={c.scheduleCardTitle}>{event.name}</div>
                     </div>
                   </div>
                   <div className={c.scheduleCardRight}>

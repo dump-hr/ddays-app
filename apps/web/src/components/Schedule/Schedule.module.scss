@@ -22,9 +22,15 @@
     display: flex;
     padding: 35px 78px;
     padding-bottom: 10px;
+    justify-content: space-between;
 
     &Left {
       margin-right: 145px;
+
+      &Wrapper {
+        display: flex;
+        margin-right: 10px;
+      }
     }
 
     &Title {
