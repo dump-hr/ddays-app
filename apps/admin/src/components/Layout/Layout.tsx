@@ -13,6 +13,7 @@ const navLinks = [
   { href: Path.Home, text: 'Home' },
   { href: Path.Company, text: 'Company' },
   { href: Path.Interest, text: 'Interest' },
+  { href: Path.Event, text: 'Event' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

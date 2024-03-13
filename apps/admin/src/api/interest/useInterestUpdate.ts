@@ -21,7 +21,7 @@ export const useInterestUpdate = () => {
     onSuccess: (updatedInterest) => {
       queryClient.invalidateQueries(['interest']);
       queryClient.invalidateQueries(['interest', updatedInterest.id]);
-      toast.success('Uređivanje interesa uspješno uređeno!');
+      toast.success('Uređivanje interesa uspješno izvršeno!');
     },
     onError: (error: string) => {
       toast.error(error);

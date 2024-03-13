@@ -36,6 +36,13 @@
       "when": 1708452812305,
       "tag": "0004_high_amphibian",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1710202646326,
+      "tag": "0005_happy_shaman",
+      "breakpoints": true
     }
   ]
 }
