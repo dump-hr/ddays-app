@@ -86,7 +86,11 @@ const Schedule = () => {
           </div>
           <div className={c.scheduleContainer}>
             {events.data?.map((event) => (
-              <ScheduleCard key={event.id} event={event} />
+              <ScheduleCard
+                key={event.id}
+                event={event}
+                fitsTheme={theme === null || event.theme === theme}
+              />
             ))}
           </div>
         </div>

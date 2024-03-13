@@ -1,4 +1,4 @@
-import { EventDto } from '@ddays-app/types';
+import { EventDto, EventType, Theme } from '@ddays-app/types';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
@@ -13,7 +13,7 @@ const getEventTime = (dateTimeString: string) => {
   return dateTimeString.split(' ')[1];
 };
 
-const getEventTypeTranslation = (type: string) => {
+const getEventTypeTranslation = (type: EventType) => {
   switch (type) {
     case 'lecture':
       return 'PREDAVANJE';
@@ -28,19 +28,37 @@ const getEventTypeTranslation = (type: string) => {
   }
 };
 
+const getThemeShort = (theme: string) => {
+  switch (theme) {
+    case 'dev':
+      return 'DEV';
+    case 'design':
+      return 'DIZ';
+    case 'marketing':
+      return 'MARK';
+    case 'tech':
+      return 'TECH';
+  }
+};
+
 type ScheduleCardProps = {
+  fitsTheme: boolean;
   event: EventDto;
 };
 
-const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+const ScheduleCard: React.FC<ScheduleCardProps> = ({ event, fitsTheme }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
 
   const toggleOpenDescription = () => {
     setIsOpenDescription((prev) => !prev);
   };
 
+  if (!fitsTheme) {
+    return null;
+  }
+
   return (
-    <div key={event.id} className={c.scheduleCardContainer}>
+    <div className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
@@ -54,7 +72,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
           <div className={c.scheduleCardCenter}>
             <div className={c.scheduleCardTitleWrapper}>
               <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>DIZ</p>
+                <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
               </div>
               <h3 className={c.scheduleCardTitle}>{event.name}</h3>
             </div>
