@@ -1,4 +1,5 @@
 import { EventDto } from '@ddays-app/types';
+import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
 import c from './Schedule.module.scss';
@@ -32,6 +33,12 @@ type ScheduleCardProps = {
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+  const [isOpenDescription, setIsOpenDescription] = useState(false);
+
+  const toggleOpenDescription = () => {
+    setIsOpenDescription((prev) => !prev);
+  };
+
   return (
     <div key={event.id} className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
@@ -49,12 +56,20 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
               <div className={c.themeBadge}>
                 <p className={c.themeBadgeText}>DIZ</p>
               </div>
-              <div className={c.scheduleCardTitle}>{event.name}</div>
+              <h3 className={c.scheduleCardTitle}>{event.name}</h3>
             </div>
+            <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+            {isOpenDescription && (
+              <div className={c.scheduleCardDescription}>
+                {event.description}
+              </div>
+            )}
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          <img src={PlusSvg} alt='plus' />
+          <button onClick={toggleOpenDescription} className={c.scheduleButton}>
+            <img src={PlusSvg} alt='plus' />
+          </button>
         </div>
       </div>
       <div className={c.dottedRuler}>

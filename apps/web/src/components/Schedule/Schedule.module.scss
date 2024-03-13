@@ -43,6 +43,19 @@
       line-height: 24px;
     }
 
+    &Subtitle {
+      color: rgba(23, 22, 21, 0.6);
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
     &TitleWrapper {
       display: flex;
       align-items: center;
@@ -51,9 +64,19 @@
     &Container {
       overflow-x: hidden;
     }
+
+    &Description {
+      color: #6f6c66;
+      font-family: 'PP Neue Machina';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+    }
   }
 
   &Button {
+    cursor: pointer;
     padding: 16px 24px;
     background-color: transparent;
     border: none;
@@ -111,6 +134,8 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   margin: 0;
+  min-width: 130px;
+  text-align: right;
 }
 
 .eventTypeText {

@@ -47,11 +47,41 @@ const Schedule = () => {
               </button>
             </div>
             <div className={c.scheduleHeaderRight}>
-              <button className={c.scheduleButton}>SVE</button>
-              <button className={c.scheduleButton}>DEV</button>
-              <button className={c.scheduleButton}>DIZAJN</button>
-              <button className={c.scheduleButton}>MARKETING</button>
-              <button className={c.scheduleButton}>TECH</button>
+              <button
+                onClick={() => setTheme(null)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: theme === null,
+                })}>
+                SVE
+              </button>
+              <button
+                onClick={() => setTheme(Theme.Dev)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: theme === Theme.Dev,
+                })}>
+                DEV
+              </button>
+              <button
+                onClick={() => setTheme(Theme.Design)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: theme === Theme.Design,
+                })}>
+                DIZAJN
+              </button>
+              <button
+                onClick={() => setTheme(Theme.Marketing)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: theme === Theme.Marketing,
+                })}>
+                MARKETING
+              </button>
+              <button
+                onClick={() => setTheme(Theme.Tech)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: theme === Theme.Tech,
+                })}>
+                TECH
+              </button>
             </div>
           </div>
           <div className={c.scheduleContainer}>
