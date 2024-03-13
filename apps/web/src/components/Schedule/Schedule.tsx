@@ -1,9 +1,21 @@
+import { Theme } from '@ddays-app/types';
+import clsx from 'clsx';
+import { useState } from 'react';
+
 import { useEventGetAll } from '../../api/event/useEventGetAll';
 import GrainyBackground from '../GrainyBackground';
 import c from './Schedule.module.scss';
 import ScheduleCard from './ScheduleCard';
 
+const enum ConferenceDay {
+  First = '23',
+  Second = '24',
+}
+
 const Schedule = () => {
+  const [theme, setTheme] = useState<Theme | null>(null);
+  const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
+
   const events = useEventGetAll();
 
   if (events.isLoading) {
@@ -17,19 +29,35 @@ const Schedule = () => {
         <div className={c.scheduleSection}>
           <div className={c.scheduleHeader}>
             <div className={c.scheduleHeaderLeft}>
-              <button onClick={() => console.log('click')}>PETAK, 25.05</button>
-              <button>SUBOTA, 26.05</button>
+              <button
+                onClick={() => {
+                  setDate(ConferenceDay.First);
+                }}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: date === ConferenceDay.First,
+                })}>
+                ČETVRTAK, 23.05
+              </button>
+              <button
+                onClick={() => setDate(ConferenceDay.Second)}
+                className={clsx(c.scheduleButton, {
+                  [c.scheduleButtonFocused]: date === ConferenceDay.Second,
+                })}>
+                PETAK, 24.05
+              </button>
             </div>
             <div className={c.scheduleHeaderRight}>
-              <button>SVE</button>
-              <button>DEV</button>
-              <button>DIZAJN</button>
-              <button>MARKETING</button>
-              <button>TECH</button>
+              <button className={c.scheduleButton}>SVE</button>
+              <button className={c.scheduleButton}>DEV</button>
+              <button className={c.scheduleButton}>DIZAJN</button>
+              <button className={c.scheduleButton}>MARKETING</button>
+              <button className={c.scheduleButton}>TECH</button>
             </div>
           </div>
           <div className={c.scheduleContainer}>
-            {events.data?.map((event) => <ScheduleCard event={event} />)}
+            {events.data?.map((event) => (
+              <ScheduleCard key={event.id} event={event} />
+            ))}
           </div>
         </div>
       </div>

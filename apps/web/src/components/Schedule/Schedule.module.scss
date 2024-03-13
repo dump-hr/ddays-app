@@ -15,6 +15,7 @@
     opacity: 1;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 98px;
   }
 
   &Card {
@@ -49,6 +50,27 @@
 
     &Container {
       overflow-x: hidden;
+    }
+  }
+
+  &Button {
+    padding: 16px 24px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px transparent;
+    color: #171615;
+    font-feature-settings: 'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &Focused {
+      color: #ff482f;
+      border-bottom: 3px solid #ff482f;
     }
   }
 }
