@@ -1,5 +1,12 @@
 {
   "extends": "@ddays-app/tsconfig/react.json",
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "vite.config.ts"],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "assets/*" : ["/assets"],
+      "components" : ["/components"],
+    }
+  }
 }
  
