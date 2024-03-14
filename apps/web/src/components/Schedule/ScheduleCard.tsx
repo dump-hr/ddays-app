@@ -94,7 +94,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          <button onClick={toggleOpenDescription} className={c.scheduleButton}>
+          <button onClick={toggleOpenDescription} className={c.plusButton}>
             <img src={PlusSvg} alt='plus' />
           </button>
         </div>

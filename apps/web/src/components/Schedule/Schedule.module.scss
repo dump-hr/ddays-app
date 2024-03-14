@@ -2,6 +2,7 @@
   &SectionWrapper {
     width: 100vw;
     position: relative;
+    background-color: #f5ede1;
   }
 
   &Section {
@@ -154,4 +155,70 @@
 .dottedRuler {
   letter-spacing: 4px;
   color: #88888888;
+}
+
+.plusButton {
+  background-color: transparent;
+  border: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .scheduleCardLeft {
+    margin-right: 80px;
+  }
+
+  .scheduleHeaderRight {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .scheduleSection {
+    padding: 16px;
+  }
+
+  .scheduleSectionWrapper {
+    background-color: #fffefe;
+  }
+
+  .scheduleHeader {
+    justify-content: center;
+  }
+
+  .plusButton {
+    display: none;
+  }
+
+  .scheduleCard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .scheduleCardLeftWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .scheduleCardLeft {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .eventTypeText {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 382px) {
+  .scheduleButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }
