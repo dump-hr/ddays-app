@@ -41,28 +41,30 @@
         .duckie {
           position: relative;
           margin-top: vw-calc(20);
-          transform: rotate(-7.424deg);
           width: vw-calc(384);
           height: vw-calc(417);
 
           .duckImage {
-            width: 98%;
-            height: 98%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
           }
 
           .maskImage {
+            position: absolute;
+            background-blend-mode: difference, soft-light;
             width: 100%;
             height: 100%;
-            top: vw-calc(-10);
-            left: vw-calc(-10);
+            top: vw-calc(0);
+            left: vw-calc(0);
+            transform: rotate(7.424deg);
           }
         }
 
         .vinyl {
           position: absolute;
           bottom: 0;
-          right: 0;
+          left: vw-calc(165);
           width: vw-calc(294);
           height: vw-calc(294);
           display: flex;
@@ -79,10 +81,15 @@
           }
 
           .elipse {
+            position: relative;
             display: flex;
-            width: vw-calc(78);
-            height: vw-calc(78);
+            min-width: vw-calc(80);
+            min-height: vw-calc(80);
             border-radius: 50%;
+            background-color: #f3f3f0;
+            z-index: 4;
+            align-items: center;
+            justify-content: center;
 
             .play {
               width: vw-calc(36);
@@ -94,16 +101,8 @@
             width: vw-calc(294);
             height: vw-calc(294);
             align-self: center;
-          }
-
-          .vinylEffectImage {
-            width: 100%;
-            height: 100%;
-            background-blend-mode: difference, soft-light;
-            border-radius: 50%;
             position: absolute;
-            top: 0;
-            left: 0;
+            z-index: 1;
           }
         }
       }
@@ -117,6 +116,7 @@
     }
 
     .stats {
+      margin-top: vw-calc(120);
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
