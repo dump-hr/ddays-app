@@ -1,6 +1,5 @@
 .header {
   width: calc(100% - 2 * 32px);
-  background-color: cyan;
   position: fixed;
   top: 32px;
   left: 32px;
@@ -9,6 +8,9 @@
   align-items: start;
   justify-items: start;
   z-index: 1000;
+
+  box-sizing: border-box;
+  padding: 24px;
 
   .text {
     margin: 0;
@@ -23,12 +25,21 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 16px; /* 114.286% */
+    line-height: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
 
     .separator {
       opacity: 0.5;
     }
+
+    &:nth-of-type(2) {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  .button {
+    margin-left: auto;
   }
 }
