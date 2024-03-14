@@ -1,7 +1,6 @@
 import duck from 'assets/images/full-duckie.png';
 import play from 'assets/images/play.svg';
 import vinyl from 'assets/images/vinyl.png';
-import vinylEffect from 'assets/images/vinyl-effect.png';
 
 import classes from './DuckieSection.module.scss';
 
