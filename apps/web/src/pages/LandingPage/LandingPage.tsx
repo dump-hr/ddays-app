@@ -1,4 +1,3 @@
-import grain from 'assets/images/grain.png';
 import DuckieSection from 'components/DuckieSection';
 
 import Schedule from '../../components/Schedule';
