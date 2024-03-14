@@ -59,4 +59,10 @@
       opacity: 0.5;
     }
   }
+
+  &:active {
+    &::before {
+      opacity: 0.85;
+    }
+  }
 }
