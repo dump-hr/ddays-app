@@ -1,3 +1,4 @@
+import Button from '../Button';
 import c from './Header.module.scss';
 
 const Header = () => {
@@ -11,6 +12,7 @@ const Header = () => {
         BESPLATNA KONFERENCIJA <br />
         ZA NOVU GENERACIJU
       </p>
+      <Button>TEXT</Button>
     </header>
   );
 };
