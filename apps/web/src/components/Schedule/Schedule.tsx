@@ -12,6 +12,13 @@ const enum ConferenceDay {
   Second = '24',
 }
 
+const getEventDay = (dateTimeString: string) => {
+  const dateString = dateTimeString.split('T')[0];
+  const day = dateString.split('-')[2];
+
+  return day;
+};
+
 const Schedule = () => {
   const [theme, setTheme] = useState<Theme | null>(null);
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
@@ -90,6 +97,7 @@ const Schedule = () => {
                 key={event.id}
                 event={event}
                 fitsTheme={theme === null || event.theme === theme}
+                fitsDate={getEventDay(event.startsAt) === date}
               />
             ))}
           </div>

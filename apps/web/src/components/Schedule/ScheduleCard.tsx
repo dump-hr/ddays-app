@@ -1,4 +1,4 @@
-import { EventDto, EventType, Theme } from '@ddays-app/types';
+import { EventDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
@@ -13,7 +13,7 @@ const getEventTime = (dateTimeString: string) => {
   return dateTimeString.split(' ')[1];
 };
 
-const getEventTypeTranslation = (type: EventType) => {
+const getEventTypeTranslation = (type: string) => {
   switch (type) {
     case 'lecture':
       return 'PREDAVANJE';
@@ -43,10 +43,15 @@ const getThemeShort = (theme: string) => {
 
 type ScheduleCardProps = {
   fitsTheme: boolean;
+  fitsDate: boolean;
   event: EventDto;
 };
 
-const ScheduleCard: React.FC<ScheduleCardProps> = ({ event, fitsTheme }) => {
+const ScheduleCard: React.FC<ScheduleCardProps> = ({
+  event,
+  fitsTheme,
+  fitsDate,
+}) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
 
   const toggleOpenDescription = () => {
@@ -54,6 +59,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event, fitsTheme }) => {
   };
 
   if (!fitsTheme) {
+    return null;
+  }
+
+  if (!fitsDate) {
     return null;
   }
 
