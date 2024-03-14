@@ -6,6 +6,8 @@
   left: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  justify-items: start;
 
   .text {
     margin: 0;

@@ -12,7 +12,7 @@ const Header = () => {
         BESPLATNA KONFERENCIJA <br />
         ZA NOVU GENERACIJU
       </p>
-      <Button>TEXT</Button>
+      <Button>Registriraj se</Button>
     </header>
   );
 };
