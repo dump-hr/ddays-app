@@ -10,7 +10,7 @@ const Button = ({ children, className, ...handlers }: ButtonProps) => {
   const classes = clsx(className, c.button);
   return (
     <button className={classes} {...handlers}>
-      {children}
+      <p className={c.text}>{children}</p>
     </button>
   );
 };

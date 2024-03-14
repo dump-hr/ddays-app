@@ -3,20 +3,60 @@
   outline: none;
   margin: 0;
   padding: 14px 16px;
-  background-color: white;
+  background: white;
+  position: relative;
+  transition: 300ms;
 
-  color: #121212;
-  text-align: right;
-  font-feature-settings:
-    'ss09' on,
-    'ss07' on,
-    'ss06' on,
-    'ss08' on,
-    'ss03' on;
-  font-family: 'PP Neue Montreal Mono';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  .text {
+    position: relative;
+    margin: 0;
+    color: #121212;
+    text-align: right;
+    font-feature-settings:
+      'ss09' on,
+      'ss07' on,
+      'ss06' on,
+      'ss08' on,
+      'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/grain.png');
+    background-size: cover;
+    opacity: 0;
+    z-index: 0;
+    transition: 300ms;
+  }
+
+  &:hover {
+    overflow: hidden;
+    background-image: linear-gradient(
+      270deg,
+      #ab97ff 85.91%,
+      rgba(94, 94, 94, 0) 188.99%
+    );
+
+    .text {
+      color: white;
+      z-index: 5;
+    }
+
+    &:before {
+      opacity: 0.5;
+    }
+  }
 }
