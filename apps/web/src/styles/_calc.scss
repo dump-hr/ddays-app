@@ -1,5 +1,5 @@
 $vw-base: 1440px;
-$vw-mobile: 360px;
+$vw-mobile: 375px;
 
 @function strip-unit($num) {
   @if $num == auto {
