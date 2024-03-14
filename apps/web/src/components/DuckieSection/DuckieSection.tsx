@@ -17,17 +17,17 @@ export const DuckieSection = () => (
             <img src={duckEffect} alt='duckie' className={classes.maskImage} />
           </div>
           <div className={classes.vinyl}>
-            <div className={classes.elipse}>
-              <div className={classes.redElipse}>
+            <div className={classes.vinylWrapper}>
+              <div className={classes.elipse}>
                 <img className={classes.play} src={play} alt='' />
               </div>
+              <img className={classes.vinylImage} src={vinyl} alt='vinyl' />
+              <img
+                className={classes.vinylEffectImage}
+                src={vinylEffect}
+                alt='vinyl-effect'
+              />
             </div>
-            <img className={classes.vinylImage} src={vinyl} alt='vinyl' />
-            <img
-              className={classes.vinylEffectImage}
-              src={vinylEffect}
-              alt='vinyl-effect'
-            />
           </div>
         </div>
       </div>

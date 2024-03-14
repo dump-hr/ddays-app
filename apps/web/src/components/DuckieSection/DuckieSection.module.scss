@@ -46,8 +46,8 @@
           height: vw-calc(417);
 
           .duckImage {
-            width: 100%;
-            height: 100%;
+            width: 98%;
+            height: 98%;
             object-fit: cover;
           }
 
@@ -57,6 +57,94 @@
             top: vw-calc(-10);
             left: vw-calc(-10);
           }
+        }
+
+        .vinyl {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: vw-calc(294);
+          height: vw-calc(294);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .vinylWrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .elipse {
+            display: flex;
+            width: vw-calc(78);
+            height: vw-calc(78);
+            border-radius: 50%;
+
+            .play {
+              width: vw-calc(36);
+              height: vw-calc(36);
+            }
+          }
+
+          .vinylImage {
+            width: vw-calc(294);
+            height: vw-calc(294);
+            align-self: center;
+          }
+
+          .vinylEffectImage {
+            width: 100%;
+            height: 100%;
+            background-blend-mode: difference, soft-light;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .paragraph {
+      color: $primary;
+      font-size: vw-calc(24);
+      font-weight: 500;
+      line-height: vw-calc(32);
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      row-gap: vw-calc(125);
+      column-gap: vw-calc(109);
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        height: vw-calc(130);
+
+        .number {
+          color: $tertiary;
+          font-size: vw-calc(100);
+          font-weight: 500;
+          letter-spacing: vw-calc(-5);
+          font-feature-settings: 'ss12' on;
+          line-height: vw-calc(64);
+        }
+
+        .label {
+          color: $primary;
+          font-size: vw-calc(14);
+          font-weight: 500;
+          text-transform: uppercase;
+          line-height: vw-calc(14);
         }
       }
     }
