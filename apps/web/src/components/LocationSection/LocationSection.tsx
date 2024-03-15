@@ -2,7 +2,7 @@ import c from './LocationSection.module.scss';
 
 const LocationSection = () => {
   return (
-    <>
+    <div className={c.container}>
       <h1 className={c.title}>lokacija</h1>
       <div className={c.stampContainer}>
         <div className={c.stamp}></div>
@@ -22,7 +22,7 @@ const LocationSection = () => {
         </div>
       </div>
       <div className={c.date}>23. — 24. 05. 2024.</div>
-    </>
+    </div>
   );
 };
 
