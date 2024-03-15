@@ -35,6 +35,10 @@
       }
     }
 
+    &Center {
+      display: flex;
+    }
+
     &Title {
       color: #171615;
       font-family: 'PP Neue Machina';
@@ -59,8 +63,6 @@
     }
 
     &TitleWrapper {
-      display: flex;
-      align-items: center;
       margin-bottom: 8px;
     }
 
@@ -104,6 +106,7 @@
 .themeBadge {
   width: 46px;
   height: 24px;
+  padding: 12px 23px;
   margin-right: 16px;
   border-radius: 50%;
   background-color: #cb370ecc;
@@ -213,6 +216,14 @@
 
   .eventTypeText {
     margin: 0;
+  }
+
+  .themeBadge {
+    margin-right: 8px;
+  }
+
+  .scheduleCardTitle {
+    font-size: 16px;
   }
 }
 

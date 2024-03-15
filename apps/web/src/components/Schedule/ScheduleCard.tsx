@@ -79,13 +79,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             </p>
           </div>
           <div className={c.scheduleCardCenter}>
-            <div className={c.scheduleCardTitleWrapper}>
-              <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
-              </div>
-              <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+            <div className={c.themeBadge}>
+              <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
             </div>
-            <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+            <div className={c.scheduleCardTitleWrapper}>
+              <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+              <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+            </div>
             {isOpenDescription && (
               <div className={c.scheduleCardDescription}>
                 {event.description}
