@@ -58,6 +58,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     setIsOpenDescription((prev) => !prev);
   };
 
+  const handleCardClick = () => {
+    if (window.innerWidth < 800) {
+      toggleOpenDescription();
+    }
+  };
+
   if (!fitsTheme) {
     return null;
   }
@@ -67,7 +73,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   }
 
   return (
-    <div className={c.scheduleCardContainer}>
+    <div onClick={handleCardClick} className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
