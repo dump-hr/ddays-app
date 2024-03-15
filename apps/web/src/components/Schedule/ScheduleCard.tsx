@@ -85,12 +85,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             <div className={c.scheduleCardTitleWrapper}>
               <h3 className={c.scheduleCardTitle}>{event.name}</h3>
               <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+              {isOpenDescription && (
+                <div className={c.scheduleCardDescription}>
+                  {event.description}
+                </div>
+              )}
             </div>
-            {isOpenDescription && (
-              <div className={c.scheduleCardDescription}>
-                {event.description}
-              </div>
-            )}
           </div>
         </div>
         <div className={c.scheduleCardRight}>
