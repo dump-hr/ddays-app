@@ -1,4 +1,5 @@
 import Button from '../Button';
+import HamburgerButton from '../HamburgerButton';
 import c from './Header.module.scss';
 
 const Header = () => {
@@ -13,6 +14,7 @@ const Header = () => {
         ZA NOVU GENERACIJU
       </p>
       <Button className={c.button}>Registriraj se</Button>
+      <HamburgerButton />
     </header>
   );
 };
