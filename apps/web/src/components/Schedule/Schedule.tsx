@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import { useEventGetAll } from '../../api/event/useEventGetAll';
-import GrainyBackground from '../GrainyBackground';
 import c from './Schedule.module.scss';
 import ScheduleCard from './ScheduleCard';
 
@@ -30,9 +29,8 @@ const Schedule = () => {
   }
 
   return (
-    <GrainyBackground>
+    <div className={c.ofXHidden}>
       <div className={c.scheduleSectionWrapper}>
-        <div className={c.scheduleSectionBackground}></div>
         <div className={c.scheduleSection}>
           <div className={c.scheduleHeader}>
             <div className={c.scheduleHeaderLeft}>
@@ -103,7 +101,7 @@ const Schedule = () => {
           </div>
         </div>
       </div>
-    </GrainyBackground>
+    </div>
   );
 };
 
