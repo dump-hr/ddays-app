@@ -1,6 +1,6 @@
 import { Theme } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useEventGetAll } from '../../api/event/useEventGetAll';
 import c from './Schedule.module.scss';
@@ -19,10 +19,23 @@ const getEventDay = (dateTimeString: string) => {
 };
 
 const Schedule = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [theme, setTheme] = useState<Theme | null>(null);
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
 
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+    if (windowWidth <= 1000 && theme !== null) {
+      setTheme(null);
+    }
+  };
+
   const events = useEventGetAll();
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  });
 
   if (events.isLoading) {
     return <div>Loading...</div>;
