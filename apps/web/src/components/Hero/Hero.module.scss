@@ -2,6 +2,7 @@
   height: 100vh;
   padding: 32px;
   transition: 200ms;
+  position: relative;
 
   .content {
     background-image: url('../../assets/images/hero-background.png');
@@ -12,6 +13,30 @@
 
     display: flex;
     align-items: flex-end;
+  }
+
+  .menu {
+    position: absolute;
+    bottom: 32px;
+    width: calc(100% - 2 * 32px);
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 24px;
+    text-transform: uppercase;
+
+    a {
+      color: #fff;
+      text-align: right;
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
   }
 }
 
