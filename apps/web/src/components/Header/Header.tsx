@@ -14,7 +14,7 @@ const Header = () => {
         ZA NOVU GENERACIJU
       </p>
       <Button className={c.button}>Registriraj se</Button>
-      <HamburgerButton />
+      <HamburgerButton className={c.hamburger} />
     </header>
   );
 };

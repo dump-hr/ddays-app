@@ -13,8 +13,10 @@
   padding: 24px;
 
   .text {
+    mix-blend-mode: difference;
+    color: white;
     margin: 0;
-    color: #fff;
+    color: white;
     font-feature-settings:
       'ss09' on,
       'ss07' on,
@@ -42,6 +44,10 @@
   .button {
     margin-left: auto;
   }
+
+  .hamburger {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -55,6 +61,10 @@
     .text:nth-of-type(2),
     .button {
       display: none;
+    }
+
+    .hamburger {
+      display: block;
     }
   }
 }

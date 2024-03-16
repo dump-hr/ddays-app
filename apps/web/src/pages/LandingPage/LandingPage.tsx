@@ -7,6 +7,7 @@ export const LandingPage: React.FC = () => {
     <>
       <Header />
       <Hero />
+      <section style={{ minHeight: '100vh' }}></section>
       <Schedule />
     </>
   );
