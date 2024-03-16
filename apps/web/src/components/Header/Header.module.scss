@@ -11,12 +11,16 @@
 
   box-sizing: border-box;
   padding: 24px;
+  background: transparent;
+  transition: 300ms;
+
+  &.blend {
+    mix-blend-mode: difference;
+  }
 
   .text {
-    mix-blend-mode: difference;
     color: white;
     margin: 0;
-    color: white;
     font-feature-settings:
       'ss09' on,
       'ss07' on,
