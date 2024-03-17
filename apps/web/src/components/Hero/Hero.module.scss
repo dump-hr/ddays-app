@@ -43,5 +43,9 @@
 @media screen and (max-width: 768px) {
   .hero {
     padding: 0;
+
+    .menu {
+      display: none;
+    }
   }
 }
