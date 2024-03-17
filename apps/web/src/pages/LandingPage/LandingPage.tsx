@@ -8,7 +8,7 @@ export const LandingPage: React.FC = () => {
   return (
     <>
       <Header Button={HeaderButton} />
-      <Hero />
+      <Hero Button={HeaderButton} />
       <section style={{ minHeight: '100vh' }}></section>
       <Schedule />
     </>

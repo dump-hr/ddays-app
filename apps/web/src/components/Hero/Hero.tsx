@@ -1,7 +1,11 @@
 import ScrollingTitle from '../ScrollingTitle';
 import c from './Hero.module.scss';
 
-const Hero = () => {
+type HeroProps = {
+  Button: React.ReactNode;
+};
+
+const Hero = ({ Button }: HeroProps) => {
   return (
     <section className={c.hero}>
       <div className={c.content}>
@@ -14,6 +18,7 @@ const Hero = () => {
         <a href=''>Sponzori</a>
         <a href=''>Kontakt</a>
       </nav>
+      {Button}
     </section>
   );
 };

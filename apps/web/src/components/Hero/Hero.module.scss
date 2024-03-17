@@ -38,6 +38,15 @@
       text-decoration: none;
     }
   }
+
+  button {
+    position: absolute;
+    width: calc(100% - 2 * 16px);
+    text-align: center;
+    bottom: 112px;
+    left: 16px;
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -46,6 +55,10 @@
 
     .menu {
       display: none;
+    }
+
+    button {
+      display: block;
     }
   }
 }
