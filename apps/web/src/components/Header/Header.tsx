@@ -1,11 +1,14 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-import Button from '../Button';
 import HamburgerButton from '../HamburgerButton';
 import c from './Header.module.scss';
 
-const Header = () => {
+type HeaderProps = {
+  Button: React.ReactNode;
+};
+
+const Header = ({ Button }: HeaderProps) => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const Header = () => {
         BESPLATNA KONFERENCIJA <br />
         ZA NOVU GENERACIJU
       </p>
-      <Button className={c.button}>Registriraj se</Button>
+      {Button}
       <HamburgerButton className={c.hamburger} />
     </header>
   );
