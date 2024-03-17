@@ -19,6 +19,11 @@ const Hero = ({ Button }: HeroProps) => {
         <a href=''>Kontakt</a>
       </nav>
       {Button}
+      <p className={c.text}>
+        Besplatna konferencija
+        <br />
+        za novu generaciju
+      </p>
     </section>
   );
 };

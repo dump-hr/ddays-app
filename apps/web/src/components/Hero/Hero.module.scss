@@ -47,6 +47,26 @@
     left: 16px;
     display: none;
   }
+
+  .text {
+    color: #fff;
+    text-align: center;
+    font-feature-settings: 'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -58,6 +78,10 @@
     }
 
     button {
+      display: block;
+    }
+
+    .text {
       display: block;
     }
   }
