@@ -16,6 +16,10 @@
 
   &.blend {
     mix-blend-mode: difference;
+
+    button {
+      mix-blend-mode: normal;
+    }
   }
 
   .text {
