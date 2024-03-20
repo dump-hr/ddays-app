@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $vw-base: 1440px;
 $vw-mobile: 375px;
 
@@ -6,14 +8,14 @@ $vw-mobile: 375px;
     @return $num;
   }
 
-  @return $num / ($num * 0 + 1);
+  @return math.div($num, $num * 0 + 1);
 }
 @function convert-to-vw($value, $base-value: $vw-base) {
   @if $value == auto {
     @return $value;
   }
 
-  $value: strip-unit($value) / strip-unit($base-value) * 100vw;
+  $value: math.div(strip-unit($value), strip-unit($base-value)) * 100vw;
 
   @if ($value == 0) {
     $value: 0;
