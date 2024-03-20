@@ -41,8 +41,6 @@ const Schedule = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(events);
-
   return (
     <div className={c.ofXHidden}>
       <div className={c.scheduleSectionWrapper}>
@@ -105,14 +103,13 @@ const Schedule = () => {
             </div>
           </div>
           <div className={c.scheduleContainer}>
-            {events.data?.map((event) => (
-              <ScheduleCard
-                key={event.id}
-                event={event}
-                fitsTheme={theme === null || event.theme === theme}
-                fitsDate={getEventDay(event.startsAt) === date}
-              />
-            ))}
+            {events.data
+              ?.filter(
+                (event) =>
+                  (theme === null || event.theme === theme) &&
+                  getEventDay(event.startsAt) === date,
+              )
+              .map((event) => <ScheduleCard key={event.id} event={event} />)}
           </div>
         </div>
       </div>

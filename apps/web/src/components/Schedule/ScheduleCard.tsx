@@ -49,16 +49,10 @@ const getThemeShort = (theme: string) => {
 };
 
 type ScheduleCardProps = {
-  fitsTheme: boolean;
-  fitsDate: boolean;
   event: EventDto;
 };
 
-const ScheduleCard: React.FC<ScheduleCardProps> = ({
-  event,
-  fitsTheme,
-  fitsDate,
-}) => {
+const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
 
   const toggleOpenDescription = () => {
@@ -70,14 +64,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       toggleOpenDescription();
     }
   };
-
-  if (!fitsTheme) {
-    return null;
-  }
-
-  if (!fitsDate) {
-    return null;
-  }
 
   return (
     <div onClick={handleCardClick} className={c.scheduleCardContainer}>
