@@ -34,6 +34,9 @@ const LocationSection = () => {
           Posjeti štandove, skupljaj razne poklone, okušaj se u kvizovima i kul
           izazovima, a uz to ugrabi i najbolju poslovnu priliku za sebe.
         </p>
+        <div className={c.dottedRuler}>
+          ................................................................................................................................................................................................................
+        </div>
       </div>
       <div className={c.date}>23. — 24. 05. 2024.</div>
     </div>
