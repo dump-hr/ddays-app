@@ -5,12 +5,19 @@ import PlusSvg from '../../assets/Plus.svg';
 import c from './Schedule.module.scss';
 
 const getEventTime = (dateTimeString: string) => {
-  //when you send default value for date time (in admin)
-  //the string has space, otherwise T
-  if (dateTimeString.includes('T')) {
-    return dateTimeString.split('T')[1];
+  const date = new Date(dateTimeString);
+
+  const minutes = date.getMinutes();
+  const hours = date.getHours();
+
+  const hoursString = hours.toString();
+  let minutesString = minutes.toString();
+
+  if (minutes < 10) {
+    minutesString = '0' + minutes.toString();
   }
-  return dateTimeString.split(' ')[1];
+
+  return hoursString + ':' + minutesString;
 };
 
 const getEventTypeTranslation = (type: string) => {

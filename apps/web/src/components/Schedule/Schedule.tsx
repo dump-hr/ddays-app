@@ -12,10 +12,10 @@ const enum ConferenceDay {
 }
 
 const getEventDay = (dateTimeString: string) => {
-  const dateString = dateTimeString.split('T')[0];
-  const day = dateString.split('-')[2];
+  const date = new Date(dateTimeString);
+  const day = date.getDate();
 
-  return day;
+  return day.toString();
 };
 
 const Schedule = () => {
@@ -40,6 +40,8 @@ const Schedule = () => {
   if (events.isLoading) {
     return <div>Loading...</div>;
   }
+
+  console.log(events);
 
   return (
     <div className={c.ofXHidden}>
