@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { useEventGetAll } from '../../api/event/useEventGetAll';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './Schedule.module.scss';
 import ScheduleCard from './ScheduleCard';
 
@@ -19,23 +20,17 @@ const getEventDay = (dateTimeString: string) => {
 };
 
 const Schedule = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [theme, setTheme] = useState<Theme | null>(null);
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
-
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-    if (windowWidth <= 1000 && theme !== null) {
-      setTheme(null);
-    }
-  };
-
-  const events = useEventGetAll();
+  const { isMobile } = useScreenSize(1000);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  });
+    if (isMobile && theme !== null) {
+      setTheme(null);
+    }
+  }, [isMobile, theme]);
+
+  const events = useEventGetAll();
 
   if (events.isLoading) {
     return <div>Loading...</div>;
