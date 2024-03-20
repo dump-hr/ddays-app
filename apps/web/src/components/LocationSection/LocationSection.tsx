@@ -27,8 +27,8 @@ const LocationSection = () => {
       </div>
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
-          <h3>izložbeni prostor</h3>
-          <div className={c.locationInfoButton}>FESB</div>
+          <h2>izložbeni prostor</h2>
+          <div className={c.locationInfoLeftButton}>FESB</div>
         </div>
         <p className={c.locationInfoRight}>
           Posjeti štandove, skupljaj razne poklone, okušaj se u kvizovima i kul

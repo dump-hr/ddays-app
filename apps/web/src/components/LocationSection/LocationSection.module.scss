@@ -149,3 +149,85 @@ div {
   letter-spacing: 3px;
   color: #88888888;
 }
+
+.locationInfo {
+  margin-top: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  &Left {
+    display: flex;
+    align-items: center;
+    margin-left: 55px;
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &Button {
+      margin-left: 266px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 53px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ff482f;
+      color: #fff;
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+
+      @media (max-width: 768px) {
+        margin-left: auto;
+      }
+    }
+
+    h2 {
+      text-wrap: nowrap;
+      color: rgba(255, 255, 255, 0.7);
+
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  }
+
+  &Right {
+    margin-left: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    width: 544px;
+
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -1px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 32px;
+      margin-left: 0;
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+}
