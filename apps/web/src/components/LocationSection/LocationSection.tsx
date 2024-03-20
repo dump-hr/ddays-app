@@ -1,25 +1,39 @@
+import vintageFesb from '../../assets/vintage-fesb.png';
 import c from './LocationSection.module.scss';
 
 const LocationSection = () => {
   return (
-    <div className={c.container}>
-      <h1 className={c.title}>lokacija</h1>
+    <div className={c.containerWrapper}>
+      <h1 className={c.title}>LOKACIJA</h1>
       <div className={c.stampContainer}>
-        <div className={c.stamp}></div>
         <div className={c.stamp}>
-          <h2>Ista adresa, više sadržaja</h2>
-          <h3>FESB Ul. Ruđera Boškovića SPLIT, HRVATSKA</h3>
+          <img src={vintageFesb} alt='vintage fesb' />
+        </div>
+        <div className={c.stamp}>
+          <div className={c.stampContent}>
+            <h2 className={c.stampContentTitle}>Ista adresa, više sadržaja</h2>
+            <div className={c.stampContentFooter}>
+              <div className={c.dottedRuler}>
+                ..............................................
+              </div>
+              <div className={c.stampContentFooterText}>
+                <h3>FESB</h3>
+                <h3>Ul. Ruđera Boškovića</h3>
+                <h3>SPLIT, HRVATSKA</h3>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className={c.exhibitionContainer}>
-        <h3>izložbeni prostor</h3>
-        <div className={c.exhibitionInfo}>
-          <div className={c.exhibitionLocation}>fesb</div>
-          <p>
-            Posjeti štandove, skupljaj razne poklone, okušaj se u kvizovima i
-            kul izazovima, a uz to ugrabi i najbolju poslovnu priliku za sebe.
-          </p>
+      <div className={c.locationInfo}>
+        <div className={c.locationInfoLeft}>
+          <h3>izložbeni prostor</h3>
+          <div className={c.locationInfoButton}>FESB</div>
         </div>
+        <p className={c.locationInfoRight}>
+          Posjeti štandove, skupljaj razne poklone, okušaj se u kvizovima i kul
+          izazovima, a uz to ugrabi i najbolju poslovnu priliku za sebe.
+        </p>
       </div>
       <div className={c.date}>23. — 24. 05. 2024.</div>
     </div>

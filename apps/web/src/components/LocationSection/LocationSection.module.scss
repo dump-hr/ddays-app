@@ -1,28 +1,151 @@
+h1,
+h2,
+h3,
+p,
+div {
+  margin: 0;
+  padding: 0;
+}
+
+.containerWrapper {
+  position: relative;
+  background-color: #065852;
+
+  &:before {
+    content: '';
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 182px;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
 .title {
-  color: #eaeaea;
+  padding-top: 174px;
   text-align: center;
+
+  font-family: 'PP Neue Machina';
+  color: #eaeaea;
   font-size: 284.571px;
   font-style: normal;
   font-weight: 500;
-  line-height: 341.486px; /* 120% */
+  line-height: 341.486px;
   letter-spacing: -11.916px;
-  text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    margin-top: 90px;
+
+    font-size: 69.968px;
+    line-height: 87.46px;
+    letter-spacing: -3.28px;
+  }
 }
 
-.container {
-  position: relative;
-  background-color: #065852;
+.stamp {
+  width: 436.853px;
+  height: 592.916px;
+  background-image: url('../../assets/stamp.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @media (max-width: 768px) {
+    width: 237.539px;
+    height: 322.398px;
+  }
+
+  &Container {
+    margin-top: 135px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &:first-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 379px;
+      height: 531px;
+
+      @media (max-width: 768px) {
+        width: 206.081px;
+        height: 288.731px;
+      }
+    }
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 480px;
+    margin: 56px;
+
+    @media (max-width: 768px) {
+      height: 261px;
+      margin: 30px;
+    }
+
+    &Title {
+      color: #ff482f;
+      font-family: 'PP Neue Machina';
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 48px;
+      letter-spacing: -1px;
+
+      @media (max-width: 768px) {
+        font-size: 26px;
+        line-height: 26px;
+        letter-spacing: -0.544px;
+      }
+    }
+
+    &Footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &Text {
+        margin-top: 32px;
+
+        @media (max-width: 768px) {
+          margin-top: 17px;
+        }
+      }
+
+      &Text h3 {
+        color: #171615cc;
+        font-family: 'PP Neue Montreal Mono';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        @media (max-width: 768px) {
+          font-size: 12px;
+          line-height: 14px;
+          letter-spacing: 0.544px;
+        }
+      }
+    }
+  }
 }
-.container:before {
-  content: '';
-  background-color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 182px;
-  opacity: 0.2;
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+
+.dottedRuler {
+  overflow: hidden;
+  letter-spacing: 3px;
+  color: #88888888;
 }
