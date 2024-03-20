@@ -43,11 +43,7 @@
 
   &:hover {
     overflow: hidden;
-    background-image: linear-gradient(
-      270deg,
-      #ab97ff 85.91%,
-      rgba(94, 94, 94, 0) 188.99%
-    );
+    background-color: rgb(28, 28, 28);
 
     .text {
       color: white;
