@@ -13,13 +13,34 @@ const Header = ({ Button }: HeaderProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true,
+    });
+
+    return () => {
+      observer.disconnect();
     };
   }, []);
 
