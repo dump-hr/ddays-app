@@ -43,4 +43,13 @@ export class SpeakerService {
 
     return foundSpeaker;
   }
+
+  async remove(id: number) {
+    const [deletedSpeaker] = await db
+      .delete(speaker)
+      .where(eq(speaker.id, id))
+      .returning();
+
+    return deletedSpeaker;
+  }
 }
