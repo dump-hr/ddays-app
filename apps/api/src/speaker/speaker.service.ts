@@ -1,7 +1,7 @@
 import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { speaker } from 'db/schema';
+import { event, speaker } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
@@ -51,5 +51,15 @@ export class SpeakerService {
       .returning();
 
     return deletedSpeaker;
+  }
+
+  async updat(id: number, dto: SpeakerModifyDto) {
+    const [updatedSpeaker] = await db
+      .update(speaker)
+      .set(dto)
+      .where(eq(speaker.id, id))
+      .returning();
+
+    return updatedSpeaker;
   }
 }
