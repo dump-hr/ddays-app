@@ -1,7 +1,7 @@
 import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { event, speaker } from 'db/schema';
+import { speaker } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
