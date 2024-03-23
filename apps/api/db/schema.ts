@@ -266,6 +266,7 @@ export const speaker = pgTable('speaker', {
   lastName: text('lastName').notNull(),
   title: text('title').notNull(),
   companyId: integer('company_id').references(() => company.id),
+  photo: text('photo'),
 });
 
 export const speakerRelations = relations(speaker, ({ one, many }) => ({
