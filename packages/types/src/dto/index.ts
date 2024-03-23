@@ -8,3 +8,4 @@ export * from './frequently-asked-question';
 export * from './interest';
 export * from './survey-question';
 export * from './job';
+export * from './speaker';
