@@ -53,7 +53,7 @@ export class SpeakerService {
     return deletedSpeaker;
   }
 
-  async updat(id: number, dto: SpeakerModifyDto) {
+  async update(id: number, dto: SpeakerModifyDto) {
     const [updatedSpeaker] = await db
       .update(speaker)
       .set(dto)
