@@ -10,4 +10,20 @@ export class SpeakerService {
 
     return createdSpeaker;
   }
+
+  async getAll() {
+    const speakers = await db
+      .select({
+        id: speaker.id,
+        firstName: speaker.firstName,
+        lastName: speaker.lastName,
+        title: speaker.title,
+        companyId: speaker.companyId,
+        photo: speaker.photo,
+      })
+      .from(speaker)
+      .orderBy(speaker.firstName);
+
+    return speakers;
+  }
 }
