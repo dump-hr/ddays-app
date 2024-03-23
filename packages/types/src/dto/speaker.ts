@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export type SpeakerDto = {
   id: number;
@@ -19,6 +19,7 @@ export class SpeakerModifyDto {
   @IsString()
   title: string;
 
+  @IsOptional()
   @IsNumber()
-  companyId: number;
+  companyId?: number;
 }

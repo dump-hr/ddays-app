@@ -7,6 +7,10 @@ import { eq } from 'drizzle-orm';
 @Injectable()
 export class SpeakerService {
   async create(dto: SpeakerModifyDto): Promise<SpeakerDto> {
+    if (dto.companyId === 0) {
+      dto.companyId = null;
+    }
+
     const [createdSpeaker] = await db.insert(speaker).values(dto).returning();
 
     return createdSpeaker;
