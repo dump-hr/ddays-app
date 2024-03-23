@@ -2,6 +2,7 @@ import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { speaker } from 'db/schema';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class SpeakerService {
@@ -25,5 +26,21 @@ export class SpeakerService {
       .orderBy(speaker.firstName);
 
     return speakers;
+  }
+
+  async getOne(id: number) {
+    const [foundSpeaker] = await db
+      .select({
+        id: speaker.id,
+        firstName: speaker.firstName,
+        lastName: speaker.lastName,
+        title: speaker.title,
+        companyId: speaker.companyId,
+        photo: speaker.photo,
+      })
+      .from(speaker)
+      .where(eq(speaker.id, id));
+
+    return foundSpeaker;
   }
 }
