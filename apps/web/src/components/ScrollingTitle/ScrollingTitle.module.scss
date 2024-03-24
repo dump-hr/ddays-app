@@ -1,0 +1,109 @@
+:root {
+  --time: 30s;
+  --margin-scale: 1.5;
+  --person-1-margin: 495px;
+  --person-2-margin: 465px;
+  --person-3-margin: 443px;
+  --person-4-margin: 359px;
+}
+
+.scrollingTitle {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+
+  .content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .people {
+      position: absolute;
+      z-index: 1;
+      height: 75vh;
+      opacity: 0.9;
+      align-self: flex-end;
+
+      .person {
+        align-self: flex-end;
+        height: 100%;
+        &:nth-child(1) {
+          margin-left: calc(103px * var(--margin-scale));
+          margin-right: calc(var(--person-1-margin) * var(--margin-scale));
+        }
+        &:nth-child(2) {
+          margin-right: calc(var(--person-2-margin) * var(--margin-scale));
+        }
+        &:nth-child(3) {
+          margin-right: calc(var(--person-3-margin) * var(--margin-scale));
+        }
+        &:nth-child(4) {
+          margin-right: calc(var(--person-4-margin) * var(--margin-scale));
+        }
+      }
+    }
+
+    .stickerTitle {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    animation: slide var(--time) linear infinite;
+
+    .title,
+    .sticker {
+      margin-right: 40px;
+      z-index: 2;
+    }
+
+    @keyframes slide {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    .title {
+      color: #eaeaea;
+      text-align: center;
+      font-family: 'PP Neue Machina';
+      font-size: 17vh;
+      font-style: normal;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding-top: 10px;
+    }
+
+    .sticker {
+      height: 23vh;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --margin-scale: 0.5;
+  }
+
+  .scrollingTitle {
+    .content {
+      .title {
+        font-size: 10vh;
+      }
+
+      .sticker {
+        height: 18vh;
+      }
+
+      .stickerTitle {
+        top: 20px;
+      }
+    }
+  }
+}
