@@ -38,6 +38,10 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
           //   exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
           // }),
           ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+            serveRoot: '/noviweb',
+          }),
+          ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
             serveRoot: '/sponsor',
           }),

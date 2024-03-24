@@ -4,23 +4,15 @@ import c from './Button.module.scss';
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  variant = 'primary',
-  className,
-  ...handlers
-}) => {
+const Button = ({ children, className, ...handlers }: ButtonProps) => {
+  const classes = clsx(className, c.button);
   return (
-    <button
-      className={clsx(c.button, className, {
-        [c.primary]: variant === 'primary',
-        [c.secondary]: variant === 'secondary',
-      })}
-      {...handlers}>
-      {children}
+    <button className={classes} {...handlers}>
+      <p className={c.text}>{children}</p>
     </button>
   );
 };
+
+export default Button;
