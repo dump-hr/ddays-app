@@ -40,3 +40,4 @@ lerna-debug.log*
 
 db/migrations/*
 db/migrations/meta/*
+db/migrations/meta/_journal.json
