@@ -69,7 +69,7 @@ export class SpeakerController {
       },
     },
   })
-  @Patch('/speaker-photo')
+  @Patch('/photo')
   @UseInterceptors(FileInterceptor('file'))
   async updateSpekaerPhoto(
     id: number,
@@ -84,5 +84,11 @@ export class SpeakerController {
     file: Express.Multer.File,
   ): Promise<SpeakerDto> {
     return await this.speakerService.updatePhoto(id, file);
+  }
+
+  @UseGuards(AdminGuard)
+  @Delete('/photo')
+  async removePhoto(id: number): Promise<void> {
+    return await this.speakerService.removePhoto(id);
   }
 }

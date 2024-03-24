@@ -101,4 +101,13 @@ export class SpeakerService {
 
     return updatedSpeaker;
   }
+
+  async removePhoto(id: number): Promise<void> {
+    await db
+      .update(speaker)
+      .set({
+        photo: null,
+      })
+      .where(eq(speaker.id, id));
+  }
 }
