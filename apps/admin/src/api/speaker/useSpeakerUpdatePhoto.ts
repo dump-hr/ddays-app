@@ -3,7 +3,10 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const speakerUpdatePhoto = async (speakerFile: { id: number; file: File }) => {
+const speakerUpdatePhoto = async (speakerFile: {
+  id: number | undefined;
+  file: File;
+}) => {
   const data = new FormData();
   data.append('file', speakerFile.file);
 

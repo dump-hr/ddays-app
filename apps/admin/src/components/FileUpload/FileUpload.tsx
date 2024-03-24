@@ -4,10 +4,12 @@ import { Button } from '../Button';
 import c from './FileUpload.module.scss';
 
 type FileUploadProps = {
-  src: string | ArrayBuffer | null;
+  src: string | ArrayBuffer | null | undefined;
   label?: string;
   accept?: string | undefined;
   setSrc: (result: string | ArrayBuffer | null) => void;
+  handleUpload: (files: File[]) => void;
+  handleRemove: () => void;
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -15,16 +17,19 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   label = null,
   accept = 'image/*',
   setSrc,
+  handleUpload,
+  handleRemove,
 }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles: File[]) => {
-      const file = new FileReader();
+      // const file = new FileReader();
 
-      file.onload = () => {
-        setSrc(file.result);
-      };
+      // file.onload = () => {
+      //   setSrc(file.result);
+      // };
 
-      file.readAsDataURL(acceptedFiles[0]);
+      // file.readAsDataURL(acceptedFiles[0]);
+      handleUpload(acceptedFiles);
     },
   });
 

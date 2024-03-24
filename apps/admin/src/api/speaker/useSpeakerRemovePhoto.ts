@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const speakerRemovePhoto = async (id: number) => {
+const speakerRemovePhoto = async (id: number | undefined) => {
   return await api.delete(`/speaker/photo/${id}`);
 };
 
