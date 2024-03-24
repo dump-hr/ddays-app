@@ -43,20 +43,6 @@
       "when": 1710202646326,
       "tag": "0005_happy_shaman",
       "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1711226015574,
-      "tag": "0006_condemned_chamber",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1711226682947,
-      "tag": "0007_deep_war_machine",
-      "breakpoints": true
     }
   ]
 }
