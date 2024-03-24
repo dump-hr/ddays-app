@@ -43,6 +43,13 @@
       "when": 1710202646326,
       "tag": "0005_happy_shaman",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1711298004295,
+      "tag": "0006_violet_vin_gonzales",
+      "breakpoints": true
     }
   ]
 }
