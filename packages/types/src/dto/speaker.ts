@@ -6,7 +6,7 @@ export type SpeakerDto = {
   lastName: string;
   title: string;
   companyId?: number;
-  photo: string;
+  photo?: string;
 };
 
 export class SpeakerModifyDto {
