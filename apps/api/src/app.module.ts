@@ -13,6 +13,7 @@ import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequ
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
+import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
 @Module({
@@ -27,6 +28,7 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     SurveyQuestionModule,
     NotificationModule,
     JobModule,
+    SpeakerModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

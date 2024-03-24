@@ -4,33 +4,25 @@ import { Button } from '../Button';
 import c from './FileUpload.module.scss';
 
 type FileUploadProps = {
-  src: string | ArrayBuffer | null;
+  src: string | ArrayBuffer | null | undefined;
   label?: string;
-  accept: string | undefined;
-  setSrc: (result: string | ArrayBuffer | null) => void;
+  accept?: string | undefined;
+  handleUpload: (files: File[]) => void;
+  handleRemove: () => void;
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
   src,
   label = null,
   accept = 'image/*',
-  setSrc,
+  handleUpload,
+  handleRemove,
 }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles: File[]) => {
-      const file = new FileReader();
-
-      file.onload = () => {
-        setSrc(file.result);
-      };
-
-      file.readAsDataURL(acceptedFiles[0]);
+      handleUpload(acceptedFiles);
     },
   });
-
-  const handleFileRemove = () => {
-    setSrc(null);
-  };
 
   return (
     <div className={c.dragNDropWrapper}>
@@ -51,7 +43,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       {src && (
         <div className={c.previewWrapper}>
           <img className={c.img} src={src as string} alt='preview' />
-          <Button onClick={handleFileRemove}>Remove</Button>
+          <Button onClick={() => handleRemove()}>Remove</Button>
         </div>
       )}
     </div>

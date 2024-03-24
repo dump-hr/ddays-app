@@ -102,6 +102,7 @@ export const companyRelations = relations(company, ({ one, many }) => ({
   }),
   jobs: many(job),
   companyToInterest: many(companyToInterest),
+  speaker: many(speaker),
 }));
 
 export const job = pgTable('job', {
@@ -153,6 +154,7 @@ export const eventRelations = relations(event, ({ one, many }) => ({
     references: [code.id],
   }),
   eventToInterest: many(eventToInterest),
+  speakerToEvent: many(speakerToEvent),
 }));
 
 export const interest = pgTable('interest', {
@@ -257,3 +259,46 @@ export const notification = pgTable('notification', {
   content: text('description'),
   activatedAt: timestamp('activated_at'),
 });
+
+export const speaker = pgTable('speaker', {
+  id: serial('id').primaryKey(),
+  firstName: text('firstName').notNull(),
+  lastName: text('lastName').notNull(),
+  title: text('title').notNull(),
+  companyId: integer('company_id').references(() => company.id),
+  photo: text('photo'),
+});
+
+export const speakerRelations = relations(speaker, ({ one, many }) => ({
+  company: one(company, {
+    fields: [speaker.companyId],
+    references: [company.id],
+  }),
+  speakerToEvent: many(speakerToEvent),
+}));
+
+export const speakerToEvent = pgTable(
+  'speaker_to_event',
+  {
+    speakerId: integer('speaker_id')
+      .notNull()
+      .references(() => speaker.id, { onDelete: 'cascade' }),
+    eventId: integer('event_id')
+      .notNull()
+      .references(() => event.id, { onDelete: 'cascade' }),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.speakerId, t.eventId] }),
+  }),
+);
+
+export const speakerToEventRelations = relations(speakerToEvent, ({ one }) => ({
+  speaker: one(speaker, {
+    fields: [speakerToEvent.speakerId],
+    references: [speaker.id],
+  }),
+  event: one(event, {
+    fields: [speakerToEvent.eventId],
+    references: [event.id],
+  }),
+}));

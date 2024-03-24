@@ -2,3 +2,4 @@ node_modules
 .turbo
 .env.local
 dist
+apps/api/db/migrations/meta/_journal.json

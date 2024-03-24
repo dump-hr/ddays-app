@@ -4,4 +4,5 @@ export enum Path {
   Interest = '/admin/interest',
   CatchAll = '/admin/:path*',
   Event = '/admin/event',
+  Speaker = '/admin/speaker',
 }
