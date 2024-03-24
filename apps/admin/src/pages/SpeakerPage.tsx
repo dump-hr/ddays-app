@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useSpeakerGetAll } from '../api/speaker/useSpeakerGetAll';
+import { useSpeakerRemove } from '../api/speaker/useSpeakerRemove';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
@@ -11,6 +12,8 @@ const SpeakerPage = () => {
   const [speakerToEditId, setSpeakerToEditId] = useState<number>();
 
   const speakers = useSpeakerGetAll();
+
+  const removeSpeaker = useSpeakerRemove();
 
   if (speakers.isLoading) {
     return <div>Loading...</div>;
@@ -49,9 +52,9 @@ const SpeakerPage = () => {
           },
           {
             label: 'Obriši',
-            action: () => {
+            action: (speaker) => {
               if (confirm('Jesi li siguran?')) {
-                return true;
+                removeSpeaker.mutateAsync(speaker.id);
               }
             },
           },

@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const speakerRemove = async (id: number) => {
-  return await api.delete<never, SpeakerDto>(`/spekaer/${id}`);
+  return await api.delete<never, SpeakerDto>(`/speaker/${id}`);
 };
 
 export const useSpeakerRemove = () => {

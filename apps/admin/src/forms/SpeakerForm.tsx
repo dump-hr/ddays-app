@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { useSpeakerCreate } from '../api/speaker/useSpeakerCreate';
 import { useSpeakerGetOne } from '../api/speaker/useSpeakerGetOne';
+import { useSpeakerUpdate } from '../api/speaker/useSpeakerUpdate';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
@@ -17,6 +18,7 @@ export const SpeakerForm: React.FC<SpeakerFormProps> = ({ id, onSuccess }) => {
   const { data: speaker, isLoading } = useSpeakerGetOne(id);
 
   const createSpeaker = useSpeakerCreate();
+  const updateSpeaker = useSpeakerUpdate();
 
   const questions: Question[] = [
     {
@@ -40,7 +42,7 @@ export const SpeakerForm: React.FC<SpeakerFormProps> = ({ id, onSuccess }) => {
     {
       id: 'companyId',
       type: QuestionType.Number,
-      title: 'CompanyId',
+      title: 'CompanyId (0 for null)',
       defaultValue: speaker?.companyId,
     },
   ];
@@ -62,7 +64,7 @@ export const SpeakerForm: React.FC<SpeakerFormProps> = ({ id, onSuccess }) => {
       <Button
         onClick={form.handleSubmit(async (formData) => {
           if (id) {
-            return;
+            await updateSpeaker.mutateAsync({ ...formData, id });
           } else {
             await createSpeaker.mutateAsync(formData);
           }
