@@ -3,9 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { speaker } from 'db/schema';
 import { eq } from 'drizzle-orm';
+import { BlobService } from 'src/blob/blob.service';
 
 @Injectable()
 export class SpeakerService {
+  constructor(private readonly blobService: BlobService) {}
+
   async create(dto: SpeakerModifyDto): Promise<SpeakerDto> {
     if (dto.companyId === 0) {
       dto.companyId = null;
@@ -58,11 +61,43 @@ export class SpeakerService {
   }
 
   async update(id: number, dto: SpeakerModifyDto) {
+    if (dto.companyId === 0) {
+      dto.companyId = null;
+    }
+
     const [updatedSpeaker] = await db
       .update(speaker)
       .set(dto)
       .where(eq(speaker.id, id))
       .returning();
+
+    return updatedSpeaker;
+  }
+
+  async updatePhoto(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<SpeakerDto> {
+    const photo = await this.blobService.upload(
+      'speaker-photo',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const [updatedSpeaker] = await db
+      .update(speaker)
+      .set({
+        photo,
+      })
+      .where(eq(speaker.id, id))
+      .returning({
+        id: speaker.id,
+        firstName: speaker.firstName,
+        lastName: speaker.lastName,
+        title: speaker.title,
+        companyId: speaker.companyId,
+        photo: speaker.photo,
+      });
 
     return updatedSpeaker;
   }

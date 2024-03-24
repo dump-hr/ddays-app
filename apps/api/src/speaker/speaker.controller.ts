@@ -3,13 +3,20 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   ParseIntPipe,
   Patch,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/admin.guard';
 
 import { SpeakerService } from './speaker.service';
@@ -47,5 +54,35 @@ export class SpeakerController {
     @Body() dto: SpeakerModifyDto,
   ): Promise<SpeakerDto> {
     return await this.speakerService.update(id, dto);
+  }
+
+  @UseGuards(AdminGuard)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @Patch('/speaker-photo')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateSpekaerPhoto(
+    id: number,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<SpeakerDto> {
+    return await this.speakerService.updatePhoto(id, file);
   }
 }
