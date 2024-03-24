@@ -69,10 +69,10 @@ export class SpeakerController {
       },
     },
   })
-  @Patch('/photo')
+  @Patch('/photo/:id')
   @UseInterceptors(FileInterceptor('file'))
-  async updateSpekaerPhoto(
-    id: number,
+  async updateSpeakerPhoto(
+    @Param('id', ParseIntPipe) id: number,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -87,8 +87,8 @@ export class SpeakerController {
   }
 
   @UseGuards(AdminGuard)
-  @Delete('/photo')
-  async removePhoto(id: number): Promise<void> {
+  @Delete('/photo/:id')
+  async removePhoto(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return await this.speakerService.removePhoto(id);
   }
 }
