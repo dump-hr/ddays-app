@@ -3,6 +3,7 @@ import DuckieSection from 'components/DuckieSection';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Hero from '../../components/Hero';
+import LocationSection from '../../components/LocationSection';
 import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
@@ -14,6 +15,7 @@ export const LandingPage: React.FC = () => {
       <Hero Button={HeaderButton} />
       <DuckieSection />
       <Schedule />
+      <LocationSection />
     </>
   );
 };

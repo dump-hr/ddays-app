@@ -1,0 +1,269 @@
+h1,
+h2,
+h3,
+p,
+div {
+  margin: 0;
+  padding: 0;
+}
+
+.containerWrapper {
+  position: relative;
+  background-color: #065852;
+  overflow-x: hidden;
+
+  &:before {
+    content: '';
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 182px;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+.title {
+  padding-top: 174px;
+  text-align: center;
+
+  font-family: 'PP Neue Machina';
+  color: #eaeaea;
+  font-size: 284.571px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 341.486px;
+  letter-spacing: -11.916px;
+
+  @media (max-width: 1024px) {
+    padding-top: 90px;
+
+    font-size: 69.968px;
+    line-height: 87.46px;
+    letter-spacing: -3.28px;
+  }
+}
+
+.stamp {
+  width: 436.853px;
+  height: 592.916px;
+  background-image: url('../../assets/stamp.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @media (max-width: 992px) {
+    width: 237.539px;
+    height: 322.398px;
+  }
+
+  &Container {
+    margin-top: 135px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 992px) {
+      margin-top: 64px;
+    }
+  }
+
+  &:first-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 379px;
+      height: 531px;
+
+      @media (max-width: 992px) {
+        width: 206.081px;
+        height: 288.731px;
+      }
+    }
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 480px;
+    margin: 56px;
+
+    @media (max-width: 992px) {
+      height: 261px;
+      margin: 30px;
+    }
+
+    &Title {
+      color: #ff482f;
+      font-family: 'PP Neue Machina';
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 48px;
+      letter-spacing: -1px;
+
+      @media (max-width: 992px) {
+        font-size: 26px;
+        line-height: 26px;
+        letter-spacing: -0.544px;
+      }
+    }
+
+    &Footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &Text {
+        margin-top: 32px;
+
+        @media (max-width: 992px) {
+          margin-top: 17px;
+        }
+      }
+
+      &Text h3 {
+        color: #171615cc;
+        font-family: 'PP Neue Montreal Mono';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        @media (max-width: 992px) {
+          font-size: 12px;
+          line-height: 14px;
+          letter-spacing: 0.544px;
+        }
+      }
+    }
+  }
+}
+
+.dottedRuler {
+  overflow: hidden;
+  letter-spacing: 3px;
+  color: #88888888;
+}
+
+.locationInfo {
+  margin-top: 32px;
+  padding-left: 55px;
+  padding-right: 55px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+
+  @media (max-width: 992px) {
+    padding-right: 16px;
+    padding-left: 16px;
+
+    margin-bottom: 32px;
+  }
+
+  &Left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 1024px) {
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &Button {
+      margin-left: 266px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 53px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ff482f;
+      color: #fff;
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+
+      @media (max-width: 768px) {
+        margin-left: auto;
+      }
+    }
+
+    h2 {
+      text-wrap: nowrap;
+      color: rgba(255, 255, 255, 0.7);
+
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  }
+
+  &Right {
+    margin-left: 24px;
+    margin-bottom: 56px;
+    color: rgba(255, 255, 255, 0.7);
+    width: 544px;
+
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -1px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+      margin-bottom: 32px;
+      margin-top: 32px;
+      margin-left: 0;
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+}
+
+.date {
+  margin-top: 92px;
+  color: #fff;
+
+  text-align: center;
+  font-feature-settings: 'ss12' on;
+  font-family: 'PP Neue Machina';
+  font-size: 268.265px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 262.265px;
+  letter-spacing: 5.245px;
+  text-transform: uppercase;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+
+  @media (max-width: 992px) {
+    margin-top: 32px;
+
+    font-size: 65.491px;
+    line-height: 64.026px;
+    letter-spacing: 1.281px;
+  }
+}
