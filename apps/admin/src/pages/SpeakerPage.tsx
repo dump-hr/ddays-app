@@ -14,8 +14,6 @@ const SpeakerPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [speakerToEditId, setSpeakerToEditId] = useState<number>();
 
-  const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
-
   const speakers = useSpeakerGetAll();
 
   const removeSpeaker = useSpeakerRemove();
@@ -49,16 +47,16 @@ const SpeakerPage = () => {
             setSpeakerToEditId(undefined);
           }}
         />
-        <FileUpload
-          src={
-            speakers.data?.find((speaker) => speaker.id === speakerToEditId)
-              ?.photo
-          }
-          setSrc={setSrc}
-          accept={'.png,.jpg'}
-          handleUpload={handleUpload}
-          handleRemove={handleRemove}
-        />
+        {speakerToEditId && (
+          <FileUpload
+            src={
+              speakers.data?.find((speaker) => speaker.id === speakerToEditId)
+                ?.photo
+            }
+            handleUpload={handleUpload}
+            handleRemove={handleRemove}
+          />
+        )}
       </Modal>
 
       <Button variant='primary' onClick={() => setIsModalOpen(true)}>
