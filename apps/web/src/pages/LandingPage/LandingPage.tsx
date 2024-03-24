@@ -1,4 +1,4 @@
-import './LandingPage.module.scss';
+import DuckieSection from 'components/DuckieSection';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -7,11 +7,12 @@ import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
   const HeaderButton = <Button>Registriraj se</Button>;
+
   return (
     <>
       <Header Button={HeaderButton} />
       <Hero Button={HeaderButton} />
-      <section style={{ minHeight: '100vh' }}></section>
+      <DuckieSection />
       <Schedule />
     </>
   );

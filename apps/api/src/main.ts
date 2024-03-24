@@ -66,7 +66,8 @@ const setupProxies = (app: INestApplication) => {
         (pathname: string) =>
           !pathname.startsWith('/api') &&
           !pathname.startsWith('/admin') &&
-          !pathname.startsWith('/sponsor'),
+          !pathname.startsWith('/sponsor') &&
+          !pathname.startsWith('/noviweb'),
         {
           target: 'https://ddays.azureedge.net/',
           changeOrigin: true,

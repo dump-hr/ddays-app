@@ -4,6 +4,14 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/noviweb',
+  resolve: {
+    alias: {
+      components: '/src/components',
+      assets: '/src/assets',
+      styles: '/src/styles',
+    },
+  },
   server: {
     port: 3004,
     proxy: {
