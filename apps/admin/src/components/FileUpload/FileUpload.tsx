@@ -6,7 +6,7 @@ import c from './FileUpload.module.scss';
 type FileUploadProps = {
   src: string | ArrayBuffer | null;
   label?: string;
-  accept: string | undefined;
+  accept?: string | undefined;
   setSrc: (result: string | ArrayBuffer | null) => void;
 };
 
