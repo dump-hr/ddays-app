@@ -1,0 +1,263 @@
+.ofXHidden {
+  overflow-x: hidden;
+}
+
+.schedule {
+  &SectionWrapper {
+    width: 100vw;
+    position: relative;
+    background-color: #f5ede1;
+  }
+
+  &SectionWrapper:before {
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 182px;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &Section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 33px;
+    z-index: 2;
+  }
+
+  &Header {
+    opacity: 1;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 98px;
+  }
+
+  &Card {
+    opacity: 1;
+    display: flex;
+    padding: 35px 78px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+
+    &Left {
+      margin-right: 145px;
+
+      &Wrapper {
+        display: flex;
+        margin-right: 10px;
+      }
+    }
+
+    &Center {
+      max-width: 750px;
+    }
+
+    &Center {
+      display: flex;
+    }
+
+    &Title {
+      color: #171615;
+      font-family: 'PP Neue Machina';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    &Subtitle {
+      color: rgba(23, 22, 21, 0.6);
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    &TitleWrapper {
+      margin-bottom: 8px;
+    }
+
+    &Container {
+      overflow-x: hidden;
+    }
+
+    &Description {
+      color: #6f6c66;
+      font-family: 'PP Neue Machina';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+    }
+  }
+
+  &Button {
+    cursor: pointer;
+    padding: 16px 24px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px transparent;
+    color: #171615;
+    font-feature-settings: 'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &Focused {
+      color: #ff482f;
+      border-bottom: 3px solid #ff482f;
+    }
+  }
+}
+
+.themeBadge {
+  width: 46px;
+  height: 24px;
+  padding: 12px 23px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background-color: #cb370ecc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Text {
+    margin: 0;
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.timeText {
+  color: #171615;
+  font-feature-settings: 'ss03' on;
+  font-family: 'PP Neue Montreal Mono';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  min-width: 130px;
+  text-align: right;
+}
+
+.eventTypeText {
+  color: rgba(23, 22, 21, 0.6);
+  font-family: 'PP Neue Montreal Mono';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: right;
+  margin-top: 8px;
+}
+
+.dottedRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+}
+
+.plusButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .scheduleCardLeft {
+    margin-right: 80px;
+  }
+
+  .scheduleHeaderRight {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .scheduleSection {
+    padding: 16px;
+  }
+
+  .scheduleSectionWrapper {
+    background-color: #fffefe;
+  }
+
+  .scheduleSectionWrapper:before {
+    background: transparent;
+  }
+
+  .scheduleHeader {
+    justify-content: center;
+  }
+
+  .plusButton {
+    display: none;
+  }
+
+  .scheduleCard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .scheduleCardLeftWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .scheduleCardLeft {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .eventTypeText {
+    margin: 0;
+  }
+
+  .themeBadge {
+    margin-right: 8px;
+  }
+
+  .scheduleCardTitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 382px) {
+  .scheduleButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
