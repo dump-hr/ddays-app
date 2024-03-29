@@ -44,6 +44,23 @@
   &Wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &Column:not(:last-child) {
+    margin-right: 32px;
+  }
+
+  &Column:nth-child(2) {
+    margin-top: 647px;
+  }
+
+  &Column:nth-child(3) {
+    margin-top: 112px;
+  }
+
+  &Column:nth-child(4) {
+    margin-top: 779px;
   }
 }
 
@@ -61,6 +78,8 @@
 }
 
 .card {
+  margin-bottom: 732px;
+
   &InfoWrapper {
     text-align: center;
     margin-top: 22px;

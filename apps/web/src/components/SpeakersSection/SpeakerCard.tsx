@@ -20,7 +20,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
   height,
 }) => {
   return (
-    <div style={{ width: width }}>
+    <div style={{ width: width }} className={c.card}>
       <FilmFrame imageSrc={imageSrc} height={height} width={width} />
       <div className={c.cardInfoWrapper}>
         <h3 className={c.cardName}>

@@ -1,8 +1,26 @@
-import LocomotiveScroll from 'locomotive-scroll';
+import { SpeakerDto } from '@ddays-app/types';
 
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
 import SpeakerCard from './SpeakerCard';
 import c from './SpeakersSection.module.scss';
+
+const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
+  if (numberOfChunks < 2) {
+    return [array];
+  }
+
+  const balancedArray = [] as SpeakerDto[][];
+
+  for (let i = 0; i < numberOfChunks; i++) {
+    balancedArray.push([] as SpeakerDto[]);
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    balancedArray[i % 4].push(array[i]);
+  }
+
+  return balancedArray;
+};
 
 const SpeakersSection = () => {
   const speakers = useSpeakerGetAll();
@@ -10,6 +28,8 @@ const SpeakersSection = () => {
   if (speakers.isLoading) {
     return <div>Loading...</div>;
   }
+
+  const balancedArray = getEquallySplitArray(speakers.data!, 4);
 
   return (
     <>
@@ -21,25 +41,22 @@ const SpeakersSection = () => {
             </p>
             <h2 className={c.headerTitle}>SPEAKERI (23)</h2>
           </div>
-          <SpeakerCard
-            imageSrc={speakers.data![0].photo}
-            firstName={speakers.data![0].firstName}
-            lastName={speakers.data![0].lastName}
-            title={speakers.data![0].title}
-            height={401}
-            width={320}
-          />
-          {/* <div className={c.speakersWrapper}>
-            {speakers.data?.map((speaker) => (
-              <div className={c.speakerFrame}>
-                <img
-                  className={c.speakerImage}
-                  src={speaker.photo}
-                  alt={speaker.firstName}
-                />
+          <div className={c.speakersWrapper}>
+            {balancedArray.map((subArray) => (
+              <div className={c.speakersColumn}>
+                {subArray.map((speaker) => (
+                  <SpeakerCard
+                    imageSrc={speaker.photo}
+                    firstName={speaker.firstName}
+                    lastName={speaker.lastName}
+                    title={speaker.title}
+                    height={401}
+                    width={320}
+                  />
+                ))}
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </>
