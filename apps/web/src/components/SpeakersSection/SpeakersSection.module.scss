@@ -1,0 +1,108 @@
+.background {
+  background-color: #ff482f;
+}
+
+.wrapper {
+  background-color: #ff482f;
+  padding: 32px;
+  padding-top: 200px;
+  padding-bottom: 300px;
+  max-width: 1440px;
+  margin: auto;
+}
+
+.header {
+  &Container {
+    text-align: center;
+    margin-bottom: 122px;
+  }
+
+  &Title {
+    color: #eaeaea;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 144px;
+    text-transform: uppercase;
+  }
+
+  &SmallText {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+}
+
+.speakers {
+  &Wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.speaker {
+  &Frame {
+    height: 401px;
+    width: 310px;
+    object-fit: contain;
+  }
+
+  &Image {
+    height: 401px;
+    width: 300px;
+  }
+}
+
+.card {
+  // &FrameWrapper {
+  //   position: relative;
+  //   background-color: #171615;
+  // }
+
+  // &SpeakerPhoto {
+  //   position: absolute;
+  //   top: 3%;
+  //   left: 4%;
+  //   width: 91%;
+  //   height: 92%;
+  // }
+
+  // &Frame {
+  //   height: 100%;
+  //   width: 100%;
+  // }
+
+  &InfoWrapper {
+    text-align: center;
+    margin-top: 22px;
+  }
+
+  &Name {
+    color: #fff;
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    line-height: 32px;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 8px;
+  }
+
+  &Title {
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+}
