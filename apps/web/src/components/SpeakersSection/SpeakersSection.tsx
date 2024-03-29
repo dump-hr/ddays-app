@@ -25,6 +25,7 @@ const SpeakersSection = () => {
             imageSrc={speakers.data![0].photo}
             firstName={speakers.data![0].firstName}
             lastName={speakers.data![0].lastName}
+            title={speakers.data![0].title}
             height={401}
             width={320}
           />
