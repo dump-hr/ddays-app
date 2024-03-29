@@ -13,6 +13,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
     "dayjs": "^1.11.10",
+    "locomotive-scroll": "^4.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
