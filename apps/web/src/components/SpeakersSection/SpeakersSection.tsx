@@ -1,8 +1,7 @@
 import { SpeakerDto } from '@ddays-app/types';
-import locomotiveScroll from 'locomotive-scroll';
-import { useEffect, useRef } from 'react';
 
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import SpeakerCard from './SpeakerCard';
 import c from './SpeakersSection.module.scss';
 
@@ -24,26 +23,41 @@ const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
   return balancedArray;
 };
 
-const SpeakersSection = () => {
-  const scrollRef = useRef(null);
+const getCardWidth = (screenWidth: number) => {
+  const desktopSidePadding = 32;
+  const desktopCardMargin = 32;
+  const numberOfColumns = 4;
+  if (screenWidth >= 1440) {
+    return 320;
+  }
 
-  useEffect(() => {
-    const scroll = new locomotiveScroll({
-      el: scrollRef.current === null ? undefined : scrollRef.current,
-      smooth: true,
-    });
-  });
+  return (
+    (screenWidth -
+      2 * desktopSidePadding -
+      (numberOfColumns - 1) * desktopCardMargin) /
+      numberOfColumns -
+    10
+  );
+};
+
+const SpeakersSection = () => {
+  const { screenWidth } = useScreenSize(1000);
   const speakers = useSpeakerGetAll();
 
   if (speakers.isLoading) {
     return <div>Loading...</div>;
   }
 
-  const balancedArray = getEquallySplitArray(speakers.data!, 4);
+  const cardAspectRatio = 401 / 320;
+  const numberOfColumns = 4;
+
+  const balancedArray = getEquallySplitArray(speakers.data!, numberOfColumns);
+
+  const cardWidth = getCardWidth(screenWidth);
 
   return (
     <>
-      <div className={c.background} data-scroll-container ref={scrollRef}>
+      <div className={c.background}>
         <div className={c.wrapper}>
           <div className={c.headerContainer}>
             <p className={c.headerSmallText}>
@@ -60,8 +74,8 @@ const SpeakersSection = () => {
                     firstName={speaker.firstName}
                     lastName={speaker.lastName}
                     title={speaker.title}
-                    height={401}
-                    width={320}
+                    height={cardWidth * cardAspectRatio}
+                    width={cardWidth}
                   />
                 ))}
               </div>
