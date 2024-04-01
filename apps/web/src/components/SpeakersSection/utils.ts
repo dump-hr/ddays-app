@@ -40,13 +40,13 @@ export const getCardWidth = (screenWidth: number) => {
     return 320;
   }
 
-  if (screenWidth <= 950) {
+  if (screenWidth < 950) {
     return calculateWidth(
       screenWidth,
       mobileSidePadding,
       mobileNumberOfColumns,
       mobileCardMargin,
-      8,
+      9,
     );
   }
 
@@ -66,6 +66,10 @@ const calculateWidth = (
   margin: number,
   correction: number,
 ) => {
+  //for some reason the exact number of pixels doesn't fit right
+  //correction is a small number of pixels that makes the
+  //card slightly smaller
+  //has to be greater than 0
   return (
     (screenWidth - 2 * padding - (numberOfColumns - 1) * margin) /
       numberOfColumns -

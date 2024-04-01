@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import SpeakerCard from './SpeakerCard';
@@ -29,10 +31,11 @@ const SpeakersSection = () => {
             <h2 className={c.headerTitle}>SPEAKERI (23)</h2>
           </div>
           <div className={c.speakersWrapper}>
-            {balancedArray.map((subArray) => (
-              <div className={c.speakersColumn}>
+            {balancedArray.map((subArray, index) => (
+              <div key={index} className={c.speakersColumn}>
                 {subArray.map((speaker) => (
                   <SpeakerCard
+                    key={speaker.id}
                     imageSrc={speaker.photo}
                     firstName={speaker.firstName}
                     lastName={speaker.lastName}
