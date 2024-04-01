@@ -17,10 +17,21 @@ const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
   }
 
   for (let i = 0; i < array.length; i++) {
-    balancedArray[i % 4].push(array[i]);
+    balancedArray[i % numberOfChunks].push(array[i]);
   }
 
   return balancedArray;
+};
+
+const getColumns = (array: SpeakerDto[], isMobile: boolean) => {
+  const desktopNumberOfColumns = 4;
+  const mobileNumberOfColumns = 2;
+
+  if (isMobile) {
+    return getEquallySplitArray(array, mobileNumberOfColumns);
+  }
+
+  return getEquallySplitArray(array, desktopNumberOfColumns);
 };
 
 const getCardWidth = (screenWidth: number) => {
@@ -36,22 +47,21 @@ const getCardWidth = (screenWidth: number) => {
       2 * desktopSidePadding -
       (numberOfColumns - 1) * desktopCardMargin) /
       numberOfColumns -
-    10
+    5
   );
 };
 
 const SpeakersSection = () => {
-  const { screenWidth } = useScreenSize(1000);
+  const { screenWidth, isMobile } = useScreenSize(950);
+  const cardAspectRatio = 401 / 320;
+
   const speakers = useSpeakerGetAll();
 
   if (speakers.isLoading) {
     return <div>Loading...</div>;
   }
 
-  const cardAspectRatio = 401 / 320;
-  const numberOfColumns = 4;
-
-  const balancedArray = getEquallySplitArray(speakers.data!, numberOfColumns);
+  const balancedArray = getColumns(speakers.data!, isMobile);
 
   const cardWidth = getCardWidth(screenWidth);
 
