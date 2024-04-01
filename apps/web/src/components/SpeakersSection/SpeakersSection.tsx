@@ -1,4 +1,6 @@
 import { SpeakerDto } from '@ddays-app/types';
+import locomotiveScroll from 'locomotive-scroll';
+import { useEffect, useRef } from 'react';
 
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
 import SpeakerCard from './SpeakerCard';
@@ -23,6 +25,14 @@ const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
 };
 
 const SpeakersSection = () => {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const scroll = new locomotiveScroll({
+      el: scrollRef.current === null ? undefined : scrollRef.current,
+      smooth: true,
+    });
+  });
   const speakers = useSpeakerGetAll();
 
   if (speakers.isLoading) {
@@ -33,7 +43,7 @@ const SpeakersSection = () => {
 
   return (
     <>
-      <div className={c.background}>
+      <div className={c.background} data-scroll-container ref={scrollRef}>
         <div className={c.wrapper}>
           <div className={c.headerContainer}>
             <p className={c.headerSmallText}>
