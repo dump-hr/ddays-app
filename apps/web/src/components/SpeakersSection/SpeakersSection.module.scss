@@ -107,3 +107,21 @@
     margin: 0;
   }
 }
+
+@media screen and (max-width: 980px) {
+  .wrapper {
+    padding: 16px;
+  }
+  .header {
+    &Title {
+      font-size: 48px;
+      line-height: 80px;
+      letter-spacing: -3px;
+    }
+
+    &SmallText {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+  }
+}

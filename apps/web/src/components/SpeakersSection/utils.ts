@@ -32,16 +32,43 @@ export const getColumns = (array: SpeakerDto[], isMobile: boolean) => {
 export const getCardWidth = (screenWidth: number) => {
   const desktopSidePadding = 32;
   const desktopCardMargin = 32;
-  const numberOfColumns = 4;
+  const desktopNumberOfColumns = 4;
+  const mobileNumberOfColumns = 2;
+  const mobileSidePadding = 16;
+  const mobileCardMargin = 16;
   if (screenWidth >= 1440) {
     return 320;
   }
 
+  if (screenWidth <= 950) {
+    return calculateWidth(
+      screenWidth,
+      mobileSidePadding,
+      mobileNumberOfColumns,
+      mobileCardMargin,
+      8,
+    );
+  }
+
+  return calculateWidth(
+    screenWidth,
+    desktopSidePadding,
+    desktopNumberOfColumns,
+    desktopCardMargin,
+    5,
+  );
+};
+
+const calculateWidth = (
+  screenWidth: number,
+  padding: number,
+  numberOfColumns: number,
+  margin: number,
+  correction: number,
+) => {
   return (
-    (screenWidth -
-      2 * desktopSidePadding -
-      (numberOfColumns - 1) * desktopCardMargin) /
+    (screenWidth - 2 * padding - (numberOfColumns - 1) * margin) /
       numberOfColumns -
-    5
+    correction
   );
 };

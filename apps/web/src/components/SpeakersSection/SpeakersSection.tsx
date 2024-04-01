@@ -1,5 +1,3 @@
-import { SpeakerDto } from '@ddays-app/types';
-
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import SpeakerCard from './SpeakerCard';
