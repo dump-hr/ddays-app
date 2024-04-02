@@ -263,6 +263,14 @@
     }
   }
 
+  .background:before {
+    background: transparent;
+  }
+
+  .wrapper {
+    background-color: #e75b3f;
+  }
+
   .speakersColumn:nth-child(2) {
     margin-top: 140px;
   }
