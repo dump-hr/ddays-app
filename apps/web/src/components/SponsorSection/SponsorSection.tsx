@@ -86,7 +86,7 @@ export const SponsorSection: React.FC = () => (
       </section>
     </article>
     <article className={classes.sponsorSection}>
-      <img src={silverSponsor} alt='brončani sponzori' />
+      <img src={bronzeSponsor} alt='brončani sponzori' />
       <span className={classes.sponsorTier}>Brončani sponzori</span>
       <section className={classes.logos}>
         <figure className={classes.logo}>
