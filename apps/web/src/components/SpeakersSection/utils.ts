@@ -1,14 +1,17 @@
-import { SpeakerDto } from '@ddays-app/types';
+import { SpeakerWithCompanyDto } from '@ddays-app/types';
 
-const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
+const getEquallySplitArray = (
+  array: SpeakerWithCompanyDto[],
+  numberOfChunks: number,
+) => {
   if (numberOfChunks < 2) {
     return [array];
   }
 
-  const balancedArray = [] as SpeakerDto[][];
+  const balancedArray = [] as SpeakerWithCompanyDto[][];
 
   for (let i = 0; i < numberOfChunks; i++) {
-    balancedArray.push([] as SpeakerDto[]);
+    balancedArray.push([] as SpeakerWithCompanyDto[]);
   }
 
   for (let i = 0; i < array.length; i++) {
@@ -18,7 +21,10 @@ const getEquallySplitArray = (array: SpeakerDto[], numberOfChunks: number) => {
   return balancedArray;
 };
 
-export const getColumns = (array: SpeakerDto[], isMobile: boolean) => {
+export const getColumns = (
+  array: SpeakerWithCompanyDto[],
+  isMobile: boolean,
+) => {
   const desktopNumberOfColumns = 4;
   const mobileNumberOfColumns = 2;
 

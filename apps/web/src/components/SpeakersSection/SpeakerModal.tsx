@@ -13,6 +13,7 @@ type SpeakerModalProps = {
   width: number;
   height: number;
   isOpen: boolean;
+  companyName: string | undefined;
 };
 
 const SpeakerModal: React.FC<SpeakerModalProps> = ({
@@ -22,6 +23,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
   lastName,
   title,
   isOpen,
+  companyName,
 }) => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -52,7 +54,9 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
           <h2 className={c.modalSpeakerName}>
             {firstName} {lastName}
           </h2>
-          <h3 className={c.modalTitle}>{title}</h3>
+          <h3 className={c.modalTitle}>
+            {title} {companyName ? '@ ' + companyName : ''}
+          </h3>
           <section className={c.modalDescription}>
             description triba dodat polje... Lorem ipsum dolor sit amet
             consectetur adipisicing elit. Nostrum mollitia nisi debitis ad

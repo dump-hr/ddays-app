@@ -11,6 +11,7 @@ type SpeakerCardProps = {
   title: string;
   width: number;
   height: number;
+  companyName: string | undefined;
 };
 
 const SpeakerCard: React.FC<SpeakerCardProps> = ({
@@ -20,6 +21,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
   title,
   width,
   height,
+  companyName,
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -43,7 +45,9 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
           <h3 className={c.cardName}>
             {firstName} {lastName}
           </h3>
-          <p className={c.cardTitle}>{title}</p>
+          <p className={c.cardTitle}>
+            {title} {companyName ? '@ ' + companyName : ''}
+          </p>
         </div>
       </div>
       <SpeakerModal
@@ -53,6 +57,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
         firstName={firstName}
         lastName={lastName}
         title={title}
+        companyName={companyName}
         width={width}
         height={height}
       />
