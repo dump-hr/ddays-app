@@ -1,3 +1,4 @@
+import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import SpeakersSection from 'components/SpeakersSection';
 
@@ -9,15 +10,18 @@ import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
   const HeaderButton = <Button>Registriraj se</Button>;
+  const lenis = useLenis(({ scroll }) => {});
 
   return (
     <>
-      <Header Button={HeaderButton} />
-      <Hero Button={HeaderButton} />
-      <DuckieSection />
-      <Schedule />
-      <SpeakersSection />
-      <LocationSection />
+      <ReactLenis root>
+        <Header Button={HeaderButton} />
+        <Hero Button={HeaderButton} />
+        <DuckieSection />
+        <Schedule />
+        <SpeakersSection />
+        <LocationSection />
+      </ReactLenis>
     </>
   );
 };
