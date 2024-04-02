@@ -5,6 +5,7 @@ import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswo
 import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
 import { Path } from '../../constants/paths';
 import { dataURItoBlobUrl } from '../../helpers';
+import { isTokenExpired } from '../../helpers/auth';
 import c from './LoginForm.module.scss';
 
 const passwordVisibilitySvgUrl = dataURItoBlobUrl(passwordVisibilitySvg);
@@ -20,7 +21,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     const jwt = localStorage.getItem('sponsorAccessToken');
-    if (jwt) {
+    if (jwt && !isTokenExpired(jwt)) {
       navigate(Path.Materials, { replace: true });
     }
   }, [navigate]);

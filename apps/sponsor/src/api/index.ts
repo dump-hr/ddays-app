@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
+import { navigate } from 'wouter/use-location';
 
 import { Path } from '../constants/paths';
 
@@ -33,7 +34,8 @@ api.interceptors.response.use(
 
   (error: ErrorResponse) => {
     if (error.response.status === 401) {
-      history.pushState(null, '', Path.Login);
+      navigate(Path.Login);
+
       toast.error(
         error.response.data.message || error.message || 'Forbidden access',
       );
