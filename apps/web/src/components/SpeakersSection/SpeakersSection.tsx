@@ -26,7 +26,9 @@ const SpeakersSection = () => {
             <p className={c.headerSmallText}>
               Digitalni inovatori pod istim krovom
             </p>
-            <h2 className={c.headerTitle}>SPEAKERI (23)</h2>
+            <h2 className={c.headerTitle}>
+              SPEAKERI ({speakers.data?.length})
+            </h2>
           </div>
           <div className={c.speakersWrapper}>
             {balancedArray.map((subArray, index) => (

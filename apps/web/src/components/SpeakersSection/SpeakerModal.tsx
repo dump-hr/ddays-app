@@ -45,24 +45,26 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
 
   return (
     <div className={c.modalBackground} onClick={close}>
-      <div className={c.container} onClick={(e) => e.stopPropagation()}>
-        <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
-        <div className={c.modalImage}>
-          <FilmFrame imageSrc={imageSrc} width={320} height={400} />
-        </div>
-        <div className={c.modalLeft}>
-          <h2 className={c.modalSpeakerName}>
-            {firstName} {lastName}
-          </h2>
-          <h3 className={c.modalTitle}>
-            {title} {companyName ? '@ ' + companyName : ''}
-          </h3>
-          <section className={c.modalDescription}>
-            description triba dodat polje... Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Nostrum mollitia nisi debitis ad
-            inventore, in iste placeat temporibus id qui, deserunt a aliquam
-            minima atque, molestias cumque explicabo? Atque, fugiat?
-          </section>
+      <div className={c.modal}>
+        <div className={c.container} onClick={(e) => e.stopPropagation()}>
+          <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
+          <div className={c.modalImage}>
+            <FilmFrame imageSrc={imageSrc} width={320} height={400} />
+          </div>
+          <div className={c.modalLeft}>
+            <h2 className={c.modalSpeakerName}>
+              {firstName} {lastName}
+            </h2>
+            <h3 className={c.modalTitle}>
+              {title} {companyName ? '@ ' + companyName : ''}
+            </h3>
+            <section className={c.modalDescription}>
+              description triba dodat polje... Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Nostrum mollitia nisi debitis ad
+              inventore, in iste placeat temporibus id qui, deserunt a aliquam
+              minima atque, molestias cumque explicabo? Atque, fugiat?
+            </section>
+          </div>
         </div>
       </div>
     </div>
