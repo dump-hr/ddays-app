@@ -1,4 +1,5 @@
 import DuckieSection from 'components/DuckieSection';
+import RegistrationSection from 'components/RegistrationSection';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -16,6 +17,7 @@ export const LandingPage: React.FC = () => {
       <DuckieSection />
       <Schedule />
       <LocationSection />
+      <RegistrationSection />
     </>
   );
 };
