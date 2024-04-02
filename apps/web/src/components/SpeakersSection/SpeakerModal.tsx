@@ -2,7 +2,6 @@ import FilmFrame from 'components/FilmFrame';
 import { useEffect } from 'react';
 
 import CloseSvg from '../../assets/close.svg';
-import SpeakerCard from './SpeakerCard';
 import c from './SpeakersSection.module.scss';
 
 type SpeakerModalProps = {

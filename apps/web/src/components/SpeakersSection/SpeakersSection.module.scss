@@ -192,6 +192,12 @@
   line-height: 26px;
 }
 
+@media screen and (max-width: 1250px) {
+  .container {
+    width: 90vw;
+  }
+}
+
 @media screen and (max-width: 980px) {
   .wrapper {
     padding: 16px;
@@ -225,5 +231,11 @@
 
   .speakersColumn:nth-child(2) {
     margin-top: 140px;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .modalImage {
+    display: none;
   }
 }

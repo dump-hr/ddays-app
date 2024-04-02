@@ -11,7 +11,6 @@ type SpeakerCardProps = {
   title: string;
   width: number;
   height: number;
-  handleClick: () => void;
 };
 
 const SpeakerCard: React.FC<SpeakerCardProps> = ({
