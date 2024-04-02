@@ -2,6 +2,8 @@ import bronzeSponsor from 'assets/images/bronze-sponsor.svg';
 import goldSponsor from 'assets/images/gold-sponsor.svg';
 import goldenPlacehoder from 'assets/images/golden-placeholder.svg';
 import placeholder from 'assets/images/placeholder.svg';
+import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
+import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
 import silverSponsor from 'assets/images/silver-sponsor.svg';
 import clsx from 'clsx';
 
@@ -10,7 +12,9 @@ import classes from './SponsorSection.module.css';
 export const SponsorSection: React.FC = () => (
   <section className={classes.container}>
     <figure className={classes.topSection}>
-      <div className={classes.sectionBreaker}></div>
+      <div className={classes.sectionBreaker}>
+        <img src={sectionBreakerStart} alt='početak sponzor sekcije' />
+      </div>
       <span className={classes.idea}>Vjerujemo u jaka prijateljstva.</span>
       <span className={classes.title}>
         Motivirani uspjesima na IT sceni, zajedno oblikujemo budućnost digitalne
@@ -112,7 +116,9 @@ export const SponsorSection: React.FC = () => (
         </figure>
       </section>
     </article>
-    <div className={classes.sectionBreaker}></div>
+    <div className={classes.sectionBreakerEnd}>
+      <img src={sectionBreakerEnd} alt='kraj sponzor sekcije' />
+    </div>
   </section>
 );
 
