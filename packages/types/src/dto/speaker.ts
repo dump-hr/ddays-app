@@ -32,5 +32,5 @@ export type SpeakerWithCompanyDto = {
   title: string;
   companyId?: number;
   photo?: string;
-  company: CompanyDto;
+  company?: CompanyDto;
 };

@@ -1,4 +1,5 @@
 import { useSpeakerGetAll } from '../../api/speaker/useSpeakerGetAll';
+import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCompanyGetAll';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import SpeakerCard from './SpeakerCard';
 import c from './SpeakersSection.module.scss';
@@ -8,7 +9,9 @@ const SpeakersSection = () => {
   const { screenWidth, isMobile } = useScreenSize(950);
   const cardAspectRatio = 401 / 320;
 
-  const speakers = useSpeakerGetAll();
+  // const speakers = useSpeakerGetAll();
+  const speakers = useSpeakerWithCompanyGetAll();
+  console.log(speakers.data);
 
   if (speakers.isLoading) {
     return <div>Loading...</div>;

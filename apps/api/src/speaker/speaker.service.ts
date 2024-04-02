@@ -1,4 +1,8 @@
-import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
+import {
+  SpeakerDto,
+  SpeakerModifyDto,
+  SpeakerWithCompanyDto,
+} from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { company, speaker } from 'db/schema';
@@ -52,11 +56,25 @@ export class SpeakerService {
   }
 
   async getAllSpeakersWithCompany() {
-    const speakersWithCompany = await db
+    const result = await db
       .select()
       .from(speaker)
       .leftJoin(company, eq(speaker.companyId, company.id))
       .orderBy(speaker.firstName);
+
+    const speakersWithCompany: SpeakerWithCompanyDto[] = result.map(
+      (speakerCompany) => {
+        return {
+          id: speakerCompany.speaker.id,
+          firstName: speakerCompany.speaker.firstName,
+          lastName: speakerCompany.speaker.lastName,
+          title: speakerCompany.speaker.title,
+          companyId: speakerCompany.speaker.companyId,
+          photo: speakerCompany.speaker.photo,
+          company: speakerCompany.company,
+        };
+      },
+    );
 
     return speakersWithCompany;
   }
