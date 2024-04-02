@@ -31,6 +31,7 @@ api.interceptors.response.use(
 
   (error: ErrorResponse) => {
     if (error.response.status === 401) {
+      // use navigate here instead of history.push!!!
       // history.pushState(null, '', Path.Login);
       toast.error(
         error.response.data.message || error.message || 'Forbidden access',
