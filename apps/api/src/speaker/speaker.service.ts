@@ -1,7 +1,7 @@
 import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { speaker } from 'db/schema';
+import { company, speaker } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
@@ -49,6 +49,16 @@ export class SpeakerService {
       .where(eq(speaker.id, id));
 
     return foundSpeaker;
+  }
+
+  async getAllSpeakersWithCompany() {
+    const speakersWithCompany = await db
+      .select()
+      .from(speaker)
+      .leftJoin(company, eq(speaker.companyId, company.id))
+      .orderBy(speaker.firstName);
+
+    return speakersWithCompany;
   }
 
   async remove(id: number) {
