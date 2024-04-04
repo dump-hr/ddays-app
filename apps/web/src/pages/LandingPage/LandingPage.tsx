@@ -1,4 +1,4 @@
-import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
+import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import SpeakersSection from 'components/SpeakersSection';
 
@@ -10,8 +10,8 @@ import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
   const HeaderButton = <Button>Registriraj se</Button>;
-  //eslint-disable-next-line
-  const lenis = useLenis(({ scroll }) => {});
+
+  // const lenis = useLenis(({ scroll }) => {});
 
   return (
     <>
