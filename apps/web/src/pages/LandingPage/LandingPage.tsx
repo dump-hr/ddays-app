@@ -10,6 +10,7 @@ import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
   const HeaderButton = <Button>Registriraj se</Button>;
+  //eslint-disable-next-line
   const lenis = useLenis(({ scroll }) => {});
 
   return (

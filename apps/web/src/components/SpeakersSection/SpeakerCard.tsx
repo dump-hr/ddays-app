@@ -1,4 +1,5 @@
 import FilmFrame from 'components/FilmFrame';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 import SpeakerModal from './SpeakerModal';
@@ -36,7 +37,10 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
   };
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ ease: 'easeIn', duration: 1 }}
         style={{ width: width }}
         className={c.card}
         onClick={handleOpenModal}>
@@ -49,7 +53,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
             {title} {companyName ? '@ ' + companyName : ''}
           </p>
         </div>
-      </div>
+      </motion.div>
       <SpeakerModal
         close={handleCloseModal}
         isOpen={isOpenModal}
