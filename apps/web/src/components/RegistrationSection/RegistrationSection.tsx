@@ -1,14 +1,17 @@
 import MobileApp from 'assets/images/mobile-app.png';
 
+import Button from './../Button/Button';
 import c from './RegistrationSection.module.scss';
 
 const RegistrationSection = () => {
   return (
     <div className={c.containerWrapper}>
-      <h3>aplikacija</h3>
-      <h1>registriraj se</h1>
-      <img src={MobileApp} alt='mobile app' />
-      <button>prijavi se u aplikaciju</button>
+      <h3 className={c.applicationHeading}>APLIKACIJA</h3>
+      <div className={c.registerContainer}>
+        <h1 className={c.registerHeading}>registriraj se</h1>
+        <img src={MobileApp} alt='mobile app' className={c.mobileAppImage} />
+        <Button className={c.loginButton}>[ prijavi se u aplikaciju ]</Button>
+      </div>
     </div>
   );
 };
