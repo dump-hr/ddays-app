@@ -23,6 +23,19 @@
     height: 100%;
   }
 
+  .sectionBreaker {
+    display: flex;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
   .topSection {
     display: flex;
     flex-direction: column;
@@ -248,6 +261,19 @@
           gap: vw-calc(8);
         }
       }
+    }
+  }
+
+  .sectionBreakerEnd {
+    display: flex;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 }

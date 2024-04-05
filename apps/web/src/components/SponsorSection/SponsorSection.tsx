@@ -12,11 +12,11 @@ import classes from './SponsorSection.module.css';
 
 export const SponsorSection: React.FC = () => (
   <section className={classes.container}>
+    <div className={classes.sectionBreaker}>
+      <img src={sectionBreakerStart} alt='početak sponzor sekcije' />
+    </div>
+    <span className={classes.idea}>Vjerujemo u jaka prijateljstva.</span>
     <figure className={classes.topSection}>
-      <div className={classes.sectionBreaker}>
-        <img src={sectionBreakerStart} alt='početak sponzor sekcije' />
-      </div>
-      <span className={classes.idea}>Vjerujemo u jaka prijateljstva.</span>
       <span className={classes.title}>
         Motivirani uspjesima na IT sceni, zajedno oblikujemo budućnost digitalne
         generacije.
