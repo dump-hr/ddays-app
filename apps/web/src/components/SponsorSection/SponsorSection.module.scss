@@ -10,6 +10,11 @@ figure {
   min-height: vw-calc(2);
   border-radius: 50%;
   background: $dot-color;
+
+  @media (max-width: 768px) {
+    min-width: vw-mobile-calc(2);
+    min-height: vw-mobile-calc(2);
+  }
 }
 
 .container {
@@ -42,6 +47,10 @@ figure {
     width: 100%;
     margin-bottom: vw-calc(120);
 
+    @media (min-width: 768px) {
+      margin-bottom: vw-mobile-calc(33);
+    }
+
     img {
       width: 100%;
       height: auto;
@@ -58,6 +67,10 @@ figure {
     position: relative;
     height: vw-calc(805);
 
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(475);
+    }
+
     .idea {
       color: $light-primary;
       font-size: vw-calc(14);
@@ -65,6 +78,13 @@ figure {
       font-weight: 500;
       letter-spacing: vw-calc(1);
       margin-bottom: vw-calc(24);
+      text-transform: uppercase;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+        line-height: vw-mobile-calc(16);
+        margin-bottom: vw-mobile-calc(16);
+      }
     }
 
     .title {
@@ -73,16 +93,28 @@ figure {
       color: $tertiary;
       font-size: vw-calc(48);
       letter-spacing: vw-calc(-2);
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(24);
+        letter-spacing: vw-mobile-calc(-1);
+        max-width: vw-mobile-calc(340);
+      }
     }
 
     .image {
       position: absolute;
       object-fit: contain;
-      width: vw-calc(100);
-      height: vw-calc(100);
+      max-width: vw-calc(100);
+      max-height: vw-calc(100);
       display: flex;
       justify-content: center;
       align-items: flex-start;
+
+      @media (max-width: 768px) {
+        max-width: vw-mobile-calc(40);
+        max-height: vw-mobile-calc(40);
+        margin-top: vw-mobile-calc(100);
+      }
 
       &.first {
         top: vw-calc(480);
@@ -138,6 +170,10 @@ figure {
     justify-content: center;
     margin-bottom: vw-calc(160);
 
+    @media (max-width: 768px) {
+      margin-bottom: vw-mobile-calc(80);
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -145,6 +181,11 @@ figure {
     img {
       width: vw-calc(185);
       height: vw-calc(140);
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(152);
+        height: vw-mobile-calc(114s);
+      }
     }
 
     .sponsorTier {
@@ -153,6 +194,11 @@ figure {
       text-transform: uppercase;
       line-height: vw-calc(24);
       font-size: vw-calc(14);
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+        line-height: vw-mobile-calc(14);
+      }
     }
 
     .goldenRow {
@@ -160,6 +206,12 @@ figure {
       flex-direction: row;
       margin-top: vw-calc(32);
       column-gap: vw-calc(32);
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        margin-top: vw-mobile-calc(16);
+        row-gap: vw-mobile-calc(60);
+      }
 
       .sponsor {
         display: flex;
@@ -169,10 +221,18 @@ figure {
         position: relative;
         width: vw-calc(320);
 
+        @media (max-width: 768px) {
+          width: vw-mobile-calc(340);
+        }
+
         img {
           width: vw-calc(320);
           height: auto;
           object-fit: fill;
+
+          @media (max-width: 768px) {
+            width: vw-mobile-calc(340);
+          }
         }
 
         .name {
@@ -182,6 +242,12 @@ figure {
           line-height: vw-calc(32);
           text-transform: uppercase;
           font-weight: 500;
+
+          @media (max-width: 768px) {
+            font-size: vw-mobile-calc(20);
+            line-height: vw-mobile-calc(24);
+            margin-top: vw-mobile-calc(24);
+          }
         }
 
         .dots {
@@ -192,6 +258,11 @@ figure {
           overflow: hidden;
           height: vw-calc(2);
           margin-top: vw-calc(16);
+
+          @media (max-width: 768px) {
+            margin-top: vw-mobile-calc(16);
+            column-gap: vw-mobile-calc(6);
+          }
         }
 
         .openPositions {
@@ -202,12 +273,21 @@ figure {
           align-content: center;
           text-transform: uppercase;
 
+          @media (max-width: 768px) {
+            margin-top: vw-mobile-calc(16);
+          }
+
           .label {
             color: $light-primary;
             font-size: vw-calc(14);
             font-weight: 500;
             line-height: vw-calc(24);
             letter-spacing: vw-calc(1);
+
+            @media (max-width: 768px) {
+              font-size: vw-mobile-calc(12);
+              line-height: vw-mobile-calc(14);
+            }
           }
 
           .ellipse {
@@ -220,6 +300,11 @@ figure {
             display: flex;
             z-index: 1;
 
+            @media (max-width: 768px) {
+              width: vw-mobile-calc(40);
+              height: vw-mobile-calc(20);
+            }
+
             .number {
               margin-top: vw-calc(2);
               color: $number-color;
@@ -228,6 +313,12 @@ figure {
               z-index: 2;
               line-height: vw-calc(21);
               text-align: center;
+
+              @media (max-width: 768px) {
+                font-size: vw-mobile-calc(12);
+                line-height: vw-mobile-calc(16);
+                margin-top: vw-mobile-calc(2);
+              }
             }
           }
         }
@@ -244,6 +335,13 @@ figure {
       margin-top: vw-calc(32);
       padding: 0 vw-calc(32);
 
+      @media (max-width: 768px) {
+        flex-direction: row;
+        margin-top: vw-mobile-calc(54);
+        padding: 0 vw-mobile-calc(16);
+        overflow: hidden;
+      }
+
       .logo {
         width: vw-calc(330);
         height: vw-calc(140);
@@ -254,10 +352,20 @@ figure {
         overflow: hidden;
         box-sizing: border-box;
 
+        @media (max-width: 768px) {
+          width: vw-mobile-calc(173);
+          height: vw-mobile-calc(80);
+        }
+
         img {
           width: vw-calc(110);
           height: vw-calc(110);
           object-fit: contain;
+
+          @media (max-width: 768px) {
+            width: vw-mobile-calc(71);
+            height: vw-mobile-calc(20);
+          }
         }
 
         .horizontalDots {
@@ -270,6 +378,11 @@ figure {
           width: vw-calc(310);
           overflow: hidden;
           gap: vw-calc(6);
+
+          @media (max-width: 768px) {
+            width: vw-mobile-calc(160);
+            gap: vw-mobile-calc(4);
+          }
         }
 
         .verticalDots {
@@ -283,6 +396,11 @@ figure {
           justify-content: center;
           align-items: center;
           gap: vw-calc(6);
+
+          @media (max-width: 768px) {
+            height: vw-mobile-calc(80);
+            gap: vw-mobile-calc(4);
+          }
         }
       }
     }
