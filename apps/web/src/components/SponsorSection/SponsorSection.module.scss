@@ -1,13 +1,23 @@
 @import 'styles/calc';
 @import 'styles/variables';
 
+figure {
+  margin: 0px;
+}
+
+.dot {
+  min-width: vw-calc(3);
+  min-height: vw-calc(2);
+  border-radius: 50%;
+  background: $dot-color;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: vw-calc(60) vw-calc(16);
   position: relative;
-  gap: vw-calc(20);
+  box-sizing: border-box;
 
   &:before {
     content: '';
@@ -20,6 +30,7 @@
     left: 0;
     position: absolute;
     width: 100%;
+    box-sizing: border-box;
     height: 100%;
   }
 
@@ -29,6 +40,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    margin-bottom: vw-calc(120);
 
     img {
       width: 100%;
@@ -39,11 +51,12 @@
   .topSection {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100vw;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
     position: relative;
-    height: vw-calc(505);
+    height: vw-calc(805);
 
     .idea {
       color: $light-primary;
@@ -56,6 +69,7 @@
 
     .title {
       text-align: center;
+      max-width: vw-calc(750);
       color: $tertiary;
       font-size: vw-calc(48);
       letter-spacing: vw-calc(-2);
@@ -63,7 +77,7 @@
 
     .image {
       position: absolute;
-      object-fit: cover;
+      object-fit: contain;
       width: vw-calc(100);
       height: vw-calc(100);
       display: flex;
@@ -122,12 +136,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: vw-calc(160);
 
-    .dot {
-      width: vw-calc(1);
-      height: vw-calc(1);
-      border-radius: 50%;
-      background: $dot-color;
+    &:last-child {
+      margin-bottom: 0;
     }
 
     img {
@@ -154,16 +166,18 @@
         align-items: center;
         justify-content: flex-start;
         position: relative;
+        width: vw-calc(320);
 
         img {
-          width: vw-calc(255);
-          height: vw-calc(320);
+          width: vw-calc(320);
+          height: auto;
+          object-fit: fill;
         }
 
         .name {
           color: $primary;
-          margin-top: vw-calc(32);
           font-size: vw-calc(24);
+          margin-top: vw-calc(16);
           line-height: vw-calc(32);
           text-transform: uppercase;
           font-weight: 500;
@@ -173,7 +187,9 @@
           width: 100%;
           display: flex;
           justify-content: center;
-          gap: vw-calc(8);
+          column-gap: vw-calc(6);
+          overflow: hidden;
+          height: vw-calc(2);
           margin-top: vw-calc(16);
         }
 
@@ -183,6 +199,7 @@
           display: flex;
           justify-content: space-between;
           align-content: center;
+          text-transform: uppercase;
 
           .label {
             color: $light-primary;
@@ -194,17 +211,20 @@
 
           .ellipse {
             width: vw-calc(40);
-            height: vw-calc(21);
+            height: vw-calc(20);
             border-radius: 50%;
             align-items: center;
+            justify-content: center;
             background: $tertiary;
             display: flex;
-            justify-content: center;
+            z-index: 1;
 
             .number {
+              margin-top: vw-calc(2);
               color: $number-color;
-              font-size: vw-calc(14);
+              font-size: vw-calc(13);
               font-weight: 500;
+              z-index: 2;
               line-height: vw-calc(21);
               text-align: center;
             }
@@ -220,7 +240,7 @@
       align-items: center;
       flex-wrap: wrap;
       column-gap: vw-calc(16);
-      margin-top: vw-calc(160);
+      margin-top: vw-calc(32);
 
       .logo {
         width: vw-calc(330);
@@ -246,7 +266,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: vw-calc(8);
+          gap: vw-calc(4);
         }
 
         .verticalDots {
@@ -258,7 +278,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: vw-calc(8);
+          gap: vw-calc(4);
         }
       }
     }

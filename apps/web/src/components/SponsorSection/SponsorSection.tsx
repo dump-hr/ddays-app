@@ -1,22 +1,22 @@
 import bronzeSponsor from 'assets/images/bronze-sponsor.svg';
 import goldSponsor from 'assets/images/gold-sponsor.svg';
-import goldenPlacehoder from 'assets/images/golden-placeholder.svg';
+import goldenPlacehoder from 'assets/images/golden-placeholder.png';
 import placeholder from 'assets/images/placeholder.svg';
 import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
 import silverSponsor from 'assets/images/silver-sponsor.svg';
 import clsx from 'clsx';
-import { dotMaker } from 'helpers/dotMaker';
 
-import classes from './SponsorSection.module.css';
+import { dotMaker } from '../../helpers/dotMaker';
+import classes from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => (
   <section className={classes.container}>
-    <div className={classes.sectionBreaker}>
-      <img src={sectionBreakerStart} alt='početak sponzor sekcije' />
-    </div>
-    <span className={classes.idea}>Vjerujemo u jaka prijateljstva.</span>
     <figure className={classes.topSection}>
+      <div className={classes.sectionBreaker}>
+        <img src={sectionBreakerStart} alt='početak sponzor sekcije' />
+      </div>
+      <span className={classes.idea}>Vjerujemo u jaka prijateljstva.</span>
       <span className={classes.title}>
         Motivirani uspjesima na IT sceni, zajedno oblikujemo budućnost digitalne
         generacije.
@@ -77,7 +77,7 @@ export const SponsorSection: React.FC = () => (
           <span className={classes.name}>Agilo</span>
           <div className={classes.dots}>{dotMaker().map((dot) => dot)}</div>
           <div className={classes.openPositions}>
-            <span className={classes.label}>Open positions</span>
+            <span className={classes.label}>Otvorene pozicije</span>
             <div className={classes.ellipse}>
               <span className={classes.number}>9</span>
             </div>

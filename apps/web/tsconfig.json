@@ -9,6 +9,7 @@
       "assets/*" : ["./assets/*"],
       "components/*" : ["./components/*"],
       "styles/*": ["./styles/*"],
+      "helpers/*": ["./helpers/*"],
     }
   }
 }

@@ -1,4 +1,5 @@
 import DuckieSection from 'components/DuckieSection';
+import SponsorSection from 'components/SponsorSection';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -15,6 +16,7 @@ export const LandingPage: React.FC = () => {
       <Hero Button={HeaderButton} />
       <DuckieSection />
       <Schedule />
+      <SponsorSection />
       <LocationSection />
     </>
   );
