@@ -7,6 +7,7 @@
   width: 100%;
   padding: vw-calc(60) vw-calc(16);
   position: relative;
+  gap: vw-calc(20);
 
   &:before {
     content: '';
@@ -99,6 +100,131 @@
       &.ninth {
         top: vw-calc(650);
         left: vw-calc(1220);
+      }
+    }
+  }
+
+  .sponsorSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: vw-calc(185);
+      height: vw-calc(140);
+    }
+
+    .sponsorTier {
+      margin-top: vw-calc(16);
+      color: $light-primary;
+      text-transform: uppercase;
+      line-height: vw-calc(24);
+      font-size: vw-calc(14);
+    }
+
+    .goldenRow {
+      margin-top: vw-calc(80);
+      display: flex;
+      flex-direction: row;
+
+      .sponsor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+
+        img {
+          width: vw-calc(255);
+          height: vw-calc(320);
+        }
+
+        .name {
+          color: $primary;
+          margin-top: vw-calc(32);
+          font-size: vw-calc(24);
+          line-height: vw-calc(32);
+          text-transform: uppercase;
+          font-weight: 500;
+        }
+
+        .dots {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          gap: vw-calc(8);
+          margin-top: vw-calc(16);
+
+          .dot {
+            width: vw-calc(1);
+            height: vw-calc(1);
+            border-radius: 50%;
+            background: $dot-color;
+          }
+        }
+
+        .openPositions {
+          margin-top: vw-calc(16);
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-content: center;
+
+          .label {
+            color: $light-primary;
+            font-size: vw-calc(14);
+            font-weight: 500;
+            line-height: vw-calc(24);
+            letter-spacing: vw-calc(1);
+          }
+
+          .ellipse {
+            width: vw-calc(40);
+            height: vw-calc(21);
+            border-radius: 50%;
+            align-items: center;
+            background: $tertiary;
+            display: flex;
+            justify-content: center;
+
+            .number {
+              color: $number-color;
+              font-size: vw-calc(14);
+              font-weight: 500;
+              line-height: vw-calc(21);
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    .sponsorList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: vw-calc(20);
+
+      .sponsor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: vw-calc(10);
+
+        .sponsorImage {
+          width: vw-calc(100);
+          height: vw-calc(100);
+          object-fit: cover;
+        }
+
+        .sponsorName {
+          color: $tertiary;
+          font-size: vw-calc(16);
+          font-weight: 500;
+          letter-spacing: vw-calc(1);
+        }
       }
     }
   }

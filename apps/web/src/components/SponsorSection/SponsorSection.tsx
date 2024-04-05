@@ -71,11 +71,33 @@ export const SponsorSection: React.FC = () => (
       <img src={goldSponsor} alt='zlatni sponzori' />
       <span className={classes.sponsorTier}>Zlatni sponzori</span>
       <section className={classes.goldenRow}>
-        <figure className={classes.image}>
+        <figure className={classes.sponsor}>
           <img src={goldenPlacehoder} alt='zlatni sponzor' />
+          <span className={classes.name}>Agilo</span>
+          <div className={classes.dots}>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+            <div className={classes.dot}></div>
+          </div>
           <div className={classes.openPositions}>
             <span className={classes.label}>Open positions</span>
-            <span className={classes.number}>9</span>
+            <div className={classes.ellipse}>
+              <span className={classes.number}>9</span>
+            </div>
           </div>
         </figure>
       </section>
