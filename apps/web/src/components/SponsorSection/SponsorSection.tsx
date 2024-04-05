@@ -1,10 +1,10 @@
-import bronzeSponsor from 'assets/images/bronze-sponsor.svg';
-import goldSponsor from 'assets/images/gold-sponsor.svg';
+import bronzeSponsor from 'assets/images/bronze-sponsor.png';
 import goldenPlacehoder from 'assets/images/golden-placeholder.png';
+import goldSponsor from 'assets/images/golden-sponsor.png';
 import placeholder from 'assets/images/placeholder.svg';
 import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
-import silverSponsor from 'assets/images/silver-sponsor.svg';
+import silverSponsor from 'assets/images/silver-sponsor.png';
 import clsx from 'clsx';
 
 import { dotMaker } from '../../helpers/dotMaker';

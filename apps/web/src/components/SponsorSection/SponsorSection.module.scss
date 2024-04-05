@@ -156,9 +156,10 @@ figure {
     }
 
     .goldenRow {
-      margin-top: vw-calc(80);
       display: flex;
       flex-direction: row;
+      margin-top: vw-calc(32);
+      column-gap: vw-calc(32);
 
       .sponsor {
         display: flex;
