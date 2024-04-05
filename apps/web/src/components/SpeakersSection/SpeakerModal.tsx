@@ -51,7 +51,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
   }
 
   return (
-    <div className={c.modalBackground} onClick={close}>
+    <div data-lenis-prevent className={c.modalBackground} onClick={close}>
       <div className={c.modal}>
         <div
           data-lenis-prevent
