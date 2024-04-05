@@ -241,44 +241,47 @@ figure {
       flex-wrap: wrap;
       column-gap: vw-calc(16);
       margin-top: vw-calc(32);
+      padding: 0 vw-calc(32);
 
       .logo {
         width: vw-calc(330);
-        height: vw-calc(215);
+        height: vw-calc(140);
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
         overflow: hidden;
+        box-sizing: border-box;
 
         img {
           width: vw-calc(110);
           height: vw-calc(110);
-          object-fit: cover;
+          object-fit: contain;
         }
 
         .horizontalDots {
           position: absolute;
           bottom: 0;
           left: 0;
-          width: vw-calc(321);
-          height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: vw-calc(4);
+          width: vw-calc(310);
+          overflow: hidden;
+          gap: vw-calc(6);
         }
 
         .verticalDots {
           position: absolute;
           top: 0;
           right: 0;
-          width: 100%;
-          height: vw-calc(215);
+          height: vw-calc(140);
           display: flex;
+          overflow: hidden;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
-          gap: vw-calc(4);
+          gap: vw-calc(6);
         }
       }
     }

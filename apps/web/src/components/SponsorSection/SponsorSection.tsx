@@ -91,6 +91,12 @@ export const SponsorSection: React.FC = () => (
       <section className={classes.logos}>
         <figure className={classes.logo}>
           <img src={placeholder} alt='agilno' />
+          <div className={classes.horizontalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
+          <div className={classes.verticalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
         </figure>
       </section>
     </article>
@@ -114,6 +120,12 @@ export const SponsorSection: React.FC = () => (
       <section className={classes.logos}>
         <figure className={classes.logo}>
           <img src={placeholder} alt='agilno' />
+          <div className={classes.horizontalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
+          <div className={classes.verticalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
         </figure>
       </section>
     </article>
@@ -124,6 +136,12 @@ export const SponsorSection: React.FC = () => (
       <section className={classes.logos}>
         <figure className={classes.logo}>
           <img src={placeholder} alt='agilno' />
+          <div className={classes.horizontalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
+          <div className={classes.verticalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
         </figure>
       </section>
     </article>
