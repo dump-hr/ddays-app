@@ -50,6 +50,20 @@
       "when": 1711298004295,
       "tag": "0006_violet_vin_gonzales",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1712225287918,
+      "tag": "0007_wide_ironclad",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1712225902959,
+      "tag": "0008_worried_revanche",
+      "breakpoints": true
     }
   ]
 }

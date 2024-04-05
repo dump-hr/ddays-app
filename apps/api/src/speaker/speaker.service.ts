@@ -32,6 +32,9 @@ export class SpeakerService {
         title: speaker.title,
         companyId: speaker.companyId,
         photo: speaker.photo,
+        instagram: speaker.instagram,
+        linkedin: speaker.linkedin,
+        description: speaker.description,
       })
       .from(speaker)
       .orderBy(speaker.firstName);
@@ -48,6 +51,9 @@ export class SpeakerService {
         title: speaker.title,
         companyId: speaker.companyId,
         photo: speaker.photo,
+        instagram: speaker.instagram,
+        linkedin: speaker.linkedin,
+        description: speaker.description,
       })
       .from(speaker)
       .where(eq(speaker.id, id));
@@ -71,6 +77,9 @@ export class SpeakerService {
           title: speakerCompany.speaker.title,
           companyId: speakerCompany.speaker.companyId,
           photo: speakerCompany.speaker.photo,
+          instagram: speakerCompany.speaker.instagram,
+          linkedin: speakerCompany.speaker.linkedin,
+          description: speakerCompany.speaker.description,
           company: speakerCompany.company,
         };
       },

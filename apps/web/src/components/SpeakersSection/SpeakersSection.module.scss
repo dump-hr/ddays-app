@@ -21,7 +21,6 @@
   background-color: #ff482f;
   padding: 32px;
   padding-top: 200px;
-  padding-bottom: 300px;
   max-width: 1440px;
   margin: auto;
 }
@@ -122,6 +121,10 @@
     text-transform: uppercase;
     margin: 0;
   }
+}
+
+.card:last-child {
+  margin-bottom: 0px;
 }
 
 .modal {

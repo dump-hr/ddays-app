@@ -36,11 +36,7 @@ const SpeakersSection = () => {
                 {subArray.map((speaker) => (
                   <SpeakerCard
                     key={speaker.id}
-                    imageSrc={speaker.photo}
-                    firstName={speaker.firstName}
-                    lastName={speaker.lastName}
-                    title={speaker.title}
-                    companyName={speaker.company?.name}
+                    speaker={speaker}
                     height={cardWidth * cardAspectRatio}
                     width={cardWidth}
                   />

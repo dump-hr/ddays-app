@@ -11,8 +11,6 @@ import Schedule from '../../components/Schedule';
 export const LandingPage: React.FC = () => {
   const HeaderButton = <Button>Registriraj se</Button>;
 
-  // const lenis = useLenis(({ scroll }) => {});
-
   return (
     <>
       <ReactLenis root>

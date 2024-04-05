@@ -1,3 +1,4 @@
+import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import FilmFrame from 'components/FilmFrame';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -6,23 +7,15 @@ import SpeakerModal from './SpeakerModal';
 import c from './SpeakersSection.module.scss';
 
 type SpeakerCardProps = {
-  imageSrc: string | undefined;
-  firstName: string;
-  lastName: string;
-  title: string;
+  speaker: SpeakerWithCompanyDto;
   width: number;
   height: number;
-  companyName: string | undefined;
 };
 
 const SpeakerCard: React.FC<SpeakerCardProps> = ({
-  imageSrc,
-  firstName,
-  lastName,
-  title,
+  speaker,
   width,
   height,
-  companyName,
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -44,26 +37,21 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
         style={{ width: width }}
         className={c.card}
         onClick={handleOpenModal}>
-        <FilmFrame imageSrc={imageSrc} height={height} width={width} />
+        <FilmFrame imageSrc={speaker.photo} height={height} width={width} />
         <div className={c.cardInfoWrapper}>
           <h3 className={c.cardName}>
-            {firstName} {lastName}
+            {speaker.firstName} {speaker.lastName}
           </h3>
           <p className={c.cardTitle}>
-            {title} {companyName ? '@ ' + companyName : ''}
+            {speaker.title}{' '}
+            {speaker.company?.name ? '@ ' + speaker.company?.name : ''}
           </p>
         </div>
       </motion.div>
       <SpeakerModal
         close={handleCloseModal}
         isOpen={isOpenModal}
-        imageSrc={imageSrc}
-        firstName={firstName}
-        lastName={lastName}
-        title={title}
-        companyName={companyName}
-        width={width}
-        height={height}
+        speaker={speaker}
       />
     </>
   );
