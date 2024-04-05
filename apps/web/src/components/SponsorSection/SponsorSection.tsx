@@ -6,6 +6,7 @@ import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
 import silverSponsor from 'assets/images/silver-sponsor.svg';
 import clsx from 'clsx';
+import { dotMaker } from 'helpers/dotMaker';
 
 import classes from './SponsorSection.module.css';
 
@@ -74,25 +75,7 @@ export const SponsorSection: React.FC = () => (
         <figure className={classes.sponsor}>
           <img src={goldenPlacehoder} alt='zlatni sponzor' />
           <span className={classes.name}>Agilo</span>
-          <div className={classes.dots}>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-            <div className={classes.dot}></div>
-          </div>
+          <div className={classes.dots}>{dotMaker().map((dot) => dot)}</div>
           <div className={classes.openPositions}>
             <span className={classes.label}>Open positions</span>
             <div className={classes.ellipse}>
@@ -117,6 +100,12 @@ export const SponsorSection: React.FC = () => (
       <section className={classes.logos}>
         <figure className={classes.logo}>
           <img src={placeholder} alt='agilno' />
+          <div className={classes.horizontalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
+          <div className={classes.verticalDots}>
+            {dotMaker().map((dot) => dot)}
+          </div>
         </figure>
       </section>
     </article>

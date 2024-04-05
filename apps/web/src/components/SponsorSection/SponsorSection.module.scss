@@ -110,6 +110,13 @@
     align-items: center;
     justify-content: center;
 
+    .dot {
+      width: vw-calc(1);
+      height: vw-calc(1);
+      border-radius: 50%;
+      background: $dot-color;
+    }
+
     img {
       width: vw-calc(185);
       height: vw-calc(140);
@@ -155,13 +162,6 @@
           justify-content: center;
           gap: vw-calc(8);
           margin-top: vw-calc(16);
-
-          .dot {
-            width: vw-calc(1);
-            height: vw-calc(1);
-            border-radius: 50%;
-            background: $dot-color;
-          }
         }
 
         .openPositions {
@@ -200,30 +200,52 @@
       }
     }
 
-    .sponsorList {
+    .logos {
+      width: 100%;
       display: flex;
+      flex-direction: row;
+      align-items: center;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: vw-calc(20);
+      column-gap: vw-calc(16);
+      margin-top: vw-calc(160);
 
-      .sponsor {
+      .logo {
+        width: vw-calc(330);
+        height: vw-calc(215);
         display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        gap: vw-calc(10);
+        align-items: center;
+        position: relative;
+        overflow: hidden;
 
-        .sponsorImage {
-          width: vw-calc(100);
-          height: vw-calc(100);
+        img {
+          width: vw-calc(110);
+          height: vw-calc(110);
           object-fit: cover;
         }
 
-        .sponsorName {
-          color: $tertiary;
-          font-size: vw-calc(16);
-          font-weight: 500;
-          letter-spacing: vw-calc(1);
+        .horizontalDots {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: vw-calc(321);
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: vw-calc(8);
+        }
+
+        .verticalDots {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: vw-calc(215);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: vw-calc(8);
         }
       }
     }
