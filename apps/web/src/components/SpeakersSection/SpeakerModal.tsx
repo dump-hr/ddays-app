@@ -69,6 +69,18 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
               {speaker.title}{' '}
               {speaker.company?.name ? '@ ' + speaker.company?.name : ''}
             </h3>
+            <div className={c.socialsWrapper}>
+              {speaker.linkedin && (
+                <a className={c.socialsLink} href={speaker.linkedin}>
+                  {`[`} LINKEDIN {']'}
+                </a>
+              )}
+              {speaker.instagram && (
+                <a href={speaker.instagram}>
+                  {`[`} INSTAGRAM {']'}
+                </a>
+              )}
+            </div>
             <section className={c.modalDescription}>
               {speaker.description}
             </section>
