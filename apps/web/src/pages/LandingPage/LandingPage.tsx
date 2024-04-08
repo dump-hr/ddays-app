@@ -9,13 +9,17 @@ import LocationSection from '../../components/LocationSection';
 import Schedule from '../../components/Schedule';
 
 export const LandingPage: React.FC = () => {
-  const [mobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const RegisterButton = <Button>Registriraj se</Button>;
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+  };
 
   return (
     <>
       <MobileMenu Button={RegisterButton} isOpen={mobileMenuOpen} />
-      <Header Button={RegisterButton} />
+      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} />
       <DuckieSection />
       <Schedule />

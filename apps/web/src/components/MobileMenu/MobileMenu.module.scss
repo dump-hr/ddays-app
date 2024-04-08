@@ -8,4 +8,8 @@
   width: 100vw;
   height: 100vh;
   height: 100dvh;
+
+  &.open {
+    right: 0;
+  }
 }
