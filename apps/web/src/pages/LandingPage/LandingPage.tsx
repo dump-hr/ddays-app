@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import Hero from '../../components/Hero';
 import LocationSection from '../../components/LocationSection';
 import Schedule from '../../components/Schedule';
+import { landingNavigation } from '../../constants/landing-navigation';
 
 export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,6 +23,7 @@ export const LandingPage: React.FC = () => {
         Button={RegisterButton}
         isOpen={mobileMenuOpen}
         toggle={toggleMobileMenu}
+        items={landingNavigation}
       />
       <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} />
