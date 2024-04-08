@@ -1,4 +1,5 @@
 import DuckieSection from 'components/DuckieSection';
+import MobileMenu from 'components/MobileMenu';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -11,6 +12,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <>
+      <MobileMenu />
       <Header Button={HeaderButton} />
       <Hero Button={HeaderButton} />
       <DuckieSection />
