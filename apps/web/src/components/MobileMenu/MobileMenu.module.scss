@@ -2,12 +2,16 @@
   position: fixed;
   top: 0;
   right: -100vw;
+  transition: 300ms ease-in-out;
+
   background: white;
 
   z-index: 9999;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
+
+  background-image: url('../../assets/images/hero-background.png');
 
   &.open {
     right: 0;
