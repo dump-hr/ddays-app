@@ -21,7 +21,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
     <div className={classes}>
       <div className={c.header}>
         <p>Izbornik</p>
-        <HamburgerButton onClick={toggle} />
+        <HamburgerButton onClick={toggle} isClose />
       </div>
       <nav className={c.items}>
         {items.map((item) => (
