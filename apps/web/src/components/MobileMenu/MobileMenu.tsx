@@ -33,6 +33,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
           </a>
         ))}
       </nav>
+      <hr className={c.divider} />
       {Button}
     </div>
   );

@@ -31,7 +31,30 @@
     margin-top: 48px;
 
     p {
+      font-family: 'PP Neue Montreal Mono';
       text-transform: uppercase;
     }
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    margin-top: 48px;
+
+    .item {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 32px;
+      align-self: flex-start;
+    }
+  }
+
+  .divider {
+    border: none;
+    width: 100%;
+    border-top: 2px dotted red;
+    border-spacing: 50px;
   }
 }
