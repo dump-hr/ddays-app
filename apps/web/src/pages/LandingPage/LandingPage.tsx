@@ -26,7 +26,7 @@ export const LandingPage: React.FC = () => {
         items={landingNavigation}
       />
       <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
-      <Hero Button={RegisterButton} />
+      <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <Schedule />
       <LocationSection />
