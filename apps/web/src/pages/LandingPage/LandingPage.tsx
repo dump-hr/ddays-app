@@ -18,7 +18,11 @@ export const LandingPage: React.FC = () => {
 
   return (
     <>
-      <MobileMenu Button={RegisterButton} isOpen={mobileMenuOpen} />
+      <MobileMenu
+        Button={RegisterButton}
+        isOpen={mobileMenuOpen}
+        toggle={toggleMobileMenu}
+      />
       <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} />
       <DuckieSection />

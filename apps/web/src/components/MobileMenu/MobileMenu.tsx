@@ -1,13 +1,15 @@
 import clsx from 'clsx';
+import HamburgerButton from 'components/HamburgerButton';
 
 import c from './MobileMenu.module.scss';
 
 type MobileMenuProps = {
   Button: React.ReactNode;
   isOpen: boolean;
+  toggle: () => void;
 };
 
-const MobileMenu = ({ Button, isOpen }: MobileMenuProps) => {
+const MobileMenu = ({ Button, isOpen, toggle }: MobileMenuProps) => {
   const classes = clsx({
     [c.mobileMenu]: true,
     [c.open]: isOpen,
@@ -15,7 +17,10 @@ const MobileMenu = ({ Button, isOpen }: MobileMenuProps) => {
 
   return (
     <div className={classes}>
-      mobile menu
+      <div className={c.header}>
+        <p>Izbornik</p>
+        <HamburgerButton onClick={toggle} />
+      </div>
       {Button}
     </div>
   );
