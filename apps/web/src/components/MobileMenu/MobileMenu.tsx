@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import DottedBreak from 'components/DottedBreak';
 import HamburgerButton from 'components/HamburgerButton';
 
 import c from './MobileMenu.module.scss';
@@ -33,7 +34,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
           </a>
         ))}
       </nav>
-      <hr className={c.divider} />
+      <DottedBreak />
       {Button}
     </div>
   );
