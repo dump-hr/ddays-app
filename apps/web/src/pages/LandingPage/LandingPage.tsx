@@ -19,12 +19,14 @@ export const LandingPage: React.FC = () => {
 
   return (
     <>
-      <MobileMenu
-        Button={RegisterButton}
-        isOpen={mobileMenuOpen}
-        toggle={toggleMobileMenu}
-        items={landingNavigation}
-      />
+      {window.innerWidth < 768 && (
+        <MobileMenu
+          Button={RegisterButton}
+          isOpen={mobileMenuOpen}
+          toggle={toggleMobileMenu}
+          items={landingNavigation}
+        />
+      )}
       <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
