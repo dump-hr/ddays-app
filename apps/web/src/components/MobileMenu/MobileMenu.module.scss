@@ -39,14 +39,14 @@
   .items {
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 40px;
     margin-top: 48px;
 
     .item {
       color: white;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: 32px;
+      font-size: 24px;
       align-self: flex-start;
     }
   }
@@ -56,5 +56,19 @@
     width: 100%;
     border-top: 10px dotted red;
     border-spacing: 50px;
+  }
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-feature-settings: 'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 24px;
   }
 }

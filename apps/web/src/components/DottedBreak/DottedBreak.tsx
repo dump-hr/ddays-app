@@ -3,9 +3,13 @@ import c from './DottedBreak.module.scss';
 type DottedBreakProps = {
   dotSize?: number;
   dotNumber?: number;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const DottedBreak = ({ dotSize = 5, dotNumber = 40 }: DottedBreakProps) => {
+const DottedBreak = ({
+  dotSize = 5,
+  dotNumber = 30,
+  ...handlers
+}: DottedBreakProps) => {
   const Dots = () => {
     const dots = [];
     const style = {
@@ -22,7 +26,7 @@ const DottedBreak = ({ dotSize = 5, dotNumber = 40 }: DottedBreakProps) => {
   };
 
   return (
-    <div className={c.dots}>
+    <div className={c.dots} {...handlers}>
       <Dots />
     </div>
   );
