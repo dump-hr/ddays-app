@@ -20,7 +20,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
   return (
     <div className={classes}>
       <div className={c.header}>
-        <p>Izbornik</p>
+        <p className={c.headerText}>Izbornik</p>
         <HamburgerButton onClick={toggle} isClose />
       </div>
       <nav className={c.items}>
@@ -36,7 +36,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
       </nav>
       <DottedBreak style={{ opacity: 0.2, margin: '55px 0' }} />
       {Button}
-      <p>
+      <p className={c.bottomText}>
         Besplatna konferencija <br /> za novu generaciju
       </p>
     </div>
