@@ -1,17 +1,23 @@
 .footer {
-  height: 100vh;
-  padding: 32px;
+  padding: 32px 0px;
+  background-color: #171615;
+  overflow-x: hidden;
 
   .background {
     background-image: url('../../assets/images/footer-background.png');
     background-size: cover;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: 729px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    &Wrapper {
+      position: relative;
+      padding-bottom: 32px;
+      margin-bottom: 312px;
+    }
   }
 
   &TitleWrapper {
@@ -35,5 +41,81 @@
 
   .button {
     width: fit-content;
+    color: #fff;
+
+    font-feature-settings:
+      'ss06' on,
+      'ss01' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
+
+  .sticker {
+    position: absolute;
+    top: -8%;
+    left: 80%;
+    z-index: 3;
+    transform: rotate(-20deg);
+  }
+
+  .duckie {
+    position: absolute;
+    bottom: -14%;
+    left: 5%;
+    z-index: 3;
+  }
+}
+
+.bottomWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 320px;
+  position: relative;
+}
+
+.socialsWrapper {
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  bottom: -38px;
+
+  .socialsImageContainerEven {
+    padding-top: 33px;
+  }
+
+  .socialsImage {
+    width: 162px;
+    height: 162px;
+    display: block;
+  }
+}
+
+.mb54 {
+  margin-bottom: 54px;
+}
+
+.mt52 {
+  margin-top: 52px;
+}
+
+.mt28 {
+  margin-top: 28px;
+}
+
+.mt60 {
+  margin-top: 60px;
+}
+
+.dottedRuler {
+  letter-spacing: 4px;
+  color: #88888888;
 }
