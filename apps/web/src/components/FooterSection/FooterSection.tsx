@@ -60,6 +60,13 @@ const FooterSection = () => {
             .....................................................................................................................................................................
           </div>
         </div>
+        <div className={c.bottomSmallTextWrapper}>
+          <p>© DUMPDAYS</p>
+          <p>
+            Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
+            ljubavi.
+          </p>
+        </div>
       </div>
     </footer>
   );

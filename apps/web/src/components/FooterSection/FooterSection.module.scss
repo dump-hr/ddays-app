@@ -1,7 +1,6 @@
 .footer {
   padding: 32px 0px;
   background-color: #171615;
-  overflow-x: hidden;
 
   .background {
     background-image: url('../../assets/images/footer-background.png');
@@ -60,7 +59,7 @@
 
   .sticker {
     position: absolute;
-    top: -8%;
+    top: -10%;
     left: 80%;
     z-index: 3;
     transform: rotate(-20deg);
@@ -129,4 +128,18 @@
   &Wrapper {
     overflow-x: hidden;
   }
+}
+
+.bottomSmallTextWrapper {
+  padding: 0px 52px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'PP Neue Machina';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  text-transform: uppercase;
 }
