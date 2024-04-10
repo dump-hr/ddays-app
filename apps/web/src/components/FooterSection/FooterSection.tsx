@@ -36,12 +36,12 @@ const FooterSection = () => {
           </button>
           <div className={c.socialsWrapper}>
             <img
-              className={clsx(c.socialsImage, c.mt28)}
+              className={clsx(c.socialsImage, c.facebook)}
               src={Facebook}
               alt='facebook'
             />
             <img
-              className={clsx(c.socialsImage, c.mt60)}
+              className={clsx(c.socialsImage, c.linkedin)}
               src={LinkedIn}
               alt='linkedin'
             />
@@ -49,7 +49,7 @@ const FooterSection = () => {
               <img className={c.socialsImage} src={Instagram} alt='instagram' />
             </div>
             <img
-              className={clsx(c.socialsImage, c.mt52)}
+              className={clsx(c.socialsImage, c.youtube)}
               src={YouTube}
               alt='youtube'
             />

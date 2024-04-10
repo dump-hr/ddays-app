@@ -10,13 +10,21 @@
     height: 729px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     flex-direction: column;
+
+    @media screen and (max-width: 375px) {
+      background-image: url('../../assets/images/footer-background-mobile.png');
+    }
 
     &Wrapper {
       position: relative;
       padding-bottom: 32px;
       margin-bottom: 312px;
+
+      @media screen and (max-width: 430px) {
+        margin-bottom: 188px;
+      }
     }
   }
 
@@ -24,6 +32,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 193px;
   }
 
   .bigText {
@@ -83,7 +92,7 @@
 
   .duckie {
     position: absolute;
-    bottom: -14%;
+    bottom: -74px;
     left: 5%;
     z-index: 3;
 
@@ -97,7 +106,9 @@
     }
 
     @media screen and (max-width: 451px) {
-      left: -94px;
+      left: -77px;
+      bottom: -54px;
+      width: 288px;
     }
   }
 }
@@ -133,7 +144,6 @@
   height: fit-content;
   position: absolute;
   bottom: -38px;
-  display: none;
 
   .socialsImageContainerEven {
     padding-top: 33px;
@@ -143,6 +153,18 @@
     width: 162px;
     height: 162px;
     display: block;
+
+    @media screen and (max-width: 650px) {
+      width: 106px;
+      height: 106px;
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+
+    @media screen and (max-width: 361px) {
+      width: 94px;
+      height: 94px;
+    }
   }
 }
 
@@ -150,16 +172,28 @@
   margin-bottom: 54px;
 }
 
-.mt52 {
+.youtube {
   margin-top: 52px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 68px;
+  }
 }
 
-.mt28 {
+.facebook {
   margin-top: 28px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 16px;
+  }
 }
 
-.mt60 {
+.linkedin {
   margin-top: 60px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 83px;
+  }
 }
 
 .mb24 {
@@ -180,14 +214,16 @@
   padding: 0px 52px;
   display: flex;
   justify-content: space-between;
+  margin: auto;
   margin-top: 32px;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'PP Neue Machina';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 15px;
+  line-height: 18px;
   text-transform: uppercase;
+  max-width: 1440px;
 
   @media screen and (max-width: 1032px) {
     flex-direction: column;
