@@ -27,35 +27,39 @@ const FooterSection = () => {
         </div>
       </div>
       <div className={c.bottomWrapper}>
-        <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
-        <button className={c.button}>
-          {`[ `}
-          REGISTRIRAJ SVOJ DOLAZAK
-          {` ]`}
-        </button>
-        <div className={c.socialsWrapper}>
-          <img
-            className={clsx(c.socialsImage, c.mt28)}
-            src={Facebook}
-            alt='facebook'
-          />
-          <img
-            className={clsx(c.socialsImage, c.mt60)}
-            src={LinkedIn}
-            alt='linkedin'
-          />
-          <div>
-            <img className={c.socialsImage} src={Instagram} alt='instagram' />
+        <div className={c.questionsWrapper}>
+          <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
+          <button className={c.button}>
+            {`[ `}
+            REGISTRIRAJ SVOJ DOLAZAK
+            {` ]`}
+          </button>
+          <div className={c.socialsWrapper}>
+            <img
+              className={clsx(c.socialsImage, c.mt28)}
+              src={Facebook}
+              alt='facebook'
+            />
+            <img
+              className={clsx(c.socialsImage, c.mt60)}
+              src={LinkedIn}
+              alt='linkedin'
+            />
+            <div>
+              <img className={c.socialsImage} src={Instagram} alt='instagram' />
+            </div>
+            <img
+              className={clsx(c.socialsImage, c.mt52)}
+              src={YouTube}
+              alt='youtube'
+            />
           </div>
-          <img
-            className={clsx(c.socialsImage, c.mt52)}
-            src={YouTube}
-            alt='youtube'
-          />
         </div>
-      </div>
-      <div className={c.dottedRuler}>
-        .....................................................................................................................................................................
+        <div className={c.dottedRulerWrapper}>
+          <div className={c.dottedRuler}>
+            .....................................................................................................................................................................
+          </div>
+        </div>
       </div>
     </footer>
   );

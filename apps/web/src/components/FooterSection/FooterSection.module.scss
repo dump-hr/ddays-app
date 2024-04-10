@@ -75,11 +75,17 @@
 }
 
 .bottomWrapper {
+  padding: 0px 32px;
+}
+
+.questionsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 320px;
   position: relative;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .socialsWrapper {
@@ -118,4 +124,9 @@
 .dottedRuler {
   letter-spacing: 4px;
   color: #88888888;
+  text-align: center;
+
+  &Wrapper {
+    overflow-x: hidden;
+  }
 }
