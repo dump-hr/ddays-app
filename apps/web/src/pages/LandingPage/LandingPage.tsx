@@ -1,5 +1,7 @@
+import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import MobileMenu from 'components/MobileMenu';
+import SpeakersSection from 'components/SpeakersSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -18,7 +20,7 @@ export const LandingPage: React.FC = () => {
   };
 
   return (
-    <>
+    <ReactLenis root>
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}
@@ -31,7 +33,8 @@ export const LandingPage: React.FC = () => {
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <Schedule />
+      <SpeakersSection />
       <LocationSection />
-    </>
+    </ReactLenis>
   );
 };

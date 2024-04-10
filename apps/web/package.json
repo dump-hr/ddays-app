@@ -9,10 +9,12 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@studio-freight/react-lenis": "^0.0.46",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
     "dayjs": "^1.11.10",
+    "framer-motion": "^11.0.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
