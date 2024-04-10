@@ -31,7 +31,7 @@ const FooterSection = () => {
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
           <button className={c.button}>
             {`[ `}
-            REGISTRIRAJ SVOJ DOLAZAK
+            KONTAKTIRAJ DUMPOVCE
             {` ]`}
           </button>
           <div className={c.socialsWrapper}>
@@ -61,7 +61,7 @@ const FooterSection = () => {
           </div>
         </div>
         <div className={c.bottomSmallTextWrapper}>
-          <p>© DUMPDAYS</p>
+          <p className={c.mb24}>© DUMPDAYS</p>
           <p>
             Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
             ljubavi.

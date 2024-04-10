@@ -37,6 +37,12 @@
     line-height: 120px;
     letter-spacing: -5px;
     text-transform: uppercase;
+
+    @media screen and (max-width: 684px) {
+      font-size: 64px;
+      line-height: 62px;
+      letter-spacing: -3px;
+    }
   }
 
   .button {
@@ -64,6 +70,15 @@
     left: 80%;
     z-index: 3;
     transform: rotate(-20deg);
+
+    @media screen and (max-width: 701px) {
+      width: 100px;
+      left: 70%;
+    }
+
+    @media screen and (max-width: 396px) {
+      left: 60%;
+    }
   }
 
   .duckie {
@@ -71,6 +86,19 @@
     bottom: -14%;
     left: 5%;
     z-index: 3;
+
+    @media screen and (max-width: 1019px) {
+      width: 354px;
+      left: 3%;
+    }
+
+    @media screen and (max-width: 879px) {
+      left: -11%;
+    }
+
+    @media screen and (max-width: 451px) {
+      left: -94px;
+    }
   }
 }
 
@@ -105,6 +133,7 @@
   height: fit-content;
   position: absolute;
   bottom: -38px;
+  display: none;
 
   .socialsImageContainerEven {
     padding-top: 33px;
@@ -133,6 +162,10 @@
   margin-top: 60px;
 }
 
+.mb24 {
+  margin-bottom: 24px;
+}
+
 .dottedRuler {
   letter-spacing: 4px;
   color: #88888888;
@@ -155,4 +188,9 @@
   font-weight: 500;
   line-height: 15px;
   text-transform: uppercase;
+
+  @media screen and (max-width: 1032px) {
+    flex-direction: column;
+    text-align: center;
+  }
 }
