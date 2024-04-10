@@ -6,9 +6,10 @@ import c from './Header.module.scss';
 
 type HeaderProps = {
   Button: React.ReactNode;
+  toggleMobileMenu: () => void;
 };
 
-const Header = ({ Button }: HeaderProps) => {
+const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Header = ({ Button }: HeaderProps) => {
         ZA NOVU GENERACIJU
       </p>
       {Button}
-      <HamburgerButton className={c.hamburger} />
+      <HamburgerButton className={c.hamburger} onClick={toggleMobileMenu} />
     </header>
   );
 };
