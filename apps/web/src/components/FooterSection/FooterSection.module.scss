@@ -1,0 +1,39 @@
+.footer {
+  height: 100vh;
+  padding: 32px;
+
+  .background {
+    background-image: url('../../assets/images/footer-background.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &TitleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bigText {
+    color: #eaeaea;
+    text-align: center;
+    font-feature-settings: 'ss07' on;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120px;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+  }
+
+  .button {
+    width: fit-content;
+  }
+}
