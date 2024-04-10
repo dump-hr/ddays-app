@@ -1,7 +1,7 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
-import SpeakersSection from 'components/SpeakersSection';
 import MobileMenu from 'components/MobileMenu';
+import SpeakersSection from 'components/SpeakersSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -29,8 +29,8 @@ export const LandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <Header Button={HeaderButton} toggleMobileMenu={toggleMobileMenu} />
-      <Hero Button={HeaderButton} items={landingNavigation} />
+      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
+      <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <Schedule />
       <SpeakersSection />
