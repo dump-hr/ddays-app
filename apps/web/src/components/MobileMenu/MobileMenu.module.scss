@@ -1,0 +1,75 @@
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  transition: 300ms ease-in-out;
+  box-sizing: border-box;
+  padding: 0 16px;
+
+  background: white;
+
+  color: white;
+
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  background-image: url('../../assets/images/hero-background.png');
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    right: 0;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+
+    .headerText {
+      font-family: 'PP Neue Montreal Mono';
+      text-transform: uppercase;
+    }
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 48px;
+
+    .item {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 24px;
+      align-self: flex-start;
+    }
+  }
+
+  .divider {
+    border: none;
+    width: 100%;
+    border-top: 10px dotted red;
+    border-spacing: 50px;
+  }
+
+  .bottomText {
+    color: #fff;
+    text-align: center;
+    font-feature-settings: 'ss03' on;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 24px;
+  }
+}

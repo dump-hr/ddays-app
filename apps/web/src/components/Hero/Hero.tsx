@@ -3,20 +3,21 @@ import c from './Hero.module.scss';
 
 type HeroProps = {
   Button: React.ReactNode;
+  items: { name: string; path: string }[];
 };
 
-const Hero = ({ Button }: HeroProps) => {
+const Hero = ({ Button, items }: HeroProps) => {
   return (
     <section className={c.hero}>
       <div className={c.content}>
         <ScrollingTitle />
       </div>
       <nav className={c.menu}>
-        <a href=''>Konferencija</a>
-        <a href=''>Speakeri</a>
-        <a href=''>Raspored</a>
-        <a href=''>Sponzori</a>
-        <a href=''>Kontakt</a>
+        {items.map((item) => (
+          <a key={item.name} href={item.path} className={c.item}>
+            {item.name}
+          </a>
+        ))}
       </nav>
       {Button}
       <p className={c.text}>
