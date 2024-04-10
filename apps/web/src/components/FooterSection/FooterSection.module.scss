@@ -10,7 +10,6 @@
     height: 729px;
     display: flex;
     align-items: center;
-    // justify-content: center;
     flex-direction: column;
 
     @media screen and (max-width: 375px) {
@@ -137,6 +136,10 @@
   align-items: center;
   padding-bottom: 320px;
   position: relative;
+
+  @media screen and (max-width: 450px) {
+    padding-bottom: 210px;
+  }
 }
 
 .socialsWrapper {

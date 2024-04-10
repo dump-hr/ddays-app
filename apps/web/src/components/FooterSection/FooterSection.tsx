@@ -35,24 +35,36 @@ const FooterSection = () => {
             {` ]`}
           </button>
           <div className={c.socialsWrapper}>
-            <img
-              className={clsx(c.socialsImage, c.facebook)}
-              src={Facebook}
-              alt='facebook'
-            />
-            <img
-              className={clsx(c.socialsImage, c.linkedin)}
-              src={LinkedIn}
-              alt='linkedin'
-            />
+            <a href='https://www.facebook.com/dump.hr/' target='_blank'>
+              <img
+                className={clsx(c.socialsImage, c.facebook)}
+                src={Facebook}
+                alt='facebook'
+              />
+            </a>
+            <a href='https://hr.linkedin.com/company/dumpovci' target='_blank'>
+              <img
+                className={clsx(c.socialsImage, c.linkedin)}
+                src={LinkedIn}
+                alt='linkedin'
+              />
+            </a>
             <div>
-              <img className={c.socialsImage} src={Instagram} alt='instagram' />
+              <a href='https://www.instagram.com/dumpovci/' target='_blank'>
+                <img
+                  className={c.socialsImage}
+                  src={Instagram}
+                  alt='instagram'
+                />
+              </a>
             </div>
-            <img
-              className={clsx(c.socialsImage, c.youtube)}
-              src={YouTube}
-              alt='youtube'
-            />
+            <a href='https://www.youtube.com/@dumpovci' target='_blank'>
+              <img
+                className={clsx(c.socialsImage, c.youtube)}
+                src={YouTube}
+                alt='youtube'
+              />
+            </a>
           </div>
         </div>
         <div className={c.dottedRulerWrapper}>
