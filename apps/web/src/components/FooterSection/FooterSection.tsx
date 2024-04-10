@@ -29,11 +29,12 @@ const FooterSection = () => {
       <div className={c.bottomWrapper}>
         <div className={c.questionsWrapper}>
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
-          <button className={c.button}>
+
+          <a className={c.button} href='mailto:info@dump.hr'>
             {`[ `}
             KONTAKTIRAJ DUMPOVCE
             {` ]`}
-          </button>
+          </a>
           <div className={c.socialsWrapper}>
             <a href='https://www.facebook.com/dump.hr/' target='_blank'>
               <img
