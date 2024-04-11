@@ -1,5 +1,6 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
+import RegistrationSection from 'components/RegistrationSection';
 import MobileMenu from 'components/MobileMenu';
 import SpeakersSection from 'components/SpeakersSection';
 import { useState } from 'react';
@@ -35,6 +36,7 @@ export const LandingPage: React.FC = () => {
       <Schedule />
       <SpeakersSection />
       <LocationSection />
+      <RegistrationSection />
     </ReactLenis>
   );
 };
