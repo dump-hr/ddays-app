@@ -1,4 +1,8 @@
-import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
+import {
+  SpeakerDto,
+  SpeakerModifyDto,
+  SpeakerWithCompanyDto,
+} from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -34,6 +38,11 @@ export class SpeakerController {
   @Get()
   async getAll(): Promise<SpeakerDto[]> {
     return await this.speakerService.getAll();
+  }
+
+  @Get('with-company')
+  async getAllSpeakersWithCompany(): Promise<SpeakerWithCompanyDto[]> {
+    return await this.speakerService.getAllSpeakersWithCompany();
   }
 
   @Get(':id')

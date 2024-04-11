@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { CompanyDto } from './company';
 
 export type SpeakerDto = {
   id: number;
@@ -7,6 +8,9 @@ export type SpeakerDto = {
   title: string;
   companyId?: number;
   photo?: string;
+  instagram?: string;
+  linkedin?: string;
+  description?: string;
 };
 
 export class SpeakerModifyDto {
@@ -22,4 +26,29 @@ export class SpeakerModifyDto {
   @IsOptional()
   @IsNumber()
   companyId?: number;
+
+  @IsOptional()
+  @IsString()
+  instagram?: string;
+
+  @IsOptional()
+  @IsString()
+  linkedin?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
 }
+
+export type SpeakerWithCompanyDto = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  title: string;
+  companyId?: number;
+  photo?: string;
+  instagram?: string;
+  linkedin?: string;
+  description?: string;
+  company?: CompanyDto;
+};

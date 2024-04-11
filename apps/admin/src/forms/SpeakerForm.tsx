@@ -45,6 +45,24 @@ export const SpeakerForm: React.FC<SpeakerFormProps> = ({ id, onSuccess }) => {
       title: 'CompanyId (0 for null)',
       defaultValue: speaker?.companyId,
     },
+    {
+      id: 'linkedin',
+      type: QuestionType.Field,
+      title: 'LinkedIn',
+      defaultValue: speaker?.linkedin,
+    },
+    {
+      id: 'instagram',
+      type: QuestionType.Field,
+      title: 'Instagram',
+      defaultValue: speaker?.instagram,
+    },
+    {
+      id: 'description',
+      type: QuestionType.TextArea,
+      title: 'Opis (sa instagrama)',
+      defaultValue: speaker?.description,
+    },
   ];
 
   const form = useForm<SpeakerModifyDto>({
