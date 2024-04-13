@@ -5,6 +5,7 @@ import Facebook from '../../assets/images/facebook.png';
 import FooterDuckie from '../../assets/images/footer-duckie.png';
 import Instagram from '../../assets/images/instagram.png';
 import LinkedIn from '../../assets/images/linkedin.png';
+import SectionBreaker from '../../assets/images/section-breaker-footer.png';
 import YouTube from '../../assets/images/youtube.png';
 import c from './FooterSection.module.scss';
 
@@ -24,6 +25,7 @@ const FooterSection = () => {
             </button>
           </div>
           <img className={c.duckie} src={FooterDuckie} alt='' />
+          <img className={c.sectionBreaker} src={SectionBreaker} alt='' />
         </div>
       </div>
       <div className={c.bottomWrapper}>

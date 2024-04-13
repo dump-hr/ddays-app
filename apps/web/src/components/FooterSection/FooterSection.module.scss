@@ -111,6 +111,17 @@
       width: 288px;
     }
   }
+
+  .sectionBreaker {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    object-fit: cover;
+
+    @media screen and (max-width: 970px) {
+      height: 30px;
+    }
+  }
 }
 
 .footer:before {
