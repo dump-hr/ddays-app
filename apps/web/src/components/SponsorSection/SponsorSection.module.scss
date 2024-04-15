@@ -222,16 +222,15 @@ figure {
         width: vw-calc(320);
 
         @media (max-width: 768px) {
-          width: vw-mobile-calc(340);
+          width: vw-mobile-calc(345);
         }
 
         img {
           width: vw-calc(320);
           height: auto;
-          object-fit: fill;
 
           @media (max-width: 768px) {
-            width: vw-mobile-calc(340);
+            width: vw-mobile-calc(345);
           }
         }
 
@@ -338,13 +337,12 @@ figure {
       @media (max-width: 768px) {
         flex-direction: row;
         margin-top: vw-mobile-calc(54);
-        padding: 0 vw-mobile-calc(16);
         overflow: hidden;
         column-gap: vw-mobile-calc(12);
       }
 
       .logo {
-        width: vw-calc(330);
+        width: vw-calc(320);
         height: vw-calc(140);
         display: flex;
         justify-content: center;
@@ -353,9 +351,21 @@ figure {
         overflow: hidden;
         box-sizing: border-box;
 
+        &:nth-child(4n) {
+          .verticalDots {
+            display: none;
+          }
+        }
+
         @media (max-width: 768px) {
           width: vw-mobile-calc(173);
           height: vw-mobile-calc(80);
+
+          &:nth-child(2n) {
+            .verticalDots {
+              display: none;
+            }
+          }
         }
 
         img {
@@ -364,8 +374,8 @@ figure {
           object-fit: contain;
 
           @media (max-width: 768px) {
-            width: vw-mobile-calc(71);
-            height: vw-mobile-calc(20);
+            width: vw-mobile-calc(75);
+            height: auto;
           }
         }
 
