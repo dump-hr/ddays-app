@@ -1,7 +1,7 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
-import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection/FrequentlyAskedQuestionsSection';
+import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import SpeakersSection from 'components/SpeakersSection';
