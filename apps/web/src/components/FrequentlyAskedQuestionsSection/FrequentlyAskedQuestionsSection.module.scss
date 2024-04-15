@@ -2,6 +2,12 @@
   position: relative;
   background-color: #000;
   overflow-x: hidden;
+  padding: 87.5px 129px 178px 108px;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 119px 16px 176px 16px;
+  }
 
   &:before {
     content: '';
@@ -19,15 +25,116 @@
   }
 }
 
-.heading {
-  margin-top: 87.5px;
-  text-align: center;
+.faqContainer {
+  position: relative;
+  z-index: 2;
 
-  color: #eaeaea;
-  font-family: 'PP Neue Machina';
-  font-size: 120px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 144px;
-  letter-spacing: -5.025px;
+  &Heading {
+    text-align: center;
+    margin-bottom: 120px;
+
+    color: #eaeaea;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 144px;
+    letter-spacing: -5.025px;
+  }
+}
+
+.faqCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &Left {
+    display: flex;
+  }
+
+  &Index {
+    margin-top: 4px;
+
+    padding: 4px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff482f;
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+
+    @media (max-width: 768px) {
+      margin-top: 6px;
+    }
+  }
+
+  &Info {
+    margin-left: 236px;
+
+    @media (max-width: 1200px) {
+      margin-left: 24px;
+    }
+  }
+
+  &Question {
+    overflow: hidden;
+    color: #ffffffb2;
+
+    text-overflow: ellipsis;
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -1px;
+
+    @media (max-width: 768px) {
+      line-height: 24px;
+      letter-spacing: -0.16px;
+      font-size: 16px;
+    }
+  }
+
+  &Answer {
+    max-width: 648px;
+    margin-top: 16px;
+    overflow: hidden;
+    color: #ffffff80;
+
+    text-overflow: ellipsis;
+    font-family: 'PP Neue Machina';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+  }
+
+  &Button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    @media (max-width: 700px) {
+      display: none;
+    }
+  }
+}
+
+.dottedRuler {
+  overflow: hidden;
+  letter-spacing: 3px;
+  color: #88888888;
+  margin: 40px 0;
+
+  @media (max-width: 768px) {
+    margin: 32px 0;
+  }
 }

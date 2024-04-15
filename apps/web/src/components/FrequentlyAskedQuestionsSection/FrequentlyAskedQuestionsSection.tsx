@@ -10,10 +10,17 @@ const FrequentlyAskedQuestionsSection = () => {
 
   return (
     <div className={c.container}>
-      <h1 className={c.heading}>FAQ</h1>
-      {frequentlyAskedQuestions?.map((faq, i) => (
-        <FrequentlyAskedQuestionCard faq={faq} index={++i} />
-      ))}
+      <div className={c.faqContainer}>
+        <h1 className={c.faqContainerHeading}>FAQ</h1>
+        {frequentlyAskedQuestions?.map((faq, index) => (
+          <FrequentlyAskedQuestionCard
+            faq={faq}
+            index={++index}
+            isRulerVisible={index !== frequentlyAskedQuestions.length}
+            key={index}
+          />
+        ))}
+      </div>
     </div>
   );
 };
