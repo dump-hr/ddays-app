@@ -1,4 +1,6 @@
 import { useFrequentlyAskedQuestionGetAll } from '../../api/frequently-asked-question/useFrequentlyAskedQuestionGetAll';
+import FrequentlyAskedQuestionCard from './FrequentlyAskedQuestionCard';
+import c from './FrequentlyAskedQuestionsSection.module.scss';
 
 const FrequentlyAskedQuestionsSection = () => {
   const { data: frequentlyAskedQuestions, isLoading } =
@@ -7,8 +9,11 @@ const FrequentlyAskedQuestionsSection = () => {
   if (isLoading) <div>Loading...</div>;
 
   return (
-    <div>
-      {frequentlyAskedQuestions?.map((faq) => <div>{faq.question}</div>)}
+    <div className={c.container}>
+      <h1 className={c.heading}>FAQ</h1>
+      {frequentlyAskedQuestions?.map((faq, i) => (
+        <FrequentlyAskedQuestionCard faq={faq} index={++i} />
+      ))}
     </div>
   );
 };
