@@ -1,0 +1,312 @@
+.background {
+  background-color: #ff482f;
+  position: relative;
+}
+
+.background:before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 182px;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.wrapper {
+  background-color: #ff482f;
+  padding: 32px;
+  padding-top: 200px;
+  max-width: 1440px;
+  margin: auto;
+}
+
+.header {
+  &Container {
+    text-align: center;
+    margin-bottom: 122px;
+  }
+
+  &Title {
+    color: #eaeaea;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 144px;
+    text-transform: uppercase;
+  }
+
+  &SmallText {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+}
+
+.speakers {
+  &Wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &Column:not(:last-child) {
+    margin-right: 32px;
+  }
+
+  &Column:nth-child(2) {
+    margin-top: 647px;
+  }
+
+  &Column:nth-child(3) {
+    margin-top: 112px;
+  }
+
+  &Column:nth-child(4) {
+    margin-top: 779px;
+  }
+}
+
+.speaker {
+  &Frame {
+    height: 401px;
+    width: 310px;
+    object-fit: contain;
+  }
+
+  &Image {
+    height: 401px;
+    width: 300px;
+  }
+}
+
+.card {
+  margin-bottom: 732px;
+  cursor: pointer;
+
+  &InfoWrapper {
+    text-align: center;
+    margin-top: 22px;
+  }
+
+  &Name {
+    color: #fff;
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    line-height: 32px;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 8px;
+  }
+
+  &Title {
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+}
+
+.card:last-child {
+  margin-bottom: 0px;
+}
+
+.modal {
+  position: fixed;
+  top: 270px;
+  left: 50%;
+
+  z-index: 10;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  position: relative;
+
+  background: black;
+  color: white;
+  padding: 40px 80px 55px 80px;
+  width: 1200px;
+  height: 500px;
+  display: flex;
+}
+
+.container:before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 182px;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
+
+.close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+}
+
+.modalImage {
+  margin-right: 80px;
+}
+
+.modalRight {
+  width: 536px;
+  overflow-y: hidden;
+}
+
+.modalSpeakerName {
+  color: #eaeaea;
+  font-family: 'PP Neue Machina';
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.modalTitle {
+  color: #ff482f;
+  font-family: 'PP Neue Machina';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.socialsWrapper {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.socialsLink {
+  color: #fff;
+  font-feature-settings:
+    'ss06' on,
+    'ss01' on;
+  font-family: 'PP Neue Montreal Mono';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  padding: 8px;
+}
+
+.modalDescription {
+  color: #fff;
+  font-family: 'PP Neue Machina';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  overflow-y: scroll;
+  max-height: 60%;
+}
+
+.modalDescription::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 1250px) {
+  .container {
+    width: 90vw;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .wrapper {
+    padding: 16px;
+  }
+  .header {
+    &Title {
+      font-size: 48px;
+      line-height: 52px;
+      letter-spacing: -3px;
+    }
+
+    &SmallText {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .headerContainer {
+    margin-bottom: 40px;
+  }
+  .card {
+    margin-bottom: 180px;
+
+    &Name {
+      font-size: 18px;
+      margin-bottom: 0px;
+    }
+  }
+
+  .background:before {
+    background: transparent;
+  }
+
+  .wrapper {
+    background-color: #e75b3f;
+  }
+
+  .speakersColumn:nth-child(2) {
+    margin-top: 140px;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .modalImage {
+    display: none;
+  }
+}
