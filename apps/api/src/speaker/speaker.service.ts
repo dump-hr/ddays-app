@@ -1,7 +1,11 @@
-import { SpeakerDto, SpeakerModifyDto } from '@ddays-app/types';
+import {
+  SpeakerDto,
+  SpeakerModifyDto,
+  SpeakerWithCompanyDto,
+} from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { speaker } from 'db/schema';
+import { company, speaker } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 
@@ -28,6 +32,9 @@ export class SpeakerService {
         title: speaker.title,
         companyId: speaker.companyId,
         photo: speaker.photo,
+        instagram: speaker.instagram,
+        linkedin: speaker.linkedin,
+        description: speaker.description,
       })
       .from(speaker)
       .orderBy(speaker.firstName);
@@ -44,11 +51,41 @@ export class SpeakerService {
         title: speaker.title,
         companyId: speaker.companyId,
         photo: speaker.photo,
+        instagram: speaker.instagram,
+        linkedin: speaker.linkedin,
+        description: speaker.description,
       })
       .from(speaker)
       .where(eq(speaker.id, id));
 
     return foundSpeaker;
+  }
+
+  async getAllSpeakersWithCompany() {
+    const result = await db
+      .select()
+      .from(speaker)
+      .leftJoin(company, eq(speaker.companyId, company.id))
+      .orderBy(speaker.firstName);
+
+    const speakersWithCompany: SpeakerWithCompanyDto[] = result.map(
+      (speakerCompany) => {
+        return {
+          id: speakerCompany.speaker.id,
+          firstName: speakerCompany.speaker.firstName,
+          lastName: speakerCompany.speaker.lastName,
+          title: speakerCompany.speaker.title,
+          companyId: speakerCompany.speaker.companyId,
+          photo: speakerCompany.speaker.photo,
+          instagram: speakerCompany.speaker.instagram,
+          linkedin: speakerCompany.speaker.linkedin,
+          description: speakerCompany.speaker.description,
+          company: speakerCompany.company,
+        };
+      },
+    );
+
+    return speakersWithCompany;
   }
 
   async remove(id: number) {

@@ -1,0 +1,17 @@
+.frame {
+  height: 100%;
+  width: 100%;
+
+  &Wrapper {
+    position: relative;
+    background-color: #171615;
+  }
+
+  &Image {
+    position: absolute;
+    top: 3%;
+    left: 4%;
+    width: 91%;
+    height: 92%;
+  }
+}
