@@ -90,7 +90,7 @@ export const SponsorSection: React.FC = () => {
                   <div className={classes.ellipse}>
                     <span className={classes.number}>
                       {
-                        x.interests?.length //TODO: Tehnically, this number should be the nu,ber of avialable positions, which would force making a new call or modifying every all sponsors call, I can add this but should probably discuss it first
+                        0 //TODO: Tehnically, this number should be the nu,ber of avialable positions, which would force making a new call or modifying every all sponsors call, I can add this but should probably discuss it first
                       }
                     </span>
                   </div>
