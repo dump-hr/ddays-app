@@ -13,6 +13,7 @@ import Hero from '../../components/Hero';
 import LocationSection from '../../components/LocationSection';
 import Schedule from '../../components/Schedule';
 import { landingNavigation } from '../../constants/landing-navigation';
+import GallerySection from 'components/GallerySection';
 
 export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,6 +40,7 @@ export const LandingPage: React.FC = () => {
       <SpeakersSection />
       <LocationSection />
       <RegistrationSection />
+      <GallerySection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
     </ReactLenis>
