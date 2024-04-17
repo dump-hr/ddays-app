@@ -4,5 +4,40 @@
   background: url('../../assets/images/gallery-background.png');
   background-size: cover;
   background-color: black;
-  scroll-snap-type: y mandatory;
+  position: relative;
+  box-sizing: border-box;
+
+  .title {
+    color: #eaeaea;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 144px;
+    letter-spacing: -5.025px;
+    text-transform: uppercase;
+    padding-top: 20%;
+    text-align: center;
+  }
+
+  .subtitle {
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 200px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+  }
 }
