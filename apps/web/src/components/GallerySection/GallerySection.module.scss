@@ -6,6 +6,9 @@
   background-color: black;
   position: relative;
   box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
 
   .title {
     color: #eaeaea;
