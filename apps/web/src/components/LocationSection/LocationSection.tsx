@@ -9,27 +9,30 @@ const LocationSection = () => {
         <div className={c.titleWrapper}></div>
         <h1 className={c.title}>LOKACIJA</h1>
         <img src={fesbBackground} alt='fesb' className={c.titleBottomImage} />
-      </div>
-      <div className={c.stampContainer}>
-        <div className={c.stamp}>
-          <img src={vintageFesb} alt='vintage fesb' />
-        </div>
-        <div className={c.stamp}>
-          <div className={c.stampContent}>
-            <h2 className={c.stampContentTitle}>Ista adresa, više sadržaja</h2>
-            <div className={c.stampContentFooter}>
-              <div className={c.dottedRuler}>
-                ..............................................
-              </div>
-              <div className={c.stampContentFooterText}>
-                <h3>FESB</h3>
-                <h3>Ul. Ruđera Boškovića</h3>
-                <h3>SPLIT, HRVATSKA</h3>
+        <div className={c.stampContainer}>
+          <div className={c.stamp}>
+            <img src={vintageFesb} alt='vintage fesb' />
+          </div>
+          <div className={c.stamp}>
+            <div className={c.stampContent}>
+              <h2 className={c.stampContentTitle}>
+                Ista adresa, više sadržaja
+              </h2>
+              <div className={c.stampContentFooter}>
+                <div className={c.dottedRuler}>
+                  ..............................................
+                </div>
+                <div className={c.stampContentFooterText}>
+                  <h3>FESB</h3>
+                  <h3>Ul. Ruđera Boškovića</h3>
+                  <h3>SPLIT, HRVATSKA</h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
           <h2>izložbeni prostor</h2>

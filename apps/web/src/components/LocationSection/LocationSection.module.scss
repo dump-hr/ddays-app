@@ -50,7 +50,7 @@ div {
 
   &Container {
     position: relative;
-    height: 1600px;
+    height: 2244px;
   }
 
   &Wrapper {
@@ -61,7 +61,7 @@ div {
     mix-blend-mode: soft-light;
 
     width: 100%;
-    height: 1600px;
+    height: 2244px;
   }
 
   &BottomImage {
@@ -84,7 +84,8 @@ div {
   }
 
   &Container {
-    margin-top: 135px;
+    position: relative;
+    margin-top: 26px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -178,7 +179,7 @@ div {
 }
 
 .locationInfo {
-  margin-top: 32px;
+  margin-top: 162px;
   padding-left: 55px;
   padding-right: 55px;
 
