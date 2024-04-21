@@ -8,9 +8,9 @@ div {
 }
 
 .containerWrapper {
+  padding-top: 174px;
   position: relative;
   background-color: #065852;
-  overflow-x: hidden;
 
   &:before {
     content: '';
@@ -24,12 +24,23 @@ div {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1;
   }
 }
 
+.titleWrapper {
+  position: absolute;
+  background: url('../../assets/images/split-background.png') #065852 bottom /
+    100% auto no-repeat;
+
+  mix-blend-mode: soft-light;
+
+  width: 100%;
+  height: 1600px;
+}
+
 .title {
-  padding-top: 174px;
+  position: sticky;
+  top: 60px;
   text-align: center;
 
   font-family: 'PP Neue Machina';

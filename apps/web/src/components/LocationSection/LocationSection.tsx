@@ -4,7 +4,9 @@ import c from './LocationSection.module.scss';
 const LocationSection = () => {
   return (
     <div className={c.containerWrapper}>
-      <h1 className={c.title}>LOKACIJA</h1>
+      <div className={c.titleWrapper}>
+        <h1 className={c.title}>LOKACIJA</h1>
+      </div>
       <div className={c.stampContainer}>
         <div className={c.stamp}>
           <img src={vintageFesb} alt='vintage fesb' />
