@@ -1,11 +1,14 @@
+import fesbBackground from '../../assets/images/fesb-background.png';
 import vintageFesb from '../../assets/vintage-fesb.png';
 import c from './LocationSection.module.scss';
 
 const LocationSection = () => {
   return (
     <div className={c.containerWrapper}>
-      <div className={c.titleWrapper}>
+      <div className={c.titleContainer}>
+        <div className={c.titleWrapper}></div>
         <h1 className={c.title}>LOKACIJA</h1>
+        <img src={fesbBackground} alt='fesb' className={c.titleBottomImage} />
       </div>
       <div className={c.stampContainer}>
         <div className={c.stamp}>

@@ -27,17 +27,6 @@ div {
   }
 }
 
-.titleWrapper {
-  position: absolute;
-  background: url('../../assets/images/split-background.png') #065852 bottom /
-    100% auto no-repeat;
-
-  mix-blend-mode: soft-light;
-
-  width: 100%;
-  height: 1600px;
-}
-
 .title {
   position: sticky;
   top: 60px;
@@ -57,6 +46,28 @@ div {
     font-size: 69.968px;
     line-height: 87.46px;
     letter-spacing: -3.28px;
+  }
+
+  &Container {
+    position: relative;
+    height: 1600px;
+  }
+
+  &Wrapper {
+    position: absolute;
+    background: url('../../assets/images/split-background.png') transparent
+      bottom / 100% auto no-repeat;
+
+    mix-blend-mode: soft-light;
+
+    width: 100%;
+    height: 1600px;
+  }
+
+  &BottomImage {
+    position: absolute;
+    bottom: -127px;
+    width: 100%;
   }
 }
 
