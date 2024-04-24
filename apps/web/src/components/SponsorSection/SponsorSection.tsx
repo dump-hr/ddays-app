@@ -40,7 +40,7 @@ export const SponsorSection: React.FC = () => {
   }, [data]);
 
   const isMobile = useMemo(() => window.innerWidth < 768, [window.innerWidth]);
-  const maxSponsors = useMemo(() => (isMobile ? 4 : 9), [isMobile]);
+  const maxSponsors = useMemo(() => (isMobile ? 2 : 4), [isMobile]);
 
   return (
     <section className={classes.container}>
@@ -138,8 +138,11 @@ export const SponsorSection: React.FC = () => {
             {silverSponsors.map((x, index) => (
               <figure className={classes.logo}>
                 <img src={x.logoImage} alt={x.name} />
-                {index + 1 <
-                  (silverSponsors.length % maxSponsors, maxSponsors) && (
+                {(silverSponsors.length % maxSponsors
+                  ? index <
+                    silverSponsors.length -
+                      (silverSponsors.length % maxSponsors)
+                  : index < silverSponsors.length - maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
                 )}
                 <div className={classes.verticalDots}>{dotMaker()}</div>
@@ -156,8 +159,11 @@ export const SponsorSection: React.FC = () => {
             {bronzeSponsors.map((x, index) => (
               <figure className={classes.logo}>
                 <img src={x.logoImage} alt={x.name} />
-                {index + 1 <
-                  (bronzeSponsors.length % maxSponsors, maxSponsors) && (
+                {(bronzeSponsors.length % maxSponsors
+                  ? index <
+                    bronzeSponsors.length -
+                      (bronzeSponsors.length % maxSponsors)
+                  : index < bronzeSponsors.length - maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
                 )}
                 <div className={classes.verticalDots}>{dotMaker()}</div>
@@ -173,8 +179,10 @@ export const SponsorSection: React.FC = () => {
             {mediaSponsors.map((x, index) => (
               <figure className={classes.logo}>
                 <img src={x.logoImage} alt={x.name} />
-                {index + 1 <
-                  (mediaSponsors.length % maxSponsors, maxSponsors) && (
+                {(mediaSponsors.length % maxSponsors
+                  ? index <
+                    mediaSponsors.length - (mediaSponsors.length % maxSponsors)
+                  : index < mediaSponsors.length - maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
                 )}
                 <div className={classes.verticalDots}>{dotMaker()}</div>
@@ -192,8 +200,11 @@ export const SponsorSection: React.FC = () => {
             {friendSponsors.map((x, index) => (
               <figure className={classes.logo}>
                 <img src={x.logoImage} alt={x.name} />
-                {index + 1 <
-                  (friendSponsors.length % maxSponsors, maxSponsors) && (
+                {(friendSponsors.length % maxSponsors
+                  ? index <
+                    friendSponsors.length -
+                      (friendSponsors.length % maxSponsors)
+                  : index < friendSponsors.length - maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
                 )}
                 <div className={classes.verticalDots}>{dotMaker()}</div>
