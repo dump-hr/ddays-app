@@ -7,11 +7,11 @@ import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
 import silverSponsor from 'assets/images/silver-sponsor.png';
 import clsx from 'clsx';
-import { useScreenSize } from 'hooks/useScreenSize';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { dotMaker } from '../../helpers/dotMaker';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import classes from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => {
