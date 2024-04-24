@@ -1,4 +1,4 @@
-import { CompanyCategory } from '@ddays-app/types';
+import { CompanyCategory, CompanyPublicDto } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.png';
 import goldSponsor from 'assets/images/golden-sponsor.png';
 import kodak from 'assets/images/kodak.png';
@@ -7,6 +7,7 @@ import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
 import silverSponsor from 'assets/images/silver-sponsor.png';
 import clsx from 'clsx';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { dotMaker } from '../../helpers/dotMaker';
@@ -14,6 +15,32 @@ import classes from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => {
   const { data } = useGetAllSponsors();
+  const [goldSponsors, setGoldSponsors] = useState<CompanyPublicDto[]>([]);
+  const [silverSponsors, setSilverSponsors] = useState<CompanyPublicDto[]>([]);
+  const [bronzeSponsors, setBronzeSponsors] = useState<CompanyPublicDto[]>([]);
+  const [mediaSponsors, setMediaSponsors] = useState<CompanyPublicDto[]>([]);
+  const [friendSponsors, setFriendSponsors] = useState<CompanyPublicDto[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setGoldSponsors(data.filter((x) => x.category === CompanyCategory.Gold));
+      setSilverSponsors(
+        data.filter((x) => x.category === CompanyCategory.Silver),
+      );
+      setBronzeSponsors(
+        data.filter((x) => x.category === CompanyCategory.Bronze),
+      );
+      setMediaSponsors(
+        data.filter((x) => x.category === CompanyCategory.Media),
+      );
+      setFriendSponsors(
+        data.filter((x) => x.category === CompanyCategory.Friend),
+      );
+    }
+  }, [data]);
+
+  const isMobile = useMemo(() => window.innerWidth < 768, [window.innerWidth]);
+  const maxSponsors = useMemo(() => (isMobile ? 4 : 9), [isMobile]);
 
   return (
     <section className={classes.container}>
@@ -77,32 +104,30 @@ export const SponsorSection: React.FC = () => {
         <img src={goldSponsor} alt='zlatni sponzori' />
         <span className={classes.sponsorTier}>Zlatni sponzori</span>
         <section className={classes.goldenRow}>
-          {data
-            ?.filter((x) => x.category === CompanyCategory.Gold)
-            .map((x) => (
-              <article className={classes.sponsor}>
-                <figure className={classes.picture}>
-                  <img
-                    className={classes.landing}
-                    src={x.landingImage}
-                    alt={x.name}
-                  />
-                  <img className={classes.kodak} src={kodak} alt={x.name} />
-                </figure>
-                <span className={classes.name}>{x.name}</span>
-                <div className={classes.dots}>{dotMaker()}</div>
-                <div className={classes.openPositions}>
-                  <span className={classes.label}>Otvorene pozicije</span>
-                  <div className={classes.ellipse}>
-                    <span className={classes.number}>
-                      {
-                        0 //TODO: Tehnically, this number should be the nu,ber of avialable positions, which would force making a new call or modifying every all sponsors call, I can add this but should probably discuss it first
-                      }
-                    </span>
-                  </div>
+          {goldSponsors.map((x) => (
+            <article className={classes.sponsor}>
+              <figure className={classes.picture}>
+                <img
+                  className={classes.landing}
+                  src={x.landingImage}
+                  alt={x.name}
+                />
+                <img className={classes.kodak} src={kodak} alt={x.name} />
+              </figure>
+              <span className={classes.name}>{x.name}</span>
+              <div className={classes.dots}>{dotMaker()}</div>
+              <div className={classes.openPositions}>
+                <span className={classes.label}>Otvorene pozicije</span>
+                <div className={classes.ellipse}>
+                  <span className={classes.number}>
+                    {
+                      0 //TODO: Tehnically, this number should be the nu,ber of avialable positions, which would force making a new call or modifying every all sponsors call, I can add this but should probably discuss it first
+                    }
+                  </span>
                 </div>
-              </article>
-            ))}
+              </div>
+            </article>
+          ))}
         </section>
       </article>
       <article className={classes.sponsorSection}>
@@ -110,15 +135,16 @@ export const SponsorSection: React.FC = () => {
         <span className={classes.sponsorTier}>Srebrni sponzori</span>
         <div className={classes.logosWrapper}>
           <section className={classes.logos}>
-            {data
-              ?.filter((x) => x.category === CompanyCategory.Silver)
-              .map((x) => (
-                <figure className={classes.logo}>
-                  <img src={x.logoImage} alt={x.name} />
+            {silverSponsors.map((x, index) => (
+              <figure className={classes.logo}>
+                <img src={x.logoImage} alt={x.name} />
+                {index + 1 <
+                  (silverSponsors.length % maxSponsors, maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
-                  <div className={classes.verticalDots}>{dotMaker()}</div>
-                </figure>
-              ))}
+                )}
+                <div className={classes.verticalDots}>{dotMaker()}</div>
+              </figure>
+            ))}
           </section>
         </div>
       </article>
@@ -127,15 +153,16 @@ export const SponsorSection: React.FC = () => {
         <span className={classes.sponsorTier}>Brončani sponzori</span>
         <div className={classes.logosWrapper}>
           <section className={classes.logos}>
-            {data
-              ?.filter((x) => x.category === CompanyCategory.Bronze)
-              .map((x) => (
-                <figure className={classes.logo}>
-                  <img src={x.logoImage} alt={x.name} />
+            {bronzeSponsors.map((x, index) => (
+              <figure className={classes.logo}>
+                <img src={x.logoImage} alt={x.name} />
+                {index + 1 <
+                  (bronzeSponsors.length % maxSponsors, maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
-                  <div className={classes.verticalDots}>{dotMaker()}</div>
-                </figure>
-              ))}
+                )}
+                <div className={classes.verticalDots}>{dotMaker()}</div>
+              </figure>
+            ))}
           </section>
         </div>
       </article>
@@ -143,15 +170,16 @@ export const SponsorSection: React.FC = () => {
         <span className={classes.sponsorTier}>Medijski pokrovitelji</span>
         <div className={classes.logosWrapper}>
           <section className={classes.logos}>
-            {data
-              ?.filter((x) => x.category === CompanyCategory.Media)
-              .map((x) => (
-                <figure className={classes.logo}>
-                  <img src={x.logoImage} alt={x.name} />
+            {mediaSponsors.map((x, index) => (
+              <figure className={classes.logo}>
+                <img src={x.logoImage} alt={x.name} />
+                {index + 1 <
+                  (mediaSponsors.length % maxSponsors, maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
-                  <div className={classes.verticalDots}>{dotMaker()}</div>
-                </figure>
-              ))}
+                )}
+                <div className={classes.verticalDots}>{dotMaker()}</div>
+              </figure>
+            ))}
           </section>
         </div>
       </article>
@@ -161,15 +189,16 @@ export const SponsorSection: React.FC = () => {
         </span>
         <div className={classes.logosWrapper}>
           <section className={classes.logos}>
-            {data
-              ?.filter((x) => x.category === CompanyCategory.Friend)
-              .map((x) => (
-                <figure className={classes.logo}>
-                  <img src={x.logoImage} alt={x.name} />
+            {friendSponsors.map((x, index) => (
+              <figure className={classes.logo}>
+                <img src={x.logoImage} alt={x.name} />
+                {index + 1 <
+                  (friendSponsors.length % maxSponsors, maxSponsors) && (
                   <div className={classes.horizontalDots}>{dotMaker()}</div>
-                  <div className={classes.verticalDots}>{dotMaker()}</div>
-                </figure>
-              ))}
+                )}
+                <div className={classes.verticalDots}>{dotMaker()}</div>
+              </figure>
+            ))}
           </section>
         </div>
       </article>

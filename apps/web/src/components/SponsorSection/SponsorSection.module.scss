@@ -274,6 +274,7 @@ figure {
             left: vw-calc(11);
             width: vw-calc(298);
             height: vw-calc(232);
+            object-fit: cover;
 
             @media (max-width: 768px) {
               top: vw-mobile-calc(13);
@@ -401,11 +402,8 @@ figure {
           }
         }
 
-        &:nth-last-child(-n + 1),
-        &:nth-last-child(-n + 2),
-        &:nth-last-child(-n + 3),
-        &:nth-last-child(-n + 4) {
-          .horizontalDots {
+        &:last-child {
+          .verticalDots {
             display: none;
           }
         }
@@ -416,20 +414,6 @@ figure {
           display: flex;
           justify-content: center;
           align-items: center;
-
-          &:nth-last-child(-n + 3),
-          &:nth-last-child(-n + 4) {
-            .horizontalDots {
-              display: flex;
-            }
-          }
-
-          &:nth-last-child(-n + 1),
-          &:nth-last-child(-n + 2) {
-            .horizontalDots {
-              display: none;
-            }
-          }
 
           &:nth-child(2n) {
             .verticalDots {
