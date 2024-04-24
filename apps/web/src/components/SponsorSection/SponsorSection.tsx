@@ -1,6 +1,7 @@
 import { CompanyCategory } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.png';
 import goldSponsor from 'assets/images/golden-sponsor.png';
+import kodak from 'assets/images/kodak.png';
 import placeholder from 'assets/images/placeholder.svg';
 import sectionBreakerEnd from 'assets/images/section-breaker-end.svg';
 import sectionBreakerStart from 'assets/images/section-breaker-start.svg';
@@ -80,11 +81,16 @@ export const SponsorSection: React.FC = () => {
             ?.filter((x) => x.category === CompanyCategory.Gold)
             .map((x) => (
               <article className={classes.sponsor}>
-                <img src={x.logoImage} alt={x.name} />
+                <figure className={classes.picture}>
+                  <img
+                    className={classes.landing}
+                    src={x.landingImage}
+                    alt={x.name}
+                  />
+                  <img className={classes.kodak} src={kodak} alt={x.name} />
+                </figure>
                 <span className={classes.name}>{x.name}</span>
-                <div className={classes.dots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
+                <div className={classes.dots}>{dotMaker()}</div>
                 <div className={classes.openPositions}>
                   <span className={classes.label}>Otvorene pozicije</span>
                   <div className={classes.ellipse}>
@@ -102,78 +108,70 @@ export const SponsorSection: React.FC = () => {
       <article className={classes.sponsorSection}>
         <img src={silverSponsor} alt='srebrni sponzori' />
         <span className={classes.sponsorTier}>Srebrni sponzori</span>
-        <section className={classes.logos}>
-          {data
-            ?.filter((x) => x.category === CompanyCategory.Silver)
-            .map((x) => (
-              <figure className={classes.logo}>
-                <img src={x.logoImage} alt={x.name} />
-                <div className={classes.horizontalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-                <div className={classes.verticalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-              </figure>
-            ))}
-        </section>
+        <div className={classes.logosWrapper}>
+          <section className={classes.logos}>
+            {data
+              ?.filter((x) => x.category === CompanyCategory.Silver)
+              .map((x) => (
+                <figure className={classes.logo}>
+                  <img src={x.logoImage} alt={x.name} />
+                  <div className={classes.horizontalDots}>{dotMaker()}</div>
+                  <div className={classes.verticalDots}>{dotMaker()}</div>
+                </figure>
+              ))}
+          </section>
+        </div>
       </article>
       <article className={classes.sponsorSection}>
         <img src={bronzeSponsor} alt='brončani sponzori' />
         <span className={classes.sponsorTier}>Brončani sponzori</span>
-        <section className={classes.logos}>
-          {data
-            ?.filter((x) => x.category === CompanyCategory.Bronze)
-            .map((x) => (
-              <figure className={classes.logo}>
-                <img src={x.logoImage} alt={x.name} />
-                <div className={classes.horizontalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-                <div className={classes.verticalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-              </figure>
-            ))}
-        </section>
+        <div className={classes.logosWrapper}>
+          <section className={classes.logos}>
+            {data
+              ?.filter((x) => x.category === CompanyCategory.Bronze)
+              .map((x) => (
+                <figure className={classes.logo}>
+                  <img src={x.logoImage} alt={x.name} />
+                  <div className={classes.horizontalDots}>{dotMaker()}</div>
+                  <div className={classes.verticalDots}>{dotMaker()}</div>
+                </figure>
+              ))}
+          </section>
+        </div>
       </article>
       <article className={classes.sponsorSection}>
         <span className={classes.sponsorTier}>Medijski pokrovitelji</span>
-        <section className={classes.logos}>
-          {data
-            ?.filter((x) => x.category === CompanyCategory.Media)
-            .map((x) => (
-              <figure className={classes.logo}>
-                <img src={x.logoImage} alt={x.name} />
-                <div className={classes.horizontalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-                <div className={classes.verticalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-              </figure>
-            ))}
-        </section>
+        <div className={classes.logosWrapper}>
+          <section className={classes.logos}>
+            {data
+              ?.filter((x) => x.category === CompanyCategory.Media)
+              .map((x) => (
+                <figure className={classes.logo}>
+                  <img src={x.logoImage} alt={x.name} />
+                  <div className={classes.horizontalDots}>{dotMaker()}</div>
+                  <div className={classes.verticalDots}>{dotMaker()}</div>
+                </figure>
+              ))}
+          </section>
+        </div>
       </article>
       <article className={classes.sponsorSection}>
         <span className={classes.sponsorTier}>
           Organizacijski partneri & prijatelji
         </span>
-        <section className={classes.logos}>
-          {data
-            ?.filter((x) => x.category === CompanyCategory.Friend)
-            .map((x) => (
-              <figure className={classes.logo}>
-                <img src={x.logoImage} alt={x.name} />
-                <div className={classes.horizontalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-                <div className={classes.verticalDots}>
-                  {dotMaker().map((dot) => dot)}
-                </div>
-              </figure>
-            ))}
-        </section>
+        <div className={classes.logosWrapper}>
+          <section className={classes.logos}>
+            {data
+              ?.filter((x) => x.category === CompanyCategory.Friend)
+              .map((x) => (
+                <figure className={classes.logo}>
+                  <img src={x.logoImage} alt={x.name} />
+                  <div className={classes.horizontalDots}>{dotMaker()}</div>
+                  <div className={classes.verticalDots}>{dotMaker()}</div>
+                </figure>
+              ))}
+          </section>
+        </div>
       </article>
       <div className={classes.sectionBreakerEnd}>
         <img src={sectionBreakerEnd} alt='kraj sponzor sekcije' />
