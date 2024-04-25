@@ -49,6 +49,7 @@ export class CompanyService {
         boothLocation: company.boothLocation,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
+        landingImageCompanyCulture: company.landingImageCompanyCulture,
         video: company.video,
       })
       .from(company)
