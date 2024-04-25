@@ -10,7 +10,13 @@ const RegistrationSection = () => {
       <div className={c.registerContainer}>
         <h1 className={c.registerHeading}>registriraj se</h1>
         <img src={MobileApp} alt='mobile app' className={c.mobileAppImage} />
-        <Button className={c.loginButton}>[ prijavi se u aplikaciju ]</Button>
+        <Button
+          className={c.loginButton}
+          onClick={() =>
+            (window.location.href = 'https://days-app.dump.hr/login')
+          }>
+          [ prijavi se u aplikaciju ]
+        </Button>
       </div>
     </div>
   );

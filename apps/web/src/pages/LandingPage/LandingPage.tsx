@@ -1,7 +1,9 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
-import RegistrationSection from 'components/RegistrationSection';
+import FooterSection from 'components/FooterSection';
+import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import MobileMenu from 'components/MobileMenu';
+import RegistrationSection from 'components/RegistrationSection';
 import SpeakersSection from 'components/SpeakersSection';
 import { useState } from 'react';
 
@@ -14,7 +16,12 @@ import { landingNavigation } from '../../constants/landing-navigation';
 
 export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const RegisterButton = <Button>Registriraj se</Button>;
+  const RegisterButton = (
+    <Button
+      onClick={() => (window.location.href = 'https://days-app.dump.hr/login')}>
+      Registriraj se
+    </Button>
+  );
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -37,6 +44,8 @@ export const LandingPage: React.FC = () => {
       <SpeakersSection />
       <LocationSection />
       <RegistrationSection />
+      <FrequentlyAskedQuestionsSection />
+      <FooterSection />
     </ReactLenis>
   );
 };

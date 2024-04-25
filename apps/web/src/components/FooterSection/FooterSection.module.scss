@@ -1,0 +1,247 @@
+.footer {
+  padding: 32px 0px;
+  background-color: black;
+  position: relative;
+
+  .background {
+    background-image: url('../../assets/images/footer-background.png');
+    background-size: cover;
+    width: 100%;
+    height: 729px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @media screen and (max-width: 375px) {
+      background-image: url('../../assets/images/footer-background-mobile.png');
+    }
+
+    &Wrapper {
+      position: relative;
+      padding-bottom: 32px;
+      margin-bottom: 312px;
+
+      @media screen and (max-width: 430px) {
+        margin-bottom: 188px;
+      }
+    }
+  }
+
+  &TitleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 193px;
+  }
+
+  .bigText {
+    color: #eaeaea;
+    text-align: center;
+    font-feature-settings: 'ss07' on;
+    font-family: 'PP Neue Machina', sans-serif;
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120px;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 684px) {
+      font-size: 64px;
+      line-height: 62px;
+      letter-spacing: -3px;
+    }
+  }
+
+  .button {
+    width: fit-content;
+    color: #fff;
+
+    font-feature-settings:
+      'ss06' on,
+      'ss01' on;
+    font-family: 'PP Neue Montreal Mono', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .sticker {
+    position: absolute;
+    top: -10%;
+    left: 80%;
+    z-index: 3;
+    transform: rotate(-20deg);
+
+    @media screen and (max-width: 701px) {
+      width: 100px;
+      left: 70%;
+    }
+
+    @media screen and (max-width: 396px) {
+      left: 60%;
+    }
+  }
+
+  .duckie {
+    position: absolute;
+    bottom: -74px;
+    left: 5%;
+    z-index: 3;
+
+    @media screen and (max-width: 1019px) {
+      width: 354px;
+      left: 3%;
+    }
+
+    @media screen and (max-width: 879px) {
+      left: -11%;
+    }
+
+    @media screen and (max-width: 451px) {
+      left: -77px;
+      bottom: -54px;
+      width: 288px;
+    }
+  }
+
+  .sectionBreaker {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    object-fit: cover;
+
+    @media screen and (max-width: 970px) {
+      height: 30px;
+    }
+  }
+}
+
+.footer:before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 182px;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bottomWrapper {
+  padding: 0px 32px;
+}
+
+.questionsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 320px;
+  position: relative;
+
+  @media screen and (max-width: 450px) {
+    padding-bottom: 210px;
+  }
+}
+
+.socialsWrapper {
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  bottom: -38px;
+
+  .socialsImageContainerEven {
+    padding-top: 33px;
+  }
+
+  .socialsImage {
+    width: 162px;
+    height: 162px;
+    display: block;
+
+    @media screen and (max-width: 650px) {
+      width: 106px;
+      height: 106px;
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+
+    @media screen and (max-width: 361px) {
+      width: 94px;
+      height: 94px;
+    }
+  }
+}
+
+.mb54 {
+  margin-bottom: 54px;
+}
+
+.youtube {
+  margin-top: 52px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 68px;
+  }
+}
+
+.facebook {
+  margin-top: 28px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 16px;
+  }
+}
+
+.linkedin {
+  margin-top: 60px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 83px;
+  }
+}
+
+.mb24 {
+  margin-bottom: 24px;
+}
+
+.dottedRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+  text-align: center;
+
+  &Wrapper {
+    overflow-x: hidden;
+  }
+}
+
+.bottomSmallTextWrapper {
+  padding: 0px 52px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 32px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  text-transform: uppercase;
+  max-width: 1440px;
+
+  @media screen and (max-width: 1032px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
