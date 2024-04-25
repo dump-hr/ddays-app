@@ -1,25 +1,33 @@
+import fesbBackground from '../../assets/images/fesb-background.png';
+import splitStamp from '../../assets/images/split-stamp.png';
 import vintageFesb from '../../assets/vintage-fesb.png';
 import c from './LocationSection.module.scss';
 
 const LocationSection = () => {
   return (
     <div className={c.containerWrapper}>
-      <h1 className={c.title}>LOKACIJA</h1>
-      <div className={c.stampContainer}>
-        <div className={c.stamp}>
-          <img src={vintageFesb} alt='vintage fesb' />
-        </div>
-        <div className={c.stamp}>
-          <div className={c.stampContent}>
-            <h2 className={c.stampContentTitle}>Ista adresa, više sadržaja</h2>
-            <div className={c.stampContentFooter}>
-              <div className={c.dottedRuler}>
-                ..............................................
-              </div>
-              <div className={c.stampContentFooterText}>
-                <h3>FESB</h3>
-                <h3>Ul. Ruđera Boškovića</h3>
-                <h3>SPLIT, HRVATSKA</h3>
+      <div className={c.titleContainer}>
+        <div className={c.titleWrapper}></div>
+        <h1 className={c.title}>LOKACIJA</h1>
+        <img src={fesbBackground} alt='fesb' className={c.titleBottomImage} />
+        <div className={c.stampContainer}>
+          <div className={c.stamp}>
+            <img src={vintageFesb} alt='vintage fesb' />
+          </div>
+          <div className={c.stamp}>
+            <div className={c.stampContent}>
+              <h2 className={c.stampContentTitle}>
+                Ista adresa, više sadržaja
+              </h2>
+              <div className={c.stampContentFooter}>
+                <div className={c.dottedRuler}>
+                  ..............................................
+                </div>
+                <div className={c.stampContentFooterText}>
+                  <h3>FESB</h3>
+                  <h3>Ul. Ruđera Boškovića</h3>
+                  <h3>SPLIT, HRVATSKA</h3>
+                </div>
               </div>
             </div>
           </div>
@@ -38,7 +46,19 @@ const LocationSection = () => {
           ................................................................................................................................................................................................................
         </div>
       </div>
-      <div className={c.date}>23. — 24. 05. 2024.</div>
+      <div className={c.date}>
+        <p className={c.dateText}>23.</p>
+        <span className={c.dateSpan}>
+          {' '}
+          —{' '}
+          <img
+            src={splitStamp}
+            alt='split stamp'
+            className={c.dateSpanImage}
+          />{' '}
+        </span>
+        <p className={c.dateText}>24. 05. 2024.</p>
+      </div>
     </div>
   );
 };
