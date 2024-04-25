@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'PP Neue Machina';
+  font-family: 'PP Neue Machina', sans-serif;
   font-size: 16px;
   font-weight: 500;
 }
@@ -25,7 +25,7 @@ body::before {
 }
 
 @font-face {
-  font-family: 'PP Neue Machina', sans-serif;
+  font-family: 'PP Neue Machina';
   font-style: normal;
   font-weight: 500;
   src: url('./assets/fonts/PPNeueMachina-PlainMedium.woff2') format('woff2');
@@ -33,7 +33,7 @@ body::before {
 }
 
 @font-face {
-  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-family: 'PP Neue Montreal Mono';
   font-style: normal;
   font-weight: 500;
   src: url('./assets/fonts/PPNeueMontrealMono-Medium.woff2') format('woff2');
