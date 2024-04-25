@@ -1,4 +1,5 @@
 import fesbBackground from '../../assets/images/fesb-background.png';
+import splitStamp from '../../assets/images/split-stamp.png';
 import vintageFesb from '../../assets/vintage-fesb.png';
 import c from './LocationSection.module.scss';
 
@@ -32,7 +33,6 @@ const LocationSection = () => {
           </div>
         </div>
       </div>
-
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
           <h2>izložbeni prostor</h2>
@@ -46,7 +46,19 @@ const LocationSection = () => {
           ................................................................................................................................................................................................................
         </div>
       </div>
-      <div className={c.date}>23. — 24. 05. 2024.</div>
+      <div className={c.date}>
+        <p className={c.dateText}>23.</p>
+        <span className={c.dateSpan}>
+          {' '}
+          —{' '}
+          <img
+            src={splitStamp}
+            alt='split stamp'
+            className={c.dateSpanImage}
+          />{' '}
+        </span>
+        <p className={c.dateText}>24. 05. 2024.</p>
+      </div>
     </div>
   );
 };
