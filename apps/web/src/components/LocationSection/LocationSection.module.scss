@@ -291,7 +291,6 @@ div {
   margin-top: 76px;
   padding-left: 37px;
 
-<<<<<<< HEAD
   &Text {
     display: inline;
     color: #fff;
@@ -306,19 +305,6 @@ div {
     text-transform: uppercase;
     opacity: 0.2;
     mix-blend-mode: overlay;
-=======
-  text-align: center;
-  font-feature-settings: 'ss12' on;
-  font-family: 'PP Neue Machina', sans-serif;
-  font-size: 268.265px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 262.265px;
-  letter-spacing: 5.245px;
-  text-transform: uppercase;
-  opacity: 0.2;
-  mix-blend-mode: overlay;
->>>>>>> main
 
     @media (max-width: 992px) {
       font-size: 65.491px;
@@ -334,7 +320,7 @@ div {
     color: transparent;
     text-align: center;
     font-feature-settings: 'ss12' on;
-    font-family: 'PP Neue Machina';
+    font-family: 'PP Neue Machina', sans-serif;
     font-size: 268.265px;
     font-style: normal;
     font-weight: 500;
