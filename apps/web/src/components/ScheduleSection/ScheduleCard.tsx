@@ -2,7 +2,7 @@ import { EventDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
-import c from './Schedule.module.scss';
+import c from './ScheduleSection.module.scss';
 
 const getEventTime = (dateTimeString: string) => {
   const date = new Date(dateTimeString);

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { useEventGetAll } from '../../api/event/useEventGetAll';
 import { useScreenSize } from '../../hooks/useScreenSize';
-import c from './Schedule.module.scss';
 import ScheduleCard from './ScheduleCard';
+import c from './ScheduleSection.module.scss';
 
 const enum ConferenceDay {
   First = '23',
@@ -19,7 +19,7 @@ const getEventDay = (dateTimeString: string) => {
   return day.toString();
 };
 
-const Schedule = () => {
+const ScheduleSection = () => {
   const [theme, setTheme] = useState<Theme | null>(null);
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
   const { isMobile } = useScreenSize(1000);
@@ -112,4 +112,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default ScheduleSection;
