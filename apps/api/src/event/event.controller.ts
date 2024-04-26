@@ -34,6 +34,11 @@ export class EventController {
     return await this.eventService.getAll();
   }
 
+  // @Get('with-speaker-and-company')
+  // async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
+  //   return await this.eventService.getAllWithSpeaker();
+  // }
+
   @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {

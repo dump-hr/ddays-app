@@ -54,6 +54,8 @@ export class EventService {
     return foundEvent;
   }
 
+  async getAllWithSpeaker() {}
+
   async remove(id: number) {
     const [deletedEvent] = await db
       .delete(event)
