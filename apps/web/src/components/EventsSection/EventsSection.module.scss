@@ -26,3 +26,47 @@
 .zoomElement {
   z-index: 1;
 }
+
+.scrollEventWrapper {
+  width: 100%;
+}
+
+.scrollEventContainer {
+  width: 100%;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .eventImage {
+    width: 100%;
+    margin-top: -144px;
+  }
+
+  .eventTitleContainer {
+    position: sticky;
+    top: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+
+    .eventTitle {
+      text-align: center;
+      color: #eaeaea;
+      font-feature-settings:
+        'case' on,
+        'ss12' on;
+      font-family: 'PP Neue Machina';
+      font-size: 120px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 144px;
+      letter-spacing: -5px;
+      text-transform: uppercase;
+    }
+  }
+}
