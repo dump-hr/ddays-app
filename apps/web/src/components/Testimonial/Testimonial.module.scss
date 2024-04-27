@@ -18,6 +18,30 @@
       .name {
         margin-bottom: 8px;
       }
+
+      .name,
+      .position {
+        color: rgba(23, 22, 21, 0.6);
+        font-family: 'PP Neue Montreal Mono';
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .rightWrapper {
+    .text {
+      color: rgba(23, 22, 21, 0.7);
+      font-family: 'PP Neue Machina';
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 32px;
+      letter-spacing: -1px;
+      max-width: 670px;
     }
   }
 }
