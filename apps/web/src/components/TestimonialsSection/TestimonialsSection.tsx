@@ -1,5 +1,11 @@
+import Testimonial from 'components/Testimonial/Testimonial';
+
 const TestimonialsSection = () => {
-  return <section>testimonials</section>;
+  return (
+    <section>
+      <Testimonial />
+    </section>
+  );
 };
 
 export default TestimonialsSection;
