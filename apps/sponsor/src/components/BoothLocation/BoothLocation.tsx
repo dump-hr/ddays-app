@@ -6,11 +6,11 @@ import tlocrt from '../../assets/images/tlocrt.png';
 import classes from './BoothLocation.module.scss';
 
 export interface BoothLocationProps {
-  Spots: BoothDto[];
+  initSpots?: BoothDto[];
 }
 
-export const BoothLocation = () => {
-  const [spots, setSpots] = useState<BoothDto[]>([]);
+export const BoothLocation = ({ initSpots = [] }: BoothLocationProps) => {
+  const [spots, setSpots] = useState<BoothDto[]>(initSpots);
   const [chosenSpot, setChosenSpot] = useState<number>();
 
   const handleChoose = (id: number) => {
@@ -37,6 +37,7 @@ export const BoothLocation = () => {
       return spot;
     });
 
+    setChosenSpot(undefined);
     setSpots(newSpots);
   };
 
@@ -49,12 +50,12 @@ export const BoothLocation = () => {
             <li
               className={clsx(
                 classes.spot,
-                spot.id === chosenSpot && classes.choosen,
+                spot.id === chosenSpot && classes.chosen,
                 spot.isTaken && classes.taken,
               )}
               key={spot.id}
               onClick={() => !spot.isTaken && handleChoose(spot.id)}>
-              {spot.name}
+              <span className={classes.text}>{spot.name}</span>
             </li>
           ))}
         </ul>

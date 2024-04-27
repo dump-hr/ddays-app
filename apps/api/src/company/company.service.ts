@@ -49,7 +49,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,

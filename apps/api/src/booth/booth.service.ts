@@ -63,7 +63,7 @@ export class BoothService {
       }),
     );
 
-    const data = await db.insert(boothLocation).values(booths).execute();
+    const data = await db.insert(boothLocation).values(booths).returning();
 
     return data;
   }
@@ -72,8 +72,7 @@ export class BoothService {
     const [booth] = await db
       .update(boothLocation)
       .set(modifyBoothDto)
-      .where(eq(boothLocation.id, id))
-      .execute();
+      .where(eq(boothLocation.id, id));
 
     return booth;
   }
@@ -88,9 +87,28 @@ export class BoothService {
     return booths;
   }
 
+  async getAll() {
+    const booths = await db
+      .select({
+        companyId: boothLocation.companyId,
+        name: boothLocation.name,
+        category: boothLocation.category,
+        id: boothLocation.id,
+      })
+      .from(boothLocation)
+      .orderBy(boothLocation.name);
+
+    return booths;
+  }
+
   async getOne(id: number) {
-    const booth = await db
-      .select()
+    const [booth] = await db
+      .select({
+        companyId: boothLocation.companyId,
+        name: boothLocation.name,
+        category: boothLocation.category,
+        id: boothLocation.id,
+      })
       .from(boothLocation)
       .where(eq(boothLocation.id, id));
 

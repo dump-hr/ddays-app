@@ -7,6 +7,13 @@ export class BoothDto {
   isTaken: boolean;
 }
 
+export class AdminBoothDto {
+  id: number;
+  name: string;
+  companyId?: number;
+  category: CompanyCategory;
+}
+
 export class CreateBoothDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
@@ -28,6 +35,16 @@ export class ModifyBoothDto {
   name?: string;
 
   @IsOptional()
+  @IsEnum(CompanyCategory)
+  category?: CompanyCategory;
+
+  @IsOptional()
   @IsNumber()
   companyId?: number;
+}
+
+export class ModifyBoothForm {
+  name?: string;
+  category?: CompanyCategory;
+  companyId?: string;
 }
