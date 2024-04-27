@@ -2,6 +2,7 @@ import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
+import GallerySection from 'components/GallerySection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
@@ -50,6 +51,7 @@ export const LandingPage: React.FC = () => {
       <SponsorSection />
       <SectionBreaker fg='dark' bg='light' />
       <RegistrationSection />
+      <GallerySection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
     </ReactLenis>
