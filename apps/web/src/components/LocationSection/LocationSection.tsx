@@ -35,7 +35,7 @@ const LocationSection = () => {
           </div>
         </div>
       </div>
-      <SectionBreaker fg='green' bg='#cd523a' />
+      <SectionBreaker fg='green' bg='#ce5942' />
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
           <h2>izložbeni prostor</h2>
