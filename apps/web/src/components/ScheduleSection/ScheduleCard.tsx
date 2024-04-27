@@ -3,6 +3,7 @@ import FilmFrame from 'components/FilmFrame';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
@@ -28,6 +29,9 @@ type ScheduleCardProps = {
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+  const cardAspectRatio = 401 / 320;
+  const { isMobile } = useScreenSize(930);
+
   const [isOpenDescription, setIsOpenDescription] = useState(false);
   const [isImageShown, setIsImageShown] = useState(false);
 
@@ -59,11 +63,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {isImageShown && (
+        {isImageShown && !isMobile && (
           <div className={c.speakerPhoto}>
             <FilmFrame
               imageSrc={event.speaker?.photo}
-              height={150}
+              height={cardAspectRatio * 120}
               width={120}
             />
           </div>
