@@ -81,21 +81,23 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
               {getEventTypeTranslation(event.type)}
             </p>
           </div>
-          <div className={c.scheduleCardCenter}>
-            <div className={c.themeBadge}>
-              <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
+          <div className={c.scheduleCardCenterWrapper}>
+            <div className={c.scheduleCardCenter}>
+              <div className={c.themeBadge}>
+                <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
+              </div>
+              <div className={c.scheduleCardTitleWrapper}>
+                <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+              </div>
             </div>
-            <div className={c.scheduleCardTitleWrapper}>
-              <h3 className={c.scheduleCardTitle}>{event.name}</h3>
-              <h4 className={c.scheduleCardSubtitle}>
-                {getSpeakerCompanyStringForEvent(event)}
-              </h4>
-              {isOpenDescription && (
-                <div className={c.scheduleCardDescription}>
-                  {event.description}
-                </div>
-              )}
-            </div>
+            <h4 className={c.scheduleCardSubtitle}>
+              {getSpeakerCompanyStringForEvent(event)}
+            </h4>
+            {isOpenDescription && (
+              <div className={c.scheduleCardDescription}>
+                {event.description}
+              </div>
+            )}
           </div>
         </div>
         <div className={c.scheduleCardRight}>
@@ -105,7 +107,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
         </div>
       </div>
       <div className={c.dottedRuler}>
-        .....................................................................................................................................................................
+        .........................................................................................................................................................................................................................
       </div>
     </div>
   );

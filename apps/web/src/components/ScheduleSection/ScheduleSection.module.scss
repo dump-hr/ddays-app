@@ -56,11 +56,12 @@
     }
 
     &Center {
-      max-width: 750px;
+      display: flex;
+      margin-bottom: 6px;
     }
 
-    &Center {
-      display: flex;
+    &CenterWrapper {
+      max-width: 750px;
     }
 
     &Title {
@@ -84,7 +85,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-top: 0;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       margin-right: 150px;
     }
 
@@ -94,6 +95,7 @@
 
     &Container {
       overflow-x: clip;
+      margin: 0px 24px;
     }
 
     &Description {
@@ -136,7 +138,7 @@
   padding: 12px 23px;
   margin-right: 16px;
   border-radius: 50%;
-  background-color: #cb370ecc;
+  background-color: #ff482f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,6 +186,7 @@
 
 .dottedRuler {
   letter-spacing: 4px;
+  font-size: 10px;
   color: #88888888;
 }
 
@@ -196,7 +199,7 @@
 .speakerPhoto {
   position: absolute;
   z-index: 2;
-  top: -15px;
+  top: -26px;
   right: 150px;
   transform: rotate(-5deg);
 }
@@ -208,6 +211,12 @@
 
   .scheduleHeaderRight {
     display: none;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .scheduleCardTitle {
+    margin: 0;
   }
 }
 
