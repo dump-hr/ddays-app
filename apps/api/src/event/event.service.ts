@@ -100,7 +100,6 @@ export class EventService {
                           category: eventWithSpeaker.company.category,
                           name: eventWithSpeaker.company.name,
                           username: eventWithSpeaker.company.username,
-                          password: eventWithSpeaker.company.password,
                           description: eventWithSpeaker.company.description,
                           opportunitiesDescription:
                             eventWithSpeaker.company.opportunitiesDescription,

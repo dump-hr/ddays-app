@@ -80,7 +80,7 @@ export class SpeakerService {
           instagram: speakerCompany.speaker.instagram,
           linkedin: speakerCompany.speaker.linkedin,
           description: speakerCompany.speaker.description,
-          company: speakerCompany.company,
+          company: { ...speakerCompany.company, password: undefined },
         };
       },
     );

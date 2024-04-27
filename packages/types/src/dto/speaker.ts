@@ -1,5 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { CompanyDto } from './company';
+import { CompanyPublicDto } from './company';
 
 export type SpeakerDto = {
   id: number;
@@ -50,5 +50,5 @@ export type SpeakerWithCompanyDto = {
   instagram?: string;
   linkedin?: string;
   description?: string;
-  company?: CompanyDto;
+  company?: CompanyPublicDto;
 };
