@@ -1,11 +1,11 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
-import SponsorSection from 'components/SponsorSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import SpeakersSection from 'components/SpeakersSection';
+import SponsorSection from 'components/SponsorSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -37,9 +37,9 @@ export const LandingPage: React.FC = () => {
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <Schedule />
-      <SponsorSection />
       <SpeakersSection />
       <LocationSection />
+      <SponsorSection />
       <RegistrationSection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
