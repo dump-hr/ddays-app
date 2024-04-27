@@ -394,14 +394,13 @@ export class CompanyService {
 
     if (!isValid) return false;
 
-    const reservation = await db
+    await db
       .update(company)
       .set({
         boothLocationId,
       })
-      .where(eq(company.id, companyId))
-      .returning();
+      .where(eq(company.id, companyId));
 
-    return reservation.length > 0;
+    return;
   }
 }

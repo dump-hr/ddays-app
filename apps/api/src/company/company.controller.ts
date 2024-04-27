@@ -16,6 +16,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Req,
   UploadedFile,
   UseGuards,
@@ -265,6 +266,16 @@ export class CompanyController {
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.updateVideo(user.id, file);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Put('booth/:id')
+  async reserveBoothLocation(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user }: AuthenticatedRequest,
+  ) {
+    return await this.companyService.reserveBoothLocation(user.id, id);
+    //TODO: add socket response
   }
 
   @Get(':id')
