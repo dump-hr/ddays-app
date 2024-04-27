@@ -56,11 +56,12 @@
     }
 
     &Center {
-      max-width: 750px;
+      // max-width: 750px;
+      display: flex;
     }
 
-    &Center {
-      display: flex;
+    &CenterWrapper {
+      max-width: 750px;
     }
 
     &Title {
@@ -198,7 +199,7 @@
 .speakerPhoto {
   position: absolute;
   z-index: 2;
-  top: -19px;
+  top: -26px;
   right: 150px;
   transform: rotate(-5deg);
 }
