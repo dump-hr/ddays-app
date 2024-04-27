@@ -22,6 +22,7 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
 
   return (
     <div className={classes}>
+      <div className={c.sectionBreaker} />
       <div className={c.leftWrapper}>
         <img src={QuotesIcon} className={c.quote} />
         <div className={c.infoWrapper}>
