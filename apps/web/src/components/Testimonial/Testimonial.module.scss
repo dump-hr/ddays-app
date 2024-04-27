@@ -5,6 +5,23 @@
   box-sizing: border-box;
   padding: 64px 124px;
 
+  --color-1: rgba(23, 22, 21, 0.6);
+  --color-2: rgba(23, 22, 21, 0.7);
+
+  &.white {
+    background: #fff;
+  }
+
+  &.black {
+    background: #171615;
+    --color-1: rgba(255, 255, 255, 0.7);
+    --color-2: rgba(255, 255, 255, 0.7);
+  }
+
+  &.beige {
+    background: #fcf8eb;
+  }
+
   .leftWrapper {
     display: flex;
     flex-direction: column;
@@ -21,7 +38,7 @@
 
       .name,
       .position {
-        color: rgba(23, 22, 21, 0.6);
+        color: var(--color-1);
         font-family: 'PP Neue Montreal Mono';
         font-size: 14px;
         font-weight: 500;
@@ -34,7 +51,7 @@
 
   .rightWrapper {
     .text {
-      color: rgba(23, 22, 21, 0.7);
+      color: var(--color-2);
       font-family: 'PP Neue Machina';
       font-size: 24px;
       font-style: normal;

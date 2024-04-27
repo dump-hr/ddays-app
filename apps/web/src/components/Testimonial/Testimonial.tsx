@@ -3,14 +3,10 @@ import clsx from 'clsx';
 import QuotesIcon from '../../assets/icons/quotes.svg';
 import c from './Testimonial.module.scss';
 
-const color = {
-  white: '#fff',
-  black: '#171615',
-  beige: '#FCF8EB',
-};
+type Color = 'white' | 'black' | 'beige';
 
 type TestimonialProps = {
-  color: keyof typeof color;
+  color: Color;
   name: string;
   position: string;
   text: string;
