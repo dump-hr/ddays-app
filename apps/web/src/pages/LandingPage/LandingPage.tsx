@@ -2,6 +2,7 @@ import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
+import GallerySection from 'components/GallerySection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import SpeakersSection from 'components/SpeakersSection';
@@ -13,7 +14,6 @@ import Hero from '../../components/Hero';
 import LocationSection from '../../components/LocationSection';
 import Schedule from '../../components/Schedule';
 import { landingNavigation } from '../../constants/landing-navigation';
-import GallerySection from 'components/GallerySection';
 
 export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
