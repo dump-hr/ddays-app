@@ -1,40 +1,14 @@
-import { EventDto, EventWithSpeakerDto } from '@ddays-app/types';
+import { EventWithSpeakerDto } from '@ddays-app/types';
+import FilmFrame from 'components/FilmFrame';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
 import c from './ScheduleSection.module.scss';
-import { getSpeakerCompanyStringForEvent } from './utils';
-
-const getEventTime = (dateTimeString: string) => {
-  const date = new Date(dateTimeString);
-
-  const minutes = date.getMinutes();
-  const hours = date.getHours();
-
-  const hoursString = hours.toString();
-  let minutesString = minutes.toString();
-
-  if (minutes < 10) {
-    minutesString = '0' + minutes.toString();
-  }
-
-  return hoursString + ':' + minutesString;
-};
-
-const getEventTypeTranslation = (type: string) => {
-  switch (type) {
-    case 'lecture':
-      return 'PREDAVANJE';
-    case 'workshop':
-      return 'RADIONICA';
-    case 'flyTalk':
-      return 'FLY TALK';
-    case 'campfireTalk':
-      return 'CAMPFIRE TALK';
-    case 'other':
-      return 'OSTALO';
-  }
-};
+import {
+  getEventTime,
+  getEventTypeTranslation,
+  getSpeakerCompanyStringForEvent,
+} from './utils';
 
 const getThemeShort = (theme: string) => {
   switch (theme) {
@@ -55,9 +29,11 @@ type ScheduleCardProps = {
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
   const [isOpenDescription, setIsOpenDescription] = useState(false);
+  const [isImageShown, setIsImageShown] = useState(false);
 
   const toggleOpenDescription = () => {
     setIsOpenDescription((prev) => !prev);
+    setIsImageShown(false);
   };
 
   const handleCardClick = () => {
@@ -66,9 +42,32 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
     }
   };
 
+  const handleHover = () => {
+    if (!isOpenDescription) {
+      setIsImageShown(true);
+    }
+  };
+
+  const handleUnhover = () => {
+    setIsImageShown(false);
+  };
+
   return (
-    <div onClick={handleCardClick} className={c.scheduleCardContainer}>
+    <div
+      onMouseOver={handleHover}
+      onMouseLeave={handleUnhover}
+      onClick={handleCardClick}
+      className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
+        {isImageShown && (
+          <div className={c.speakerPhoto}>
+            <FilmFrame
+              imageSrc={event.speaker?.photo}
+              height={150}
+              width={120}
+            />
+          </div>
+        )}
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>

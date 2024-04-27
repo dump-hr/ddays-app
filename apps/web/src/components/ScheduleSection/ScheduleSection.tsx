@@ -36,8 +36,6 @@ const ScheduleSection = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(events);
-
   return (
     <div className={c.ofXHidden}>
       <div className={c.scheduleSectionWrapper}>

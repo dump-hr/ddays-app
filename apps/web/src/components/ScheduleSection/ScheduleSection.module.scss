@@ -44,6 +44,7 @@
     padding: 35px 78px;
     padding-bottom: 10px;
     justify-content: space-between;
+    position: relative;
 
     &Left {
       margin-right: 145px;
@@ -90,7 +91,7 @@
     }
 
     &Container {
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     &Description {
@@ -187,6 +188,14 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.speakerPhoto {
+  position: absolute;
+  z-index: 2;
+  bottom: -17px;
+  left: 76%;
+  transform: rotate(-5deg);
 }
 
 @media screen and (max-width: 1000px) {
