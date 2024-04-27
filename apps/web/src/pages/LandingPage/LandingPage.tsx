@@ -7,6 +7,7 @@ import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 import SpeakersSection from 'components/SpeakersSection';
 import SponsorSection from 'components/SponsorSection';
+import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -50,6 +51,7 @@ export const LandingPage: React.FC = () => {
       <SponsorSection />
       <SectionBreaker fg='dark' bg='light' />
       <RegistrationSection />
+      <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
     </ReactLenis>
