@@ -1,4 +1,8 @@
-import { EventDto, EventModifyDto } from '@ddays-app/types';
+import {
+  EventDto,
+  EventModifyDto,
+  EventWithSpeakerDto,
+} from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -24,6 +28,12 @@ export class EventController {
     return await this.eventService.create(dto);
   }
 
+  @Get('with-speaker')
+  async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
+    console.log('lčfajdčlkfjačdsk');
+    return await this.eventService.getAllWithSpeaker();
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.getOne(id);
@@ -33,11 +43,6 @@ export class EventController {
   async getAll(): Promise<EventDto[]> {
     return await this.eventService.getAll();
   }
-
-  // @Get('with-speaker-and-company')
-  // async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
-  //   return await this.eventService.getAllWithSpeaker();
-  // }
 
   @UseGuards(AdminGuard)
   @Delete(':id')
