@@ -1,5 +1,5 @@
-import c from './GallerySection.module.scss';
 import ArrowTopRight from '../../assets/icons/arrow-top-right.svg';
+import c from './GallerySection.module.scss';
 
 const GallerySection = () => {
   const onClickHandler = () => {
