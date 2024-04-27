@@ -30,7 +30,6 @@ export class EventController {
 
   @Get('with-speaker')
   async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
-    console.log('lčfajdčlkfjačdsk');
     return await this.eventService.getAllWithSpeaker();
   }
 
