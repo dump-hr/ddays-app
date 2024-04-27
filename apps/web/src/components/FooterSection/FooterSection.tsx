@@ -77,7 +77,7 @@ const FooterSection = () => {
         </div>
         <div className={c.bottomSmallTextWrapper}>
           <p className={c.mb24}>© DUMPDAYS</p>
-          <p>
+          <p className={c.footerBottomSmallText}>
             Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
             ljubavi.
           </p>

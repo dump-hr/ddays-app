@@ -3,6 +3,10 @@
   background-color: black;
   position: relative;
 
+  &BottomSmallText {
+    font-size: 14px;
+  }
+
   .background {
     background-image: url('../../assets/images/footer-background.png');
     background-size: cover;
@@ -224,7 +228,7 @@
 }
 
 .bottomSmallTextWrapper {
-  padding: 0px 52px;
+  padding: 0px 24px;
   display: flex;
   justify-content: space-between;
   margin: auto;
@@ -236,7 +240,6 @@
   font-weight: 500;
   line-height: 18px;
   text-transform: uppercase;
-  max-width: 1440px;
 
   @media screen and (max-width: 1032px) {
     flex-direction: column;
