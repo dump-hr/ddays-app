@@ -5,6 +5,7 @@ import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestions
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import SpeakersSection from 'components/SpeakersSection';
+import SponsorSection from 'components/SponsorSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -43,6 +44,7 @@ export const LandingPage: React.FC = () => {
       <ScheduleSection />
       <SpeakersSection />
       <LocationSection />
+      <SponsorSection />
       <RegistrationSection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />

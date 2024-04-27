@@ -18,7 +18,7 @@ export const DuckieSection = () => (
           </div>
           <div className={classes.vinyl}>
             <div className={classes.vinylWrapper}>
-              <div className={classes.elipse}>
+              <div className={classes.ellipse}>
                 <img className={classes.play} src={play} alt='' />
               </div>
               <img className={classes.vinylImage} src={vinyl} alt='vinyl' />
