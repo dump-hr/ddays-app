@@ -1,39 +1,15 @@
-import { EventDto } from '@ddays-app/types';
+import { EventWithSpeakerDto } from '@ddays-app/types';
+import FilmFrame from 'components/FilmFrame';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
-import c from './Schedule.module.scss';
-
-const getEventTime = (dateTimeString: string) => {
-  const date = new Date(dateTimeString);
-
-  const minutes = date.getMinutes();
-  const hours = date.getHours();
-
-  const hoursString = hours.toString();
-  let minutesString = minutes.toString();
-
-  if (minutes < 10) {
-    minutesString = '0' + minutes.toString();
-  }
-
-  return hoursString + ':' + minutesString;
-};
-
-const getEventTypeTranslation = (type: string) => {
-  switch (type) {
-    case 'lecture':
-      return 'PREDAVANJE';
-    case 'workshop':
-      return 'RADIONICA';
-    case 'flyTalk':
-      return 'FLY TALK';
-    case 'campfireTalk':
-      return 'CAMPFIRE TALK';
-    case 'other':
-      return 'OSTALO';
-  }
-};
+import { useScreenSize } from '../../hooks/useScreenSize';
+import c from './ScheduleSection.module.scss';
+import {
+  getEventTime,
+  getEventTypeTranslation,
+  getSpeakerCompanyStringForEvent,
+} from './utils';
 
 const getThemeShort = (theme: string) => {
   switch (theme) {
@@ -49,14 +25,19 @@ const getThemeShort = (theme: string) => {
 };
 
 type ScheduleCardProps = {
-  event: EventDto;
+  event: EventWithSpeakerDto;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+  const cardAspectRatio = 401 / 320;
+  const { isMobile } = useScreenSize(930);
+
   const [isOpenDescription, setIsOpenDescription] = useState(false);
+  const [isImageShown, setIsImageShown] = useState(false);
 
   const toggleOpenDescription = () => {
     setIsOpenDescription((prev) => !prev);
+    setIsImageShown(false);
   };
 
   const handleCardClick = () => {
@@ -65,9 +46,32 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
     }
   };
 
+  const handleHover = () => {
+    if (!isOpenDescription) {
+      setIsImageShown(true);
+    }
+  };
+
+  const handleUnhover = () => {
+    setIsImageShown(false);
+  };
+
   return (
-    <div onClick={handleCardClick} className={c.scheduleCardContainer}>
+    <div
+      onMouseOver={handleHover}
+      onMouseLeave={handleUnhover}
+      onClick={handleCardClick}
+      className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
+        {isImageShown && !isMobile && (
+          <div className={c.speakerPhoto}>
+            <FilmFrame
+              imageSrc={event.speaker?.photo}
+              height={cardAspectRatio * 120}
+              width={120}
+            />
+          </div>
+        )}
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
@@ -83,7 +87,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
             </div>
             <div className={c.scheduleCardTitleWrapper}>
               <h3 className={c.scheduleCardTitle}>{event.name}</h3>
-              <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+              <h4 className={c.scheduleCardSubtitle}>
+                {getSpeakerCompanyStringForEvent(event)}
+              </h4>
               {isOpenDescription && (
                 <div className={c.scheduleCardDescription}>
                   {event.description}

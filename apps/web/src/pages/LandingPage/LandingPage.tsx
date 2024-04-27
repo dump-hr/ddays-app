@@ -11,7 +11,7 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Hero from '../../components/Hero';
 import LocationSection from '../../components/LocationSection';
-import Schedule from '../../components/Schedule';
+import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
 
 export const LandingPage: React.FC = () => {
@@ -40,7 +40,7 @@ export const LandingPage: React.FC = () => {
       <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
-      <Schedule />
+      <ScheduleSection />
       <SpeakersSection />
       <LocationSection />
       <RegistrationSection />

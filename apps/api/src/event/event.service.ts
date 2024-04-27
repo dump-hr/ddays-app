@@ -1,7 +1,11 @@
-import { EventDto, EventModifyDto } from '@ddays-app/types';
+import {
+  EventDto,
+  EventModifyDto,
+  EventWithSpeakerDto,
+} from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { event } from 'db/schema';
+import { company, event, speaker, speakerToEvent } from 'db/schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()
@@ -52,6 +56,69 @@ export class EventService {
       .where(eq(event.id, id));
 
     return foundEvent;
+  }
+
+  async getAllWithSpeaker() {
+    const result = await db
+      .select()
+      .from(event)
+      .leftJoin(speakerToEvent, eq(event.id, speakerToEvent.eventId))
+      .leftJoin(speaker, eq(speaker.id, speakerToEvent.speakerId))
+      .leftJoin(company, eq(speaker.companyId, company.id))
+      .orderBy(event.startsAt);
+
+    const eventsWithSpeaker: EventWithSpeakerDto[] = result.map(
+      (eventWithSpeaker) => {
+        return {
+          id: eventWithSpeaker.event.id,
+          name: eventWithSpeaker.event.name,
+          description: eventWithSpeaker.event.description,
+          type: eventWithSpeaker.event.type,
+          theme: eventWithSpeaker.event.theme,
+          startsAt: eventWithSpeaker.event.startsAt,
+          endsAt: eventWithSpeaker.event.endsAt,
+          requirements: eventWithSpeaker.event.requirements,
+          footageLink: eventWithSpeaker.event.footageLink,
+          maxParticipants: eventWithSpeaker.event.maxParticipants,
+          codeId: eventWithSpeaker.event.codeId,
+          speaker:
+            eventWithSpeaker.speaker_to_event !== null
+              ? {
+                  id: eventWithSpeaker.speaker.id,
+                  firstName: eventWithSpeaker.speaker.firstName,
+                  lastName: eventWithSpeaker.speaker.lastName,
+                  title: eventWithSpeaker.speaker.title,
+                  companyId: eventWithSpeaker.speaker.companyId,
+                  photo: eventWithSpeaker.speaker.photo,
+                  instagram: eventWithSpeaker.speaker.instagram,
+                  linkedin: eventWithSpeaker.speaker.linkedin,
+                  description: eventWithSpeaker.speaker.description,
+                  company:
+                    eventWithSpeaker.company !== null
+                      ? {
+                          id: eventWithSpeaker.company.id,
+                          category: eventWithSpeaker.company.category,
+                          name: eventWithSpeaker.company.name,
+                          username: eventWithSpeaker.company.username,
+                          password: eventWithSpeaker.company.password,
+                          description: eventWithSpeaker.company.description,
+                          opportunitiesDescription:
+                            eventWithSpeaker.company.opportunitiesDescription,
+                          website: eventWithSpeaker.company.website,
+                          boothLocation: eventWithSpeaker.company.boothLocation,
+                          logoImage: eventWithSpeaker.company.logoImage,
+                          landingImage: eventWithSpeaker.company.landingImage,
+                          video: eventWithSpeaker.company.video,
+                          codeId: eventWithSpeaker.company.codeId,
+                        }
+                      : null,
+                }
+              : null,
+        };
+      },
+    );
+
+    return eventsWithSpeaker;
   }
 
   async remove(id: number) {

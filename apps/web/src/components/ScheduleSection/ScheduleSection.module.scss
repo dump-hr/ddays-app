@@ -44,6 +44,7 @@
     padding: 35px 78px;
     padding-bottom: 10px;
     justify-content: space-between;
+    position: relative;
 
     &Left {
       margin-right: 145px;
@@ -70,6 +71,7 @@
       font-weight: 500;
       line-height: 24px;
       margin: 0;
+      margin-right: 150px;
     }
 
     &Subtitle {
@@ -83,6 +85,7 @@
       text-transform: uppercase;
       margin-top: 0;
       margin-bottom: 24px;
+      margin-right: 150px;
     }
 
     &TitleWrapper {
@@ -90,7 +93,7 @@
     }
 
     &Container {
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     &Description {
@@ -100,6 +103,7 @@
       font-style: normal;
       font-weight: 500;
       line-height: 22px;
+      max-width: 648px;
     }
   }
 
@@ -187,6 +191,14 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.speakerPhoto {
+  position: absolute;
+  z-index: 2;
+  top: -15px;
+  right: 150px;
+  transform: rotate(-5deg);
 }
 
 @media screen and (max-width: 1000px) {
