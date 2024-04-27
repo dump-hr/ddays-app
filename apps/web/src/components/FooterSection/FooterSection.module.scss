@@ -114,9 +114,8 @@
 
   .sectionBreaker {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     width: 100%;
-    object-fit: cover;
 
     @media screen and (max-width: 970px) {
       height: 30px;
