@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import DaysSticker from '../../assets/images/days-sticker.png';
+import DaysSticker from '../../assets/images/days-sticker-big.png';
 import Facebook from '../../assets/images/facebook.png';
 import FooterDuckie from '../../assets/images/footer-duckie.png';
 import Instagram from '../../assets/images/instagram.png';
