@@ -9,7 +9,7 @@ export const DuckieSection = () => (
   <div className={classes.container}>
     <div className={clsx(classes.column, classes.duckie)}>
       <div className={clsx(classes.areas, classes.desktop)}>
-        DEV, DESIGN &TECH KONFa
+        DEV, DESIGN &TECH KONFA
       </div>
       <div className={classes.duckieArea}>
         <div className={classes.images}>
@@ -29,7 +29,7 @@ export const DuckieSection = () => (
     </div>
     <div className={classes.column}>
       <div className={clsx(classes.areas, classes.mobile)}>
-        DEV, DESIGN &TECH KONFa
+        DEV, DESIGN &TECH KONFA
       </div>
       <div className={classes.paragraph}>
         DUMP Udruga mladih programera u proteklih četrnaest godina svojim
