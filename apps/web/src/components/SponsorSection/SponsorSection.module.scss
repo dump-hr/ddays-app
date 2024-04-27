@@ -7,11 +7,9 @@ figure {
 
 .logosWrapper {
   display: flex;
-  width: 100vw;
   align-items: center;
   justify-content: center;
   position: relative;
-  left: vw-calc(10);
 
   @media (max-width: 768px) {
     left: 0;
