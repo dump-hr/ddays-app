@@ -3,7 +3,7 @@ import Testimonial from 'components/Testimonial/Testimonial';
 const TestimonialsSection = () => {
   return (
     <section>
-      <Testimonial />
+      <Testimonial color='white' />
     </section>
   );
 };
