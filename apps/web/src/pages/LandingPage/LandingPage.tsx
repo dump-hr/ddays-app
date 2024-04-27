@@ -4,6 +4,7 @@ import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
+import { SectionBreaker } from 'components/SectionBreaker';
 import SpeakersSection from 'components/SpeakersSection';
 import SponsorSection from 'components/SponsorSection';
 import { useState } from 'react';
@@ -42,9 +43,12 @@ export const LandingPage: React.FC = () => {
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <ScheduleSection />
+      <SectionBreaker fg='orange' bg='light' />
       <SpeakersSection />
+      <SectionBreaker fg='green' bg='orange' />
       <LocationSection />
       <SponsorSection />
+      <SectionBreaker fg='dark' bg='light' />
       <RegistrationSection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
