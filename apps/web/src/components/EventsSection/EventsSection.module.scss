@@ -1,12 +1,5 @@
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 32px;
-  padding: 32px;
-  //   padding: vw-calc(24) vw-calc(56);
-  position: relative;
-  background-color: #f5ede1;
+.eventSection {
+  overflow: clip;
 
   &:before {
     content: '';
@@ -22,27 +15,46 @@
     height: 100%;
   }
 }
-
-.zoomElement {
-  z-index: 1;
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
+  padding: 32px;
+  margin-bottom: 50px;
+  position: relative;
+  background-color: #f5ede1;
+  overflow: hidden;
 }
 
 .scrollEventWrapper {
   width: 100%;
+  z-index: 1;
 }
 
 .scrollEventContainer {
   width: 100%;
   position: relative;
   height: 100%;
+  min-height: 1631px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  &:nth-child(1) {
+    margin-top: -985px;
+    min-height: 3500px;
+  }
+
   .eventImage {
     width: 100%;
     margin-top: -144px;
+    opacity: 1;
+
+    &:nth-child(1) {
+      display: none;
+    }
   }
 
   .eventTitleContainer {
