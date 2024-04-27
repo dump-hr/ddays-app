@@ -2,7 +2,12 @@ import { BoothDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useState } from 'react';
 
+import tlocrt from '../../assets/images/tlocrt.png';
 import classes from './BoothLocation.module.scss';
+
+export interface BoothLocationProps {
+  Spots: BoothDto[];
+}
 
 export const BoothLocation = () => {
   const [spots, setSpots] = useState<BoothDto[]>([]);
@@ -53,12 +58,15 @@ export const BoothLocation = () => {
             </li>
           ))}
         </ul>
-        <button className={clsx(classes.button)} onClick={handleSelect}>
+        <button
+          className={clsx(classes.button, !chosenSpot && classes.disabled)}
+          onClick={handleSelect}
+          disabled={!chosenSpot}>
           Odaberi
         </button>
       </article>
       <aside className={classes.map}>
-        <img src='https://via.placeholder.com/500' alt='Mapa štanda' />
+        <img src={tlocrt} alt='Mapa štanda' />
       </aside>
     </section>
   );

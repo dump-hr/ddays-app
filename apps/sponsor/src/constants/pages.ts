@@ -2,6 +2,7 @@ import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { MaterialsPage } from '../pages/MaterialsPage';
+import { SpotsPage } from '../pages/SpotsPage/SpotsPage';
 import { Path } from './paths';
 //import flyTalksSvg from '../assets/icons/fly-talks.svg';
 //import standSvg from '../assets/icons/stand.svg';
@@ -37,5 +38,11 @@ export const pages: Page[] = [
     icon: profileSvg,
     name: 'Profil tvrtke',
     Component: CompanyProfile,
+  },
+  {
+    path: Path.SpotsPage,
+    name: 'Spots',
+    icon: profileSvg,
+    Component: SpotsPage,
   },
 ];
