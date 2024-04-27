@@ -35,7 +35,7 @@ const LocationSection = () => {
           </div>
         </div>
       </div>
-      <SectionBreaker fg='green' bg='#ce5942' />
+      <SectionBreaker fg='green' className={c.imageBreaker} />
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
           <h2>izložbeni prostor</h2>
@@ -62,7 +62,10 @@ const LocationSection = () => {
         </span>
         <p className={c.dateText}>24. 05. 2024.</p>
       </div>
-      <SectionBreaker fg='light' bg='green' />
+      <div className={c.dateBreaker}>
+        <SectionBreaker fg='light' />
+        <div className={c.breakerPadding} />
+      </div>
     </div>
   );
 };
