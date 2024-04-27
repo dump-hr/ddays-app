@@ -43,7 +43,8 @@
     "react-dropzone": "^14.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@ddays-app/tsconfig": "*",

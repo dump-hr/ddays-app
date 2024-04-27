@@ -1,4 +1,5 @@
 import {
+  AdminBoothDto,
   BoothDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
@@ -71,7 +72,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocationId: company.boothLocation,
+        boothLocationId: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -100,7 +101,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -211,7 +212,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -243,7 +244,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -275,7 +276,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -308,7 +309,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -342,7 +343,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -374,13 +375,21 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocation,
+        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
       });
 
     return updatedCompany;
+  }
+
+  async getAllBooths(id: number): Promise<AdminBoothDto[]> {
+    const company = await this.getOne(id);
+
+    const booths = await this.boothService.getAllForCategory(company.category);
+
+    return booths;
   }
 
   async reserveBoothLocation(
@@ -392,7 +401,9 @@ export class CompanyService {
       companyId,
     );
 
-    if (!isValid) return false;
+    if (!isValid) {
+      return false;
+    }
 
     await db
       .update(company)
@@ -401,6 +412,11 @@ export class CompanyService {
       })
       .where(eq(company.id, companyId));
 
-    return;
+    await db
+      .update(boothLocation)
+      .set({ companyId })
+      .where(eq(boothLocation.id, boothLocationId));
+
+    return true;
   }
 }

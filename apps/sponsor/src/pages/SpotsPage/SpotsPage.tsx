@@ -1,25 +1,12 @@
 import { BoothDto } from '@ddays-app/types';
+import socketIO from 'socket.io-client';
 
+import { useGetBooths } from '../../api/booth/useGetBooths';
 import BoothLocation from '../../components/BoothLocation';
 
-const spots: BoothDto[] = [
-  {
-    id: 1,
-    isTaken: false,
-    name: 'A1',
-  },
-  {
-    id: 2,
-    isTaken: false,
-    name: 'A2',
-  },
-  ...Array.from({ length: 20 }).map((_, index) => ({
-    id: index + 3,
-    isTaken: Math.random() < 0.5,
-    name: `A${index + 3}`,
-  })),
-];
+const socket = socketIO('http://localhost:3000');
 
 export const SpotsPage = () => {
-  return <BoothLocation initSpots={spots} />;
+  const { data: booths } = useGetBooths();
+  return <BoothLocation initSpots={booths} />;
 };

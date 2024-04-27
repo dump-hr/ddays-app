@@ -1,4 +1,5 @@
 import {
+  AvailabilityUpdateDto,
   CompanyCategory,
   CreateBoothDto,
   CreateManyBoothsDto,
@@ -6,25 +7,53 @@ import {
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
-import { boothLocation } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { boothLocation, company } from 'db/schema';
+import { asc, eq } from 'drizzle-orm';
+import { Socket } from 'socket.io-client';
 
 @Injectable()
 export class BoothService {
-  async checkValidity(id: number, company: number) {
+  private socket: Socket;
+
+  constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    this.socket = require('socket.io-client')('http://localhost:3000');
+    this.setupSocketEvents();
+  }
+
+  private setupSocketEvents() {
+    this.socket.on('connect', () => {
+      console.log('Connected to socket server');
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('Disconnected from socket server');
+    });
+
+    this.socket.on('booth:updated', (data) => {
+      console.log('Booth updated', data);
+    });
+  }
+
+  async emitUpdateAvailable(data: AvailabilityUpdateDto) {
+    this.socket.emit('booth:update-available', data);
+  }
+
+  async checkValidity(id: number, reservingCompany: number) {
     const [booth] = await db
       .select()
       .from(boothLocation)
       .where(eq(boothLocation.id, id));
 
-    if (!booth || booth.companyId !== null) {
+    if (!booth || booth.companyId) {
       return false;
     }
 
     const [boothCompany] = await db
       .select()
-      .from(boothLocation)
-      .where(eq(boothLocation.companyId, company));
+      .from(company)
+      .where(eq(company.id, reservingCompany));
+    console.log('checkValidity', id, reservingCompany);
 
     return (
       booth.category === boothCompany.category && !boothCompany.boothLocationId
@@ -79,10 +108,15 @@ export class BoothService {
 
   async getAllForCategory(category?: string) {
     const booths = await db
-      .select()
+      .select({
+        companyId: boothLocation.companyId,
+        name: boothLocation.name,
+        category: boothLocation.category,
+        id: boothLocation.id,
+      })
       .from(boothLocation)
       .where(eq(boothLocation.category, category))
-      .orderBy(boothLocation.name.asc());
+      .orderBy(asc(boothLocation.name));
 
     return booths;
   }

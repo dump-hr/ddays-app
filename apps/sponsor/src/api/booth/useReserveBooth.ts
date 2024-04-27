@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 export const reserveBooth = (id: number) => {
-  return api.put<never, never>(`booth/${id}/reserve`);
+  return api.put<never, never>(`/company/booth/${id}`);
 };
 
-export const useReserveBooth = (id: number) => {
+export const useReserveBooth = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => reserveBooth(id), {
+  return useMutation(reserveBooth, {
     onSuccess: () => {
       queryClient.invalidateQueries(['booth', 'current']);
       toast.success('Štand uspješno rezerviran');

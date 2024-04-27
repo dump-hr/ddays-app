@@ -1,7 +1,8 @@
 import { BoothDto } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useReserveBooth } from '../../api/booth/useReserveBooth';
 import tlocrt from '../../assets/images/tlocrt.png';
 import classes from './BoothLocation.module.scss';
 
@@ -12,6 +13,11 @@ export interface BoothLocationProps {
 export const BoothLocation = ({ initSpots = [] }: BoothLocationProps) => {
   const [spots, setSpots] = useState<BoothDto[]>(initSpots);
   const [chosenSpot, setChosenSpot] = useState<number>();
+  const reserveSpot = useReserveBooth();
+
+  useEffect(() => {
+    setSpots(initSpots);
+  }, [initSpots]);
 
   const handleChoose = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);
@@ -21,10 +27,12 @@ export const BoothLocation = ({ initSpots = [] }: BoothLocationProps) => {
     setChosenSpot(id);
   };
 
-  const handleSelect = () => {
+  const handleSelect = async () => {
     if (!chosenSpot) {
       return;
     }
+
+    await reserveSpot.mutateAsync(chosenSpot);
 
     const newSpots = spots.map((spot) => {
       if (spot.id === chosenSpot) {

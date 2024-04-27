@@ -1,6 +1,11 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { CompanyCategory } from 'src/enum';
 
+export class AvailabilityUpdateDto {
+  id: number;
+  isAvailable: boolean;
+}
+
 export class BoothDto {
   id: number;
   name: string;
