@@ -14,6 +14,9 @@ export const useReserveBooth = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['booth', 'current']);
       toast.success('Štand uspješno rezerviran');
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     },
     onError: (error: string) => {
       toast.error('Došlo je do greške pri rezervaciji štanda:' + error);

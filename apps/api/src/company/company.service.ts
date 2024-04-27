@@ -1,5 +1,6 @@
 import {
   AdminBoothDto,
+  AvailabilityUpdateDto,
   BoothDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
@@ -101,7 +102,7 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
+        boothLocation: boothLocation.name,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -109,6 +110,7 @@ export class CompanyService {
         video: company.video,
       })
       .from(company)
+      .leftJoin(boothLocation, eq(company.boothLocationId, boothLocation.id))
       .where(eq(company.id, id));
 
     if (!foundCompany) {
@@ -417,6 +419,12 @@ export class CompanyService {
       .set({ companyId })
       .where(eq(boothLocation.id, boothLocationId));
 
+    const updateData: AvailabilityUpdateDto = {
+      id: boothLocationId,
+      isAvailable: false,
+    };
+
+    this.boothService.emitUpdateAvailable(updateData);
     return true;
   }
 }

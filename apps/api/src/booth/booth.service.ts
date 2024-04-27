@@ -17,7 +17,14 @@ export class BoothService {
 
   constructor() {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    this.socket = require('socket.io-client')('http://localhost:3000');
+    this.socket = require('socket.io-client')('http://localhost:3005', {
+      crossOriginIsolated: false,
+      origins: [
+        'http://localhost:3005',
+        'http://localhost:3000',
+        'http://localhost:3003',
+      ],
+    });
     this.setupSocketEvents();
   }
 
@@ -53,7 +60,6 @@ export class BoothService {
       .select()
       .from(company)
       .where(eq(company.id, reservingCompany));
-    console.log('checkValidity', id, reservingCompany);
 
     return (
       booth.category === boothCompany.category && !boothCompany.boothLocationId

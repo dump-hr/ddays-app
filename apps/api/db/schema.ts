@@ -88,6 +88,7 @@ export const company = pgTable('company', {
   website: text('website_url'),
   boothLocationId: integer('booth_location_id').references(
     () => boothLocation.id,
+    { onDelete: 'cascade' },
   ),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),

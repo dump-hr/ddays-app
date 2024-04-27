@@ -1,4 +1,4 @@
-import { BoothDto } from '@ddays-app/types';
+import { AvailabilityUpdateDto, BoothDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -8,9 +8,14 @@ import classes from './BoothLocation.module.scss';
 
 export interface BoothLocationProps {
   initSpots?: BoothDto[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  socket?: any;
 }
 
-export const BoothLocation = ({ initSpots = [] }: BoothLocationProps) => {
+export const BoothLocation = ({
+  initSpots = [],
+  socket,
+}: BoothLocationProps) => {
   const [spots, setSpots] = useState<BoothDto[]>(initSpots);
   const [chosenSpot, setChosenSpot] = useState<number>();
   const reserveSpot = useReserveBooth();
@@ -18,6 +23,27 @@ export const BoothLocation = ({ initSpots = [] }: BoothLocationProps) => {
   useEffect(() => {
     setSpots(initSpots);
   }, [initSpots]);
+
+  useEffect(() => {
+    socket.on('booth:update-available', (data: AvailabilityUpdateDto) => {
+      const newSpots = spots.map((spot) => {
+        if (spot.id === data.id) {
+          return {
+            ...spot,
+            isTaken: data.isAvailable,
+          };
+        }
+
+        return spot;
+      });
+
+      setSpots(newSpots);
+    });
+
+    return () => {
+      socket.off('booth:update-available');
+    };
+  }, [socket]);
 
   const handleChoose = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);
