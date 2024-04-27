@@ -423,12 +423,12 @@ figure {
         }
 
         img {
-          width: auto;
+          max-width: vw-calc(144);
           max-height: vw-calc(48);
           object-fit: contain;
 
           @media (max-width: 768px) {
-            width: auto;
+            max-width: vw-mobile-calc(126);
             max-height: vw-mobile-calc(32);
           }
         }
@@ -450,7 +450,7 @@ figure {
             width: vw-mobile-calc(160);
             letter-spacing: vw-mobile-calc(4);
             font-size: vw-mobile-calc(8);
-            bottom: 0;
+            bottom: vw-mobile-calc(-10);
           }
         }
 
