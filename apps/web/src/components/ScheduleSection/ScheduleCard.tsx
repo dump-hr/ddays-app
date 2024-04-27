@@ -1,8 +1,9 @@
-import { EventDto } from '@ddays-app/types';
+import { EventDto, EventWithSpeakerDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
 import c from './ScheduleSection.module.scss';
+import { getSpeakerCompanyStringForEvent } from './utils';
 
 const getEventTime = (dateTimeString: string) => {
   const date = new Date(dateTimeString);
@@ -49,7 +50,7 @@ const getThemeShort = (theme: string) => {
 };
 
 type ScheduleCardProps = {
-  event: EventDto;
+  event: EventWithSpeakerDto;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
@@ -83,7 +84,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
             </div>
             <div className={c.scheduleCardTitleWrapper}>
               <h3 className={c.scheduleCardTitle}>{event.name}</h3>
-              <h4 className={c.scheduleCardSubtitle}>MATE RIMAC / @RIMAC</h4>
+              <h4 className={c.scheduleCardSubtitle}>
+                {getSpeakerCompanyStringForEvent(event)}
+              </h4>
               {isOpenDescription && (
                 <div className={c.scheduleCardDescription}>
                   {event.description}

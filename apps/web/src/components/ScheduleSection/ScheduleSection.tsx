@@ -2,7 +2,7 @@ import { Theme } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-import { useEventGetAll } from '../../api/event/useEventGetAll';
+import { useEventGetAllWithSpeaker } from '../../api/event/useEventGetAllWithSpeaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import ScheduleCard from './ScheduleCard';
 import c from './ScheduleSection.module.scss';
@@ -30,11 +30,13 @@ const ScheduleSection = () => {
     }
   }, [isMobile, theme]);
 
-  const events = useEventGetAll();
+  const events = useEventGetAllWithSpeaker();
 
   if (events.isLoading) {
     return <div>Loading...</div>;
   }
+
+  console.log(events);
 
   return (
     <div className={c.ofXHidden}>
