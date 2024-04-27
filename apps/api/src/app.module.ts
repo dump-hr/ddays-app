@@ -15,6 +15,7 @@ import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
+import { BoothModule } from './booth/booth.module';
 
 @Module({
   imports: [
@@ -51,6 +52,8 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
           }),
         ]
       : []),
+
+    BoothModule,
   ],
   controllers: [AppController],
   providers: [AppService],
