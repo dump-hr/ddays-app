@@ -1,3 +1,5 @@
+import { SectionBreaker } from 'components/SectionBreaker';
+
 import fesbBackground from '../../assets/images/fesb-background.png';
 import splitStamp from '../../assets/images/split-stamp.png';
 import vintageFesb from '../../assets/vintage-fesb.png';
@@ -33,6 +35,7 @@ const LocationSection = () => {
           </div>
         </div>
       </div>
+      <SectionBreaker fg='green' bg='#cd523a' />
       <div className={c.locationInfo}>
         <div className={c.locationInfoLeft}>
           <h2>izložbeni prostor</h2>
@@ -59,6 +62,7 @@ const LocationSection = () => {
         </span>
         <p className={c.dateText}>24. 05. 2024.</p>
       </div>
+      <SectionBreaker fg='light' bg='green' />
     </div>
   );
 };
