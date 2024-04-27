@@ -21,7 +21,7 @@ export class CompanyService {
   async create(dto: CompanyModifyDto): Promise<CompanyDto> {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
-    const [createdComapny] = await db
+    const [createdCompany] = await db
       .insert(company)
       .values({
         ...dto,
@@ -30,11 +30,11 @@ export class CompanyService {
       .returning();
 
     const interests = await this.interestService.connectToCompany(
-      createdComapny.id,
+      createdCompany.id,
       dto.interestIds,
     );
 
-    return { ...createdComapny, interests };
+    return { ...createdCompany, interests };
   }
 
   async getAllPublic(): Promise<CompanyPublicDto[]> {
