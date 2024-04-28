@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import DottedBreak from 'components/DottedBreak';
 
 import QuotesIcon from '../../assets/icons/quotes.svg';
 import c from './Testimonial.module.scss';
