@@ -34,8 +34,8 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
       <div className={c.rightWrapper}>
         <DottedBreak
           vertical
-          dotNumber={18}
-          dotSize={3}
+          dotNumber={22}
+          dotSize={2}
           style={{ opacity: '0.3' }}
           color={color === 'black' ? 'white' : 'black'}
         />
