@@ -1,19 +1,19 @@
 import { AdminBoothDto } from '@ddays-app/types';
 import { useState } from 'react';
 
-import { useGetBoothes } from '../api/booth/useGetBoothes';
+import { useGetBooths } from '../api/booth/useGetBooths';
 import { useRemoveBooth } from '../api/booth/useRemoveBooth';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
 import { BoothForm } from '../forms/BoothForm';
-import { ManyBoothesForm } from '../forms/ManyBoothesForm';
+import { ManyBoothsForm } from '../forms/ManyBoothsForm';
 
 export const BoothPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boothToEdit, setBoothToEdit] = useState<AdminBoothDto>();
 
-  const companies = useGetBoothes();
+  const companies = useGetBooths();
   const [isManyModalOpen, setIsManyModalOpen] = useState(false);
 
   const removeBooth = useRemoveBooth();
@@ -44,7 +44,7 @@ export const BoothPage = () => {
         onClose={() => {
           setIsManyModalOpen(false);
         }}>
-        <ManyBoothesForm
+        <ManyBoothsForm
           onSuccess={() => {
             setIsManyModalOpen(false);
           }}

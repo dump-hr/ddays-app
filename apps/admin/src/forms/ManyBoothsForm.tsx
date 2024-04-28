@@ -2,13 +2,13 @@ import { CompanyCategory, CreateManyBoothsDto } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
-import { useCreateManyBoothes } from '../api/booth/useCreateManyBoothes';
+import { useCreateManyBooths } from '../api/booth/useCreateManyBooths';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
-export const ManyBoothesForm = ({ onSuccess }: { onSuccess?: () => void }) => {
-  const createManyBoothes = useCreateManyBoothes();
+export const ManyBoothsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+  const createManyBooths = useCreateManyBooths();
 
   const questions: Question[] = [
     {
@@ -36,7 +36,7 @@ export const ManyBoothesForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
       <Button
         onClick={form.handleSubmit(async (data) => {
-          await createManyBoothes.mutateAsync(data);
+          await createManyBooths.mutateAsync(data);
           onSuccess && onSuccess();
         })}>
         Dodaj

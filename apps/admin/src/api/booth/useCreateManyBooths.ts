@@ -4,17 +4,17 @@ import { useMutation } from 'react-query';
 
 import { api } from '..';
 
-const createManyBoothes = async (data: CreateManyBoothsDto) => {
+const createManyBooths = async (data: CreateManyBoothsDto) => {
   return await api.post<CreateManyBoothsDto, void>('/booth/many', data);
 };
 
-export const useCreateManyBoothes = () => {
-  return useMutation(createManyBoothes, {
+export const useCreateManyBooths = () => {
+  return useMutation(createManyBooths, {
     onSuccess: () => {
-      toast.success('Boothes successfully created!');
+      toast.success('Booths successfully created!');
     },
     onError: (error: string) => {
-      toast.error('Failed to create boothes');
+      toast.error('Failed to create booths');
       console.error(error);
     },
   });

@@ -80,18 +80,20 @@ export const BoothLocation = ({
       <article className={classes.choice}>
         <span className={classes.title}>Odaberite svoje mjesto</span>
         <ul className={classes.spots}>
-          {spots.map((spot) => (
-            <li
-              className={clsx(
-                classes.spot,
-                spot.id === chosenSpot && classes.chosen,
-                spot.isTaken && classes.taken,
-              )}
-              key={spot.id}
-              onClick={() => !spot.isTaken && handleChoose(spot.id)}>
-              <span className={classes.text}>{spot.name}</span>
-            </li>
-          ))}
+          {spots
+            .sort((a, b) => a.id - b.id)
+            .map((spot) => (
+              <li
+                className={clsx(
+                  classes.spot,
+                  spot.id === chosenSpot && classes.chosen,
+                  spot.isTaken && classes.taken,
+                )}
+                key={spot.id}
+                onClick={() => !spot.isTaken && handleChoose(spot.id)}>
+                <span className={classes.text}>{spot.name}</span>
+              </li>
+            ))}
         </ul>
         <button
           className={clsx(classes.button, !chosenSpot && classes.disabled)}
