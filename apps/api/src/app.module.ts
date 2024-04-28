@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BlobModule } from './blob/blob.module';
+import { BoothModule } from './booth/booth.module';
 import { CompanyModule } from './company/company.module';
 import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
@@ -15,7 +16,6 @@ import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
-import { BoothModule } from './booth/booth.module';
 
 @Module({
   imports: [

@@ -43,6 +43,7 @@ export const BoothLocation = ({
     return () => {
       socket.off('booth:update-available');
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   const handleChoose = (id: number) => {

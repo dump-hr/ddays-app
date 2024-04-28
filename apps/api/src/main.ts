@@ -4,7 +4,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
-import { targetModulesByContainer } from '@nestjs/core/router/router-module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as migrator from 'drizzle-orm/node-postgres/migrator';
 import { drizzle } from 'drizzle-orm/postgres-js';

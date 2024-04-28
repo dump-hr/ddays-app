@@ -1,7 +1,6 @@
 import {
   AdminBoothDto,
   AvailabilityUpdateDto,
-  BoothDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -51,13 +50,14 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
+        boothLocation: boothLocation.name,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
         video: company.video,
       })
       .from(company)
+      .leftJoin(boothLocation, eq(company.boothLocationId, boothLocation.id))
       .orderBy(company.name);
 
     return companies;
