@@ -6,6 +6,10 @@
   padding: 20px 124px 80px;
   position: relative;
 
+  &:last-of-type {
+    padding-bottom: 50px;
+  }
+
   --background-color: #fff --color-1: rgba(23, 22, 21, 0.6);
   --color-2: rgba(23, 22, 21, 0.7);
 
