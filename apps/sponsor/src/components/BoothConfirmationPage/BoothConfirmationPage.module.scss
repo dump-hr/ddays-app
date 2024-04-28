@@ -1,0 +1,72 @@
+.container {
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background-color: #000000;
+
+  .backgroundImg {
+    background: url('../../assets/images/login-background.png');
+    background-repeat: no-repeat;
+    width: 660px;
+    height: 300px;
+  }
+
+  .logoSvg {
+    position: relative;
+    top: -192px;
+  }
+
+  .title {
+    font-size: 48px;
+    font-weight: 800;
+    font-family: Fuse;
+    color: #fff;
+  }
+
+  .content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: -124px;
+  }
+
+  .desc {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 400;
+    font-family: Fuse;
+    color: #fff;
+    width: 80%;
+    margin-top: 24px;
+  }
+
+  .button {
+    height: 56px;
+    padding: 0px 22.5px;
+    width: 80%;
+    border-radius: 12px;
+    border: none;
+
+    color: #000;
+
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 56px;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+      background-color: color-mix(in srgb, #fff 90%, #000 10%);
+    }
+
+    cursor: pointer;
+
+    margin-top: 40px;
+  }
+}

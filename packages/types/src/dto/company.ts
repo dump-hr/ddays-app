@@ -36,7 +36,7 @@ export type CompanyDto = {
   description?: string;
   opportunitiesDescription?: string;
   website?: string;
-  boothLocation?: string;
+  boothLocationId?: number;
   logoImage?: string;
   landingImage?: string;
   video?: string;

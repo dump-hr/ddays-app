@@ -1,4 +1,5 @@
 import {
+  BoothDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -16,6 +17,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Req,
   UploadedFile,
   UseGuards,
@@ -265,6 +267,29 @@ export class CompanyController {
     file: Express.Multer.File,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.updateVideo(user.id, file);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('booth')
+  async getAllBoothLocations(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<BoothDto[] | string> {
+    const booths = await this.companyService.getAllBooths(user.id);
+    return booths.map((booth) => ({
+      name: booth.name,
+      id: booth.id,
+      isTaken: booth.companyId !== null,
+    }));
+  }
+
+  @UseGuards(SponsorGuard)
+  @Put('booth/:id')
+  async reserveBoothLocation(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user }: AuthenticatedRequest,
+  ) {
+    return await this.companyService.reserveBoothLocation(user.id, id);
+    //TODO: add socket response
   }
 
   @Get(':id')
