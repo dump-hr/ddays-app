@@ -1,5 +1,7 @@
 import Testimonial from 'components/Testimonial/Testimonial';
 
+import c from './TestimonialsSection.module.scss';
+
 const TestimonialsSection = () => {
   const data = {
     name: 'Nicolette Pribanić',
@@ -8,7 +10,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section>
+    <section className={c.testimonialsSection}>
       <Testimonial color='white' {...data} />
       <Testimonial color='black' {...data} />
       <Testimonial color='beige' {...data} />

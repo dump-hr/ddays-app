@@ -5,6 +5,7 @@
   box-sizing: border-box;
   padding: 20px 124px 80px;
   position: relative;
+  width: 100%;
 
   &:last-of-type {
     padding-bottom: 50px;
@@ -34,7 +35,7 @@
     position: absolute;
     width: 100%;
     height: 45px;
-    transform: translateY(-100%);
+    transform: translateY(-99%);
 
     mask-image: url('../../assets/images/section-breaker-default.png');
     background: var(--background-color);
