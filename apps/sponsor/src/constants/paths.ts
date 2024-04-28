@@ -4,5 +4,6 @@ export enum Path {
   Materials = '/sponsor/',
   Stand = '/sponsor/stand',
   FlyTalks = '/sponsor/fly-talks',
+  SpotsPage = '/sponsor/spots',
   CatchAll = '/sponsor/:path*',
 }

@@ -14,11 +14,8 @@ div {
 
   &:before {
     content: '';
-    background-color: transparent;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 182px;
-    opacity: 0.25;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_gaussian_noise_example.png);
+    opacity: 0.15;
     top: 0;
     left: 0;
     position: absolute;
@@ -35,7 +32,6 @@ div {
   position: sticky;
   top: 60px;
   text-align: center;
-
   font-family: 'PP Neue Machina', sans-serif;
   color: #eaeaea;
   font-size: 284.571px;
@@ -55,11 +51,12 @@ div {
   &Container {
     position: relative;
     height: 2244px;
-    bottom: 0;
     margin-bottom: 126px;
+    bottom: 0;
 
     @media (max-width: 1390px) {
       height: 1400px;
+      margin-bottom: 0;
     }
 
     @media (max-width: 800px) {
@@ -92,7 +89,7 @@ div {
     width: 100%;
 
     @media (max-width: 1390px) {
-      bottom: 0;
+      bottom: -2px;
     }
   }
 }
@@ -290,6 +287,7 @@ div {
 .date {
   margin-top: 76px;
   padding-left: 37px;
+  position: relative;
 
   &Text {
     display: inline;
@@ -374,6 +372,46 @@ div {
       font-size: 65.491px;
       line-height: 64.026px;
       letter-spacing: 1.281px;
+    }
+  }
+}
+
+.imageBreaker {
+  transform: translateY(-50%);
+}
+
+.dateBreaker {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 3;
+
+  .breakerPadding {
+    width: 100%;
+    height: 70px;
+    position: relative;
+    background-color: #f5ede1;
+
+    &:before {
+      content: '';
+      background-image: url(../../assets/images/noise.webp);
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  }
+
+  @media (max-width: 992px) {
+    height: 30px;
+
+    .breakerPadding {
+      height: 0;
     }
   }
 }

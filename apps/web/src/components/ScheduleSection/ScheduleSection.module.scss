@@ -7,14 +7,13 @@
     width: 100vw;
     position: relative;
     background-color: #f5ede1;
+    padding-bottom: 64px;
   }
 
   &SectionWrapper:before {
     content: '';
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 182px;
-    opacity: 0.25;
+    background-image: url(../../assets/images/noise.webp);
+    opacity: 0.15;
     top: 0;
     left: 0;
     position: absolute;
@@ -56,11 +55,12 @@
     }
 
     &Center {
-      max-width: 750px;
+      display: flex;
+      margin-bottom: 6px;
     }
 
-    &Center {
-      display: flex;
+    &CenterWrapper {
+      max-width: 750px;
     }
 
     &Title {
@@ -84,7 +84,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-top: 0;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       margin-right: 150px;
     }
 
@@ -94,6 +94,7 @@
 
     &Container {
       overflow-x: clip;
+      margin: 0px 24px;
     }
 
     &Description {
@@ -136,7 +137,7 @@
   padding: 12px 23px;
   margin-right: 16px;
   border-radius: 50%;
-  background-color: #cb370ecc;
+  background-color: #ff482f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,6 +185,7 @@
 
 .dottedRuler {
   letter-spacing: 4px;
+  font-size: 10px;
   color: #88888888;
 }
 
@@ -196,7 +198,7 @@
 .speakerPhoto {
   position: absolute;
   z-index: 2;
-  top: -15px;
+  top: -26px;
   right: 150px;
   transform: rotate(-5deg);
 }
@@ -208,6 +210,12 @@
 
   .scheduleHeaderRight {
     display: none;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .scheduleCardTitle {
+    margin: 0;
   }
 }
 

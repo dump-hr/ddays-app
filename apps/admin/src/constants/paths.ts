@@ -5,4 +5,5 @@ export enum Path {
   CatchAll = '/admin/:path*',
   Event = '/admin/event',
   Speaker = '/admin/speaker',
+  Booth = '/admin/booth',
 }

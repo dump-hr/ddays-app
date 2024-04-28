@@ -76,7 +76,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
                 </a>
               )}
               {speaker.instagram && (
-                <a href={speaker.instagram}>
+                <a className={c.socialsLink} href={speaker.instagram}>
                   {`[`} INSTAGRAM {']'}
                 </a>
               )}

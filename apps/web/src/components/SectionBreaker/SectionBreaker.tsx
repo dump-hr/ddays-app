@@ -1,31 +1,18 @@
 import clsx from 'clsx';
 
-import SectionBreakerDark from '../../assets/images/section-breaker-dark.png';
-import SectionBreakerGreen from '../../assets/images/section-breaker-green.png';
-import SectionBreakerLight from '../../assets/images/section-breaker-light.png';
-import SectionBreakerOrange from '../../assets/images/section-breaker-orange.png';
 import c from './SectionBreaker.module.scss';
 
-type Variant = 'dark' | 'light' | 'orange' | 'green';
-
-type SectionBreakerProps = {
-  fg: Variant;
-  bg: Variant | string;
-  className?: string;
-};
-
-const sectionBreakerBackground = {
+const color = {
   dark: '#000000',
   light: '#f5ede1',
   orange: '#ff482f',
   green: '#065852',
 };
 
-const sectionBreakerImage = {
-  dark: SectionBreakerDark,
-  light: SectionBreakerLight,
-  orange: SectionBreakerOrange,
-  green: SectionBreakerGreen,
+type SectionBreakerProps = {
+  fg: keyof typeof color;
+  bg?: keyof typeof color;
+  className?: string;
 };
 
 export const SectionBreaker: React.FC<SectionBreakerProps> = ({
@@ -35,14 +22,9 @@ export const SectionBreaker: React.FC<SectionBreakerProps> = ({
 }) => {
   return (
     <div
-      className={clsx(c.container, className)}
-      style={{
-        backgroundColor:
-          sectionBreakerBackground[
-            bg as keyof typeof sectionBreakerBackground
-          ] || bg,
-      }}>
-      <img className={c.sectionBreaker} src={sectionBreakerImage[fg]} alt='' />
+      className={clsx(c.container, className, { [c.noise]: !!bg })}
+      style={{ backgroundColor: bg ? color[bg] : undefined }}>
+      <div className={c.fg} style={{ backgroundColor: color[fg] }} />
     </div>
   );
 };

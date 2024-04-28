@@ -43,7 +43,8 @@ const setupProxies = (app: INestApplication) => {
         (pathname: string) =>
           !pathname.startsWith('/api') &&
           !pathname.startsWith('/admin') &&
-          !pathname.startsWith('/sponsor'),
+          !pathname.startsWith('/sponsor') &&
+          !pathname.startsWith('/socket'),
         { target: 'http://localhost:3004' },
       ),
     );
@@ -57,6 +58,11 @@ const setupProxies = (app: INestApplication) => {
       '/sponsor',
       createProxyMiddleware({ target: 'http://localhost:3003' }),
     );
+
+    app.use(
+      'socket',
+      createProxyMiddleware({ target: 'http://localhost:3005', ws: true }),
+    );
   }
 
   if (process.env.NODE_ENV !== 'dev') {
@@ -67,6 +73,7 @@ const setupProxies = (app: INestApplication) => {
           !pathname.startsWith('/api') &&
           !pathname.startsWith('/admin') &&
           !pathname.startsWith('/sponsor') &&
+          !pathname.startsWith('/socket') &&
           !pathname.startsWith('/noviweb'),
         {
           target: 'https://ddays.azureedge.net/',

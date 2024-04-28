@@ -48,12 +48,6 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
       defaultValue: company?.website,
     },
     {
-      id: 'boothLocation',
-      type: QuestionType.Field,
-      title: 'Lokacija štanda',
-      defaultValue: company?.boothLocation,
-    },
-    {
       id: 'category',
       type: QuestionType.Select,
       title: 'Kategorija sponzorstva',
