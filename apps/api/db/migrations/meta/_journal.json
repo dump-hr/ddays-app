@@ -57,6 +57,13 @@
       "when": 1712783107240,
       "tag": "0007_bitter_newton_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1714313501301,
+      "tag": "0008_right_roland_deschain",
+      "breakpoints": true
     }
   ]
 }
