@@ -85,9 +85,7 @@
   }
 
   .rightWrapper {
-    display: flex;
     width: 100%;
-    gap: 32px;
 
     .text {
       border-left: 3px dotted var(--border-color);
@@ -111,7 +109,12 @@
     padding-bottom: 80px;
 
     .rightWrapper {
-      flex-direction: column-reverse;
+      .text {
+        border-left: none;
+        padding: 0;
+        border-bottom: 3px dotted var(--border-color);
+        padding-bottom: 32px;
+      }
     }
 
     .leftWrapper {
