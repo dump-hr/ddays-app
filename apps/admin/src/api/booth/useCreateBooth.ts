@@ -1,6 +1,6 @@
 import { BoothDto, CreateBoothDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
@@ -9,13 +9,15 @@ const createBooth = async (dto: CreateBoothDto): Promise<BoothDto> => {
 };
 
 export const useCreateBooth = () => {
+  const queryClient = useQueryClient();
+
   return useMutation(createBooth, {
     onSuccess: () => {
+      queryClient.invalidateQueries(['booth']);
       toast.success('Booth successfully created!');
     },
     onError: (error: string) => {
-      toast.error('Failed to create booth');
-      console.error(error);
+      toast.error(error);
     },
   });
 };

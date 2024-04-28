@@ -12,12 +12,11 @@ export const useRemoveBooth = () => {
 
   return useMutation(removeBooth, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['booth', 'all']);
+      queryClient.invalidateQueries(['booth']);
       toast.success('Booth successfully removed!');
     },
     onError: (error: string) => {
-      console.error(error);
-      toast.error('Failed to remove booth');
+      toast.error(error);
     },
   });
 };

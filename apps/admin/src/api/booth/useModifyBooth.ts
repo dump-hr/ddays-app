@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const updateBooth = async (dto: ModifyBoothDto & { id: number }) => {
-  console.log(dto);
   return await api.patch(`/booth/${dto.id}`, dto);
 };
 
@@ -14,12 +13,11 @@ export const useModifyBooth = () => {
 
   return useMutation(updateBooth, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['booth', 'all']);
+      queryClient.invalidateQueries(['booth']);
       toast.success('Booth successfully updated!');
     },
     onError: (error: string) => {
-      console.error(error);
-      toast.error('Failed to update booth');
+      toast.error(error);
     },
   });
 };

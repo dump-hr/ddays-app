@@ -20,9 +20,9 @@ export const BoothLocation = ({
   const [chosenSpot, setChosenSpot] = useState<number>();
   const reserveSpot = useReserveBooth();
 
-  useEffect(() => {
-    setSpots(initSpots);
-  }, [initSpots]);
+  // useEffect(() => {
+  //   setSpots(initSpots);
+  // }, [initSpots]);
 
   useEffect(() => {
     socket.on('booth:update-available', (data: AvailabilityUpdateDto) => {
@@ -44,7 +44,7 @@ export const BoothLocation = ({
       socket.off('booth:update-available');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket]);
+  }, []);
 
   const handleChoose = (id: number) => {
     const spot = spots.find((spot) => spot.id === id);

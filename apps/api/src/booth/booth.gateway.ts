@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
-@WebSocketGateway(3005, { transports: ['polling'], cors: true })
+@WebSocketGateway(3005, { transports: ['websocket'], cors: true })
 export class BoothGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {

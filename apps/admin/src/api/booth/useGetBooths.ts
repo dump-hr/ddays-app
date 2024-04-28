@@ -8,5 +8,5 @@ const getBooths = async () => {
 };
 
 export const useGetBooths = () => {
-  return useQuery('booths', getBooths);
+  return useQuery(['booth'], getBooths);
 };
