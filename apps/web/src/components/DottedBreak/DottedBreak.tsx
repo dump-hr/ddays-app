@@ -1,13 +1,19 @@
+import clsx from 'clsx';
+
 import c from './DottedBreak.module.scss';
 
 type DottedBreakProps = {
   dotSize?: number;
   dotNumber?: number;
+  vertical?: boolean;
+  color: 'black' | 'white';
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const DottedBreak = ({
   dotSize = 5,
   dotNumber = 30,
+  vertical,
+  color,
   ...handlers
 }: DottedBreakProps) => {
   const Dots = () => {
@@ -15,7 +21,6 @@ const DottedBreak = ({
     const style = {
       width: dotSize,
       height: dotSize,
-      background: 'white',
       borderRadius: '50%',
     };
 
@@ -25,8 +30,15 @@ const DottedBreak = ({
     return dots;
   };
 
+  const classes = clsx({
+    [c.dots]: true,
+    [c.vertical]: vertical,
+    [c.black]: color === 'black',
+    [c.white]: color === 'white',
+  });
+
   return (
-    <div className={c.dots} {...handlers}>
+    <div className={classes} {...handlers}>
       <Dots />
     </div>
   );

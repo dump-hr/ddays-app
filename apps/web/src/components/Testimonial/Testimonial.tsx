@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import DottedBreak from 'components/DottedBreak';
 
 import QuotesIcon from '../../assets/icons/quotes.svg';
 import c from './Testimonial.module.scss';
@@ -31,6 +32,13 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
         </div>
       </div>
       <div className={c.rightWrapper}>
+        <DottedBreak
+          vertical
+          dotNumber={18}
+          dotSize={3}
+          style={{ opacity: '0.3' }}
+          color={color === 'black' ? 'white' : 'black'}
+        />
         <p className={c.text}>{text}</p>
       </div>
     </div>
