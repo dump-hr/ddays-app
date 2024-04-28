@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { SectionBreaker } from 'components/SectionBreaker';
 
-import DaysSticker from '../../assets/images/days-sticker.png';
+import DaysSticker from '../../assets/images/days-sticker-big.png';
 import Facebook from '../../assets/images/facebook.png';
 import FooterDuckie from '../../assets/images/footer-duckie.png';
 import Instagram from '../../assets/images/instagram.png';
@@ -72,12 +72,12 @@ const FooterSection = () => {
         </div>
         <div className={c.dottedRulerWrapper}>
           <div className={c.dottedRuler}>
-            .....................................................................................................................................................................
+            ...............................................................................................................................................................................................................................................................................................................................
           </div>
         </div>
         <div className={c.bottomSmallTextWrapper}>
           <p className={c.mb24}>© DUMPDAYS</p>
-          <p>
+          <p className={c.footerBottomSmallText}>
             Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
             ljubavi.
           </p>
