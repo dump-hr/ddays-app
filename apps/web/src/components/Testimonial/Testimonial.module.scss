@@ -10,7 +10,10 @@
     padding-bottom: 50px;
   }
 
-  --background-color: #fff --color-1: rgba(23, 22, 21, 0.6);
+  --background-color: #fff;
+  --border-color: rgba(23, 22, 21, 0.3);
+
+  --color-1: rgba(23, 22, 21, 0.6);
   --color-2: rgba(23, 22, 21, 0.7);
 
   &.white {
@@ -19,6 +22,7 @@
 
   &.black {
     --background-color: #171615;
+    --border-color: #4b4b4b;
     --color-1: rgba(255, 255, 255, 0.7);
     --color-2: rgba(255, 255, 255, 0.7);
   }
@@ -84,7 +88,11 @@
     display: flex;
     width: 100%;
     gap: 32px;
+
     .text {
+      border-left: 3px dotted var(--border-color);
+      padding-left: 32px;
+
       color: var(--color-2);
       font-family: 'PP Neue Machina';
       font-size: 24px;
