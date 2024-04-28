@@ -1,4 +1,4 @@
-import { CompanyCategory, CreateManyBoothsDto } from '@ddays-app/types';
+import { BoothCreateManyDto, CompanyCategory } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
@@ -24,8 +24,8 @@ export const ManyBoothsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     },
   ];
 
-  const form = useForm<CreateManyBoothsDto>({
-    resolver: classValidatorResolver(CreateManyBoothsDto),
+  const form = useForm<BoothCreateManyDto>({
+    resolver: classValidatorResolver(BoothCreateManyDto),
   });
 
   return (

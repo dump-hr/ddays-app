@@ -1,3 +1,4 @@
+import { useClearBooth } from '../../api/booth/useClearBooth';
 import logoSvg from '../../assets/images/logo.svg';
 import classes from './BoothConfirmationPage.module.scss';
 
@@ -6,6 +7,8 @@ export interface BoothConfirmationPageProps {
 }
 
 export const BoothConfirmationPage = ({ name }: BoothConfirmationPageProps) => {
+  const clearBooth = useClearBooth();
+
   return (
     <section className={classes.container}>
       <div className={classes.background}></div>
@@ -19,7 +22,11 @@ export const BoothConfirmationPage = ({ name }: BoothConfirmationPageProps) => {
           Ukoliko imate dodatnih pitanja ili zahtjeva vezanih za vaš prostor,
           stojimo na raspolaganju.
         </span>
-        <button className={classes.button}>Uredi odabir</button>
+        <button
+          className={classes.button}
+          onClick={() => clearBooth.mutateAsync()}>
+          Uredi odabir
+        </button>
       </article>
     </section>
   );

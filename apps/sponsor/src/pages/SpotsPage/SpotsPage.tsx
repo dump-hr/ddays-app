@@ -1,19 +1,17 @@
-import socketIO from 'socket.io-client';
-
-import { useGetBooths } from '../../api/booth/useGetBooths';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { BoothConfirmationPage } from '../../components/BoothConfirmationPage/BoothConfirmationPage';
-import BoothLocation from '../../components/BoothLocation';
-
-const socket = socketIO('http://localhost:3005/socket');
+import ChooseBooth from '../../components/ChooseBooth';
 
 export const SpotsPage = () => {
-  const { data: booths, isLoading } = useGetBooths();
-  const { data: user, isLoading: companyLoading } =
-    useCompanyGetCurrentPublic();
-  return !isLoading && !companyLoading && user?.boothLocation ? (
-    <BoothConfirmationPage name={user.boothLocation} />
-  ) : (
-    <BoothLocation socket={socket} initSpots={booths} />
-  );
+  const currentCompany = useCompanyGetCurrentPublic();
+
+  if (currentCompany.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (currentCompany.data?.booth) {
+    return <BoothConfirmationPage name={currentCompany.data.booth} />;
+  }
+
+  return <ChooseBooth />;
 };

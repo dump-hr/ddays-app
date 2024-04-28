@@ -1,90 +1,80 @@
 import {
-  AvailabilityUpdateDto,
+  BoothCreateDto,
+  BoothCreateManyDto,
+  BoothUpdateDto,
   CompanyCategory,
-  CreateBoothDto,
-  CreateManyBoothsDto,
-  ModifyBoothDto,
 } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { WebSocketServer } from '@nestjs/websockets';
 import { db } from 'db';
-import { boothLocation, company } from 'db/schema';
+import { booth, company } from 'db/schema';
 import { asc, eq } from 'drizzle-orm';
-import { Socket } from 'socket.io-client';
+import { Server } from 'socket.io';
+
+import { BoothGateway } from './booth.gateway';
 
 @Injectable()
 export class BoothService {
-  private socket: Socket;
+  @WebSocketServer()
+  server: Server;
 
-  constructor() {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    this.socket = require('socket.io-client')('http://localhost:3005', {
-      crossOriginIsolated: false,
-      origins: [
-        'http://localhost:3005',
-        'http://localhost:3000',
-        'http://localhost:3003',
-      ],
-    });
-    this.setupSocketEvents();
-  }
+  constructor(private readonly boothGateway: BoothGateway) {}
 
-  private setupSocketEvents() {
-    this.socket.on('connect', () => {
-      console.log('Connected to socket server');
-    });
+  async reserve(id: number, companyId: number) {
+    const [foundBooth] = await db.select().from(booth).where(eq(booth.id, id));
 
-    this.socket.on('disconnect', () => {
-      console.log('Disconnected from socket server');
-    });
-
-    this.socket.on('booth:updated', (data) => {
-      console.log('Booth updated', data);
-    });
-  }
-
-  async emitUpdateAvailable(data: AvailabilityUpdateDto) {
-    this.socket.emit('booth:update-available', data);
-  }
-
-  async checkValidity(id: number, reservingCompany: number) {
-    const [booth] = await db
-      .select()
-      .from(boothLocation)
-      .where(eq(boothLocation.id, id));
-
-    if (!booth || booth.companyId) {
-      return false;
+    if (!!foundBooth.companyId) {
+      throw new BadRequestException('Booth already reserved');
     }
 
-    const [boothCompany] = await db
+    const [foundCompanyBooth] = await db
       .select()
-      .from(company)
-      .where(eq(company.id, reservingCompany));
+      .from(booth)
+      .where(eq(booth.companyId, companyId));
 
-    return (
-      booth.category === boothCompany.category && !boothCompany.boothLocationId
-    );
+    if (!!foundCompanyBooth) {
+      throw new BadRequestException('Company already has booth reserved');
+    }
+
+    await db
+      .update(booth)
+      .set({ companyId })
+      .where(eq(booth.id, id))
+      .returning();
+
+    this.boothGateway.emitReserve(id);
   }
 
-  async create(createBoothDto: CreateBoothDto) {
-    const [booth] = await db
-      .insert(boothLocation)
-      .values(createBoothDto)
-      .execute();
+  async clear(companyId: number) {
+    const [updatedBooth] = await db
+      .update(booth)
+      .set({ companyId: null })
+      .where(eq(booth.companyId, companyId))
+      .returning();
 
-    return booth;
+    if (!updatedBooth) {
+      throw new BadRequestException('Booth not found');
+    }
+
+    this.boothGateway.emitClear(updatedBooth.id);
+  }
+
+  async create(dto: BoothCreateDto) {
+    const [foundBooth] = await db.insert(booth).values(dto);
+
+    return foundBooth;
   }
 
   async getAmountForCategory(category: CompanyCategory) {
     const booths = await db
       .select()
-      .from(boothLocation)
-      .where(eq(boothLocation.category, category));
+      .from(booth)
+      .where(eq(booth.category, category));
 
     return booths.length;
   }
 
-  async createMany(createBoothDtos: CreateManyBoothsDto) {
+  async createMany(createBoothDtos: BoothCreateManyDto) {
     const mainCategory =
       createBoothDtos.category === CompanyCategory.Gold ? 'Z' : 'S';
 
@@ -98,67 +88,80 @@ export class BoothService {
       }),
     );
 
-    const data = await db.insert(boothLocation).values(booths).returning();
+    const data = await db.insert(booth).values(booths).returning();
 
     return data;
   }
 
-  async update(id: number, modifyBoothDto: ModifyBoothDto) {
-    const [booth] = await db
-      .update(boothLocation)
+  async update(id: number, modifyBoothDto: BoothUpdateDto) {
+    const [foundBooth] = await db
+      .update(booth)
       .set(modifyBoothDto)
-      .where(eq(boothLocation.id, id));
+      .where(eq(booth.id, id));
 
-    return booth;
+    return foundBooth;
   }
 
-  async getAllForCategory(category?: string) {
+  async getAllForCategory(category: CompanyCategory) {
     const booths = await db
       .select({
-        companyId: boothLocation.companyId,
-        name: boothLocation.name,
-        category: boothLocation.category,
-        id: boothLocation.id,
+        companyId: booth.companyId,
+        name: booth.name,
+        id: booth.id,
       })
-      .from(boothLocation)
-      .where(eq(boothLocation.category, category))
-      .orderBy(asc(boothLocation.name));
+      .from(booth)
+      .where(eq(booth.category, category))
+      .orderBy(asc(booth.name));
 
-    return booths;
+    return booths.map((booth) => ({
+      id: booth.id,
+      name: booth.name,
+      isTaken: booth.companyId !== null,
+    }));
+  }
+
+  async getAllForCompany(companyId: number) {
+    const [foundCompany] = await db
+      .select({
+        category: company.category,
+      })
+      .from(company)
+      .where(eq(company.id, companyId));
+
+    return await this.getAllForCategory(
+      foundCompany.category as CompanyCategory,
+    );
   }
 
   async getAll() {
     const booths = await db
       .select({
-        companyId: boothLocation.companyId,
-        name: boothLocation.name,
-        category: boothLocation.category,
-        id: boothLocation.id,
+        companyId: booth.companyId,
+        name: booth.name,
+        category: booth.category,
+        id: booth.id,
       })
-      .from(boothLocation)
-      .orderBy(boothLocation.name);
+      .from(booth)
+      .orderBy(booth.name);
 
     return booths;
   }
 
   async getOne(id: number) {
-    const [booth] = await db
+    const [foundBooth] = await db
       .select({
-        companyId: boothLocation.companyId,
-        name: boothLocation.name,
-        category: boothLocation.category,
-        id: boothLocation.id,
+        companyId: booth.companyId,
+        name: booth.name,
+        category: booth.category,
+        id: booth.id,
       })
-      .from(boothLocation)
-      .where(eq(boothLocation.id, id));
+      .from(booth)
+      .where(eq(booth.id, id));
 
-    return booth;
+    return foundBooth;
   }
 
   async remove(id: number) {
-    return await db
-      .delete(boothLocation)
-      .where(eq(boothLocation.id, id))
-      .execute();
+    return await db.delete(booth).where(eq(booth.id, id));
   }
 }

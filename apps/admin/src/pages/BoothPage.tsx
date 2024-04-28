@@ -1,4 +1,4 @@
-import { AdminBoothDto } from '@ddays-app/types';
+import { BoothDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useGetBooths } from '../api/booth/useGetBooths';
@@ -11,7 +11,7 @@ import { ManyBoothsForm } from '../forms/ManyBoothsForm';
 
 export const BoothPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [boothToEdit, setBoothToEdit] = useState<AdminBoothDto>();
+  const [boothToEdit, setBoothToEdit] = useState<BoothDto>();
 
   const companies = useGetBooths();
   const [isManyModalOpen, setIsManyModalOpen] = useState(false);
@@ -51,13 +51,15 @@ export const BoothPage = () => {
         />
       </Modal>
 
-      <Button variant='primary' onClick={() => setIsModalOpen(true)}>
-        New
-      </Button>
+      <div className='flex'>
+        <Button variant='primary' onClick={() => setIsModalOpen(true)}>
+          New
+        </Button>
 
-      <Button variant='primary' onClick={() => setIsManyModalOpen(true)}>
-        New (many)
-      </Button>
+        <Button variant='primary' onClick={() => setIsManyModalOpen(true)}>
+          New (many)
+        </Button>
+      </div>
 
       <Table
         data={companies.data}

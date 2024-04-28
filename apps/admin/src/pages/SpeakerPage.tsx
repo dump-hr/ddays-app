@@ -59,9 +59,11 @@ const SpeakerPage = () => {
         )}
       </Modal>
 
-      <Button variant='primary' onClick={() => setIsModalOpen(true)}>
-        New
-      </Button>
+      <div className='flex'>
+        <Button variant='primary' onClick={() => setIsModalOpen(true)}>
+          New
+        </Button>
+      </div>
 
       <Table
         data={speakers.data}

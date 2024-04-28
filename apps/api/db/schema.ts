@@ -86,10 +86,6 @@ export const company = pgTable('company', {
   description: text('description'),
   opportunitiesDescription: text('opportunities_description'),
   website: text('website_url'),
-  boothLocationId: integer('booth_location_id').references(
-    () => boothLocation.id,
-    { onDelete: 'cascade' },
-  ),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
   landingImageCompanyCulture: text('landing_image_company_culture'),
@@ -106,10 +102,7 @@ export const companyRelations = relations(company, ({ one, many }) => ({
   jobs: many(job),
   companyToInterest: many(companyToInterest),
   speaker: many(speaker),
-  boothLocation: one(boothLocation, {
-    fields: [company.boothLocationId],
-    references: [boothLocation.id],
-  }),
+  booth: one(booth),
 }));
 
 export const job = pgTable('job', {
@@ -313,24 +306,18 @@ export const speakerToEventRelations = relations(speakerToEvent, ({ one }) => ({
   }),
 }));
 
-export const boothLocation = pgTable(
-  'booth_location',
-  {
-    id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    category: companyCategory('category'),
-    companyId: integer('company_id').references(() => company.id),
-  },
-  (t) => ({
-    unique: {
-      name: [t.name],
-    },
-  }),
-);
+export const booth = pgTable('booth', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull().unique(),
+  category: companyCategory('category'),
+  companyId: integer('company_id')
+    .references(() => company.id)
+    .unique(),
+});
 
-export const boothLocationRelations = relations(boothLocation, ({ one }) => ({
+export const boothRelations = relations(booth, ({ one }) => ({
   company: one(company, {
-    fields: [boothLocation.companyId],
+    fields: [booth.companyId],
     references: [company.id],
   }),
 }));

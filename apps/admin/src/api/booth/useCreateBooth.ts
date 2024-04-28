@@ -1,11 +1,11 @@
-import { BoothDto, CreateBoothDto } from '@ddays-app/types';
+import { BoothCreateDto, BoothDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const createBooth = async (dto: CreateBoothDto): Promise<BoothDto> => {
-  return await api.post<CreateBoothDto, BoothDto>('/booth', dto);
+const createBooth = async (dto: BoothCreateDto): Promise<BoothDto> => {
+  return await api.post<BoothCreateDto, BoothDto>('/booth', dto);
 };
 
 export const useCreateBooth = () => {
