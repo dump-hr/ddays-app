@@ -5,13 +5,15 @@
   justify-content: center;
   width: 100%;
 
-  > div {
-    scale: 1.01;
-    &:nth-of-type(2) {
-      rotate: 1deg;
-    }
-    &:nth-of-type(3) {
-      rotate: -1deg;
+  @media screen and (min-width: 768px) {
+    > div {
+      scale: 1.01;
+      &:nth-of-type(2) {
+        rotate: 1deg;
+      }
+      &:nth-of-type(3) {
+        rotate: -1deg;
+      }
     }
   }
 }
