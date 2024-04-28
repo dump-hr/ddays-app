@@ -1,9 +1,10 @@
 import {
-  AdminBoothDto,
+  BoothCreateDto,
+  BoothCreateManyDto,
   BoothDto,
-  CreateBoothDto,
-  CreateManyBoothsDto,
-  ModifyBoothDto,
+  BoothPublicDto,
+  BoothUpdateDto,
+  CompanyCategory,
 } from '@ddays-app/types';
 import {
   Body,
@@ -14,9 +15,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 
 import { BoothService } from './booth.service';
 
@@ -26,25 +31,56 @@ export class BoothController {
 
   @UseGuards(AdminGuard)
   @Post()
-  async create(@Body() dto: CreateBoothDto): Promise<BoothDto> {
+  async create(@Body() dto: BoothCreateDto): Promise<BoothDto> {
     return await this.boothService.create(dto);
   }
 
   @UseGuards(AdminGuard)
   @Post('many')
-  async createMany(@Body() dto: CreateManyBoothsDto): Promise<BoothDto[]> {
+  async createMany(@Body() dto: BoothCreateManyDto): Promise<BoothDto[]> {
     return await this.boothService.createMany(dto);
   }
 
   @UseGuards(AdminGuard)
   @Get()
-  async getAll(): Promise<AdminBoothDto[]> {
+  async getAll(): Promise<BoothDto[]> {
     return await this.boothService.getAll();
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('company')
+  async getAllForCompany(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<BoothPublicDto[]> {
+    return await this.boothService.getAllForCompany(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('category/:category')
+  async getAllForCategory(
+    @Param('category') category: CompanyCategory,
+  ): Promise<BoothPublicDto[]> {
+    return await this.boothService.getAllForCategory(category);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Put('reserve/:id')
+  async reserve(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user }: AuthenticatedRequest,
+  ) {
+    return await this.boothService.reserve(id, user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Delete('clear')
+  async clear(@Req() { user }: AuthenticatedRequest) {
+    return await this.boothService.clear(user.id);
   }
 
   @UseGuards(AdminGuard)
   @Get(':id')
-  async getOne(@Param('id', ParseIntPipe) id: number): Promise<AdminBoothDto> {
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<BoothDto> {
     return await this.boothService.getOne(id);
   }
 
@@ -52,8 +88,8 @@ export class BoothController {
   @Patch(':id')
   async modify(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: ModifyBoothDto,
-  ): Promise<AdminBoothDto> {
+    @Body() dto: BoothUpdateDto,
+  ): Promise<BoothDto> {
     return await this.boothService.update(id, dto);
   }
 

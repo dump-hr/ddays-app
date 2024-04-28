@@ -104,7 +104,6 @@ export class EventService {
                           opportunitiesDescription:
                             eventWithSpeaker.company.opportunitiesDescription,
                           website: eventWithSpeaker.company.website,
-                          boothLocation: eventWithSpeaker.company.boothLocation,
                           logoImage: eventWithSpeaker.company.logoImage,
                           landingImage: eventWithSpeaker.company.landingImage,
                           video: eventWithSpeaker.company.video,

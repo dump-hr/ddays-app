@@ -43,8 +43,7 @@
     "react-dropzone": "^14.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5"
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@ddays-app/tsconfig": "*",
@@ -56,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "dotenv-cli": "^7.3.0",
-    "drizzle-kit": "^0.20.13",
+    "drizzle-kit": "^0.20.17",
     "eslint": "^8.42.0",
     "eslint-config-ddays": "*",
     "eslint-config-prettier": "^9.0.0",

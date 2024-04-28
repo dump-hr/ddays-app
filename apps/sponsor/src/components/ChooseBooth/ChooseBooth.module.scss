@@ -1,8 +1,7 @@
-ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .container {
@@ -35,6 +34,7 @@ ul{
       column-gap: 10px;
       row-gap: 24px;
       flex-direction: row;
+      user-select: none;
     }
 
     .spot {
@@ -47,10 +47,13 @@ ul{
       text-align: center;
       background-color: #110f14;
       border-radius: 10px;
-      
-      .text{
+      cursor: pointer;
+
+      .text {
         font-size: 2.5vw;
-        transition: background-color 0.3s, color 0.3s;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
         font-family: Fuse;
         height: 100%;
         font-weight: bold;
@@ -58,42 +61,46 @@ ul{
         align-items: center;
         justify-content: center;
       }
-     
 
-      &:hover{
-        cursor: pointer;
-        background-color: #a3a3a3;
-      }
-
-      &.chosen{
+      &.chosen {
         background-color: #d0d0d0;
         color: #000000;
       }
 
-      &.taken{
-        color: rgba(255, 255, 255, 0.20);
+      &.taken {
+        color: rgba(255, 255, 255, 0.2);
 
         cursor: not-allowed;
 
-        &:hover{
+        &:hover {
           background-color: #110f14;
         }
       }
     }
 
-    .button{
-        width: 100%;
-        height: 4vw;
-        margin-top: 1.5vw;
-        color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 20px
+    .button {
+      margin-top: 16px;
+
+      font-size: 20px;
+      font-weight: 400;
+
+      box-sizing: border-box;
+      height: 56px;
+      padding: 0 24px;
+      border-radius: 20px;
+      cursor: pointer;
+
+      border: none;
+      background-color: white;
+      transition: background-color 0.1s ease-in-out;
+
+      &:hover {
+        background-color: color-mix(in srgb, #fff 90%, #000 10%);
+      }
     }
   }
 
-  .map{
+  .map {
     width: 43.75vw;
     height: auto;
   }

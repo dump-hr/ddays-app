@@ -1,11 +1,11 @@
-import { CreateManyBoothsDto } from '@ddays-app/types';
+import { BoothCreateManyDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-const createManyBooths = async (data: CreateManyBoothsDto) => {
-  return await api.post<CreateManyBoothsDto, void>('/booth/many', data);
+const createManyBooths = async (data: BoothCreateManyDto) => {
+  return await api.post<BoothCreateManyDto, void>('/booth/many', data);
 };
 
 export const useCreateManyBooths = () => {

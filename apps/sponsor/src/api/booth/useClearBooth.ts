@@ -3,17 +3,18 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
-export const reserveBooth = (id: number) => {
-  return api.put<never, never>(`/booth/reserve/${id}`);
+export const clearBooth = () => {
+  return api.delete<never, never>(`/booth/clear`);
 };
 
-export const useReserveBooth = () => {
+export const useClearBooth = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(reserveBooth, {
+  return useMutation(clearBooth, {
     onSuccess: () => {
+      queryClient.invalidateQueries(['booth']);
       queryClient.invalidateQueries(['company', 'current']);
-      toast.success('Štand uspješno rezerviran');
+      toast.success('Odabir štanda uspješno uređen');
     },
     onError: (error: string) => {
       toast.error(error);

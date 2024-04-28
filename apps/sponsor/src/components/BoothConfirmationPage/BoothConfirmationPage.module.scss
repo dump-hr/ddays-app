@@ -4,8 +4,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 90vh;
   background-color: #000000;
+  min-height: calc(100vh - 88px);
 
   .backgroundImg {
     background: url('../../assets/images/login-background.png');
@@ -26,7 +26,7 @@
     color: #fff;
   }
 
-  .content{
+  .content {
     position: relative;
     display: flex;
     flex-direction: column;

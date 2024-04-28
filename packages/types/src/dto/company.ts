@@ -18,7 +18,7 @@ export type CompanyPublicDto = {
   description?: string;
   opportunitiesDescription?: string;
   website?: string;
-  boothLocation?: string;
+  booth?: string;
   logoImage?: string;
   landingImage?: string;
   landingImageCompanyCulture?: string;
@@ -36,7 +36,7 @@ export type CompanyDto = {
   description?: string;
   opportunitiesDescription?: string;
   website?: string;
-  boothLocationId?: number;
+  boothId?: number;
   logoImage?: string;
   landingImage?: string;
   video?: string;
@@ -70,10 +70,6 @@ export class CompanyModifyDto {
   @IsUrl()
   @ValidateIf((e) => e.website !== '')
   website: string;
-
-  @IsOptional()
-  @IsString()
-  boothLocation: string;
 
   @IsOptional()
   @IsNumber()

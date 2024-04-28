@@ -1,43 +1,43 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { CompanyCategory } from 'src/enum';
 
-export class AvailabilityUpdateDto {
+export class BoothAvailabilityUpdateDto {
   id: number;
   isAvailable: boolean;
 }
 
-export class BoothDto {
+export class BoothPublicDto {
   id: number;
   name: string;
   isTaken: boolean;
 }
 
-export class AdminBoothDto {
+export class BoothDto {
   id: number;
   name: string;
   companyId?: number;
-  category: CompanyCategory;
+  category: `${CompanyCategory}`;
 }
 
-export class CreateBoothDto {
+export class BoothCreateDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
-  @IsOptional()
+
   @IsString()
-  name?: string;
+  name: string;
 }
 
-export class CreateManyBoothsDto {
+export class BoothCreateManyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
+
   @IsNumber()
   amount: number;
 }
 
-export class ModifyBoothDto {
-  @IsOptional()
+export class BoothUpdateDto {
   @IsString()
-  name?: string;
+  name: string;
 
   @IsOptional()
   @IsEnum(CompanyCategory)
@@ -46,10 +46,4 @@ export class ModifyBoothDto {
   @IsOptional()
   @IsNumber()
   companyId?: number;
-}
-
-export class ModifyBoothForm {
-  name?: string;
-  category?: CompanyCategory;
-  companyId?: string;
 }

@@ -1,6 +1,4 @@
 import {
-  AdminBoothDto,
-  AvailabilityUpdateDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -8,10 +6,9 @@ import {
 } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { boothLocation, company } from 'db/schema';
+import { booth, company } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
-import { BoothService } from 'src/booth/booth.service';
 import { InterestService } from 'src/interest/interest.service';
 
 @Injectable()
@@ -19,7 +16,6 @@ export class CompanyService {
   constructor(
     private readonly blobService: BlobService,
     private readonly interestService: InterestService,
-    private readonly boothService: BoothService,
   ) {}
 
   async create(dto: CompanyModifyDto): Promise<CompanyDto> {
@@ -50,14 +46,14 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: boothLocation.name,
+        booth: booth.name,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
         video: company.video,
       })
       .from(company)
-      .leftJoin(boothLocation, eq(company.boothLocationId, boothLocation.id))
+      .leftJoin(booth, eq(booth.companyId, company.id))
       .orderBy(company.name);
 
     return companies;
@@ -73,7 +69,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocationId: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -102,15 +97,15 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: boothLocation.name,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
         bookOfStandards: company.bookOfStandards,
         video: company.video,
+        booth: booth.name,
       })
       .from(company)
-      .leftJoin(boothLocation, eq(company.boothLocationId, boothLocation.id))
+      .leftJoin(booth, eq(booth.companyId, id))
       .where(eq(company.id, id));
 
     if (!foundCompany) {
@@ -181,7 +176,6 @@ export class CompanyService {
         username: dto.username,
         description: dto.description,
         website: dto.website,
-        boothLocation: dto.boothLocation,
         codeId: dto.codeId,
       })
       .where(eq(company.id, id))
@@ -214,7 +208,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -246,7 +239,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -278,7 +270,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -311,7 +302,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -345,7 +335,6 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
@@ -377,54 +366,11 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
-        boothLocation: company.boothLocationId,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         video: company.video,
       });
 
     return updatedCompany;
-  }
-
-  async getAllBooths(id: number): Promise<AdminBoothDto[]> {
-    const company = await this.getOne(id);
-
-    const booths = await this.boothService.getAllForCategory(company.category);
-
-    return booths;
-  }
-
-  async reserveBoothLocation(
-    companyId: number,
-    boothLocationId: number,
-  ): Promise<boolean> {
-    const isValid = await this.boothService.checkValidity(
-      boothLocationId,
-      companyId,
-    );
-
-    if (!isValid) {
-      return false;
-    }
-
-    await db
-      .update(company)
-      .set({
-        boothLocationId,
-      })
-      .where(eq(company.id, companyId));
-
-    await db
-      .update(boothLocation)
-      .set({ companyId })
-      .where(eq(boothLocation.id, boothLocationId));
-
-    const updateData: AvailabilityUpdateDto = {
-      id: boothLocationId,
-      isAvailable: false,
-    };
-
-    this.boothService.emitUpdateAvailable(updateData);
-    return true;
   }
 }

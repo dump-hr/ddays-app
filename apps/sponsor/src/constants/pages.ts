@@ -1,11 +1,11 @@
 import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
+//import flyTalksSvg from '../assets/icons/fly-talks.svg';
+import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { MaterialsPage } from '../pages/MaterialsPage';
 import { SpotsPage } from '../pages/SpotsPage/SpotsPage';
 import { Path } from './paths';
-//import flyTalksSvg from '../assets/icons/fly-talks.svg';
-//import standSvg from '../assets/icons/stand.svg';
 
 type Page = {
   path: Path;
@@ -34,15 +34,15 @@ export const pages: Page[] = [
     Component: MaterialsPage,
   },*/
   {
+    path: Path.SpotsPage,
+    name: 'Odabir mjesta',
+    icon: standSvg,
+    Component: SpotsPage,
+  },
+  {
     path: Path.Profile,
     icon: profileSvg,
     name: 'Profil tvrtke',
     Component: CompanyProfile,
-  },
-  {
-    path: Path.SpotsPage,
-    name: 'Spots',
-    icon: profileSvg,
-    Component: SpotsPage,
   },
 ];

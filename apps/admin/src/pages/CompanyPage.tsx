@@ -36,9 +36,11 @@ export const CompanyPage = () => {
         />
       </Modal>
 
-      <Button variant='primary' onClick={() => setIsModalOpen(true)}>
-        New
-      </Button>
+      <div className='flex'>
+        <Button variant='primary' onClick={() => setIsModalOpen(true)}>
+          New
+        </Button>
+      </div>
 
       <Table
         data={companies.data}
