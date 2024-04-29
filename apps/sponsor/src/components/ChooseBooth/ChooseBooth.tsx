@@ -20,10 +20,6 @@ export const ChooseBooth = () => {
   const reserveBooth = useReserveBooth();
 
   useEffect(() => {
-    console.log(selectedBoothId);
-  }, [selectedBoothId]);
-
-  useEffect(() => {
     socket.on('booth:reserve', ({ id }: { id: number }) => {
       queryClient.setQueryData(['booth'], (prev?: BoothPublicDto[]) =>
         (prev || []).map((booth) =>
