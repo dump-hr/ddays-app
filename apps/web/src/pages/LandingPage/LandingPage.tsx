@@ -33,6 +33,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <ReactLenis root>
+      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}
@@ -41,7 +42,6 @@ export const LandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <ScheduleSection />
