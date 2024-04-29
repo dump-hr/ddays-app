@@ -165,10 +165,6 @@
   position: absolute;
   bottom: -38px;
 
-  .socialsImageContainerEven {
-    padding-top: 33px;
-  }
-
   .socialsImage {
     width: 162px;
     height: 162px;
@@ -213,6 +209,18 @@
 
   @media screen and (max-width: 650px) {
     margin-top: 83px;
+  }
+}
+
+.instagram {
+  height: 162px;
+
+  @media screen and (max-width: 650px) {
+    height: 106px;
+  }
+
+  @media screen and (max-width: 361px) {
+    height: 94px;
   }
 }
 

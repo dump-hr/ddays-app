@@ -38,35 +38,30 @@ const FooterSection = () => {
             {` ]`}
           </a>
           <div className={c.socialsWrapper}>
-            <a href='https://www.facebook.com/dump.hr/' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.facebook)}
-                src={Facebook}
-                alt='facebook'
-              />
+            <a
+              className={c.facebook}
+              href='https://www.facebook.com/dump.hr/'
+              target='_blank'>
+              <img className={c.socialsImage} src={Facebook} alt='facebook' />
             </a>
-            <a href='https://hr.linkedin.com/company/dumpovci' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.linkedin)}
-                src={LinkedIn}
-                alt='linkedin'
-              />
+            <a
+              className={c.linkedin}
+              href='https://hr.linkedin.com/company/dumpovci'
+              target='_blank'>
+              <img className={c.socialsImage} src={LinkedIn} alt='linkedin' />
             </a>
-            <div>
-              <a href='https://www.instagram.com/dumpovci/' target='_blank'>
-                <img
-                  className={c.socialsImage}
-                  src={Instagram}
-                  alt='instagram'
-                />
-              </a>
-            </div>
-            <a href='https://www.youtube.com/@dumpovci' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.youtube)}
-                src={YouTube}
-                alt='youtube'
-              />
+            <a
+              className={c.instagram}
+              href='https://www.instagram.com/dumpovci/'
+              target='_blank'>
+              <img className={c.socialsImage} src={Instagram} alt='instagram' />
+            </a>
+
+            <a
+              className={c.youtube}
+              href='https://www.youtube.com/@dumpovci'
+              target='_blank'>
+              <img className={c.socialsImage} src={YouTube} alt='youtube' />
             </a>
           </div>
         </div>
