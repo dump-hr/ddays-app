@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { events } from './data';
 import EventCard from './EventCard';
 import classes from './EventsSection.module.scss';
@@ -16,6 +17,8 @@ gsap.registerPlugin(ScrollTrigger);
 export const EventsSection = () => {
   const eventsContainer = useRef<HTMLDivElement>(null);
   const [observedTitle, setObservedTitle] = useState('');
+
+  const { isMobile } = useScreenSize(950);
 
   useEffect(() => {
     gsap.fromTo(
@@ -27,9 +30,9 @@ export const EventsSection = () => {
         opacity: 1,
       },
       {
-        x: -1150,
-        y: 1450,
-        scale: 7,
+        x: isMobile ? 500 : -1150,
+        y: isMobile ? 50 : 1450,
+        scale: isMobile ? 6 : 7,
         opacity: 1,
         ease: 'sine.inOut',
         duration: 10,
@@ -48,16 +51,32 @@ export const EventsSection = () => {
       <div className={classes.eventSection}>
         <div className={classes.container} ref={eventsContainer}>
           <div>
-            <FilmFrame imageSrc={schedule} width={320} height={400} />
+            <FilmFrame
+              imageSrc={schedule}
+              width={isMobile ? 163 : 320}
+              height={isMobile ? 205 : 400}
+            />
           </div>
           <div>
-            <FilmFrame imageSrc={lessonTwo} width={320} height={400} />
+            <FilmFrame
+              imageSrc={lessonTwo}
+              width={isMobile ? 163 : 320}
+              height={isMobile ? 205 : 400}
+            />
           </div>
           <div>
-            <FilmFrame imageSrc={lesson} width={320} height={400} />
+            <FilmFrame
+              imageSrc={lesson}
+              width={isMobile ? 163 : 320}
+              height={isMobile ? 205 : 400}
+            />
           </div>
           <div>
-            <FilmFrame imageSrc={lessonFour} width={320} height={400} />
+            <FilmFrame
+              imageSrc={lessonFour}
+              width={isMobile ? 163 : 320}
+              height={isMobile ? 205 : 400}
+            />
           </div>
         </div>
 

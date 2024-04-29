@@ -48,7 +48,7 @@ const EventCard: React.FC<EventCardProps> = ({
           {title}
         </span>
       </div>
-      {children}
+      <div className={classes.eventImageContainer}>{children}</div>
     </section>
   );
 };
