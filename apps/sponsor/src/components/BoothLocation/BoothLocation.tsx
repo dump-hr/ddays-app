@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { useReserveBooth } from '../../api/booth/useReserveBooth';
-import tlocrt from '../../assets/images/tlocrt.png';
+import floorPlan from '../../assets/images/floor-plan.webp';
 import classes from './BoothLocation.module.scss';
 
 export interface BoothLocationProps {
@@ -104,7 +104,7 @@ export const BoothLocation = ({
         </button>
       </article>
       <aside className={classes.map}>
-        <img src={tlocrt} alt='Mapa štanda' />
+        <img src={floorPlan} alt='Floor plan' />
       </aside>
     </section>
   );
