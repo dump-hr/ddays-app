@@ -24,11 +24,19 @@
       position: relative;
       overflow: hidden;
 
-      @media (max-width: 768px) {
+      @media (max-width: 425px) {
         flex-direction: row;
         flex-wrap: wrap;
         gap: 16px;
         padding: 16px;
+      }
+
+      @media (min-width: 426px) and (max-width: 1024px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 18px;
+        padding-top: 34px;
       }
     }
   }
@@ -50,12 +58,16 @@
 
   &:nth-child(1) {
     margin-top: -985px;
-    min-height: 3500px;
+    min-height: 3556px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 425px) {
       margin-top: -300px;
       min-height: 2550px;
       margin-bottom: -1200px;
+    }
+
+    @media (min-width: 426px) and (max-width: 1024px) {
+      min-height: 2900px;
     }
   }
 
@@ -66,11 +78,14 @@
       width: 100%;
       margin-top: -149px;
 
-      @media (max-width: 768px) {
+      @media (max-width: 425px) {
         height: 840px;
         width: 590px;
         margin-left: -70px;
         margin-top: -86px;
+      }
+      @media (min-width: 426px) and (max-width: 1024px) {
+        margin-top: -117px;
       }
     }
   }
@@ -81,7 +96,8 @@
     opacity: 1;
     margin-top: -985px;
     min-height: 3059px;
-    @media (max-width: 768px) {
+
+    @media (max-width: 425px) {
       margin: 0;
     }
   }
@@ -107,11 +123,23 @@
       letter-spacing: -5px;
       text-transform: uppercase;
 
-      @media (max-width: 768px) {
+      @media (max-width: 425px) {
         color: #fff;
         font-size: 40px;
         line-height: 80px;
         letter-spacing: -3px;
+      }
+
+      @media (min-width: 426px) and (max-width: 768px) {
+        font-size: 60px;
+        line-height: 112px;
+        letter-spacing: -4px;
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        font-size: 80px;
+        line-height: 112px;
+        letter-spacing: -4px;
       }
     }
   }
