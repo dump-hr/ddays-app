@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
+import { useSearch } from 'wouter/use-location';
 
 import { useAuthCompanyPasswordLogin } from '../../api/auth/useAuthCompanyPasswordLogin';
 import passwordVisibilitySvg from '../../assets/icons/password-visibility.svg';
@@ -14,10 +15,12 @@ const passwordVisibilitySvgUrl = dataURItoBlobUrl(passwordVisibilitySvg);
 //       this should redirect to that page after login
 export const LoginForm = () => {
   const [, navigate] = useLocation();
+  const searchParams = useSearch();
 
-  const login = useAuthCompanyPasswordLogin(() =>
-    navigate(Path.Profile, { replace: true }),
-  );
+  const login = useAuthCompanyPasswordLogin(() => {
+    const qs = new URLSearchParams(searchParams);
+    navigate(qs.get('next') || Path.Profile, { replace: true });
+  });
 
   useEffect(() => {
     const jwt = localStorage.getItem('sponsorAccessToken');

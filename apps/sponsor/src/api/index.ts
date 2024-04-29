@@ -34,7 +34,11 @@ api.interceptors.response.use(
 
   (error: ErrorResponse) => {
     if (error.response.status === 401) {
-      navigate(Path.Login);
+      navigate(
+        `${Path.Login}?next=${encodeURIComponent(
+          window.location.pathname + window.location.search,
+        )}`,
+      );
 
       toast.error(
         error.response.data.message || error.message || 'Forbidden access',
