@@ -1,7 +1,7 @@
-import lesson from 'assets/images/events/lesson.png';
-import lessonTwo from 'assets/images/events/lesson-2.png';
-import lessonFour from 'assets/images/events/lesson-4.png';
-import schedule from 'assets/images/events/schedule.png';
+import lesson from 'assets/images/events/lesson.webp';
+import lessonTwo from 'assets/images/events/lesson-2.webp';
+import lessonFour from 'assets/images/events/lesson-4.webp';
+import schedule from 'assets/images/events/schedule.webp';
 import FilmFrame from 'components/FilmFrame';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

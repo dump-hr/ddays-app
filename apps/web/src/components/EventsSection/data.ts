@@ -1,9 +1,9 @@
-import booth from 'assets/images/events/booth.png';
-import campfire from 'assets/images/events/campfire-talk.png';
-import flytalk from 'assets/images/events/flytalk.png';
-import panelTalk from 'assets/images/events/panel-talk.png';
-import schedule from 'assets/images/events/schedule.png';
-import workshop from 'assets/images/events/workshop.png';
+import booth from 'assets/images/events/booth.webp';
+import campfire from 'assets/images/events/campfire-talk.webp';
+import flytalk from 'assets/images/events/flytalk.webp';
+import panelTalk from 'assets/images/events/panel-talk.webp';
+import schedule from 'assets/images/events/schedule.webp';
+import workshop from 'assets/images/events/workshop.webp';
 
 export const events = [
   {
