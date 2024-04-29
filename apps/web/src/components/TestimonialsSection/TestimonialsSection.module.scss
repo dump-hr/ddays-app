@@ -1,0 +1,19 @@
+.testimonialsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    > div {
+      scale: 1.01;
+      &:nth-of-type(2) {
+        rotate: 1deg;
+      }
+      &:nth-of-type(3) {
+        rotate: -1deg;
+      }
+    }
+  }
+}

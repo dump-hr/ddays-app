@@ -34,7 +34,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
           </a>
         ))}
       </nav>
-      <DottedBreak style={{ opacity: 0.2, margin: '55px 0' }} />
+      <DottedBreak color='white' style={{ opacity: 0.2, margin: '55px 0' }} />
       {Button}
       <p className={c.bottomText}>
         Besplatna konferencija <br /> za novu generaciju

@@ -8,6 +8,7 @@ import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 import SpeakersSection from 'components/SpeakersSection';
 import SponsorSection from 'components/SponsorSection';
+import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
@@ -32,6 +33,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <ReactLenis root>
+      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}
@@ -40,7 +42,6 @@ export const LandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
       <ScheduleSection />
@@ -52,6 +53,7 @@ export const LandingPage: React.FC = () => {
       <SectionBreaker fg='dark' bg='light' />
       <RegistrationSection />
       <GallerySection />
+      <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
     </ReactLenis>
