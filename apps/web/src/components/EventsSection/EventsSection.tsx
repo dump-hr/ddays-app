@@ -44,7 +44,7 @@ export const EventsSection = () => {
         },
       },
     );
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className={classes.eventSectionWrapper}>
@@ -81,12 +81,16 @@ export const EventsSection = () => {
         </div>
 
         <div className={classes.scrollEventWrapper}>
-          {events.map((event) => (
+          {events.map((event, i) => (
             <EventCard
               title={event.title}
               observedTitle={observedTitle}
               setObservedTitle={setObservedTitle}>
-              <img className={classes.eventImage} src={event.image} alt='' />
+              {i === 0 ? (
+                <div className={classes.eventImage} />
+              ) : (
+                <img className={classes.eventImage} src={event.image} alt='' />
+              )}
             </EventCard>
           ))}
         </div>
