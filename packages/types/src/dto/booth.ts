@@ -46,4 +46,6 @@ export class BoothUpdateDto {
   @IsOptional()
   @IsNumber()
   companyId?: number;
+
+  companyName?: string;
 }

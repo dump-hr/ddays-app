@@ -15,7 +15,7 @@ export interface BoothFormProps {
 }
 
 export const BoothForm: React.FC<BoothFormProps> = ({ booth, onSuccess }) => {
-  const { data: companies } = useCompanyGetAllPublic();
+  const { data: companies, isLoading } = useCompanyGetAllPublic();
 
   const createBooth = useCreateBooth();
   const updateBooth = useUpdateBooth();
@@ -35,10 +35,13 @@ export const BoothForm: React.FC<BoothFormProps> = ({ booth, onSuccess }) => {
       defaultValue: booth?.category,
     },
     {
-      id: 'companyId',
+      id: 'companyName',
       type: QuestionType.Select,
       title: 'Kompanija',
-      options: companies?.map((company) => company.name) ?? [],
+      options: Array.prototype.concat(
+        ['-'],
+        companies?.map((company) => company.name),
+      ),
       defaultValue: companies?.find(
         (company) => company.id === booth?.companyId,
       )?.name,
@@ -48,34 +51,40 @@ export const BoothForm: React.FC<BoothFormProps> = ({ booth, onSuccess }) => {
   const form = useForm<BoothUpdateDto>({
     resolver: classValidatorResolver(BoothUpdateDto),
   });
+  name;
 
   return (
-    <div>
-      {questions.map((q) => (
-        <InputHandler question={q} form={form} key={q.id} />
-      ))}
-      <Button
-        onClick={form.handleSubmit(async (formData) => {
-          if (booth) {
-            await updateBooth.mutateAsync({
-              name: formData.name,
-              category: formData.category,
-              companyId:
-                Number(formData.companyId) > 0
-                  ? Number(formData.companyId)
-                  : undefined,
-              id: booth.id,
-            });
-          } else {
-            await createBooth.mutateAsync({
-              name: formData.name,
-              category: formData.category!,
-            });
-          }
-          onSuccess && onSuccess();
-        })}>
-        Submit
-      </Button>
-    </div>
+    booth &&
+    !isLoading && (
+      <div>
+        {questions.map((q) => (
+          <InputHandler question={q} form={form} key={q.id} />
+        ))}
+        <Button
+          onClick={form.handleSubmit(async (formData) => {
+            if (booth) {
+              await updateBooth.mutateAsync({
+                name: formData.name,
+                category: formData.category,
+                companyId:
+                  formData.companyName !== '-'
+                    ? companies?.find(
+                        (company) => company.name === formData.companyName,
+                      )?.id
+                    : -1,
+                id: booth.id,
+              });
+            } else {
+              await createBooth.mutateAsync({
+                name: formData.name,
+                category: formData.category!,
+              });
+            }
+            onSuccess && onSuccess();
+          })}>
+          Submit
+        </Button>
+      </div>
+    )
   );
 };

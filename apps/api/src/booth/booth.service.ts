@@ -94,6 +94,8 @@ export class BoothService {
   }
 
   async update(id: number, modifyBoothDto: BoothUpdateDto) {
+    if (modifyBoothDto.companyId === -1) modifyBoothDto.companyId = null;
+
     const [foundBooth] = await db
       .update(booth)
       .set(modifyBoothDto)

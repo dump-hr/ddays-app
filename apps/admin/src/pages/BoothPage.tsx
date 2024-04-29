@@ -13,12 +13,12 @@ export const BoothPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boothToEdit, setBoothToEdit] = useState<BoothDto>();
 
-  const companies = useGetBooths();
+  const booths = useGetBooths();
   const [isManyModalOpen, setIsManyModalOpen] = useState(false);
 
   const removeBooth = useRemoveBooth();
 
-  if (companies.isLoading) {
+  if (booths.isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -62,7 +62,7 @@ export const BoothPage = () => {
       </div>
 
       <Table
-        data={companies.data}
+        data={booths.data}
         actions={[
           {
             label: 'Uredi',
