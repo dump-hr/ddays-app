@@ -13,7 +13,7 @@ export const useEventRemove = () => {
 
   return useMutation(eventRemove, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['event ']);
+      queryClient.invalidateQueries(['event']);
       toast.success('Event uspješno uklonjen!');
     },
     onError: (error: string) => {

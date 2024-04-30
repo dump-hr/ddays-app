@@ -33,14 +33,9 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
-          // TODO: add when landing project setup is done
-          // ServeStaticModule.forRoot({
-          //   rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-          //   exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
-          // }),
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-            serveRoot: '/noviweb',
+            exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
           }),
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
