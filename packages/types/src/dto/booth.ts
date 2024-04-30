@@ -19,14 +19,6 @@ export class BoothDto {
   category: `${CompanyCategory}`;
 }
 
-export class BoothCreateDto {
-  @IsEnum(CompanyCategory)
-  category: CompanyCategory;
-
-  @IsString()
-  name: string;
-}
-
 export class BoothCreateManyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
@@ -35,7 +27,7 @@ export class BoothCreateManyDto {
   amount: number;
 }
 
-export class BoothUpdateDto {
+export class BoothModifyDto {
   @IsString()
   name: string;
 
@@ -46,6 +38,17 @@ export class BoothUpdateDto {
   @IsOptional()
   @IsNumber()
   companyId?: number;
+}
 
+export class BoothModifyFormDto {
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsEnum(CompanyCategory)
+  category?: CompanyCategory;
+
+  @IsOptional()
+  @IsString()
   companyName?: string;
 }

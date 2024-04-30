@@ -1,9 +1,8 @@
 import {
-  BoothCreateDto,
   BoothCreateManyDto,
   BoothDto,
+  BoothModifyDto,
   BoothPublicDto,
-  BoothUpdateDto,
   CompanyCategory,
 } from '@ddays-app/types';
 import {
@@ -31,7 +30,7 @@ export class BoothController {
 
   @UseGuards(AdminGuard)
   @Post()
-  async create(@Body() dto: BoothCreateDto): Promise<BoothDto> {
+  async create(@Body() dto: BoothModifyDto): Promise<BoothDto> {
     return await this.boothService.create(dto);
   }
 
@@ -88,7 +87,7 @@ export class BoothController {
   @Patch(':id')
   async modify(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: BoothUpdateDto,
+    @Body() dto: BoothModifyDto,
   ): Promise<BoothDto> {
     return await this.boothService.update(id, dto);
   }
