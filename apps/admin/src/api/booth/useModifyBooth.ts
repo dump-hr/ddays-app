@@ -1,11 +1,11 @@
-import { BoothModifyDto } from '@ddays-app/types';
+import { BoothDto, BoothModifyDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
 
 const updateBooth = async (dto: BoothModifyDto & { id: number }) => {
-  return await api.patch(`/booth/${dto.id}`, dto);
+  return await api.patch<BoothModifyDto, BoothDto>(`/booth/${dto.id}`, dto);
 };
 
 export const useUpdateBooth = () => {
