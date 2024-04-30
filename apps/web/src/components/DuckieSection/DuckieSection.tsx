@@ -1,6 +1,6 @@
-import duck from 'assets/images/full-duckie.png';
+import duck from 'assets/images/full-duckie.webp';
 import play from 'assets/images/play.svg';
-import vinyl from 'assets/images/vinyl.png';
+import vinyl from 'assets/images/vinyl.webp';
 import clsx from 'clsx';
 
 import classes from './DuckieSection.module.scss';

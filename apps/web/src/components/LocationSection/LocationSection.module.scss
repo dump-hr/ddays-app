@@ -14,7 +14,7 @@ div {
 
   &:before {
     content: '';
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_gaussian_noise_example.png);
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5c/Image_gaussian_noise_example.webp);
     opacity: 0.15;
     top: 0;
     left: 0;
@@ -66,7 +66,7 @@ div {
 
   &Wrapper {
     position: absolute;
-    background: url('../../assets/images/split-background.png') transparent
+    background: url('../../assets/images/split-background.webp') transparent
       bottom / 100% auto no-repeat;
 
     mix-blend-mode: soft-light;

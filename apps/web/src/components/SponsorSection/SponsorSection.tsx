@@ -1,9 +1,9 @@
 import { CompanyCategory } from '@ddays-app/types';
-import bronzeSponsor from 'assets/images/bronze-sponsor.png';
-import goldSponsor from 'assets/images/golden-sponsor.png';
-import kodak from 'assets/images/kodak.png';
+import bronzeSponsor from 'assets/images/bronze-sponsor.webp';
+import goldSponsor from 'assets/images/golden-sponsor.webp';
+import kodak from 'assets/images/kodak.webp';
 import placeholder from 'assets/images/placeholder.svg';
-import silverSponsor from 'assets/images/silver-sponsor.png';
+import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
 import React, { useMemo } from 'react';
 
