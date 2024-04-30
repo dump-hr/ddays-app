@@ -1,4 +1,4 @@
-import FilmFrameSvg from '../../assets/film-frame.png';
+import FilmFrameSvg from '../../assets/film-frame.webp';
 import c from './FilmFrame.module.scss';
 
 type FilmFrameProps = {

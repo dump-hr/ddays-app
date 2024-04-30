@@ -1,4 +1,4 @@
-import MobileApp from 'assets/images/mobile-app.png';
+import MobileApp from 'assets/images/mobile-app.webp';
 
 import Button from './../Button/Button';
 import c from './RegistrationSection.module.scss';
