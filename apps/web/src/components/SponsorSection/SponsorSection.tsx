@@ -103,6 +103,11 @@ export const SponsorSection: React.FC = () => {
                   alt={sponsor.name}
                 />
                 <img className={c.kodak} src={kodak} alt={sponsor.name} />
+                <img
+                  className={c.logo}
+                  src={sponsor.logoImage}
+                  alt={sponsor.name}
+                />
               </figure>
               <span className={c.name}>{sponsor.name}</span>
               <div className={c.dots}>{dotMaker()}</div>
