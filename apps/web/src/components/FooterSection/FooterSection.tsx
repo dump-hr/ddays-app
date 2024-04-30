@@ -18,7 +18,11 @@ const FooterSection = () => {
           <div className={c.footerTitleWrapper}>
             <h2 className={c.bigText}>TL;DR</h2>
             <h2 className={c.bigText}>DOĐI NA DAYSE</h2>
-            <button className={c.button}>
+            <button
+              className={c.button}
+              onClick={() =>
+                (window.location.href = 'https://days-app.dump.hr/login')
+              }>
               {`[ `}
               REGISTRIRAJ SVOJ DOLAZAK
               {` ]`}
@@ -73,8 +77,7 @@ const FooterSection = () => {
         <div className={c.bottomSmallTextWrapper}>
           <p className={c.mb24}>© DUMPDAYS</p>
           <p className={c.footerBottomSmallText}>
-            Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
-            ljubavi.
+            Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>
         </div>
       </div>
