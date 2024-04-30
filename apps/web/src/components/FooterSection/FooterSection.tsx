@@ -28,7 +28,7 @@ const FooterSection = () => {
           <SectionBreaker fg='dark' className={c.sectionBreaker} />
         </div>
       </div>
-      <div className={c.bottomWrapper}>
+      <div className={c.bottomWrapper} id='kontakt'>
         <div className={c.questionsWrapper}>
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
 

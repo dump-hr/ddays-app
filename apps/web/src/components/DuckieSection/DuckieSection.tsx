@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import classes from './DuckieSection.module.scss';
 
 export const DuckieSection = () => (
-  <div className={classes.container}>
+  <div className={classes.container} id='konferencija'>
     <div className={clsx(classes.column, classes.duckie)}>
       <div className={clsx(classes.areas, classes.desktop)}>
         DEV, DESIGN &TECH KONFA

@@ -1,7 +1,7 @@
 export const landingNavigation = [
-  { name: 'Konferencija', path: '#' },
-  { name: 'Speakeri', path: '#' },
-  { name: 'Raspored', path: '#' },
-  { name: 'Sponzori', path: '#' },
-  { name: 'Kontakt', path: '#' },
+  { name: 'Konferencija', path: '#konferencija' },
+  { name: 'Speakeri', path: '#speakeri' },
+  { name: 'Raspored', path: '#raspored' },
+  { name: 'Sponzori', path: '#sponzori' },
+  { name: 'Kontakt', path: '#kontakt' },
 ];

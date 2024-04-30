@@ -36,7 +36,7 @@ export const SponsorSection: React.FC = () => {
   const maxSponsors = useMemo(() => (isMobile ? 2 : 4), [isMobile]);
 
   return (
-    <section className={c.container}>
+    <section className={c.container} id='sponzori'>
       <figure className={c.topSection}>
         <span className={c.idea}>Vjerujemo u jaka prijateljstva.</span>
         <span className={c.title}>
