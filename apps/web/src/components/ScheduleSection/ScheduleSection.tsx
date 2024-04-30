@@ -32,7 +32,7 @@ const ScheduleSection = () => {
 
   const events = useEventGetAllWithSpeaker();
 
-  if (events.isLoading || events.data?.length === 0) {
+  if (events.isLoading) {
     return null;
   }
 
@@ -105,6 +105,7 @@ const ScheduleSection = () => {
                   getEventDay(event.startsAt) === date,
               )
               .map((event) => <ScheduleCard key={event.id} event={event} />)}
+            {events.data?.length === 0 && 'Trenutno nema upisanih događaja'}
           </div>
         </div>
       </div>
