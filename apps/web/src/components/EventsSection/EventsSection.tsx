@@ -1,8 +1,9 @@
 import lesson from 'assets/images/events/lesson.webp';
+import lessonOne from 'assets/images/events/lesson-1.webp';
 import lessonTwo from 'assets/images/events/lesson-2.webp';
 import lessonFour from 'assets/images/events/lesson-4.webp';
-import schedule from 'assets/images/events/schedule.webp';
 import FilmFrame from 'components/FilmFrame';
+import { SectionBreaker } from 'components/SectionBreaker';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
@@ -52,7 +53,7 @@ export const EventsSection = () => {
         <div className={classes.container} ref={eventsContainer}>
           <div>
             <FilmFrame
-              imageSrc={schedule}
+              imageSrc={lessonOne}
               width={isMobile ? 163 : 320}
               height={isMobile ? 205 : 400}
             />
@@ -94,6 +95,10 @@ export const EventsSection = () => {
             </EventCard>
           ))}
         </div>
+      </div>
+      <div className={classes.eventsBreaker}>
+        <SectionBreaker fg='light' />
+        <div className={classes.breakerPadding} />
       </div>
     </div>
   );
