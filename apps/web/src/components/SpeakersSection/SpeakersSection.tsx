@@ -19,7 +19,7 @@ const SpeakersSection = () => {
   const cardWidth = getCardWidth(screenWidth);
 
   return (
-    <div className={c.background}>
+    <div className={c.background} id='speakeri'>
       <div className={c.wrapper}>
         <div className={c.headerContainer}>
           <p className={c.headerSmallText}>

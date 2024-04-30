@@ -33,11 +33,11 @@ const ScheduleSection = () => {
   const events = useEventGetAllWithSpeaker();
 
   if (events.isLoading) {
-    return <div>Loading...</div>;
+    return <div id='raspored'>Loading...</div>;
   }
 
   return (
-    <div className={c.ofXHidden}>
+    <div className={c.ofXHidden} id='raspored'>
       <div className={c.scheduleSectionWrapper}>
         <div className={c.scheduleSection}>
           <div className={c.scheduleHeader}>
