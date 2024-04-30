@@ -29,7 +29,9 @@ export const DuckieSection = () => (
     </div>
     <div className={classes.column}>
       <div className={clsx(classes.areas, classes.mobile)}>
-        DEV, DESIGN &TECH KONFA
+        DEV, DESIGN
+        <br />
+        &TECH KONFA
       </div>
       <p className={classes.paragraph}>
         DUMP Udruga mladih programera{' '}
