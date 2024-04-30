@@ -32,8 +32,8 @@ const ScheduleSection = () => {
 
   const events = useEventGetAllWithSpeaker();
 
-  if (events.isLoading) {
-    return <div>Loading...</div>;
+  if (events.isLoading || events.data?.length === 0) {
+    return null;
   }
 
   return (

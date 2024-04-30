@@ -1,11 +1,11 @@
-import { CompanyCategory, CompanyPublicDto } from '@ddays-app/types';
+import { CompanyCategory } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.png';
 import goldSponsor from 'assets/images/golden-sponsor.png';
 import kodak from 'assets/images/kodak.png';
 import placeholder from 'assets/images/placeholder.svg';
 import silverSponsor from 'assets/images/silver-sponsor.png';
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { dotMaker } from '../../helpers/dotMaker';
@@ -14,29 +14,23 @@ import c from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => {
   const { data } = useGetAllSponsors();
-  const [goldSponsors, setGoldSponsors] = useState<CompanyPublicDto[]>([]);
-  const [silverSponsors, setSilverSponsors] = useState<CompanyPublicDto[]>([]);
-  const [bronzeSponsors, setBronzeSponsors] = useState<CompanyPublicDto[]>([]);
-  const [mediaSponsors, setMediaSponsors] = useState<CompanyPublicDto[]>([]);
-  const [friendSponsors, setFriendSponsors] = useState<CompanyPublicDto[]>([]);
+  const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
-  useEffect(() => {
-    if (data) {
-      setGoldSponsors(data.filter((x) => x.category === CompanyCategory.Gold));
-      setSilverSponsors(
-        data.filter((x) => x.category === CompanyCategory.Silver),
-      );
-      setBronzeSponsors(
-        data.filter((x) => x.category === CompanyCategory.Bronze),
-      );
-      setMediaSponsors(
-        data.filter((x) => x.category === CompanyCategory.Media),
-      );
-      setFriendSponsors(
-        data.filter((x) => x.category === CompanyCategory.Friend),
-      );
-    }
-  }, [data]);
+  const goldSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Gold,
+  );
+  const silverSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Silver,
+  );
+  const bronzeSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Bronze,
+  );
+  const mediaSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Media,
+  );
+  const friendSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Friend,
+  );
 
   const { isMobile } = useScreenSize(768);
   const maxSponsors = useMemo(() => (isMobile ? 2 : 4), [isMobile]);
