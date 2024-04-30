@@ -1,4 +1,4 @@
 export enum Path {
-  Landing = '/noviweb',
+  Landing = '/',
   CatchAll = '/:path*',
 }
