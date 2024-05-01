@@ -1,7 +1,6 @@
 import {
-  BoothCreateDto,
   BoothCreateManyDto,
-  BoothUpdateDto,
+  BoothModifyDto,
   CompanyCategory,
 } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
@@ -59,7 +58,9 @@ export class BoothService {
     this.boothGateway.emitClear(updatedBooth.id);
   }
 
-  async create(dto: BoothCreateDto) {
+  async create(dto: BoothModifyDto) {
+    if (dto.companyId === -1) dto.companyId = null;
+
     const [foundBooth] = await db.insert(booth).values(dto);
 
     return foundBooth;
@@ -93,10 +94,12 @@ export class BoothService {
     return data;
   }
 
-  async update(id: number, modifyBoothDto: BoothUpdateDto) {
+  async update(id: number, dto: BoothModifyDto) {
+    if (dto.companyId === -1) dto.companyId = null;
+
     const [foundBooth] = await db
       .update(booth)
-      .set(modifyBoothDto)
+      .set(dto)
       .where(eq(booth.id, id));
 
     return foundBooth;
