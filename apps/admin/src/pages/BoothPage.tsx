@@ -65,12 +65,14 @@ export const BoothPage = () => {
       </div>
 
       <Table
-        data={(booths.data || []).map((booth) => ({
-          companyName:
-            companies.data?.find((company) => company.id === booth.companyId)
-              ?.name || null,
-          ...booth,
-        }))}
+        data={(booths.data || [])
+          .map((booth) => ({
+            companyName:
+              companies.data?.find((company) => company.id === booth.companyId)
+                ?.name || null,
+            ...booth,
+          }))
+          .sort((a, b) => a.id - b.id)}
         actions={[
           {
             label: 'Uredi',
