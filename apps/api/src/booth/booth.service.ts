@@ -43,7 +43,9 @@ export class BoothService {
 
     this.boothGateway.emitReserve(id);
 
-    console.log(`company id ${companyId} reserved booth id ${id}`);
+    console.log(
+      `${new Date()} - company id ${companyId} reserved booth id ${id}`,
+    );
   }
 
   async clear(companyId: number) {
@@ -58,6 +60,12 @@ export class BoothService {
     }
 
     this.boothGateway.emitClear(updatedBooth.id);
+
+    console.log(
+      `${new Date()} - company id ${companyId} cleared booth id ${
+        updatedBooth.id
+      }`,
+    );
   }
 
   async create(dto: BoothModifyDto) {
