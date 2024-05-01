@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { useGetBooths } from '../api/booth/useGetBooths';
 import { useRemoveBooth } from '../api/booth/useRemoveBooth';
+import { useCompanyGetAllPublic } from '../api/company/useCompanyGetAllPublic';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
@@ -14,11 +15,13 @@ export const BoothPage = () => {
   const [boothToEdit, setBoothToEdit] = useState<BoothDto>();
 
   const booths = useGetBooths();
+  const companies = useCompanyGetAllPublic();
+
   const [isManyModalOpen, setIsManyModalOpen] = useState(false);
 
   const removeBooth = useRemoveBooth();
 
-  if (booths.isLoading) {
+  if (booths.isLoading || companies.isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -62,7 +65,12 @@ export const BoothPage = () => {
       </div>
 
       <Table
-        data={booths.data}
+        data={(booths.data || []).map((booth) => ({
+          companyName:
+            companies.data?.find((company) => company.id === booth.companyId)
+              ?.name || null,
+          ...booth,
+        }))}
         actions={[
           {
             label: 'Uredi',

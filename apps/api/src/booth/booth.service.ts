@@ -42,6 +42,8 @@ export class BoothService {
       .returning();
 
     this.boothGateway.emitReserve(id);
+
+    console.log(`company id ${companyId} reserved booth id ${id}`);
   }
 
   async clear(companyId: number) {

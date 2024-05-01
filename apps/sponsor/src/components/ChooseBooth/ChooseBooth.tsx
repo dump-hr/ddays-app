@@ -54,7 +54,17 @@ export const ChooseBooth = () => {
   };
 
   if (booths.isLoading || !booths.data) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+        }}>
+        Loading...
+      </div>
+    );
   }
 
   return (
