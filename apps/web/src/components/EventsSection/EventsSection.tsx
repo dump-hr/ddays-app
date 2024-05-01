@@ -1,7 +1,7 @@
-import lesson from 'assets/images/events/lesson.webp';
-import lessonOne from 'assets/images/events/lesson-1.webp';
-import lessonTwo from 'assets/images/events/lesson-2.webp';
-import lessonFour from 'assets/images/events/lesson-4.webp';
+import lesson from 'assets/images/events/card/lesson.webp';
+import lessonOne from 'assets/images/events/card/lesson-1.webp';
+import lessonTwo from 'assets/images/events/card/lesson-2.webp';
+import lessonFour from 'assets/images/events/card/lesson-4.webp';
 import FilmFrame from 'components/FilmFrame';
 import { SectionBreaker } from 'components/SectionBreaker';
 import gsap from 'gsap';
