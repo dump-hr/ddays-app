@@ -1,4 +1,4 @@
-import FilmFrameSvg from '../../assets/film-frame.webp';
+import FilmFrameImage from '../../assets/film-frame.webp';
 import c from './FilmFrame.module.scss';
 
 type FilmFrameProps = {
@@ -10,7 +10,7 @@ type FilmFrameProps = {
 const FilmFrame: React.FC<FilmFrameProps> = ({ imageSrc, width, height }) => {
   return (
     <div style={{ height: height, width: width }} className={c.frameWrapper}>
-      <img className={c.frame} src={FilmFrameSvg} alt='' />
+      <img className={c.frame} src={FilmFrameImage} alt='' />
       <img className={c.frameImage} src={imageSrc} />
     </div>
   );
