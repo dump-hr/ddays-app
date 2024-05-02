@@ -5,7 +5,7 @@
   left: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  align-items: start;
+  align-items: center;
   justify-items: start;
   z-index: 9999;
 
@@ -32,15 +32,23 @@
       'ss08' on,
       'ss03' on;
     font-family: 'PP Neue Montreal Mono', sans-serif;
-    font-size: 14px;
     font-style: normal;
+    font-size: 14px;
     font-weight: 500;
+    text-transform: uppercase;
     line-height: 16px;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    word-wrap: break-word;
 
     .separator {
-      opacity: 0.5;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      font-family: 'PP Neue Montreal Mono', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 16px;
+      letter-spacing: 1px;
+      word-wrap: break-word;
     }
 
     &:nth-of-type(2) {
