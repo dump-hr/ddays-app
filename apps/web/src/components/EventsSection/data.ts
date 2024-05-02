@@ -27,7 +27,7 @@ export const events = [
     image: flytalk,
   },
   {
-    title: 'štandovi (32)',
+    title: 'štandovi (24)',
     image: booth,
   },
   {
