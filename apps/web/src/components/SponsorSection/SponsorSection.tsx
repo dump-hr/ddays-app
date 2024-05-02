@@ -2,7 +2,6 @@ import { CompanyCategory } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.webp';
 import goldSponsor from 'assets/images/golden-sponsor.webp';
 import kodak from 'assets/images/kodak.webp';
-import placeholder from 'assets/images/placeholder.svg';
 import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
 import React, { useMemo } from 'react';
@@ -45,48 +44,48 @@ export const SponsorSection: React.FC = () => {
         </span>
         <img
           className={clsx(c.image, c.first)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/thp3VVg89Sj4tHNc_xtMl.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.second)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/0hfC4eKEqSKbXn_F22518.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.third)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/hc9GqEEhRtOJkk1igIkXw.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.fourth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/_BPp8z1akpLYDKfGLshIK.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.fifth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/o6A-Blvc31bctYHkLEg1A.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.sixth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/68UleSMKyBSFOemgIS8Bx.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.seventh)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/q85WaNbdchDQyVolERFpg.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.eighth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/YGzRtV8wGG4_0wCK-JHhG.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.ninth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/rtbpH9-uMTVDYSjeMgEzJ.svg'
+          alt=''
         />
         <div className={c.sectionBreaker}></div>
       </figure>
