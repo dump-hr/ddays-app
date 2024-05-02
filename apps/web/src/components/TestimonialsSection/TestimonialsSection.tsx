@@ -5,9 +5,9 @@ import c from './TestimonialsSection.module.scss';
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      name: 'Luka Abrus',
-      position: 'Partner and co-founder @ Five',
-      text: 'DUMP Days su nedvojbeno najbolja studentska konferencija u Hrvatskoj, a i jedna od boljih tehnoloških konferencija na kojima sam bio u regiji i šire.',
+      name: 'Miljenko Baković',
+      position: 'Product manager @ Rimac Automobili',
+      text: 'Bilo da sam na DUMP Daysima sudjelovao kao jedan od sponzora ili posjetitelja, uvijek sam bio ugodno iznenađen kako event iz godine u godinu postaje sve bolji, sa sve interesantnijim predavačima i sve boljom organizacijom koje se ne bi posramile i puno veće konferencije.',
     },
     {
       name: 'Dragan Petric',
