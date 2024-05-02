@@ -245,6 +245,11 @@ figure {
             max-width: vw-calc(144);
             max-height: vw-calc(60);
             filter: invert(1);
+
+            @media (max-width: 768px) {
+              max-width: vw-mobile-calc(144);
+              max-height: vw-mobile-calc(60);
+            }
           }
 
           .kodak {
