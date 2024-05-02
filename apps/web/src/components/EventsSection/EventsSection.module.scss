@@ -77,6 +77,7 @@
     .eventImage {
       width: 100%;
       margin-top: -149px;
+      filter: brightness(80%);
 
       @media (max-width: 425px) {
         height: 840px;
@@ -108,6 +109,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 
     .eventTitle {
       text-align: center;
