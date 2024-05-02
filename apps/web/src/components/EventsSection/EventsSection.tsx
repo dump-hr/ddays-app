@@ -19,7 +19,45 @@ export const EventsSection = () => {
   const eventsContainer = useRef<HTMLDivElement>(null);
   const [observedTitle, setObservedTitle] = useState('');
 
-  const { isMobile, isSmallScreen } = useScreenSize(748, 1024);
+  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(748, 1024);
+
+  const is4K = screenWidth > 2559;
+  const isVerySmallMobile = screenWidth < 374;
+
+  let xOffset = 0;
+  if (isVerySmallMobile) {
+    xOffset = 0;
+  } else if (isMobile) {
+    xOffset = 500;
+  } else if (isSmallScreen) {
+    xOffset = 1000;
+  } else if (screenWidth < 1500) {
+    xOffset = -1400;
+  } else if (screenWidth > 1500 || is4K) {
+    xOffset = -1700;
+  }
+
+  let yOffset = 0;
+  if (isVerySmallMobile) {
+    yOffset = 250;
+  } else if (isMobile) {
+    yOffset = 50;
+  } else if (isSmallScreen) {
+    yOffset = -100;
+  } else if (!is4K) {
+    yOffset = 1450;
+  } else {
+    yOffset = 2000;
+  }
+
+  let scale = 1;
+  if (isMobile || isSmallScreen) {
+    scale = 6;
+  } else if (screenWidth < 1500) {
+    scale = 7;
+  } else if (screenWidth > 1500 || is4K) {
+    scale = 11;
+  }
 
   useEffect(() => {
     gsap.fromTo(
@@ -31,9 +69,9 @@ export const EventsSection = () => {
         opacity: 1,
       },
       {
-        x: isMobile ? 500 : isSmallScreen ? 1000 : -1150,
-        y: isMobile ? 50 : isSmallScreen ? -100 : 1450,
-        scale: isMobile || isSmallScreen ? 6 : 7,
+        x: xOffset,
+        y: yOffset,
+        scale: scale,
         opacity: 1,
         ease: 'sine.inOut',
         duration: 10,
@@ -45,7 +83,7 @@ export const EventsSection = () => {
         },
       },
     );
-  }, [isMobile, isSmallScreen]);
+  }, [isMobile, isSmallScreen, scale, screenWidth, xOffset, yOffset]);
 
   return (
     <div className={classes.eventSectionWrapper}>
