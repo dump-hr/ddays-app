@@ -133,11 +133,11 @@
 
 .modal {
   position: fixed;
-  top: 270px;
+  top: 0;
   left: 50%;
 
   z-index: 10001;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 100px);
 }
 
 .container {
@@ -146,7 +146,6 @@
   color: white;
   padding: 40px 80px 55px 80px;
   width: 1200px;
-  height: 500px;
   display: flex;
 
   @media screen and (max-width: 600px) {
@@ -202,6 +201,8 @@
 
 .modalRight {
   width: 536px;
+  display: flex;
+  flex-direction: column;
   overflow-y: hidden;
 }
 
@@ -261,7 +262,6 @@
   font-weight: 500;
   line-height: 26px;
   overflow-y: scroll;
-  max-height: 50%;
 }
 
 .modalDescription::-webkit-scrollbar {
