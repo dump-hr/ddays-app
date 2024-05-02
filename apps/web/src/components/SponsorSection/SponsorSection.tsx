@@ -98,7 +98,10 @@ export const SponsorSection: React.FC = () => {
               <figure className={c.picture}>
                 <img
                   className={c.landing}
-                  src={sponsor.landingImage}
+                  src={sponsor.landingImage?.replace(
+                    /\.[^/.]+$/,
+                    '_optimized.webp',
+                  )}
                   alt={sponsor.name}
                 />
                 <img className={c.kodak} src={kodak} alt={sponsor.name} />
