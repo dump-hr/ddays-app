@@ -142,13 +142,16 @@
 
 .container {
   position: relative;
-
   background: black;
   color: white;
   padding: 40px 80px 55px 80px;
   width: 1200px;
   height: 500px;
   display: flex;
+
+  @media screen and (max-width: 600px) {
+    padding: 40px;
+  }
 }
 
 .container:before {
@@ -191,6 +194,10 @@
 
 .modalImage {
   margin-right: 80px;
+
+  @media screen and (max-width: 950px) {
+    margin-right: 40px;
+  }
 }
 
 .modalRight {
@@ -225,6 +232,10 @@
 .socialsWrapper {
   display: flex;
   margin-bottom: 32px;
+
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+  }
 }
 
 .socialsLink {
@@ -250,7 +261,7 @@
   font-weight: 500;
   line-height: 26px;
   overflow-y: scroll;
-  max-height: 60%;
+  max-height: 50%;
 }
 
 .modalDescription::-webkit-scrollbar {
