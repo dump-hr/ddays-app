@@ -19,7 +19,7 @@ const FooterSection = () => {
             <h2 className={c.bigText}>TL;DR</h2>
             <h2 className={c.bigText}>DOĐI NA DAYSE</h2>
             <button
-              className={c.button}
+              className={clsx(c.button, c.grainyButton)}
               onClick={() =>
                 (window.location.href = 'https://days-app.dump.hr/login')
               }>
@@ -36,7 +36,9 @@ const FooterSection = () => {
         <div className={c.questionsWrapper}>
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
 
-          <a className={c.button} href='mailto:info@dump.hr'>
+          <a
+            className={clsx(c.button, c.grainyButton)}
+            href='mailto:info@dump.hr'>
             {`[ `}
             KONTAKTIRAJ DUMPOVCE
             {` ]`}
