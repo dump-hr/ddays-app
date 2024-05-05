@@ -23,7 +23,9 @@ export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const RegisterButton = (
     <Button
-      onClick={() => (window.location.href = 'https://days-app.dump.hr/login')}>
+      onClick={() =>
+        (window.location.href = 'https://days-app.dump.hr/registration')
+      }>
       Registriraj se
     </Button>
   );
