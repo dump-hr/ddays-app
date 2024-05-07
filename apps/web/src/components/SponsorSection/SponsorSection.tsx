@@ -134,7 +134,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {silverSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <a href={sponsor.website}>
+                <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(silverSponsors.length % maxSponsors
@@ -157,7 +157,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {bronzeSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <a href={sponsor.website}>
+                <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(bronzeSponsors.length % maxSponsors
@@ -179,7 +179,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {mediaSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <a href={sponsor.website}>
+                <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(mediaSponsors.length % maxSponsors
@@ -202,7 +202,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {friendSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <a href={sponsor.website}>
+                <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(friendSponsors.length % maxSponsors
