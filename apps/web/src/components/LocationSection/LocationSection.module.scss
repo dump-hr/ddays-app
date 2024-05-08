@@ -83,13 +83,28 @@ div {
     }
   }
 
-  &BottomImage {
+  &Bottom {
     position: absolute;
-    bottom: -130px;
     width: 100%;
+    bottom: -143px;
+    overflow-x: hidden;
 
-    @media (max-width: 1390px) {
-      bottom: -2px;
+    @media (max-width: 1440px) {
+      bottom: -18px;
+    }
+
+    &Image {
+      margin-left: -128px;
+      width: 112%;
+
+      @media (max-width: 1024px) {
+        min-width: 505.776px;
+        margin-left: -84px;
+      }
+
+      @media (max-width: 800px) {
+        margin-left: -50px;
+      }
     }
   }
 }
