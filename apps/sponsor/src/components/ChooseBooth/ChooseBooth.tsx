@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 
 import { useGetBooths } from '../../api/booth/useGetBooths';
 import { useReserveBooth } from '../../api/booth/useReserveBooth';
-import tlocrt from '../../assets/images/tlocrt.png';
+import floorPlan from '../../assets/images/floor-plan.webp';
 import c from './ChooseBooth.module.scss';
 
 const socket = io();
@@ -18,10 +18,6 @@ export const ChooseBooth = () => {
 
   const booths = useGetBooths();
   const reserveBooth = useReserveBooth();
-
-  useEffect(() => {
-    console.log(selectedBoothId);
-  }, [selectedBoothId]);
 
   useEffect(() => {
     socket.on('booth:reserve', ({ id }: { id: number }) => {
@@ -58,7 +54,17 @@ export const ChooseBooth = () => {
   };
 
   if (booths.isLoading || !booths.data) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+        }}>
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -88,7 +94,7 @@ export const ChooseBooth = () => {
         </button>
       </article>
       <aside className={c.map}>
-        <img src={tlocrt} alt='Mapa štanda' />
+        <img src={floorPlan} alt='Mapa štanda' />
       </aside>
     </section>
   );

@@ -1,9 +1,9 @@
-import DaysSticker from '../../assets/images/days-sticker.png';
-import Digitalac from '../../assets/images/digitalac.png';
-import Dizajner from '../../assets/images/dizajner.png';
-import Marketingas from '../../assets/images/marketingas.png';
-import Poduzetnik from '../../assets/images/poduzetnik.png';
-import Programer from '../../assets/images/programer.png';
+import DaysSticker from '../../assets/images/days-sticker.webp';
+import Digitalac from '../../assets/images/digitalac.webp';
+import Dizajner from '../../assets/images/dizajner.webp';
+import Marketingas from '../../assets/images/marketingas.webp';
+import Poduzetnik from '../../assets/images/poduzetnik.webp';
+import Programer from '../../assets/images/programer.webp';
 import c from './ScrollingTitle.module.scss';
 
 const Content = () => {

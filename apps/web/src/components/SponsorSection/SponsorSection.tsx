@@ -1,11 +1,10 @@
-import { CompanyCategory, CompanyPublicDto } from '@ddays-app/types';
-import bronzeSponsor from 'assets/images/bronze-sponsor.png';
-import goldSponsor from 'assets/images/golden-sponsor.png';
-import kodak from 'assets/images/kodak.png';
-import placeholder from 'assets/images/placeholder.svg';
-import silverSponsor from 'assets/images/silver-sponsor.png';
+import { CompanyCategory } from '@ddays-app/types';
+import bronzeSponsor from 'assets/images/bronze-sponsor.webp';
+import goldSponsor from 'assets/images/golden-sponsor.webp';
+import kodak from 'assets/images/kodak.webp';
+import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { dotMaker } from '../../helpers/dotMaker';
@@ -14,35 +13,29 @@ import c from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => {
   const { data } = useGetAllSponsors();
-  const [goldSponsors, setGoldSponsors] = useState<CompanyPublicDto[]>([]);
-  const [silverSponsors, setSilverSponsors] = useState<CompanyPublicDto[]>([]);
-  const [bronzeSponsors, setBronzeSponsors] = useState<CompanyPublicDto[]>([]);
-  const [mediaSponsors, setMediaSponsors] = useState<CompanyPublicDto[]>([]);
-  const [friendSponsors, setFriendSponsors] = useState<CompanyPublicDto[]>([]);
+  const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
-  useEffect(() => {
-    if (data) {
-      setGoldSponsors(data.filter((x) => x.category === CompanyCategory.Gold));
-      setSilverSponsors(
-        data.filter((x) => x.category === CompanyCategory.Silver),
-      );
-      setBronzeSponsors(
-        data.filter((x) => x.category === CompanyCategory.Bronze),
-      );
-      setMediaSponsors(
-        data.filter((x) => x.category === CompanyCategory.Media),
-      );
-      setFriendSponsors(
-        data.filter((x) => x.category === CompanyCategory.Friend),
-      );
-    }
-  }, [data]);
+  const goldSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Gold,
+  );
+  const silverSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Silver,
+  );
+  const bronzeSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Bronze,
+  );
+  const mediaSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Media,
+  );
+  const friendSponsors = sponsors.filter(
+    (sponsor) => sponsor.category === CompanyCategory.Friend,
+  );
 
   const { isMobile } = useScreenSize(768);
   const maxSponsors = useMemo(() => (isMobile ? 2 : 4), [isMobile]);
 
   return (
-    <section className={c.container}>
+    <section className={c.container} id='sponzori'>
       <figure className={c.topSection}>
         <span className={c.idea}>Vjerujemo u jaka prijateljstva.</span>
         <span className={c.title}>
@@ -51,48 +44,48 @@ export const SponsorSection: React.FC = () => {
         </span>
         <img
           className={clsx(c.image, c.first)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/thp3VVg89Sj4tHNc_xtMl.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.second)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/0hfC4eKEqSKbXn_F22518.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.third)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/hc9GqEEhRtOJkk1igIkXw.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.fourth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/_BPp8z1akpLYDKfGLshIK.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.fifth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/o6A-Blvc31bctYHkLEg1A.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.sixth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/68UleSMKyBSFOemgIS8Bx.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.seventh)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/q85WaNbdchDQyVolERFpg.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.eighth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/YGzRtV8wGG4_0wCK-JHhG.svg'
+          alt=''
         />
         <img
           className={clsx(c.image, c.ninth)}
-          src={placeholder}
-          alt='agilno-placeholder'
+          src='https://ddays-app-uploads.dump.hr/company-logo/rtbpH9-uMTVDYSjeMgEzJ.svg'
+          alt=''
         />
         <div className={c.sectionBreaker}></div>
       </figure>
@@ -105,10 +98,18 @@ export const SponsorSection: React.FC = () => {
               <figure className={c.picture}>
                 <img
                   className={c.landing}
-                  src={sponsor.landingImage}
+                  src={sponsor.landingImage?.replace(
+                    /\.[^/.]+$/,
+                    '_optimized.webp',
+                  )}
                   alt={sponsor.name}
                 />
                 <img className={c.kodak} src={kodak} alt={sponsor.name} />
+                <img
+                  className={c.logo}
+                  src={sponsor.logoImage}
+                  alt={sponsor.name}
+                />
               </figure>
               <span className={c.name}>{sponsor.name}</span>
               <div className={c.dots}>{dotMaker()}</div>
@@ -133,7 +134,9 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {silverSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <img src={sponsor.logoImage} alt={sponsor.name} />
+                <a target='_blank' href={sponsor.website}>
+                  <img src={sponsor.logoImage} alt={sponsor.name} />
+                </a>
                 {(silverSponsors.length % maxSponsors
                   ? index <
                     silverSponsors.length -
@@ -154,7 +157,9 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {bronzeSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <img src={sponsor.logoImage} alt={sponsor.name} />
+                <a target='_blank' href={sponsor.website}>
+                  <img src={sponsor.logoImage} alt={sponsor.name} />
+                </a>
                 {(bronzeSponsors.length % maxSponsors
                   ? index <
                     bronzeSponsors.length -
@@ -174,7 +179,9 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {mediaSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <img src={sponsor.logoImage} alt={sponsor.name} />
+                <a target='_blank' href={sponsor.website}>
+                  <img src={sponsor.logoImage} alt={sponsor.name} />
+                </a>
                 {(mediaSponsors.length % maxSponsors
                   ? index <
                     mediaSponsors.length - (mediaSponsors.length % maxSponsors)
@@ -195,7 +202,9 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {friendSponsors.map((sponsor, index) => (
               <figure className={c.logo}>
-                <img src={sponsor.logoImage} alt={sponsor.name} />
+                <a target='_blank' href={sponsor.website}>
+                  <img src={sponsor.logoImage} alt={sponsor.name} />
+                </a>
                 {(friendSponsors.length % maxSponsors
                   ? index <
                     friendSponsors.length -

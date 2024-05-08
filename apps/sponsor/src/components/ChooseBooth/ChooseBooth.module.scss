@@ -12,6 +12,7 @@ ul {
   margin-top: 5.5vw;
   justify-content: center;
   align-items: start;
+  margin-bottom: 64px;
 
   .choice {
     display: flex;
@@ -103,5 +104,9 @@ ul {
   .map {
     width: 43.75vw;
     height: auto;
+
+    img {
+      width: 100%;
+    }
   }
 }

@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { SectionBreaker } from 'components/SectionBreaker';
 
-import DaysSticker from '../../assets/images/days-sticker-big.png';
-import Facebook from '../../assets/images/facebook.png';
-import FooterDuckie from '../../assets/images/footer-duckie.png';
-import Instagram from '../../assets/images/instagram.png';
-import LinkedIn from '../../assets/images/linkedin.png';
-import YouTube from '../../assets/images/youtube.png';
+import DaysSticker from '../../assets/images/days-sticker-big.webp';
+import Facebook from '../../assets/images/facebook.webp';
+import FooterDuckie from '../../assets/images/footer-duckie.webp';
+import Instagram from '../../assets/images/instagram.webp';
+import LinkedIn from '../../assets/images/linkedin.webp';
+import YouTube from '../../assets/images/youtube.webp';
 import c from './FooterSection.module.scss';
 
 const FooterSection = () => {
@@ -18,7 +18,11 @@ const FooterSection = () => {
           <div className={c.footerTitleWrapper}>
             <h2 className={c.bigText}>TL;DR</h2>
             <h2 className={c.bigText}>DOĐI NA DAYSE</h2>
-            <button className={c.button}>
+            <button
+              className={clsx(c.button, c.grainyButton)}
+              onClick={() =>
+                (window.location.href = 'https://days-app.dump.hr/registration')
+              }>
               {`[ `}
               REGISTRIRAJ SVOJ DOLAZAK
               {` ]`}
@@ -28,45 +32,42 @@ const FooterSection = () => {
           <SectionBreaker fg='dark' className={c.sectionBreaker} />
         </div>
       </div>
-      <div className={c.bottomWrapper}>
+      <div className={c.bottomWrapper} id='kontakt'>
         <div className={c.questionsWrapper}>
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
 
-          <a className={c.button} href='mailto:info@dump.hr'>
+          <a
+            className={clsx(c.button, c.grainyButton)}
+            href='mailto:info@dump.hr'>
             {`[ `}
             KONTAKTIRAJ DUMPOVCE
             {` ]`}
           </a>
           <div className={c.socialsWrapper}>
-            <a href='https://www.facebook.com/dump.hr/' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.facebook)}
-                src={Facebook}
-                alt='facebook'
-              />
+            <a
+              className={c.facebook}
+              href='https://www.facebook.com/dump.hr/'
+              target='_blank'>
+              <img className={c.socialsImage} src={Facebook} alt='facebook' />
             </a>
-            <a href='https://hr.linkedin.com/company/dumpovci' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.linkedin)}
-                src={LinkedIn}
-                alt='linkedin'
-              />
+            <a
+              className={c.linkedin}
+              href='https://hr.linkedin.com/company/dumpovci'
+              target='_blank'>
+              <img className={c.socialsImage} src={LinkedIn} alt='linkedin' />
             </a>
-            <div>
-              <a href='https://www.instagram.com/dumpovci/' target='_blank'>
-                <img
-                  className={c.socialsImage}
-                  src={Instagram}
-                  alt='instagram'
-                />
-              </a>
-            </div>
-            <a href='https://www.youtube.com/@dumpovci' target='_blank'>
-              <img
-                className={clsx(c.socialsImage, c.youtube)}
-                src={YouTube}
-                alt='youtube'
-              />
+            <a
+              className={c.instagram}
+              href='https://www.instagram.com/dumpovci/'
+              target='_blank'>
+              <img className={c.socialsImage} src={Instagram} alt='instagram' />
+            </a>
+
+            <a
+              className={c.youtube}
+              href='https://www.youtube.com/@dumpovci'
+              target='_blank'>
+              <img className={c.socialsImage} src={YouTube} alt='youtube' />
             </a>
           </div>
         </div>
@@ -78,8 +79,7 @@ const FooterSection = () => {
         <div className={c.bottomSmallTextWrapper}>
           <p className={c.mb24}>© DUMPDAYS</p>
           <p className={c.footerBottomSmallText}>
-            Napravljeno jedva, na prišu, sa nikakvim PM skillovima — al iz čiste
-            ljubavi.
+            Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>
         </div>
       </div>

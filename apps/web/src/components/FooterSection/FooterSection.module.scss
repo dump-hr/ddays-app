@@ -8,7 +8,7 @@
   }
 
   .background {
-    background-image: url('../../assets/images/footer-background.png');
+    background-image: url('../../assets/images/footer-background.webp');
     background-size: cover;
     width: 100%;
     height: 729px;
@@ -17,7 +17,7 @@
     flex-direction: column;
 
     @media screen and (max-width: 375px) {
-      background-image: url('../../assets/images/footer-background-mobile.png');
+      background-image: url('../../assets/images/footer-background-mobile.webp');
     }
 
     &Wrapper {
@@ -75,6 +75,44 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
+    position: relative;
+    transition: 300ms;
+    padding: 14px 16px;
+  }
+
+  .grainyButton {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+      background-size: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: 300ms;
+    }
+
+    &:hover {
+      overflow: hidden;
+
+      .text {
+        color: white;
+        z-index: 5;
+      }
+
+      &:before {
+        opacity: 0.2;
+      }
+    }
+
+    &:active {
+      &::before {
+        opacity: 0.85;
+      }
+    }
   }
 
   .sticker {
@@ -165,10 +203,6 @@
   position: absolute;
   bottom: -38px;
 
-  .socialsImageContainerEven {
-    padding-top: 33px;
-  }
-
   .socialsImage {
     width: 162px;
     height: 162px;
@@ -213,6 +247,18 @@
 
   @media screen and (max-width: 650px) {
     margin-top: 83px;
+  }
+}
+
+.instagram {
+  height: 162px;
+
+  @media screen and (max-width: 650px) {
+    height: 106px;
+  }
+
+  @media screen and (max-width: 361px) {
+    height: 94px;
   }
 }
 

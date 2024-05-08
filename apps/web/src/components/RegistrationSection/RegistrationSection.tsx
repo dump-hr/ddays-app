@@ -1,4 +1,4 @@
-import MobileApp from 'assets/images/mobile-app.png';
+import MobileApp from 'assets/images/mobile-app.webp';
 
 import Button from './../Button/Button';
 import c from './RegistrationSection.module.scss';
@@ -13,7 +13,7 @@ const RegistrationSection = () => {
         <Button
           className={c.loginButton}
           onClick={() =>
-            (window.location.href = 'https://days-app.dump.hr/login')
+            (window.location.href = 'https://days-app.dump.hr/registration')
           }>
           [ prijavi se u aplikaciju ]
         </Button>

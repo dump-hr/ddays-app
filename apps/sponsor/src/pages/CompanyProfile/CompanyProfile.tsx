@@ -5,8 +5,8 @@ import { useLocation } from 'wouter';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
-import CoverPlaceholder from '../../assets/images/profile-cover-placeholder.png';
-import LogoPlaceholder from '../../assets/images/profile-logo-placeholder.png';
+import CoverPlaceholder from '../../assets/images/profile-cover-placeholder.webp';
+import LogoPlaceholder from '../../assets/images/profile-logo-placeholder.webp';
 import { CircularButton } from '../../components/CircularButton';
 import { InfoCard } from '../../components/InfoCard';
 import { JobOffer } from '../../components/InfoCard/JobOffer';

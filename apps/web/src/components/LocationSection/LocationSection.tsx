@@ -1,8 +1,8 @@
 import { SectionBreaker } from 'components/SectionBreaker';
 
 import fesbBackground from '../../assets/images/fesb.webp';
-import splitStamp from '../../assets/images/split-stamp.png';
-import vintageFesb from '../../assets/vintage-fesb.png';
+import splitStamp from '../../assets/images/split-stamp.webp';
+import vintageFesb from '../../assets/vintage-fesb.webp';
 import c from './LocationSection.module.scss';
 
 const LocationSection = () => {

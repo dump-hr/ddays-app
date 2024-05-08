@@ -82,6 +82,7 @@
       position: relative;
       width: 100%;
       height: vw-calc(818);
+      margin-top: 92px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -89,6 +90,7 @@
       @media (max-width: 768px) {
         height: vw-mobile-calc(423);
         transform: rotate(10deg);
+        margin-top: 0;
       }
 
       .images {
@@ -104,7 +106,7 @@
 
         .duckie {
           position: relative;
-          margin-top: vw-calc(20);
+          margin-top: 13px;
           width: vw-calc(384);
           height: vw-calc(417);
 
@@ -190,23 +192,34 @@
     }
 
     .paragraph {
-      color: $primary;
-      font-size: vw-calc(24);
+      color: #171615b2;
+      font-family: 'PP Neue Machina';
+      font-size: 24px;
       font-weight: 500;
-      line-height: vw-calc(32);
+      line-height: 32px;
+      letter-spacing: -1px;
+      width: 459px;
 
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(18);
         line-height: vw-mobile-calc(26);
+        width: auto;
+      }
+
+      &Br {
+        @media (max-width: 768px) {
+          display: none;
+        }
       }
     }
 
     .stats {
+      max-width: 580px;
       margin-top: vw-calc(120);
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      row-gap: vw-calc(125);
+      row-gap: 125px;
       column-gap: vw-calc(109);
 
       @media (max-width: 768px) {
@@ -220,7 +233,6 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-between;
         height: vw-calc(130);
 
         @media (max-width: 768px) {
@@ -229,11 +241,11 @@
 
         .number {
           color: $tertiary;
-          font-size: vw-calc(100);
+          font-size: 100px;
           font-weight: 500;
-          letter-spacing: vw-calc(-5);
+          letter-spacing: -5px;
           font-feature-settings: 'ss12' on;
-          line-height: vw-calc(64);
+          line-height: 100px;
 
           @media (max-width: 768px) {
             font-size: vw-mobile-calc(72);
@@ -242,6 +254,7 @@
         }
 
         .label {
+          margin-top: 16px;
           color: $primary;
           font-size: vw-calc(14);
           font-weight: 500;

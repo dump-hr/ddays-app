@@ -12,6 +12,8 @@ type HeaderProps = {
 const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   const [scrollY, setScrollY] = useState(0);
 
+  // TODO: refactor this to only use mutation observer
+
   useEffect(() => {
     const handleScroll = () => {
       requestAnimationFrame(() => {
