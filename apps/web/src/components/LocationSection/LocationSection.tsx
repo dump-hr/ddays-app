@@ -1,6 +1,6 @@
 import { SectionBreaker } from 'components/SectionBreaker';
 
-import fesbBackground from '../../assets/images/fesb-background.webp';
+import fesbBackground from '../../assets/images/fesb.webp';
 import splitStamp from '../../assets/images/split-stamp.webp';
 import vintageFesb from '../../assets/vintage-fesb.webp';
 import c from './LocationSection.module.scss';
@@ -11,7 +11,6 @@ const LocationSection = () => {
       <div className={c.titleContainer}>
         <div className={c.titleWrapper}></div>
         <h1 className={c.title}>LOKACIJA</h1>
-        <img src={fesbBackground} alt='fesb' className={c.titleBottomImage} />
         <div className={c.stampContainer}>
           <div className={c.stamp}>
             <img src={vintageFesb} alt='vintage fesb' />
@@ -33,6 +32,9 @@ const LocationSection = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className={c.titleBottom}>
+          <img src={fesbBackground} className={c.titleBottomImage} alt='fesb' />
         </div>
       </div>
       <SectionBreaker fg='green' className={c.imageBreaker} />
