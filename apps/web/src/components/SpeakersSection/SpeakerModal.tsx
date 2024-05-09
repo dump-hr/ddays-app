@@ -1,5 +1,4 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
-import FilmFrame from 'components/FilmFrame';
 import { useEffect } from 'react';
 
 import CloseSvg from '../../assets/close.svg';
@@ -59,7 +58,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
           onClick={(e) => e.stopPropagation()}>
           <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
           <div className={c.modalImage}>
-            <FilmFrame imageSrc={speaker.photo} width={320} height={400} />
+            <img src={speaker.photo} width={320} height={400} />
           </div>
           <div className={c.modalRight}>
             <h2 className={c.modalSpeakerName}>
