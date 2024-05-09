@@ -1,5 +1,4 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
-import FilmFrame from 'components/FilmFrame';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
