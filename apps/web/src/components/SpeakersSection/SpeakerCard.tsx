@@ -1,4 +1,5 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
+import FilmFrame from 'components/FilmFrame';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -11,7 +12,11 @@ type SpeakerCardProps = {
   height: number;
 };
 
-const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, width }) => {
+const SpeakerCard: React.FC<SpeakerCardProps> = ({
+  speaker,
+  width,
+  height,
+}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -32,6 +37,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker, width }) => {
         style={{ width: width }}
         className={c.card}
         onClick={handleOpenModal}>
+        <FilmFrame imageSrc={speaker.photo} height={height} width={width} />
         <div className={c.cardInfoWrapper}>
           <h3 className={c.cardName}>
             {speaker.firstName} {speaker.lastName}
