@@ -63,10 +63,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {isImageShown && !isMobile && (
+        {isImageShown && !isMobile && event.speaker?.photo && (
           <div className={c.speakerPhoto}>
-            <FilmFrame
-              imageSrc={event.speaker?.photo}
+            <img
+              src={event.speaker?.photo}
               height={cardAspectRatio * 120}
               width={120}
             />
