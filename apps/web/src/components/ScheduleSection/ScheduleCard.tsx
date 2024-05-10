@@ -1,5 +1,4 @@
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import FilmFrame from 'components/FilmFrame';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
