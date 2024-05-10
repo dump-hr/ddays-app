@@ -46,12 +46,12 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
             {speaker.company?.name ? '@ ' + speaker.company?.name : ''}
           </p>
         </div>
+        <SpeakerModal
+          close={handleCloseModal}
+          isOpen={isOpenModal}
+          speaker={speaker}
+        />
       </motion.div>
-      <SpeakerModal
-        close={handleCloseModal}
-        isOpen={isOpenModal}
-        speaker={speaker}
-      />
     </>
   );
 };
