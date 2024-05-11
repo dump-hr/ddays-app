@@ -10,7 +10,7 @@
   z-index: 9999;
 
   box-sizing: border-box;
-  padding: 24px;
+  padding: 16px;
   background: transparent;
   transition: 300ms;
 
@@ -69,7 +69,7 @@
 @media screen and (max-width: 768px) {
   .header {
     grid-template-columns: 1fr auto;
-    padding: 52px 16px;
+    padding: 32px 16px;
     top: 0;
     left: 0;
     width: 100%;

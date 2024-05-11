@@ -52,7 +52,7 @@ const LocationSection = () => {
         </div>
       </div>
       <div className={c.date}>
-        <p className={c.dateText}>23.</p>
+        <p className={c.dateText}>23. </p>
         <span className={c.dateSpan}>
           {' '}
           —{' '}
