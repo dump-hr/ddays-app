@@ -17,7 +17,7 @@ const FooterSection = () => {
           <img className={c.sticker} src={DaysSticker} alt='' />
           <div className={c.footerTitleWrapper}>
             <h2 className={c.bigText}>TL;DR</h2>
-            <h2 className={c.bigText}>DOĐI NA DAYSE</h2>
+            <h2 className={c.bigText}>DOĐI NA DAYSE.</h2>
             <button
               className={clsx(c.button, c.grainyButton)}
               onClick={() =>
