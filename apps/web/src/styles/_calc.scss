@@ -2,6 +2,7 @@
 
 $vw-base: 1440px;
 $vw-mobile: 375px;
+$vw-mid: 375px;
 
 @function strip-unit($num) {
   @if $num == auto {
@@ -41,6 +42,26 @@ $vw-mobile: 375px;
 }
 
 @function vw-mobile-calc($values, $base-value: $vw-mobile) {
+  $max: length($values);
+
+  @if $max == 1 {
+    @return convert-to-vw(nth($values, 1), $base-value);
+  }
+
+  $vwValues: ();
+
+  @for $i from 1 through $max {
+    $vwValues: append($vwValues, convert-to-vw(nth($values, $i), $base-value));
+  }
+
+  @return $vwValues;
+}
+
+@function rem-calc($px) {
+  @return calc(($px / 16 * 1rem));
+}
+
+@function vw-mid-calc($values, $base-value: $vw-mid) {
   $max: length($values);
 
   @if $max == 1 {

@@ -303,8 +303,9 @@ div {
 
 .date {
   margin-top: vw-calc(76);
-  padding-left: vw-calc(37);
+  padding-left: vw-calc(27);
   position: relative;
+  width: 100%;
 
   &Text {
     display: inline;
@@ -312,7 +313,7 @@ div {
     text-align: center;
     font-feature-settings: 'ss12' on;
     font-family: 'PP Neue Machina';
-    font-size: vw-calc(258.265);
+    font-size: vw-calc(250.265);
     font-style: normal;
     font-weight: 500;
     line-height: vw-calc(262.265);
@@ -322,9 +323,9 @@ div {
     mix-blend-mode: overlay;
 
     @media (max-width: 992px) {
-      font-size: vw-mobile-calc(65.491);
-      line-height: vw-mobile-calc(64.026);
-      letter-spacing: vw-mobile-calc(1.281);
+      font-size: vw-mid-calc(65.491);
+      line-height: vw-mid-calc(64.026);
+      letter-spacing: vw-mid-calc(1.281);
     }
   }
 
@@ -354,9 +355,9 @@ div {
       height: vw-calc(182);
 
       @media (max-width: 992px) {
-        top: vw-mobile-calc(2);
-        width: vw-mobile-calc(69.273);
-        height: vw-mobile-calc(49.637);
+        top: vw-mid-calc(2);
+        width: vw-mid-calc(69.273);
+        height: vw-mid-calc(49.637);
       }
     }
 
@@ -379,16 +380,16 @@ div {
       transform: rotate(-90deg);
 
       @media (max-width: 992px) {
-        top: vw-mobile-calc(-12);
-        width: vw-mobile-calc(57.47);
-        height: vw-mobile-calc(78.001);
+        top: vw-mid-calc(-12);
+        width: vw-mid-calc(57.47);
+        height: vw-mid-calc(78.001);
       }
     }
 
     @media (max-width: 992px) {
-      font-size: vw-mobile-calc(65.491);
-      line-height: vw-mobile-calc(64.026);
-      letter-spacing: vw-mobile-calc(1.281);
+      font-size: vw-mid-calc(65.491);
+      line-height: vw-mid-calc(64.026);
+      letter-spacing: vw-mid-calc(1.281);
     }
   }
 }
