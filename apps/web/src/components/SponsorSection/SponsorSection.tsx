@@ -48,7 +48,7 @@ export const SponsorSection: React.FC = () => {
 
   return (
     <section className={c.container} id='sponzori'>
-      {sponsorForModal && (
+      {sponsorForModal !== null && (
         <SponsorModal sponsor={sponsorForModal} close={handleCloseModal} />
       )}
 

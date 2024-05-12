@@ -476,3 +476,64 @@ figure {
     }
   }
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 50%;
+
+  z-index: 10001;
+  transform: translate(-50%, 40px);
+}
+
+.modalContainer {
+  position: relative;
+  background: black;
+  color: white;
+  padding: 40px 80px 55px 80px;
+  width: 1200px;
+  display: flex;
+  max-height: 500px;
+
+  @media screen and (max-width: 600px) {
+    padding: 40px;
+  }
+}
+
+.modalContainer:before {
+  content: '';
+  background-image: url(../../assets/images/noise.webp);
+  opacity: 0.15;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
+
+.close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+}
