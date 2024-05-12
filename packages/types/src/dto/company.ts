@@ -10,6 +10,7 @@ import {
 import { CompanyCategory } from '../enum';
 import { InterestDto } from './interest';
 import { IsBetweenWordCount } from 'src/validators/is-between-word-count';
+import { JobDto } from './job';
 
 export type CompanyPublicDto = {
   id: number;
@@ -25,6 +26,7 @@ export type CompanyPublicDto = {
   bookOfStandards?: string;
   video?: string;
   interests?: InterestDto[];
+  jobs?: JobDto[];
 };
 
 export type CompanyDto = {
