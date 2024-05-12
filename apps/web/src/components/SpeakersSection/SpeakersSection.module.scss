@@ -129,6 +129,13 @@
 
 .card:last-child {
   margin-bottom: 0px;
+
+  &.semiHidden {
+    opacity: 0.5 !important; //Hate this way of doing this, but do not want to change the sort order of ids and the way cards are loaded in so this is he only way to overwrite inline changes in SpeakerCard.tsx
+    margin-top: -150px;
+    position: relative;
+    bottom: -150px;
+  }
 }
 
 .modal {
@@ -314,5 +321,27 @@
 @media screen and (max-width: 870px) {
   .modalImage {
     display: none;
+  }
+}
+
+.expandOption {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 467px;
+  font-size: 14px;
+  font-feature-settings:
+    'ss06' on,
+    'ss01' on;
+  letter-spacing: 1px;
+  line-height: 16px; /* 114.286% */
+  color: #171615;
+
+  &.expandedHidden {
+    display: none;
+  }
+
+  @media screen and (max-width: 950px) {
+    bottom: 179px;
   }
 }

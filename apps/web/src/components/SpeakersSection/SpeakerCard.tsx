@@ -1,4 +1,5 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -9,12 +10,14 @@ type SpeakerCardProps = {
   speaker: SpeakerWithCompanyDto;
   width: number;
   height: number;
+  isSemiHidden?: boolean;
 };
 
 const SpeakerCard: React.FC<SpeakerCardProps> = ({
   speaker,
   width,
   height,
+  isSemiHidden,
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -34,7 +37,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
         whileInView={{ opacity: 1 }}
         transition={{ ease: 'easeIn', duration: 1 }}
         style={{ width: width }}
-        className={c.card}
+        className={clsx(c.card, isSemiHidden && c.semiHidden)}
         onClick={handleOpenModal}>
         <img src={speaker.photo} height={height} width={width} />
         <div className={c.cardInfoWrapper}>
