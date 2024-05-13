@@ -6,7 +6,7 @@ import {
 } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'db';
-import { booth, company, job } from 'db/schema';
+import { booth, company } from 'db/schema';
 import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
@@ -38,48 +38,23 @@ export class CompanyService {
   }
 
   async getAllPublic(): Promise<CompanyPublicDto[]> {
-    const companiesWithJob = await db
-      .select()
+    const companies = await db
+      .select({
+        id: company.id,
+        category: company.category,
+        name: company.name,
+        description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
+        website: company.website,
+        booth: booth.name,
+        logoImage: company.logoImage,
+        landingImage: company.landingImage,
+        landingImageCompanyCulture: company.landingImageCompanyCulture,
+        video: company.video,
+      })
       .from(company)
       .leftJoin(booth, eq(booth.companyId, company.id))
-      .leftJoin(job, eq(company.id, job.companyId))
       .orderBy(company.name);
-
-    const companyIds: number[] = [];
-
-    for (const companyWithJob of companiesWithJob) {
-      if (!companyIds.includes(companyWithJob.company.id)) {
-        companyIds.push(companyWithJob.company.id);
-      }
-    }
-
-    const jobs = companiesWithJob
-      .filter((companyWithJob) => companyWithJob.job)
-      .map((companyWithJob) => companyWithJob.job);
-
-    const companies: CompanyPublicDto[] = [];
-
-    for (const id of companyIds) {
-      const company = companiesWithJob.find(
-        (companyWithJob) => companyWithJob.company.id === id,
-      );
-
-      companies.push({
-        id: company.company.id,
-        category: company.company.category,
-        name: company.company.name,
-        description: company.company.description,
-        opportunitiesDescription: company.company.opportunitiesDescription,
-        website: company.company.website,
-        logoImage: company.company.logoImage,
-        landingImage: company.company.landingImage,
-        landingImageCompanyCulture: company.company.landingImageCompanyCulture,
-        bookOfStandards: company.company.bookOfStandards,
-        video: company.company.video,
-        booth: company.booth?.name,
-        jobs: jobs.filter((job) => job.companyId === id),
-      });
-    }
 
     return companies;
   }
