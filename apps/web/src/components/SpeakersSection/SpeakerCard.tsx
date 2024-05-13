@@ -17,7 +17,6 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
   speaker,
   width,
   height,
-  isSemiHidden,
 }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -37,7 +36,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
         whileInView={{ opacity: 1 }}
         transition={{ ease: 'easeIn', duration: 1 }}
         style={{ width: width }}
-        className={clsx(c.card, isSemiHidden && c.semiHidden)}
+        className={c.card}
         onClick={handleOpenModal}>
         <img src={speaker.photo} height={height} width={width} />
         <div className={c.cardInfoWrapper}>
