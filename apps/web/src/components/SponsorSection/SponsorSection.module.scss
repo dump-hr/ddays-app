@@ -492,7 +492,6 @@ figure {
   color: white;
   padding: 40px 80px 55px 80px;
   width: 1200px;
-  display: flex;
   max-height: 500px;
 
   @media screen and (max-width: 600px) {
@@ -536,4 +535,155 @@ figure {
   height: 16px;
 
   cursor: pointer;
+}
+
+.modalHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerRedText {
+  color: #ff482f;
+  font-family: 'PP Neue Montreal Mono';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.headerBigText {
+  color: #eaeaea;
+  font-family: 'PP Neue Machina';
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.themeBadgesContainer {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.themeBadge {
+  width: 46px;
+  height: 24px;
+  padding: 12px 23px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background-color: #ff482f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Text {
+    margin: 0;
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.jobsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modalLogoImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.jobCard {
+  overflow-x: clip;
+  width: 360px;
+  height: 300px;
+  position: relative;
+
+  &Inner {
+    padding: 0px 32px;
+  }
+}
+
+.jobTitle {
+  color: #fff;
+  font-family: 'PP Neue Machina';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  text-transform: uppercase;
+}
+
+.jobCardSmallText {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'PP Neue Machina';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.dottedRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+  text-align: center;
+}
+
+.verticalRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg) translateY(-142px) translateX(-146px);
+}
+
+.positionBottom {
+  position: absolute;
+  bottom: 0px;
+}
+
+.verticalRulerEnd {
+  right: 0;
+  transform: rotate(-90deg) translateY(170px) translateX(-146px);
+}
+
+// a
+
+@media screen and (max-width: 1250px) {
+  .modalContainer {
+    width: 90vw;
+    padding: 40px 10px 55px 10px;
+  }
+}
+
+@media screen and (max-width: 1186px) {
+  .verticalRuler {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .wrapper {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 850px) {
 }
