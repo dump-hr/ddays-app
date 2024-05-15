@@ -74,6 +74,14 @@
           opacity: 0.2 !important;
         }
       }
+
+      @media screen and (max-width: 950px) {
+        .speakersColumn {
+          .card:nth-child(4) {
+            opacity: 0.2 !important;
+          }
+        }
+      }
     }
   }
 
@@ -361,7 +369,7 @@
   text-transform: uppercase;
 
   @media screen and (max-width: 950px) {
-    height: 375px;
+    height: 200px;
   }
 }
 
