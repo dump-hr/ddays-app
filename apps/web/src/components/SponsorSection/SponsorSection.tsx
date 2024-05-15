@@ -1,17 +1,26 @@
-import { CompanyCategory } from '@ddays-app/types';
+import { CompanyCategory, CompanyPublicDto } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.webp';
 import goldSponsor from 'assets/images/golden-sponsor.webp';
 import kodak from 'assets/images/kodak.webp';
 import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { dotMaker } from '../../helpers/dotMaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
+import { SponsorJobCount } from './SponsorJobCount';
+import SponsorModal from './SponsorModal';
 import c from './SponsorSection.module.scss';
 
 export const SponsorSection: React.FC = () => {
+  const [sponsorForModal, setSponsorForModal] =
+    useState<CompanyPublicDto | null>(null);
+
+  const handleCloseModal = () => {
+    setSponsorForModal(null);
+  };
+
   const { data } = useGetAllSponsors();
   const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
@@ -36,6 +45,10 @@ export const SponsorSection: React.FC = () => {
 
   return (
     <section className={c.container} id='sponzori'>
+      {sponsorForModal !== null && (
+        <SponsorModal sponsor={sponsorForModal} close={handleCloseModal} />
+      )}
+
       <figure className={c.topSection}>
         <span className={c.idea}>Vjerujemo u jaka prijateljstva.</span>
         <span className={c.title}>
@@ -94,7 +107,10 @@ export const SponsorSection: React.FC = () => {
         <span className={c.sponsorTier}>Zlatni sponzori</span>
         <section className={c.goldenRow}>
           {goldSponsors.map((sponsor) => (
-            <article className={c.sponsor} key={sponsor.id}>
+            <article
+              onClick={() => setSponsorForModal(sponsor)}
+              className={c.sponsor}
+              key={sponsor.id}>
               <figure className={c.picture}>
                 <img
                   className={c.landing}
@@ -117,9 +133,7 @@ export const SponsorSection: React.FC = () => {
                 <span className={c.label}>Otvorene pozicije</span>
                 <div className={c.ellipse}>
                   <span className={c.number}>
-                    {
-                      0 //TODO: Tehnically, this number should be the nu,ber of avialable positions, which would force making a new call or modifying every all sponsors call, I can add this but should probably discuss it first
-                    }
+                    <SponsorJobCount sponsorId={sponsor.id} />
                   </span>
                 </div>
               </div>

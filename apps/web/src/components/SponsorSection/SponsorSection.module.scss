@@ -220,6 +220,7 @@ figure {
         justify-content: flex-start;
         position: relative;
         width: vw-calc(320);
+        cursor: pointer;
 
         @media (max-width: 768px) {
           width: vw-mobile-calc(345);
@@ -475,4 +476,259 @@ figure {
       }
     }
   }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 50%;
+
+  z-index: 10001;
+  transform: translate(-50%, 40px);
+}
+
+.modalContainer {
+  position: relative;
+  background: black;
+  color: white;
+  padding: 40px;
+  width: 1200px;
+
+  @media screen and (max-width: 1250px) {
+    width: 90vw;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 40px;
+  }
+}
+
+.modalContainer:before {
+  content: '';
+  background-image: url(../../assets/images/noise.webp);
+  opacity: 0.15;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
+
+.close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+}
+
+.modalHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerRedText {
+  color: #ff482f;
+  font-family: 'PP Neue Montreal Mono';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.headerBigText {
+  color: #eaeaea;
+  font-family: 'PP Neue Machina';
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.themeBadgesContainer {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.themeBadge {
+  width: 46px;
+  height: 24px;
+  padding: 12px 23px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background-color: #ff482f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Text {
+    margin: 0;
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.jobsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 290px;
+
+  @media screen and (max-width: 950px) {
+    display: block;
+    overflow-y: auto;
+    height: 350px;
+  }
+}
+
+.jobsContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.modalLogoImage {
+  display: flex;
+  align-items: center;
+  max-width: 160px;
+  width: fit-content;
+  padding: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  position: relative;
+
+  img {
+    max-width: 100%;
+    height: 30px;
+    filter: invert(1);
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 0;
+    transition: 300ms;
+  }
+}
+
+.jobCard {
+  overflow-x: clip;
+  width: 33.3333%;
+  height: 300px;
+  position: relative;
+
+  &Inner {
+    padding: 0px 32px;
+  }
+
+  @media screen and (max-width: 950px) {
+    width: 100%;
+  }
+}
+
+.jobTitle {
+  color: #fff;
+  font-family: 'PP Neue Machina';
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  text-transform: uppercase;
+
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.jobCardSmallText {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'PP Neue Machina';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+
+  @media screen and (max-width: 500px) {
+    font-size: 14px;
+  }
+}
+
+.jobCardLink {
+  color: #fff;
+  font-feature-settings:
+    'ss06' on,
+    'ss01' on;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  padding: 8px;
+  position: absolute;
+  bottom: 24px;
+  left: 32px;
+}
+
+.dottedRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+  text-align: center;
+}
+
+.verticalRuler {
+  letter-spacing: 4px;
+  color: #88888888;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg) translateY(-142px) translateX(-146px);
+}
+
+.positionBottom {
+  position: absolute;
+  bottom: 0px;
+}
+
+.verticalRulerEnd {
+  left: calc(100% - 6px);
 }
