@@ -1,8 +1,10 @@
 import { CompanyPublicDto } from '@ddays-app/types';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
 import CloseSvg from '../../assets/close.svg';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './SponsorSection.module.scss';
 
 type SponsorModalProps = {
@@ -12,6 +14,24 @@ type SponsorModalProps = {
 
 const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
   const { data: jobs } = useJobGetForCompany(sponsor?.id);
+  const { isMobile } = useScreenSize(950);
+
+  useEffect(() => {
+    if (sponsor) {
+      const width = document.body.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.width = `${width}px`;
+    } else {
+      document.body.style.overflow = 'visible';
+      document.body.style.width = `auto`;
+    }
+
+    return () => {
+      document.body.style.overflow = 'visible';
+      document.body.style.width = `auto`;
+    };
+  }, [sponsor]);
+
   return (
     <div data-lenis-prevent className={c.modalBackground} onClick={close}>
       <div data-lenis-prevent className={c.modal}>
@@ -45,19 +65,17 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                   ..................................
                 </div>
                 <div className={c.jobCardInner}>
-                  <img
-                    className={c.modalLogoImage}
-                    src={sponsor?.logoImage}
-                    alt={sponsor?.name}
-                  />
+                  <div className={c.modalLogoImage}>
+                    <img src={sponsor?.logoImage} alt={sponsor?.name} />
+                  </div>
                   <div className={c.jobTitle}>{job.position}</div>
                   <div className={c.jobCardSmallText}>{sponsor?.name}</div>
                   <div className={c.jobCardSmallText}>{job.location}</div>
-                  <a href={job.link} className={c.jobCardLink}>
+                  <a href={job.link} target='_blank' className={c.jobCardLink}>
                     [ SAZNAJ VIŠE ]
                   </a>
                 </div>
-                {index === jobs.length - 1 && (
+                {(index === jobs.length - 1 || isMobile) && (
                   <div className={clsx(c.verticalRuler, c.verticalRulerEnd)}>
                     ..................................
                   </div>
