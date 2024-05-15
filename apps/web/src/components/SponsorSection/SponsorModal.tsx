@@ -53,7 +53,9 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                   <div className={c.jobTitle}>{job.position}</div>
                   <div className={c.jobCardSmallText}>{sponsor?.name}</div>
                   <div className={c.jobCardSmallText}>{job.location}</div>
-                  <div>{job.link}</div>
+                  <a href={job.link} className={c.jobCardLink}>
+                    [ SAZNAJ VIŠE ]
+                  </a>
                 </div>
                 {index === jobs.length - 1 && (
                   <div className={clsx(c.verticalRuler, c.verticalRulerEnd)}>

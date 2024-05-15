@@ -600,6 +600,18 @@ figure {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: 290px;
+
+  @media screen and (max-width: 1100px) {
+    width: fit-content;
+    margin: auto;
+    display: block;
+    overflow-x: scroll;
+  }
+}
+
+.jobsContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .modalLogoImage {
@@ -617,16 +629,27 @@ figure {
   &Inner {
     padding: 0px 32px;
   }
+  @media screen and (max-width: 450px) {
+    width: 300px;
+  }
+
+  @media screen and (max-width: 350px) {
+    width: 250px;
+  }
 }
 
 .jobTitle {
   color: #fff;
   font-family: 'PP Neue Machina';
-  font-size: 24px;
+  font-size: 22px;
   font-style: normal;
   font-weight: 500;
   line-height: 32px;
   text-transform: uppercase;
+
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
 }
 
 .jobCardSmallText {
@@ -636,6 +659,28 @@ figure {
   font-style: normal;
   font-weight: 500;
   line-height: 26px;
+
+  @media screen and (max-width: 500px) {
+    font-size: 14px;
+  }
+}
+
+.jobCardLink {
+  color: #fff;
+  font-feature-settings:
+    'ss06' on,
+    'ss01' on;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  padding: 8px;
+  position: absolute;
+  bottom: 24px;
+  left: 32px;
 }
 
 .dottedRuler {
@@ -663,8 +708,6 @@ figure {
   right: 0;
   transform: rotate(-90deg) translateY(170px) translateX(-146px);
 }
-
-// a
 
 @media screen and (max-width: 1250px) {
   .modalContainer {
