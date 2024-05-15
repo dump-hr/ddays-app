@@ -22,6 +22,10 @@
     }
   }
 
+  &.scrolled {
+    top: 16px;
+  }
+
   .text {
     color: white;
     margin: 0;
