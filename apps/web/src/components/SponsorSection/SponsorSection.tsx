@@ -20,10 +20,6 @@ export const SponsorSection: React.FC = () => {
     setSponsorForModal(null);
   };
 
-  const handleOpenModal = (sponsor) => {
-    setSponsorForModal(sponsor);
-  };
-
   const { data } = useGetAllSponsors();
   const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
