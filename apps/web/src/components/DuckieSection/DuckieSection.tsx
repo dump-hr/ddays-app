@@ -34,10 +34,9 @@ export const DuckieSection = () => (
         &TECH KONFA
       </div>
       <p className={classes.paragraph}>
-        DUMP Udruga mladih programera{' '}
-        <div className={classes.paragraphBr}></div>u proteklih četrnaest godina
-        svojim aktivnim predavanjima i radionicama sudjeluje u izgradnji i
-        razvoju lokalne IT zajednice. Konferencija DUMP Days činila se kao korak
+        DUMP Udruga mladih programera u proteklih četrnaest godina svojim
+        aktivnim predavanjima i radionicama sudjeluje u izgradnji i razvoju
+        lokalne IT zajednice. Konferencija DUMP Days činila se kao korak
         naprijed kojim bismo produbili našu viziju povezivanja IT zajednice i na
         jednom mjestu okupili veći broj studenata i firmi.
       </p>

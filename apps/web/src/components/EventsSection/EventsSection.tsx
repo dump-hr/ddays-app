@@ -124,7 +124,8 @@ export const EventsSection = () => {
             <EventCard
               title={event.title}
               observedTitle={observedTitle}
-              setObservedTitle={setObservedTitle}>
+              setObservedTitle={setObservedTitle}
+              key={event.title}>
               {i === 0 ? (
                 <div className={classes.eventImage} />
               ) : (

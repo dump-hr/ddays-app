@@ -48,7 +48,7 @@ const LocationSection = () => {
           izazovima, a uz to ugrabi i najbolju poslovnu priliku za sebe.
         </p>
         <div className={c.dottedRuler}>
-          ................................................................................................................................................................................................................
+          ........................................................................................................................................................................................................................................
         </div>
       </div>
       <div className={c.date}>
@@ -62,7 +62,7 @@ const LocationSection = () => {
             className={c.dateSpanImage}
           />{' '}
         </span>
-        <p className={c.dateText}>24. 05. &nbsp;2024.</p>
+        <p className={c.dateText}>24. 05. 2024.</p>
       </div>
       <div className={c.dateBreaker}>
         <SectionBreaker fg='light' />

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { SectionBreaker } from 'components/SectionBreaker';
 import { useState } from 'react';
 
 import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCompanyGetAll';
@@ -35,25 +36,34 @@ const SpeakersSection = () => {
           </p>
           <h2 className={c.headerTitle}>SPEAKERI ({speakers.data.length})</h2>
         </div>
-        <div className={clsx(c.speakersWrapper, isExpanded && c.expanded)}>
-          {balancedArray?.map((subArray, index) => (
-            <div key={index} className={c.speakersColumn}>
-              {subArray.map((speaker) => (
-                <SpeakerCard
-                  key={speaker.id}
-                  speaker={speaker}
-                  height={cardWidth * cardAspectRatio}
-                  width={cardWidth}
-                />
-              ))}
-            </div>
-          ))}
-          <div
-            onClick={handleSetExpanded}
-            className={clsx(c.expandOption, isExpanded && c.expandedHidden)}>
-            {'[ Pogledajte sve predavače ]'}
+        <div
+          className={clsx(c.speakersWrapperContainer, {
+            [c.expanded]: isExpanded,
+          })}>
+          <div className={c.speakersWrapper}>
+            {balancedArray?.map((subArray, index) => (
+              <div key={index} className={c.speakersColumn}>
+                {subArray.map((speaker) => (
+                  <SpeakerCard
+                    key={speaker.id}
+                    speaker={speaker}
+                    height={cardWidth * cardAspectRatio}
+                    width={cardWidth}
+                  />
+                ))}
+              </div>
+            ))}
           </div>
         </div>
+        {!isExpanded && (
+          <div onClick={handleSetExpanded} className={c.expandOption}>
+            [ Pogledajte sve predavače ]
+          </div>
+        )}
+      </div>
+      <div className={c.sectionBreaker}>
+        <SectionBreaker fg='green' />
+        <div className={c.breakerPadding} />
       </div>
     </div>
   );

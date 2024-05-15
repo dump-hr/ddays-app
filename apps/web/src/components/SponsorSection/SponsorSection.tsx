@@ -156,7 +156,7 @@ export const SponsorSection: React.FC = () => {
         <div className={c.logosWrapper}>
           <section className={c.logos}>
             {bronzeSponsors.map((sponsor, index) => (
-              <figure className={c.logo}>
+              <figure className={c.logo} key={sponsor.id}>
                 <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
@@ -178,7 +178,7 @@ export const SponsorSection: React.FC = () => {
         <div className={c.logosWrapper}>
           <section className={c.logos}>
             {mediaSponsors.map((sponsor, index) => (
-              <figure className={c.logo}>
+              <figure className={c.logo} key={sponsor.id}>
                 <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
@@ -201,7 +201,7 @@ export const SponsorSection: React.FC = () => {
         <div className={c.logosWrapper}>
           <section className={c.logos}>
             {friendSponsors.map((sponsor, index) => (
-              <figure className={c.logo}>
+              <figure className={c.logo} key={sponsor.id}>
                 <a target='_blank' href={sponsor.website}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
