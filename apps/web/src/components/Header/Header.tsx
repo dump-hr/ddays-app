@@ -50,6 +50,7 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   const classes = clsx({
     [c.header]: true,
     [c.blend]: scrollY > 0.85 * window.innerHeight,
+    [c.scrolled]: scrollY > 32,
   });
 
   return (
