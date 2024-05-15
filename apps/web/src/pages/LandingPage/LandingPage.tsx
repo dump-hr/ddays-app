@@ -49,7 +49,6 @@ export const LandingPage: React.FC = () => {
       <ScheduleSection />
       <SectionBreaker fg='orange' bg='light' />
       <SpeakersSection />
-      <SectionBreaker fg='green' bg='orange' />
       <LocationSection />
       <SponsorSection />
       <SectionBreaker fg='dark' bg='light' />

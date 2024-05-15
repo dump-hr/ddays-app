@@ -36,7 +36,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
 
   const toggleOpenDescription = () => {
     setIsOpenDescription((prev) => !prev);
-    setIsImageShown(false);
   };
 
   const handleCardClick = () => {
@@ -62,15 +61,17 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {isImageShown && !isMobile && event.speaker?.photo && (
-          <div className={c.speakerPhoto}>
-            <img
-              src={event.speaker?.photo}
-              height={cardAspectRatio * 120}
-              width={120}
-            />
-          </div>
-        )}
+        {(isImageShown || isOpenDescription) &&
+          !isMobile &&
+          event.speaker?.photo && (
+            <div className={c.speakerPhoto}>
+              <img
+                src={event.speaker?.photo}
+                height={cardAspectRatio * 120}
+                width={120}
+              />
+            </div>
+          )}
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
@@ -86,10 +87,16 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
                 <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
               </div>
               <div className={c.scheduleCardTitleWrapper}>
-                <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+                <h3
+                  className={c.scheduleCardTitle}
+                  onClick={toggleOpenDescription}>
+                  {event.name}
+                </h3>
               </div>
             </div>
-            <h4 className={c.scheduleCardSubtitle}>
+            <h4
+              className={c.scheduleCardSubtitle}
+              onClick={toggleOpenDescription}>
               {getSpeakerCompanyStringForEvent(event)}
             </h4>
             {isOpenDescription && (

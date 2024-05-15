@@ -9,6 +9,7 @@ type SpeakerCardProps = {
   speaker: SpeakerWithCompanyDto;
   width: number;
   height: number;
+  isSemiHidden?: boolean;
 };
 
 const SpeakerCard: React.FC<SpeakerCardProps> = ({
