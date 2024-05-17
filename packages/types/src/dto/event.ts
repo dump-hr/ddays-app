@@ -35,7 +35,7 @@ export type EventWithSpeakerDto = {
   type: `${EventType}`;
   theme: `${Theme}`;
   codeId?: number;
-  speaker?: SpeakerWithCompanyDto;
+  speakers?: SpeakerWithCompanyDto[];
 };
 
 export class EventModifyDto {

@@ -2,12 +2,12 @@ import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
-import { useScreenSize } from '../../hooks/useScreenSize';
+// import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
   getEventTypeTranslation,
-  getSpeakerCompanyStringForEvent,
+  // getSpeakerCompanyStringForEvent,
 } from './utils';
 
 const getThemeShort = (theme: string) => {
@@ -28,11 +28,11 @@ type ScheduleCardProps = {
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
-  const cardAspectRatio = 401 / 320;
-  const { isMobile } = useScreenSize(930);
+  // const cardAspectRatio = 401 / 320;
+  // const { isMobile } = useScreenSize(930);
 
   const [isOpenDescription, setIsOpenDescription] = useState(false);
-  const [isImageShown, setIsImageShown] = useState(false);
+  // const [isImageShown, setIsImageShown] = useState(false);
 
   const toggleOpenDescription = () => {
     setIsOpenDescription((prev) => !prev);
@@ -44,24 +44,24 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
     }
   };
 
-  const handleHover = () => {
-    if (!isOpenDescription) {
-      setIsImageShown(true);
-    }
-  };
+  // const handleHover = () => {
+  //   if (!isOpenDescription) {
+  //     setIsImageShown(true);
+  //   }
+  // };
 
-  const handleUnhover = () => {
-    setIsImageShown(false);
-  };
+  // const handleUnhover = () => {
+  //   setIsImageShown(false);
+  // };
 
   return (
     <div
-      onMouseOver={handleHover}
-      onMouseLeave={handleUnhover}
+      // onMouseOver={handleHover}
+      // onMouseLeave={handleUnhover}
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {(isImageShown || isOpenDescription) &&
+        {/* {(isImageShown || isOpenDescription) &&
           !isMobile &&
           event.speaker?.photo && (
             <div className={c.speakerPhoto}>
@@ -71,7 +71,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
                 width={120}
               />
             </div>
-          )}
+          )} */}
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
@@ -97,7 +97,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
             <h4
               className={c.scheduleCardSubtitle}
               onClick={toggleOpenDescription}>
-              {getSpeakerCompanyStringForEvent(event)}
+              {/* {getSpeakerCompanyStringForEvent(event)} */}
             </h4>
             {isOpenDescription && (
               <div className={c.scheduleCardDescription}>
