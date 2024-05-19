@@ -53,9 +53,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
   };
 
   const handleCardClick = () => {
-    if (window.innerWidth < 800) {
-      toggleOpenDescription();
-    }
+    toggleOpenDescription();
   };
 
   const handleHover = () => {
@@ -105,19 +103,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
                 </div>
               )}
               <div className={c.scheduleCardTitleWrapper}>
-                <h3
-                  className={c.scheduleCardTitle}
-                  onClick={toggleOpenDescription}>
-                  {event.name}
-                </h3>
+                <h3 className={c.scheduleCardTitle}>{event.name}</h3>
               </div>
             </div>
             {event.speakers?.map((speaker) => {
               return (
                 <div key={speaker.id}>
-                  <h4
-                    className={c.scheduleCardSubtitle}
-                    onClick={toggleOpenDescription}>
+                  <h4 className={c.scheduleCardSubtitle}>
                     {getSpeakerCompanyStringForEvent(speaker)}
                   </h4>
                 </div>
@@ -131,7 +123,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          <button onClick={toggleOpenDescription} className={c.plusButton}>
+          <button className={c.plusButton}>
             <img src={PlusSvg} alt='plus' />
           </button>
         </div>
