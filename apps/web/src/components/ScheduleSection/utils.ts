@@ -1,4 +1,4 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { SpeakerWithCompanyDto } from '@ddays-app/types';
 
 export const getEventTime = (dateTimeString: string) => {
   const date = new Date(dateTimeString);
@@ -31,22 +31,24 @@ export const getEventTypeTranslation = (type: string) => {
   }
 };
 
-export const getSpeakerCompanyStringForEvent = (event: EventWithSpeakerDto) => {
-  if (!event.speaker) {
+export const getSpeakerCompanyStringForEvent = (
+  speaker: SpeakerWithCompanyDto,
+) => {
+  if (!speaker) {
     return '';
   }
 
-  if (!event.speaker.company) {
-    return event.speaker.firstName + ' ' + event.speaker.lastName;
+  if (!speaker.company?.name) {
+    return speaker.firstName + ' ' + speaker.lastName;
   }
 
   return (
-    event.speaker.firstName +
+    speaker.firstName +
     ' ' +
-    event.speaker.lastName +
+    speaker.lastName +
     ' / ' +
-    event.speaker.title +
+    speaker.title +
     ' @ ' +
-    event.speaker.company.name
+    speaker.company.name
   );
 };

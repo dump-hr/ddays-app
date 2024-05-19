@@ -1,4 +1,5 @@
 import {
+  CompanyPublicDto,
   EventDto,
   EventModifyDto,
   EventWithSpeakerDto,
@@ -67,56 +68,65 @@ export class EventService {
       .leftJoin(company, eq(speaker.companyId, company.id))
       .orderBy(event.startsAt);
 
-    const eventsWithSpeaker: EventWithSpeakerDto[] = result.map(
-      (eventWithSpeaker) => {
+    const eventIds = result.map(
+      (eventWithSpeaker) => eventWithSpeaker.event.id,
+    );
+
+    const eventIdsDistinct: number[] = [];
+
+    eventIds.forEach((id) => {
+      if (!eventIdsDistinct.includes(id)) {
+        eventIdsDistinct.push(id);
+      }
+    });
+
+    const eventsWithSpeakers: EventWithSpeakerDto[] = eventIdsDistinct.map(
+      (id) => {
+        const event = result.find((r) => r.event.id === id).event;
+
+        const speakers = result
+          .filter((r) => r.event.id === id)
+          .map((r) => r.speaker);
+
+        const speakersWithCompany = speakers.map((speaker) => {
+          const company =
+            speaker.companyId === null
+              ? null
+              : (result.find((r) => r.company.id === speaker.companyId)
+                  .company as CompanyPublicDto);
+
+          return {
+            id: speaker.id,
+            firstName: speaker.firstName,
+            lastName: speaker.lastName,
+            title: speaker.title,
+            companyId: speaker.companyId,
+            photo: speaker.photo,
+            instagram: speaker.instagram,
+            linkedin: speaker.linkedin,
+            description: speaker.description,
+            company: { ...company, password: undefined },
+          };
+        });
+
         return {
-          id: eventWithSpeaker.event.id,
-          name: eventWithSpeaker.event.name,
-          description: eventWithSpeaker.event.description,
-          type: eventWithSpeaker.event.type,
-          theme: eventWithSpeaker.event.theme,
-          startsAt: eventWithSpeaker.event.startsAt,
-          endsAt: eventWithSpeaker.event.endsAt,
-          requirements: eventWithSpeaker.event.requirements,
-          footageLink: eventWithSpeaker.event.footageLink,
-          maxParticipants: eventWithSpeaker.event.maxParticipants,
-          codeId: eventWithSpeaker.event.codeId,
-          speaker:
-            eventWithSpeaker.speaker_to_event !== null
-              ? {
-                  id: eventWithSpeaker.speaker.id,
-                  firstName: eventWithSpeaker.speaker.firstName,
-                  lastName: eventWithSpeaker.speaker.lastName,
-                  title: eventWithSpeaker.speaker.title,
-                  companyId: eventWithSpeaker.speaker.companyId,
-                  photo: eventWithSpeaker.speaker.photo,
-                  instagram: eventWithSpeaker.speaker.instagram,
-                  linkedin: eventWithSpeaker.speaker.linkedin,
-                  description: eventWithSpeaker.speaker.description,
-                  company:
-                    eventWithSpeaker.company !== null
-                      ? {
-                          id: eventWithSpeaker.company.id,
-                          category: eventWithSpeaker.company.category,
-                          name: eventWithSpeaker.company.name,
-                          username: eventWithSpeaker.company.username,
-                          description: eventWithSpeaker.company.description,
-                          opportunitiesDescription:
-                            eventWithSpeaker.company.opportunitiesDescription,
-                          website: eventWithSpeaker.company.website,
-                          logoImage: eventWithSpeaker.company.logoImage,
-                          landingImage: eventWithSpeaker.company.landingImage,
-                          video: eventWithSpeaker.company.video,
-                          codeId: eventWithSpeaker.company.codeId,
-                        }
-                      : null,
-                }
-              : null,
+          id: event.id,
+          name: event.name,
+          description: event.description,
+          startsAt: event.startsAt,
+          endsAt: event.endsAt,
+          maxParticipants: event.maxParticipants,
+          requirements: event.requirements,
+          footageLink: event.footageLink,
+          type: event.type,
+          theme: event.theme,
+          codeId: event.codeId,
+          speakers: speakersWithCompany,
         };
       },
     );
 
-    return eventsWithSpeaker;
+    return eventsWithSpeakers;
   }
 
   async remove(id: number) {
