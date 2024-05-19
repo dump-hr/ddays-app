@@ -93,7 +93,7 @@ export class EventService {
           const company =
             speaker.companyId === null
               ? null
-              : (result.find((r) => r.company.id === speaker.companyId)
+              : (result.find((r) => r.company?.id === speaker.companyId)
                   .company as CompanyPublicDto);
 
           return {
