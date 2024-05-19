@@ -86,7 +86,8 @@ export class EventService {
 
         const speakers = result
           .filter((r) => r.event.id === id)
-          .map((r) => r.speaker);
+          .map((r) => r.speaker)
+          .filter((s) => s !== null);
 
         const speakersWithCompany = speakers.map((speaker) => {
           const company =

@@ -26,8 +26,10 @@ export const getEventTypeTranslation = (type: string) => {
       return 'FLY TALK';
     case 'campfireTalk':
       return 'CAMPFIRE TALK';
+    case 'panel':
+      return 'PANEL';
     case 'other':
-      return 'OSTALO';
+      return null;
   }
 };
 

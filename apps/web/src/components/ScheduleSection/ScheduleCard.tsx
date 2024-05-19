@@ -97,9 +97,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
           </div>
           <div className={c.scheduleCardCenterWrapper}>
             <div className={c.scheduleCardCenter}>
-              <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>{getThemeShort(event.theme)}</p>
-              </div>
+              {event.type !== 'other' && (
+                <div className={c.themeBadge}>
+                  <p className={c.themeBadgeText}>
+                    {getThemeShort(event.theme)}
+                  </p>
+                </div>
+              )}
               <div className={c.scheduleCardTitleWrapper}>
                 <h3
                   className={c.scheduleCardTitle}

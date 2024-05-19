@@ -131,6 +131,7 @@ export const eventType = pgEnum('event_type', [
   'workshop',
   'flyTalk',
   'campfireTalk',
+  'panel',
   'other',
 ]);
 

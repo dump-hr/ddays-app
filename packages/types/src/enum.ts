@@ -18,6 +18,7 @@ export enum EventType {
   Workshop = 'workshop',
   FlyTalk = 'flyTalk',
   CampfireTalk = 'campfireTalk',
+  Panel = 'panel',
   Other = 'other',
 }
 
