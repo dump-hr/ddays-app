@@ -36,6 +36,8 @@ const ScheduleSection = () => {
     return null;
   }
 
+  console.log('events.data', events.data);
+
   return (
     <div className={c.ofXHidden} id='raspored'>
       <div className={c.scheduleSectionWrapper}>

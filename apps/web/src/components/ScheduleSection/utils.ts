@@ -38,7 +38,7 @@ export const getSpeakerCompanyStringForEvent = (
     return '';
   }
 
-  if (!speaker.company) {
+  if (!speaker.company?.name) {
     return speaker.firstName + ' ' + speaker.lastName;
   }
 
