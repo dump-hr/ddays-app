@@ -71,6 +71,13 @@
       "when": 1714315718175,
       "tag": "0009_old_lady_ursula",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1716132892106,
+      "tag": "0010_slimy_stature",
+      "breakpoints": true
     }
   ]
 }
