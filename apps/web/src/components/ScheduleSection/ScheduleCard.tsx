@@ -1,4 +1,4 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
@@ -130,11 +130,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
             )}
           </div>
         </div>
-        <div className={c.scheduleCardRight}>
-          <button onClick={toggleOpenDescription} className={c.plusButton}>
-            <img src={PlusSvg} alt='plus' />
-          </button>
-        </div>
+        {event.type !== EventType.Other && (
+          <div className={c.scheduleCardRight}>
+            <button onClick={toggleOpenDescription} className={c.plusButton}>
+              <img src={PlusSvg} alt='plus' />
+            </button>
+          </div>
+        )}
       </div>
       <div className={c.dottedRuler}>
         .........................................................................................................................................................................................................................
