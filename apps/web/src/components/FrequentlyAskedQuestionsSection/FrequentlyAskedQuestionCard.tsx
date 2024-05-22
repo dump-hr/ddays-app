@@ -22,14 +22,9 @@ const FrequentlyAskedQuestionCard = ({
     setIsAnswerOpen((prev) => !prev);
   };
 
-  const handleCardClick = () => {
-    if (window.innerWidth < 768) {
-      toggleAnswerOpen();
-    }
-  };
   return (
     <>
-      <div className={c.faqCard} onClick={handleCardClick}>
+      <div className={c.faqCard} onClick={toggleAnswerOpen}>
         <div className={c.faqCardLeft}>
           <div className={c.faqCardIndex}>{index}</div>
           <div className={c.faqCardInfo}>
