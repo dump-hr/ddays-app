@@ -48,6 +48,10 @@
 
   &Left {
     display: flex;
+
+    @media (max-width: 768px) {
+      align-items: baseline;
+    }
   }
 
   &Index {
@@ -95,7 +99,6 @@
     letter-spacing: -1px;
 
     @media (max-width: 768px) {
-      line-height: 24px;
       letter-spacing: -0.16px;
       font-size: 16px;
     }
