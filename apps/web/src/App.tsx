@@ -8,6 +8,7 @@ import faviconBlack from './assets/favicon-black.png';
 import faviconWhite from './assets/favicon-white.png';
 import { Path } from './constants/paths';
 import { getPageTitle } from './helpers';
+import { Chatbot } from './pages/Chatbot';
 import { LandingPage } from './pages/LandingPage';
 
 export const App = () => {
@@ -30,6 +31,7 @@ export const App = () => {
 
       <Switch>
         <Route path={Path.Landing} component={LandingPage} />
+        <Route path={Path.Chatbot} component={Chatbot} />
       </Switch>
 
       <Toaster />
