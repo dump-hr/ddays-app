@@ -1,8 +1,38 @@
 import Testimonial from 'components/Testimonial/Testimonial';
-
 import c from './TestimonialsSection.module.scss';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TestimonialsSection = () => {
+  const whiteSection = useRef(null);
+  const blackSection = useRef(null);
+  const beigeSection = useRef(null);
+
+  const testimonialSections = [whiteSection, blackSection, beigeSection];
+
+  useEffect(() => {
+    testimonialSections.forEach((section, index) => {
+      gsap.fromTo(
+        section.current,
+        { y: 0 },
+        {
+          y: index !== 2 ? index * 200 : index * 170,
+          duration: 1 * (index / 2),
+          delay: 1,
+          scrollTrigger: {
+            trigger: section.current,
+            start: 'bottom',
+            end: '+=100',
+            toggleActions: 'play none none none',
+          },
+        },
+      );
+    });
+  }, []);
+
   const testimonials = [
     {
       name: 'Miljenko Baković',
@@ -23,9 +53,9 @@ const TestimonialsSection = () => {
 
   return (
     <section className={c.testimonialsSection}>
-      <Testimonial color='white' {...testimonials[0]} />
-      <Testimonial color='black' {...testimonials[1]} />
-      <Testimonial color='beige' {...testimonials[2]} />
+      <Testimonial color='white' {...testimonials[0]} refEl={whiteSection} />
+      <Testimonial color='black' {...testimonials[1]} refEl={blackSection} />
+      <Testimonial color='beige' {...testimonials[2]} refEl={beigeSection} />
     </section>
   );
 };
