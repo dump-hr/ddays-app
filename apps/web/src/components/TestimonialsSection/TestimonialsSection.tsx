@@ -10,9 +10,9 @@ const TestimonialsSection = () => {
   const blackSection = useRef(null);
   const beigeSection = useRef(null);
 
-  const moveInFromTop = (
+  const moveInFromTopAnimate = (
     animationY: number,
-    section: MutableRefObject<any>,
+    section: MutableRefObject<null>,
     currIndex: number,
   ) => {
     const yValue = currIndex * animationY;
@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
     let ctx = gsap.context(() => {
       [blackSection, beigeSection].forEach((section, index) => {
         const currIndex = index + 1;
-        moveInFromTop(animationY, section, currIndex);
+        moveInFromTopAnimate(animationY, section, currIndex);
       });
     });
     return () => ctx.revert();
