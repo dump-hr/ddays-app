@@ -10,7 +10,7 @@ type TestimonialProps = {
   name: string;
   position: string;
   text: string;
-  refEl: React.RefObject<HTMLDivElement>;
+  refEl?: React.RefObject<HTMLDivElement>;
 };
 
 const Testimonial = ({

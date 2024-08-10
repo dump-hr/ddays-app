@@ -2,35 +2,46 @@ import Testimonial from 'components/Testimonial/Testimonial';
 import c from './TestimonialsSection.module.scss';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TestimonialsSection = () => {
-  const whiteSection = useRef(null);
   const blackSection = useRef(null);
   const beigeSection = useRef(null);
 
-  const testimonialSections = [whiteSection, blackSection, beigeSection];
+  const moveInFromTop = (
+    animationY: number,
+    section: MutableRefObject<any>,
+    currIndex: number,
+  ) => {
+    const yValue = currIndex * animationY;
+
+    gsap.to(section.current, {
+      y: currIndex !== 2 ? yValue : yValue * 0.85,
+      duration: 1,
+      delay: 0.3,
+      scrollTrigger: {
+        trigger: blackSection.current,
+        start: 'top 90%',
+        end: '+=200',
+        toggleActions: 'play none none none',
+      },
+    });
+  };
 
   useEffect(() => {
-    testimonialSections.forEach((section, index) => {
-      gsap.fromTo(
-        section.current,
-        { y: 0 },
-        {
-          y: index !== 2 ? index * 200 : index * 170,
-          duration: 1 * (index / 2),
-          delay: 1,
-          scrollTrigger: {
-            trigger: section.current,
-            start: 'bottom',
-            end: '+=100',
-            toggleActions: 'play none none none',
-          },
-        },
-      );
+    let animationY;
+    if (window.innerWidth < 768) animationY = 240;
+    else animationY = 200;
+
+    let ctx = gsap.context(() => {
+      [blackSection, beigeSection].forEach((section, index) => {
+        const currIndex = index + 1;
+        moveInFromTop(animationY, section, currIndex);
+      });
     });
+    return () => ctx.revert();
   }, []);
 
   const testimonials = [
@@ -53,7 +64,7 @@ const TestimonialsSection = () => {
 
   return (
     <section className={c.testimonialsSection}>
-      <Testimonial color='white' {...testimonials[0]} refEl={whiteSection} />
+      <Testimonial color='white' {...testimonials[0]} />
       <Testimonial color='black' {...testimonials[1]} refEl={blackSection} />
       <Testimonial color='beige' {...testimonials[2]} refEl={beigeSection} />
     </section>
