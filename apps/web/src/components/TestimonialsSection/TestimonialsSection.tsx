@@ -24,7 +24,6 @@ const TestimonialsSection = () => {
         trigger: beigeSection.current,
         start: 'top 90%',
         end: 'bottom 40%',
-        markers: true,
         scrub: true,
         toggleActions: 'play none none none',
       },
