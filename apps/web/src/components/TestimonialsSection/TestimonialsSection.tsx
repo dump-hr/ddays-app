@@ -18,13 +18,14 @@ const TestimonialsSection = () => {
     const yValue = currIndex * animationY;
 
     gsap.to(section.current, {
-      y: currIndex !== 2 ? yValue : yValue * 0.85,
-      duration: 1,
-      delay: 0.3,
+      y: currIndex === 1 ? yValue : yValue * 0.9,
+      duration: currIndex === 1 ? 1 : 1.5,
       scrollTrigger: {
-        trigger: blackSection.current,
+        trigger: beigeSection.current,
         start: 'top 90%',
-        end: '+=200',
+        end: 'bottom 40%',
+        markers: true,
+        scrub: true,
         toggleActions: 'play none none none',
       },
     });
@@ -32,8 +33,8 @@ const TestimonialsSection = () => {
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth < 768) animationY = 240;
-    else animationY = 200;
+    if (window.innerWidth < 768) animationY = 220;
+    else animationY = 185;
 
     let ctx = gsap.context(() => {
       [blackSection, beigeSection].forEach((section, index) => {
