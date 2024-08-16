@@ -3,12 +3,14 @@ import c from './TestimonialsSection.module.scss';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MutableRefObject, useEffect, useRef } from 'react';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TestimonialsSection = () => {
   const blackSection = useRef(null);
   const beigeSection = useRef(null);
+  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(748, 1024);
 
   const moveInFromTopAnimate = (
     animationY: number,
@@ -21,10 +23,14 @@ const TestimonialsSection = () => {
       y: currIndex === 1 ? yValue : yValue * 0.9,
       duration: currIndex === 1 ? 1 : 1.5,
       scrollTrigger: {
-        trigger: beigeSection.current,
-        start: 'top 90%',
-        end: 'bottom 40%',
+        trigger:
+          isMobile || isSmallScreen
+            ? blackSection.current
+            : beigeSection.current,
+        start: 'top 100%',
+        end: isMobile || isSmallScreen ? 'bottom 50%' : 'bottom 40%',
         scrub: true,
+        markers: true,
         toggleActions: 'play none none none',
       },
     });
@@ -32,17 +38,18 @@ const TestimonialsSection = () => {
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth < 768) animationY = 220;
+    if (window.innerWidth < 768) animationY = 230;
     else animationY = 185;
 
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       [blackSection, beigeSection].forEach((section, index) => {
         const currIndex = index + 1;
         moveInFromTopAnimate(animationY, section, currIndex);
       });
     });
+
     return () => ctx.revert();
-  }, []);
+  }, [isMobile, isSmallScreen, screenWidth]);
 
   const testimonials = [
     {
