@@ -1,9 +1,10 @@
 import Testimonial from 'components/Testimonial/Testimonial';
-import c from './TestimonialsSection.module.scss';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
+
 import { useScreenSize } from '../../hooks/useScreenSize';
+import c from './TestimonialsSection.module.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,29 +13,32 @@ const TestimonialsSection = () => {
   const beigeSection = useRef(null);
   const { isMobile, isSmallScreen, screenWidth } = useScreenSize(748, 1024);
 
-  const moveInFromTopAnimate = (
-    animationY: number,
-    section: MutableRefObject<null>,
-    currIndex: number,
-  ) => {
-    const yValue = currIndex * animationY;
+  const moveInFromTopAnimate = useCallback(
+    (
+      animationY: number,
+      section: MutableRefObject<null>,
+      currIndex: number,
+    ) => {
+      const yValue = currIndex * animationY;
 
-    gsap.to(section.current, {
-      y: currIndex === 1 ? yValue : yValue * 0.9,
-      duration: currIndex === 1 ? 1 : 1.5,
-      scrollTrigger: {
-        trigger:
-          isMobile || isSmallScreen
-            ? blackSection.current
-            : beigeSection.current,
-        start: 'top 100%',
-        end: isMobile || isSmallScreen ? 'bottom 50%' : 'bottom 40%',
-        scrub: true,
-        markers: true,
-        toggleActions: 'play none none none',
-      },
-    });
-  };
+      gsap.to(section.current, {
+        y: currIndex === 1 ? yValue : yValue * 0.9,
+        duration: currIndex === 1 ? 1 : 1.5,
+        scrollTrigger: {
+          trigger:
+            isMobile || isSmallScreen
+              ? blackSection.current
+              : beigeSection.current,
+          start: 'top 100%',
+          end: isMobile || isSmallScreen ? 'bottom 50%' : 'bottom 40%',
+          scrub: true,
+          markers: true,
+          toggleActions: 'play none none none',
+        },
+      });
+    },
+    [isMobile, isSmallScreen],
+  );
 
   useEffect(() => {
     let animationY;
@@ -49,7 +53,7 @@ const TestimonialsSection = () => {
     });
 
     return () => ctx.revert();
-  }, [isMobile, isSmallScreen, screenWidth]);
+  }, [isMobile, isSmallScreen, screenWidth, moveInFromTopAnimate]);
 
   const testimonials = [
     {
