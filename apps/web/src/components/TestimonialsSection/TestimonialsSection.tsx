@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const TestimonialsSection = () => {
   const blackSection = useRef(null);
   const beigeSection = useRef(null);
-  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(748, 1024);
+  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(768, 1024);
 
   const moveInFromTopAnimate = useCallback(
     (
@@ -42,7 +42,7 @@ const TestimonialsSection = () => {
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth < 768) animationY = 230;
+    if (isMobile) animationY = 230;
     else animationY = 185;
 
     const ctx = gsap.context(() => {
