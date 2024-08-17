@@ -29,7 +29,7 @@ const TestimonialsSection = () => {
             isMobile || isSmallScreen
               ? blackSection.current
               : beigeSection.current,
-          start: isMobile || isSmallScreen ? 'top 80%' : 'top 70%',
+          start: isMobile || isSmallScreen ? 'top 80%' : 'top 90%',
           end: 'bottom center',
           scrub: true,
           toggleActions: 'play none none none',
@@ -41,12 +41,12 @@ const TestimonialsSection = () => {
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth <= 768) animationY = 550;
+    if (window.innerWidth <= 768) animationY = 460;
     else if (window.innerWidth > 768 && window.innerWidth < 924)
       animationY = 350;
     else if (window.innerWidth >= 925 && window.innerWidth < 1200)
       animationY = 220;
-    else animationY = 185;
+    else animationY = 200;
 
     const ctx = gsap.context(() => {
       [blackSection, beigeSection].forEach((section, index) => {
