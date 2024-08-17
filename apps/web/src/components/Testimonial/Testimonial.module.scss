@@ -36,13 +36,23 @@
     bottom: 320px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 924px) and (min-width: 769px) {
     &.black {
-      bottom: 250px;
+      bottom: 350px;
     }
 
     &.beige {
-      bottom: 400px;
+      bottom: 570px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    &.black {
+      bottom: 500px;
+    }
+
+    &.beige {
+      bottom: 900px;
     }
   }
 

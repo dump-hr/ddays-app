@@ -22,15 +22,15 @@ const TestimonialsSection = () => {
       const yValue = currIndex * animationY;
 
       gsap.to(section.current, {
-        y: currIndex === 1 ? yValue : yValue * 0.9,
+        y: currIndex === 1 ? yValue : yValue * 0.85,
         duration: currIndex === 1 ? 1 : 1.5,
         scrollTrigger: {
           trigger:
             isMobile || isSmallScreen
               ? blackSection.current
               : beigeSection.current,
-          start: 'top 100%',
-          end: isMobile || isSmallScreen ? 'bottom 50%' : 'bottom 40%',
+          start: isMobile || isSmallScreen ? 'top 80%' : 'top 70%',
+          end: 'bottom center',
           scrub: true,
           toggleActions: 'play none none none',
         },
@@ -41,7 +41,11 @@ const TestimonialsSection = () => {
 
   useEffect(() => {
     let animationY;
-    if (isMobile) animationY = 230;
+    if (window.innerWidth <= 768) animationY = 550;
+    else if (window.innerWidth > 768 && window.innerWidth < 924)
+      animationY = 350;
+    else if (window.innerWidth >= 925 && window.innerWidth < 1200)
+      animationY = 220;
     else animationY = 185;
 
     const ctx = gsap.context(() => {
