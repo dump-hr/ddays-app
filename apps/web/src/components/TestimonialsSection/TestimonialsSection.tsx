@@ -32,7 +32,6 @@ const TestimonialsSection = () => {
           start: 'top 100%',
           end: isMobile || isSmallScreen ? 'bottom 50%' : 'bottom 40%',
           scrub: true,
-          markers: true,
           toggleActions: 'play none none none',
         },
       });
