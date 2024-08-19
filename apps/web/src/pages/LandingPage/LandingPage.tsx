@@ -55,6 +55,7 @@ export const LandingPage: React.FC = () => {
       <RegistrationSection />
       <GallerySection />
       <TestimonialsSection />
+      <SectionBreaker fg='dark' bg='light' />
       <FrequentlyAskedQuestionsSection />
       <FooterSection />
     </ReactLenis>
