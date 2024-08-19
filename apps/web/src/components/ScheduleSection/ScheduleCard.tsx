@@ -25,9 +25,15 @@ const getThemeShort = (theme: string) => {
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
+  openCardId: number | null;
+  setOpenCardId: (id: number | null) => void;
 };
 
-const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+const ScheduleCard: React.FC<ScheduleCardProps> = ({
+  event,
+  openCardId,
+  setOpenCardId,
+}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = event.speakers
@@ -45,15 +51,15 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
   const cardAspectRatio = 401 / 320;
   const { isMobile } = useScreenSize(930);
 
-  const [isOpenDescription, setIsOpenDescription] = useState(false);
+  const isOpenDescription = openCardId === event.id;
   const [isImageShown, setIsImageShown] = useState(false);
 
-  const toggleOpenDescription = () => {
-    setIsOpenDescription((prev) => !prev);
-  };
-
   const handleCardClick = () => {
-    toggleOpenDescription();
+    if (isOpenDescription) {
+      setOpenCardId(null);
+    } else {
+      setOpenCardId(event.id);
+    }
   };
 
   const handleHover = () => {
