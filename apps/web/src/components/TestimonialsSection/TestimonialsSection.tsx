@@ -33,7 +33,7 @@ const TestimonialsSection = () => {
         },
       });
     },
-    [],
+    [beigeSection],
   );
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const TestimonialsSection = () => {
     else if (window.innerWidth > 768 && window.innerWidth < 924)
       animationY = 350;
     else if (window.innerWidth >= 925 && window.innerWidth < 1200)
-      animationY = 220;
+      animationY = 212;
     else animationY = 200;
 
     const ctx = gsap.context(() => {
