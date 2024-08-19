@@ -25,23 +25,20 @@ const TestimonialsSection = () => {
         y: currIndex === 1 ? yValue : yValue * 0.85,
         duration: currIndex === 1 ? 1 : 1.5,
         scrollTrigger: {
-          trigger:
-            isMobile || isSmallScreen
-              ? blackSection.current
-              : beigeSection.current,
-          start: isMobile || isSmallScreen ? 'top 80%' : 'top 90%',
-          end: 'bottom center',
+          trigger: beigeSection.current,
+          start: 'top 90%',
+          end: 'bottom 60%',
           scrub: true,
           toggleActions: 'play none none none',
         },
       });
     },
-    [isMobile, isSmallScreen],
+    [],
   );
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth <= 768) animationY = 460;
+    if (window.innerWidth <= 768) animationY = 425;
     else if (window.innerWidth > 768 && window.innerWidth < 924)
       animationY = 350;
     else if (window.innerWidth >= 925 && window.innerWidth < 1200)
