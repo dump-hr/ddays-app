@@ -153,6 +153,11 @@
     text-transform: uppercase;
     margin: 0;
   }
+
+  &CompanyName {
+    @extend .cardTitle;
+    margin-top: 4px;
+  }
 }
 
 .card:last-child {
