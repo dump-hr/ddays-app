@@ -11,44 +11,47 @@ gsap.registerPlugin(ScrollTrigger);
 const TestimonialsSection = () => {
   const blackSection = useRef(null);
   const beigeSection = useRef(null);
-  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(768, 1024);
+  const { isMobile, isSmallScreen, screenWidth } = useScreenSize(420, 1024);
 
   const moveInFromTopAnimate = useCallback(
     (
       animationY: number,
       section: MutableRefObject<null>,
       currIndex: number,
+      endAnimationValue: string,
     ) => {
       const yValue = currIndex * animationY;
 
       gsap.to(section.current, {
         y: currIndex === 1 ? yValue : yValue * 0.85,
-        duration: currIndex === 1 ? 1 : 1.5,
         scrollTrigger: {
           trigger: beigeSection.current,
-          start: 'top 90%',
-          end: 'bottom 60%',
+          start: isMobile ? 'top 100%' : 'top 90%',
+          end: endAnimationValue,
           scrub: true,
           toggleActions: 'play none none none',
         },
       });
     },
-    [beigeSection],
+    [beigeSection, isMobile],
   );
 
   useEffect(() => {
     let animationY;
-    if (window.innerWidth <= 768) animationY = 425;
-    else if (window.innerWidth > 768 && window.innerWidth < 924)
-      animationY = 350;
-    else if (window.innerWidth >= 925 && window.innerWidth < 1200)
-      animationY = 212;
+    const width = window.innerWidth;
+
+    if (width <= 450) animationY = 460;
+    else if (width <= 768) animationY = 425;
+    else if (width > 768 && width < 924) animationY = 350;
+    else if (width >= 925 && width < 1200) animationY = 212;
     else animationY = 200;
+
+    const endAnimationValue = width <= 480 ? '+=400' : '+=600';
 
     const ctx = gsap.context(() => {
       [blackSection, beigeSection].forEach((section, index) => {
         const currIndex = index + 1;
-        moveInFromTopAnimate(animationY, section, currIndex);
+        moveInFromTopAnimate(animationY, section, currIndex, endAnimationValue);
       });
     });
 

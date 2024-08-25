@@ -46,13 +46,23 @@
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) and (min-width: 451px) {
     &.black {
       bottom: 390px;
     }
 
     &.beige {
       bottom: 710px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    &.black {
+      bottom: 440px;
+    }
+
+    &.beige {
+      bottom: 740px;
     }
   }
 
