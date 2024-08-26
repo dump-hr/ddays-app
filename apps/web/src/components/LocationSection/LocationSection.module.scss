@@ -1,3 +1,4 @@
+@use '../../styles/mixins';
 @import 'styles/calc.scss';
 
 h1,
@@ -212,10 +213,12 @@ div {
   }
 }
 
+.dottedRulerStamp {
+  @include mixins.dottedBreak();
+}
+
 .dottedRuler {
-  overflow: hidden;
-  letter-spacing: 3px;
-  color: #88888888;
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.30));
 }
 
 .locationInfo {
