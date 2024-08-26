@@ -1,3 +1,5 @@
+@use '../../styles/mixins';
+
 .container {
   position: relative;
   background-color: #000;
@@ -43,8 +45,9 @@
 .faqCard {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
+  height: 40px;
 
   &Left {
     display: flex;
@@ -130,11 +133,8 @@
 }
 
 .dottedRuler {
-  overflow: hidden;
-  letter-spacing: 3px;
-  color: #88888888;
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.2));
   margin: 40px 0;
-
   @media (max-width: 768px) {
     margin: 32px 0;
   }
