@@ -8,11 +8,18 @@ type Color = 'white' | 'black' | 'beige';
 type TestimonialProps = {
   color: Color;
   name: string;
-  position: string;
+  title: string;
+  company: string;
   text: string;
 };
 
-const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
+const Testimonial = ({
+  color,
+  name,
+  title,
+  company,
+  text,
+}: TestimonialProps) => {
   const classes = clsx({
     [c.testimonial]: true,
     [c.white]: color === 'white',
@@ -27,7 +34,8 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
         <img src={QuotesIcon} className={c.quote} />
         <div className={c.infoWrapper}>
           <p className={c.name}>{name}</p>
-          <p className={c.position}>{position}</p>
+          <p className={c.title}>{title}</p>
+          <p className={c.company}>@ {company}</p>
         </div>
       </div>
       <div className={c.rightWrapper}>
