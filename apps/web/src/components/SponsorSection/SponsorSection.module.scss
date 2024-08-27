@@ -416,25 +416,16 @@ figure {
             max-height: vw-mobile-calc(32);
           }
         }
-
+ 
         .horizontalDots {
+          @include mixins.dottedBreak();
           position: absolute;
-          bottom: vw-calc(-20);
-          left: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: vw-calc(310);
-          overflow: hidden;
-          letter-spacing: vw-calc(4);
-          color: $dot-color;
-          font-size: vw-calc(14);
+          bottom: 0;
+          width: calc(100% - vw-calc(16));
+          
 
           @media (max-width: 768px) {
-            width: vw-mobile-calc(160);
-            letter-spacing: vw-mobile-calc(4);
-            font-size: vw-mobile-calc(8);
-            bottom: vw-mobile-calc(-10);
+            width: 100%;
           }
         }
 
