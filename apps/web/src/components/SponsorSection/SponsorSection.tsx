@@ -156,9 +156,9 @@ export const SponsorSection: React.FC = () => {
                     silverSponsors.length -
                       (silverSponsors.length % maxSponsors)
                   : index < silverSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>

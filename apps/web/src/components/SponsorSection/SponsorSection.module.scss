@@ -439,29 +439,17 @@ figure {
         }
 
         .verticalDots {
+          @include mixins.dottedBreak();
+          width: 2px;
+          height: 100%;
+          background-size: 2px 8px;
+          background-repeat: repeat-y;
+
           position: absolute;
-          top: vw-calc(70);
-          right: vw-calc(-75);
-          width: 45%;
-          display: flex;
-          flex-wrap: nowrap;
-          height: vw-calc(14);
-          overflow: hidden;
-          letter-spacing: vw-calc(4);
-          color: $dot-color;
-          font-size: vw-calc(14);
-          transform: rotate(90deg);
-          text-overflow: clip;
-          word-break: break-all;
-          word-wrap: none;
+          right: -2.5%;
 
           @media (max-width: 768px) {
-            letter-spacing: vw-mobile-calc(4);
-            font-size: vw-mobile-calc(8);
-            right: vw-mobile-calc(-56);
-            top: vw-mobile-calc(35);
-            width: 55%;
-            height: vw-mobile-calc(8);
+            right: -7.19%;
           }
         }
       }
