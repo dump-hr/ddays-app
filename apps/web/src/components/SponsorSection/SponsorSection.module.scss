@@ -200,18 +200,8 @@ figure {
       }
 
       .dots {
-        width: 100%;
-        letter-spacing: vw-calc(4);
-        color: $dot-color;
-        font-size: vw-calc(14);
-        overflow: hidden;
-        height: vw-calc(14);
-
-        @media (max-width: 768px) {
-          height: vw-mobile-calc(14);
-          font-size: vw-mobile-calc(12);
-          letter-spacing: vw-mobile-calc(4);
-        }
+        @include mixins.dottedBreak();
+        margin-top: vw-calc(16);
       }
 
       .sponsor {
@@ -287,7 +277,7 @@ figure {
         .name {
           color: $primary;
           font-size: vw-calc(24);
-          margin-top: vw-calc(16);
+          margin-top: vw-calc(32);
           line-height: vw-calc(32);
           text-transform: uppercase;
           font-weight: 500;
