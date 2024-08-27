@@ -716,6 +716,10 @@ figure {
   @include mixins.dottedBreak(#8888);
   position: absolute;
   left:-3px;
+
+  @media screen and (max-width: 950px) {
+    height: 14px;
+  }
 }
 
 .verticalRuler {
@@ -728,7 +732,9 @@ figure {
   bottom: -3px;
   height: 100%;
 
-
+  @media screen and (max-width: 950px) {
+    height: calc(100% - 12px);
+  }
 }
 
 .positionBottom {
