@@ -179,9 +179,9 @@ export const SponsorSection: React.FC = () => {
                     bronzeSponsors.length -
                       (bronzeSponsors.length % maxSponsors)
                   : index < bronzeSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
@@ -200,9 +200,9 @@ export const SponsorSection: React.FC = () => {
                   ? index <
                     mediaSponsors.length - (mediaSponsors.length % maxSponsors)
                   : index < mediaSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
@@ -224,9 +224,9 @@ export const SponsorSection: React.FC = () => {
                     friendSponsors.length -
                       (friendSponsors.length % maxSponsors)
                   : index < friendSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
