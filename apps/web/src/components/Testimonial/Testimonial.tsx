@@ -31,7 +31,11 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
         </div>
       </div>
       <div className={c.rightWrapper}>
-        <p className={c.text}>{text}</p>
+      <div className={c.verticalDots}></div>
+        <p className={c.text}>
+          {text}
+          <div className={c.horizontalDots}></div>
+        </p>
       </div>
     </div>
   );

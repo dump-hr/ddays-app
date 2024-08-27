@@ -1,3 +1,4 @@
+@use '../../styles/mixins';
 .testimonial {
   display: flex;
   gap: 65px;
@@ -22,7 +23,7 @@
 
   &.black {
     --background-color: #171615;
-    --border-color: #4b4b4b;
+    --border-color: #4B4B4B;
     --color-1: rgba(255, 255, 255, 0.7);
     --color-2: rgba(255, 255, 255, 0.7);
   }
@@ -87,9 +88,10 @@
 
   .rightWrapper {
     width: 100%;
+    display: flex;
+    flex-direction: row;
 
     .text {
-      border-left: 3px dotted var(--border-color);
       padding-left: 32px;
 
       color: var(--color-2);
@@ -100,6 +102,20 @@
       line-height: 32px;
       letter-spacing: -1px;
       max-width: 670px;
+
+      .horizontalDots{
+        display: none;
+      }
+    }
+
+    .verticalDots {
+      @include mixins.dottedBreak(var(--border-color));
+      width: 3px;
+      height: inherit;
+      background-size: 2px 8px;
+      background-repeat: repeat-y;
+  
+      display: block;
     }
   }
 
@@ -111,10 +127,15 @@
 
     .rightWrapper {
       .text {
-        border-left: none;
-        padding: 0;
-        border-bottom: 3px dotted var(--border-color);
-        padding-bottom: 32px;
+        .horizontalDots {
+          @include mixins.dottedBreak(var(--border-color));
+          margin-top: 32px;
+          display: block;
+        }
+      }
+
+      .verticalDots{
+        display: none;
       }
     }
 
