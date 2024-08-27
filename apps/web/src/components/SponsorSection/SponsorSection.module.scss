@@ -1,3 +1,4 @@
+@use '../../styles/mixins';
 @import 'styles/calc';
 @import 'styles/variables';
 
@@ -656,6 +657,9 @@ figure {
 
   &Inner {
     padding: 0px 32px;
+    position: absolute;
+    top:0px;
+    height: 100%;
   }
 
   @media screen and (max-width: 950px) {
@@ -709,26 +713,28 @@ figure {
 }
 
 .dottedRuler {
-  letter-spacing: 4px;
-  color: #88888888;
-  text-align: center;
+  @include mixins.dottedBreak(#8888);
+  position: absolute;
+  left:-3px;
 }
 
 .verticalRuler {
-  letter-spacing: 4px;
-  color: #88888888;
-  text-align: center;
+  @include mixins.dottedBreak(#8888);
+  background-repeat: repeat-y;
+  background-size: 2px 8px;
+  width: 2px;
   position: absolute;
-  top: 0;
-  left: 0;
-  transform: rotate(-90deg) translateY(-142px) translateX(-146px);
+  top:-3px;
+  bottom: -3px;
+  height: 100%;
+
+
 }
 
 .positionBottom {
-  position: absolute;
-  bottom: 0px;
+  bottom: 1px;
 }
 
 .verticalRulerEnd {
-  left: calc(100% - 6px);
+  right: 2px;
 }
