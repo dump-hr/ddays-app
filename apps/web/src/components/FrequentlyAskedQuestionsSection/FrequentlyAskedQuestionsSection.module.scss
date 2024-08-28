@@ -57,6 +57,7 @@
 
   &Index {
     @include mixins.themeBadge();
+    margin-top: 4px;
   }
 
   &Info {

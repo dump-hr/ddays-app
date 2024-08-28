@@ -578,24 +578,15 @@ figure {
 }
 
 .themeBadge {
+  @include mixins.themeBadge();
   width: 46px;
   height: 24px;
   padding: 12px 23px;
   margin-right: 16px;
-  border-radius: 50%;
-  background-color: #ff482f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   &Text {
-    margin: 0;
-    color: #fff;
     font-family: 'PP Neue Montreal Mono';
     font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
