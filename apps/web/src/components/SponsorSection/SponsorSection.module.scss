@@ -579,17 +579,10 @@ figure {
 
 .themeBadge {
   @include mixins.themeBadge();
-  width: 46px;
+  width: 50px;
   height: 24px;
   padding: 12px 23px;
   margin-right: 16px;
-
-  &Text {
-    font-family: 'PP Neue Montreal Mono';
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
 }
 
 .jobsContainer {

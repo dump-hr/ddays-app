@@ -25,6 +25,13 @@
   line-height: 16px;
   letter-spacing: 0.5px;
 
+  &Text {
+    font-family: 'PP Neue Montreal Mono', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
   @media (max-width: 768px) {
     margin-top: 0;
   }
