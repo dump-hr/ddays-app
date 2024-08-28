@@ -1,0 +1,32 @@
+@mixin themeBadge() {
+  margin-top: 4px;
+  padding: 4px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 20px;
+  border-radius: 50%;
+  background-image: url('https://s3-alpha-sig.figma.com/img/9969/6c9d/e670d32749a89d63b61d33ec9b8c7754?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~Tek1WG21fzEcvDgJ0ia7jLYv2N83Qj22DqoC08L9cYx-qiNn5km25wnv0mT~R4W5AcuEBeS~8n3U0tds2GilCqP6vJkOtoq4Xhavu4EYe4WJRqLhKhTIGhBZ1pJVpaRl7SFU9NuDGOXCsiJh1Oa9-pCzo00i-n-W9LeHDBkRMXbJkjtgqIUDGUBtongvA4VyK7wNovnQG0LHVUkpC4NdUh9qnrAoVpSqi-MaPAt-j4Eeo65ZRujXF6BKibaRWGRgkKyvCUBifJnVIJ12anv1wdw7JP8KSlEHSynKW1Fhag5Bdk7YHj63aDwQDoT8av0O6oohzXqcBUP9U0sKGVng__'),
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+  background-position: -4.799px -3.104px;
+  background-size: 123.995% 130.419%;
+  background-repeat: no-repeat;
+  background-color: rgb(255, 72, 47);
+  background-blend-mode: difference, soft-light, normal;
+  color: #fff;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
+}
