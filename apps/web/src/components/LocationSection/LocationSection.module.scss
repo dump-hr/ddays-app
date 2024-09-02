@@ -303,21 +303,19 @@ div {
 
 .date {
   margin-top: vw-calc(76);
-  padding-left: vw-calc(27);
+  margin-left: vw-calc(37);
   position: relative;
-  width: 100%;
 
-  &Text {
-    display: inline;
+  @mixin sharedTextStyles {
+    display: inline-flex;
     color: #fff;
     text-align: center;
     font-feature-settings: 'ss12' on;
     font-family: 'PP Neue Machina';
-    font-size: vw-calc(250.265);
+    font-size: vw-calc(268.265);
     font-style: normal;
     font-weight: 500;
-    line-height: vw-calc(262.265);
-    letter-spacing: vw-calc(5.245);
+    line-height: vw-calc(266);
     text-transform: uppercase;
     opacity: 0.2;
     mix-blend-mode: overlay;
@@ -325,37 +323,40 @@ div {
     @media (max-width: 992px) {
       font-size: vw-mid-calc(65.491);
       line-height: vw-mid-calc(64.026);
+    }
+  }
+
+  &Text {
+    @include sharedTextStyles;
+    letter-spacing: vw-calc(5.245);
+
+    @media (max-width: 992px) {
       letter-spacing: vw-mid-calc(1.281);
     }
   }
 
+  &SecondPart {
+    @include sharedTextStyles;
+    letter-spacing: vw-calc(13.987);
+
+    @media (max-width: 992px) {
+      letter-spacing: vw-mid-calc(3.415);
+    }
+  }
+
   &Span {
-    display: none;
-    position: relative;
-    display: inline;
-    color: transparent;
-    text-align: center;
-    font-feature-settings: 'ss12' on;
-    font-family: 'PP Neue Machina', sans-serif;
-    font-size: vw-calc(268.265);
-    font-style: normal;
-    font-weight: 500;
-    line-height: vw-calc(262.265);
-    letter-spacing: vw-calc(5.245);
-    text-transform: uppercase;
+    position: absolute;
+    left: vw-calc(556);
+    top: vw-calc(6);
 
     &Image {
       position: absolute;
       z-index: 1;
-      top: vw-calc(12);
-      right: 0;
-      left: 0;
       margin: 0 auto;
       width: vw-calc(254);
       height: vw-calc(182);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(2);
         width: vw-mid-calc(69.273);
         height: vw-mid-calc(49.637);
       }
@@ -364,13 +365,9 @@ div {
     &::after {
       content: '';
       position: absolute;
-      top: vw-calc(-40);
-      right: 0;
-      left: 0;
+      top: - vw-calc(52);
+      left: vw-calc(22);
       margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: vw-calc(210.721);
       height: vw-calc(286);
       background-image: url('../../assets/stamp.svg');
@@ -380,17 +377,21 @@ div {
       transform: rotate(-90deg);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(-12);
+        left: vw-mid-calc(5.9015);
+        top: vw-mid-calc(-14.182);
         width: vw-mid-calc(57.47);
         height: vw-mid-calc(78.001);
       }
     }
 
     @media (max-width: 992px) {
-      font-size: vw-mid-calc(65.491);
-      line-height: vw-mid-calc(64.026);
-      letter-spacing: vw-mid-calc(1.281);
+      left: vw-mid-calc(136.14);
+      top: vw-mid-calc(4.52);
     }
+  }
+  @media (max-width: 992px) {
+    margin-left: vw-mid-calc(17.22);
+    margin-top: 0px;
   }
 }
 

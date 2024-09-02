@@ -52,17 +52,15 @@ const LocationSection = () => {
         </div>
       </div>
       <div className={c.date}>
-        <p className={c.dateText}>23. </p>
+        <p className={c.dateText}>23. — 24.</p>
         <span className={c.dateSpan}>
-          {' '}
-          —{' '}
           <img
             src={splitStamp}
             alt='split stamp'
             className={c.dateSpanImage}
           />{' '}
         </span>
-        <p className={c.dateText}>24. 05. 2024.</p>
+        <p className={c.dateSecondPart}>05. 2024</p>
       </div>
       <div className={c.dateBreaker}>
         <SectionBreaker fg='light' />
