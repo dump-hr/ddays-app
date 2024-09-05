@@ -1,4 +1,5 @@
 import { EventWithSpeakerDto } from '@ddays-app/types';
+import MinusSvg from 'assets/icons/minus-black.svg';
 import { useEffect, useState } from 'react';
 
 import PlusSvg from '../../assets/Plus.svg';
@@ -130,7 +131,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </div>
         <div className={c.scheduleCardRight}>
           <button className={c.plusButton}>
-            <img src={PlusSvg} alt='plus' />
+            {isOpenDescription ? (
+              <img src={MinusSvg} alt='minus' />
+            ) : (
+              <img src={PlusSvg} alt='plus' />
+            )}
           </button>
         </div>
       </div>
