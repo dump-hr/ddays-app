@@ -60,6 +60,7 @@
     line-height: 120px;
     letter-spacing: -5px;
     text-transform: uppercase;
+    z-index: 1;
 
     @media screen and (max-width: 684px) {
       font-size: 64px;
