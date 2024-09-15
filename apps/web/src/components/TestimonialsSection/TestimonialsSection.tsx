@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
   );
 
   useEffect(() => {
-    let animationY;
+    let animationY: number;
     const width = window.innerWidth;
 
     if (width <= 450) animationY = 460;
