@@ -5,6 +5,7 @@
   justify-content: center;
   width: 100%;
   overflow-x: clip;
+  position: relative;
 
   @media screen and (min-width: 768px) {
     > div {
