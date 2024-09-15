@@ -12,12 +12,14 @@
 
   --background-color: #fff;
   --border-color: rgba(23, 22, 21, 0.3);
+  --testimonial-z-index: 1;
 
-  --color-1: rgba(23, 22, 21, 0.6);
+  --color-1: rgba(7, 7, 6, 0.6);
   --color-2: rgba(23, 22, 21, 0.7);
 
   &.white {
     --background-color: #fff;
+    --testimonial-z-index: 1;
   }
 
   &.black {
@@ -25,16 +27,50 @@
     --border-color: #4b4b4b;
     --color-1: rgba(255, 255, 255, 0.7);
     --color-2: rgba(255, 255, 255, 0.7);
+    --testimonial-z-index: 2;
+    bottom: 180px;
   }
-
   &.beige {
     --background-color: #fcf8eb;
+    --testimonial-z-index: 3;
+    bottom: 320px;
   }
 
+  @media screen and (max-width: 924px) and (min-width: 769px) {
+    &.black {
+      bottom: 350px;
+    }
+
+    &.beige {
+      bottom: 570px;
+    }
+  }
+
+  @media screen and (max-width: 768px) and (min-width: 451px) {
+    &.black {
+      bottom: 390px;
+    }
+
+    &.beige {
+      bottom: 710px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    &.black {
+      bottom: 440px;
+    }
+
+    &.beige {
+      bottom: 740px;
+    }
+  }
+
+  z-index: var(--testimonial-z-index);
   background-color: var(--background-color);
 
   .sectionBreaker {
-    z-index: 5;
+    z-index: var(--testimonial-z-index);
     position: absolute;
     left: 0;
     top: -44px;
