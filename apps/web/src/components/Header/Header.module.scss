@@ -14,6 +14,11 @@
   background: transparent;
   transition: 300ms;
 
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   &.blend {
     mix-blend-mode: difference;
 
