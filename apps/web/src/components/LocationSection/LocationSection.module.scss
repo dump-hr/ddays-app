@@ -1,3 +1,4 @@
+@use 'styles/mixins';
 @import 'styles/calc.scss';
 
 h1,
@@ -241,22 +242,12 @@ div {
     }
 
     &Button {
+      @include mixins.themeBadge();
       margin-left: 266px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 53px;
       height: 24px;
-      border-radius: 50%;
-      background-color: #ff482f;
-      color: #fff;
-      font-family: 'PP Neue Montreal Mono', sans-serif;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 16px;
-      letter-spacing: 0.5px;
       text-transform: uppercase;
+      background-position: -6.359px -3.65px;
 
       @media (max-width: 768px) {
         margin-left: auto;
