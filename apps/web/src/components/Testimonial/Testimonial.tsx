@@ -10,9 +10,16 @@ type TestimonialProps = {
   name: string;
   position: string;
   text: string;
+  refEl?: React.RefObject<HTMLDivElement>;
 };
 
-const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
+const Testimonial = ({
+  color,
+  name,
+  position,
+  text,
+  refEl,
+}: TestimonialProps) => {
   const classes = clsx({
     [c.testimonial]: true,
     [c.white]: color === 'white',
@@ -21,7 +28,7 @@ const Testimonial = ({ color, name, position, text }: TestimonialProps) => {
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} ref={refEl}>
       <div className={c.sectionBreaker} />
       <div className={c.leftWrapper}>
         <img src={QuotesIcon} className={c.quote} />

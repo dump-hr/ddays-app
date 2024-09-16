@@ -307,6 +307,10 @@ figure {
             font-weight: 500;
             line-height: vw-calc(24);
             letter-spacing: vw-calc(1);
+            font-size: 13px;
+            line-height: 12px;
+            letter-spacing: -0.39px;
+            text-transform: uppercase;
 
             @media (max-width: 768px) {
               font-size: vw-mobile-calc(12);
@@ -315,13 +319,9 @@ figure {
           }
 
           .ellipse {
+            @include mixins.themeBadge();
             width: vw-calc(40);
             height: vw-calc(20);
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            background: $tertiary;
-            display: flex;
             z-index: 1;
 
             @media (max-width: 768px) {
@@ -416,13 +416,12 @@ figure {
             max-height: vw-mobile-calc(32);
           }
         }
- 
+
         .horizontalDots {
           @include mixins.dottedBreak();
           position: absolute;
           bottom: 0;
           width: calc(100% - vw-calc(16));
-          
 
           @media (max-width: 768px) {
             width: 100%;
@@ -547,27 +546,11 @@ figure {
 }
 
 .themeBadge {
-  width: 46px;
+  @include mixins.themeBadge();
+  width: 50px;
   height: 24px;
   padding: 12px 23px;
   margin-right: 16px;
-  border-radius: 50%;
-  background-color: #ff482f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &Text {
-    margin: 0;
-    color: #fff;
-    font-family: 'PP Neue Montreal Mono';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
 }
 
 .jobsContainer {
@@ -627,7 +610,7 @@ figure {
   &Inner {
     padding: 0px 32px;
     position: absolute;
-    top:0px;
+    top: 0px;
     height: 100%;
   }
 
@@ -684,7 +667,7 @@ figure {
 .dottedRuler {
   @include mixins.dottedBreak(#8888);
   position: absolute;
-  left:-3px;
+  left: -3px;
 
   @media screen and (max-width: 950px) {
     height: 14px;
@@ -697,7 +680,7 @@ figure {
   background-size: 2px 8px;
   width: 2px;
   position: absolute;
-  top:-3px;
+  top: -3px;
   bottom: -3px;
   height: 100%;
 
