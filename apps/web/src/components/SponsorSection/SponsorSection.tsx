@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
-import { dotMaker } from '../../helpers/dotMaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import { SponsorJobCount } from './SponsorJobCount';
 import SponsorModal from './SponsorModal';
