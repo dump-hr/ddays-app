@@ -1,4 +1,4 @@
-@use 'styles/mixins';
+@use '../../styles/mixins';
 
 .ofXHidden {
   overflow-x: hidden;
@@ -173,9 +173,7 @@
 }
 
 .dottedRuler {
-  letter-spacing: 4px;
-  font-size: 10px;
-  color: #88888888;
+  @include mixins.dottedBreak();
 }
 
 .plusButton {
