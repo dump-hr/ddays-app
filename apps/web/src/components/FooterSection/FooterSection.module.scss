@@ -220,6 +220,13 @@
     width: 162px;
     height: 162px;
     display: block;
+    position: relative;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      top: -5px;
+    }
 
     @media screen and (max-width: 650px) {
       width: 106px;
