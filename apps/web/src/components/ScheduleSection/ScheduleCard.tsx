@@ -123,9 +123,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          <button className={c.plusButton}>
-            <img src={PlusSvg} alt='plus' />
-          </button>
+          {event.description !== '' && (
+            <button className={c.plusButton}>
+              <img src={PlusSvg} alt='plus' />
+            </button>
+          )}
         </div>
       </div>
       <div className={c.dottedRuler}>
