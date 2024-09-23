@@ -1,3 +1,5 @@
+@use '../../styles/mixins';
+
 .container {
   position: relative;
   background-color: #000;
@@ -43,8 +45,9 @@
 .faqCard {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
+  height: 40px;
 
   &Left {
     display: flex;
@@ -55,27 +58,8 @@
   }
 
   &Index {
+    @include mixins.themeBadge();
     margin-top: 4px;
-
-    padding: 4px 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #ff482f;
-    color: #fff;
-    font-family: 'PP Neue Montreal Mono', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 0.5px;
-
-    @media (max-width: 768px) {
-      margin-top: 0;
-    }
   }
 
   &Info {
@@ -130,11 +114,8 @@
 }
 
 .dottedRuler {
-  overflow: hidden;
-  letter-spacing: 3px;
-  color: #88888888;
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.2));
   margin: 40px 0;
-
   @media (max-width: 768px) {
     margin: 32px 0;
   }

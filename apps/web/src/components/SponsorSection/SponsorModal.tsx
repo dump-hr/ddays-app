@@ -58,12 +58,8 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
           <div className={c.jobsContainer}>
             {jobs?.map((job, index) => (
               <div key={job.id} className={c.jobCard}>
-                <div className={c.dottedRuler}>
-                  ...........................................................................................................................................................................................................................................................................................................................
-                </div>
-                <div className={c.verticalRuler}>
-                  ..................................
-                </div>
+                <div className={c.dottedRuler}></div>
+                <div className={c.verticalRuler}> </div>
                 <div className={c.jobCardInner}>
                   <div className={c.modalLogoImage}>
                     <img src={sponsor?.logoImage} alt={sponsor?.name} />
@@ -77,12 +73,9 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                 </div>
                 {(index === jobs.length - 1 || isMobile) && (
                   <div className={clsx(c.verticalRuler, c.verticalRulerEnd)}>
-                    ..................................
                   </div>
                 )}
-                <div className={clsx(c.dottedRuler, c.positionBottom)}>
-                  ...........................................................................................................................................................................................................................................................................................................................
-                </div>
+                <div className={clsx(c.dottedRuler, c.positionBottom)}></div>
               </div>
             ))}
           </div>

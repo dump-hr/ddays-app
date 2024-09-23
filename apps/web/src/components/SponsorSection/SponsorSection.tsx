@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
-import { dotMaker } from '../../helpers/dotMaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import { SponsorJobCount } from './SponsorJobCount';
 import SponsorModal from './SponsorModal';
@@ -128,7 +127,7 @@ export const SponsorSection: React.FC = () => {
                 />
               </figure>
               <span className={c.name}>{sponsor.name}</span>
-              <div className={c.dots}>{dotMaker()}</div>
+              <div className={c.dots}></div>
               <div className={c.openPositions}>
                 <span className={c.label}>Otvorene pozicije</span>
                 <div className={c.ellipse}>
@@ -156,9 +155,9 @@ export const SponsorSection: React.FC = () => {
                     silverSponsors.length -
                       (silverSponsors.length % maxSponsors)
                   : index < silverSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
@@ -179,9 +178,9 @@ export const SponsorSection: React.FC = () => {
                     bronzeSponsors.length -
                       (bronzeSponsors.length % maxSponsors)
                   : index < bronzeSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
@@ -200,9 +199,9 @@ export const SponsorSection: React.FC = () => {
                   ? index <
                     mediaSponsors.length - (mediaSponsors.length % maxSponsors)
                   : index < mediaSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>
@@ -224,9 +223,9 @@ export const SponsorSection: React.FC = () => {
                     friendSponsors.length -
                       (friendSponsors.length % maxSponsors)
                   : index < friendSponsors.length - maxSponsors) && (
-                  <div className={c.horizontalDots}>{dotMaker()}</div>
+                  <div className={c.horizontalDots}></div>
                 )}
-                <div className={c.verticalDots}>{dotMaker()}</div>
+                <div className={c.verticalDots}></div>
               </figure>
             ))}
           </section>

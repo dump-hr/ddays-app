@@ -21,9 +21,7 @@ const LocationSection = () => {
                 Ista adresa, više sadržaja
               </h2>
               <div className={c.stampContentFooter}>
-                <div className={c.dottedRuler}>
-                  ..............................................
-                </div>
+                <div className={c.dottedRulerStamp}></div>
                 <div className={c.stampContentFooterText}>
                   <h3>FESB</h3>
                   <h3>Ul. Ruđera Boškovića</h3>
@@ -47,9 +45,7 @@ const LocationSection = () => {
           Posjeti štandove, skupljaj razne poklone, okušaj se u kvizovima i kul
           izazovima, a uz to ugrabi i najbolju poslovnu priliku za sebe.
         </p>
-        <div className={c.dottedRuler}>
-          ........................................................................................................................................................................................................................................
-        </div>
+        <div className={c.dottedRuler}></div>
       </div>
       <div className={c.date}>
         <p className={c.dateText}>23. </p>
