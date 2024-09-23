@@ -22,12 +22,6 @@
     align-items: center;
     justify-content: center;
 
-    
-
-    @media (max-width: 768px) {
-      padding-top: 40px;
-    }
-
     .idea {
       color: $light-primary;
       font-size: vw-calc(14);
@@ -101,7 +95,7 @@
     height: vw-calc(705);
 
     @media (max-width: 768px) {
-      height: vw-mobile-calc(475);
+      height: vw-mobile-calc(275);
     }
 
     .image {
@@ -116,7 +110,6 @@
       @media (max-width: 768px) {
         max-width: vw-mobile-calc(40);
         max-height: vw-mobile-calc(40);
-        margin-top: vw-mobile-calc(100);
       }
 
       --logo-opacity-downscale: 0.3;
