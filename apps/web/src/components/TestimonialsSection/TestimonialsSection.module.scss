@@ -1,5 +1,4 @@
 .testimonialsSection {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,13 +7,15 @@
   overflow-x: clip;
   position: relative;
 
+
   .sectionBreaker {
     z-index: 5;
     position: absolute;
     left: 0;
-    bottom: -15px;
+    bottom: -45px;
     width: 100%;
     height: 45px;
+    rotate: -0.7deg;
 
     mask-image: url('../../assets/images/section-breaker.webp');
     background: black;
@@ -39,9 +40,7 @@
       }
       &:nth-of-type(3) {
         rotate: -1deg;
-        margin-bottom: -10px;
       }
-      
     }
   }
 }
