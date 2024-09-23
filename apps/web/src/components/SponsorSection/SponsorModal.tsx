@@ -51,7 +51,7 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                 <p className={c.themeBadgeText}>DIZ</p>
               </div>
               <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>TECH</p>
+                <p className={c.themeBadgeText}>DIV</p>
               </div>
             </div>
           </div>
@@ -72,8 +72,8 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                   </a>
                 </div>
                 {(index === jobs.length - 1 || isMobile) && (
-                  <div className={clsx(c.verticalRuler, c.verticalRulerEnd)}>
-                  </div>
+                  <div
+                    className={clsx(c.verticalRuler, c.verticalRulerEnd)}></div>
                 )}
                 <div className={clsx(c.dottedRuler, c.positionBottom)}></div>
               </div>
