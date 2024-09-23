@@ -43,9 +43,7 @@ const FrequentlyAskedQuestionCard: React.FC<
           )}
         </button>
       </div>
-      {isRulerVisible && (
-        <div className={c.dottedRuler}> </div>
-      )}
+      {isRulerVisible && <div className={c.dottedRuler}> </div>}
     </>
   );
 };

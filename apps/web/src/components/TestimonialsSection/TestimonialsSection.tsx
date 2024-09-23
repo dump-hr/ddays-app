@@ -81,6 +81,7 @@ const TestimonialsSection = () => {
       <Testimonial color='white' {...testimonials[0]} />
       <Testimonial color='black' {...testimonials[1]} refEl={blackSection} />
       <Testimonial color='beige' {...testimonials[2]} refEl={beigeSection} />
+      <div className={c.sectionBreaker}></div>
     </section>
   );
 };
