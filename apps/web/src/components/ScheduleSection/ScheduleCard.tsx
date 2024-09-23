@@ -1,8 +1,8 @@
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import MinusSvg from 'assets/icons/minus-black.svg';
+import PlusSvg from 'assets/icons/plus-black.svg';
 import { useEffect, useState } from 'react';
 
-import PlusSvg from '../../assets/Plus.svg';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
 import {

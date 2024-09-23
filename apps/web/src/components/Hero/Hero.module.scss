@@ -48,6 +48,11 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       text-decoration: none;
+      transition: all 200ms;
+
+      &:hover {
+        filter: brightness(75%);
+      }
     }
   }
 
