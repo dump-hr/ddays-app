@@ -8,8 +8,10 @@
   flex-direction: row;
   position: relative;
   background-color: #f5ede1;
+  z-index: 1;
 
   &:before {
+    z-index: -1;
     content: '';
     background-image: url(../../assets/images/noise.webp);
     opacity: 0.15;
