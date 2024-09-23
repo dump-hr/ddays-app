@@ -1,25 +1,28 @@
 import { FrequentlyAskedQuestionDto } from '@ddays-app/types';
 import CloseSvg from 'assets/icons/minus.svg';
 import OpenSvg from 'assets/icons/plus.svg';
-import { useState } from 'react';
 
 import c from './FrequentlyAskedQuestionsSection.module.scss';
 
-interface FrequentlyAskedQuestionCardProps {
+type FrequentlyAskedQuestionCardProps = {
   index: number;
   faq: FrequentlyAskedQuestionDto;
   isRulerVisible: boolean;
-}
+  openCardId: number | null;
+  setOpenCardId: (id: number | null) => void;
+};
 
-const FrequentlyAskedQuestionCard = ({
-  faq,
-  index,
-  isRulerVisible,
-}: FrequentlyAskedQuestionCardProps) => {
-  const [isAnswerOpen, setIsAnswerOpen] = useState(false);
+const FrequentlyAskedQuestionCard: React.FC<
+  FrequentlyAskedQuestionCardProps
+> = ({ faq, index, isRulerVisible, openCardId, setOpenCardId }) => {
+  const isAnswerOpen = openCardId === faq.id;
 
   const toggleAnswerOpen = () => {
-    setIsAnswerOpen((prev) => !prev);
+    if (isAnswerOpen) {
+      setOpenCardId(null);
+    } else {
+      setOpenCardId(faq.id);
+    }
   };
 
   return (
@@ -41,9 +44,7 @@ const FrequentlyAskedQuestionCard = ({
         </button>
       </div>
       {isRulerVisible && (
-        <div className={c.dottedRuler}>
-          ...........................................................................................................................................................................................................................................................................................................................
-        </div>
+        <div className={c.dottedRuler}> </div>
       )}
     </>
   );

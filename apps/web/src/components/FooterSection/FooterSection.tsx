@@ -71,11 +71,7 @@ const FooterSection = () => {
             </a>
           </div>
         </div>
-        <div className={c.dottedRulerWrapper}>
-          <div className={c.dottedRuler}>
-            ...............................................................................................................................................................................................................................................................................................................................
-          </div>
-        </div>
+        <div className={c.dottedRuler}></div>
         <div className={c.bottomSmallTextWrapper}>
           <p className={c.mb24}>© DUMPDAYS</p>
           <p className={c.footerBottomSmallText}>
