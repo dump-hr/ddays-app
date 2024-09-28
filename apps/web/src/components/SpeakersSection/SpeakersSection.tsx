@@ -3,11 +3,13 @@ import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCom
 import c from './SpeakersSection.module.scss';
 
 const SpeakersSection = () => {
-  const speakers = useSpeakerWithCompanyGetAll();
+  const fetchedSpeakers = useSpeakerWithCompanyGetAll();
 
-  if (speakers.isLoading || !speakers.data) {
+  if (fetchedSpeakers.isLoading || !fetchedSpeakers.data) {
     return null;
   }
+
+  const speakers = fetchedSpeakers.data;
 
   return (
     <section className={c.speakersSection} id='speakeri'>
@@ -15,7 +17,13 @@ const SpeakersSection = () => {
         <p className={c.subtitle}>Digitalni inovatori pod istim krovom</p>
         <h1 className={c.title}>Speakeri</h1>
       </div>
-      <div className={c.speakerCardsWrapper}></div>
+      <div className={c.speakerCardsWrapper}>
+        {speakers?.map((speaker, index) => (
+          <div key={index} className={c.speakerCard}>
+            <img src={speaker.photo} alt='' />
+          </div>
+        ))}
+      </div>
       <SectionBreaker fg='green' />
     </section>
   );
