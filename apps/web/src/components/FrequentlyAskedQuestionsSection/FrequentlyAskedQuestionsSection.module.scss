@@ -45,9 +45,9 @@
 .faqCard {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
-  height: 40px;
+  min-height: 40px;
 
   &Left {
     display: flex;
