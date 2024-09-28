@@ -79,6 +79,22 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
-    gap: 730px 32px;
+
+    --hw-ratio: 400 / 320; // h : w = 1.25
+    --gap-width: (100% - 32px * 3) * var(--hw-ratio) * 2;
+
+    gap: var(--gap-width) 32px;
+
+    .speakerCard {
+      &:nth-of-type(4n + 2) {
+        margin-top: 647px;
+      }
+      &:nth-of-type(4n + 3) {
+        margin-top: 112px;
+      }
+      &:nth-of-type(4n + 4) {
+        margin-top: 779px;
+      }
+    }
   }
 }

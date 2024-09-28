@@ -1,12 +1,13 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
+import c from './SpeakerCard.module.scss';
 
 type SpeakerCardProps = {
   speaker: SpeakerWithCompanyDto;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const SpeakerCard = ({ speaker }: SpeakerCardProps) => {
+const SpeakerCard = ({ speaker, ...handlers }: SpeakerCardProps) => {
   return (
-    <div>
+    <div className={c.speakerCard} {...handlers}>
       <img src={speaker.photo} alt='' />
       <p>
         {speaker.firstName} {speaker.lastName}

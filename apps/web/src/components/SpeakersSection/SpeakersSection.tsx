@@ -21,7 +21,11 @@ const SpeakersSection = () => {
       </div>
       <div className={c.speakerCardsWrapper}>
         {speakers?.map((speaker, index) => (
-          <SpeakerCard key={index} speaker={speaker} />
+          <SpeakerCard
+            key={index}
+            speaker={speaker}
+            className={c.speakerCard}
+          />
         ))}
       </div>
       <SectionBreaker fg='green' />
