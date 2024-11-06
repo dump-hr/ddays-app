@@ -79,13 +79,44 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
 
     --hw-ratio: 400 / 320; // h : w = 1.25
     --gap-width: (100% - 32px * 3) * var(--hw-ratio) * 2;
 
-    gap: var(--gap-width) 32px;
+    column-gap: var(--gap-width) 32px;
 
     .speakerCard {
+      /*
+      &:not(
+          :nth-of-type(1),
+          :nth-of-type(2),
+          :nth-of-type(3),
+          :nth-of-type(4)
+        ) {
+        margin-top: 730px;
+      }
+      */
+
+      margin-top: 730px;
+
+      &:nth-of-type(1) {
+        margin-top: 0;
+      }
+
+      &:nth-of-type(2) {
+        margin-top: 647px;
+      }
+
+      &:nth-of-type(3) {
+        margin-top: 112px;
+      }
+
+      &:nth-of-type(4) {
+        margin-top: 779px;
+      }
+
+      /*
       &:nth-of-type(4n + 2) {
         margin-top: 647px;
       }
@@ -95,6 +126,7 @@
       &:nth-of-type(4n + 4) {
         margin-top: 779px;
       }
+        */
     }
   }
 }
