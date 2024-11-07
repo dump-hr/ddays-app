@@ -103,7 +103,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
                 </div>
               )}
               <div className={c.scheduleCardTitleWrapper}>
-                <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+                <h3
+                  className={`${c.scheduleCardTitle} ${
+                    !event.description ? c.nonClickable : ''
+                  }`}>
+                  {event.name}
+                </h3>
               </div>
             </div>
             {event.speakers?.map((speaker) => {
