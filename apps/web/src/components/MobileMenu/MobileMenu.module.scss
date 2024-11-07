@@ -1,3 +1,4 @@
+@use '../../styles/mixins';
 .mobileMenu {
   position: fixed;
   top: 0;
@@ -57,6 +58,11 @@
     width: 100%;
     border-top: 10px dotted red;
     border-spacing: 50px;
+  }
+
+  .dots{
+    @include mixins.dottedBreak(rgba(255, 255, 255, 0.30));
+    margin: 55px 0px;
   }
 
   .bottomText {

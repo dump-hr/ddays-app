@@ -1,7 +1,8 @@
 import { EventWithSpeakerDto } from '@ddays-app/types';
+import MinusSvg from 'assets/icons/minus-black.svg';
+import PlusSvg from 'assets/icons/plus-black.svg';
 import { useEffect, useState } from 'react';
 
-import PlusSvg from '../../assets/Plus.svg';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
 import {
@@ -25,9 +26,15 @@ const getThemeShort = (theme: string) => {
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
+  openCardId: number | null;
+  setOpenCardId: (id: number | null) => void;
 };
 
-const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
+const ScheduleCard: React.FC<ScheduleCardProps> = ({
+  event,
+  openCardId,
+  setOpenCardId,
+}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = event.speakers
@@ -45,15 +52,15 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
   const cardAspectRatio = 401 / 320;
   const { isMobile } = useScreenSize(930);
 
-  const [isOpenDescription, setIsOpenDescription] = useState(false);
+  const isOpenDescription = openCardId === event.id;
   const [isImageShown, setIsImageShown] = useState(false);
 
-  const toggleOpenDescription = () => {
-    setIsOpenDescription((prev) => !prev);
-  };
-
   const handleCardClick = () => {
-    toggleOpenDescription();
+    if (isOpenDescription) {
+      setOpenCardId(null);
+    } else {
+      setOpenCardId(event.id);
+    }
   };
 
   const handleHover = () => {
@@ -130,14 +137,16 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({ event }) => {
         <div className={c.scheduleCardRight}>
           {event.description !== '' && (
             <button className={c.plusButton}>
-              <img src={PlusSvg} alt='plus' />
+              {isOpenDescription ? (
+                <img src={MinusSvg} alt='minus' />
+              ) : (
+                <img src={PlusSvg} alt='plus' />
+              )}
             </button>
           )}
         </div>
       </div>
-      <div className={c.dottedRuler}>
-        .........................................................................................................................................................................................................................
-      </div>
+      <div className={c.dottedRuler}></div>
     </div>
   );
 };

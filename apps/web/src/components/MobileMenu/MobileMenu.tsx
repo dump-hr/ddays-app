@@ -1,7 +1,5 @@
 import clsx from 'clsx';
-import DottedBreak from 'components/DottedBreak';
 import HamburgerButton from 'components/HamburgerButton';
-
 import c from './MobileMenu.module.scss';
 
 type MobileMenuProps = {
@@ -34,7 +32,7 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
           </a>
         ))}
       </nav>
-      <DottedBreak color='white' style={{ opacity: 0.2, margin: '55px 0' }} />
+      <div className={c.dots}></div>
       {Button}
       <p className={c.bottomText}>
         Besplatna konferencija <br /> za novu generaciju
