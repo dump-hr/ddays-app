@@ -20,7 +20,9 @@ export const LoginPage = () => {
                 <use href={`${logoSvg}#logo`} />
               </svg>
             </div>
-            <h1 className={c.loginTitle}>Prijava u Partners App</h1>
+            <h1 className={c.loginTitle}>
+              Dobrodošli! Prijavite se u Partners App:
+            </h1>
             <LoginForm />
           </div>
         </div>

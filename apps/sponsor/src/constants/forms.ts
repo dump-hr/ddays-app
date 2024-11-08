@@ -13,10 +13,10 @@ export const sponsorForm: SponsorForm = {
     title: 'Opisi tvrtke',
     description: (category) => {
       if (category === CompanyCategory.Bronze)
-        return 'Predaja do 8. ožujka 2024.';
+        return 'Predaja do 8. ožujka 2025.';
       if (category === CompanyCategory.Silver)
-        return 'Predaja do 15. ožujka 2024.';
-      return 'Predaja do 1. travnja 2024.';
+        return 'Predaja do 15. ožujka 2025.';
+      return 'Predaja do 1. travnja 2025.';
     },
     component: Description,
   },
@@ -24,10 +24,10 @@ export const sponsorForm: SponsorForm = {
     title: 'Logotip tvrtke',
     description: (category) => {
       if (category === CompanyCategory.Bronze)
-        return 'Predaja do 8. ožujka 2024.';
+        return 'Predaja do 8. ožujka 2025.';
       if (category === CompanyCategory.Silver)
-        return 'Predaja do 15. ožujka 2024.';
-      return 'Predaja do 1. travnja 2024.';
+        return 'Predaja do 15. ožujka 2025.';
+      return 'Predaja do 1. travnja 2025.';
     },
     component: LogoUpload,
   },
@@ -35,32 +35,32 @@ export const sponsorForm: SponsorForm = {
     title: 'Fotografije tvrtke',
     description: (category) => {
       if (category === CompanyCategory.Bronze)
-        return 'Predaja do 8. ožujka 2024.';
+        return 'Predaja do 8. ožujka 2025.';
       if (category === CompanyCategory.Silver)
-        return 'Predaja do 15. ožujka 2024.';
-      return 'Predaja do 1. travnja 2024.';
+        return 'Predaja do 15. ožujka 2025.';
+      return 'Predaja do 1. travnja 2025.';
     },
     component: PhotoUpload,
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',
-    description: 'Predaja do 1. travnja 2024.',
+    description: 'Predaja do 1. travnja 2025.',
     component: Video,
   },
   [FormSteps.Jobs]: {
     title: 'Oglasi za posao',
-    description: 'Predaja do 15. travnja 2024.',
+    description: 'Predaja do 15. travnja 2025.',
     component: Job,
   },
   [FormSteps.Interests]: {
-    title: 'App career matching',
-    description: 'Predaja do 1. travnja 2024.',
+    title: 'App Career matching',
+    description: 'Predaja do 1. travnja 2025.',
     component: InterestPicker,
   },
 };
 
 /*[FormSteps.SwagBag]: {
   title: 'Swag Bag',
-  description: 'Predaja do 15. travnja 2024.',
+  description: 'Predaja do 15. travnja 2025.',
   component: InterestPicker,
 },*/

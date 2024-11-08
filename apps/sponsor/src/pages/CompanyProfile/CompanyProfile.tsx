@@ -132,7 +132,7 @@ export const CompanyProfile = () => {
           <div className={c.cardsLayout}>
             <div className={c.left}>
               <InfoCard
-                title='Uvod'
+                title='Općenito o tvrtki'
                 buttonText={`${
                   company?.description ? 'Uredite' : 'Dodajte'
                 } svoje kratko predstavljanje`}
@@ -145,10 +145,10 @@ export const CompanyProfile = () => {
                 </div>
               </InfoCard>
               <InfoCard
-                title='Interesi'
+                title='Interesi - Career matching'
                 buttonText={`${
                   company?.interests?.length !== 0 ? 'Uredite' : 'Odaberite'
-                } svoje interese`}
+                } svoje interese i povežite se sa studentima`}
                 onClick={() => setCurrentModal(FormSteps.Interests)}>
                 <InterestsCardContent company={company} />
               </InfoCard>

@@ -48,7 +48,11 @@ export const PhotoUpload: FormComponent = ({ close }) => {
       </div>
       <PhotoInputLabel
         title='Fotografije'
-        content='Priložite fotografije koje predstavljaju tvrtku (grupna slika zaposlenika)'
+        content={
+          company?.category === 'gold'
+            ? 'Priložite fotografije koje predstavljaju tvrtku. Kao zlatni sponzor imate pravo na dvije objave na društvenim mrežama. Predlažemo da jedna fotografija bude grupna fotografija zaposlenika, a druga proces mentoriranja kolega ili zajednički rad.'
+            : 'Priložite fotografije koje predstavljaju tvrtku. Predlažemo da to bude grupna slika zaposlenika ili mentoriranje mlađih kolega.'
+        }
       />
       <div className={styles.uploadArea}>
         <PhotoInput

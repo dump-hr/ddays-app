@@ -124,7 +124,7 @@ export const PhotoInput: React.FC<PhotoInputProps> = ({
         {displayErrorMessages && (
           <>
             {!isBlackAndWhite && inputConstraints?.checkBlackAndWhite && (
-              <ErrorMessage message='Logo mora biti u pozitivu ili negativu' />
+              <ErrorMessage message='Prenesite logo u SVG formatu' />
             )}
             {(inputConstraints?.maxWidth || inputConstraints?.maxHeight) &&
               !isWithinDimensions && (
