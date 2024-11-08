@@ -1,6 +1,7 @@
 .header {
   width: calc(100% - 2 * 32px);
   position: fixed;
+  pointer-events: none;
   top: 32px;
   left: 32px;
   display: grid;
