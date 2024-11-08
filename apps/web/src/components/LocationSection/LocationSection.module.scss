@@ -338,6 +338,7 @@ div {
   &SecondPart {
     @include sharedTextStyles;
     letter-spacing: vw-calc(13.987);
+    text-wrap: nowrap;
 
     @media (max-width: 992px) {
       letter-spacing: vw-mid-calc(3.415);
