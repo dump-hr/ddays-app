@@ -69,6 +69,7 @@
 
   button {
     margin-left: auto;
+  pointer-events: auto;
   }
 
   .hamburger {
@@ -83,6 +84,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    pointer-events: none;
+
 
     .text:nth-of-type(2),
     .button {
@@ -95,6 +98,7 @@
 
     .hamburger {
       display: block;
+      pointer-events: auto;
     }
   }
 }
