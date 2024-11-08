@@ -110,7 +110,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 </div>
               )}
               <div className={c.scheduleCardTitleWrapper}>
-                <h3 className={c.scheduleCardTitle}>{event.name}</h3>
+                <h3
+                  className={`${c.scheduleCardTitle} ${
+                    !event.description ? c.nonClickable : ''
+                  }`}>
+                  {event.name}
+                </h3>
               </div>
             </div>
             {event.speakers?.map((speaker) => {
@@ -130,13 +135,15 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          <button className={c.plusButton}>
-            {isOpenDescription ? (
-              <img src={MinusSvg} alt='minus' />
-            ) : (
-              <img src={PlusSvg} alt='plus' />
-            )}
-          </button>
+          {event.description !== '' && (
+            <button className={c.plusButton}>
+              {isOpenDescription ? (
+                <img src={MinusSvg} alt='minus' />
+              ) : (
+                <img src={PlusSvg} alt='plus' />
+              )}
+            </button>
+          )}
         </div>
       </div>
       <div className={c.dottedRuler}></div>
