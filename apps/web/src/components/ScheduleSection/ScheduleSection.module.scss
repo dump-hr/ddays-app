@@ -190,6 +190,9 @@
   right: 150px;
   transform: rotate(-5deg);
 }
+.nonClickable{
+  cursor: text;
+}
 
 @media screen and (max-width: 1000px) {
   .scheduleCardLeft {
