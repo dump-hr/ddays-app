@@ -34,8 +34,13 @@ const Testimonial = ({
         <img src={QuotesIcon} className={c.quote} />
         <div className={c.infoWrapper}>
           <p className={c.name}>{name}</p>
-          <p className={c.title}>{title}</p>
-          <p className={c.company}>@ {company}</p>
+          <p className={c.title}>
+            {title}{' '}
+            <span className={c.company}>
+              @{`\u00A0`}
+              {company}
+            </span>
+          </p>
         </div>
       </div>
       <div className={c.rightWrapper}>

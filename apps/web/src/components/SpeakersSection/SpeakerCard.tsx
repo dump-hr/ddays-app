@@ -42,10 +42,10 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
           <h3 className={c.cardName}>
             {speaker.firstName} {speaker.lastName}
           </h3>
-          <p className={c.cardTitle}>{speaker.title} </p>
-          {speaker.company?.name && (
-            <p className={c.cardCompanyName}>@ {speaker.company.name}</p>
-          )}
+          <p className={c.cardTitle}>
+            {speaker.title}
+            {speaker.company?.name ? ` @\u00A0${speaker.company.name}` : ''}
+          </p>
         </div>
         <SpeakerModal
           close={handleCloseModal}
