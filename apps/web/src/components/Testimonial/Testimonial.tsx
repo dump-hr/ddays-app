@@ -17,15 +17,10 @@ type TestimonialProps = {
 const Testimonial = ({
   color,
   name,
-<<<<<<< HEAD
   title,
   company,
   text,
-=======
-  position,
-  text,
   refEl,
->>>>>>> main
 }: TestimonialProps) => {
   const classes = clsx({
     [c.testimonial]: true,
@@ -51,7 +46,7 @@ const Testimonial = ({
         </div>
       </div>
       <div className={c.rightWrapper}>
-      <div className={c.verticalDots}></div>
+        <div className={c.verticalDots}></div>
         <p className={c.text}>
           {text}
           <div className={c.horizontalDots}></div>
