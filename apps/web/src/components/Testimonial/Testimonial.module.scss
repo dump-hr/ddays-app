@@ -1,3 +1,4 @@
+@use '../../styles/mixins';
 .testimonial {
   display: flex;
   gap: 65px;
@@ -12,29 +13,65 @@
 
   --background-color: #fff;
   --border-color: rgba(23, 22, 21, 0.3);
+  --testimonial-z-index: 1;
 
-  --color-1: rgba(23, 22, 21, 0.6);
+  --color-1: rgba(7, 7, 6, 0.6);
   --color-2: rgba(23, 22, 21, 0.7);
 
   &.white {
     --background-color: #fff;
+    --testimonial-z-index: 1;
   }
 
   &.black {
     --background-color: #171615;
-    --border-color: #4b4b4b;
+    --border-color: #4B4B4B;
     --color-1: rgba(255, 255, 255, 0.7);
     --color-2: rgba(255, 255, 255, 0.7);
+    --testimonial-z-index: 2;
+    bottom: 180px;
   }
-
   &.beige {
     --background-color: #fcf8eb;
+    --testimonial-z-index: 3;
+    bottom: 320px;
   }
 
+  @media screen and (max-width: 924px) and (min-width: 769px) {
+    &.black {
+      bottom: 350px;
+    }
+
+    &.beige {
+      bottom: 570px;
+    }
+  }
+
+  @media screen and (max-width: 768px) and (min-width: 451px) {
+    &.black {
+      bottom: 390px;
+    }
+
+    &.beige {
+      bottom: 710px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    &.black {
+      bottom: 440px;
+    }
+
+    &.beige {
+      bottom: 740px;
+    }
+  }
+
+  z-index: var(--testimonial-z-index);
   background-color: var(--background-color);
 
   .sectionBreaker {
-    z-index: 5;
+    z-index: var(--testimonial-z-index);
     position: absolute;
     left: 0;
     top: -44px;
@@ -87,9 +124,10 @@
 
   .rightWrapper {
     width: 100%;
+    display: flex;
+    flex-direction: row;
 
     .text {
-      border-left: 3px dotted var(--border-color);
       padding-left: 32px;
 
       color: var(--color-2);
@@ -100,6 +138,20 @@
       line-height: 32px;
       letter-spacing: -1px;
       max-width: 670px;
+
+      .horizontalDots{
+        display: none;
+      }
+    }
+
+    .verticalDots {
+      @include mixins.dottedBreak(var(--border-color));
+      width: 3px;
+      height: inherit;
+      background-size: 2px 8px;
+      background-repeat: repeat-y;
+  
+      display: block;
     }
   }
 
@@ -111,10 +163,15 @@
 
     .rightWrapper {
       .text {
-        border-left: none;
-        padding: 0;
-        border-bottom: 3px dotted var(--border-color);
-        padding-bottom: 32px;
+        .horizontalDots {
+          @include mixins.dottedBreak(var(--border-color));
+          margin-top: 32px;
+          display: block;
+        }
+      }
+
+      .verticalDots{
+        display: none;
       }
     }
 

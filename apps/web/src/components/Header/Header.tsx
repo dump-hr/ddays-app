@@ -11,6 +11,7 @@ type HeaderProps = {
 
 const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   const [scrollY, setScrollY] = useState(0);
+  const [isStickyVisible, setIsStickyVisible] = useState(true);
 
   // TODO: refactor this to only use mutation observer
 
@@ -18,6 +19,17 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
     const handleScroll = () => {
       requestAnimationFrame(() => {
         setScrollY(window.scrollY);
+
+        const DuckieSection = document.getElementById('konferencija');
+        if (DuckieSection) {
+          const { top } = DuckieSection.getBoundingClientRect();
+
+          if (window.scrollY === 0) {
+            setIsStickyVisible(true);
+          } else {
+            setIsStickyVisible(top <= 0);
+          }
+        }
       });
     };
 
@@ -51,6 +63,7 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
     [c.header]: true,
     [c.blend]: scrollY > 0.85 * window.innerHeight,
     [c.scrolled]: scrollY > 32,
+    [c.hidden]: !isStickyVisible,
   });
 
   return (

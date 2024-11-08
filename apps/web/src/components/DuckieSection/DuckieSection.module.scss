@@ -8,8 +8,10 @@
   flex-direction: row;
   position: relative;
   background-color: #f5ede1;
+  z-index: 1;
 
   &:before {
+    z-index: -1;
     content: '';
     background-image: url(../../assets/images/noise.webp);
     opacity: 0.15;
@@ -126,7 +128,7 @@
 
         .vinyl {
           position: absolute;
-          bottom: 0;
+          bottom: 40px;
           left: vw-calc(165);
           width: vw-calc(294);
           height: vw-calc(294);

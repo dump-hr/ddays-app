@@ -1,8 +1,12 @@
+import { useState } from 'react';
+
 import { useFrequentlyAskedQuestionGetAll } from '../../api/frequently-asked-question/useFrequentlyAskedQuestionGetAll';
 import FrequentlyAskedQuestionCard from './FrequentlyAskedQuestionCard';
 import c from './FrequentlyAskedQuestionsSection.module.scss';
 
 const FrequentlyAskedQuestionsSection = () => {
+  const [openedCardId, setOpenedCardId] = useState<number | null>(null);
+
   const { data: frequentlyAskedQuestions, isLoading } =
     useFrequentlyAskedQuestionGetAll();
 
@@ -18,6 +22,8 @@ const FrequentlyAskedQuestionsSection = () => {
             index={++index}
             isRulerVisible={index !== frequentlyAskedQuestions.length}
             key={index}
+            openCardId={openedCardId}
+            setOpenCardId={setOpenedCardId}
           />
         ))}
       </div>

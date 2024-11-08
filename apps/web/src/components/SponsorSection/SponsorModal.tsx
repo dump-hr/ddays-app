@@ -51,19 +51,15 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                 <p className={c.themeBadgeText}>DIZ</p>
               </div>
               <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>TECH</p>
+                <p className={c.themeBadgeText}>DIV</p>
               </div>
             </div>
           </div>
           <div className={c.jobsContainer}>
             {jobs?.map((job, index) => (
               <div key={job.id} className={c.jobCard}>
-                <div className={c.dottedRuler}>
-                  ...........................................................................................................................................................................................................................................................................................................................
-                </div>
-                <div className={c.verticalRuler}>
-                  ..................................
-                </div>
+                <div className={c.dottedRuler}></div>
+                <div className={c.verticalRuler}> </div>
                 <div className={c.jobCardInner}>
                   <div className={c.modalLogoImage}>
                     <img src={sponsor?.logoImage} alt={sponsor?.name} />
@@ -76,13 +72,10 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                   </a>
                 </div>
                 {(index === jobs.length - 1 || isMobile) && (
-                  <div className={clsx(c.verticalRuler, c.verticalRulerEnd)}>
-                    ..................................
-                  </div>
+                  <div
+                    className={clsx(c.verticalRuler, c.verticalRulerEnd)}></div>
                 )}
-                <div className={clsx(c.dottedRuler, c.positionBottom)}>
-                  ...........................................................................................................................................................................................................................................................................................................................
-                </div>
+                <div className={clsx(c.dottedRuler, c.positionBottom)}></div>
               </div>
             ))}
           </div>
