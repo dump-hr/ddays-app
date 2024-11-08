@@ -1,3 +1,5 @@
+@use '../../styles/mixins';
+
 .ofXHidden {
   overflow-x: hidden;
 }
@@ -134,27 +136,12 @@
 }
 
 .themeBadge {
-  width: 46px;
+  @include mixins.themeBadge();
+  width: 53px;
   height: 24px;
   padding: 12px 23px;
   margin-right: 16px;
-  border-radius: 50%;
-  background-color: #ff482f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &Text {
-    margin: 0;
-    color: #fff;
-    font-family: 'PP Neue Montreal Mono', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  background-position: -6.359px -3.65px;
 }
 
 .timeText {
@@ -186,12 +173,11 @@
 }
 
 .dottedRuler {
-  letter-spacing: 4px;
-  font-size: 10px;
-  color: #88888888;
+  @include mixins.dottedBreak();
 }
 
 .plusButton {
+  fill: black;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -203,6 +189,9 @@
   top: -26px;
   right: 150px;
   transform: rotate(-5deg);
+}
+.nonClickable{
+  cursor: text;
 }
 
 @media screen and (max-width: 1000px) {
