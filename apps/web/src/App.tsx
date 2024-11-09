@@ -6,6 +6,8 @@ import { Route, Switch } from 'wouter';
 
 import faviconBlack from './assets/favicon-black.png';
 import faviconWhite from './assets/favicon-white.png';
+import openGraphImage from './assets/Open graph image.jpg';
+
 import { Path } from './constants/paths';
 import { getPageTitle } from './helpers';
 import { Chatbot } from './pages/Chatbot';
@@ -25,6 +27,8 @@ export const App = () => {
           rel='icon'
           media='(prefers-color-scheme: dark)'
         />
+
+        <meta property='og:image' content={openGraphImage} />
 
         <title>{getPageTitle()}</title>
       </Helmet>
