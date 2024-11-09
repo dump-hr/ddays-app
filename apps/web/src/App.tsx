@@ -4,10 +4,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { Route, Switch } from 'wouter';
 
-import faviconBlack from './assets/favicon-black.png';
-import faviconWhite from './assets/favicon-white.png';
-import favicon from './assets/Favicon.jpg'
-import openGraphImage from './assets/Open graph image.jpg';
+import faviconBlack from './assets/favicon-black.ico';
+import faviconWhite from './assets/favicon-white.ico';
 
 import { Path } from './constants/paths';
 import { getPageTitle } from './helpers';
@@ -15,6 +13,7 @@ import { Chatbot } from './pages/Chatbot';
 import { LandingPage } from './pages/LandingPage';
 
 export const App = () => {
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -28,11 +27,6 @@ export const App = () => {
           rel='icon'
           media='(prefers-color-scheme: dark)'
         />
-        <link
-          href={favicon}
-          rel='icon'
-        />
-        <meta property='og:image' content={openGraphImage} />
 
         <title>{getPageTitle()}</title>
       </Helmet>
