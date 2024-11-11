@@ -56,10 +56,19 @@
 }
 
 .logosWrapper {
+  width: vw-calc(1425.4);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media(max-width: 1080px){
+    width: vw-calc(1415);
+  }
+
+  @media(max-width: 1440px){
+    width: vw-calc(1420);
+  }
 
   @media (max-width: 768px) {
     left: 0;
