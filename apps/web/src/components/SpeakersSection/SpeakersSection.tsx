@@ -1,8 +1,8 @@
 import { SectionBreaker } from 'components/SectionBreaker';
-import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCompanyGetAll';
-import c from './SpeakersSection.module.scss';
 
+import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCompanyGetAll';
 import SpeakerCard from './SpeakerCard';
+import c from './SpeakersSection.module.scss';
 
 const SpeakersSection = () => {
   const fetchedSpeakers = useSpeakerWithCompanyGetAll();
@@ -22,9 +22,9 @@ const SpeakersSection = () => {
       <div className={c.speakerCardsWrapper}>
         {speakers?.map((speaker, index) => (
           <SpeakerCard
+            className={c.speakerCard}
             key={index}
             speaker={speaker}
-            className={c.speakerCard}
           />
         ))}
       </div>

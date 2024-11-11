@@ -1,5 +1,9 @@
 .speakerCard {
-  img {
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .image {
+    aspect-ratio: 320/400;
+    width: 100%px;
   }
 }
