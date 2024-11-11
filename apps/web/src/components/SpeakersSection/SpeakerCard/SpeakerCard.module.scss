@@ -1,9 +1,11 @@
 .speakerCard {
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
+  color: cyan;
+  font-family: 'Times New Roman', Times, serif;
 
   .image {
     aspect-ratio: 320/400;
-    width: 100%px;
   }
 }
