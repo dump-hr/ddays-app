@@ -120,17 +120,7 @@
       grid-template-columns: repeat(3, 1fr);
 
       .speakerCard {
-        &:nth-child(4n + 2) {
-          grid-row: span 0;
-          margin-top: 0;
-        }
-
-        &:nth-child(4n + 3) {
-          grid-row: span 0;
-          margin-top: 0;
-        }
-
-        &:nth-child(4n + 4) {
+        &:nth-child(n) {
           grid-row: span 0;
           margin-top: 0;
         }
@@ -155,17 +145,7 @@
       grid-template-columns: repeat(2, 1fr);
 
       .speakerCard {
-        &:nth-child(4n + 2) {
-          grid-row: span 0;
-          margin-top: 0;
-        }
-
-        &:nth-child(4n + 3) {
-          grid-row: span 0;
-          margin-top: 0;
-        }
-
-        &:nth-child(4n + 4) {
+        &:nth-child(n) {
           grid-row: span 0;
           margin-top: 0;
         }
