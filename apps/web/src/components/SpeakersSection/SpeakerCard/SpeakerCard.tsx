@@ -1,4 +1,5 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
+import clsx from 'clsx';
 
 import c from './SpeakerCard.module.scss';
 
@@ -6,14 +7,16 @@ type SpeakerCardProps = {
   speaker: SpeakerWithCompanyDto;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const SpeakerCard = ({ speaker, ...handlers }: SpeakerCardProps) => {
+const SpeakerCard = ({ speaker, className, ...handlers }: SpeakerCardProps) => {
+  const classes = clsx(c.speakerCard, className);
+
   return (
-    <div {...handlers}>
+    <div className={classes} {...handlers}>
       <img className={c.image} src={speaker.photo} alt='' />
-      <p>
+      <p className={c.speaker}>
         {speaker.firstName} {speaker.lastName}
       </p>
-      <p>
+      <p className={c.position}>
         {speaker.title} @ {speaker.company?.name}
       </p>
     </div>
