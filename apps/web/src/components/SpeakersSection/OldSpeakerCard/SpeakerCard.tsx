@@ -43,8 +43,8 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
             {speaker.firstName} {speaker.lastName}
           </h3>
           <p className={c.cardTitle}>
-            {speaker.title}{' '}
-            {speaker.company?.name ? '@ ' + speaker.company?.name : ''}
+            {speaker.title}
+            {speaker.company?.name ? ` @\u00A0${speaker.company.name}` : ''}
           </p>
         </div>
         <SpeakerModal
