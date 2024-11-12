@@ -13,12 +13,14 @@ const SpeakerCard = ({ speaker, className, ...handlers }: SpeakerCardProps) => {
   return (
     <div className={classes} {...handlers}>
       <img className={c.image} src={speaker.photo} alt='' />
-      <p className={c.speaker}>
+      <p className={c.fullName}>
         {speaker.firstName} {speaker.lastName}
       </p>
-      <p className={c.position}>
-        {speaker.title} @ {speaker.company?.name}
-      </p>
+      {speaker.title && speaker.company?.name && (
+        <p className={c.position}>
+          {speaker.title} @ {speaker.company?.name}
+        </p>
+      )}
     </div>
   );
 };

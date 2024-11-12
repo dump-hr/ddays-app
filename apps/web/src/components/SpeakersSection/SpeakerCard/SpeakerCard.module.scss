@@ -3,9 +3,33 @@
   align-items: flex-start;
   flex-direction: column;
   color: white;
+  text-align: center;
   font-family: 'Times New Roman', Times, serif;
+  text-transform: uppercase;
 
   .image {
     aspect-ratio: 320/400;
+  }
+
+  .fullName {
+    color: #fff;
+    font-family: 'PP Neue Machina';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+
+    margin-top: 24px;
+  }
+
+  .position {
+    color: #fff;
+    font-family: 'PP Neue Montreal Mono';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
   }
 }
