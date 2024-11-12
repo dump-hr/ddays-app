@@ -33,3 +33,18 @@
     letter-spacing: 1px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .speakerCard {
+    .fullName {
+      font-size: 18px;
+      line-height: 22px;
+      margin-top: 8px;
+    }
+
+    .position {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+}

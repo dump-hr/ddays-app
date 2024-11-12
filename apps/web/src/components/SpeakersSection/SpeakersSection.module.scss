@@ -85,6 +85,7 @@
     row-gap: 100px;
 
     margin-top: 120px;
+    margin-bottom: 50px;
 
     .speakerCard {
       display: flex;
@@ -144,6 +145,7 @@
   .speakersSection {
     .speakerCardsWrapper {
       grid-template-columns: repeat(2, 1fr);
+      margin-top: 50px;
 
       .speakerCard {
         &:nth-child(n) {
