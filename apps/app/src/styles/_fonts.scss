@@ -1,24 +1,39 @@
 @font-face {
   font-family: Inter-Regular;
   src: url('./assets/fonts/Inter_18pt-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
 }
 
 @font-face {
   font-family: Inter-SemiBold;
   src: url('./assets/fonts/Inter_18pt-SemiBold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
 }
 
 @font-face {
   font-family: Inter-Bold;
   src: url('./assets/fonts/Inter_18pt-Bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
 }
 
 @font-face {
   font-family: NeueMachina;
   src: url('./assets/fonts/PPNeueMachina-PlainMedium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
 }
 
 @font-face {
   font-family: NeueMontrealMono;
   src: url('./assets/fonts/PPNeueMontrealMono-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
 }
