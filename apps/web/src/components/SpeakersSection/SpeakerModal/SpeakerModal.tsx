@@ -1,5 +1,7 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
 
+import c from './SpeakerModal.module.scss';
+
 type SpeakerModalProps = {
   close: () => void;
   isOpen: boolean;
@@ -8,10 +10,14 @@ type SpeakerModalProps = {
 
 const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
   return (
-    <dialog open={isOpen}>
-      <button onClick={() => close()}>Zatvori</button>
-      <p>{speaker.firstName}</p>
-    </dialog>
+    <>
+      {isOpen && (
+        <div className={c.speakerModal}>
+          <button onClick={() => close()}>Zatvori</button>
+          <p>{speaker.firstName}</p>
+        </div>
+      )}
+    </>
   );
 };
 

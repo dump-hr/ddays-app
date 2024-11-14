@@ -1,0 +1,16 @@
+.speakerModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 0;
+
+  background-color: white;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 1);
+  }
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(2px);
+}

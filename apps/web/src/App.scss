@@ -27,3 +27,7 @@ body {
   src: url('./assets/fonts/PPNeueMontrealMono-Medium.woff2') format('woff2');
   font-display: fallback;
 }
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
