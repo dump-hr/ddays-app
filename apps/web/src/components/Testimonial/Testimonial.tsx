@@ -8,7 +8,8 @@ type Color = 'white' | 'black' | 'beige';
 type TestimonialProps = {
   color: Color;
   name: string;
-  position: string;
+  title: string;
+  company: string;
   text: string;
   refEl?: React.RefObject<HTMLDivElement>;
 };
@@ -16,7 +17,8 @@ type TestimonialProps = {
 const Testimonial = ({
   color,
   name,
-  position,
+  title,
+  company,
   text,
   refEl,
 }: TestimonialProps) => {
@@ -34,11 +36,17 @@ const Testimonial = ({
         <img src={QuotesIcon} className={c.quote} />
         <div className={c.infoWrapper}>
           <p className={c.name}>{name}</p>
-          <p className={c.position}>{position}</p>
+          <p className={c.title}>
+            {title}{' '}
+            <span className={c.company}>
+              @{`\u00A0`}
+              {company}
+            </span>
+          </p>
         </div>
       </div>
       <div className={c.rightWrapper}>
-      <div className={c.verticalDots}></div>
+        <div className={c.verticalDots}></div>
         <p className={c.text}>
           {text}
           <div className={c.horizontalDots}></div>

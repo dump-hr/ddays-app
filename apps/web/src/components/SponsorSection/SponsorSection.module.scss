@@ -56,10 +56,19 @@
 }
 
 .logosWrapper {
+  width: vw-calc(1425.4);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media(max-width: 1080px){
+    width: vw-calc(1415);
+  }
+
+  @media(max-width: 1440px){
+    width: vw-calc(1420);
+  }
 
   @media (max-width: 768px) {
     left: 0;
@@ -368,28 +377,40 @@
     }
 
     .logos {
-      width: vw-calc(1392);
       display: flex;
+      width: auto;
+      max-width:92.4%;
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
       flex-wrap: wrap;
-      column-gap: vw-calc(16);
+      column-gap: vw-calc(0);
       margin-top: vw-calc(32);
       padding: 0 vw-calc(32);
+
+      @media (max-width: 915px){
+        max-width: 91.5%;
+      }
+
+      @media ((min-width: 916px) and (max-width: 1180px)){
+          max-width: 92%;
+      }
+
 
       @media (max-width: 768px) {
         width: vw-mobile-calc(343);
         flex-direction: row;
+        max-width:100%;
         margin-top: vw-mobile-calc(54);
         overflow: hidden;
         align-items: center;
-        column-gap: vw-mobile-calc(23);
+        column-gap: vw-mobile-calc(0);
         justify-content: center;
         padding: 0;
       }
 
       .logo {
+        margin: 0px -4px ;
         width: vw-calc(320);
         height: vw-calc(140);
         display: flex;
@@ -398,24 +419,26 @@
         position: relative;
         box-sizing: border-box;
 
+        .verticalDots {
+          margin-bottom: 8px;
+          margin-right:13px;
+        }
+
         &:nth-child(4n) {
           .verticalDots {
             display: none;
           }
         }
 
-        &:last-child {
-          .verticalDots {
-            display: none;
-          }
-        }
 
         @media (max-width: 768px) {
+          margin: 0px;
           width: vw-mobile-calc(160);
           height: vw-mobile-calc(85);
           display: flex;
           justify-content: center;
           align-items: center;
+
 
           &:nth-child(2n) {
             .verticalDots {
@@ -458,6 +481,11 @@
 
           @media (max-width: 768px) {
             right: -7.19%;
+            margin-right:20px;
+          }
+
+          @media (max-width: 380px){
+            margin-right: 15px;
           }
         }
       }
