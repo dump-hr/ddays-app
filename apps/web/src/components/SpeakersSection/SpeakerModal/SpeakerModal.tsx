@@ -1,5 +1,6 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import { useEffect } from 'react';
+import clsx from 'clsx';
 
 import c from './SpeakerModal.module.scss';
 
@@ -50,8 +51,23 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
   return (
     <div className={c.backdrop}>
       <div className={c.speakerModal} onClick={stopPropagation}>
-        <button onClick={() => close()}>Zatvori</button>
-        <p>{speaker.firstName}</p>
+        <img className={c.image} src={speaker.photo} alt='' />
+        <div className={c.contentWrapper}>
+          <h2>
+            {speaker.firstName} {speaker.lastName}
+          </h2>
+          <h3>
+            {speaker.title} @ {speaker.company?.name}
+          </h3>
+          <button className={clsx(c.button, c.grainyButton)}>
+            {`[ `}
+            REGISTRIRAJ SVOJ DOLAZAK
+            {` ]`}
+          </button>
+        </div>
+        <button className={c.closeButton} onClick={() => close()}>
+          Zatvori
+        </button>
       </div>
     </div>
   );
