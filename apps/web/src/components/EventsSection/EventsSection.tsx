@@ -108,6 +108,7 @@ export const EventsSection = () => {
               imageSrc={lesson}
               width={isMobile ? 163 : 320}
               height={isMobile ? 205 : 400}
+              isFiltered={true}
             />
           </div>
           <div>
