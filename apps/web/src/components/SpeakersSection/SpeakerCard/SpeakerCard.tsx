@@ -1,7 +1,7 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import SpeakerModal from '../SpeakerModal';
 import c from './SpeakerCard.module.scss';
