@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "eslint": "^8.55.0",
-    "turbo": "^1.10.16"
+    "turbo": "^2.2.3"
   },
   "private": true,
   "packageManager": "yarn@1.22.22",
@@ -17,5 +17,6 @@
     "db:migrate": "yarn workspace api run db:migrate",
     "db:studio": "yarn workspace api run db:studio"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "name": "ddays-app"
 }

@@ -14,5 +14,9 @@
     width: 91.35%;
     height: 92%;
     object-fit: cover;
+
+    &Filtered {
+      filter: contrast(0.8) brightness(1.8);
+    }
   }
 }
