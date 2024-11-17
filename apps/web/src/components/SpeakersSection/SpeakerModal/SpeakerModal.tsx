@@ -9,15 +9,17 @@ type SpeakerModalProps = {
 };
 
 const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
+  const stopPropagation = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent clicks inside the modal from bubbling to the parent
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <>
-      {isOpen && (
-        <div className={c.speakerModal}>
-          <button onClick={() => close()}>Zatvori</button>
-          <p>{speaker.firstName}</p>
-        </div>
-      )}
-    </>
+    <div className={c.speakerModal} onClick={stopPropagation}>
+      <button onClick={() => close()}>Zatvori</button>
+      <p>{speaker.firstName}</p>
+    </div>
   );
 };
 
