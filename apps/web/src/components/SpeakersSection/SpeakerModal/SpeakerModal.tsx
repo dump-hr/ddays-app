@@ -62,7 +62,8 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
             {speaker.firstName} {speaker.lastName}
           </h2>
           <h3 className={c.titleAndCompany}>
-            {speaker.title} @ {speaker.company?.name}
+            {speaker.title} {speaker.title && speaker.company?.name && '@'}{' '}
+            {speaker.company?.name}
           </h3>
           <div className={c.socialMediaButtons}>
             {speaker.linkedin && (
@@ -84,6 +85,7 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
               </button>
             )}
           </div>
+          <p className={c.description}>{speaker.description}</p>
         </div>
         <button className={c.closeButton} onClick={() => close()}>
           Zatvori

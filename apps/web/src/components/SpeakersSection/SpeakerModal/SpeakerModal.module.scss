@@ -17,8 +17,9 @@
   .speakerModal {
     background: #181716;
     display: flex;
+    flex-direction: row;
     position: relative;
-    width: 100%;
+    //width: 100%;
     box-sizing: border-box;
     padding: 64px 56px;
 
@@ -33,8 +34,7 @@
     }
 
     .contentWrapper {
-      width: 100%;
-      max-width: 536px;
+      width: 536px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -48,9 +48,12 @@
         font-size: 48px;
         line-height: 48px;
         letter-spacing: -2px;
+        margin-bottom: 16px;
+        width: 100%;
       }
 
       .titleAndCompany {
+        width: 100%;
         color: #ff482f;
         font-family: 'PP Neue Machina';
         font-size: 24px;
@@ -62,6 +65,16 @@
       .socialMediaButtons {
         display: flex;
         gap: 24px;
+        margin: 32px 0;
+      }
+
+      .description {
+        color: #fff;
+        font-family: 'PP Neue Machina';
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: none;
+        width: 100%;
       }
 
       .button {
@@ -73,8 +86,6 @@
           'ss01' on;
         font-family: 'PP Neue Montreal Mono', sans-serif;
         font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
         line-height: 16px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -85,7 +96,6 @@
         position: relative;
         transition: 300ms;
         padding: 14px 16px;
-        margin-top: 32px;
       }
 
       .grainyButton {
