@@ -1,5 +1,6 @@
 import c from './Input.module.scss';
 import { dotMaker } from '../helpers/dotMaker';
+import clsx from 'clsx';
 
 type InputProps = {
   value: string;
@@ -22,7 +23,11 @@ export const Input = ({
   return (
     <div className={c.container}>
       {showLabel && (
-        <label className={`${c.label} ${error ? c.labelError : c.labelActive}`}>
+        <label
+          className={clsx(c.label, {
+            [c.labelError]: error,
+            [c.labelActive]: !error,
+          })}>
           {placeholder}
         </label>
       )}
@@ -33,7 +38,7 @@ export const Input = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={!showLabel ? placeholder : ''}
-          className={`${c.input} ${error ? c.error : isActive ? c.active : ''}`}
+          className={clsx(c.input, error && c.error, isActive && c.active)}
         />
 
         {!value && <div className={c.dots}>{dotMaker()}</div>}
