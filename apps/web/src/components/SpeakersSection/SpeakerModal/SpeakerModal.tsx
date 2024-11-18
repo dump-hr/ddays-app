@@ -48,22 +48,42 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
 
   if (!isOpen) return null;
 
+  const openLink = (href: string | undefined) => {
+    if (!href) return;
+    window.open(href, '_blank');
+  };
+
   return (
     <div className={c.backdrop}>
       <div className={c.speakerModal} onClick={stopPropagation}>
         <img className={c.image} src={speaker.photo} alt='' />
         <div className={c.contentWrapper}>
-          <h2>
+          <h2 className={c.fullName}>
             {speaker.firstName} {speaker.lastName}
           </h2>
-          <h3>
+          <h3 className={c.titleAndCompany}>
             {speaker.title} @ {speaker.company?.name}
           </h3>
-          <button className={clsx(c.button, c.grainyButton)}>
-            {`[ `}
-            REGISTRIRAJ SVOJ DOLAZAK
-            {` ]`}
-          </button>
+          <div className={c.socialMediaButtons}>
+            {speaker.linkedin && (
+              <button
+                className={clsx(c.button, c.grainyButton)}
+                onClick={() => openLink(speaker.linkedin)}>
+                {`[ `}
+                LinkedIn
+                {` ]`}
+              </button>
+            )}
+            {speaker.instagram && (
+              <button
+                className={clsx(c.button, c.grainyButton)}
+                onClick={() => openLink(speaker.instagram)}>
+                {`[ `}
+                Instagram
+                {` ]`}
+              </button>
+            )}
+          </div>
         </div>
         <button className={c.closeButton} onClick={() => close()}>
           Zatvori

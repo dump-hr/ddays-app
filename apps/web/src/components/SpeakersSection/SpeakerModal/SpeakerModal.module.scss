@@ -33,6 +33,37 @@
     }
 
     .contentWrapper {
+      width: 100%;
+      max-width: 536px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: start;
+      box-sizing: border-box;
+      padding-left: 80px;
+
+      .fullName {
+        color: #eaeaea;
+        font-family: 'PP Neue Machina';
+        font-size: 48px;
+        line-height: 48px;
+        letter-spacing: -2px;
+      }
+
+      .titleAndCompany {
+        color: #ff482f;
+        font-family: 'PP Neue Machina';
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+      }
+
+      .socialMediaButtons {
+        display: flex;
+        gap: 24px;
+      }
+
       .button {
         width: fit-content;
         color: #fff;
