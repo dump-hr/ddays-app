@@ -19,6 +19,8 @@ export type CompanyPublicDto = {
   description?: string;
   opportunitiesDescription?: string;
   website?: string;
+  instagram?: string;
+  linkedin?: string;
   booth?: string;
   logoImage?: string;
   landingImage?: string;
