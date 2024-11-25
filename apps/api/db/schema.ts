@@ -86,6 +86,8 @@ export const company = pgTable('company', {
   description: text('description'),
   opportunitiesDescription: text('opportunities_description'),
   website: text('website_url'),
+  instagram: text('instagram_url'),
+  linkedin: text('linkedin_url'),
   logoImage: text('logo_image'),
   landingImage: text('landing_image'),
   landingImageCompanyCulture: text('landing_image_company_culture'),
