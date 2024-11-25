@@ -8,8 +8,8 @@ function App() {
   return (
     <div>
       <p>DUMP Days 2025 App</p>
-      {/* <Button>Click me</Button>
-      <ToggleButton toggled={toggled} onClick={() => setToggled(!toggled)} /> */}
+      <Button>Click me</Button>
+      <ToggleButton toggled={toggled} onClick={() => setToggled(!toggled)} />
       <Notification
         title={'Došle su pizze'}
         content={
