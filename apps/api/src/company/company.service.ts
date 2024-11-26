@@ -46,6 +46,8 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
+        instagram: company.instagram,
+        linkedin: company.linkedin,
         booth: booth.name,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
@@ -69,6 +71,8 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
+        instagram: company.instagram,
+        linkedin: company.linkedin,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -97,6 +101,8 @@ export class CompanyService {
         description: company.description,
         opportunitiesDescription: company.opportunitiesDescription,
         website: company.website,
+        instagram: company.instagram,
+        linkedin: company.linkedin,
         logoImage: company.logoImage,
         landingImage: company.landingImage,
         landingImageCompanyCulture: company.landingImageCompanyCulture,
@@ -176,6 +182,8 @@ export class CompanyService {
         username: dto.username,
         description: dto.description,
         website: dto.website,
+        instagram: dto.instagram,
+        linkedin: dto.linkedin,
         codeId: dto.codeId,
       })
       .where(eq(company.id, id))
@@ -198,6 +206,8 @@ export class CompanyService {
       .set({
         description: data.description,
         website: data.website,
+        instagram: data.instagram,
+        linkedin: data.linkedin,
         opportunitiesDescription: data.opportunitiesDescription,
       })
       .where(eq(company.id, companyId))
