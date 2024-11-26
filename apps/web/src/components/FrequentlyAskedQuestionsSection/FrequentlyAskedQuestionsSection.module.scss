@@ -11,6 +11,10 @@
     padding: 119px 16px 176px 16px;
   }
 
+  @media (max-width: 380px) {
+    padding: 119px 4.255vw 176px 4.255vw;
+  }
+
   &:before {
     content: '';
     background-image: url(../../assets/images/noise.webp);
@@ -39,6 +43,10 @@
     font-weight: 500;
     line-height: 144px;
     letter-spacing: -5.025px;
+
+    @media (max-width: 380px) {
+      font-size: 31.9149vw;
+    }
   }
 }
 
@@ -60,6 +68,15 @@
   &Index {
     @include mixins.themeBadge();
     margin-top: 4px;
+
+    @media (max-width: 380px) {
+      font-size: 8px;
+      line-height: 8vw;
+      padding: 1.064vw 4.255vw;
+      margin-top: 1.064vw;
+      height: 10px;
+      width: 20px;
+    }
   }
 
   &Info {
@@ -67,6 +84,10 @@
 
     @media (max-width: 1200px) {
       margin-left: 24px;
+    }
+
+    @media (max-width: 380px) {
+      margin-left: 6.383vw;
     }
   }
 
@@ -86,6 +107,11 @@
       letter-spacing: -0.16px;
       font-size: 16px;
     }
+
+    @media (max-width: 380px) {
+      font-size: 12px;
+      line-height: 15px; 
+    }
   }
 
   &Answer {
@@ -100,6 +126,11 @@
     font-style: normal;
     font-weight: 500;
     line-height: 22px;
+
+    @media (max-width: 380px) {
+      font-size: 12px;
+      line-height: 15px; 
+    }
   }
 
   &Button {
