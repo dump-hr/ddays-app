@@ -64,9 +64,9 @@
     z-index: 1;
 
     @media screen and (max-width: 684px) {
-      font-size: 64px;
-      line-height: 62px;
-      letter-spacing: -3px;
+      font-size: 17.02vw;
+      line-height: 16.49vw;
+      letter-spacing: -0.8723vw;
     }
   }
 
@@ -92,6 +92,11 @@
     transition: 300ms;
     padding: 14px 16px;
     margin-top: 32px;
+
+    @media screen and (max-width: 400px) {
+      font-size: 4.5vw;
+      letter-spacing: 0.27vw;
+    }
   }
 
   .grainyButton {
@@ -197,6 +202,10 @@
 
 .bottomWrapper {
   padding: 0px 32px;
+
+  @media screen and (max-width: 450px) {
+    padding: 0px;
+  }
 }
 
 .questionsWrapper {
@@ -215,7 +224,6 @@
   display: flex;
   position: absolute;
   bottom: -38px;
-  width:100vw;
 
   .socialsImage {
     width: 162px;
@@ -302,5 +310,6 @@
   @media screen and (max-width: 1032px) {
     flex-direction: column;
     text-align: center;
+    padding: 0px;
   }
 }
