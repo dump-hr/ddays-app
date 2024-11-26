@@ -213,9 +213,9 @@
 
 .socialsWrapper {
   display: flex;
-  height: fit-content;
   position: absolute;
   bottom: -38px;
+  width:100vw;
 
   .socialsImage {
     width: 162px;
@@ -230,15 +230,8 @@
     }
 
     @media screen and (max-width: 650px) {
-      width: 106px;
-      height: 106px;
-      margin-left: -12px;
-      margin-right: -12px;
-    }
-
-    @media screen and (max-width: 361px) {
-      width: 94px;
-      height: 94px;
+      width: 28vw;
+      height: 28vw;
     }
   }
 }
@@ -251,7 +244,8 @@
   margin-top: 52px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 68px;
+    margin-top: 18.09vw;
+    margin-left: -5.374vw;
   }
 }
 
@@ -259,7 +253,8 @@
   margin-top: 28px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 16px;
+    margin-top: 4.255vw;
+    margin-left:2.39vw;
   }
 }
 
@@ -267,7 +262,8 @@
   margin-top: 60px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 83px;
+    margin-top: 22.07vw;
+    margin-left: -4.02vw;
   }
 }
 
@@ -275,11 +271,8 @@
   height: 162px;
 
   @media screen and (max-width: 650px) {
-    height: 106px;
-  }
-
-  @media screen and (max-width: 361px) {
-    height: 94px;
+    margin-left: -7.69vw;
+    height: 28vw;
   }
 }
 
