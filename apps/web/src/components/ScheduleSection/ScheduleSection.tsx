@@ -99,20 +99,19 @@ const ScheduleSection = () => {
             </div>
           </div>
           <div className={c.scheduleContainer}>
-            {events.data
-              ?.filter(
+            {/* ?.filter(
                 (event) =>
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date,
-              )
-              .map((event) => (
-                <ScheduleCard
-                  key={event.id}
-                  event={event}
-                  openCardId={openedCardId}
-                  setOpenCardId={setOpenedCardId}
-                />
-              ))}
+              ) */
+             events.data?.map((event) => (
+              <ScheduleCard
+                key={event.id}
+                event={event}
+                openCardId={openedCardId}
+                setOpenCardId={setOpenedCardId}
+              />
+            ))}
             {events.data?.length === 0 && 'Trenutno nema upisanih događaja'}
           </div>
         </div>

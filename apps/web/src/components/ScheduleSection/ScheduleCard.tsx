@@ -1,7 +1,8 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import MinusSvg from 'assets/icons/minus-black.svg';
 import PlusSvg from 'assets/icons/plus-black.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
@@ -10,6 +11,8 @@ import {
   getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
 } from './utils';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const getThemeShort = (theme: string) => {
   switch (theme) {
@@ -54,6 +57,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   const isOpenDescription = openCardId === event.id;
   const [isImageShown, setIsImageShown] = useState(false);
+  const speakerPhoto = useRef<HTMLDivElement>(null);
 
   const handleCardClick = () => {
     if (isOpenDescription) {
@@ -64,14 +68,26 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   };
 
   const handleHover = () => {
-    if (!isOpenDescription) {
-      setIsImageShown(true);
-    }
+    if (!isOpenDescription) setIsImageShown(true);
   };
 
   const handleUnhover = () => {
     setIsImageShown(false);
   };
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (speakerPhoto.current && !isOpenDescription) {
+        gsap.fromTo(
+          speakerPhoto.current,
+          { scale: 0 },
+          { scale: 1, duration: 0.7, ease: 'power2.out' },
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, [isMobile, isImageShown, isOpenDescription]);
 
   return (
     <div
@@ -83,7 +99,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         {(isImageShown || isOpenDescription) &&
           !isMobile &&
           images[currentImageIndex] && (
-            <div className={c.speakerPhoto}>
+            <div className={c.speakerPhoto} ref={speakerPhoto}>
               <img
                 src={images[currentImageIndex]}
                 height={cardAspectRatio * 120}
@@ -137,11 +153,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         <div className={c.scheduleCardRight}>
           {event.description !== '' && (
             <button className={c.plusButton}>
-              {isOpenDescription ? (
-                <img src={MinusSvg} alt='minus' />
-              ) : (
-                <img src={PlusSvg} alt='plus' />
-              )}
+              <img src={PlusSvg} alt='plus' />
             </button>
           )}
         </div>
