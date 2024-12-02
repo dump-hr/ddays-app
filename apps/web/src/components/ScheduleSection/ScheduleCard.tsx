@@ -1,8 +1,6 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EventWithSpeakerDto } from '@ddays-app/types';
+import { useEffect, useState } from 'react';
 import PlusSvg from 'assets/icons/plus-black.svg';
-import { useEffect, useRef, useState } from 'react';
 
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
@@ -11,8 +9,7 @@ import {
   getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
 } from './utils';
-
-gsap.registerPlugin(ScrollTrigger);
+import ScheduleImageCard from './ScheduleImageCard';
 
 const getThemeShort = (theme: string) => {
   switch (theme) {
@@ -52,12 +49,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     return () => clearInterval(intervalId);
   }, []);
 
-  const cardAspectRatio = 401 / 320;
   const { isMobile } = useScreenSize(930);
 
   const isOpenDescription = openCardId === event.id;
   const [isImageShown, setIsImageShown] = useState(false);
-  const speakerPhoto = useRef<HTMLDivElement>(null);
 
   const handleCardClick = () => {
     if (isOpenDescription) {
@@ -75,20 +70,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     setIsImageShown(false);
   };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (speakerPhoto.current && !isOpenDescription) {
-        gsap.fromTo(
-          speakerPhoto.current,
-          { scale: 0 },
-          { scale: 1, duration: 0.7, ease: 'power2.out' },
-        );
-      }
-    });
-
-    return () => ctx.revert();
-  }, [isMobile, isImageShown, isOpenDescription]);
-
   return (
     <div
       onMouseOver={handleHover}
@@ -96,17 +77,33 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {(isImageShown || isOpenDescription) &&
-          !isMobile &&
-          images[currentImageIndex] && (
-            <div className={c.speakerPhoto} ref={speakerPhoto}>
-              <img
+        {(isImageShown || isOpenDescription) && !isMobile && (
+          <>
+            {images?.length > 1 ? (
+              <>
+                {images.map((image) => {
+                  return (
+                    <ScheduleImageCard
+                      key={image}
+                      src={image}
+                      event={event}
+                      isOpenDescription={isOpenDescription}
+                      isImageShown={isImageShown}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <ScheduleImageCard
+                key={images[currentImageIndex]}
                 src={images[currentImageIndex]}
-                height={cardAspectRatio * 120}
-                width={120}
+                event={event}
+                isOpenDescription={isOpenDescription}
+                isImageShown={isImageShown}
               />
-            </div>
-          )}
+            )}
+          </>
+        )}
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
