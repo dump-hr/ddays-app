@@ -59,7 +59,7 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
         );
       } else {
         const transform = `scale(1) translate(${translateX}px, ${translateY}px) rotate(${rotateDeg}deg)`;
-        speakerPhoto!.current!.style.transform = transform;
+        speakerPhoto.current!.style.transform = transform;
       }
     });
     return () => ctx.revert();
