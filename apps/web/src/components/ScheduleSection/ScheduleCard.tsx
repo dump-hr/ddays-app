@@ -83,7 +83,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       <div className={c.scheduleCard}>
         {(isImageShown || isOpenDescription) && !isMobile && (
           <>
-            {event.type === 'panel' && images[currentImageIndex] ? (
+            {event.type === 'panel' && images[currentImageIndex] && (
               <>
                 <ScheduleImageCard
                   index={0}
@@ -100,8 +100,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   isImageShown={isImageShown}
                 />
               </>
-            ) : (
-              images?.map((image, index) => {
+            )}
+
+            {event.type !== 'panel' && images.length > 1 ? (
+              images.map((image, index) => {
                 return (
                   <ScheduleImageCard
                     key={index}
@@ -113,6 +115,14 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   />
                 );
               })
+            ) : (
+              <ScheduleImageCard
+                index={0}
+                src={images[0]}
+                event={event}
+                isOpenDescription={isOpenDescription}
+                isImageShown={isImageShown}
+              />
             )}
           </>
         )}
