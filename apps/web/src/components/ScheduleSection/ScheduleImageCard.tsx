@@ -10,6 +10,7 @@ import c from './ScheduleSection.module.scss';
 gsap.registerPlugin(ScrollTrigger);
 
 type ScheduleImageCardProps = {
+  index: number;
   src: string | undefined;
   event: EventWithSpeakerDto;
   isOpenDescription: boolean;
@@ -17,6 +18,7 @@ type ScheduleImageCardProps = {
 };
 
 const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
+  index,
   src,
   event,
   isOpenDescription,
@@ -35,13 +37,29 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
   };
 
   useEffect(() => {
+    if (isMobile || !speakerPhoto) return;
+
     const ctx = gsap.context(() => {
-      if (speakerPhoto && !isOpenDescription) {
+      const translateX = 80 * index;
+      const translateY = 6 * index;
+      const rotateDeg = index !== 0 ? 6 * index : -3;
+
+      if (!isOpenDescription) {
         gsap.fromTo(
           speakerPhoto.current,
-          { scale: 0 },
-          { scale: 1, duration: 0.7, ease: 'power2.out' },
+          { scale: 0, x: 0, y: 0, rotation: -3 },
+          {
+            scale: 1,
+            x: translateX,
+            y: translateY,
+            rotation: rotateDeg,
+            duration: 0.7,
+            ease: 'power2.out',
+          },
         );
+      } else {
+        const transform = `scale(1) translate(${translateX}px, ${translateY}px) rotate(${rotateDeg}deg)`;
+        speakerPhoto!.current!.style.transform = transform;
       }
     });
     return () => ctx.revert();

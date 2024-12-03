@@ -81,10 +81,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           <>
             {images?.length > 1 ? (
               <>
-                {images.map((image) => {
+                {images.map((image, index) => {
                   return (
                     <ScheduleImageCard
-                      key={image}
+                      key={index}
+                      index={index}
                       src={image}
                       event={event}
                       isOpenDescription={isOpenDescription}
@@ -95,7 +96,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               </>
             ) : (
               <ScheduleImageCard
-                key={images[currentImageIndex]}
+                index={0}
                 src={images[currentImageIndex]}
                 event={event}
                 isOpenDescription={isOpenDescription}
