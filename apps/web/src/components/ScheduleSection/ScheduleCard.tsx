@@ -35,7 +35,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   openCardId,
   setOpenCardId,
 }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(1);
 
   const images = event.speakers
     ?.filter((speaker) => speaker.photo !== null)
@@ -43,7 +43,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      setCurrentImageIndex((prev) => {
+        const next = (prev + 1) % images.length;
+        if (next === 0) return 1;
+        return next;
+      });
     }, 2000);
 
     return () => clearInterval(intervalId);
@@ -79,32 +83,40 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       <div className={c.scheduleCard}>
         {(isImageShown || isOpenDescription) && !isMobile && (
           <>
-            {images?.length > 1 ? (
+            {event.type === 'panel' && images[currentImageIndex] ? (
               <>
-                {images.map((image, index) => {
-                  return (
-                    <ScheduleImageCard
-                      key={index}
-                      index={index}
-                      src={image}
-                      event={event}
-                      isOpenDescription={isOpenDescription}
-                      isImageShown={isImageShown}
-                    />
-                  );
-                })}
+                <ScheduleImageCard
+                  index={0}
+                  src={images[0]}
+                  event={event}
+                  isOpenDescription={isOpenDescription}
+                  isImageShown={isImageShown}
+                />
+                <ScheduleImageCard
+                  index={1}
+                  src={images[currentImageIndex]}
+                  event={event}
+                  isOpenDescription={isOpenDescription}
+                  isImageShown={isImageShown}
+                />
               </>
             ) : (
-              <ScheduleImageCard
-                index={0}
-                src={images[currentImageIndex]}
-                event={event}
-                isOpenDescription={isOpenDescription}
-                isImageShown={isImageShown}
-              />
+              images?.map((image, index) => {
+                return (
+                  <ScheduleImageCard
+                    key={index}
+                    index={index}
+                    src={image}
+                    event={event}
+                    isOpenDescription={isOpenDescription}
+                    isImageShown={isImageShown}
+                  />
+                );
+              })
             )}
           </>
         )}
+
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
