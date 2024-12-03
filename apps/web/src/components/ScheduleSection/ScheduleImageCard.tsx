@@ -40,7 +40,7 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
     if (isMobile || !speakerPhoto) return;
 
     const ctx = gsap.context(() => {
-      const translateX = 80 * index;
+      const translateX = 90 * index;
       const translateY = 6 * index;
       const rotateDeg = index !== 0 ? 6 * index : -3;
 

@@ -188,8 +188,12 @@
   z-index: 2;
   top: -26px;
   right: 250px;
+
+  @media screen and (max-width: 1180px) {
+    right: 200px;
+  }
 }
-.nonClickable{
+.nonClickable {
   cursor: text;
 }
 
