@@ -105,7 +105,7 @@ const ScheduleSection = () => {
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date,
               )
-              .map((event) => (
+              ?.map((event) => (
                 <ScheduleCard
                   key={event.id}
                   event={event}
