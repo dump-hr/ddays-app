@@ -63,6 +63,10 @@
 
     &CenterWrapper {
       max-width: 750px;
+
+      @media screen and (max-width: 1440px) {
+        max-width: 500px;
+      }
     }
 
     &Title {
@@ -75,6 +79,7 @@
       margin: 0;
       margin-right: 150px;
       cursor: pointer;
+      word-break: break-word;
     }
 
     &Subtitle {
@@ -180,13 +185,14 @@
   fill: black;
   background-color: transparent;
   border: none;
+  z-index: 10;
   cursor: pointer;
 }
 
 .speakerPhoto {
   position: absolute;
   z-index: 2;
-  top: -26px;
+  top: -10px;
   right: 250px;
 
   @media screen and (max-width: 1180px) {
@@ -197,7 +203,29 @@
   cursor: text;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1440px) {
+  .scheduleCard {
+    padding: 35px 48px;
+  }
+
+  .scheduleCardLeft {
+    margin-right: 100px;
+  }
+
+  .scheduleCardTitle {
+    margin-right: 100px;
+  }
+
+  .scheduleCardSubtitle {
+    margin-right: 100px;
+  }
+
+  .scheduleButton {
+    padding: 16px 24px;
+  }
+}
+
+@media screen and (max-width: 1180px) {
   .scheduleCardLeft {
     margin-right: 80px;
   }
@@ -227,6 +255,7 @@
   }
 
   .scheduleCard {
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
