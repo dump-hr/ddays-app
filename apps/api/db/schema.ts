@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
+  json,
   pgEnum,
   pgTable,
   primaryKey,
@@ -9,6 +10,108 @@ import {
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
+
+export const companyCategory = pgEnum('company_category', [
+  'gold',
+  'silver',
+  'bronze',
+  'media',
+  'friend',
+]);
+
+export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
+
+export const eventType = pgEnum('event_type', [
+  'lecture',
+  'workshop',
+  'flyTalk',
+  'campfireTalk',
+  'panel',
+  'other',
+]);
+
+export const surveyQuestionInputType = pgEnum('survey_question_input_type', [
+  'input',
+  'textarea',
+  'rating',
+]);
+
+export const surveyQuestionType = pgEnum('survey_question_type', [
+  'workshop',
+  'lecture',
+  'company',
+]);
+
+// new enums
+export const shopItemType = pgEnum('shop_item_type', [
+  'mug',
+  'shirt',
+  'hoodie',
+  'sticker',
+]);
+
+export const shoppingCartItemStage = pgEnum('shopping_cart_item_stage', [
+  'collected',
+  'uncollected',
+]);
+
+export const colors = pgEnum('colors', [
+  'yellow',
+  'orange',
+  'brown',
+  'purple',
+  'green',
+  'white',
+  'red',
+  'gray',
+]);
+
+export const face = pgEnum('face', [
+  'default',
+  'eyelashes',
+  'angry',
+  'crying',
+  'mustache',
+  'nose_ring',
+  'tattoo',
+  'mole',
+]);
+
+export const accessory = pgEnum('accessory', [
+  'default',
+  'sunglasses',
+  'crown',
+  'angel',
+  'beret',
+  'ninja',
+  'headphones',
+  'flower',
+]);
+
+export const body = pgEnum('body', [
+  'default',
+  'scarf',
+  'chain',
+  'basketball',
+  'macbook',
+  'sunflower',
+  'cats',
+  'dumbell',
+]);
+
+export const notificationType = pgEnum('notification_type', [
+  'announcment',
+  'event_reminder',
+  'achievement',
+  'emergency',
+  'survey',
+]);
+
+export const notificationStatus = pgEnum('notification_status', [
+  'pending',
+  'delivered',
+  'read',
+]);
 
 export const achievement = pgTable('achievement', {
   id: serial('id').primaryKey(),
@@ -69,14 +172,6 @@ export const achievementToCodeRelations = relations(
   }),
 );
 
-export const companyCategory = pgEnum('company_category', [
-  'gold',
-  'silver',
-  'bronze',
-  'media',
-  'friend',
-]);
-
 export const company = pgTable('company', {
   id: serial('id').primaryKey(),
   password: text('password'),
@@ -105,6 +200,31 @@ export const companyRelations = relations(company, ({ one, many }) => ({
   booth: one(booth),
 }));
 
+export const companyToFlyTalk = pgTable(
+  'company_to_fly_talk',
+  {
+    companyId: integer('company_id').references(() => company.id),
+    eventId: integer('event_id').references(() => event.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.companyId, t.eventId] }),
+  }),
+);
+
+export const companyToFlyTalkRelations = relations(
+  companyToFlyTalk,
+  ({ one }) => ({
+    company: one(company, {
+      fields: [companyToFlyTalk.companyId],
+      references: [company.id],
+    }),
+    event: one(event, {
+      fields: [companyToFlyTalk.eventId],
+      references: [event.id],
+    }),
+  }),
+);
+
 export const job = pgTable('job', {
   id: serial('id').primaryKey(),
   position: text('position').notNull(),
@@ -123,17 +243,6 @@ export const jobRelations = relations(job, ({ one }) => ({
     references: [company.id],
   }),
 }));
-
-export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
-
-export const eventType = pgEnum('event_type', [
-  'lecture',
-  'workshop',
-  'flyTalk',
-  'campfireTalk',
-  'panel',
-  'other',
-]);
 
 export const event = pgTable('event', {
   id: serial('id').primaryKey(),
@@ -233,18 +342,6 @@ export const frequentlyAskedQuestion = pgTable('frequently_asked_question', {
   answer: text('answer').notNull(),
 });
 
-export const surveyQuestionInputType = pgEnum('survey_question_input_type', [
-  'input',
-  'textarea',
-  'rating',
-]);
-
-export const surveyQuestionType = pgEnum('survey_question_type', [
-  'workshop',
-  'lecture',
-  'company',
-]);
-
 export const surveyQuestion = pgTable('survey_question', {
   id: serial('id').primaryKey(),
   question: text('question').notNull(),
@@ -258,8 +355,62 @@ export const notification = pgTable('notification', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   content: text('description'),
+  type: notificationType('type').notNull(),
   activatedAt: timestamp('activated_at'),
+  expiresAt: timestamp('expires_at'),
+  createdAt: timestamp('created_at').defaultNow(),
+  createdByUserId: integer('created_by_user_id').references(() => user.id),
+  eventId: integer('event_id').references(() => event.id),
+  isActive: boolean('is_active').default(true),
 });
+
+export const userNotification = pgTable(
+  'user_notification',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id')
+      .notNull()
+      .references(() => user.id),
+    notificationId: integer('notification_id')
+      .notNull()
+      .references(() => notification.id),
+    status: notificationStatus('status').notNull().default('pending'),
+    deliveredAt: timestamp('delivered_at'),
+    readAt: timestamp('read_at'),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.notificationId] }),
+  }),
+);
+
+export const userNotificationRelations = relations(
+  userNotification,
+  ({ one }) => ({
+    user: one(user, {
+      fields: [userNotification.userId],
+      references: [user.id],
+    }),
+    notification: one(notification, {
+      fields: [userNotification.notificationId],
+      references: [notification.id],
+    }),
+  }),
+);
+
+export const notificationRelations = relations(
+  notification,
+  ({ one, many }) => ({
+    createdByUser: one(user, {
+      fields: [notification.createdByUserId],
+      references: [user.id],
+    }),
+    event: one(event, {
+      fields: [notification.eventId],
+      references: [event.id],
+    }),
+    userNotifications: many(userNotification),
+  }),
+);
 
 export const speaker = pgTable('speaker', {
   id: serial('id').primaryKey(),
@@ -320,5 +471,193 @@ export const boothRelations = relations(booth, ({ one }) => ({
   company: one(company, {
     fields: [booth.companyId],
     references: [company.id],
+  }),
+}));
+
+export const user = pgTable('user', {
+  id: serial('id').primaryKey(),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
+  email: text('email').notNull().unique(),
+  phoneNumber: text('phone_number').notNull().unique(),
+  yearOfBirth: integer('year_of_birth').notNull(),
+  occupation: text('occupation'),
+  password: text('password'),
+  points: integer('points'),
+  newsletterConsent: boolean('newsletter_consent'),
+  companiesNewsletterConsent: boolean('companies_newsletter_consent'),
+  isDeleted: boolean('is_deleted'),
+  profilePhotoUrl: text('profile_photo_url'),
+});
+
+export const avatar = pgTable('avatar', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => user.id),
+  color: colors('color'),
+  face: face('face'),
+  accessory: accessory('accessory'),
+  body: body('body'),
+});
+
+export const avatarRelations = relations(avatar, ({ one }) => ({
+  user: one(user, {
+    fields: [avatar.userId],
+    references: [user.id],
+  }),
+}));
+
+export const userToEvent = pgTable(
+  'user_to_event',
+  {
+    userId: integer('user_id').references(() => user.id),
+    eventId: integer('event_id').references(() => event.id),
+    linkedinProfile: text('linkedin_profile'),
+    githubProfile: text('github_profile'),
+    portfolioProfile: text('portfolio_profile'),
+    cv: text('cv'),
+    description: text('description'),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.eventId] }),
+  }),
+);
+
+export const userToEventRelations = relations(userToEvent, ({ one }) => ({
+  user: one(user, {
+    fields: [userToEvent.userId],
+    references: [user.id],
+  }),
+  event: one(event, {
+    fields: [userToEvent.eventId],
+    references: [event.id],
+  }),
+}));
+
+export const userToInterest = pgTable(
+  'user_to_interest',
+  {
+    userId: integer('user_id')
+      .notNull()
+      .references(() => user.id),
+    interestId: integer('interest_id')
+      .notNull()
+      .references(() => interest.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.interestId] }),
+  }),
+);
+
+export const userToInterestRelations = relations(userToInterest, ({ one }) => ({
+  user: one(user, {
+    fields: [userToInterest.userId],
+    references: [user.id],
+  }),
+  interest: one(interest, {
+    fields: [userToInterest.interestId],
+    references: [interest.id],
+  }),
+}));
+
+export const userToAchievement = pgTable(
+  'user_to_achievement',
+  {
+    userId: integer('user_id')
+      .notNull()
+      .references(() => user.id),
+    achievementId: integer('achievement_id')
+      .notNull()
+      .references(() => achievement.id),
+    timeOfAchievement: timestamp('time_of_achievement'),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.achievementId] }),
+  }),
+);
+
+export const userToAchievementRelations = relations(
+  userToAchievement,
+  ({ one }) => ({
+    user: one(user, {
+      fields: [userToAchievement.userId],
+      references: [user.id],
+    }),
+    achievement: one(achievement, {
+      fields: [userToAchievement.achievementId],
+      references: [achievement.id],
+    }),
+  }),
+);
+
+export const shopItem = pgTable('shop_item', {
+  id: serial('id').primaryKey(),
+  type: shopItemType('type'),
+  itemName: text('item_name'),
+  quantity: integer('quantity'),
+  price: integer('price'),
+});
+
+export const shoppingCart = pgTable(
+  'shopping_cart',
+  {
+    shopItemId: integer('shop_item_id').references(() => shopItem.id),
+    userId: integer('user_id').references(() => user.id),
+    quantity: integer('quantity'),
+    stage: shoppingCartItemStage('stage'),
+    orderedAt: timestamp('ordered_at'),
+    takeByTime: timestamp('take_by_time'),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.shopItemId] }),
+  }),
+);
+
+export const shoppingCartRelations = relations(shoppingCart, ({ one }) => ({
+  shopItem: one(shopItem, {
+    fields: [shoppingCart.shopItemId],
+    references: [shopItem.id],
+  }),
+  user: one(user, {
+    fields: [shoppingCart.userId],
+    references: [user.id],
+  }),
+}));
+
+export const userRelations = relations(user, ({ many }) => ({
+  userToEvent: many(userToEvent),
+  userToInterest: many(userToInterest),
+  userToAchievement: many(userToAchievement),
+  avatar: many(avatar),
+  userNotifications: many(userNotification),
+  notifications: many(notification),
+  shoppingCart: many(shoppingCart),
+}));
+
+export const notificationTemplate = pgTable('notification_template', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  titleTemplate: text('title_template').notNull(),
+  contentTemplate: text('content_template').notNull(),
+  type: notificationType('type').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const rating = pgTable('rating', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id'),
+  boothId: integer('booth_id').references(() => booth.id),
+  eventId: integer('event_id').references(() => event.id),
+  grades: json('grades'),
+  comment: text('comment'),
+});
+
+export const ratingRelations = relations(rating, ({ one }) => ({
+  booth: one(booth, {
+    fields: [rating.boothId],
+    references: [booth.id],
+  }),
+  event: one(event, {
+    fields: [rating.eventId],
+    references: [event.id],
   }),
 }));
