@@ -100,11 +100,11 @@ const ScheduleSection = () => {
           </div>
           <div className={c.scheduleContainer}>
             {events.data
-              /* ?.filter(
+              ?.filter(
                 (event) =>
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date,
-              ) */
+              )
               ?.map((event) => (
                 <ScheduleCard
                   key={event.id}
