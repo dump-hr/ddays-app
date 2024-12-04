@@ -8,21 +8,9 @@ import {
   getEventTime,
   getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
+  getThemeShort,
 } from './utils';
 import ScheduleImageCard from './ScheduleImageCard';
-
-const getThemeShort = (theme: string) => {
-  switch (theme) {
-    case 'dev':
-      return 'DEV';
-    case 'design':
-      return 'DIZ';
-    case 'marketing':
-      return 'MARK';
-    case 'tech':
-      return 'TECH';
-  }
-};
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
@@ -36,15 +24,22 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   setOpenCardId,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const [isImageShown, setIsImageShown] = useState(false);
 
-  const images = event.speakers
+  const { isMobile } = useScreenSize(1030);
+  const isOpenDescription = openCardId === event.id;
+
+  const imagesList = event.speakers
     ?.filter((speaker) => speaker.photo !== null)
-    .map((speaker) => speaker.photo) || [''];
+    .map((speaker) => speaker.photo);
+
+  // for case when the event is lunch so it can render the image card
+  const images = imagesList?.length === 0 ? [''] : imagesList!; 
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex((prev) => {
-        const next = (prev + 1) % images.length;
+        const next = (prev + 1) % images!.length;
         if (next === 0) return 1;
         return next;
       });
@@ -53,12 +48,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     return () => clearInterval(intervalId);
   }, []);
 
-  const { isMobile } = useScreenSize(930);
-
-  const isOpenDescription = openCardId === event.id;
-  const [isImageShown, setIsImageShown] = useState(false);
-
   const handleCardClick = () => {
+    if (!event.description) return;
+
     if (isOpenDescription) {
       setOpenCardId(null);
     } else {
@@ -91,6 +83,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   event={event}
                   isOpenDescription={isOpenDescription}
                   isImageShown={isImageShown}
+                  imagesLength={images.length}
                 />
                 <ScheduleImageCard
                   index={1}
@@ -98,11 +91,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   event={event}
                   isOpenDescription={isOpenDescription}
                   isImageShown={isImageShown}
+                  imagesLength={images.length}
                 />
               </>
             )}
 
-            {event.type !== 'panel' && images.length > 1 ? (
+            {event.type !== 'panel' &&
               images.map((image, index) => {
                 return (
                   <ScheduleImageCard
@@ -112,18 +106,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     event={event}
                     isOpenDescription={isOpenDescription}
                     isImageShown={isImageShown}
+                    imagesLength={images.length}
                   />
                 );
-              })
-            ) : (
-              <ScheduleImageCard
-                index={0}
-                src={images[0]}
-                event={event}
-                isOpenDescription={isOpenDescription}
-                isImageShown={isImageShown}
-              />
-            )}
+              })}
           </>
         )}
 
@@ -171,7 +157,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          {event.description !== '' && (
+          {event.description && (
             <button className={c.plusButton}>
               <img src={PlusSvg} alt='plus' />
             </button>
