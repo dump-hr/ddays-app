@@ -108,7 +108,7 @@
       z-index: 0;
       transition: 300ms;
     }
- 
+
     &:hover {
       overflow: hidden;
 
@@ -288,7 +288,7 @@
 }
 
 .dottedRuler {
-  @include mixins.dottedBreak(rgba(255, 255, 255, 0.20));
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.2));
   margin-top: 10px;
 }
 
