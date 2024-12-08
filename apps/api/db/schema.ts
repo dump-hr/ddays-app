@@ -42,7 +42,6 @@ export const surveyQuestionType = pgEnum('survey_question_type', [
   'company',
 ]);
 
-// new enums
 export const shopItemType = pgEnum('shop_item_type', [
   'mug',
   'shirt',
@@ -100,7 +99,7 @@ export const body = pgEnum('body', [
 ]);
 
 export const notificationType = pgEnum('notification_type', [
-  'announcment',
+  'announcement',
   'event_reminder',
   'achievement',
   'emergency',
