@@ -78,6 +78,20 @@
       "when": 1716132892106,
       "tag": "0010_slimy_stature",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1733654285606,
+      "tag": "0011_curly_magneto",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1733695116615,
+      "tag": "0012_marvelous_paibok",
+      "breakpoints": true
     }
   ]
 }
