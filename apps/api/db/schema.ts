@@ -98,14 +98,6 @@ export const body = pgEnum('body', [
   'dumbell',
 ]);
 
-export const notificationType = pgEnum('notification_type', [
-  'announcement',
-  'event_reminder',
-  'achievement',
-  'emergency',
-  'survey',
-]);
-
 export const notificationStatus = pgEnum('notification_status', [
   'pending',
   'delivered',
@@ -354,7 +346,6 @@ export const notification = pgTable('notification', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   content: text('description'),
-  type: notificationType('type').notNull(),
   activatedAt: timestamp('activated_at'),
   expiresAt: timestamp('expires_at'),
   createdAt: timestamp('created_at').defaultNow(),
@@ -636,7 +627,6 @@ export const notificationTemplate = pgTable('notification_template', {
   name: text('name').notNull(),
   titleTemplate: text('title_template').notNull(),
   contentTemplate: text('content_template').notNull(),
-  type: notificationType('type').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });
 

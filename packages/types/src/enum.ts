@@ -33,11 +33,3 @@ export enum SurveyQuestionType {
   Lecture = 'lecture',
   Company = 'company',
 }
-
-export enum NotificationType {
-  Announcement = 'announcement',
-  EventReminder = 'event_reminder',
-  Achievement = 'achievement',
-  Emergency = 'emergency',
-  Survey = 'survey',
-}

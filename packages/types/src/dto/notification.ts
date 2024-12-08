@@ -6,13 +6,11 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { NotificationType } from 'src/enum';
 
 export type NotificationDto = {
   id: number;
   title: string;
   content?: string;
-  type: NotificationType;
   activatedAt?: Date;
   expiresAt?: Date;
   createdAt?: Date;
@@ -24,9 +22,6 @@ export type NotificationDto = {
 export class NotificationModifyDto {
   @IsString()
   title: string;
-
-  @IsEnum(NotificationType)
-  type: NotificationType;
 
   @IsOptional()
   @IsString()
