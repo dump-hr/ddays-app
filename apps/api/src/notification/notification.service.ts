@@ -1,4 +1,4 @@
-import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
+import { NotificationModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
 import { notification } from 'db/schema';
@@ -6,7 +6,7 @@ import { desc, eq, lte } from 'drizzle-orm';
 
 @Injectable()
 export class NotificationService {
-  async activate(id: number): Promise<NotificationDto> {
+  async activate(id: number) {
     const [activatedNotification] = await db
       .update(notification)
       .set({
@@ -18,7 +18,7 @@ export class NotificationService {
     return activatedNotification;
   }
 
-  async create(dto: NotificationModifyDto): Promise<NotificationDto> {
+  async create(dto: NotificationModifyDto) {
     const [createdNotification] = await db
       .insert(notification)
       .values(dto)
@@ -27,7 +27,7 @@ export class NotificationService {
     return createdNotification;
   }
 
-  async deactivate(id: number): Promise<NotificationDto> {
+  async deactivate(id: number) {
     const [deactivatedNotification] = await db
       .update(notification)
       .set({
@@ -39,7 +39,7 @@ export class NotificationService {
     return deactivatedNotification;
   }
 
-  async getActive(): Promise<NotificationDto[]> {
+  async getActive() {
     const notifications = await db
       .select({
         id: notification.id,
@@ -54,7 +54,7 @@ export class NotificationService {
     return notifications;
   }
 
-  async getAll(): Promise<NotificationDto[]> {
+  async getAll() {
     const notifications = await db
       .select({
         id: notification.id,
@@ -68,7 +68,7 @@ export class NotificationService {
     return notifications;
   }
 
-  async remove(id: number): Promise<NotificationDto> {
+  async remove(id: number) {
     const [deletedNotification] = await db
       .delete(notification)
       .where(eq(notification.id, id))
@@ -77,10 +77,7 @@ export class NotificationService {
     return deletedNotification;
   }
 
-  async update(
-    id: number,
-    dto: NotificationModifyDto,
-  ): Promise<NotificationDto> {
+  async update(id: number, dto: NotificationModifyDto) {
     const [updatedNotification] = await db
       .update(notification)
       .set(dto)
