@@ -367,7 +367,6 @@ export const notification = pgTable('notification', {
 export const userNotification = pgTable(
   'user_notification',
   {
-    id: serial('id').primaryKey(),
     userId: integer('user_id')
       .notNull()
       .references(() => user.id),
