@@ -40,7 +40,7 @@ const Dropdown = ({
       </button>
 
       {isOpen && (
-        <div>
+        <div className={c.optionsWrapper}>
           {options.map((option) => (
             <button
               key={option.value}
