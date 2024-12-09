@@ -49,16 +49,17 @@
     border-radius: 4px;
     position: absolute;
     top: 86px;
+    width: 500px;
 
     .innerContainer {
       display: flex;
+      width: 100%;
       gap: 8px;
       flex-direction: column;
       box-sizing: border-box;
 
       max-height: 310px;
       overflow-y: auto;
-      overflow-x: hidden;
 
       &::-webkit-scrollbar {
         width: 4px;
@@ -81,7 +82,7 @@
 
       .divider {
         @include dottedBreak(rgba(23, 22, 21, 0.65));
-        height: 2px;
+        height: 4px;
         margin-bottom: 8px;
       }
 
@@ -93,9 +94,9 @@
         margin: 0;
         margin-right: 10px;
         padding: 0;
-        width: 100%;
         text-align: left;
         cursor: pointer;
+        align-self: self-start;
 
         &.selected {
           color: $black-30;
