@@ -111,10 +111,14 @@ export class CompanyModifyDescriptionDto {
   website: string;
 
   @IsOptional()
+  @ValidateIf((e) => e.instagram !== '')
   @IsString()
+  @IsUrl()
   instagram: string;
 
   @IsOptional()
+  @ValidateIf((e) => e.linkedin !== '')
   @IsString()
+  @IsUrl()
   linkedin: string;
 }
