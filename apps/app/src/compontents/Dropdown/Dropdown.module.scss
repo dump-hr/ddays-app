@@ -1,0 +1,6 @@
+.wrapper {
+  .label {
+    @include paragraph-14;
+    color: $black-50;
+  }
+}

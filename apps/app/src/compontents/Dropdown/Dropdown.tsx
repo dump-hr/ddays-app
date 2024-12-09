@@ -28,7 +28,7 @@ const Dropdown = ({
 
   return (
     <div className={c.wrapper}>
-      {label && <label>{label}</label>}
+      {label && <label className={c.label}>{label}</label>}
 
       <button onClick={toggle}>{selectedOption?.label || placeholder}</button>
 
