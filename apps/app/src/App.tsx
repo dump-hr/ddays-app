@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Dropdown from './compontents/Dropdown/Dropdown';
 import { DropdownOption } from './compontents/Dropdown/DropdownOption';
 
@@ -8,9 +9,19 @@ const options: DropdownOption[] = [
 ];
 
 function App() {
+  const [selectedOption, setSelectedOption] = useState(
+    undefined as DropdownOption | undefined,
+  );
+
   return (
     <>
-      <Dropdown label='Hello' placeholder='World' options={options} />
+      <Dropdown
+        label='Hello'
+        placeholder='World'
+        options={options}
+        setOption={(option: DropdownOption) => setSelectedOption(option)}
+        selectedOption={selectedOption}
+      />
     </>
   );
 }

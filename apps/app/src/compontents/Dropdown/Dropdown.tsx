@@ -6,25 +6,40 @@ type DropdownProps = {
   label: string;
   placeholder: string;
   options: DropdownOption[];
-  setOption: () => void;
-  selectedOption: DropdownOption;
+  setOption: (option: DropdownOption) => void;
+  selectedOption: DropdownOption | undefined;
 };
 
-const Dropdown = ({ label, placeholder, options }: DropdownProps) => {
+const Dropdown = ({
+  label,
+  placeholder,
+  options,
+  setOption,
+  selectedOption,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  function handleOptionSelected(option: DropdownOption) {
+    setOption(option);
+    setIsOpen(false);
+  }
 
   return (
     <div className={c.wrapper}>
       {label && <label>{label}</label>}
 
-      <button onClick={toggle}>{placeholder}</button>
+      <button onClick={toggle}>{selectedOption?.label || placeholder}</button>
 
       {isOpen && (
         <div>
           {options.map((option) => (
-            <button key={option.value}>{option.label}</button>
+            <button
+              key={option.value}
+              onClick={() => handleOptionSelected(option)}>
+              {option.label}
+            </button>
           ))}
         </div>
       )}
