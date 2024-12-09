@@ -41,13 +41,16 @@ const Dropdown = ({
 
       {isOpen && (
         <div className={c.optionsWrapper}>
-          {options.map((option) => (
-            <button
-              className={c.option}
-              key={option.value}
-              onClick={() => handleOptionSelected(option)}>
-              {option.label}
-            </button>
+          {options.map((option, i) => (
+            <>
+              {i !== 0 && <div className={c.divider} />}
+              <button
+                className={c.option}
+                key={option.value}
+                onClick={() => handleOptionSelected(option)}>
+                {option.label}
+              </button>
+            </>
           ))}
         </div>
       )}

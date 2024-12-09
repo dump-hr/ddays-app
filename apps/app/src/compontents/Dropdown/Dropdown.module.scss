@@ -51,14 +51,14 @@
     box-sizing: border-box;
     padding: 16px;
 
+    .divider {
+      @include dottedBreak(rgba(23, 22, 21, 0.65));
+    }
+
     .option {
       background: none;
       outline: none;
       border: none;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid black;
-      }
     }
   }
 }
