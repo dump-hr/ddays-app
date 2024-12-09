@@ -45,7 +45,11 @@ const Dropdown = ({
             <>
               {i !== 0 && <div className={c.divider} />}
               <button
-                className={c.option}
+                disabled={option.value === selectedOption?.value}
+                className={clsx({
+                  [c.option]: true,
+                  [c.selected]: option.value === selectedOption?.value,
+                })}
                 key={option.value}
                 onClick={() => handleOptionSelected(option)}>
                 {option.label}
