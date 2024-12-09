@@ -79,14 +79,10 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
-  @ValidateIf((e) => e.website !== '')
   instagram: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
-  @ValidateIf((e) => e.website !== '')
   linkedin: string;
 
   @IsOptional()
@@ -116,13 +112,9 @@ export class CompanyModifyDescriptionDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
-  @ValidateIf((e) => e.website !== '')
   instagram: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
-  @ValidateIf((e) => e.website !== '')
   linkedin: string;
 }

@@ -81,14 +81,14 @@ export const Description: FormComponent = ({ close }) => {
       <div className={c.inputContainer}>
         <Input
           value={instagram ?? company.instagram ?? ''}
-          label='Link na instagram profil'
+          label='Link na Instagram profil'
           onChange={(e) => setInstagram(e)}
         />
       </div>
       <div className={c.inputContainer}>
         <Input
           value={linkedin ?? company.linkedin ?? ''}
-          label='Link na linkedin profil'
+          label='Link na LinkedIn profil'
           onChange={(e) => setLinkedin(e)}
         />
       </div>
