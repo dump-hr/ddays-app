@@ -43,6 +43,7 @@ const Dropdown = ({
         <div className={c.optionsWrapper}>
           {options.map((option) => (
             <button
+              className={c.option}
               key={option.value}
               onClick={() => handleOptionSelected(option)}>
               {option.label}
