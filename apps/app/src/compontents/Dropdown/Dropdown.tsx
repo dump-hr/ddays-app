@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
+import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
 
 type DropdownProps = {
   label: string;
@@ -32,6 +33,7 @@ const Dropdown = ({
 
       <button className={c.mainButton} onClick={toggle}>
         {selectedOption?.label || placeholder}
+        <img className={c.arrow} src={ArrowIcon} alt='arrow' />
       </button>
 
       {isOpen && (
