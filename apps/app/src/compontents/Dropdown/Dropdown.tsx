@@ -10,6 +10,9 @@ type DropdownProps = {
   options: DropdownOption[];
   setOption: (option: DropdownOption) => void;
   selectedOption: DropdownOption | undefined;
+  errorLabel?: string;
+  showError?: boolean;
+  setShowError?: (showError: boolean) => void;
 };
 
 const Dropdown = ({
@@ -18,10 +21,16 @@ const Dropdown = ({
   options,
   setOption,
   selectedOption,
+  errorLabel,
+  showError,
+  setShowError,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => {
+    if (showError && setShowError) setShowError(false);
+    setIsOpen(!isOpen);
+  };
 
   function handleOptionSelected(option: DropdownOption) {
     setOption(option);
@@ -33,11 +42,17 @@ const Dropdown = ({
       {label && <label className={c.label}>{label}</label>}
 
       <button
-        className={clsx({ [c.mainButton]: true, [c.isOpen]: isOpen })}
+        className={clsx({
+          [c.mainButton]: true,
+          [c.isOpen]: isOpen,
+          [c.isError]: showError,
+        })}
         onClick={toggle}>
         {selectedOption?.label || placeholder}
         <img className={c.arrow} src={ArrowIcon} alt='arrow' />
       </button>
+
+      {showError && <div className={c.errorLabel}>{errorLabel}</div>}
 
       {isOpen && (
         <div className={c.optionsWrapper}>

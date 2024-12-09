@@ -20,6 +20,8 @@ function App() {
     undefined as DropdownOption | undefined,
   );
 
+  const [showError, setShowError] = useState(true);
+
   return (
     <>
       <Dropdown
@@ -28,6 +30,9 @@ function App() {
         options={options}
         setOption={(option: DropdownOption) => setSelectedOption(option)}
         selectedOption={selectedOption}
+        errorLabel='Error'
+        showError={showError}
+        setShowError={setShowError}
       />
     </>
   );
