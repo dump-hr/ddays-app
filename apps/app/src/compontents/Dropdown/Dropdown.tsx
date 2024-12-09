@@ -41,21 +41,23 @@ const Dropdown = ({
 
       {isOpen && (
         <div className={c.optionsWrapper}>
-          {options.map((option, i) => (
-            <>
-              {i !== 0 && <div className={c.divider} />}
-              <button
-                disabled={option.value === selectedOption?.value}
-                className={clsx({
-                  [c.option]: true,
-                  [c.selected]: option.value === selectedOption?.value,
-                })}
-                key={option.value}
-                onClick={() => handleOptionSelected(option)}>
-                {option.label}
-              </button>
-            </>
-          ))}
+          <div className={c.innerContainer}>
+            {options.map((option, i) => (
+              <>
+                {i !== 0 && <div className={c.divider} key={i} />}
+                <button
+                  disabled={option.value === selectedOption?.value}
+                  className={clsx({
+                    [c.option]: true,
+                    [c.selected]: option.value === selectedOption?.value,
+                  })}
+                  key={option.value}
+                  onClick={() => handleOptionSelected(option)}>
+                  {option.label}
+                </button>
+              </>
+            ))}
+          </div>
         </div>
       )}
     </div>
