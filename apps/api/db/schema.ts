@@ -247,6 +247,7 @@ export const event = pgTable('event', {
   footageLink: text('footage_link'),
   maxParticipants: integer('max_participants'),
   codeId: integer('code_id').references(() => code.id),
+  isOnEnglish: boolean('is_on_english').default(false),
 });
 
 export const eventRelations = relations(event, ({ one, many }) => ({
