@@ -2,6 +2,7 @@ import { useState } from 'react';
 import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
 import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
+import clsx from 'clsx';
 
 type DropdownProps = {
   label: string;
@@ -31,7 +32,9 @@ const Dropdown = ({
     <div className={c.wrapper}>
       {label && <label className={c.label}>{label}</label>}
 
-      <button className={c.mainButton} onClick={toggle}>
+      <button
+        className={clsx({ [c.mainButton]: true, [c.isOpen]: isOpen })}
+        onClick={toggle}>
         {selectedOption?.label || placeholder}
         <img className={c.arrow} src={ArrowIcon} alt='arrow' />
       </button>

@@ -24,5 +24,15 @@
     justify-content: space-between;
     align-items: center;
     gap: 8px;
+
+    .arrow {
+      transition: 200ms;
+    }
+
+    &.isOpen {
+      .arrow {
+        rotate: 180deg;
+      }
+    }
   }
 }
