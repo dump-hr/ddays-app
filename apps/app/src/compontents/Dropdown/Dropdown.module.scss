@@ -7,4 +7,16 @@
     @include paragraph-14;
     color: $black-50;
   }
+
+  .mainButton {
+    @include paragraph-16;
+    background-color: $black-10;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 4px;
+  }
 }

@@ -30,7 +30,9 @@ const Dropdown = ({
     <div className={c.wrapper}>
       {label && <label className={c.label}>{label}</label>}
 
-      <button onClick={toggle}>{selectedOption?.label || placeholder}</button>
+      <button className={c.mainButton} onClick={toggle}>
+        {selectedOption?.label || placeholder}
+      </button>
 
       {isOpen && (
         <div>
