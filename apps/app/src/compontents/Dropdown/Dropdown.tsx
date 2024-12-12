@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
 import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
 import clsx from 'clsx';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 type DropdownProps = {
   label: string;
@@ -28,6 +29,7 @@ const Dropdown = ({
   width = 'auto',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggle = () => {
     if (showError && setShowError) setShowError(false);
@@ -39,10 +41,12 @@ const Dropdown = ({
     setIsOpen(false);
   }
 
+  useClickOutside(dropdownRef, () => setIsOpen(false));
+
   const widthStyle = { width: width };
 
   return (
-    <div className={c.wrapper} style={widthStyle}>
+    <div className={c.wrapper} style={widthStyle} ref={dropdownRef}>
       {label && <label className={c.label}>{label}</label>}
 
       <button
