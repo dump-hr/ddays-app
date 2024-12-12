@@ -8,8 +8,18 @@ function App() {
   return (
     <div>
       <p>DUMP Days 2025 App</p>
+      <br />
       <Button>Click me</Button>
       <ToggleButton toggled={toggled} onClick={() => setToggled(!toggled)} />
+      <br />
+      <br />
+      <br />
+      <Notification
+        title='Došle su pizze'
+        content={'Dobar tek i pizzeria Mirakul nas časte pizzama'}
+        time={'19 min ago'}
+      />
+
       <Notification
         title={'Došle su pizze'}
         content={

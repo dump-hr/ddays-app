@@ -3,56 +3,74 @@
 }
 
 .title {
-  //   color: #000;
-  //   font-family: NeueMachina;
-  //   font-size: 14px;
-  //   font-style: normal;
-  //   font-weight: 500;
-  //   line-height: 20px;
-
+  color: #000;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
   @include heading-3;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 6px;
+  margin-top: 6px;
 }
 
-// .content {
-//   color: #363636;
-//   font-family: Inter;
-//   font-size: 14px;
-//   font-style: normal;
-//   font-weight: 400;
-//   line-height: 20px;
-//   margin-top: 0px;
-//   margin-bottom: 0px;
-// }
+.content {
+  color: #363636;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  @include paragraph-14;
+  opacity: 0.78;
+}
 
-// .time {
-//   color: #171615;
-//   font-family: Inter;
-//   font-size: 12px;
-//   font-style: normal;
-//   font-weight: 500;
-//   line-height: 16px;
-// }
+.time {
+  color: #171615;
+  @include label-medium;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  opacity: 0.5;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
 
-// .flex {
-//   display: flex;
-// }
+.flex {
+  display: flex;
+}
 
-// .expandButton {
-//   color: #ff482f;
-//   text-align: right;
-//   font-family: Inter;
-//   font-size: 12px;
-//   font-style: normal;
-//   font-weight: 500;
-//   line-height: 20px;
-//   padding: 0;
-//   height: fit-content;
-//   align-self: end;
-//   background: none;
-//   border: none;
-//   cursor: pointer;
-// }
+.expandButton {
+  color: #ff482f;
+  text-align: right;
+  @include label-medium;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 0;
+  height: fit-content;
+  align-self: end;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.orangeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff3737;
+  align-self: center;
+}
+
+.titleWrapper {
+  justify-content: space-between;
+}
+
+.dottedBreak {
+  @include dottedBreak;
+}
