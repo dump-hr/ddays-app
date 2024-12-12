@@ -1,7 +1,6 @@
 .button {
   width: 342px;
   height: 52px;
-  background-color: #e0553f;
   padding: 12px 16px;
   border-radius: 6px;
   border: none;
@@ -12,4 +11,41 @@
   line-height: 22px;
   text-transform: uppercase;
   @include label-medium;
+}
+
+.orange {
+  background-color: #e0553f;
+
+  &Active {
+    background-color: #b54532;
+  }
+}
+
+.orange:hover {
+  background-color: #d04e3a;
+}
+
+.black {
+  background-color: #171615;
+
+  &Active {
+    background-color: #000;
+  }
+}
+
+.black:hover {
+  background-color: #313131;
+}
+
+.beige {
+  background-color: #f5ede1;
+  color: #2d2c2c;
+
+  &Active {
+    background-color: #eadac1;
+  }
+}
+
+.beige:hover {
+  background-color: #f1e3cf;
 }
