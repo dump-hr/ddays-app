@@ -24,6 +24,12 @@ function App() {
 
   return (
     <>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis
+        blanditiis corporis sunt molestias ipsum reprehenderit, sint natus
+        quisquam similique, impedit officiis vero! Unde et sapiente, temporibus
+        iusto quas saepe voluptatibus.
+      </p>
       <Dropdown
         label='Hello'
         placeholder='World'
@@ -35,6 +41,12 @@ function App() {
         setShowError={setShowError}
         width='500px'
       />
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste doloribus
+        provident corporis ea perspiciatis nulla repellat ad aspernatur
+        laudantium eius voluptate soluta, dignissimos, a impedit dolor maxime
+        corrupti et debitis?
+      </p>
     </>
   );
 }

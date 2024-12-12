@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import React from 'react';
 import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
 import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
@@ -66,7 +67,7 @@ const Dropdown = ({
         <div className={c.optionsWrapper}>
           <div className={c.innerContainer}>
             {options.map((option, i) => (
-              <>
+              <React.Fragment key={option.value}>
                 {i !== 0 && <div className={c.divider} key={i}></div>}
                 <button
                   disabled={option.value === selectedOption?.value}
@@ -78,7 +79,7 @@ const Dropdown = ({
                   onClick={() => handleOptionSelected(option)}>
                   {option.label}
                 </button>
-              </>
+              </React.Fragment>
             ))}
           </div>
         </div>
