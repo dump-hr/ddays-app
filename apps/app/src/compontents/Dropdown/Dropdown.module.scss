@@ -101,11 +101,10 @@
         border: none;
         @include paragraph-16;
         margin: 0;
-        margin-right: 10px;
         padding: 0;
         text-align: left;
         cursor: pointer;
-        align-self: self-start;
+        width: 100%;
 
         &.selected {
           color: $black-30;

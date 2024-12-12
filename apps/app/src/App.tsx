@@ -33,7 +33,7 @@ function App() {
         errorLabel='Error'
         showError={showError}
         setShowError={setShowError}
-        width='100%'
+        width='500px'
       />
     </>
   );
