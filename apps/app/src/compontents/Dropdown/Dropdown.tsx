@@ -13,6 +13,7 @@ type DropdownProps = {
   errorLabel?: string;
   showError?: boolean;
   setShowError?: (showError: boolean) => void;
+  width?: string;
 };
 
 const Dropdown = ({
@@ -24,6 +25,7 @@ const Dropdown = ({
   errorLabel,
   showError,
   setShowError,
+  width = 'auto',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,8 +39,10 @@ const Dropdown = ({
     setIsOpen(false);
   }
 
+  const widthStyle = { width: width };
+
   return (
-    <div className={c.wrapper}>
+    <div className={c.wrapper} style={widthStyle}>
       {label && <label className={c.label}>{label}</label>}
 
       <button
