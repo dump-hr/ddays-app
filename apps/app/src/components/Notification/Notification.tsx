@@ -24,7 +24,6 @@ const Notification: React.FC<NotificationProps> = ({
 }) => {
   const [showExpandButton, setShowExpandButton] = useState(false);
   const isExpanded = expandedNotificationId === id;
-  console.log(expandedNotificationId);
 
   const ref = useRef<HTMLDivElement>(null);
 
