@@ -20,7 +20,8 @@ function App() {
     undefined as DropdownOption | undefined,
   );
 
-  const [showError, setShowError] = useState(true);
+  const [showError1, setShowError1] = useState(true);
+  const [showError2, setShowError2] = useState(true);
 
   return (
     <>
@@ -37,8 +38,8 @@ function App() {
         setOption={(option: DropdownOption) => setSelectedOption(option)}
         selectedOption={selectedOption}
         errorLabel='Error'
-        showError={showError}
-        setShowError={setShowError}
+        showError={showError1}
+        setShowError={setShowError1}
         width='500px'
       />
       <p>
@@ -46,6 +47,23 @@ function App() {
         provident corporis ea perspiciatis nulla repellat ad aspernatur
         laudantium eius voluptate soluta, dignissimos, a impedit dolor maxime
         corrupti et debitis?
+      </p>
+      <Dropdown
+        label='Hello'
+        placeholder='World'
+        options={options}
+        setOption={(option: DropdownOption) => setSelectedOption(option)}
+        selectedOption={selectedOption}
+        errorLabel='Error'
+        showError={showError2}
+        setShowError={setShowError2}
+        width='500px'
+      />
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui excepturi
+        provident possimus corrupti quam, cum voluptatem eaque in accusamus
+        mollitia iure reprehenderit, ullam fugit natus ipsam dolore perspiciatis
+        adipisci perferendis!
       </p>
     </>
   );
