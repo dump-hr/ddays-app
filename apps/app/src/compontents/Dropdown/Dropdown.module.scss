@@ -61,10 +61,8 @@
     width: 500px;
 
     .innerContainer {
-      display: flex;
+      display: block;
       width: 100%;
-      gap: 8px;
-      flex-direction: column;
       box-sizing: border-box;
 
       max-height: 310px;
@@ -92,7 +90,8 @@
       .divider {
         @include dottedBreak(rgba(23, 22, 21, 0.65));
         height: 4px;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
+        margin-top: 8px;
       }
 
       .option {

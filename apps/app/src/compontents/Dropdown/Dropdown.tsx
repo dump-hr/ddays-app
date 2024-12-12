@@ -59,7 +59,7 @@ const Dropdown = ({
           <div className={c.innerContainer}>
             {options.map((option, i) => (
               <>
-                {i !== 0 && <div className={c.divider} key={i} />}
+                {i !== 0 && <div className={c.divider} key={i}></div>}
                 <button
                   disabled={option.value === selectedOption?.value}
                   className={clsx({
