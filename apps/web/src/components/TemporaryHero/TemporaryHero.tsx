@@ -1,0 +1,32 @@
+import ScrollingTitle from '../ScrollingTitle';
+import c from './TemporaryHero.module.scss';
+
+type HeroProps = {
+  Button: React.ReactNode;
+  items: { name: string; path: string }[];
+};
+
+const TemporaryHero = ({ Button, items }: HeroProps) => {
+  return (
+    <section className={c.hero}>
+      <div className={c.content}>
+        <ScrollingTitle />
+      </div>
+      <nav className={c.menu}>
+        {items.map((item) => (
+          <a key={item.name} href={item.path} className={c.item}>
+            {item.name}
+          </a>
+        ))}
+      </nav>
+      {Button}
+      <p className={c.text}>
+        Besplatna konferencija
+        <br />
+        za novu generaciju
+      </p>
+    </section>
+  );
+};
+
+export default TemporaryHero;

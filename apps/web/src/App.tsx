@@ -9,7 +9,8 @@ import faviconWhite from './assets/favicon-white.png';
 import { Path } from './constants/paths';
 import { getPageTitle } from './helpers';
 import { Chatbot } from './pages/Chatbot';
-import { LandingPage } from './pages/LandingPage';
+//import { LandingPage } from './pages/LandingPage';
+import { TemporaryLandingPage } from './pages/TemporaryLandingPage';
 
 export const App = () => {
   return (
@@ -30,7 +31,7 @@ export const App = () => {
       </Helmet>
 
       <Switch>
-        <Route path={Path.Landing} component={LandingPage} />
+        <Route path={Path.Landing} component={TemporaryLandingPage} />
         <Route path={Path.Chatbot} component={Chatbot} />
       </Switch>
 
