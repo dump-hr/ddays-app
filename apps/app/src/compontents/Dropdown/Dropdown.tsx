@@ -14,8 +14,8 @@ type DropdownProps = {
   selectedOption: DropdownOption | undefined;
   errorLabel?: string;
   showError?: boolean;
-  setShowError?: (showError: boolean) => void;
   width?: string;
+  hasError?: boolean;
 };
 
 const Dropdown = ({
@@ -25,15 +25,13 @@ const Dropdown = ({
   setOption,
   selectedOption,
   errorLabel,
-  showError,
-  setShowError,
   width = 'auto',
+  hasError = false,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const toggle = () => {
-    if (showError && setShowError) setShowError(false);
     setIsOpen(!isOpen);
   };
 
@@ -45,6 +43,7 @@ const Dropdown = ({
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const widthStyle = { width: width };
+  const showError = (hasError || !selectedOption?.value) && !isOpen;
 
   return (
     <div className={c.wrapper} style={widthStyle} ref={dropdownRef}>

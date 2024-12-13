@@ -16,12 +16,12 @@ const options: DropdownOption[] = [
 ];
 
 function App() {
-  const [selectedOption, setSelectedOption] = useState(
+  const [selectedOption1, setSelectedOption1] = useState(
     undefined as DropdownOption | undefined,
   );
-
-  const [showError1, setShowError1] = useState(true);
-  const [showError2, setShowError2] = useState(true);
+  const [selectedOption2, setSelectedOption2] = useState(
+    undefined as DropdownOption | undefined,
+  );
 
   return (
     <>
@@ -36,11 +36,9 @@ function App() {
         label='Hello'
         placeholder='World'
         options={options}
-        setOption={(option: DropdownOption) => setSelectedOption(option)}
-        selectedOption={selectedOption}
+        setOption={(option: DropdownOption) => setSelectedOption1(option)}
+        selectedOption={selectedOption1}
         errorLabel='Error'
-        showError={showError1}
-        setShowError={setShowError1}
         width='500px'
       />
       <p>
@@ -53,11 +51,9 @@ function App() {
         label='Hello'
         placeholder='World'
         options={options}
-        setOption={(option: DropdownOption) => setSelectedOption(option)}
-        selectedOption={selectedOption}
+        setOption={(option: DropdownOption) => setSelectedOption2(option)}
+        selectedOption={selectedOption2}
         errorLabel='Error'
-        showError={showError2}
-        setShowError={setShowError2}
         width='500px'
       />
       <p>
