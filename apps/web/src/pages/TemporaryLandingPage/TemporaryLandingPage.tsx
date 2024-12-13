@@ -1,22 +1,11 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
-import DuckieSection from 'components/DuckieSection';
-import EventsSection from 'components/EventsSection';
-import FooterSection from 'components/FooterSection';
-import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
-import GallerySection from 'components/GallerySection';
 import MobileMenu from 'components/MobileMenu';
-import RegistrationSection from 'components/RegistrationSection';
-import { SectionBreaker } from 'components/SectionBreaker';
-import SpeakersSection from 'components/SpeakersSection';
-import SponsorSection from 'components/SponsorSection';
-import TestimonialsSection from 'components/TestimonialsSection';
+import TemporaryFooterSection from 'components/TemporaryFooterSection';
+import TemporaryHero from 'components/TemporaryHero';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import Hero from '../../components/Hero';
-import LocationSection from '../../components/LocationSection';
-import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
 
 export const TemporaryLandingPage: React.FC = () => {
@@ -43,20 +32,8 @@ export const TemporaryLandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <Hero Button={RegisterButton} items={landingNavigation} />
-      <DuckieSection />
-      <EventsSection />
-      <ScheduleSection />
-      <SectionBreaker fg='orange' bg='light' />
-      <SpeakersSection />
-      <LocationSection />
-      <SponsorSection />
-      <SectionBreaker fg='dark' bg='light' />
-      <RegistrationSection />
-      <GallerySection />
-      <TestimonialsSection />
-      <FrequentlyAskedQuestionsSection />
-      <FooterSection />
+      <TemporaryHero Button={RegisterButton} items={landingNavigation} />
+      <TemporaryFooterSection />
     </ReactLenis>
   );
 };
