@@ -1,9 +1,6 @@
 import clsx from 'clsx';
-import { SectionBreaker } from 'components/SectionBreaker';
 
-import DaysSticker from '../../assets/images/days-sticker-big.webp';
 import Facebook from '../../assets/images/facebook.webp';
-import FooterDuckie from '../../assets/images/footer-duckie.webp';
 import Instagram from '../../assets/images/instagram.webp';
 import LinkedIn from '../../assets/images/linkedin.webp';
 import YouTube from '../../assets/images/youtube.webp';
@@ -12,26 +9,6 @@ import c from './TemporaryFooterSection.module.scss';
 const TemporaryFooterSection = () => {
   return (
     <footer className={c.footer}>
-      <div className={c.backgroundWrapper}>
-        <div className={c.background}>
-          <img className={c.sticker} src={DaysSticker} alt='' />
-          <div className={c.footerTitleWrapper}>
-            <h2 className={c.bigText}>TL;DR</h2>
-            <h2 className={c.bigText}>DOĐI NA DAYSE.</h2>
-            <button
-              className={clsx(c.button, c.grainyButton)}
-              onClick={() =>
-                (window.location.href = 'https://days-app.dump.hr/registration')
-              }>
-              {`[ `}
-              REGISTRIRAJ SVOJ DOLAZAK
-              {` ]`}
-            </button>
-          </div>
-          <img className={c.duckie} src={FooterDuckie} alt='' />
-          <SectionBreaker fg='dark' className={c.sectionBreaker} />
-        </div>
-      </div>
       <div className={c.bottomWrapper} id='kontakt'>
         <div className={c.questionsWrapper}>
           <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>

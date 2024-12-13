@@ -32,7 +32,7 @@ export const TemporaryLandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <TemporaryHero Button={RegisterButton} items={landingNavigation} />
+      <TemporaryHero Button={RegisterButton} />
       <TemporaryFooterSection />
     </ReactLenis>
   );
