@@ -24,6 +24,7 @@ const ScheduleSection = () => {
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
   const { isMobile } = useScreenSize(1000);
   const [openedCardId, setOpenedCardId] = useState<number | null>(null);
+  const [lastClickedCardId, setLastClickedCardId] = useState<number | null>(null);
 
   useEffect(() => {
     if (isMobile && theme !== null) {
@@ -105,12 +106,14 @@ const ScheduleSection = () => {
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date,
               )
-              .map((event) => (
+              ?.map((event) => (
                 <ScheduleCard
                   key={event.id}
                   event={event}
                   openCardId={openedCardId}
                   setOpenCardId={setOpenedCardId}
+                  lastClickedCardId={lastClickedCardId}
+                  setLastClickedCardId={setLastClickedCardId}
                 />
               ))}
             {events.data?.length === 0 && 'Trenutno nema upisanih događaja'}
