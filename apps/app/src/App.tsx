@@ -8,21 +8,21 @@ const notifications = [
     id: 1,
     title: 'Došle su pizze 1',
     content: 'Dobar tek i pizzeria Mirakul nas časte pizzama',
-    time: '19 min ago',
+    time: new Date(),
   },
   {
     id: 2,
     title: 'Došle su pizze 2',
     content:
       'Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju.',
-    time: '19 min ago',
+    time: new Date('2024-12-14T10:00:00'),
   },
   {
     id: 3,
     title: 'Došle su pizze 3',
     content:
       'Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju.',
-    time: '19 min ago',
+    time: new Date('2024-05-23T10:00:00'),
   },
 ];
 
@@ -35,7 +35,9 @@ function App() {
     <div>
       <p>DUMP Days 2025 App</p>
       <br />
-      <Button variant={'beige'}>Click me</Button>
+      <Button variant={'beige'} className='botun'>
+        Click me
+      </Button>
       <Button variant={'beige'}>Click me</Button>
       <Button variant={'beige'} active>
         Click me

@@ -11,11 +11,12 @@ const Button: React.FC<ButtonProps> = ({
   children,
   variant,
   active,
+  className,
   ...handlers
 }) => {
   return (
     <button
-      className={clsx(c.button, {
+      className={clsx(c.button, className, {
         [c.orange]: variant === 'orange',
         [c.black]: variant === 'black',
         [c.beige]: variant === 'beige',

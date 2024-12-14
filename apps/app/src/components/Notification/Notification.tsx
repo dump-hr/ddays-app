@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import c from './Notification.module.scss';
 import clsx from 'clsx';
@@ -7,7 +6,7 @@ type NotificationProps = {
   id: number;
   title: string;
   content: string;
-  time: string;
+  time: Date;
   expandedNotificationId: number | null;
   setExpandedNotificationId: (id: number | null) => void;
 };
@@ -70,10 +69,28 @@ const Notification: React.FC<NotificationProps> = ({
           </button>
         )}
       </div>
-      <p className={c.time}>{time}</p>
+      <p className={c.time}>{getPassedTime(time)} ago</p>
       <div className={c.dottedBreak}></div>
     </div>
   );
+};
+
+const getPassedTime = (time: Date) => {
+  const now = new Date();
+  const diff = now.getTime() - time.getTime();
+  const diffInMinutes = Math.floor(diff / 1000 / 60);
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} min`;
+  }
+
+  const diffInHours = Math.floor(diffInMinutes / 60);
+
+  if (diffInHours < 24) {
+    return `${diffInHours} h`;
+  }
+
+  return `${Math.floor(diffInHours / 24)} d`;
 };
 
 export default Notification;
