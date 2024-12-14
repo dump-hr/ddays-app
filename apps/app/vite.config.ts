@@ -5,6 +5,16 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/app',
+  server: {
+    port: 3005,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {

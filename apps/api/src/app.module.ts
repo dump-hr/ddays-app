@@ -35,7 +35,7 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
       ? [
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-            exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
+            exclude: ['/api/(.*)', '/sponsor/(.*)', '/admin/(.*)', '/app/(.*)'],
           }),
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
