@@ -11,41 +11,42 @@
   line-height: 22px;
   text-transform: uppercase;
   @include label-medium;
+  transition: all 0.2s ease;
 }
 
 .orange {
   background-color: #e0553f;
-
-  &Active {
-    background-color: #b54532;
-  }
 }
 
 .orange:hover {
   background-color: #d04e3a;
 }
 
+.orange:active {
+  background-color: #b54532;
+}
+
 .black {
   background-color: #171615;
-
-  &Active {
-    background-color: #000;
-  }
 }
 
 .black:hover {
   background-color: #313131;
 }
 
+.black:active {
+  background-color: #000;
+}
+
 .beige {
   background-color: #f5ede1;
   color: #2d2c2c;
-
-  &Active {
-    background-color: #eadac1;
-  }
 }
 
 .beige:hover {
   background-color: #f1e3cf;
+}
+
+.beige:active {
+  background-color: #eadac1;
 }

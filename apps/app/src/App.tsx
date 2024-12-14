@@ -35,23 +35,12 @@ function App() {
     <div>
       <p>DUMP Days 2025 App</p>
       <br />
-      <Button variant={'beige'} className='botun'>
-        Click me
-      </Button>
       <Button variant={'beige'}>Click me</Button>
-      <Button variant={'beige'} active>
-        Click me
-      </Button>
+
       <Button variant={'orange'}>Click me</Button>
-      <Button variant={'orange'}>Click me</Button>
-      <Button variant={'orange'} active>
-        Click me
-      </Button>
+
       <Button variant={'black'}>Click me</Button>
-      <Button variant={'black'}>Click me</Button>
-      <Button variant={'black'} active>
-        Click me
-      </Button>
+
       <ToggleButton toggled={toggled} onClick={() => setToggled(!toggled)} />
       <br />
       <br />
