@@ -16,15 +16,19 @@ type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   openCardId: number | null;
   setOpenCardId: (id: number | null) => void;
+  lastClickedCardId: number | null;
+  setLastClickedCardId: (id: number | null) => void;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
   openCardId,
   setOpenCardId,
+  lastClickedCardId,
+  setLastClickedCardId,
 }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(1);
-  const [isImageShown, setIsImageShown] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(1);
+  const [isImageShown, setIsImageShown] = useState<boolean>(false);
 
   const { isMobile } = useScreenSize(1030);
   const isOpenDescription = openCardId === event.id;
@@ -33,8 +37,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     ?.filter((speaker) => speaker.photo !== null)
     .map((speaker) => speaker.photo);
 
-  // for case when the event is lunch so it can render the image card
-  const images = imagesList?.length === 0 ? [''] : imagesList!; 
+  const images = imagesList?.length === 0 ? [''] : imagesList!;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -56,6 +59,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     } else {
       setOpenCardId(event.id);
     }
+    setLastClickedCardId(event.id);
   };
 
   const handleHover = () => {
@@ -84,6 +88,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   isOpenDescription={isOpenDescription}
                   isImageShown={isImageShown}
                   imagesLength={images.length}
+                  lastClickedCardId={lastClickedCardId}
                 />
                 <ScheduleImageCard
                   index={1}
@@ -92,6 +97,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                   isOpenDescription={isOpenDescription}
                   isImageShown={isImageShown}
                   imagesLength={images.length}
+                  lastClickedCardId={lastClickedCardId}
                 />
               </>
             )}
@@ -107,6 +113,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     isOpenDescription={isOpenDescription}
                     isImageShown={isImageShown}
                     imagesLength={images.length}
+                    lastClickedCardId={lastClickedCardId}
                   />
                 );
               })}
