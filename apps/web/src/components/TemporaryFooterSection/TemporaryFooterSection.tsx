@@ -11,7 +11,7 @@ const TemporaryFooterSection = () => {
     <footer className={c.footer}>
       <div className={c.bottomWrapper} id='kontakt'>
         <div className={c.questionsWrapper}>
-          <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ JOŠ PITANJA?</h2>
+          <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ PITANJA?</h2>
 
           <a
             className={clsx(c.button, c.grainyButton)}
