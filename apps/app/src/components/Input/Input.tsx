@@ -1,14 +1,13 @@
 import c from './Input.module.scss';
-import { dotMaker } from '../helpers/dotMaker';
 import clsx from 'clsx';
 
 type InputProps = {
   value: string;
   placeholder: string;
-  onChange: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   type?: string;
-};
+} & React.HTMLProps<HTMLInputElement>;
 
 export const Input = ({
   value,
@@ -16,10 +15,10 @@ export const Input = ({
   onChange,
   error,
   type = 'text',
+  ...props
 }: InputProps) => {
   const showLabel = error || value;
   const isActive = value && !error;
-
   return (
     <div className={c.container}>
       {showLabel && (
@@ -36,15 +35,23 @@ export const Input = ({
         <input
           type={type}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={onChange}
           placeholder={!showLabel ? placeholder : ''}
-          className={clsx(c.input, error && c.error, isActive && c.active)}
+          className={clsx(
+            c.input,
+            error && c.error,
+            isActive && c.active,
+            props.className,
+          )}
+          {...props}
         />
 
-        {!value && <div className={c.dots}>{dotMaker()}</div>}
+        {!value && !error && <div className={c.dots}></div>}
       </div>
 
-      {error && <span className={c.errorText}>{error}</span>}
+      {error && (
+        <span className={clsx(c.errorText, { visible: !!error })}>{error}</span>
+      )}
     </div>
   );
 };
