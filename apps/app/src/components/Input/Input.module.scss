@@ -57,3 +57,13 @@
   color: $error-light;
   transition: gap 0.3s ease-in-out;
 }
+
+.togglePassword {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
