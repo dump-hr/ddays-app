@@ -20,7 +20,7 @@ export enum ModalNames {
 }
 
 export enum RouteNames {
-  HOME = 'home',
+  HOME = '',
   LOGIN = 'login',
   REGISTER = 'register',
   PASSWORD_RESET = 'password-reset',

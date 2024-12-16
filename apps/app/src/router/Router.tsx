@@ -19,7 +19,7 @@ import { ShoppingPage } from '../pages/ShoppingPage';
 import { NavigationLayout } from '../layout';
 
 // TODO: better error boundary
-//   TODO: absolute imports
+// TODO: absolute imports
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>

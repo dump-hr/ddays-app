@@ -1,7 +1,9 @@
+import { Router } from './router/Router';
+
 function App() {
   return (
     <>
-      <p>DUMP Days 2025 App</p>
+      <Router />
     </>
   );
 }
