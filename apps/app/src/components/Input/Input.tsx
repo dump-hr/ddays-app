@@ -20,7 +20,7 @@ export const Input = ({
   const showLabel = error || value;
   const isActive = value && !error;
   return (
-    <div className={c.container}>
+    <div className={c.container} style={props.style}>
       {showLabel && (
         <label
           className={clsx(c.label, {
