@@ -1,0 +1,312 @@
+@use '../../styles/mixins';
+.footer {
+  padding: 32px 0px;
+  background-color: #171615;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+
+  &BottomSmallText {
+    font-size: 14px;
+  }
+
+  .background {
+    background-image: url('../../assets/images/footer-background.webp');
+    background-size: cover;
+    width: 100%;
+    height: 729px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @media screen and (max-width: 375px) {
+      background-image: url('../../assets/images/footer-background-mobile.webp');
+    }
+
+    &Wrapper {
+      position: relative;
+      padding-bottom: 32px;
+      margin-bottom: 312px;
+
+      @media screen and (max-width: 430px) {
+        margin-bottom: 188px;
+      }
+    }
+
+    &::before {
+      content: '';
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 97%;
+    }
+  }
+
+  .bigText {
+    color: #eaeaea;
+    text-align: center;
+    font-feature-settings: 'ss07' on;
+    font-family: 'PP Neue Machina', sans-serif;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 80px;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+    z-index: 1;
+
+    @media screen and (max-width: 684px) {
+      font-size: 64px;
+      line-height: 62px;
+      letter-spacing: -3px;
+    }
+
+    @media screen and (max-width: 557px) {
+      font-size: 40px;
+      letter-spacing: -1px;
+    }
+  }
+
+  .button {
+    width: fit-content;
+    color: #fff;
+
+    font-feature-settings:
+      'ss06' on,
+      'ss01' on;
+    font-family: 'PP Neue Montreal Mono', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    transition: 300ms;
+    padding: 14px 16px;
+  }
+
+  .grainyButton {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+      background-size: cover;
+      opacity: 0;
+      z-index: 0;
+      transition: 300ms;
+    }
+
+    &:hover {
+      overflow: hidden;
+
+      .text {
+        color: white;
+        z-index: 5;
+      }
+
+      &:before {
+        opacity: 0.2;
+      }
+    }
+
+    &:active {
+      &::before {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  .sticker {
+    position: absolute;
+    top: -122px;
+    left: 80%;
+    z-index: 3;
+    width: 225px;
+    height: 248px;
+
+    @media screen and (max-width: 1123px) {
+      width: 132px;
+      height: auto;
+      left: 70%;
+      top: -80px;
+    }
+
+    @media screen and (max-width: 575px) {
+      right: 16px;
+      left: auto;
+    }
+  }
+
+  .duckie {
+    position: absolute;
+    bottom: -74px;
+    left: 5%;
+    z-index: 3;
+
+    @media screen and (max-width: 1019px) {
+      width: 354px;
+      left: 3%;
+    }
+
+    @media screen and (max-width: 879px) {
+      left: -11%;
+    }
+
+    @media screen and (max-width: 451px) {
+      left: -77px;
+      bottom: -54px;
+      width: 288px;
+    }
+  }
+
+  .sectionBreaker {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+
+    @media screen and (max-width: 970px) {
+      height: 30px;
+    }
+  }
+}
+
+.footer:before {
+  content: '';
+  opacity: 0.15;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bottomWrapper {
+  padding: 0px 32px;
+}
+
+.questionsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 220px;
+  position: relative;
+
+  @media screen and (max-width: 450px) {
+    padding-bottom: 210px;
+  }
+}
+
+.socialsWrapper {
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  bottom: -38px;
+
+  .socialsImage {
+    width: 162px;
+    height: 162px;
+    display: block;
+    position: relative;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      top: -5px;
+    }
+
+    @media screen and (max-width: 650px) {
+      width: 106px;
+      height: 106px;
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+
+    @media screen and (max-width: 361px) {
+      width: 94px;
+      height: 94px;
+    }
+  }
+}
+
+.mb54 {
+  margin-bottom: 20px;
+}
+
+.youtube {
+  margin-top: 52px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 68px;
+  }
+}
+
+.facebook {
+  margin-top: 28px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 16px;
+  }
+}
+
+.linkedin {
+  margin-top: 60px;
+
+  @media screen and (max-width: 650px) {
+    margin-top: 83px;
+  }
+}
+
+.instagram {
+  height: 162px;
+
+  @media screen and (max-width: 650px) {
+    height: 106px;
+  }
+
+  @media screen and (max-width: 361px) {
+    height: 94px;
+  }
+}
+
+.mb24 {
+  margin-bottom: 24px;
+}
+
+.dottedRuler {
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.2));
+  margin-top: 10px;
+}
+
+.bottomSmallTextWrapper {
+  padding: 0px 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 32px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  text-transform: uppercase;
+
+  @media screen and (max-width: 1032px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
