@@ -1,11 +1,11 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import MobileMenu from 'components/MobileMenu';
 import TemporaryFooterSection from 'components/TemporaryFooterSection';
+import TemporaryHeader from 'components/TemporaryHeader';
 import TemporaryHero from 'components/TemporaryHero';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
-import Header from '../../components/Header';
 import { landingNavigation } from '../../constants/landing-navigation';
 
 export const TemporaryLandingPage: React.FC = () => {
@@ -23,7 +23,7 @@ export const TemporaryLandingPage: React.FC = () => {
 
   return (
     <ReactLenis root>
-      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
+      <TemporaryHeader />
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}
