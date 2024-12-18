@@ -1,22 +1,22 @@
+import Button from 'components/Button';
+
 import ScrollingTitle from '../ScrollingTitle';
 import c from './TemporaryHero.module.scss';
 
-type HeroProps = {
-  Button: React.ReactNode;
-};
-
-const TemporaryHero = ({ Button }: HeroProps) => {
+const TemporaryHero = () => {
   return (
     <section className={c.hero}>
       <div className={c.content}>
         <ScrollingTitle />
       </div>
-      {Button}
-      <p className={c.text}>
-        Besplatna konferencija
-        <br />
-        za novu generaciju
-      </p>
+      <div className={c.textButtonsWrapper}>
+        <div className={c.buttons}>
+          <Button>Posjeti web</Button>
+          <Button>Postani sponzor</Button>
+        </div>
+      </div>
+
+      <div className={c.buttonsWrapper}></div>
     </section>
   );
 };

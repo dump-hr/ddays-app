@@ -55,33 +55,37 @@
     }
   }
 
-  button {
-    position: absolute;
-    width: calc(100% - 2 * 16px);
-    text-align: center;
-    bottom: 112px;
-    left: 16px;
-    display: none;
-  }
+  .textButtonsWrapper {
+    .buttons {
+      display: flex;
+      gap: 16px;
+      position: absolute;
+      bottom: 140px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+    /*
+    .text {
+      color: #fff;
+      text-align: center;
+      font-feature-settings: 'ss03' on;
+      font-family: 'PP Neue Montreal Mono', sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
 
-  .text {
-    color: #fff;
-    text-align: center;
-    font-feature-settings: 'ss03' on;
-    font-family: 'PP Neue Montreal Mono', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      text-align: center;
 
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    text-align: center;
-
-    display: none;
+      display: none;
+    }
+      */
   }
 }
 
@@ -97,8 +101,11 @@
       display: block;
     }
 
-    .text {
-      display: block;
+    .textButtonsWrapper {
+      .buttons {
+        bottom: 70px;
+        flex-direction: column;
+      }
     }
   }
 }
