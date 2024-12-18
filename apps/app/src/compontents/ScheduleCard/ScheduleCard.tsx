@@ -1,6 +1,7 @@
 import c from './ScheduleCard.module.scss';
 import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
+import Check from '../../assets/icons/check-1.svg';
 
 /*
 export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
@@ -119,6 +120,19 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         <p className={c.eventDescription}>{event.description}</p>
       )}
       <div className={c.divider} />
+      {event.requirements && (
+        <div className={c.eventRequirements}>
+          <p className={c.mainLabel}>ZAHTJEVI:</p>
+          {event.requirements.map((requirement, index) => (
+            <div key={index} className={c.requirement}>
+              <div className={c.checkContainer}>
+                <img className={c.check} src={Check} alt='Check' />
+              </div>
+              <p className={c.label}>{requirement}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

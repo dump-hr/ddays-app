@@ -83,4 +83,41 @@
     width: 100%;
     @include dottedBreak(rgba(23, 22, 21, 0.5));
   }
+
+  .eventRequirements {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    .mainLabel {
+      @include tag-14;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .requirement {
+      display: flex;
+      gap: 16px;
+
+      .checkContainer {
+        height: 20px;
+        width: 20px;
+        background-color: $primary-muted-orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+
+        .check {
+          height: 8px;
+          width: 8px;
+        }
+      }
+
+      .label {
+        margin: 0;
+        @include paragraph-16;
+      }
+    }
+  }
 }
