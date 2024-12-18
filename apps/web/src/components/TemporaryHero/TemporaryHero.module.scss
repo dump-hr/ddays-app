@@ -3,11 +3,10 @@
   padding: 32px;
   transition: 200ms;
   position: relative;
-  background-color: #f5ede1;
+  background-color: #171615;
 
   &:before {
     content: '';
-    background-image: url(../../assets/images/noise.webp);
     opacity: 0.15;
     top: 0;
     left: 0;
