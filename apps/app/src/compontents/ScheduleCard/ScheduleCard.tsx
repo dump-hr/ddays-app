@@ -114,7 +114,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         <div className={c.theme}>{getThemeLabel(event.theme)}</div>
         <p className={c.label}>{getTypeLabel(event.type)}</p>
       </div>
-      <h3>{event.name}</h3>
+      <h3 className={c.eventName}>{event.name}</h3>
+      <div className={c.divider} />
     </div>
   );
 };

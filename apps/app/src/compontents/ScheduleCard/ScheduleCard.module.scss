@@ -65,4 +65,16 @@
       margin: 0;
     }
   }
+
+  .eventName {
+    color: $primary-black;
+    @include paragraph-16;
+    margin: 0;
+    padding-bottom: 6px;
+  }
+
+  .divider {
+    width: 100%;
+    @include dottedBreak(rgba(23, 22, 21, 0.5));
+  }
 }
