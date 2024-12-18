@@ -26,4 +26,19 @@
       text-transform: uppercase;
     }
   }
+
+  .timeAndArrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .time {
+      @include tag-14;
+      margin: 0;
+    }
+
+    .arrowDown {
+      cursor: pointer;
+    }
+  }
 }

@@ -101,7 +101,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </div>
       )}
       <div className={c.timeAndArrow}>
-        <p>
+        <p className={c.time}>
           {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
         </p>
         <img
