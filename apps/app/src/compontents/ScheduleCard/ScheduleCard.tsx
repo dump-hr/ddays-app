@@ -1,5 +1,6 @@
 import c from './ScheduleCard.module.scss';
 import RatingStar from '../../assets/icons/rating-star-1.svg';
+import ArrowDown from '../../assets/icons/arrow-down-1.svg';
 
 /*
 export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
@@ -86,6 +87,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     }
   }
 
+  function getTimeFromDate(date: string) {
+    const dateObj = new Date(date);
+    return `${dateObj.getHours()}:${dateObj.getMinutes()}`;
+  }
+
   return (
     <div className={c.scheduleCard}>
       {isAddedToSchedule && (
@@ -96,8 +102,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       )}
       <div className={c.timeAndArrow}>
         <p>
-          {event.startsAt} - {event.endsAt}
+          {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
         </p>
+        <img
+          className={c.arrowDown}
+          src={ArrowDown}
+          alt='Arrow pointing down'
+        />
       </div>
       <div className={c.tag}>
         <div>{getThemeLabel(event.theme)}</div>
