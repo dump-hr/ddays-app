@@ -41,4 +41,28 @@
       cursor: pointer;
     }
   }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .theme {
+      background-color: $primary-muted-orange;
+      @include tag-14;
+      margin: 0;
+      color: white;
+      height: 24px;
+      width: 46px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .label {
+      @include tag-14;
+      margin: 0;
+    }
+  }
 }
