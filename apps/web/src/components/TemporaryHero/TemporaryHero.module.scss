@@ -64,6 +64,17 @@
       left: 50%;
       -webkit-transform: translateX(-50%);
       transform: translateX(-50%);
+
+      .orangeButton {
+        background: #e6593e;
+        p {
+          color: white;
+        }
+
+        &:hover {
+          background: #c1452d;
+        }
+      }
     }
     /*
     .text {
