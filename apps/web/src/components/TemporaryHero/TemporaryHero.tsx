@@ -18,7 +18,7 @@ const TemporaryHero = () => {
       </div>
       <div className={c.textButtonsWrapper}>
         <div className={c.buttons}>
-          <Button>Posjeti web</Button>
+          {/*<Button>Posjeti web</Button> --> Otvorit kad link na stari web bude spreman*/}
           <Button className={c.orangeButton} onClick={openBrochure}>
             Postani sponzor
           </Button>
