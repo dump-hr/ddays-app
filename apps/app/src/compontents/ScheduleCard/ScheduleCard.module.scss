@@ -1,0 +1,123 @@
+.scheduleCard {
+  background-color: $black-5;
+  display: flex;
+  gap: 14px;
+  flex-direction: column;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 24px;
+
+  .addedToSchedule {
+    background-color: $black-10;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 8px;
+    gap: 10px;
+    display: flex;
+
+    .ratingStar {
+      height: 16px;
+      width: 16px;
+    }
+
+    .label {
+      margin: 0;
+      @include heading-4;
+      text-transform: uppercase;
+    }
+  }
+
+  .timeAndArrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .time {
+      @include tag-14;
+      margin: 0;
+    }
+
+    .arrowDown {
+      cursor: pointer;
+    }
+  }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .theme {
+      background-color: $primary-muted-orange;
+      @include tag-14;
+      margin: 0;
+      color: white;
+      height: 24px;
+      width: 46px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .label {
+      @include tag-14;
+      margin: 0;
+    }
+  }
+
+  .eventName {
+    color: $primary-black;
+    @include paragraph-16;
+    margin: 0;
+  }
+
+  .eventDescription {
+    color: $black-70;
+    @include paragraph-16;
+    margin: 0;
+  }
+
+  .divider {
+    padding-top: 6px;
+    width: 100%;
+    @include dottedBreak(rgba(23, 22, 21, 0.5));
+  }
+
+  .eventRequirements {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    .mainLabel {
+      @include tag-14;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .requirement {
+      display: flex;
+      gap: 16px;
+
+      .checkContainer {
+        height: 20px;
+        width: 20px;
+        background-color: $primary-muted-orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+
+        .check {
+          height: 8px;
+          width: 8px;
+        }
+      }
+
+      .label {
+        margin: 0;
+        @include paragraph-16;
+      }
+    }
+  }
+}
