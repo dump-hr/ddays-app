@@ -70,10 +70,16 @@
     color: $primary-black;
     @include paragraph-16;
     margin: 0;
-    padding-bottom: 6px;
+  }
+
+  .eventDescription {
+    color: $black-70;
+    @include paragraph-16;
+    margin: 0;
   }
 
   .divider {
+    padding-top: 6px;
     width: 100%;
     @include dottedBreak(rgba(23, 22, 21, 0.5));
   }
