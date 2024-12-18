@@ -1,4 +1,5 @@
 import c from './ScheduleCard.module.scss';
+import RatingStar from '../../assets/icons/rating-star-1.svg';
 
 /*
 export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
@@ -88,7 +89,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   return (
     <div className={c.scheduleCard}>
       {isAddedToSchedule && (
-        <div className={c.addedToSchedule}>Added to schedule</div>
+        <div className={c.addedToSchedule}>
+          <img className={c.ratingStar} src={RatingStar} alt='Rating star' />
+          <p className={c.label}>Dodano u tvoj raspored</p>
+        </div>
       )}
       <div className={c.timeAndArrow}>
         <p>

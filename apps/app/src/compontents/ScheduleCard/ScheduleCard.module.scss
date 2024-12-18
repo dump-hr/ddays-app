@@ -1,0 +1,29 @@
+.scheduleCard {
+  background-color: $black-5;
+  display: flex;
+  gap: 14px;
+  flex-direction: column;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 24px;
+
+  .addedToSchedule {
+    background-color: $black-10;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 8px;
+    gap: 10px;
+    display: flex;
+
+    .ratingStar {
+      height: 16px;
+      width: 16px;
+    }
+
+    .label {
+      margin: 0;
+      @include heading-4;
+      text-transform: uppercase;
+    }
+  }
+}

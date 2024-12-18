@@ -21,6 +21,13 @@
   letter-spacing: -1%;
 }
 
+@mixin heading-4 {
+  font-family: NeueMachina;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  letter-spacing: -1%;
+}
+
 @mixin label-large {
   font-family: Inter;
   font-weight: 700;
