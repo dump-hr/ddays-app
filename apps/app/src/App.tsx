@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from './components/Button';
 import ToggleButton from './components/ToggleButton';
 import Notification from './components/Notification';
+import googleIcon from './assets/icons/google.svg';
 
 const notifications = [
   {
@@ -36,10 +37,12 @@ function App() {
       <p>DUMP Days 2025 App</p>
       <br />
       <Button variant={'beige'}>Click me</Button>
-
-      <Button variant={'orange'}>Click me</Button>
-
-      <Button variant={'black'}>Click me</Button>
+      <Button variant={'orange'} points={10}>
+        Click me
+      </Button>
+      <Button variant={'black'} icon={googleIcon}>
+        Nastavi s Googlom
+      </Button>
 
       <ToggleButton toggled={toggled} onClick={() => setToggled(!toggled)} />
       <br />

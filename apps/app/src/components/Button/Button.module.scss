@@ -14,6 +14,27 @@
   transition: all 0.2s ease;
 }
 
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content > p {
+  margin: 0;
+}
+
+.mr16 {
+  margin: 0;
+  padding: 0;
+  margin-right: 16px;
+}
+
+.star {
+  margin-left: 10px;
+  margin-right: 4px;
+}
+
 .orange {
   background-color: #e0553f;
 }
