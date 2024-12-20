@@ -1,8 +1,8 @@
 <h1 align="center">DUMP Days App</h1>
 
-Env        | CI status
----------- | ---------
-Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/deploy.yml/badge.svg?branch=main) ![Lint](https://github.com/dump-hr/ddays-app/actions/workflows/lint.yml/badge.svg?branch=main)
+| Env        | CI status                                                                                                                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/deploy.yml/badge.svg?branch=main) ![Lint](https://github.com/dump-hr/ddays-app/actions/workflows/lint.yml/badge.svg?branch=main) |
 
 ## Development
 
@@ -15,7 +15,7 @@ Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/de
 
 1. Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally.
 
-   If you use local postgres db server, create manually new database named `ddays-app` 
+   If you use local postgres db server, create manually new database named `ddays-app`
 
 2. Create `.env.local` file that can override configuration options from `.env` in web/api apps.
 
