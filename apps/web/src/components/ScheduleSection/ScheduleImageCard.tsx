@@ -50,13 +50,6 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
     translateX: number,
     rotateDeg: number,
   ) => {
-    console.log(
-      `lastClickedCardId: ${lastClickedCardId.current}\n`,
-      `eventId: ${event.id}`,
-    );
-
-    console.log(!isOpenDescription, lastClickedCardId.current !== event.id);
-
     if (
       (lastClickedCardId.current !== event.id && !isOpenDescription) ||
       (lastClickedCardId.current === -1 && !isOpenDescription)
