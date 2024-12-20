@@ -2,7 +2,7 @@ import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-import SpeakerModal from './SpeakerModal';
+import SpeakerModal from '../SpeakerModal';
 import c from './SpeakersSection.module.scss';
 
 type SpeakerCardProps = {

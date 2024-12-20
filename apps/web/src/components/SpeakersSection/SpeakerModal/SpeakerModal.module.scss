@@ -1,0 +1,153 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100%;
+
+  background: rgba(23, 22, 21, 0.8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 32px;
+  z-index: 999999;
+
+  .speakerModal {
+    background: #181716;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 64px 56px;
+
+    .image {
+      max-height: 500px;
+      max-width: 400px;
+
+      height: auto;
+      object-fit: cover;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    .contentWrapper {
+      max-width: 536px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: start;
+      box-sizing: border-box;
+      padding-left: 80px;
+
+      .fullName {
+        color: #eaeaea;
+        font-family: 'PP Neue Machina';
+        font-size: 48px;
+        line-height: 48px;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+        width: 100%;
+      }
+
+      .titleAndCompany {
+        width: 100%;
+        color: #ff482f;
+        font-family: 'PP Neue Machina';
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+      }
+
+      .socialMediaButtons {
+        display: flex;
+        gap: 24px;
+        margin-top: 32px;
+      }
+
+      .description {
+        color: #fff;
+        font-family: 'PP Neue Machina';
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: none;
+        width: 100%;
+        margin-top: 32px;
+      }
+
+      .button {
+        width: fit-content;
+        color: #fff;
+
+        font-feature-settings:
+          'ss06' on,
+          'ss01' on;
+        font-family: 'PP Neue Montreal Mono', sans-serif;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        position: relative;
+        transition: 300ms;
+        padding: 14px 16px;
+      }
+
+      .grainyButton {
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+          background-size: cover;
+          opacity: 0;
+          z-index: 0;
+          transition: 300ms;
+        }
+
+        &:hover {
+          overflow: hidden;
+
+          .text {
+            color: white;
+            z-index: 5;
+          }
+
+          &:before {
+            opacity: 0.2;
+          }
+        }
+
+        &:active {
+          &::before {
+            opacity: 0.85;
+          }
+        }
+      }
+    }
+
+    .closeButton {
+      display: flex;
+      position: absolute;
+      top: 65px;
+      right: 65px;
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+    }
+  }
+}
