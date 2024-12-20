@@ -137,9 +137,17 @@
     }
 
     .closeButton {
+      display: flex;
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 65px;
+      right: 65px;
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
     }
   }
 }

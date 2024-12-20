@@ -2,6 +2,7 @@ import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 
+import CloseIcon from '../../../assets/icons/close.svg';
 import c from './SpeakerModal.module.scss';
 
 type SpeakerModalProps = {
@@ -91,7 +92,7 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
           <p className={c.description}>{speaker.description}</p>
         </div>
         <button className={c.closeButton} onClick={() => close()}>
-          Zatvori
+          <img src={CloseIcon} />
         </button>
       </div>
     </div>
