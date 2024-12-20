@@ -1,6 +1,6 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
-import { useEffect } from 'react';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 
 import c from './SpeakerModal.module.scss';
 
@@ -12,7 +12,7 @@ type SpeakerModalProps = {
 
 const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
   const stopPropagation = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent clicks inside the modal from bubbling to the parent
+    event.stopPropagation();
   };
 
   useEffect(() => {
@@ -65,26 +65,29 @@ const SpeakerModal = ({ close, isOpen, speaker }: SpeakerModalProps) => {
             {speaker.title} {speaker.title && speaker.company?.name && '@'}{' '}
             {speaker.company?.name}
           </h3>
-          <div className={c.socialMediaButtons}>
-            {speaker.linkedin && (
-              <button
-                className={clsx(c.button, c.grainyButton)}
-                onClick={() => openLink(speaker.linkedin)}>
-                {`[ `}
-                LinkedIn
-                {` ]`}
-              </button>
-            )}
-            {speaker.instagram && (
-              <button
-                className={clsx(c.button, c.grainyButton)}
-                onClick={() => openLink(speaker.instagram)}>
-                {`[ `}
-                Instagram
-                {` ]`}
-              </button>
-            )}
-          </div>
+          {speaker.linkedin ||
+            (speaker.instagram && (
+              <div className={c.socialMediaButtons}>
+                {speaker.linkedin && (
+                  <button
+                    className={clsx(c.button, c.grainyButton)}
+                    onClick={() => openLink(speaker.linkedin)}>
+                    {`[ `}
+                    LinkedIn
+                    {` ]`}
+                  </button>
+                )}
+                {speaker.instagram && (
+                  <button
+                    className={clsx(c.button, c.grainyButton)}
+                    onClick={() => openLink(speaker.instagram)}>
+                    {`[ `}
+                    Instagram
+                    {` ]`}
+                  </button>
+                )}
+              </div>
+            ))}
           <p className={c.description}>{speaker.description}</p>
         </div>
         <button className={c.closeButton} onClick={() => close()}>
