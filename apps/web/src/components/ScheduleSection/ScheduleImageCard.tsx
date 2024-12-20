@@ -16,7 +16,7 @@ type ScheduleImageCardProps = {
   isOpenDescription: boolean;
   isImageShown: boolean;
   imagesLength?: number;
-  lastClickedCardId: number | null;
+  lastClickedCardId: React.MutableRefObject<number | null>;
 };
 
 const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
@@ -50,7 +50,17 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
     translateX: number,
     rotateDeg: number,
   ) => {
-    if (lastClickedCardId !== event.id && !isOpenDescription) {
+    console.log(
+      `lastClickedCardId: ${lastClickedCardId.current}\n`,
+      `eventId: ${event.id}`,
+    );
+
+    console.log(!isOpenDescription, lastClickedCardId.current !== event.id);
+
+    if (
+      (lastClickedCardId.current !== event.id && !isOpenDescription) ||
+      (lastClickedCardId.current === -1 && !isOpenDescription)
+    ) {
       gsap.fromTo(
         speakerPhoto.current,
         { scale: 0, x: 0, y: 0, rotation: -3 },
@@ -78,12 +88,12 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
 
     if (isSpeakerPhoto.current && imagesLength > 1) translateX = 90 * index;
 
-    if (isSpeakerPhoto.current && imagesLength === 3) translateX -= 30;
+    if (isSpeakerPhoto.current && imagesLength === 3) translateX -= 80;
 
     const ctx = gsap.context(() =>
       animateCards(translateY, translateX, rotateDeg),
     );
-    
+
     return () => ctx.revert();
   }, [isMobile, isImageShown, isOpenDescription, lastClickedCardId]);
 

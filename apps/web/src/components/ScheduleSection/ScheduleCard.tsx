@@ -16,8 +16,7 @@ type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   openCardId: number | null;
   setOpenCardId: (id: number | null) => void;
-  lastClickedCardId: number | null;
-  setLastClickedCardId: (id: number | null) => void;
+  lastClickedCardId: React.MutableRefObject<number | null>;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
@@ -25,7 +24,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   openCardId,
   setOpenCardId,
   lastClickedCardId,
-  setLastClickedCardId,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(1);
   const [isImageShown, setIsImageShown] = useState<boolean>(false);
@@ -56,14 +54,20 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
     if (isOpenDescription) {
       setOpenCardId(null);
+      lastClickedCardId.current = event.id;
     } else {
       setOpenCardId(event.id);
+      lastClickedCardId.current = -1;
     }
-    setLastClickedCardId(event.id);
   };
 
   const handleHover = () => {
-    if (!isOpenDescription) setIsImageShown(true);
+    if (isOpenDescription) {
+      lastClickedCardId.current = event.id;
+    } else {
+      setIsImageShown(true);
+      lastClickedCardId.current = -1;
+    }
   };
 
   const handleUnhover = () => {

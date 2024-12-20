@@ -1,6 +1,6 @@
 import { Theme } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { useEventGetAllWithSpeaker } from '../../api/event/useEventGetAllWithSpeaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
@@ -24,7 +24,7 @@ const ScheduleSection = () => {
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
   const { isMobile } = useScreenSize(1000);
   const [openedCardId, setOpenedCardId] = useState<number | null>(null);
-  const [lastClickedCardId, setLastClickedCardId] = useState<number | null>(null);
+  const lastClickedCardId = useRef<number | null>(null);
 
   useEffect(() => {
     if (isMobile && theme !== null) {
@@ -113,7 +113,6 @@ const ScheduleSection = () => {
                   openCardId={openedCardId}
                   setOpenCardId={setOpenedCardId}
                   lastClickedCardId={lastClickedCardId}
-                  setLastClickedCardId={setLastClickedCardId}
                 />
               ))}
             {events.data?.length === 0 && 'Trenutno nema upisanih događaja'}
