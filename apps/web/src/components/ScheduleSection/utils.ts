@@ -33,6 +33,19 @@ export const getEventTypeTranslation = (type: string) => {
   }
 };
 
+export const getThemeShort = (theme: string) => {
+  switch (theme) {
+    case 'dev':
+      return 'DEV';
+    case 'design':
+      return 'DIZ';
+    case 'marketing':
+      return 'MARK';
+    case 'tech':
+      return 'TECH';
+  }
+};
+
 export const getSpeakerCompanyStringForEvent = (
   speaker: SpeakerWithCompanyDto,
 ) => {
