@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <p>DUMP Days 2025 App</p>
+      <h1>App</h1>
     </>
   );
 }
