@@ -1,8 +1,10 @@
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import { useEffect, useState } from 'react';
+import MinusSvg from 'assets/icons/minus-black.svg';
 import PlusSvg from 'assets/icons/plus-black.svg';
+import { useEffect, useState } from 'react';
 
 import { useScreenSize } from '../../hooks/useScreenSize';
+import ScheduleImageCard from './ScheduleImageCard';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
@@ -10,7 +12,6 @@ import {
   getSpeakerCompanyStringForEvent,
   getThemeShort,
 } from './utils';
-import ScheduleImageCard from './ScheduleImageCard';
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
@@ -170,7 +171,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         <div className={c.scheduleCardRight}>
           {event.description && (
             <button className={c.plusButton}>
-              <img src={PlusSvg} alt='plus' />
+              {isOpenDescription ? (
+                <img src={MinusSvg} alt='minus' />
+              ) : (
+                <img src={PlusSvg} alt='plus' />
+              )}
             </button>
           )}
         </div>
