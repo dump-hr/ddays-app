@@ -1,7 +1,8 @@
 import styles from './Navigation.module.scss';
 import sprite from '../../assets/sprite.svg';
+import React from 'react';
 
-export const Navigation = () => {
+export const Navigation = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <div className={styles.iconWrapper}>
