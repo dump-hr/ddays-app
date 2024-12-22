@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - '2024'
 
   workflow_dispatch:
 
@@ -49,6 +50,7 @@ jobs:
           file: ./apps/api/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }},
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }},
             ghcr.io/${{ github.repository }}:${{ github.ref_name == 'main' && 'latest' || 'unstable' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -90,4 +92,4 @@ jobs:
       - name: Run Ansible playbook
         run: |
           eval $(ssh-agent)
-          ./infrastructure/scripts/ansible-playbook.sh production api
+          ./infrastructure/scripts/ansible-playbook.sh ${{ github.ref_name == 'main' && 'production' || github.ref_name }} api
