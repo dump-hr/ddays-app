@@ -8,6 +8,13 @@
       "when": 1734719722899,
       "tag": "0000_cold_the_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1734903647949,
+      "tag": "0001_rich_veda",
+      "breakpoints": true
     }
   ]
 }

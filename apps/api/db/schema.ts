@@ -1,8 +1,10 @@
+import { SpeakerPhoto } from '@ddays-app/types';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
   json,
+  jsonb,
   pgEnum,
   pgTable,
   primaryKey,
@@ -410,7 +412,7 @@ export const speaker = pgTable('speaker', {
   lastName: text('lastName').notNull(),
   title: text('title').notNull(),
   companyId: integer('company_id').references(() => company.id),
-  photo: json('photo'),
+  photo: jsonb('photo').$type<SpeakerPhoto>(),
   instagram: text('instagram'),
   linkedin: text('linkedin'),
   description: text('description'),

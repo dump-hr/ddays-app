@@ -1,13 +1,18 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CompanyPublicDto } from './company';
 
+export type SpeakerPhoto = {
+  mainPhotoUrl: string;
+  thumbnailUrl: string;
+};
+
 export type SpeakerDto = {
   id: number;
   firstName: string;
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: unknown;
+  photo?: SpeakerPhoto;
   instagram?: string;
   linkedin?: string;
   description?: string;
@@ -46,7 +51,7 @@ export type SpeakerWithCompanyDto = {
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: unknown;
+  photo?: SpeakerPhoto;
   instagram?: string;
   linkedin?: string;
   description?: string;

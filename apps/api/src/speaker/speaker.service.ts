@@ -1,6 +1,7 @@
 import {
   SpeakerDto,
   SpeakerModifyDto,
+  SpeakerPhoto,
   SpeakerWithCompanyDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
@@ -115,11 +116,16 @@ export class SpeakerService {
     id: number,
     file: Express.Multer.File,
   ): Promise<SpeakerDto> {
-    const photo = await this.blobService.upload(
+    const uploadedPhoto = await this.blobService.upload(
       'speaker-photo',
       file.buffer,
       file.mimetype,
     );
+
+    const photo: SpeakerPhoto = {
+      mainPhotoUrl: uploadedPhoto,
+      thumbnailUrl: uploadedPhoto,
+    };
 
     const [updatedSpeaker] = await db
       .update(speaker)
