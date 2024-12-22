@@ -25,6 +25,6 @@
     - role: traefik
     - role: api
       vars:
-        docker_image: ghcr.io/dump-hr/ddays-app:latest
-        env_file: production
-        api_domain: days.dump.hr
+        docker_image: '{{ docker_image }}'
+        env_file: '{{ env_file }}'
+        api_domain: '{{ api_domain }}'

@@ -1,0 +1,4 @@
+---
+docker_image: ghcr.io/dump-hr/ddays-app:main
+env_file: production
+api_domain: days.dump.hr
