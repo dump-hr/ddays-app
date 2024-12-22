@@ -7,7 +7,7 @@ export type SpeakerDto = {
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: JSON;
+  photo?: unknown;
   instagram?: string;
   linkedin?: string;
   description?: string;
@@ -46,7 +46,7 @@ export type SpeakerWithCompanyDto = {
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: JSON;
+  photo?: unknown;
   instagram?: string;
   linkedin?: string;
   description?: string;
