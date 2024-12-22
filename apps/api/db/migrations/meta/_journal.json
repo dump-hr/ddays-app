@@ -78,13 +78,6 @@
       "when": 1716132892106,
       "tag": "0010_slimy_stature",
       "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "5",
-      "when": 1732540348770,
-      "tag": "0011_narrow_clea",
-      "breakpoints": true
     }
   ]
 }
