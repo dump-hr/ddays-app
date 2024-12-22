@@ -11,6 +11,10 @@ const TemporaryHero = () => {
     );
   }
 
+  function openArchivedWeb() {
+    window.open('https://2024-days.dump.hr/', '_blank');
+  }
+
   return (
     <section className={c.hero}>
       <div className={c.content}>
@@ -18,7 +22,7 @@ const TemporaryHero = () => {
       </div>
       <div className={c.textButtonsWrapper}>
         <div className={c.buttons}>
-          {/*<Button>Posjeti web</Button> --> Otvorit kad link na stari web bude spreman*/}
+          <Button onClick={openArchivedWeb}>Posjeti web</Button>
           <Button className={c.orangeButton} onClick={openBrochure}>
             Postani sponzor
           </Button>
