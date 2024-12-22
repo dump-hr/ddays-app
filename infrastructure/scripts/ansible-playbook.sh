@@ -26,7 +26,8 @@ fi
 cd ../ansible || exit 1
 
 ansible-playbook "playbooks/$ANSIBLE_COMPONENT/playbook.yml" \
-  -i "inventories/$ANSIBLE_ENV.aws_ec2.yml" "$@"
+  -i "inventories/$ANSIBLE_ENV.aws_ec2.yml" \
+  -e "@vars/$ANSIBLE_ENV.yml" "$@"
 status=$?
 
 cd - >/dev/null || exit 1
