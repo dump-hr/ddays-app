@@ -69,7 +69,7 @@ const Notification: React.FC<NotificationProps> = ({
           </button>
         )}
       </div>
-      <p className={c.time}>{getPassedTime(time)} ago</p>
+      <p className={c.time}>Prije {getPassedTime(time)}</p>
       <div className={c.dottedBreak}></div>
     </div>
   );
@@ -80,17 +80,45 @@ const getPassedTime = (time: Date) => {
   const diff = now.getTime() - time.getTime();
   const diffInMinutes = Math.floor(diff / 1000 / 60);
 
+  if (diffInMinutes < 1) {
+    return 'sada';
+  }
+
   if (diffInMinutes < 60) {
-    return `${diffInMinutes} min`;
+    if (diffInMinutes % 10 === 1 && diffInMinutes !== 11) {
+      return `${diffInMinutes} minutu`;
+    }
+
+    if (
+      diffInMinutes % 10 < 5 &&
+      diffInMinutes % 10 !== 0 &&
+      (diffInMinutes < 10 || diffInMinutes > 20)
+    ) {
+      return `${diffInMinutes} minute`;
+    }
+
+    return `${diffInMinutes} minuta`;
   }
 
   const diffInHours = Math.floor(diffInMinutes / 60);
 
   if (diffInHours < 24) {
-    return `${diffInHours} h`;
+    if (diffInHours % 10 === 1 && diffInHours !== 11) {
+      return `${diffInHours} sat`;
+    }
+
+    if (diffInHours % 10 < 5 && (diffInHours < 10 || diffInHours > 20)) {
+      return `${diffInHours} sata`;
+    }
+
+    return `${diffInHours} sati`;
   }
 
-  return `${Math.floor(diffInHours / 24)} d`;
-};
+  const diffInDays = Math.floor(diffInHours / 24);
 
-export default Notification;
+  if (diffInDays % 10 === 1 && diffInDays !== 11) {
+    return `${diffInDays} dan`;
+  }
+
+  return `${diffInDays} dana`;
+};

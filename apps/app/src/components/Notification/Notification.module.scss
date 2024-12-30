@@ -12,24 +12,22 @@
 }
 
 .content {
-  color: #363636;
+  color: #868685;
   font-size: 14px;
   font-style: normal;
   line-height: 20px;
   margin-top: 0px;
   margin-bottom: 0px;
   @include paragraph-14;
-  opacity: 0.78;
 }
 
 .time {
-  color: #171615;
+  color: #b3b3b2;
   @include label-medium;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  opacity: 0.5;
   text-transform: uppercase;
   margin-bottom: 8px;
 }
