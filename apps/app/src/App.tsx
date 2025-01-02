@@ -16,7 +16,7 @@ const notifications = [
     title: 'Došle su pizze 2',
     content:
       'Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas časte pizzama, skupi svoju krišku u akvariju. Dobar tek i pizzeria Mirakul nas pizzama, skupi svoju krišku u akvariju.',
-    time: new Date('2024-12-14T10:00:00'),
+    time: new Date('2025-01-02T12:39:00'),
   },
   {
     id: 3,
