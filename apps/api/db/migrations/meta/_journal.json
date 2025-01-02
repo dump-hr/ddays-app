@@ -15,6 +15,13 @@
       "when": 1734903647949,
       "tag": "0001_rich_veda",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1735821458367,
+      "tag": "0002_woozy_mac_gargan",
+      "breakpoints": true
     }
   ]
 }
