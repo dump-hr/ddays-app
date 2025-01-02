@@ -1,0 +1,70 @@
+.title {
+  color: #000;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  @include heading-3;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.content {
+  color: #868685;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  @include paragraph-14;
+}
+
+.time {
+  color: #b3b3b2;
+  @include label-medium;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.flex {
+  display: flex;
+}
+
+.expandButton {
+  color: #ff482f;
+  text-align: right;
+  @include label-medium;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 0;
+  height: fit-content;
+  align-self: end;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.orangeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff3737;
+  align-self: center;
+}
+
+.titleWrapper {
+  justify-content: space-between;
+}
+
+.dottedBreak {
+  @include dottedBreak;
+}
