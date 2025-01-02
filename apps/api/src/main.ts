@@ -59,7 +59,12 @@ const setupProxies = (app: INestApplication) => {
       createProxyMiddleware({ target: 'http://localhost:3003' }),
     );
 
-    app.use('/app', createProxyMiddleware({ target: 'http://localhost:3005' }));
+    app.use(
+      '/app',
+      createProxyMiddleware({
+        target: 'http://localhost:3005',
+      }),
+    );
   }
 };
 
