@@ -34,7 +34,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   const imagesList = event.speakers
     ?.filter((speaker) => speaker.photo !== null)
-    .map((speaker) => speaker.photo);
+    .map((speaker) => speaker.photo?.mainPhotoUrl);
 
   const images = imagesList?.length === 0 ? [''] : imagesList!;
 

@@ -3,6 +3,7 @@ import {
   EventDto,
   EventModifyDto,
   EventWithSpeakerDto,
+  SpeakerPhoto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { db } from 'db';
@@ -102,7 +103,7 @@ export class EventService {
             lastName: speaker.lastName,
             title: speaker.title,
             companyId: speaker.companyId,
-            photo: speaker.photo,
+            photo: speaker.photo as SpeakerPhoto,
             instagram: speaker.instagram,
             linkedin: speaker.linkedin,
             description: speaker.description,
