@@ -12,14 +12,10 @@
   }
 }
 
-.label {
-  @include paragraph-14;
-  color: $black-50;
-}
-
 .inputWrapper {
   position: relative;
   width: 100%;
+  padding-bottom: 6px;
 }
 
 .input {
@@ -30,32 +26,45 @@
   outline: none;
   @include paragraph-16;
   color: $primary-black;
-
-  &::placeholder {
-    @include paragraph-16;
-    color: $black-70;
-  }
+  padding: 5px 0 2px 0;
+  transition: opacity 0.3s ease-out;
 
   &.error {
     border-bottom-color: $error-light;
-    padding-bottom: 10px;
   }
 
   &.active {
     border-bottom-color: $primary-black;
-    padding-bottom: 10px;
+  }
+}
+
+.placeholder {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  @include paragraph-16;
+  color: $black-70;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+
+  &.floating {
+    transform: translateY(-170%);
+    @include paragraph-14;
   }
 }
 
 .dots {
-  margin-top: 6px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   @include dottedBreak($primary-black);
 }
 
 .errorText {
   @include paragraph-14;
   color: $error-light;
-  transition: gap 0.3s ease-in-out;
+  transition: gap 0.3s ease-in;
 }
 
 .togglePassword {

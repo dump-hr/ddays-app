@@ -10,7 +10,7 @@ type InputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   type?: 'text' | 'password';
-} & React.HTMLProps<HTMLInputElement>;
+} & Omit<React.HTMLProps<HTMLInputElement>, 'onChange'>;
 
 export const Input = ({
   value,
@@ -21,8 +21,9 @@ export const Input = ({
   ...props
 }: InputProps) => {
   const [isPasswordVisible, setPasswordToBeVisible] = useState(false);
-  const showLabel = error || value;
+  const [isFocused, setItIsFocus] = useState(false);
   const isActive = value && !error;
+  const showLabel = isFocused || value;
 
   const passwordVisibility = () => {
     setPasswordToBeVisible((prev) => !prev);
@@ -33,22 +34,14 @@ export const Input = ({
 
   return (
     <div className={c.container} style={props.style}>
-      {showLabel && (
-        <label
-          className={clsx(c.label, {
-            [c.labelError]: error,
-            [c.labelActive]: !error,
-          })}>
-          {placeholder}
-        </label>
-      )}
-
       <div className={c.inputWrapper}>
         <input
           type={inputType}
           value={value}
           onChange={onChange}
-          placeholder={!showLabel ? placeholder : ''}
+          onFocus={() => setItIsFocus(true)}
+          onBlur={() => setItIsFocus(false)}
+          placeholder=''
           className={clsx(
             c.input,
             error && c.error,
@@ -57,6 +50,15 @@ export const Input = ({
           )}
           {...props}
         />
+
+        <label
+          className={clsx(c.placeholder, {
+            [c.floating]: showLabel,
+            [c.error]: error,
+            [c.active]: isActive,
+          })}>
+          {placeholder}
+        </label>
 
         {!value && !error && <div className={c.dots}></div>}
 
