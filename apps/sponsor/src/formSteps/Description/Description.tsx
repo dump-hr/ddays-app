@@ -11,6 +11,8 @@ import c from './Description.module.scss';
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
   const [website, setWebsite] = useState<string>();
+  const [instagram, setInstagram] = useState<string>();
+  const [linkedin, setLinkedin] = useState<string>();
   const [opportunitiesDescription, setOpportunitiesDescription] =
     useState<string>();
 
@@ -29,6 +31,8 @@ export const Description: FormComponent = ({ close }) => {
     await updateDescription.mutateAsync({
       description: description ?? company.description ?? '',
       website: website ?? company.website ?? '',
+      instagram: instagram ?? company.instagram ?? '',
+      linkedin: linkedin ?? company.linkedin ?? '',
       opportunitiesDescription:
         opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });
@@ -72,6 +76,20 @@ export const Description: FormComponent = ({ close }) => {
           value={website ?? company.website ?? ''}
           label='Link na web stranicu'
           onChange={(e) => setWebsite(e)}
+        />
+      </div>
+      <div className={c.inputContainer}>
+        <Input
+          value={instagram ?? company.instagram ?? ''}
+          label='Link na Instagram profil'
+          onChange={(e) => setInstagram(e)}
+        />
+      </div>
+      <div className={c.inputContainer}>
+        <Input
+          value={linkedin ?? company.linkedin ?? ''}
+          label='Link na LinkedIn profil'
+          onChange={(e) => setLinkedin(e)}
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>
