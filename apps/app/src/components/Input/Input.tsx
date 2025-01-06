@@ -46,6 +46,9 @@ export const Input = ({
             c.input,
             error && c.error,
             isActive && c.active,
+            {
+              [c.floating]: showLabel,
+            },
             props.className,
           )}
           {...props}

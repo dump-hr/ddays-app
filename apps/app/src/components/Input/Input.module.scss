@@ -15,19 +15,20 @@
 .inputWrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 6px;
+  background-color: aqua;
 }
 
 .input {
   width: 100%;
-  background: transparent;
   border: none;
+  background: transparent;
   border-bottom: 1.5px solid transparent;
   outline: none;
   @include paragraph-16;
   color: $primary-black;
   padding: 5px 0 2px 0;
   transition: opacity 0.3s ease-out;
+  transition: padding-top 0.3s ease-out;
 
   &.error {
     border-bottom-color: $error-light;
@@ -36,20 +37,23 @@
   &.active {
     border-bottom-color: $primary-black;
   }
+
+  &.floating {
+    padding-top: 25px;
+  }
 }
 
 .placeholder {
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 8px;
   @include paragraph-16;
   color: $black-70;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
   pointer-events: none;
 
   &.floating {
-    transform: translateY(-170%);
+    transform: translateY(-25px);
     @include paragraph-14;
   }
 }
