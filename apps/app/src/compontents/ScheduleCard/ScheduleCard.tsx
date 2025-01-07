@@ -47,6 +47,11 @@ export type EventProps = {
   startsAt: string;
   endsAt: string;
   requirements?: string[];
+  thumbnailUrl: string;
+  firstName: string;
+  lastName: string;
+  title: string;
+  logoImage: string;
 };
 
 type ScheduleCardProps = {
@@ -133,6 +138,17 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           ))}
         </div>
       )}
+      <div className={c.divider} />
+      <div className={c.speaker}>
+        <img src={event.thumbnailUrl} alt={event.firstName} />
+        <div className={c.speakerInfoWrapper}>
+          <p className={c.fullName}>
+            {event.firstName} {event.lastName}
+          </p>
+          <p className={c.title}>{event.title}</p>
+          <img src={event.logoImage} alt='' />
+        </div>
+      </div>
     </div>
   );
 };

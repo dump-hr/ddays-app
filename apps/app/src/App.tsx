@@ -1,5 +1,7 @@
 import ScheduleCard from './compontents/ScheduleCard';
 import { EventProps } from './compontents/ScheduleCard/ScheduleCard';
+import ThumbnailTemp from './assets/images/thumbnailUrl-temp.png';
+import ArasLogo from './assets/images/aras-logo-temp.svg';
 
 const event = {
   name: 'Event Name',
@@ -10,6 +12,11 @@ const event = {
   startsAt: new Date().toISOString(),
   endsAt: new Date().toISOString(),
   requirements: ['laptop', 'pen', 'paper'],
+  thumbnailUrl: ThumbnailTemp,
+  firstName: 'John',
+  lastName: 'Doe',
+  title: 'Title',
+  logoImage: ArasLogo,
 };
 
 function App() {
