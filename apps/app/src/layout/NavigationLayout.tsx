@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Navigation } from '../components/Navigation';
-import styles from './Navigation.module.scss';
+import styles from './NavigationLayout.module.scss';
 
 export const NavigationLayout = () => {
   return (
