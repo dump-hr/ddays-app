@@ -39,10 +39,11 @@
 
     .arrowDown {
       cursor: pointer;
+      transform: rotate(180deg);
       transition: transform 0.3s ease-in-out;
 
       &.collapsed {
-        transform: rotate(180deg);
+        transform: rotate(0deg);
       }
     }
   }
