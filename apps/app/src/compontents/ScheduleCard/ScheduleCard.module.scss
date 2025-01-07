@@ -39,6 +39,11 @@
 
     .arrowDown {
       cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      &.collapsed {
+        transform: rotate(180deg);
+      }
     }
   }
 
@@ -70,6 +75,23 @@
     color: $primary-black;
     @include paragraph-16;
     margin: 0;
+  }
+
+  .collapsibleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition:
+      max-height 0.5s ease-in-out,
+      opacity 0.5s ease-in-out; /* Animate height and opacity */
+    max-height: 500px;
+    opacity: 1;
+
+    &.collapsed {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
   }
 
   .eventDescription {

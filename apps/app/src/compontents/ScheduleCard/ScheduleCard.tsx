@@ -3,6 +3,8 @@ import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
 import Check from '../../assets/icons/check-1.svg';
 import Button from '../../components/Button';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 /*
 export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
@@ -69,6 +71,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
   isAddedToSchedule,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   function getThemeLabel(eventTheme: EventTheme) {
     switch (eventTheme) {
       case 'dev':
@@ -117,9 +121,13 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
         </p>
         <img
-          className={c.arrowDown}
+          className={clsx({
+            [c.arrowDown]: true,
+            [c.collapsed]: !isOpen,
+          })}
           src={ArrowDown}
           alt='Arrow pointing down'
+          onClick={() => setIsOpen((prev) => !prev)}
         />
       </div>
       <div className={c.tag}>
@@ -127,23 +135,32 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         <p className={c.label}>{getTypeLabel(event.type)}</p>
       </div>
       <h3 className={c.eventName}>{event.name}</h3>
-      {event.description && (
-        <p className={c.eventDescription}>{event.description}</p>
-      )}
-      <div className={c.divider} />
-      {event.requirements && (
-        <div className={c.eventRequirements}>
-          <p className={c.mainLabel}>ZAHTJEVI:</p>
-          {event.requirements.map((requirement, index) => (
-            <div key={index} className={c.requirement}>
-              <div className={c.checkContainer}>
-                <img className={c.check} src={Check} alt='Check' />
+
+      <section
+        className={clsx({
+          [c.collapsibleContent]: true,
+          [c.collapsed]: !isOpen,
+        })}>
+        {event.description && (
+          <p className={c.eventDescription}>{event.description}</p>
+        )}
+
+        <div className={c.divider} />
+        {event.requirements && (
+          <div className={c.eventRequirements}>
+            <p className={c.mainLabel}>ZAHTJEVI:</p>
+            {event.requirements.map((requirement, index) => (
+              <div key={index} className={c.requirement}>
+                <div className={c.checkContainer}>
+                  <img className={c.check} src={Check} alt='Check' />
+                </div>
+                <p className={c.label}>{requirement}</p>
               </div>
-              <p className={c.label}>{requirement}</p>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </section>
+
       {event.moderator && (
         <>
           <div className={c.divider} />
