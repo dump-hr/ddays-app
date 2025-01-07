@@ -1,35 +1,50 @@
+import { ReactElement, useState } from 'react';
 import styles from './Navigation.module.scss';
 import sprite from '../../assets/sprite.svg';
-import React from 'react';
 
-export const Navigation = (): React.ReactElement => {
+enum Tabs {
+  HOME,
+  SCHEDULE,
+  FLY_TALKS,
+  COMPANIES,
+  PROFILE,
+}
+
+type TabInfo = {
+  id: Tabs;
+  icon: string;
+  width: number;
+  height: number;
+};
+
+const tabs: TabInfo[] = [
+  { id: Tabs.SCHEDULE, icon: 'schedule-icon', width: 25, height: 24 },
+  { id: Tabs.FLY_TALKS, icon: 'fly-talks-icon', width: 22, height: 24 },
+  { id: Tabs.COMPANIES, icon: 'companies-icon', width: 23, height: 24 },
+  { id: Tabs.PROFILE, icon: 'profile-icon', width: 22, height: 22 },
+];
+
+export const Navigation = (): ReactElement => {
+  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.HOME);
+
+  const handleTabChange = (tab: Tabs) => {
+    setSelectedTab(tab);
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.iconWrapper}>
-        <svg height='24' width='24'>
-          <use href={`${sprite}#home-icon`} />
-        </svg>
-      </div>
-      <div className={styles.iconWrapper}>
-        <svg height='24' width='25'>
-          <use href={`${sprite}#schedule-icon`} />
-        </svg>
-      </div>
-      <div className={styles.iconWrapper}>
-        <svg width='22' height='24'>
-          <use href={`${sprite}#fly-talks-icon`} />
-        </svg>
-      </div>
-      <div className={styles.iconWrapper}>
-        <svg width='23' height='24'>
-          <use href={`${sprite}#companies-icon`} />
-        </svg>
-      </div>
-      <div className={styles.iconWrapper}>
-        <svg width='22' height='22'>
-          <use href={`${sprite}#profile-icon`} />
-        </svg>
-      </div>
+      {tabs.map((tab) => (
+        <div
+          key={tab.id}
+          className={`${styles.iconWrapper} ${
+            selectedTab === tab.id ? styles.activeIcon : ''
+          }`}
+          onClick={() => handleTabChange(tab.id)}>
+          <svg width={tab.width} height={tab.height} className={styles.icon}>
+            <use href={`${sprite}#${tab.icon}`} />
+          </svg>
+        </div>
+      ))}
     </div>
   );
 };

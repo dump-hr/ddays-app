@@ -1,3 +1,5 @@
+// TODO handle base path better
+
 export enum ModalNames {
   NOTIFICATIONS = 'notifications',
   ENTER_CODE = 'enter-code',
@@ -20,15 +22,15 @@ export enum ModalNames {
 }
 
 export enum RouteNames {
-  HOME = '',
-  LOGIN = 'login',
-  REGISTER = 'register',
-  PASSWORD_RESET = 'password-reset',
-  PROFILE = 'profile',
-  COMPANIES = 'companies',
-  SCHEDULE = 'schedule',
-  FLY_TALKS = 'flyTalks',
-  SHOPPING = 'shopping',
+  HOME = '/app',
+  LOGIN = '/app/login',
+  REGISTER = '/app/register',
+  PASSWORD_RESET = '/app/password-reset',
+  PROFILE = '/app/profile',
+  COMPANIES = '/app/companies',
+  SCHEDULE = '/app/schedule',
+  FLY_TALKS = '/app/flyTalks',
+  SHOPPING = '/app/shopping',
 }
 
 export interface SubMenu {
@@ -51,7 +53,7 @@ export interface Route {
 
 export const routes: { [key: string]: Route } = {
   [RouteNames.HOME]: {
-    path: '/home',
+    path: RouteNames.HOME,
     name: 'Home',
     modals: [
       {
@@ -74,19 +76,19 @@ export const routes: { [key: string]: Route } = {
     ],
   },
   [RouteNames.LOGIN]: {
-    path: '/login',
+    path: RouteNames.LOGIN,
     name: 'Login',
   },
   [RouteNames.REGISTER]: {
-    path: '/register',
+    path: RouteNames.REGISTER,
     name: 'Register',
   },
   [RouteNames.PASSWORD_RESET]: {
-    path: '/password-reset',
+    path: RouteNames.PASSWORD_RESET,
     name: 'Password Reset',
   },
   [RouteNames.PROFILE]: {
-    path: '/profile',
+    path: RouteNames.PROFILE,
     name: 'Profile',
     modals: [
       {
@@ -120,7 +122,7 @@ export const routes: { [key: string]: Route } = {
     ],
   },
   [RouteNames.COMPANIES]: {
-    path: '/companies',
+    path: RouteNames.COMPANIES,
     name: 'Companies',
     submenus: [
       {
@@ -139,7 +141,7 @@ export const routes: { [key: string]: Route } = {
     ],
   },
   [RouteNames.SCHEDULE]: {
-    path: '/schedule',
+    path: RouteNames.SCHEDULE,
     name: 'Schedule',
     modals: [
       {
@@ -152,7 +154,7 @@ export const routes: { [key: string]: Route } = {
     ],
   },
   [RouteNames.FLY_TALKS]: {
-    path: '/fly-talks',
+    path: RouteNames.FLY_TALKS,
     name: 'Fly Talks',
     modals: [
       {
@@ -165,7 +167,7 @@ export const routes: { [key: string]: Route } = {
     ],
   },
   [RouteNames.SHOPPING]: {
-    path: '/shopping',
+    path: RouteNames.SHOPPING,
     name: 'Shopping',
     modals: [
       {
