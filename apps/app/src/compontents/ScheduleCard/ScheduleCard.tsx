@@ -6,33 +6,6 @@ import Button from '../../components/Button';
 import { useState } from 'react';
 import clsx from 'clsx';
 
-/*
-export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
-
-export const eventType = pgEnum('event_type', [
-  'lecture',
-  'workshop',
-  'flyTalk',
-  'campfireTalk',
-  'panel',
-  'other',
-]);
-
-export const event = pgTable('event', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-  description: text('description'),
-  type: eventType('type'),
-  theme: theme('theme'),
-  startsAt: text('starts_at').notNull(),
-  endsAt: text('ends_at').notNull(),
-  requirements: text('requirements'),
-  footageLink: text('footage_link'),
-  maxParticipants: integer('max_participants'),
-  codeId: integer('code_id').references(() => code.id),
-});
-*/
-
 type Speaker = {
   firstName: string;
   lastName: string;
@@ -64,7 +37,7 @@ export type EventProps = {
 
 type ScheduleCardProps = {
   event: EventProps;
-  isAddedToSchedule: boolean;
+  isAddedToSchedule?: boolean;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
@@ -145,19 +118,21 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           <p className={c.eventDescription}>{event.description}</p>
         )}
 
-        <div className={c.divider} />
         {event.requirements && (
-          <div className={c.eventRequirements}>
-            <p className={c.mainLabel}>ZAHTJEVI:</p>
-            {event.requirements.map((requirement, index) => (
-              <div key={index} className={c.requirement}>
-                <div className={c.checkContainer}>
-                  <img className={c.check} src={Check} alt='Check' />
+          <>
+            <div className={c.divider} />
+            <div className={c.eventRequirements}>
+              <p className={c.mainLabel}>ZAHTJEVI:</p>
+              {event.requirements.map((requirement, index) => (
+                <div key={index} className={c.requirement}>
+                  <div className={c.checkContainer}>
+                    <img className={c.check} src={Check} alt='Check' />
+                  </div>
+                  <p className={c.label}>{requirement}</p>
                 </div>
-                <p className={c.label}>{requirement}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </section>
 
