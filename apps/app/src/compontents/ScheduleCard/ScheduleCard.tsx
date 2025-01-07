@@ -2,6 +2,7 @@ import c from './ScheduleCard.module.scss';
 import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
 import Check from '../../assets/icons/check-1.svg';
+import Button from '../../components/Button';
 
 /*
 export const theme = pgEnum('theme', ['dev', 'design', 'marketing', 'tech']);
@@ -30,6 +31,14 @@ export const event = pgTable('event', {
 });
 */
 
+type Speaker = {
+  firstName: string;
+  lastName: string;
+  title: string;
+  logoImage: string;
+  thumbnailUrl: string;
+};
+
 type EventType =
   | 'lecture'
   | 'workshop'
@@ -47,11 +56,8 @@ export type EventProps = {
   startsAt: string;
   endsAt: string;
   requirements?: string[];
-  thumbnailUrl: string;
-  firstName: string;
-  lastName: string;
-  title: string;
-  logoImage: string;
+  speakers: Speaker[];
+  moderator?: Speaker;
 };
 
 type ScheduleCardProps = {
@@ -139,20 +145,28 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </div>
       )}
       <div className={c.divider} />
-      <div className={c.speaker}>
-        <img
-          className={c.image}
-          src={event.thumbnailUrl}
-          alt={event.firstName}
-        />
-        <div className={c.speakerInfoWrapper}>
-          <p className={c.fullName}>
-            {event.firstName} {event.lastName}
-          </p>
-          <p className={c.title}>{event.title}</p>
-          <img className={c.logo} src={event.logoImage} alt='' />
-        </div>
+      <div className={c.speakers}>
+        {event.speakers.map((speaker, index) => (
+          <div className={c.speaker} key={index}>
+            <img
+              className={c.image}
+              src={speaker.thumbnailUrl}
+              alt={speaker.firstName}
+            />
+            <div className={c.speakerInfoWrapper}>
+              <p className={c.fullName}>
+                {speaker.firstName} {speaker.lastName}
+              </p>
+              <p className={c.title}>{speaker.title}</p>
+              <img className={c.logo} src={speaker.logoImage} alt='' />
+            </div>
+          </div>
+        ))}
       </div>
+
+      <Button className={c.button} variant='orange'>
+        Dodaj u svoj raspored
+      </Button>
     </div>
   );
 };

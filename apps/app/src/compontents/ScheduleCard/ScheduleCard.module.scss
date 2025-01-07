@@ -121,37 +121,47 @@
     }
   }
 
-  .speaker {
+  .speakers {
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    gap: 32px;
 
-    .image {
-      width: 64px;
-      height: 67px;
-    }
-
-    .speakerInfoWrapper {
+    .speaker {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
+      gap: 12px;
 
-      .fullName {
-        @include tag-14;
-        text-transform: uppercase;
-        margin: 0;
+      .image {
+        width: 64px;
+        height: 67px;
       }
 
-      .title {
-        @include tag-14;
-        text-transform: uppercase;
-        color: $black-50;
-        margin: 0;
-      }
+      .speakerInfoWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
 
-      .logo {
-        height: 12px;
+        .fullName {
+          @include tag-14;
+          text-transform: uppercase;
+          margin: 0;
+        }
+
+        .title {
+          @include tag-14;
+          text-transform: uppercase;
+          color: $black-50;
+          margin: 0;
+        }
+
+        .logo {
+          height: 12px;
+        }
       }
     }
+  }
+
+  .button {
+    margin-top: 32px;
   }
 }

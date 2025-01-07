@@ -12,11 +12,22 @@ const event = {
   startsAt: new Date().toISOString(),
   endsAt: new Date().toISOString(),
   requirements: ['laptop', 'pen', 'paper'],
-  thumbnailUrl: ThumbnailTemp,
-  firstName: 'John',
-  lastName: 'Doe',
-  title: 'Title',
-  logoImage: ArasLogo,
+  speakers: [
+    {
+      thumbnailUrl: ThumbnailTemp,
+      firstName: 'John',
+      lastName: 'Doe',
+      title: 'Title',
+      logoImage: ArasLogo,
+    },
+    {
+      thumbnailUrl: ThumbnailTemp,
+      firstName: 'John',
+      lastName: 'Doe',
+      title: 'Title',
+      logoImage: ArasLogo,
+    },
+  ],
 };
 
 function App() {
