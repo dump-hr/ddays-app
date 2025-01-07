@@ -13,9 +13,9 @@ const Home = () => {
         <section>
           <h1>{lecturesTab}</h1>
           <TabGroup setter={setLecturesTab}>
-            <Tab id='tab1' label='Tab 1' />
-            <Tab id='tab2' label='Tab 2' />
-            <Tab id='tab3' label='Tab 3' />
+            <Tab id='tab1'>Tab 1</Tab>
+            <Tab id='tab2'>Tab 2</Tab>
+            <Tab id='tab3'>Tab 3</Tab>
           </TabGroup>
         </section>
       </main>
