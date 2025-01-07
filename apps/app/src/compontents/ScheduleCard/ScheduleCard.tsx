@@ -144,6 +144,26 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           ))}
         </div>
       )}
+      {event.moderator && (
+        <>
+          <div className={c.divider} />
+          <p className={c.moderatorLabel}>Voditelj panela:</p>
+          <div className={c.speaker}>
+            <img
+              className={c.image}
+              src={event.moderator.thumbnailUrl}
+              alt={event.moderator.firstName}
+            />
+            <div className={c.speakerInfoWrapper}>
+              <p className={c.fullName}>
+                {event.moderator.firstName} {event.moderator.lastName}
+              </p>
+              <p className={c.title}>{event.moderator.title}</p>
+              <img className={c.logo} src={event.moderator.logoImage} alt='' />
+            </div>
+          </div>
+        </>
+      )}
       <div className={c.divider} />
       <div className={c.speakers}>
         {event.speakers.map((speaker, index) => (

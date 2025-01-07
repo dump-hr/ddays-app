@@ -125,38 +125,44 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+  }
 
-    .speaker {
+  .moderatorLabel {
+    @include tag-14;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .speaker {
+    display: flex;
+    gap: 12px;
+
+    .image {
+      width: 64px;
+      height: 67px;
+    }
+
+    .speakerInfoWrapper {
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
 
-      .image {
-        width: 64px;
-        height: 67px;
+      .fullName {
+        @include tag-14;
+        text-transform: uppercase;
+        margin: 0;
       }
 
-      .speakerInfoWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+      .title {
+        @include tag-14;
+        text-transform: uppercase;
+        color: $black-50;
+        margin: 0;
+      }
 
-        .fullName {
-          @include tag-14;
-          text-transform: uppercase;
-          margin: 0;
-        }
-
-        .title {
-          @include tag-14;
-          text-transform: uppercase;
-          color: $black-50;
-          margin: 0;
-        }
-
-        .logo {
-          height: 12px;
-        }
+      .logo {
+        height: 12px;
       }
     }
   }

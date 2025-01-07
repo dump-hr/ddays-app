@@ -28,6 +28,13 @@ const event = {
       logoImage: ArasLogo,
     },
   ],
+  moderator: {
+    thumbnailUrl: ThumbnailTemp,
+    firstName: 'John',
+    lastName: 'Doe',
+    title: 'Title',
+    logoImage: ArasLogo,
+  },
 };
 
 function App() {
