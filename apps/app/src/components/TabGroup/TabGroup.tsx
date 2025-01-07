@@ -17,15 +17,18 @@ const TabGroup: React.FC<TabGroupProps> = ({ setter, children }) => {
 
   return (
     <div className={c.tabGroup}>
-      {React.Children.map(children, (child) => {
-        if (React.isValidElement<TabProps>(child)) {
-          return React.cloneElement(child, {
-            isActive: activeTab === child.props.id,
-            onClick: () => handleTabClick(child.props.id),
-          });
-        }
-        return child;
-      })}
+      <div className={c.tabsWrapper}>
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement<TabProps>(child)) {
+            return React.cloneElement(child, {
+              isActive: activeTab === child.props.id,
+              onClick: () => handleTabClick(child.props.id),
+            });
+          }
+          return child;
+        })}
+      </div>
+      <div className={c.divider}></div>
     </div>
   );
 };
