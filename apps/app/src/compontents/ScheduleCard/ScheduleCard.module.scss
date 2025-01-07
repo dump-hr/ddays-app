@@ -120,4 +120,38 @@
       }
     }
   }
+
+  .speaker {
+    display: flex;
+    gap: 12px;
+
+    .image {
+      width: 64px;
+      height: 67px;
+    }
+
+    .speakerInfoWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+
+      .fullName {
+        @include tag-14;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      .title {
+        @include tag-14;
+        text-transform: uppercase;
+        color: $black-50;
+        margin: 0;
+      }
+
+      .logo {
+        height: 12px;
+      }
+    }
+  }
 }

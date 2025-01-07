@@ -140,13 +140,17 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       )}
       <div className={c.divider} />
       <div className={c.speaker}>
-        <img src={event.thumbnailUrl} alt={event.firstName} />
+        <img
+          className={c.image}
+          src={event.thumbnailUrl}
+          alt={event.firstName}
+        />
         <div className={c.speakerInfoWrapper}>
           <p className={c.fullName}>
             {event.firstName} {event.lastName}
           </p>
           <p className={c.title}>{event.title}</p>
-          <img src={event.logoImage} alt='' />
+          <img className={c.logo} src={event.logoImage} alt='' />
         </div>
       </div>
     </div>
