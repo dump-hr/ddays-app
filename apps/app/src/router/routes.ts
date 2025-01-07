@@ -1,5 +1,3 @@
-// TODO handle base path better
-
 export enum ModalNames {
   NOTIFICATIONS = 'notifications',
   ENTER_CODE = 'enter-code',
