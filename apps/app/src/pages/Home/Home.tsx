@@ -10,7 +10,7 @@ const Home = () => {
     <div className={c.page}>
       <header className={c.header}></header>
       <main className={c.main}>
-        <section>
+        <section className={c.lectures}>
           <TabGroup setter={setLecturesTab}>
             <Tab id='u-tijeku'>U tijeku</Tab>
             <Tab id='nadolazece'>Nadolazeće</Tab>

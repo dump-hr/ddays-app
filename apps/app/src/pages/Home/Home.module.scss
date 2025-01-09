@@ -15,5 +15,10 @@
     height: 100%;
     background-color: $primary-background;
     border-radius: 12px 12px 0px 0px;
+
+    .lectures {
+      box-sizing: border-box;
+      padding: 16px 24px;
+    }
   }
 }
