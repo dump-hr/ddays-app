@@ -1,5 +1,5 @@
-import ScheduleCard from './compontents/ScheduleCard';
-import { EventProps } from './compontents/ScheduleCard/ScheduleCard';
+import ScheduleCard from './components/ScheduleCard';
+import { EventProps } from './components/ScheduleCard/ScheduleCard';
 import ThumbnailTemp from './assets/images/thumbnailUrl-temp.png';
 import ArasLogo from './assets/images/aras-logo-temp.svg';
 
