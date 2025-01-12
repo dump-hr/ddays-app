@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { findModalInRoute, RouteKey } from '../router/routes';
+import { findModalInRoute, ModalNames, RouteKey } from '../router/routes';
 
 type ModalState = {
   isOpen: boolean;
-  modalName: string | null;
+  modalName: ModalNames | null;
   submenuOption?: string;
 };
 
@@ -15,9 +15,9 @@ const defaultModalState: ModalState = {
 
 type UseModalManagerReturn = {
   modalState: ModalState;
-  openModal: (modalName: string, submenuOption?: string) => void;
+  openModal: (modalName: ModalNames, submenuOption?: string) => void;
   closeModal: () => void;
-  canOpenModal: (modalName: string) => boolean;
+  canOpenModal: (modalName: ModalNames) => boolean;
 };
 
 type UseModalManagerProps = {
@@ -38,7 +38,7 @@ export const useModalManager = ({
   );
 
   const openModal = useCallback(
-    (modalName: string, submenuOption?: string) => {
+    (modalName: ModalNames, submenuOption?: string) => {
       if (!canOpenModal(modalName)) {
         console.warn(
           `Modal ${modalName} is not allowed on route ${currentRoute}`,
