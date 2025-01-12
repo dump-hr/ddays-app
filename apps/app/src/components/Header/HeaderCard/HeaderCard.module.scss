@@ -1,0 +1,17 @@
+.headerCard{
+    display: flex;
+    height: 136px;
+    width: 136px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: $black-90;
+    gap: 12px;
+
+    p{
+        @include paragraph-16;
+        padding: 0;
+        margin: 0;
+    }
+}
