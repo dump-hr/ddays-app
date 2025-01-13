@@ -1,0 +1,27 @@
+.container {
+  width: 100vw;
+  height: 78px;
+  background-color: $primary-black;
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.iconWrapper {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 61px;
+  height: 61px;
+  transition: all 0.3s ease-in-out;
+}
+
+.activeIcon {
+  border: 2px solid $primary-white;
+  border-radius: 8px;
+  transform: translateY(-19px);
+  background-color: $primary-black;
+}
