@@ -120,4 +120,24 @@
       color: $black-70;
     }
   }
+
+  .liveTime {
+    .progressBarWrapper {
+      display: flex;
+
+      .progressBar {
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background-color: $primary-background;
+
+        .completedRatio {
+          height: 100%;
+          border-radius: 4px;
+          background-color: $primary-highlight;
+          transition: width 0.5s ease-in-out;
+        }
+      }
+    }
+  }
 }

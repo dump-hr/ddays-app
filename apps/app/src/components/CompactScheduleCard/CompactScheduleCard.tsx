@@ -50,6 +50,9 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
     getRemainingTimeInMinutes(event.endsAt),
   );
 
+  const duration =
+    new Date(event.endsAt).getTime() - new Date(event.startsAt).getTime();
+
   function getTimeFrameFromDate(start: string, end: string) {
     return `${getTimeFromDate(start)} - ${getTimeFromDate(end)}`;
   }
@@ -122,7 +125,12 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
           </p>
           <div className={c.progressBarWrapper}>
             <div className={c.progressBar}>
-              <div className={c.completedRatio} />
+              <div
+                className={c.completedRatio}
+                style={{
+                  width: `${(1 - remainingTime / (duration / 60000)) * 100}%`,
+                }}
+              />
             </div>
             <p className={c.remainingTime}>JOŠ {remainingTime} MIN</p>
           </div>
