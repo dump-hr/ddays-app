@@ -1,8 +1,8 @@
 import styles from './Header.module.scss';
 import { HeaderCard } from './HeaderCard';
 import accreditationImage from './../../assets/images/Akreditacija.png';
-import enterCodeImage from './../../assets/images/UnesiKod.png';
-import tShirtImage from './../../assets/images/Majica.png';
+import enterCodeImage from './../../assets/images/unesiKod.png';
+import tShirtImage from './../../assets/images/majica.png';
 
 enum HeaderCards {
   ENTER_CODE,
