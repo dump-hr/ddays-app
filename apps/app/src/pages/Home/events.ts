@@ -40,7 +40,7 @@ export const events = [
     type: 'lecture',
     theme: 'dev',
     startsAt: '2025-01-13T10:00:00Z',
-    endsAt: '2025-01-13T14:00:00Z',
+    endsAt: '2025-01-13T23:00:00Z',
     requirements: ['Basic React knowledge'],
     speakers: [
       {
@@ -58,8 +58,8 @@ export const events = [
     description: 'Explore the key principles of UX design.',
     type: 'workshop',
     theme: 'design',
-    startsAt: '2025-01-14T09:00:00Z',
-    endsAt: '2025-01-14T13:00:00Z',
+    startsAt: '2025-01-13T09:00:00Z',
+    endsAt: '2025-01-13T20:00:00Z',
     requirements: ['Interest in design'],
     speakers: [
       {
@@ -77,8 +77,8 @@ export const events = [
     description: 'Learn about the role of AI in modern healthcare.',
     type: 'panel',
     theme: 'tech',
-    startsAt: '2025-01-15T11:00:00Z',
-    endsAt: '2025-01-15T13:00:00Z',
+    startsAt: '2025-01-13T11:00:00Z',
+    endsAt: '2025-01-13T20:00:00Z',
     requirements: ['Interest in healthcare and AI'],
     speakers: [
       {
@@ -112,8 +112,8 @@ export const events = [
     description: 'Master the basics of digital photography.',
     type: 'workshop',
     theme: 'tech',
-    startsAt: '2025-01-16T14:00:00Z',
-    endsAt: '2025-01-16T17:00:00Z',
+    startsAt: '2025-01-13T14:00:00Z',
+    endsAt: '2025-01-13T20:00:00Z',
     requirements: ['Bring your own camera'],
     speakers: [
       {
@@ -129,10 +129,10 @@ export const events = [
   {
     name: 'Blockchain Beyond Bitcoin',
     description: 'Discover the wide applications of blockchain technology.',
-    type: 'flyTalk',
+    type: 'lecture',
     theme: 'tech',
-    startsAt: '2025-01-17T15:00:00Z',
-    endsAt: '2025-01-17T17:00:00Z',
+    startsAt: '2025-01-13T15:00:00Z',
+    endsAt: '2025-01-13T20:00:00Z',
     requirements: ['Basic understanding of blockchain'],
     speakers: [
       {
