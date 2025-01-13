@@ -5,7 +5,6 @@
   box-sizing: border-box;
   padding: 24px;
   flex-direction: column;
-  gap: 12px;
   border-radius: 16px;
 
   h3,
@@ -19,6 +18,16 @@
 
   .divider {
     @include dottedBreak;
+  }
+
+  .notLiveTime {
+    .timeframe {
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      margin-bottom: 24px;
+    }
   }
 
   .headerRow {
@@ -105,6 +114,8 @@
         @include tag-14;
       }
     }
+
+    margin-bottom: 12px;
   }
 
   .nameSpeakers {
@@ -124,6 +135,7 @@
 
   .liveTime {
     .divider {
+      margin-top: 16px;
       margin-bottom: 16px;
     }
 
