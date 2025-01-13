@@ -22,6 +22,7 @@ export default defineConfig({
           @import "./src/styles/colors.scss";
           @import "./src/styles/fonts.scss";
           @import "./src/styles/mixins.scss";
+          @import "./src/styles/breakpoints.scss";
         `,
       },
     },
