@@ -18,6 +18,7 @@ type TabInfo = {
 };
 
 const tabs: TabInfo[] = [
+  { id: Tabs.HOME, icon: 'home-icon', width: 24, height: 24 },
   { id: Tabs.SCHEDULE, icon: 'schedule-icon', width: 25, height: 24 },
   { id: Tabs.FLY_TALKS, icon: 'fly-talks-icon', width: 22, height: 24 },
   { id: Tabs.COMPANIES, icon: 'companies-icon', width: 23, height: 24 },
