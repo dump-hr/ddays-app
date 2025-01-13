@@ -1,7 +1,6 @@
 .container {
   width: 100vw;
   height: 78px;
-  cursor: pointer;
   background-color: $primary-black;
   position: absolute;
   bottom: 0px;
@@ -11,6 +10,7 @@
 }
 
 .iconWrapper {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
