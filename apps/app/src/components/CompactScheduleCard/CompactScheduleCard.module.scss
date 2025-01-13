@@ -7,6 +7,7 @@
   flex-direction: column;
   gap: 12px;
 
+  h3,
   p {
     margin: 0;
   }
@@ -102,6 +103,21 @@
       .liveText {
         @include tag-14;
       }
+    }
+  }
+
+  .nameSpeakers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .name {
+      @include paragraph-16;
+    }
+    .speakers {
+      @include paragraph-14;
+      text-transform: uppercase;
+      color: $black-70;
     }
   }
 }

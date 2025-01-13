@@ -49,13 +49,14 @@ type CompactScheduleCardProps = {
       type: 'lecture',
       theme: 'dev',
       startsAt: '2025-01-13T10:00:00Z',
-      endsAt: '2025-01-13T18:00:00Z',
+      endsAt: '2025-01-13T14:00:00Z',
       requirements: ['Basic React knowledge'],
       speakers: [
         {
           firstName: 'John',
           lastName: 'Doe',
           title: 'Senior Developer',
+          company: 'Facebook',
           logoImage: 'logo.png',
           thumbnailUrl: 'thumbnail.png',
         },

@@ -17,13 +17,13 @@ type Speaker = {
   firstName: string;
   lastName: string;
   title: string;
+  company: string;
   logoImage: string;
   thumbnailUrl: string;
 };
 
 export type EventProps = {
   name: string;
-  description?: string;
   type: EventType | string;
   theme: EventTheme | string;
   startsAt: string;
@@ -46,25 +46,35 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
     return now >= start && now <= end;
   });
 
+  const [remainingTime, setRemainingTime] = useState(
+    getRemainingTimeInMinutes(event.endsAt),
+  );
+
   function getTimeFrameFromDate(start: string, end: string) {
     return `${getTimeFromDate(start)} - ${getTimeFromDate(end)}`;
   }
 
   function getRemainingTimeInMinutes(end: string) {
-    const now = new Date().getMilliseconds();
-    const endMs = new Date(end).getMilliseconds();
+    const now = new Date().getTime();
+    const endMs = new Date(end).getTime();
 
-    return Math.floor((endMs - now) / 60000);
+    const remainingMs = endMs - now;
+    return Math.max(0, Math.floor(remainingMs / 60000));
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const start = new Date(event.startsAt).getTime();
-      const end = new Date(event.endsAt).getTime();
+    const startMs = new Date(event.startsAt).getTime();
+    const endMs = new Date(event.endsAt).getTime();
 
-      setIsLive(now >= start && now <= end);
-    }, 60000);
+    const updateStatus = () => {
+      const now = new Date().getTime();
+      setIsLive(now >= startMs && now <= endMs);
+      setRemainingTime(Math.max(0, Math.floor((endMs - now) / 60000)));
+    };
+
+    updateStatus();
+
+    const interval = setInterval(updateStatus, 1000);
 
     return () => clearInterval(interval);
   }, [event.startsAt, event.endsAt]);
@@ -91,12 +101,22 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
             <div className={c.icon}>
               <div className={c.innerCircle} />
             </div>
-            <p className={c.liveText}>LIVE</p>
+            <p className={c.liveText}>UŽIVO</p>
           </div>
         )}
       </div>
+      <div className={c.nameSpeakers}>
+        <h3 className={c.name}>{event.name}</h3>
+        <p className={c.speakers}>
+          {event.speakers.map(
+            (speaker) =>
+              `${speaker.firstName} ${speaker.lastName} // ${speaker.title} @ ${speaker.company}`,
+          )}
+        </p>
+      </div>
       {isLive && (
         <div className={c.liveTime}>
+          <div className={c.divider} />
           <p className={c.timeframe}>
             {getTimeFrameFromDate(event.startsAt, event.endsAt)}
           </p>
@@ -104,9 +124,7 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
             <div className={c.progressBar}>
               <div className={c.completedRatio} />
             </div>
-            <p className={c.remainingTime}>
-              JOŠ {getRemainingTimeInMinutes(event.endsAt)} MIN
-            </p>
+            <p className={c.remainingTime}>JOŠ {remainingTime} MIN</p>
           </div>
         </div>
       )}
