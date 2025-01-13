@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import c from './CompactScheduleCard.module.scss';
+import { getThemeLabel } from '../../helpers/getThemeLabel';
+import { getTypeLabel } from '../../helpers/getTypeLabel';
+import { getTimeFromDate } from '../../helpers/getTimeFromDate';
 
 type EventType =
   | 'lecture'
@@ -37,6 +40,17 @@ type CompactScheduleCardProps = {
 const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
   const [isLive, setIsLive] = useState(false);
 
+  function getTimeFrameFromDate(start: string, end: string) {
+    return `${getTimeFromDate(start)} - ${getTimeFromDate(end)}`;
+  }
+
+  function getRemainingTimeInMinutes(end: string) {
+    const now = new Date().getMilliseconds();
+    const endMs = new Date(end).getMilliseconds();
+
+    return Math.floor((endMs - now) / 60000);
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date().getMilliseconds();
@@ -57,22 +71,38 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
     <div>
       {!isLive && (
         <div className={c.notLiveTime}>
-          <div className={c.theme}></div>
-          <p className={c.type}></p>
+          <p className={c.timeframe}>
+            {getTimeFrameFromDate(event.startsAt, event.endsAt)}
+          </p>
+          <div className={c.divider}></div>
         </div>
       )}
       <div className={c.headerRow}>
-        <div className={c.category}></div>
-        <div className={c.live}></div>
+        <div className={c.infoWrapper}>
+          <div className={c.tag}>
+            <p className={c.theme}>{getThemeLabel(event.theme)}</p>
+          </div>
+          <p className={c.type}>{getTypeLabel(event.type)}</p>
+        </div>
+        <div className={c.live}>
+          <div className={c.icon}>
+            <div className={c.innerCircle} />
+          </div>
+          <p className={c.liveText}>LIVE</p>
+        </div>
       </div>
       {isLive && (
         <div className={c.liveTime}>
-          <p className={c.timeframe}></p>
+          <p className={c.timeframe}>
+            {getTimeFrameFromDate(event.startsAt, event.endsAt)}
+          </p>
           <div className={c.progressBarWrapper}>
             <div className={c.progressBar}>
-              <div className={c.completedRatio}></div>
+              <div className={c.completedRatio} />
             </div>
-            <p className={c.remainingTime}></p>
+            <p className={c.remainingTime}>
+              JOŠ {getRemainingTimeInMinutes(event.endsAt)} MIN
+            </p>
           </div>
         </div>
       )}
