@@ -46,7 +46,7 @@ export const Header = () => {
   return (
     <div className={styles.header}>
       <h1 className={styles.header}>Hello Mihaela! 👋🏻</h1>
-      <div className={styles.headerOptionsWrapper}>
+      <div className={styles.headerCardsWrapper}>
         {headerCards.map((card) => (
           <HeaderCard
             key={card.id}
