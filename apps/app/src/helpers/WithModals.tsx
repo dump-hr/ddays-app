@@ -1,7 +1,30 @@
-import { useCallback } from 'react';
+import { ReactElement, useCallback } from 'react';
 import { useModalManager } from '../hooks/UseModalManager';
-import { RouteKey } from '../router/routes';
+import { ModalNames, RouteKey } from '../router/routes';
 import { ModalContext } from '../context/ModalContext';
+import { BaseModal } from '../components/Modal/BaseModal';
+
+// TODO - delete test code and replace with actual modals
+const EmptyModal = (): ReactElement => {
+  return <div>Empty Modal</div>;
+};
+
+const MODAL_REGISTRY: Record<ModalNames, ReactElement> = {
+  [ModalNames.NOTIFICATIONS]: <EmptyModal />,
+  [ModalNames.ENTER_CODE]: <EmptyModal />,
+  [ModalNames.RATE]: <EmptyModal />,
+  [ModalNames.INTERESTS]: <EmptyModal />,
+  [ModalNames.ACHIEVEMENTS]: <EmptyModal />,
+  [ModalNames.AVATARS]: <EmptyModal />,
+  [ModalNames.LEADERBOARD]: <EmptyModal />,
+  [ModalNames.PRIZES]: <EmptyModal />,
+  [ModalNames.SETTINGS]: <EmptyModal />,
+  [ModalNames.DISPLAY_AREA]: <EmptyModal />,
+  [ModalNames.SCHEDULE_LIST]: <EmptyModal />,
+  [ModalNames.FLY_TALKS_LIST]: <EmptyModal />,
+  [ModalNames.TRANSACTIONS]: <EmptyModal />,
+  [ModalNames.CART]: <EmptyModal />,
+};
 
 type WithModalsProps = {
   currentRoute: RouteKey;
@@ -25,6 +48,15 @@ export const withModals = <P extends object>(
     return (
       <ModalContext.Provider value={{ openModal, closeModal, canOpenModal }}>
         <WrappedComponent {...(rest as P)} />
+
+        {modalState.modalName && (
+          <BaseModal
+            isOpen={modalState.isOpen}
+            onClose={handleClose}
+            title={modalState.modalName}>
+            {MODAL_REGISTRY[modalState.modalName]}
+          </BaseModal>
+        )}
       </ModalContext.Provider>
     );
   };
