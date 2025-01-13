@@ -6,6 +6,7 @@
   padding: 24px;
   flex-direction: column;
   gap: 12px;
+  border-radius: 16px;
 
   h3,
   p {
@@ -122,8 +123,18 @@
   }
 
   .liveTime {
+    .divider {
+      margin-bottom: 16px;
+    }
+
+    .timeframe {
+      margin-bottom: 7px;
+    }
+
     .progressBarWrapper {
       display: flex;
+      align-items: center;
+      gap: 18px;
 
       .progressBar {
         width: 100%;
@@ -137,6 +148,19 @@
           background-color: $primary-highlight;
           transition: width 0.5s ease-in-out;
         }
+      }
+
+      .remainingTime {
+        white-space: nowrap;
+
+        color: $primary-black;
+        text-align: right;
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        color: $black-70;
       }
     }
   }
