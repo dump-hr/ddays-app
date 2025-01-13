@@ -1,6 +1,6 @@
 type EventTheme = 'dev' | 'design' | 'marketing' | 'tech';
 
-export function getThemeLabel(eventTheme: EventTheme) {
+export function getThemeLabel(eventTheme: EventTheme | string) {
   switch (eventTheme) {
     case 'dev':
       return 'DEV';

@@ -6,7 +6,7 @@ type EventType =
   | 'panel'
   | 'other';
 
-export function getTypeLabel(eventType: EventType) {
+export function getTypeLabel(eventType: EventType | string) {
   switch (eventType) {
     case 'lecture':
       return 'PREDAVANJE';

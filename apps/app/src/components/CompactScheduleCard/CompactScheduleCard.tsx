@@ -24,8 +24,8 @@ type Speaker = {
 export type EventProps = {
   name: string;
   description?: string;
-  type: EventType;
-  theme: EventTheme;
+  type: EventType | string;
+  theme: EventTheme | string;
   startsAt: string;
   endsAt: string;
   requirements?: string[];
@@ -68,7 +68,7 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
   }, []);
 
   return (
-    <div>
+    <div className={c.compactScheduleCard}>
       {!isLive && (
         <div className={c.notLiveTime}>
           <p className={c.timeframe}>

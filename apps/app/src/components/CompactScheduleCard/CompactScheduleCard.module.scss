@@ -1,0 +1,47 @@
+.compactScheduleCard {
+  width: 100%;
+  display: flex;
+  background-color: $black-5;
+  box-sizing: border-box;
+  padding: 24px;
+  flex-direction: column;
+  gap: 12px;
+
+  p {
+    margin: 0;
+  }
+
+  .timeframe {
+    @include tag-16;
+  }
+
+  .divider {
+    @include dottedBreak;
+  }
+
+  .headerRow {
+    .infoWrapper {
+      .tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 24px;
+        background-color: $primary-muted-orange;
+        border-radius: 50%;
+
+        .theme {
+          color: $primary-white;
+          font-feature-settings: 'ss12' on;
+          font-family: 'PP Neue Machina';
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 18px; /* 128.571% */
+          letter-spacing: -0.14px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
