@@ -1,19 +1,15 @@
 import styles from './HeaderCard.module.scss';
-import sprite from './../../../assets/sprite.svg';
 
 interface HeaderCardProps {
-  icon: string;
+  img: string;
   text: string;
   width: number;
   height: number;
 }
-export const HeaderCard = ({ icon, text, width, height }: HeaderCardProps) => {
+export const HeaderCard = ({ img, text, width, height }: HeaderCardProps) => {
   return (
     <div className={styles.headerCard}>
-      <svg height={height} width={width}>
-        <use href={`${sprite}#${icon}`} />
-      </svg>
-
+      <img src={img} alt={text} width={width} height={height} />
       <p>{text}</p>
     </div>
   );

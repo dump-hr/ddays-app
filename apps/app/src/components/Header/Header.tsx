@@ -1,5 +1,8 @@
 import styles from './Header.module.scss';
 import { HeaderCard } from './HeaderCard';
+import accreditationImage from './../../assets/images/Akreditacija.png';
+import enterCodeImage from './../../assets/images/UnesiKod.png';
+import tShirtImage from './../../assets/images/Majica.png';
 
 enum HeaderCards {
   ENTER_CODE,
@@ -9,7 +12,7 @@ enum HeaderCards {
 
 type HeaderCardsInfo = {
   id: HeaderCards;
-  icon: string;
+  img: string;
   text: string;
   width: number;
   height: number;
@@ -18,24 +21,24 @@ type HeaderCardsInfo = {
 const headerCards: HeaderCardsInfo[] = [
   {
     id: HeaderCards.ENTER_CODE,
-    icon: 'enter-code',
+    img: `${enterCodeImage}`,
     text: 'Unesi kod',
-    width: 78,
+    width: 77,
     height: 34,
   },
   {
     id: HeaderCards.ACCREDIATION,
-    icon: 'enter-code',
+    img: `${accreditationImage}`,
     text: 'Akreditacija',
-    width: 78,
-    height: 34,
+    width: 60,
+    height: 39,
   },
   {
     id: HeaderCards.SHOPPING,
-    icon: 'enter-code',
+    img: `${tShirtImage}`,
     text: 'Shopping',
-    width: 78,
-    height: 34,
+    width: 80,
+    height: 36,
   },
 ];
 
@@ -47,7 +50,7 @@ export const Header = () => {
         {headerCards.map((card) => (
           <HeaderCard
             key={card.id}
-            icon={card.icon}
+            img={card.img}
             text={card.text}
             width={card.width}
             height={card.height}
