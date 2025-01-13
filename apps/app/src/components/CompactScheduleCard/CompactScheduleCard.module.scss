@@ -20,6 +20,10 @@
   }
 
   .headerRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     .infoWrapper {
       display: flex;
       align-items: center;
@@ -41,6 +45,33 @@
       }
 
       .type {
+        @include tag-14;
+      }
+    }
+
+    .live {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      .icon {
+        height: 14px;
+        width: 14px;
+        border-radius: 100%;
+        border: 1px solid $primary-highlight;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .innerCircle {
+          height: 6px;
+          width: 6px;
+          border-radius: 100%;
+          background-color: $primary-highlight;
+        }
+      }
+
+      .liveText {
         @include tag-14;
       }
     }
