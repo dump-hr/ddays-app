@@ -21,6 +21,10 @@
 
   .headerRow {
     .infoWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
       .tag {
         display: flex;
         align-items: center;
@@ -32,15 +36,12 @@
 
         .theme {
           color: $primary-white;
-          font-feature-settings: 'ss12' on;
-          font-family: 'PP Neue Machina';
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 18px; /* 128.571% */
-          letter-spacing: -0.14px;
-          text-transform: uppercase;
+          @include heading-4;
         }
+      }
+
+      .type {
+        @include tag-14;
       }
     }
   }

@@ -38,7 +38,13 @@ type CompactScheduleCardProps = {
 };
 
 const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
-  const [isLive, setIsLive] = useState(false);
+  const [isLive, setIsLive] = useState(() => {
+    const now = new Date().getTime();
+    const start = new Date(event.startsAt).getTime();
+    const end = new Date(event.endsAt).getTime();
+
+    return now >= start && now <= end;
+  });
 
   function getTimeFrameFromDate(start: string, end: string) {
     return `${getTimeFromDate(start)} - ${getTimeFromDate(end)}`;
@@ -53,19 +59,15 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = new Date().getMilliseconds();
-      const start = new Date(event.startsAt).getMilliseconds();
-      const end = new Date(event.startsAt).getMilliseconds();
+      const now = new Date().getTime();
+      const start = new Date(event.startsAt).getTime();
+      const end = new Date(event.endsAt).getTime();
 
-      if (now >= start && now <= end) {
-        setIsLive(true);
-      } else {
-        setIsLive(false);
-      }
+      setIsLive(now >= start && now <= end);
     }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [event.startsAt, event.endsAt]);
 
   return (
     <div className={c.compactScheduleCard}>
@@ -84,12 +86,14 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
           </div>
           <p className={c.type}>{getTypeLabel(event.type)}</p>
         </div>
-        <div className={c.live}>
-          <div className={c.icon}>
-            <div className={c.innerCircle} />
+        {isLive && (
+          <div className={c.live}>
+            <div className={c.icon}>
+              <div className={c.innerCircle} />
+            </div>
+            <p className={c.liveText}>LIVE</p>
           </div>
-          <p className={c.liveText}>LIVE</p>
-        </div>
+        )}
       </div>
       {isLive && (
         <div className={c.liveTime}>

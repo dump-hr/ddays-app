@@ -48,8 +48,8 @@ type CompactScheduleCardProps = {
       description: 'Learn how to use React Hooks',
       type: 'lecture',
       theme: 'dev',
-      startsAt: '2021-10-10T10:00:00Z',
-      endsAt: '2021-10-10T11:00:00Z',
+      startsAt: '2025-01-13T10:00:00Z',
+      endsAt: '2025-01-13T18:00:00Z',
       requirements: ['Basic React knowledge'],
       speakers: [
         {
