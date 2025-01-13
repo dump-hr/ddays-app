@@ -38,4 +38,9 @@
         <circle cx="11" cy="11" r="10" stroke="#F5EDE1" stroke-width="1.11111"/>
         <path d="M17.6667 18.4507C17.2734 17.2694 16.407 16.2255 15.2016 15.481C13.9962 14.7365 12.5193 14.333 11 14.333C9.48068 14.333 8.0038 14.7365 6.79844 15.481C5.59307 16.2255 4.72658 17.2694 4.33334 18.4507" stroke="#F5EDE1" stroke-width="1.11111" stroke-linecap="round"/>
     </symbol>
+
+    <symbol id="close-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.5833 1.41663L1.41666 20.5833" stroke="#5A5959" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20.5833 20.5833L1.41666 1.41663" stroke="#5A5959" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
 </svg>

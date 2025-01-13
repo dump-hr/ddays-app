@@ -13,6 +13,7 @@ const defaultModalContext: ModalContextProps = {
   canOpenModal: () => false,
 };
 
-const ModalContext = createContext<ModalContextProps>(defaultModalContext);
+export const ModalContext =
+  createContext<ModalContextProps>(defaultModalContext);
 
 export const useModal = () => useContext(ModalContext);
