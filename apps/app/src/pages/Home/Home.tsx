@@ -107,7 +107,7 @@ const Home = () => {
     setSnappedCardIndex(index);
     const targetCard = cardRefs.current[index];
     if (targetCard) {
-      const container = targetCard.parentElement; // Assuming the container is scrollable
+      const container = targetCard.parentElement;
       if (container) {
         const scrollLeft = targetCard.offsetLeft - container.offsetLeft;
         container.scrollTo({

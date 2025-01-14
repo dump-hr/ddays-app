@@ -77,8 +77,8 @@ export const events = [
     description: 'Learn about the role of AI in modern healthcare.',
     type: 'panel',
     theme: 'tech',
-    startsAt: '2025-01-13T11:00:00Z',
-    endsAt: '2025-01-13T20:00:00Z',
+    startsAt: '2025-01-14T11:00:00Z',
+    endsAt: '2025-01-14T20:00:00Z',
     requirements: ['Interest in healthcare and AI'],
     speakers: [
       {
