@@ -1,7 +1,7 @@
 import { Header } from '../../components/Header';
 import c from './Home.module.scss';
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className={c.page}>
       <header className={c.header}>
@@ -12,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

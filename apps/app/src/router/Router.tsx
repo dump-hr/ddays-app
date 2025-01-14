@@ -16,7 +16,7 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { SchedulePage } from '../pages/SchedulePage';
 import { ShoppingPage } from '../pages/ShoppingPage';
 import { NavigationLayout } from '../layout';
-import Home from '../pages/Home';
+import HomePage from '../pages/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
-        <Route path={RouteNames.HOME} element={<Home />} />
+        <Route path={RouteNames.HOME} element={<HomePage />} />
         <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
