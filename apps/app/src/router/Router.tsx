@@ -25,7 +25,10 @@ const router = createBrowserRouter(
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
-        <Route path={RouteNames.HOME} element={<HomePage />} />
+        <Route
+          path={RouteNames.HOME}
+          element={<HomePage currentRoute={RouteNames.HOME} />}
+        />
         <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />

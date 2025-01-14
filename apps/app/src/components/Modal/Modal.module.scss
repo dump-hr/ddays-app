@@ -1,0 +1,21 @@
+.modal {
+  &Container {
+    background-color: $primary-background;
+    padding: 24px 24px 40px 24px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    height: calc(100vh - 78px);
+  }
+
+  &HeaderWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  &Title {
+    @include heading-2;
+    color: $primary-black;
+  }
+}

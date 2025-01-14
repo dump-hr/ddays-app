@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import sprite from '../../assets/sprite.svg';
+import styles from './Modal.module.scss';
 
 type BaseModalProps = {
   isOpen: boolean;
@@ -17,10 +18,10 @@ export const BaseModal: React.FC<BaseModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div>
+    <div className={styles.modalContainer}>
       <div></div>
-      <div>
-        <p>{title}</p>
+      <div className={styles.modalHeaderWrapper}>
+        <p className={styles.modalTitle}>{title}</p>
         <div onClick={() => onClose()}>
           <svg width={22} height={22}>
             <use href={`${sprite}#close-icon`} />
