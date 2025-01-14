@@ -35,9 +35,13 @@ export type EventProps = {
 
 type CompactScheduleCardProps = {
   event: EventProps;
+  id: string | undefined;
 };
 
-const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
+const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
+  event,
+  id,
+}) => {
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
     const start = new Date(event.startsAt).getTime();
@@ -83,7 +87,7 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({ event }) => {
   }, [event.startsAt, event.endsAt]);
 
   return (
-    <div className={c.compactScheduleCard}>
+    <div id={id} className={c.compactScheduleCard}>
       {!isLive && (
         <div className={c.notLiveTime}>
           <p className={c.timeframe}>

@@ -17,11 +17,27 @@
     border-radius: 12px 12px 0px 0px;
 
     .lectures {
+      --spacing: 32px;
+      --padding: 24px;
+      --card-width: calc(100% - 2 * var(--padding));
+
       box-sizing: border-box;
-      padding: 16px 24px;
+      padding: 16px var(--padding);
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: var(--spacing);
+
+      .scrollingWrapper {
+        width: calc(100% + 2 * var(--padding));
+        display: grid;
+        grid-template-columns: var(--card-width) var(--card-width);
+
+        gap: 12px;
+        overflow-y: auto;
+
+        position: relative;
+        left: calc(-1 * var(--padding));
+      }
     }
   }
 }

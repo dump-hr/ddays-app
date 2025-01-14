@@ -83,7 +83,7 @@ const Home = () => {
           <div className={c.scrollingWrapper}>
             {lecturesTab === Tabs.U_Tijeku &&
               getCurrentEvents().map((event) => (
-                <CompactScheduleCard event={event} />
+                <CompactScheduleCard id={event.name} event={event} />
               ))}
           </div>
         </section>

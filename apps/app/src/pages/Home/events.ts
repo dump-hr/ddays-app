@@ -39,8 +39,8 @@ export const events = [
     description: 'Learn how to use React Hooks',
     type: 'lecture',
     theme: 'dev',
-    startsAt: '2025-01-13T10:00:00Z',
-    endsAt: '2025-01-13T23:00:00Z',
+    startsAt: '2025-01-14T09:00:00Z',
+    endsAt: '2025-01-14T23:00:00Z',
     requirements: ['Basic React knowledge'],
     speakers: [
       {
@@ -58,8 +58,8 @@ export const events = [
     description: 'Explore the key principles of UX design.',
     type: 'workshop',
     theme: 'design',
-    startsAt: '2025-01-13T09:00:00Z',
-    endsAt: '2025-01-13T20:00:00Z',
+    startsAt: '2025-01-14T09:00:00Z',
+    endsAt: '2025-01-14T20:00:00Z',
     requirements: ['Interest in design'],
     speakers: [
       {
