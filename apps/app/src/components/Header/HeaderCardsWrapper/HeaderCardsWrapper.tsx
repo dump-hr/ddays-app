@@ -1,12 +1,12 @@
 import { HeaderCard } from '../HeaderCard/HeaderCard';
-import accreditationImage from './../../../assets/images/Akreditacija.png';
-import enterCodeImage from './../../../assets/images/unesiKod.png';
-import tShirtImage from './../../../assets/images/majica.png';
+import accreditationImage from './../../../assets/images/accreditationIcon.png';
+import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
+import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 
 enum HeaderCards {
   ENTER_CODE,
-  ACCREDIATION,
+  ACCREDITATION,
   SHOPPING,
 }
 
@@ -27,7 +27,7 @@ const headerCards: HeaderCardsInfo[] = [
     height: 34,
   },
   {
-    id: HeaderCards.ACCREDIATION,
+    id: HeaderCards.ACCREDITATION,
     img: `${accreditationImage}`,
     text: 'Akreditacija',
     width: 60,
