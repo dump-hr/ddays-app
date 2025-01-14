@@ -1,4 +1,28 @@
-.notificationBell{
-    margin: 0;
-    padding: 0;
+.notification{
+
+    &Wrapper {
+        position: relative;
+    }
+    &Icon{
+        margin: 0;
+        padding: 0;
+    }
+    &Badge{
+        position: absolute;
+        top: -15px;
+        right: -10px;
+
+        width: 27px;
+        height: 27px;
+
+        background-color: $primary-highlight;
+        border: 2px solid $primary-black;
+        border-radius: 4px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 }
+
