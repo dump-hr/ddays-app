@@ -39,6 +39,7 @@
           margin-left: var(--padding);
           align-self: flex-start;
           flex: 0 0 auto;
+          scroll-snap-align: center;
 
           &:last-child {
             margin-right: var(--padding);
@@ -51,6 +52,7 @@
           display: none;
         }
         scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
       }
     }
   }
