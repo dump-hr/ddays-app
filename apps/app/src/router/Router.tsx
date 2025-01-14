@@ -8,7 +8,6 @@ import {
 import { RouteNames } from './routes';
 import { CompaniesPage } from '../pages/CompaniesPage';
 import { FlyTalksPage } from '../pages/FlyTalksPage';
-import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { PasswordResetPage } from '../pages/PasswordResetPage';
