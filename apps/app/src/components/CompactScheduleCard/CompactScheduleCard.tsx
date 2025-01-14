@@ -3,6 +3,7 @@ import c from './CompactScheduleCard.module.scss';
 import { getThemeLabel } from '../../helpers/getThemeLabel';
 import { getTypeLabel } from '../../helpers/getTypeLabel';
 import { getTimeFromDate } from '../../helpers/getTimeFromDate';
+import clsx from 'clsx';
 
 type EventType =
   | 'lecture'
@@ -36,11 +37,13 @@ export type EventProps = {
 type CompactScheduleCardProps = {
   event: EventProps;
   id: string | undefined;
+  className?: string;
 };
 
 const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
   event,
   id,
+  className,
 }) => {
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
@@ -87,7 +90,7 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
   }, [event.startsAt, event.endsAt]);
 
   return (
-    <div id={id} className={c.compactScheduleCard}>
+    <div id={id} className={clsx(c.compactScheduleCard, className)}>
       {!isLive && (
         <div className={c.notLiveTime}>
           <p className={c.timeframe}>

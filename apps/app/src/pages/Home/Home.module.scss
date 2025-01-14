@@ -28,15 +28,23 @@
       gap: var(--spacing);
 
       .scrollingWrapper {
-        width: calc(100% + 2 * var(--padding));
-        display: grid;
-        grid-template-columns: var(--card-width) var(--card-width);
-
-        gap: 12px;
-        overflow-y: auto;
-
         position: relative;
+        width: calc(100% + 2 * var(--padding));
         left: calc(-1 * var(--padding));
+        overflow-x: scroll;
+        display: flex;
+        //grid-template-columns: var(--card-width) var(--card-width);
+
+        .card {
+          width: var(--card-width);
+          margin-left: var(--padding);
+          align-self: flex-start;
+          flex: 0 0 auto;
+
+          &:last-child {
+            margin-right: var(--padding);
+          }
+        }
       }
     }
   }
