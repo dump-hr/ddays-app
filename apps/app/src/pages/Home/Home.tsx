@@ -74,6 +74,7 @@ const Home = () => {
 
   const currentEvents = getCurrentEvents();
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -102,6 +103,21 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  const handleDotClick = (index: number) => {
+    setSnappedCardIndex(index);
+    const targetCard = cardRefs.current[index];
+    if (targetCard) {
+      const container = targetCard.parentElement; // Assuming the container is scrollable
+      if (container) {
+        const scrollLeft = targetCard.offsetLeft - container.offsetLeft;
+        container.scrollTo({
+          left: scrollLeft,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
   return (
     <div className={c.page}>
       <header className={c.header}></header>
@@ -116,22 +132,25 @@ const Home = () => {
             <div className={c.arrowsContainer}>
               <div className={c.scrollingWrapper} ref={containerRef}>
                 {lecturesTab === Tabs.U_Tijeku &&
-                  currentEvents.map((event) => (
+                  currentEvents.map((event, i) => (
                     <CompactScheduleCard
                       id={event.name}
                       event={event}
                       className={c.card}
+                      ref={(el) => (cardRefs.current[i] = el)}
                     />
                   ))}
               </div>
             </div>
             <div className={c.dotsContainer}>
-              {currentEvents.map((event, index) => (
+              {currentEvents.map((_, index) => (
                 <div
-                  key={event.name}
+                  key={index}
                   className={clsx(c.dot, {
                     [c.active]: index === snappedCardIndex,
-                  })}></div>
+                  })}
+                  onClick={() => handleDotClick(index)}
+                />
               ))}
             </div>
           </div>

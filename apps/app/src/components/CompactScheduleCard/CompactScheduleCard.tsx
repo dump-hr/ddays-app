@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import c from './CompactScheduleCard.module.scss';
 import { getThemeLabel } from '../../helpers/getThemeLabel';
 import { getTypeLabel } from '../../helpers/getTypeLabel';
@@ -38,13 +38,13 @@ type CompactScheduleCardProps = {
   event: EventProps;
   id: string | undefined;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 };
 
-const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
-  event,
-  id,
-  className,
-}) => {
+const CompactScheduleCard = forwardRef<
+  HTMLDivElement,
+  CompactScheduleCardProps
+>(({ event, id, className }, ref) => {
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
     const start = new Date(event.startsAt).getTime();
@@ -90,7 +90,7 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
   }, [event.startsAt, event.endsAt]);
 
   return (
-    <div id={id} className={clsx(c.compactScheduleCard, className)}>
+    <div id={id} ref={ref} className={clsx(c.compactScheduleCard, className)}>
       {!isLive && (
         <div className={c.notLiveTime}>
           <p className={c.timeframe}>
@@ -145,6 +145,6 @@ const CompactScheduleCard: React.FC<CompactScheduleCardProps> = ({
       )}
     </div>
   );
-};
+});
 
 export default CompactScheduleCard;
