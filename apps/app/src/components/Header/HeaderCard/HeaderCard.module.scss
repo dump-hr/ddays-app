@@ -1,13 +1,20 @@
 .headerCard{
     display: flex;
-    height: 136px;
-    width: 136px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    height: 20vw;
+    width: 20vw;
+    min-width: 110px;
+    min-height: 110px;
+    max-width: 136px;
+    max-height: 136px;
+
     border-radius: 8px;
     background-color: $black-90;
     gap: 12px;
+    padding: 12px;
 
     p{
         @include paragraph-16;
