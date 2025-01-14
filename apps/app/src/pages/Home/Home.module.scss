@@ -33,7 +33,6 @@
         left: calc(-1 * var(--padding));
         overflow-x: scroll;
         display: flex;
-        //grid-template-columns: var(--card-width) var(--card-width);
 
         .card {
           width: var(--card-width);
@@ -45,6 +44,13 @@
             margin-right: var(--padding);
           }
         }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        scroll-behavior: smooth;
       }
     }
   }
