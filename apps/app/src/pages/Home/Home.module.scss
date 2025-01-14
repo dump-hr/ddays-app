@@ -27,32 +27,58 @@
       flex-direction: column;
       gap: var(--spacing);
 
-      .scrollingWrapper {
-        position: relative;
-        width: calc(100% + 2 * var(--padding));
-        left: calc(-1 * var(--padding));
-        overflow-x: scroll;
-        display: flex;
+      .scrollingCards {
+        .arrowsContainer {
+          .scrollingWrapper {
+            position: relative;
+            width: calc(100% + 2 * var(--padding));
+            left: calc(-1 * var(--padding));
+            overflow-x: scroll;
+            display: flex;
 
-        .card {
-          width: var(--card-width);
-          margin-left: var(--padding);
-          align-self: flex-start;
-          flex: 0 0 auto;
-          scroll-snap-align: center;
+            .card {
+              width: var(--card-width);
+              margin-left: var(--padding);
+              align-self: flex-start;
+              flex: 0 0 auto;
+              scroll-snap-align: center;
 
-          &:last-child {
-            margin-right: var(--padding);
+              &:last-child {
+                margin-right: var(--padding);
+              }
+            }
+
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+              display: none;
+            }
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
           }
         }
 
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        &::-webkit-scrollbar {
-          display: none;
+        .dotsContainer {
+          display: flex;
+          gap: 8px;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          margin-top: 24px;
+
+          .dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: $black-5;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+
+            &.active {
+              background-color: $primary-highlight;
+            }
+          }
         }
-        scroll-behavior: smooth;
-        scroll-snap-type: x mandatory;
       }
     }
   }
