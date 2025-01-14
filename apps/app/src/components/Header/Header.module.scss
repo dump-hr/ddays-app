@@ -1,19 +1,44 @@
 .header{
     color: $primary-white;
     font-family: "NeueMachina";
-    margin: 90px 0 40px 0;
+    margin-block: 64px 32px;
+    text-align: center;
 
-    h1{
-        text-align: center;
-        font-size: 40px;
-        font-weight: 500;
-        line-height: 48px; /* 120% */
-        letter-spacing: -0.4px;
+    .headerGreeting {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 32px;
     }
 
-    .headerCardsWrapper{
-        display: flex;
-        gap: 7px;
-        justify-content: center;
+    h1{
+        @include heading-1;
+        text-align: center;
+        font-weight: 500;
+    }
+
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .header {
+        margin-inline: 20px;
+
+        .headerGreeting {
+            justify-content: space-between;
+
+            :last-child {
+                margin-left: auto;
+            }
+        }
+
+        h1 {
+            text-align: start;
+        }
+
+    }
+}
+
+@media (max-width: $breakpoint-mobile-lg) {
+    .header {
+        margin-inline: 5px;
     }
 }
