@@ -79,5 +79,19 @@ export function getNextEvents(events: EventProps[]) {
     nextWorkshops.at(0),
     nextPanels.at(0),
     nextCampfireTalks.at(0),
-  ].filter((event) => event) as EventProps[];
+  ].filter((event) => {
+    if (!event) return false;
+
+    const startsAt = new Date(event.startsAt);
+    const now = new Date();
+    const startOfDay = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+    );
+    const endOfDay = new Date(startOfDay);
+    endOfDay.setDate(startOfDay.getDate() + 1);
+
+    return startsAt >= startOfDay && startsAt < endOfDay;
+  }) as EventProps[];
 }
