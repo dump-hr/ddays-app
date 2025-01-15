@@ -3,6 +3,7 @@ import { useModalManager } from '../hooks/UseModalManager';
 import { ModalNames, RouteKey } from '../router/routes';
 import { ModalContext } from '../context/ModalContext';
 import { BaseModal } from '../components/Modal/BaseModal';
+import { useLocation } from 'react-router-dom';
 
 // TODO - delete test code and replace with actual modals
 const EmptyModal = (): ReactElement => {
@@ -27,7 +28,6 @@ const MODAL_REGISTRY: Record<ModalNames, ReactElement> = {
 };
 
 type WithModalsProps = {
-  currentRoute: RouteKey;
   onModalClose?: () => void;
 };
 
@@ -35,7 +35,9 @@ export const withModals = <P extends object>(
   WrappedComponent: React.ComponentType<P>,
 ) => {
   return function WithModalsComponent(props: P & WithModalsProps) {
-    const { currentRoute, onModalClose, ...rest } = props;
+    const { onModalClose, ...rest } = props;
+    const location = useLocation();
+    const currentRoute = location.pathname as RouteKey;
     const { modalState, openModal, closeModal, canOpenModal } = useModalManager(
       { currentRoute },
     );

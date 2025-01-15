@@ -39,7 +39,6 @@ export const useModalManager = ({
 
   const openModal = useCallback(
     (modalName: ModalNames, submenuOption?: string) => {
-      console.log('openModal', modalName, submenuOption);
       if (!canOpenModal(modalName)) {
         console.warn(
           `Modal ${modalName} is not allowed on route ${currentRoute}`,

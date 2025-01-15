@@ -8,7 +8,7 @@ type BaseModalProps = {
   title: string;
   children: ReactNode;
 };
-//type of modal - mobile (whole screen (set percentage of screen two options see design) and desktop side one and almost whole screen one same as mobile see design)
+
 export const BaseModal: React.FC<BaseModalProps> = ({
   isOpen,
   onClose,
