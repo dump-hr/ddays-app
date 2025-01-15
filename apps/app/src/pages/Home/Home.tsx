@@ -103,12 +103,14 @@ const Home = () => {
 
           <div className={c.scrollingCards}>
             <div className={c.arrowsContainer}>
-              <button
-                className={c.arrow}
-                onClick={() => handleDotClick(snappedCardIndex - 1)}
-                disabled={snappedCardIndex === 0}>
-                <img src={ArrowRight} alt='' />
-              </button>
+              {displayedEvents.length > 1 && (
+                <button
+                  className={c.arrow}
+                  onClick={() => handleDotClick(snappedCardIndex - 1)}
+                  disabled={snappedCardIndex === 0}>
+                  <img src={ArrowRight} alt='' />
+                </button>
+              )}
               <div className={c.scrollingWrapper} ref={containerRef}>
                 {displayedEvents.map((event, i) => (
                   <CompactScheduleCard
@@ -119,35 +121,25 @@ const Home = () => {
                   />
                 ))}
               </div>
-              <button
-                className={c.arrow}
-                onClick={() => handleDotClick(snappedCardIndex + 1)}
-                disabled={snappedCardIndex === liveEvents.length - 1}>
-                <img src={ArrowRight} alt='' />
-              </button>
+              {displayedEvents.length > 1 && (
+                <button
+                  className={c.arrow}
+                  onClick={() => handleDotClick(snappedCardIndex + 1)}
+                  disabled={snappedCardIndex === liveEvents.length - 1}>
+                  <img src={ArrowRight} alt='' />
+                </button>
+              )}
             </div>
             <div className={c.dotsContainer}>
-              {lecturesTab === Tabs.U_Tijeku &&
-                liveEvents.map((_, index) => (
-                  <div
-                    key={index}
-                    className={clsx(c.dot, {
-                      [c.active]: index === snappedCardIndex,
-                    })}
-                    onClick={() => handleDotClick(index)}
-                  />
-                ))}
-
-              {lecturesTab === Tabs.Nadolazece &&
-                nextEvents.map((_, index) => (
-                  <div
-                    key={index}
-                    className={clsx(c.dot, {
-                      [c.active]: index === snappedCardIndex,
-                    })}
-                    onClick={() => handleDotClick(index)}
-                  />
-                ))}
+              {displayedEvents.map((_, index) => (
+                <div
+                  key={index}
+                  className={clsx(c.dot, {
+                    [c.active]: index === snappedCardIndex,
+                  })}
+                  onClick={() => handleDotClick(index)}
+                />
+              ))}
             </div>
           </div>
         </section>
