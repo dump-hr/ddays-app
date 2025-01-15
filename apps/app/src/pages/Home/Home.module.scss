@@ -33,7 +33,42 @@
       }
 
       .scrollingCards {
+        @media screen and (min-width: $breakpoint-tablet) {
+          position: relative;
+          width: calc(100% + 2 * 65px + 2 * 44px);
+          left: calc(-1 * (65px + 44px));
+        }
+
         .arrowsContainer {
+          @media screen and (min-width: $breakpoint-tablet) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 65px;
+          }
+
+          .arrow {
+            display: none;
+            border-radius: 8px;
+            border: 1px solid $black-10;
+            background: $primary-beige;
+            height: 44px;
+            width: 44px;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:first-of-type {
+              img {
+                transform: rotate(180deg);
+              }
+            }
+
+            @media screen and (min-width: $breakpoint-tablet) {
+              display: flex;
+            }
+          }
           .scrollingWrapper {
             position: relative;
             width: calc(100% + 2 * var(--padding));

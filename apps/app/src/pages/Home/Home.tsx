@@ -6,6 +6,7 @@ import CompactScheduleCard from '../../components/CompactScheduleCard';
 import { events } from './events';
 import clsx from 'clsx';
 import { getLiveEvents, getNextEvents } from './eventsHelper';
+import ArrowRight from '../../assets/icons/arrow-right.svg';
 
 enum Tabs {
   U_Tijeku,
@@ -92,6 +93,9 @@ const Home = () => {
 
           <div className={c.scrollingCards}>
             <div className={c.arrowsContainer}>
+              <button className={c.arrow}>
+                <img src={ArrowRight} alt='' />
+              </button>
               <div className={c.scrollingWrapper} ref={containerRef}>
                 {lecturesTab === Tabs.U_Tijeku &&
                   liveEvents.map((event, i) => (
@@ -113,6 +117,9 @@ const Home = () => {
                     />
                   ))}
               </div>
+              <button className={c.arrow}>
+                <img src={ArrowRight} alt='' />
+              </button>
             </div>
             <div className={c.dotsContainer}>
               {lecturesTab === Tabs.U_Tijeku &&
