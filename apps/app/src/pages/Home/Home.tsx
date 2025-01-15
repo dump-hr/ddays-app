@@ -7,6 +7,7 @@ import { events } from './events';
 import clsx from 'clsx';
 import { getLiveEvents, getNextEvents } from './eventsHelper';
 import ArrowRight from '../../assets/icons/arrow-right.svg';
+import { EventProps } from '../../components/CompactScheduleCard/CompactScheduleCard';
 
 enum Tabs {
   U_Tijeku,
@@ -18,6 +19,7 @@ const Home = () => {
     Tabs.U_Tijeku,
   );
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
+  const [displayedEvents, setDisplayedEvents] = useState<EventProps[]>(events);
 
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
@@ -31,6 +33,14 @@ const Home = () => {
   const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
   const nextEventRefs = useRef<(HTMLDivElement | null)[]>([]);
   const container = containerRef.current;
+
+  useEffect(() => {
+    if (lecturesTab === Tabs.U_Tijeku) {
+      setDisplayedEvents(liveEvents);
+    } else if (lecturesTab === Tabs.Nadolazece) {
+      setDisplayedEvents(nextEvents);
+    }
+  }, [lecturesTab, liveEvents, nextEvents]);
 
   useEffect(() => {
     if (!container) return;
@@ -100,25 +110,14 @@ const Home = () => {
                 <img src={ArrowRight} alt='' />
               </button>
               <div className={c.scrollingWrapper} ref={containerRef}>
-                {lecturesTab === Tabs.U_Tijeku &&
-                  liveEvents.map((event, i) => (
-                    <CompactScheduleCard
-                      id={event.name}
-                      event={event}
-                      className={c.card}
-                      ref={(el) => (currentEventRefs.current[i] = el)}
-                    />
-                  ))}
-
-                {lecturesTab === Tabs.Nadolazece &&
-                  nextEvents.map((event, i) => (
-                    <CompactScheduleCard
-                      id={event.name}
-                      event={event}
-                      className={c.card}
-                      ref={(el) => (nextEventRefs.current[i] = el)}
-                    />
-                  ))}
+                {displayedEvents.map((event, i) => (
+                  <CompactScheduleCard
+                    id={event.name}
+                    event={event}
+                    className={c.card}
+                    ref={(el) => (currentEventRefs.current[i] = el)}
+                  />
+                ))}
               </div>
               <button
                 className={c.arrow}
