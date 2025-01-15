@@ -18,16 +18,15 @@ const MODAL_REGISTRY: Record<ModalNames, ReactElement> = {
   [ModalNames.ACHIEVEMENTS]: <EmptyModal />,
   [ModalNames.AVATARS]: <EmptyModal />,
   [ModalNames.LEADERBOARD]: <EmptyModal />,
+  [ModalNames.RECCOMENDATIONS]: <EmptyModal />,
   [ModalNames.PRIZES]: <EmptyModal />,
   [ModalNames.SETTINGS]: <EmptyModal />,
-  [ModalNames.DISPLAY_AREA]: <EmptyModal />,
-  [ModalNames.SCHEDULE_LIST]: <EmptyModal />,
-  [ModalNames.FLY_TALKS_LIST]: <EmptyModal />,
   [ModalNames.TRANSACTIONS]: <EmptyModal />,
   [ModalNames.CART]: <EmptyModal />,
 };
 
 type WithModalsProps = {
+  withOverlay?: boolean;
   onModalClose?: () => void;
 };
 
@@ -35,7 +34,7 @@ export const withModals = <P extends object>(
   WrappedComponent: React.ComponentType<P>,
 ) => {
   return function WithModalsComponent(props: P & WithModalsProps) {
-    const { onModalClose, ...rest } = props;
+    const { onModalClose, withOverlay, ...rest } = props;
     const location = useLocation();
     const currentRoute = location.pathname as RouteKey;
     const { modalState, openModal, closeModal, canOpenModal } = useModalManager(
@@ -55,6 +54,7 @@ export const withModals = <P extends object>(
           <BaseModal
             isOpen={modalState.isOpen}
             onClose={handleClose}
+            withOverlay={withOverlay}
             title={modalState.modalName}>
             {MODAL_REGISTRY[modalState.modalName]}
           </BaseModal>

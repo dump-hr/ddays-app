@@ -6,6 +6,7 @@ type BaseModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+  withOverlay?: boolean;
   children: ReactNode;
 };
 
@@ -13,17 +14,18 @@ export const BaseModal: React.FC<BaseModalProps> = ({
   isOpen,
   onClose,
   title,
+  withOverlay = false,
   children,
 }) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.modalContainer}>
-      <div></div>
+      {withOverlay && <div className={styles.backgroundOverlay} />}
       <div className={styles.modalHeaderWrapper}>
         <p className={styles.modalTitle}>{title}</p>
         <div onClick={() => onClose()}>
-          <svg width={22} height={22}>
+          <svg className={styles.modalCloseIcon} width={22} height={22}>
             <use href={`${sprite}#close-icon`} />
           </svg>
         </div>
