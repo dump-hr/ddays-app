@@ -65,6 +65,7 @@
             cursor: pointer;
             transition: filter 0.2s ease-in-out;
             transition: scale 0.1s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
 
             &:first-of-type {
               img {
@@ -78,6 +79,18 @@
 
             &:active {
               scale: 0.95;
+            }
+
+            &:disabled {
+              opacity: 0.4;
+              cursor: initial;
+
+              &:hover {
+                filter: none;
+              }
+              &:active {
+                scale: 1;
+              }
             }
 
             @media screen and (min-width: $breakpoint-tablet) {

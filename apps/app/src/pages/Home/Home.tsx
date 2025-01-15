@@ -95,7 +95,8 @@ const Home = () => {
             <div className={c.arrowsContainer}>
               <button
                 className={c.arrow}
-                onClick={() => handleDotClick(snappedCardIndex - 1)}>
+                onClick={() => handleDotClick(snappedCardIndex - 1)}
+                disabled={snappedCardIndex === 0}>
                 <img src={ArrowRight} alt='' />
               </button>
               <div className={c.scrollingWrapper} ref={containerRef}>
@@ -121,7 +122,8 @@ const Home = () => {
               </div>
               <button
                 className={c.arrow}
-                onClick={() => handleDotClick(snappedCardIndex + 1)}>
+                onClick={() => handleDotClick(snappedCardIndex + 1)}
+                disabled={snappedCardIndex === liveEvents.length - 1}>
                 <img src={ArrowRight} alt='' />
               </button>
             </div>
