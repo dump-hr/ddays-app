@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { findModalInRoute, ModalNames, RouteKey } from '../router/routes';
+import { useLocation } from 'react-router-dom';
 
 type ModalState = {
   isOpen: boolean;
@@ -27,7 +28,12 @@ type UseModalManagerProps = {
 export const useModalManager = ({
   currentRoute,
 }: UseModalManagerProps): UseModalManagerReturn => {
+  const location = useLocation();
   const [modalState, setModalState] = useState<ModalState>(defaultModalState);
+
+  useEffect(() => {
+    setModalState(defaultModalState);
+  }, [location.pathname]);
 
   const canOpenModal = useCallback(
     (modalName: string) => {
