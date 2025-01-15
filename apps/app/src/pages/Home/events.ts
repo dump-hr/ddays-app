@@ -60,8 +60,8 @@ export const events = [
     description: 'An advanced dive into React concepts.',
     type: 'lecture',
     theme: 'dev',
-    startsAt: '2025-01-16T10:00:00Z',
-    endsAt: '2025-01-16T12:00:00Z',
+    startsAt: '2025-01-15T18:00:00Z',
+    endsAt: '2025-01-16T20:20:00Z',
     requirements: ['Basic React knowledge'],
     speakers: [
       {
@@ -79,8 +79,8 @@ export const events = [
     description: 'Learn the basics of TypeScript.',
     type: 'lecture',
     theme: 'dev',
-    startsAt: '2025-01-20T13:00:00Z',
-    endsAt: '2025-01-20T15:00:00Z',
+    startsAt: '2025-01-15T20:20:00Z',
+    endsAt: '2025-01-15T22:22:00Z',
     requirements: ['JavaScript knowledge'],
     speakers: [
       {
@@ -119,8 +119,8 @@ export const events = [
     description: 'A practical workshop on accessible design.',
     type: 'workshop',
     theme: 'design',
-    startsAt: '2025-01-17T09:00:00Z',
-    endsAt: '2025-01-17T12:00:00Z',
+    startsAt: '2025-01-15T20:05:00Z',
+    endsAt: '2025-01-15T21:00:00Z',
     requirements: ['Interest in accessibility'],
     speakers: [
       {

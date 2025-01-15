@@ -27,6 +27,11 @@
       flex-direction: column;
       gap: var(--spacing);
 
+      @media screen and (min-width: $breakpoint-tablet) {
+        width: 422px;
+        margin: 0 auto;
+      }
+
       .scrollingCards {
         .arrowsContainer {
           .scrollingWrapper {
@@ -36,12 +41,21 @@
             overflow-x: scroll;
             display: flex;
 
+            @media screen and (min-width: $breakpoint-tablet) {
+              width: 100%;
+              left: 0;
+            }
+
             .card {
               width: var(--card-width);
               margin-left: var(--padding);
               align-self: flex-start;
               flex: 0 0 auto;
               scroll-snap-align: center;
+
+              @media screen and (min-width: $breakpoint-tablet) {
+                width: 100%;
+              }
 
               &:last-child {
                 margin-right: var(--padding);
