@@ -33,9 +33,14 @@
       }
 
       .scrollingCards {
+        --arrow-button-size: 44px;
+        --arrow-button-gap: 65px;
+
         @media screen and (min-width: $breakpoint-tablet) {
           position: relative;
-          width: calc(100% + 2 * 65px + 2 * 44px);
+          width: calc(
+            100% + 2 * var(--arrow-button-gap) + 2 * var(--arrow-button-size)
+          );
           left: calc(-1 * (65px + 44px));
         }
 
@@ -44,7 +49,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 65px;
+            gap: var(--arrow-button-gap);
           }
 
           .arrow {
@@ -52,8 +57,8 @@
             border-radius: 8px;
             border: 1px solid $black-10;
             background: $primary-beige;
-            height: 44px;
-            width: 44px;
+            height: var(--arrow-button-size);
+            width: var(--arrow-button-size);
             flex-shrink: 0;
             align-items: center;
             justify-content: center;
