@@ -93,7 +93,9 @@ const Home = () => {
 
           <div className={c.scrollingCards}>
             <div className={c.arrowsContainer}>
-              <button className={c.arrow}>
+              <button
+                className={c.arrow}
+                onClick={() => handleDotClick(snappedCardIndex - 1)}>
                 <img src={ArrowRight} alt='' />
               </button>
               <div className={c.scrollingWrapper} ref={containerRef}>
@@ -117,7 +119,9 @@ const Home = () => {
                     />
                   ))}
               </div>
-              <button className={c.arrow}>
+              <button
+                className={c.arrow}
+                onClick={() => handleDotClick(snappedCardIndex + 1)}>
                 <img src={ArrowRight} alt='' />
               </button>
             </div>

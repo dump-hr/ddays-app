@@ -63,11 +63,21 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: filter 0.2s ease-in-out;
+            transition: scale 0.1s ease-in-out;
 
             &:first-of-type {
               img {
                 transform: rotate(180deg);
               }
+            }
+
+            &:hover {
+              filter: brightness(0.98);
+            }
+
+            &:active {
+              scale: 0.95;
             }
 
             @media screen and (min-width: $breakpoint-tablet) {

@@ -42,7 +42,7 @@ export const events = [
     type: 'lecture',
     theme: 'dev',
     startsAt: '2025-01-15T08:00:00Z',
-    endsAt: '2025-01-15T20:00:00Z',
+    endsAt: '2025-01-15T23:00:00Z',
     requirements: ['Basic React knowledge'],
     speakers: [
       {
@@ -61,7 +61,7 @@ export const events = [
     type: 'lecture',
     theme: 'dev',
     startsAt: '2025-01-15T18:00:00Z',
-    endsAt: '2025-01-16T20:20:00Z',
+    endsAt: '2025-01-16T23:20:00Z',
     requirements: ['Basic React knowledge'],
     speakers: [
       {
@@ -101,7 +101,7 @@ export const events = [
     type: 'workshop',
     theme: 'design',
     startsAt: '2025-01-15T08:00:00Z',
-    endsAt: '2025-01-15T20:00:00Z',
+    endsAt: '2025-01-15T23:00:00Z',
     requirements: ['Interest in accessibility'],
     speakers: [
       {
