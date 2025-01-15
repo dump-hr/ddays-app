@@ -4,8 +4,8 @@ import TabGroup from '../../components/TabGroup';
 import c from './Home.module.scss';
 import CompactScheduleCard from '../../components/CompactScheduleCard';
 import { events } from './events';
-import { EventProps } from '../../components/CompactScheduleCard/CompactScheduleCard';
 import clsx from 'clsx';
+import { getLiveEvents, getNextEvents } from './eventsHelper';
 
 enum Tabs {
   U_Tijeku,
@@ -18,66 +18,20 @@ const Home = () => {
   );
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
 
-  function getCurrentEvents() {
-    const currentEvents = [] as EventProps[];
+  const handleTabChange = (tab: string) => {
+    setLecturesTab(tab);
+    setSnappedCardIndex(0);
+  };
 
-    const currentLecture = events
-      .filter((event) => event.type === 'lecture')
-      .find((event) => {
-        const now = new Date().getTime();
-        const start = new Date(event.startsAt).getTime();
-        const end = new Date(event.endsAt).getTime();
+  const liveEvents = getLiveEvents(events);
+  const nextEvents = getNextEvents(events);
 
-        return now >= start && now <= end;
-      }) as EventProps;
-
-    if (currentLecture) currentEvents.push(currentLecture);
-
-    const currentWorkshop = events
-      .filter((event) => event.type === 'workshop')
-      .find((event) => {
-        const now = new Date().getTime();
-        const start = new Date(event.startsAt).getTime();
-        const end = new Date(event.endsAt).getTime();
-
-        return now >= start && now <= end;
-      }) as EventProps;
-
-    if (currentWorkshop) currentEvents.push(currentWorkshop);
-
-    const currentPanel = events
-      .filter((event) => event.type === 'panel')
-      .find((event) => {
-        const now = new Date().getTime();
-        const start = new Date(event.startsAt).getTime();
-        const end = new Date(event.endsAt).getTime();
-
-        return now >= start && now <= end;
-      }) as EventProps;
-
-    if (currentPanel) currentEvents.push(currentPanel);
-
-    const currentCampfireTalk = events
-      .filter((event) => event.type === 'campfireTalk')
-      .find((event) => {
-        const now = new Date().getTime();
-        const start = new Date(event.startsAt).getTime();
-        const end = new Date(event.endsAt).getTime();
-
-        return now >= start && now <= end;
-      }) as EventProps;
-
-    if (currentCampfireTalk) currentEvents.push(currentCampfireTalk);
-
-    return currentEvents;
-  }
-
-  const currentEvents = getCurrentEvents();
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const nextEventRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const container = containerRef.current;
 
   useEffect(() => {
-    const container = containerRef.current;
     if (!container) return;
 
     const items = Array.from(container.children) as HTMLElement[];
@@ -101,11 +55,19 @@ const Home = () => {
     items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
-  }, []);
+  }, [container, liveEvents, nextEvents]);
 
   const handleDotClick = (index: number) => {
     setSnappedCardIndex(index);
-    const targetCard = cardRefs.current[index];
+
+    let targetCard: HTMLElement | null = null;
+
+    if (lecturesTab === Tabs.U_Tijeku) {
+      targetCard = currentEventRefs.current[index];
+    } else if (lecturesTab === Tabs.Nadolazece) {
+      targetCard = nextEventRefs.current[index];
+    }
+
     if (targetCard) {
       const container = targetCard.parentElement;
       if (container) {
@@ -123,7 +85,7 @@ const Home = () => {
       <header className={c.header}></header>
       <main className={c.main}>
         <section className={c.lectures}>
-          <TabGroup setter={setLecturesTab}>
+          <TabGroup setter={handleTabChange}>
             <Tab id={Tabs.U_Tijeku}>U tijeku</Tab>
             <Tab id={Tabs.Nadolazece}>Nadolazeće</Tab>
           </TabGroup>
@@ -132,26 +94,48 @@ const Home = () => {
             <div className={c.arrowsContainer}>
               <div className={c.scrollingWrapper} ref={containerRef}>
                 {lecturesTab === Tabs.U_Tijeku &&
-                  currentEvents.map((event, i) => (
+                  liveEvents.map((event, i) => (
                     <CompactScheduleCard
                       id={event.name}
                       event={event}
                       className={c.card}
-                      ref={(el) => (cardRefs.current[i] = el)}
+                      ref={(el) => (currentEventRefs.current[i] = el)}
+                    />
+                  ))}
+
+                {lecturesTab === Tabs.Nadolazece &&
+                  nextEvents.map((event, i) => (
+                    <CompactScheduleCard
+                      id={event.name}
+                      event={event}
+                      className={c.card}
+                      ref={(el) => (nextEventRefs.current[i] = el)}
                     />
                   ))}
               </div>
             </div>
             <div className={c.dotsContainer}>
-              {currentEvents.map((_, index) => (
-                <div
-                  key={index}
-                  className={clsx(c.dot, {
-                    [c.active]: index === snappedCardIndex,
-                  })}
-                  onClick={() => handleDotClick(index)}
-                />
-              ))}
+              {lecturesTab === Tabs.U_Tijeku &&
+                liveEvents.map((_, index) => (
+                  <div
+                    key={index}
+                    className={clsx(c.dot, {
+                      [c.active]: index === snappedCardIndex,
+                    })}
+                    onClick={() => handleDotClick(index)}
+                  />
+                ))}
+
+              {lecturesTab === Tabs.Nadolazece &&
+                nextEvents.map((_, index) => (
+                  <div
+                    key={index}
+                    className={clsx(c.dot, {
+                      [c.active]: index === snappedCardIndex,
+                    })}
+                    onClick={() => handleDotClick(index)}
+                  />
+                ))}
             </div>
           </div>
         </section>
