@@ -2,6 +2,7 @@ import ScheduleCard from '../../components/ScheduleCard';
 import { EventProps } from '../../components/ScheduleCard/ScheduleCard';
 import ThumbnailTemp from '../../assets/images/thumbnailUrl-temp.png';
 import ArasLogo from '../../assets/images/aras-logo-temp.svg';
+import { useState } from 'react';
 
 const event = {
   name: 'Event Name',
@@ -38,7 +39,16 @@ const event = {
 };
 
 const TestPage = () => {
-  return <ScheduleCard event={event as EventProps} />;
+  const [isAddedToSchedule, setIsAddedToSchedule] = useState(false);
+  return (
+    <>
+      <ScheduleCard
+        event={event as EventProps}
+        isAddedToSchedule={isAddedToSchedule}
+        clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
+      />
+    </>
+  );
 };
 
 export default TestPage;

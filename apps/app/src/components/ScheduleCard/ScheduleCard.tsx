@@ -38,11 +38,13 @@ export type EventProps = {
 type ScheduleCardProps = {
   event: EventProps;
   isAddedToSchedule?: boolean;
+  clickHandler: () => void;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
   isAddedToSchedule,
+  clickHandler,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -163,8 +165,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         ))}
       </div>
 
-      <Button className={c.button} variant='orange'>
-        Dodaj u svoj raspored
+      <Button
+        className={c.button}
+        variant={isAddedToSchedule ? 'black' : 'orange'}
+        onClick={clickHandler}>
+        {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>
   );
