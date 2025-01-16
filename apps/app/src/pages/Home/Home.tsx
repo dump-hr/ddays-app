@@ -1,4 +1,6 @@
+import TopCompany from '../../components/TopFirm';
 import c from './Home.module.scss';
+import { companies } from './companies';
 
 const Home = () => {
   return (
@@ -11,6 +13,9 @@ const Home = () => {
             Otkrij najbolje sponzorske štandove prema ocjenama posjetitelja
             konferencije.
           </p>
+          {companies.map((company, index) => (
+            <TopCompany key={index} company={company} number={index + 1} />
+          ))}
         </section>
       </main>
     </div>

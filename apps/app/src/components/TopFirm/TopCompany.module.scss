@@ -1,0 +1,44 @@
+.topCompany {
+  display: flex;
+  gap: 32px;
+
+  .numberContainer {
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .badge {
+      height: 100%;
+      width: 100%;
+    }
+
+    .number {
+      @include tag-14;
+      color: #999;
+    }
+  }
+
+  .infoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .companyName {
+      @include heading-3;
+      color: $primary-black;
+      text-transform: uppercase;
+    }
+
+    .boothId {
+      color: $black-50;
+      font-family: 'PP Neue Montreal Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16px;
+      text-transform: uppercase;
+    }
+  }
+}
