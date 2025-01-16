@@ -1,6 +1,6 @@
-import { EventProps } from '../../components/CompactScheduleCard/CompactScheduleCard';
+import { EventWithSpeakerDto } from '@ddays-app/types';
 
-function filterAndSortEventByType(events: EventProps[], type: string) {
+function filterAndSortEventByType(events: EventWithSpeakerDto[], type: string) {
   return events
     .filter((event) => event.type === type)
     .sort((a, b) => {
@@ -8,10 +8,10 @@ function filterAndSortEventByType(events: EventProps[], type: string) {
       const startsAtB = new Date(b.startsAt);
 
       return startsAtA.getTime() - startsAtB.getTime();
-    }) as EventProps[];
+    }) as EventWithSpeakerDto[];
 }
 
-function getLiveEvent(events: EventProps[]) {
+function getLiveEvent(events: EventWithSpeakerDto[]) {
   const now = new Date();
 
   return events
@@ -21,10 +21,10 @@ function getLiveEvent(events: EventProps[]) {
 
       return now >= startsAt && now <= endsAt;
     })
-    .at(0) as EventProps;
+    .at(0) as EventWithSpeakerDto;
 }
 
-export function getLiveEvents(events: EventProps[]) {
+export function getLiveEvents(events: EventWithSpeakerDto[]) {
   const lectures = filterAndSortEventByType(events, 'lecture');
   const workshops = filterAndSortEventByType(events, 'workshop');
   const panels = filterAndSortEventByType(events, 'panel');
@@ -37,10 +37,10 @@ export function getLiveEvents(events: EventProps[]) {
 
   return [liveLecture, liveWorkshop, livePanel, liveCampfireTalk].filter(
     (event) => event,
-  ) as EventProps[];
+  ) as EventWithSpeakerDto[];
 }
 
-export function getNextEvents(events: EventProps[]) {
+export function getNextEvents(events: EventWithSpeakerDto[]) {
   const lectures = filterAndSortEventByType(events, 'lecture');
   const workshops = filterAndSortEventByType(events, 'workshop');
   const panels = filterAndSortEventByType(events, 'panel');
@@ -51,28 +51,28 @@ export function getNextEvents(events: EventProps[]) {
     const now = new Date();
 
     return startsAt > now;
-  }) as EventProps[];
+  }) as EventWithSpeakerDto[];
 
   const nextWorkshops = workshops.filter((event) => {
     const startsAt = new Date(event.startsAt);
     const now = new Date();
 
     return startsAt > now;
-  }) as EventProps[];
+  }) as EventWithSpeakerDto[];
 
   const nextPanels = panels.filter((event) => {
     const startsAt = new Date(event.startsAt);
     const now = new Date();
 
     return startsAt > now;
-  }) as EventProps[];
+  }) as EventWithSpeakerDto[];
 
   const nextCampfireTalks = campfireTalks.filter((event) => {
     const startsAt = new Date(event.startsAt);
     const now = new Date();
 
     return startsAt > now;
-  }) as EventProps[];
+  }) as EventWithSpeakerDto[];
 
   return [
     nextLectures.at(0),
@@ -93,5 +93,5 @@ export function getNextEvents(events: EventProps[]) {
     endOfDay.setDate(startOfDay.getDate() + 1);
 
     return startsAt >= startOfDay && startsAt < endOfDay;
-  }) as EventProps[];
+  }) as EventWithSpeakerDto[];
 }
