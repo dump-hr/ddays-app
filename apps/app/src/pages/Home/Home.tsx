@@ -25,6 +25,12 @@ const Home = () => {
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
     setSnappedCardIndex(0);
+    if (container) {
+      container.scrollTo({
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   const liveEvents = useMemo(() => getLiveEvents(events), []);
@@ -41,7 +47,7 @@ const Home = () => {
     } else if (lecturesTab === Tabs.Nadolazece) {
       setDisplayedEvents(nextEvents);
     }
-  }, [lecturesTab]);
+  }, [lecturesTab, liveEvents, nextEvents]);
 
   useEffect(() => {
     if (!container) return;
@@ -67,7 +73,7 @@ const Home = () => {
     items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
-  }, [container, liveEvents, nextEvents]);
+  }, [container, liveEvents, nextEvents, displayedEvents]);
 
   const handleDotClick = (index: number) => {
     setSnappedCardIndex(index);
