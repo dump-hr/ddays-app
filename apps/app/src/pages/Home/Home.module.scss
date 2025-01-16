@@ -120,7 +120,7 @@
                 width: 100%;
               }
 
-              &:last-child {
+              &:last-of-type {
                 margin-right: var(--padding);
               }
             }
@@ -133,6 +133,16 @@
             scroll-behavior: smooth;
             scroll-snap-type: x mandatory;
           }
+
+          .noEvents {
+            margin: 0 auto;
+            color: $black-50;
+            font-family: Inter;
+
+            &.hidden {
+              display: none;
+            }
+          }
         }
 
         .dotsContainer {
@@ -142,6 +152,10 @@
           align-items: center;
           justify-content: center;
           margin-top: 24px;
+
+          &.hidden {
+            display: none;
+          }
 
           .dot {
             height: 8px;

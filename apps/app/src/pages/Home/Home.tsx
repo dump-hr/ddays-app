@@ -40,7 +40,7 @@ const Home = () => {
     } else if (lecturesTab === Tabs.Nadolazece) {
       setDisplayedEvents(nextEvents);
     }
-  }, [lecturesTab, liveEvents, nextEvents]);
+  }, [lecturesTab]);
 
   useEffect(() => {
     if (!container) return;
@@ -59,7 +59,7 @@ const Home = () => {
       },
       {
         root: container,
-        threshold: 1.0,
+        threshold: 1,
       },
     );
 
@@ -103,7 +103,7 @@ const Home = () => {
 
           <div className={c.scrollingCards}>
             <div className={c.arrowsContainer}>
-              {displayedEvents.length > 1 && (
+              {displayedEvents.length !== 0 && (
                 <button
                   className={c.arrow}
                   onClick={() => handleDotClick(snappedCardIndex - 1)}
@@ -120,8 +120,14 @@ const Home = () => {
                     ref={(el) => (currentEventRefs.current[i] = el)}
                   />
                 ))}
+                <p
+                  className={clsx(c.noEvents, {
+                    [c.hidden]: displayedEvents.length > 0,
+                  })}>
+                  Nažalost, nije pronađen niti jedan događaj.
+                </p>
               </div>
-              {displayedEvents.length > 1 && (
+              {displayedEvents.length !== 0 && (
                 <button
                   className={c.arrow}
                   onClick={() => handleDotClick(snappedCardIndex + 1)}
@@ -130,7 +136,10 @@ const Home = () => {
                 </button>
               )}
             </div>
-            <div className={c.dotsContainer}>
+            <div
+              className={clsx(c.dotsContainer, {
+                [c.hidden]: displayedEvents.length <= 1,
+              })}>
               {displayedEvents.map((_, index) => (
                 <div
                   key={index}
