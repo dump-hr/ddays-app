@@ -1,51 +1,7 @@
-import ScheduleCard from './components/ScheduleCard';
-import { EventProps } from './components/ScheduleCard/ScheduleCard';
-import ThumbnailTemp from './assets/images/thumbnailUrl-temp.png';
-import ArasLogo from './assets/images/aras-logo-temp.svg';
-
-const event = {
-  name: 'Event Name',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc',
-  type: 'lecture',
-  theme: 'dev',
-  startsAt: new Date().toISOString(),
-  endsAt: new Date().toISOString(),
-  requirements: ['laptop', 'pen', 'paper'],
-  speakers: [
-    {
-      thumbnailUrl: ThumbnailTemp,
-      firstName: 'John',
-      lastName: 'Doe',
-      title: 'Title',
-      logoImage: ArasLogo,
-    },
-    {
-      thumbnailUrl: ThumbnailTemp,
-      firstName: 'John',
-      lastName: 'Doe',
-      title: 'Title',
-      logoImage: ArasLogo,
-    },
-  ],
-  moderator: {
-    thumbnailUrl: ThumbnailTemp,
-    firstName: 'John',
-    lastName: 'Doe',
-    title: 'Title',
-    logoImage: ArasLogo,
-  },
-};
 import { Router } from './router/Router';
 
 function App() {
-  return (
-    <>
-      <h1>App</h1>
-      <ScheduleCard event={event as EventProps} isAddedToSchedule />
-      <Router />
-    </>
-  );
+  return <Router />;
 }
 
 export default App;

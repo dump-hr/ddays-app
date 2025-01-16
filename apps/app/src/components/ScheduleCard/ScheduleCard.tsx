@@ -156,7 +156,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
         </>
       )}
-      <div className={c.divider} />
       <div className={c.speakers}>
         {event.speakers.map((speaker, index) => (
           <div className={c.speaker} key={index}>
