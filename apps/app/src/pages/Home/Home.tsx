@@ -122,6 +122,7 @@ const Home = () => {
                 {displayedEvents.map((event, i) => (
                   <CompactScheduleCard
                     id={event.name}
+                    key={i}
                     event={event}
                     className={c.card}
                     ref={(el) => (currentEventRefs.current[i] = el)}
