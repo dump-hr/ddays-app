@@ -100,8 +100,8 @@ export const events = [
     description: 'A practical workshop on accessible design.',
     type: 'workshop',
     theme: 'design',
-    startsAt: '2025-01-15T08:00:00Z',
-    endsAt: '2025-01-15T23:00:00Z',
+    startsAt: '2025-01-16T08:00:00Z',
+    endsAt: '2025-01-16T23:00:00Z',
     requirements: ['Interest in accessibility'],
     speakers: [
       {

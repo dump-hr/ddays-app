@@ -118,10 +118,21 @@
 
               @media screen and (min-width: $breakpoint-tablet) {
                 width: 100%;
+                &:first-of-type {
+                  margin-left: var(--padding);
+                }
+
+                &:last-of-type {
+                  margin-right: var(--padding);
+                }
+              }
+
+              &:first-of-type {
+                margin-left: calc(2 * var(--padding));
               }
 
               &:last-of-type {
-                margin-right: var(--padding);
+                margin-right: calc(2 * var(--padding));
               }
             }
 
