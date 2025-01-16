@@ -1,6 +1,11 @@
 .topCompany {
   display: flex;
   gap: 32px;
+  align-items: center;
+
+  @media screen and (max-width: 350px) {
+    gap: 18px;
+  }
 
   .numberContainer {
     height: 44px;
@@ -8,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: flex-start;
 
     .badge {
       height: 100%;
