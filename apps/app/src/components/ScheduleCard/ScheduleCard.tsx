@@ -5,38 +5,10 @@ import Check from '../../assets/icons/check-1.svg';
 import Button from '../Button';
 import { useState } from 'react';
 import clsx from 'clsx';
-
-type Speaker = {
-  firstName: string;
-  lastName: string;
-  title: string;
-  logoImage: string;
-  thumbnailUrl: string;
-};
-
-type EventType =
-  | 'lecture'
-  | 'workshop'
-  | 'flyTalk'
-  | 'campfireTalk'
-  | 'panel'
-  | 'other';
-type EventTheme = 'dev' | 'design' | 'marketing' | 'tech';
-
-export type EventProps = {
-  name: string;
-  description?: string;
-  type: EventType;
-  theme: EventTheme;
-  startsAt: string;
-  endsAt: string;
-  requirements?: string[];
-  speakers: Speaker[];
-  moderator?: Speaker;
-};
+import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 
 type ScheduleCardProps = {
-  event: EventProps;
+  event: EventWithSpeakerDto;
   isAddedToSchedule?: boolean;
   clickHandler: () => void;
 };
@@ -48,7 +20,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  function getThemeLabel(eventTheme: EventTheme) {
+  function getThemeLabel(eventTheme: Theme) {
     switch (eventTheme) {
       case 'dev':
         return 'DEV';
@@ -78,14 +50,18 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     }
   }
 
-  function getTimeFromDate(date: string) {
+  function getTimeFromDate(date: string): string {
     const dateObj = new Date(date);
-    return `${dateObj.getHours()}:${dateObj.getMinutes()}`;
+    const hours = String(dateObj.getHours()).padStart(2, '0');
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
-  const combinedSpeakers = event.moderator
-    ? [event.moderator, ...event.speakers]
-    : [...event.speakers];
+  function getRequirements(eventRequirements: string) {
+    return eventRequirements.split(
+      '/',
+    ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
+  }
 
   return (
     <div className={c.scheduleCard}>
@@ -110,8 +86,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         />
       </div>
       <div className={c.tag}>
-        <div className={c.theme}>{getThemeLabel(event.theme)}</div>
-        <p className={c.label}>{getTypeLabel(event.type)}</p>
+        <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
+        <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
       </div>
       <h3 className={c.eventName}>{event.name}</h3>
 
@@ -129,7 +105,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             <div className={c.divider} />
             <div className={c.eventRequirements}>
               <p className={c.mainLabel}>ZAHTJEVI:</p>
-              {event.requirements.map((requirement, index) => (
+              {getRequirements(event.requirements).map((requirement, index) => (
                 <div key={index} className={c.requirement}>
                   <div className={c.checkContainer}>
                     <img className={c.check} src={Check} alt='Check' />
@@ -143,26 +119,38 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       </section>
 
       <div className={c.divider} />
-      {event.moderator && <p className={c.moderatorLabel}>Voditelj panela:</p>}
+      {event.type === EventType.Panel && (
+        <p className={c.moderatorLabel}>Voditelj panela:</p>
+      )}
       <div className={c.speakers}>
-        {combinedSpeakers.map((speaker, index) => (
-          <div className={c.speaker} key={index}>
-            <img
-              className={c.image}
-              src={speaker.thumbnailUrl}
-              alt={speaker.firstName}
-            />
-            <div className={c.speakerInfoWrapper}>
-              <p className={c.fullName}>
-                {speaker.firstName} {speaker.lastName}
-              </p>
-              <p className={c.title}>{speaker.title}</p>
-              <div className={c.logoContainer}>
-                <img className={c.logo} src={speaker.logoImage} alt='' />
+        {event.speakers &&
+          event.speakers.map(
+            (
+              speaker,
+              index, // Pod pretpostavkom da je moderator prvi u listi (ako je panel).
+            ) => (
+              <div className={c.speaker} key={index}>
+                <img
+                  className={c.image}
+                  src={speaker.photo?.thumbnailUrl}
+                  alt={speaker.firstName}
+                />
+                <div className={c.speakerInfoWrapper}>
+                  <p className={c.fullName}>
+                    {speaker.firstName} {speaker.lastName}
+                  </p>
+                  <p className={c.title}>{speaker.title}</p>
+                  <div className={c.logoContainer}>
+                    <img
+                      className={c.logo}
+                      src={speaker.company?.logoImage}
+                      alt=''
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            ),
+          )}
       </div>
 
       <Button
