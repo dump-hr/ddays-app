@@ -19,6 +19,7 @@
     .topCompanies {
       box-sizing: border-box;
       padding: 48px 24px;
+
       .title {
         @include heading-2;
         color: $primary-black;
@@ -31,6 +32,13 @@
         @include paragraph-16;
         color: $primary-black;
         font-weight: 400;
+        margin-bottom: 40px;
+      }
+
+      .divider {
+        @include dottedBreak;
+        margin-top: 18px;
+        margin-bottom: 32px;
       }
     }
   }

@@ -12,6 +12,9 @@
     .badge {
       height: 100%;
       width: 100%;
+      -webkit-user-drag: none;
+      -moz-user-select: none;
+      user-select: none;
     }
 
     .number {

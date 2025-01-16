@@ -14,7 +14,10 @@ const Home = () => {
             konferencije.
           </p>
           {companies.map((company, index) => (
-            <TopCompany key={index} company={company} number={index + 1} />
+            <>
+              {index !== 0 && <div className={c.divider} />}
+              <TopCompany key={index} company={company} number={index + 1} />
+            </>
           ))}
         </section>
       </main>
