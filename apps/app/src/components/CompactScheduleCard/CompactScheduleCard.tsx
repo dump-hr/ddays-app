@@ -5,37 +5,10 @@ import { getTypeLabel } from '../../helpers/getTypeLabel';
 import { getTimeFromDate } from '../../helpers/getTimeFromDate';
 import clsx from 'clsx';
 
-type EventType =
-  | 'lecture'
-  | 'workshop'
-  | 'flyTalk'
-  | 'campfireTalk'
-  | 'panel'
-  | 'other';
-type EventTheme = 'dev' | 'design' | 'marketing' | 'tech';
-
-type Speaker = {
-  firstName: string;
-  lastName: string;
-  title: string;
-  company: string;
-  logoImage: string;
-  thumbnailUrl: string;
-};
-
-export type EventProps = {
-  name: string;
-  type: EventType | string;
-  theme: EventTheme | string;
-  startsAt: string;
-  endsAt: string;
-  requirements?: string[];
-  speakers: Speaker[];
-  moderator?: Speaker;
-};
+import { EventWithSpeakerDto } from '@ddays-app/types';
 
 type CompactScheduleCardProps = {
-  event: EventProps;
+  event: EventWithSpeakerDto;
   id: string | undefined;
   className?: string;
   ref?: React.Ref<HTMLDivElement>;
@@ -118,9 +91,9 @@ const CompactScheduleCard = forwardRef<
       <div className={c.nameSpeakers}>
         <h3 className={c.name}>{event.name}</h3>
         <p className={c.speakers}>
-          {event.speakers.map(
+          {event.speakers?.map(
             (speaker) =>
-              `${speaker.firstName} ${speaker.lastName} // ${speaker.title} @ ${speaker.company}`,
+              `${speaker.firstName} ${speaker.lastName} // ${speaker.title} @ ${speaker.company?.name}`,
           )}
         </p>
       </div>

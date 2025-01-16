@@ -7,7 +7,7 @@ import { events } from './events';
 import clsx from 'clsx';
 import { getLiveEvents, getNextEvents } from './eventsHelper';
 import ArrowRight from '../../assets/icons/arrow-right.svg';
-import { EventProps } from '../../components/CompactScheduleCard/CompactScheduleCard';
+import { EventWithSpeakerDto } from '@ddays-app/types';
 
 enum Tabs {
   U_Tijeku,
@@ -19,7 +19,8 @@ const Home = () => {
     Tabs.U_Tijeku,
   );
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
-  const [displayedEvents, setDisplayedEvents] = useState<EventProps[]>(events);
+  const [displayedEvents, setDisplayedEvents] =
+    useState<EventWithSpeakerDto[]>(events);
 
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
