@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './Home.module.scss';
@@ -27,8 +27,8 @@ const Home = () => {
     setSnappedCardIndex(0);
   };
 
-  const liveEvents = getLiveEvents(events);
-  const nextEvents = getNextEvents(events);
+  const liveEvents = useMemo(() => getLiveEvents(events), []);
+  const nextEvents = useMemo(() => getNextEvents(events), []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
