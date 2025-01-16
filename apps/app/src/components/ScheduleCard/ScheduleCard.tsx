@@ -81,6 +81,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     return `${dateObj.getHours()}:${dateObj.getMinutes()}`;
   }
 
+  const combinedSpeakers = event.moderator
+    ? [event.moderator, ...event.speakers]
+    : [...event.speakers];
+
   return (
     <div className={c.scheduleCard}>
       {isAddedToSchedule && (
@@ -136,28 +140,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         )}
       </section>
 
-      {event.moderator && (
-        <>
-          <div className={c.divider} />
-          <p className={c.moderatorLabel}>Voditelj panela:</p>
-          <div className={c.speaker}>
-            <img
-              className={c.image}
-              src={event.moderator.thumbnailUrl}
-              alt={event.moderator.firstName}
-            />
-            <div className={c.speakerInfoWrapper}>
-              <p className={c.fullName}>
-                {event.moderator.firstName} {event.moderator.lastName}
-              </p>
-              <p className={c.title}>{event.moderator.title}</p>
-              <img className={c.logo} src={event.moderator.logoImage} alt='' />
-            </div>
-          </div>
-        </>
-      )}
+      <div className={c.divider} />
+      {event.moderator && <p className={c.moderatorLabel}>Voditelj panela:</p>}
       <div className={c.speakers}>
-        {event.speakers.map((speaker, index) => (
+        {combinedSpeakers.map((speaker, index) => (
           <div className={c.speaker} key={index}>
             <img
               className={c.image}
@@ -169,7 +155,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 {speaker.firstName} {speaker.lastName}
               </p>
               <p className={c.title}>{speaker.title}</p>
-              <img className={c.logo} src={speaker.logoImage} alt='' />
+              <div className={c.logoContainer}>
+                <img className={c.logo} src={speaker.logoImage} alt='' />
+              </div>
             </div>
           </div>
         ))}

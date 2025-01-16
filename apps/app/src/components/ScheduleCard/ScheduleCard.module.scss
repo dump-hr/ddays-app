@@ -187,8 +187,14 @@
         margin: 0;
       }
 
-      .logo {
-        height: 38px;
+      .logoContainer {
+        max-height: 38px;
+        max-width: 80px;
+        .logo {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
       }
     }
   }
