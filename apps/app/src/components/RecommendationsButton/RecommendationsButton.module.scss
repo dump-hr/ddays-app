@@ -14,6 +14,14 @@
   user-select: none;
   -webkit-user-drag: none;
 
+  @media screen and (max-width: 450px) {
+    align-items: flex-start;
+    height: 240px;
+    .duck {
+      top: none;
+    }
+  }
+
   cursor: pointer;
 
   &:hover {
@@ -64,6 +72,6 @@
     height: auto;
     flex-shrink: none;
     right: -12px;
-    top: 17px;
+    bottom: 0;
   }
 }
