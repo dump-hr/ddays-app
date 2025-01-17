@@ -22,7 +22,7 @@ const Home = () => {
               </>
             ))}
           </div>
-          <RecommendationsButton />
+          <RecommendationsButton className={c.duck} />
         </section>
       </main>
     </div>

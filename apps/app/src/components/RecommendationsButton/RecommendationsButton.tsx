@@ -1,10 +1,16 @@
+import clsx from 'clsx';
 import Arrow from '../../assets/icons/gray-arrow.svg';
 import Duck from '../../assets/images/duck.png';
 import c from './RecommendationsButton.module.scss';
 
-const RecommendationsButton = () => {
+type RecommendationsButtonProps = React.HTMLAttributes<HTMLDivElement>;
+
+const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
+  className,
+  ...handlers
+}) => {
   return (
-    <div className={c.button}>
+    <div className={clsx(c.button, className)} {...handlers}>
       <p className={c.text}>
         Preporuke samo za tebe
         <img className={c.arrow} src={Arrow} alt='' />
