@@ -1,3 +1,4 @@
+import React from 'react';
 import RecommendationsButton from '../../components/RecommendationsButton';
 import TopCompany from '../../components/TopFirm';
 import c from './Home.module.scss';
@@ -16,10 +17,10 @@ const Home = () => {
               konferencije.
             </p>
             {companies.map((company, index) => (
-              <>
+              <React.Fragment key={index}>
                 {index !== 0 && <div className={c.divider} />}
-                <TopCompany key={index} company={company} number={index + 1} />
-              </>
+                <TopCompany company={company} number={index + 1} />
+              </React.Fragment>
             ))}
           </div>
           <RecommendationsButton className={c.duck} />
