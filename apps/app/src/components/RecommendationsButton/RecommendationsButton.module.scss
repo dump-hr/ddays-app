@@ -9,6 +9,20 @@
   align-items: center;
   box-sizing: border-box;
   padding: 24px;
+  transition: scale 0.1s ease-in-out;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.02;
+  }
+
+  &:active {
+    scale: 1;
+  }
 
   &::after {
     content: '';
