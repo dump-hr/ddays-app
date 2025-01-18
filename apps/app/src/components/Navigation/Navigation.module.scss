@@ -2,11 +2,12 @@
   width: 100vw;
   height: 78px;
   background-color: $primary-black;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 2;
 }
 
 .iconWrapper {
