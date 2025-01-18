@@ -1,11 +1,9 @@
-.headerCardsWrapper{
+.headerCardsWrapper {
     display: flex;
     gap: 7px;
     justify-content: center;
-}
 
-@media (max-width: $breakpoint-tablet) { 
-    .headerCardsWrapper {
+    @media (max-width: $breakpoint-tablet) {
         justify-content: stretch;
 
         & > * {

@@ -12,11 +12,7 @@ export const Header = () => {
       <div className={styles.headerGreeting}>
         <h1>Hello, {isMobile && <br />} Mihaela! 👋🏻</h1>
 
-        {isMobile && (
-          <div>
-            <NotificationBell />
-          </div>
-        )}
+        {isMobile && <NotificationBell />}
       </div>
 
       <HeaderCardsWrapper />
