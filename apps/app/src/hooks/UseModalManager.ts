@@ -51,6 +51,7 @@ export const useModalManager = ({
         );
         return;
       }
+
       setModalState({ isOpen: true, modalName, submenuOption });
     },
     [canOpenModal, currentRoute],

@@ -16,6 +16,13 @@
     &.opening {
       animation-name: slideIn;
     }
+
+    @media screen and (min-width: $breakpoint-tablet-lg) {
+      width: calc(100% - 48px);
+      border-radius: 24px;
+      height: calc(100vh - 102px);
+      margin-bottom: 24px;
+    }
   }
 
   &HeaderWrapper {
@@ -38,7 +45,7 @@
     @media screen and (min-width: $breakpoint-tablet-lg) {
       position: absolute;
       right: 72px;
-      top: calc(-6%);
+      top: -5.5%;
     }
   }
 }
