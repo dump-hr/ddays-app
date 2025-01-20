@@ -1,2 +1,2 @@
-import { HomePage } from './HomePage';
-export { HomePage };
+import { HomePageWithModals } from './HomePage';
+export { HomePageWithModals as HomePage };

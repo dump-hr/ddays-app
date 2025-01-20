@@ -1,22 +1,19 @@
 export enum ModalNames {
-  NOTIFICATIONS = 'notifications',
-  ENTER_CODE = 'enter-code',
-  RATE = 'rate',
+  NOTIFICATIONS = 'notifikacije',
+  ENTER_CODE = 'unesi kod',
+  RATE_BOOTH = 'ocjeni sponzorski štand',
+  RATE_LECTURE = 'ocjeni predavanje',
 
-  INTERESTS = 'interests',
-  ACHIEVEMENTS = 'achievements',
-  AVATARS = 'avatars',
+  INTERESTS = 'interesi',
+  ACHIEVEMENTS = 'postignuća',
+  AVATARS = 'avatari',
   LEADERBOARD = 'leaderboard',
-  PRIZES = 'prizes',
-  SETTINGS = 'settings',
+  RECCOMENDATIONS = 'preporuke',
+  PRIZES = 'nagrade',
+  SETTINGS = 'postavke profila',
 
-  DISPLAY_AREA = 'display-area',
-
-  SCHEDULE_LIST = 'schedule-list',
-  FLY_TALKS_LIST = 'fly-talks-list',
-
-  TRANSACTIONS = 'transactions',
-  CART = 'cart',
+  TRANSACTIONS = 'transakcije',
+  CART = 'košarica',
 }
 
 export enum RouteNames {
@@ -65,11 +62,10 @@ export const routes: { [key: string]: Route } = {
         name: ModalNames.ENTER_CODE,
       },
       {
-        name: ModalNames.RATE,
-        submenus: {
-          name: 'Rate',
-          options: ['stand', 'lecture'],
-        },
+        name: ModalNames.RATE_BOOTH,
+      },
+      {
+        name: ModalNames.RATE_LECTURE,
       },
     ],
   },
@@ -107,6 +103,9 @@ export const routes: { [key: string]: Route } = {
         name: ModalNames.LEADERBOARD,
       },
       {
+        name: ModalNames.RECCOMENDATIONS,
+      },
+      {
         name: ModalNames.PRIZES,
       },
       {
@@ -128,41 +127,14 @@ export const routes: { [key: string]: Route } = {
         options: ['list', 'adverts'],
       },
     ],
-    modals: [
-      {
-        name: ModalNames.DISPLAY_AREA,
-        submenus: {
-          name: 'Company Map',
-          options: ['stands'],
-        },
-      },
-    ],
   },
   [RouteNames.SCHEDULE]: {
     path: RouteNames.SCHEDULE,
     name: 'Schedule',
-    modals: [
-      {
-        name: ModalNames.SCHEDULE_LIST,
-        submenus: {
-          name: 'Schedule List',
-          options: ['first', 'second', 'my-schedule'],
-        },
-      },
-    ],
   },
   [RouteNames.FLY_TALKS]: {
     path: RouteNames.FLY_TALKS,
     name: 'Fly Talks',
-    modals: [
-      {
-        name: ModalNames.FLY_TALKS_LIST,
-        submenus: {
-          name: 'Fly Talks List',
-          options: ['first', 'second'],
-        },
-      },
-    ],
   },
   [RouteNames.SHOPPING]: {
     path: RouteNames.SHOPPING,

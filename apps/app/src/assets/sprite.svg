@@ -76,4 +76,9 @@
             d="M23.116 9.20003L12.616 0.982029C12.2541 0.699024 11.7459 0.699024 11.384 0.982029L0.884 9.20003C0.641838 9.38939 0.500229 9.67962 0.5 9.98703V22.5C0.5 23.0523 0.947715 23.5 1.5 23.5H8V17.5C8 15.2909 9.79086 13.5 12 13.5C14.2091 13.5 16 15.2909 16 17.5V23.5H22.5C23.0523 23.5 23.5 23.0523 23.5 22.5V9.98703C23.4998 9.67962 23.3582 9.38939 23.116 9.20003Z"
             stroke="#F5EDE1" stroke-linecap="round" stroke-linejoin="round" />
     </symbol>
+
+    <symbol id="close-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.5833 1.41663L1.41666 20.5833" stroke="#5A5959" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20.5833 20.5833L1.41666 1.41663" stroke="#5A5959" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
 </svg>
