@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import sprite from '../../assets/sprite.svg';
 import styles from './Modal.module.scss';
-import { useClickOutside } from '../../hooks/TempClickOutside';
+import { useClickOutside } from '../../hooks/UseClickOutside';
 
 type BaseModalProps = {
   isOpen: boolean;
