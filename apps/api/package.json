@@ -8,10 +8,7 @@
   "scripts": {
     "dev": "dotenv -c -- nest start --watch --preserveWatchOutput",
     "build": "dotenv -c -- nest build",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "db:generate": "dotenv -c -- drizzle-kit generate:pg --config ./db/drizzle.config.ts",
-    "db:migrate": "dotenv -c -- tsx ./db/migrate",
-    "db:studio": "dotenv -c -- drizzle-kit studio --config ./db/drizzle.config.ts"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.485.0",
@@ -32,7 +29,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
-    "drizzle-orm": "^0.29.0",
     "http-proxy-middleware": "^2.0.6",
     "jwks-rsa": "^3.1.0",
     "mime-types": "^2.1.35",
@@ -56,7 +52,6 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "dotenv-cli": "^7.3.0",
-    "drizzle-kit": "^0.20.17",
     "eslint": "^8.42.0",
     "eslint-config-ddays": "*",
     "eslint-config-prettier": "^9.0.0",

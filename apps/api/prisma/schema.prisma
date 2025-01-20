@@ -159,7 +159,7 @@ model Job {
 model Notification {
   id               Int                @id @default(autoincrement())
   title            String
-  description      String?
+  content          String
   activatedAt      DateTime?          @db.Timestamp(6)
   expiresAt        DateTime?          @db.Timestamp(6)
   createdAt        DateTime?          @default(now()) @db.Timestamp(6)
@@ -196,6 +196,7 @@ model Speaker {
   lastName       String
   title          String
   companyId      Int?
+  photoUrl       String?
   photo          Json?
   instagram      String?
   linkedin       String?

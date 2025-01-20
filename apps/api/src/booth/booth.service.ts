@@ -5,10 +5,8 @@ import {
 } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { WebSocketServer } from '@nestjs/websockets';
-import { db } from 'db';
-import { booth, company } from 'db/schema';
-import { asc, eq } from 'drizzle-orm';
 import { Server } from 'socket.io';
+import { PrismaService } from 'src/prisma.service';
 
 import { BoothGateway } from './booth.gateway';
 
@@ -17,29 +15,30 @@ export class BoothService {
   @WebSocketServer()
   server: Server;
 
-  constructor(private readonly boothGateway: BoothGateway) {}
+  constructor(
+    private readonly boothGateway: BoothGateway,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async reserve(id: number, companyId: number) {
-    const [foundBooth] = await db.select().from(booth).where(eq(booth.id, id));
+    const foundBooth = await this.prisma.booth.findUnique({ where: { id } });
 
-    if (!!foundBooth.companyId) {
+    if (foundBooth?.companyId) {
       throw new BadRequestException('Booth already reserved');
     }
 
-    const [foundCompanyBooth] = await db
-      .select()
-      .from(booth)
-      .where(eq(booth.companyId, companyId));
+    const foundCompanyBooth = await this.prisma.booth.findFirst({
+      where: { companyId },
+    });
 
-    if (!!foundCompanyBooth) {
+    if (foundCompanyBooth) {
       throw new BadRequestException('Company already has booth reserved');
     }
 
-    await db
-      .update(booth)
-      .set({ companyId })
-      .where(eq(booth.id, id))
-      .returning();
+    await this.prisma.booth.update({
+      where: { id },
+      data: { companyId },
+    });
 
     this.boothGateway.emitReserve(id);
 
@@ -49,45 +48,34 @@ export class BoothService {
   }
 
   async clear(companyId: number) {
-    const [updatedBooth] = await db
-      .update(booth)
-      .set({ companyId: null })
-      .where(eq(booth.companyId, companyId))
-      .returning();
+    const updatedBooth = await this.prisma.booth.updateMany({
+      where: { companyId },
+      data: { companyId: null },
+    });
 
-    if (!updatedBooth) {
+    if (updatedBooth.count === 0) {
       throw new BadRequestException('Booth not found');
     }
 
-    this.boothGateway.emitClear(updatedBooth.id);
+    this.boothGateway.emitClear(companyId);
 
-    console.log(
-      `${new Date()} - company id ${companyId} cleared booth id ${
-        updatedBooth.id
-      }`,
-    );
+    console.log(`${new Date()} - company id ${companyId} cleared booths`);
   }
 
   async create(dto: BoothModifyDto) {
     if (dto.companyId === -1) dto.companyId = null;
 
-    const [foundBooth] = await db.insert(booth).values(dto);
-
-    return foundBooth;
+    return await this.prisma.booth.create({ data: dto });
   }
 
   async getAmountForCategory(category: CompanyCategory) {
-    const booths = await db
-      .select()
-      .from(booth)
-      .where(eq(booth.category, category));
-
-    return booths.length;
+    const booths = await this.prisma.booth.count({ where: { category } });
+    return booths;
   }
 
   async createMany(createBoothDtos: BoothCreateManyDto) {
     const mainCategory =
-      createBoothDtos.category === CompanyCategory.Gold ? 'Z' : 'S';
+      createBoothDtos.category === CompanyCategory.GOLD ? 'Z' : 'S';
 
     const amount =
       (await this.getAmountForCategory(createBoothDtos.category)) + 1;
@@ -99,32 +87,23 @@ export class BoothService {
       }),
     );
 
-    const data = await db.insert(booth).values(booths).returning();
-
-    return data;
+    return await this.prisma.booth.createMany({ data: booths });
   }
 
   async update(id: number, dto: BoothModifyDto) {
     if (dto.companyId === -1) dto.companyId = null;
 
-    const [foundBooth] = await db
-      .update(booth)
-      .set(dto)
-      .where(eq(booth.id, id));
-
-    return foundBooth;
+    return await this.prisma.booth.update({
+      where: { id },
+      data: dto,
+    });
   }
 
   async getAllForCategory(category: CompanyCategory) {
-    const booths = await db
-      .select({
-        companyId: booth.companyId,
-        name: booth.name,
-        id: booth.id,
-      })
-      .from(booth)
-      .where(eq(booth.category, category))
-      .orderBy(asc(booth.name));
+    const booths = await this.prisma.booth.findMany({
+      where: { category },
+      orderBy: { name: 'asc' },
+    });
 
     return booths.map((booth) => ({
       id: booth.id,
@@ -134,12 +113,14 @@ export class BoothService {
   }
 
   async getAllForCompany(companyId: number) {
-    const [foundCompany] = await db
-      .select({
-        category: company.category,
-      })
-      .from(company)
-      .where(eq(company.id, companyId));
+    const foundCompany = await this.prisma.company.findUnique({
+      where: { id: companyId },
+      select: { category: true },
+    });
+
+    if (!foundCompany) {
+      throw new BadRequestException('Company not found');
+    }
 
     return await this.getAllForCategory(
       foundCompany.category as CompanyCategory,
@@ -147,34 +128,20 @@ export class BoothService {
   }
 
   async getAll() {
-    const booths = await db
-      .select({
-        companyId: booth.companyId,
-        name: booth.name,
-        category: booth.category,
-        id: booth.id,
-      })
-      .from(booth)
-      .orderBy(booth.name);
-
-    return booths;
+    return await this.prisma.booth.findMany({
+      orderBy: { name: 'asc' },
+    });
   }
 
   async getOne(id: number) {
-    const [foundBooth] = await db
-      .select({
-        companyId: booth.companyId,
-        name: booth.name,
-        category: booth.category,
-        id: booth.id,
-      })
-      .from(booth)
-      .where(eq(booth.id, id));
-
-    return foundBooth;
+    return await this.prisma.booth.findUnique({
+      where: { id },
+    });
   }
 
   async remove(id: number) {
-    return await db.delete(booth).where(eq(booth.id, id));
+    return await this.prisma.booth.delete({
+      where: { id },
+    });
   }
 }

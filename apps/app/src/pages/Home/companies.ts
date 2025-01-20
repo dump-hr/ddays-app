@@ -1,9 +1,9 @@
-import { CompanyDto } from '@ddays-app/types';
+import { CompanyCategory, CompanyDto, Theme } from '@ddays-app/types';
 
 export const companies: CompanyDto[] = [
   {
     id: 1,
-    category: 'gold',
+    category: CompanyCategory.GOLD,
     name: 'Tech Innovators Inc.',
     username: 'tech_innovators',
     password: 'securepassword123',
@@ -19,13 +19,13 @@ export const companies: CompanyDto[] = [
     video: 'https://example.com/video-tech-innovators.mp4',
     codeId: 2001,
     interests: [
-      { id: 1, name: 'Artificial Intelligence', theme: 'tech' },
-      { id: 2, name: 'Cloud Computing', theme: 'dev' },
+      { id: 1, name: 'Artificial Intelligence', theme: Theme.TECH },
+      { id: 2, name: 'Cloud Computing', theme: Theme.DEV },
     ],
   },
   {
     id: 2,
-    category: 'silver',
+    category: CompanyCategory.SILVER,
     name: 'Creative Designs Ltd.',
     username: 'creative_designs',
     password: 'designpass456',
@@ -41,13 +41,13 @@ export const companies: CompanyDto[] = [
     video: 'https://example.com/video-creative-designs.mp4',
     codeId: 2002,
     interests: [
-      { id: 3, name: 'User Experience', theme: 'design' },
-      { id: 4, name: 'Graphic Design', theme: 'design' },
+      { id: 3, name: 'User Experience', theme: Theme.DESIGN },
+      { id: 4, name: 'Graphic Design', theme: Theme.DESIGN },
     ],
   },
   {
     id: 3,
-    category: 'bronze',
+    category: CompanyCategory.BRONZE,
     name: 'Marketing Gurus Co.',
     username: 'marketing_gurus',
     password: 'marketpass789',
@@ -63,13 +63,13 @@ export const companies: CompanyDto[] = [
     video: 'https://example.com/video-marketing-gurus.mp4',
     codeId: 2003,
     interests: [
-      { id: 5, name: 'Digital Marketing', theme: 'marketing' },
-      { id: 6, name: 'SEO Optimization', theme: 'tech' },
+      { id: 5, name: 'Digital Marketing', theme: Theme.MARKETING },
+      { id: 6, name: 'SEO Optimization', theme: Theme.TECH },
     ],
   },
   {
     id: 4,
-    category: 'media',
+    category: CompanyCategory.MEDIA,
     name: 'Media Masters LLC',
     username: 'media_masters',
     password: 'mediapass101',
@@ -85,13 +85,13 @@ export const companies: CompanyDto[] = [
     video: 'https://example.com/video-media-masters.mp4',
     codeId: 2004,
     interests: [
-      { id: 7, name: 'Content Creation', theme: 'marketing' },
-      { id: 8, name: 'Video Production', theme: 'design' },
+      { id: 7, name: 'Content Creation', theme: Theme.MARKETING },
+      { id: 8, name: 'Video Production', theme: Theme.DESIGN },
     ],
   },
   {
     id: 5,
-    category: 'friend',
+    category: CompanyCategory.FRIEND,
     name: 'Community Partners',
     username: 'community_partners',
     password: 'community123',
@@ -107,8 +107,8 @@ export const companies: CompanyDto[] = [
     video: 'https://example.com/video-community-partners.mp4',
     codeId: 2005,
     interests: [
-      { id: 9, name: 'Community Development', theme: 'dev' },
-      { id: 10, name: 'Event Organization', theme: 'marketing' },
+      { id: 9, name: 'Community Development', theme: Theme.DEV },
+      { id: 10, name: 'Event Organization', theme: Theme.MARKETING },
     ],
   },
 ];

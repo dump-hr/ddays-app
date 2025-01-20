@@ -2,6 +2,7 @@ import {
   IsBoolean,
   IsDate,
   IsEnum,
+  IsInt,
   IsNumber,
   IsOptional,
   IsString,
@@ -10,7 +11,7 @@ import {
 export type NotificationDto = {
   id: number;
   title: string;
-  content?: string;
+  content: string;
   activatedAt?: Date;
   expiresAt?: Date;
   createdAt?: Date;
@@ -36,7 +37,7 @@ export class NotificationModifyDto {
   expiresAt?: Date;
 
   @IsOptional()
-  @IsNumber()
+  @IsInt()
   createdByUserId?: number;
 
   @IsOptional()

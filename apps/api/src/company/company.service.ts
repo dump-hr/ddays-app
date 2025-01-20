@@ -5,15 +5,14 @@ import {
   CompanyPublicDto,
 } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { db } from 'db';
-import { booth, company } from 'db/schema';
-import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class CompanyService {
   constructor(
+    private readonly prisma: PrismaService,
     private readonly blobService: BlobService,
     private readonly interestService: InterestService,
   ) {}
@@ -21,13 +20,12 @@ export class CompanyService {
   async create(dto: CompanyModifyDto): Promise<CompanyDto> {
     const generatedPassword = Math.random().toString(36).slice(-8);
 
-    const [createdCompany] = await db
-      .insert(company)
-      .values({
+    const createdCompany = await this.prisma.company.create({
+      data: {
         ...dto,
         password: generatedPassword,
-      })
-      .returning();
+      },
+    });
 
     const interests = await this.interestService.connectToCompany(
       createdCompany.id,
@@ -38,50 +36,25 @@ export class CompanyService {
   }
 
   async getAllPublic(): Promise<CompanyPublicDto[]> {
-    const companies = await db
-      .select({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        instagram: company.instagram,
-        linkedin: company.linkedin,
-        booth: booth.name,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        landingImageCompanyCulture: company.landingImageCompanyCulture,
-        video: company.video,
-      })
-      .from(company)
-      .leftJoin(booth, eq(booth.companyId, company.id))
-      .orderBy(company.name);
+    const companies = await this.prisma.company.findMany({
+      include: {
+        booth: {
+          select: { name: true },
+        },
+      },
+      orderBy: { name: 'asc' },
+    });
 
-    return companies;
+    return companies.map((company) => ({
+      ...company,
+      booth: company.booth?.name || null,
+    }));
   }
 
   async getOne(id: number): Promise<CompanyDto> {
-    const [foundCompany] = await db
-      .select({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        username: company.username,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        instagram: company.instagram,
-        linkedin: company.linkedin,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        landingImageCompanyCulture: company.landingImageCompanyCulture,
-        bookOfStandards: company.bookOfStandards,
-        video: company.video,
-        password: company.password,
-      })
-      .from(company)
-      .where(eq(company.id, id));
+    const foundCompany = await this.prisma.company.findUnique({
+      where: { id },
+    });
 
     if (!foundCompany) {
       throw new NotFoundException('Company not found');
@@ -93,26 +66,12 @@ export class CompanyService {
   }
 
   async getOnePublic(id: number): Promise<CompanyPublicDto> {
-    const [foundCompany] = await db
-      .select({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        instagram: company.instagram,
-        linkedin: company.linkedin,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        landingImageCompanyCulture: company.landingImageCompanyCulture,
-        bookOfStandards: company.bookOfStandards,
-        video: company.video,
-        booth: booth.name,
-      })
-      .from(company)
-      .leftJoin(booth, eq(booth.companyId, id))
-      .where(eq(company.id, id));
+    const foundCompany = await this.prisma.company.findUnique({
+      where: { id },
+      include: {
+        booth: { select: { name: true } },
+      },
+    });
 
     if (!foundCompany) {
       throw new NotFoundException('Company not found');
@@ -120,74 +79,70 @@ export class CompanyService {
 
     const interests = await this.interestService.getForCompany(id);
 
-    return { ...foundCompany, interests };
+    return {
+      ...foundCompany,
+      booth: foundCompany.booth?.name || null,
+      interests,
+    };
   }
 
   async remove(id: number): Promise<CompanyDto> {
-    const [removedCompany] = await db
-      .delete(company)
-      .where(eq(company.id, id))
-      .returning();
+    const removedCompany = await this.prisma.company.delete({
+      where: { id },
+    });
 
     return removedCompany;
   }
 
   async removeLandingImage(id: number): Promise<void> {
-    await db
-      .update(company)
-      .set({
-        landingImage: null,
-      })
-      .where(eq(company.id, id));
+    await this.prisma.company.update({
+      where: { id },
+      data: { landingImage: null },
+    });
   }
 
   async removeLandingImageCompanyCulture(id: number): Promise<void> {
-    await db
-      .update(company)
-      .set({ landingImageCompanyCulture: null })
-      .where(eq(company.id, id));
+    await this.prisma.company.update({
+      where: { id },
+      data: { landingImageCompanyCulture: null },
+    });
   }
 
   async removeLogoImage(id: number): Promise<void> {
-    await db
-      .update(company)
-      .set({
-        logoImage: null,
-      })
-      .where(eq(company.id, id));
+    await this.prisma.company.update({
+      where: { id },
+      data: { logoImage: null },
+    });
   }
 
   async removeBookOfStandards(id: number): Promise<void> {
-    await db
-      .update(company)
-      .set({ bookOfStandards: null })
-      .where(eq(company.id, id));
+    await this.prisma.company.update({
+      where: { id },
+      data: { bookOfStandards: null },
+    });
   }
 
   async removeVideo(id: number): Promise<void> {
-    await db
-      .update(company)
-      .set({
-        video: null,
-      })
-      .where(eq(company.id, id));
+    await this.prisma.company.update({
+      where: { id },
+      data: { video: null },
+    });
   }
 
   async update(id: number, dto: CompanyModifyDto): Promise<CompanyDto> {
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: {
         category: dto.category,
         name: dto.name,
         username: dto.username,
         description: dto.description,
-        website: dto.website,
-        instagram: dto.instagram,
-        linkedin: dto.linkedin,
+        websiteUrl: dto.websiteUrl,
+        instagramUrl: dto.instagramUrl,
+        linkedinUrl: dto.linkedinUrl,
         codeId: dto.codeId,
-      })
-      .where(eq(company.id, id))
-      .returning();
+      },
+    });
 
     const interests = await this.interestService.connectToCompany(
       id,
@@ -201,27 +156,16 @@ export class CompanyService {
     companyId: number,
     data: CompanyModifyDescriptionDto,
   ): Promise<CompanyPublicDto> {
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
         description: data.description,
-        website: data.website,
-        instagram: data.instagram,
-        linkedin: data.linkedin,
+        websiteUrl: data.websiteUrl,
+        instagramUrl: data.instagramUrl,
+        linkedinUrl: data.linkedinUrl,
         opportunitiesDescription: data.opportunitiesDescription,
-      })
-      .where(eq(company.id, companyId))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        video: company.video,
-      });
+      },
+    });
 
     return updatedCompany;
   }
@@ -236,23 +180,10 @@ export class CompanyService {
       file.mimetype,
     );
 
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
-        landingImage,
-      })
-      .where(eq(company.id, id))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        video: company.video,
-      });
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: { landingImage },
+    });
 
     return updatedCompany;
   }
@@ -267,24 +198,10 @@ export class CompanyService {
       file.mimetype,
     );
 
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
-        landingImageCompanyCulture,
-      })
-      .where(eq(company.id, id))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        landingImageCompanyCulture: company.landingImageCompanyCulture,
-        video: company.video,
-      });
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: { landingImageCompanyCulture },
+    });
 
     return updatedCompany;
   }
@@ -299,27 +216,12 @@ export class CompanyService {
       file.mimetype,
     );
 
-    const [updatedBookOfStandards] = await db
-      .update(company)
-      .set({
-        bookOfStandards,
-      })
-      .where(eq(company.id, id))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        landingImageCompanyCulture: company.landingImageCompanyCulture,
-        bookOfStandards: company.bookOfStandards,
-        video: company.video,
-      });
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: { bookOfStandards },
+    });
 
-    return updatedBookOfStandards;
+    return updatedCompany;
   }
 
   async updateLogoImage(
@@ -332,23 +234,10 @@ export class CompanyService {
       file.mimetype,
     );
 
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
-        logoImage,
-      })
-      .where(eq(company.id, id))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        video: company.video,
-      });
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: { logoImage },
+    });
 
     return updatedCompany;
   }
@@ -363,23 +252,10 @@ export class CompanyService {
       file.mimetype,
     );
 
-    const [updatedCompany] = await db
-      .update(company)
-      .set({
-        video,
-      })
-      .where(eq(company.id, id))
-      .returning({
-        id: company.id,
-        category: company.category,
-        name: company.name,
-        description: company.description,
-        opportunitiesDescription: company.opportunitiesDescription,
-        website: company.website,
-        logoImage: company.logoImage,
-        landingImage: company.landingImage,
-        video: company.video,
-      });
+    const updatedCompany = await this.prisma.company.update({
+      where: { id },
+      data: { video },
+    });
 
     return updatedCompany;
   }

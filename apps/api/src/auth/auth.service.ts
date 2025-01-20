@@ -1,17 +1,20 @@
 import { JwtResponseDto } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { prisma } from 'src/prisma';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async companyPasswordLogin(
     username: string,
     password: string,
   ): Promise<JwtResponseDto> {
-    const loginCompany = await prisma.company.findUnique({
+    const loginCompany = await this.prisma.company.findUnique({
       where: {
         username: username,
       },

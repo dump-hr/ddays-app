@@ -1,4 +1,9 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import {
+  CompanyCategory,
+  EventType,
+  EventWithSpeakerDto,
+  Theme,
+} from '@ddays-app/types';
 
 export const events: EventWithSpeakerDto[] = [
   {
@@ -10,8 +15,8 @@ export const events: EventWithSpeakerDto[] = [
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'lecture',
-    theme: 'dev',
+    type: EventType.LECTURE,
+    theme: Theme.DEV,
     codeId: undefined,
     speakers: [
       {
@@ -20,16 +25,13 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photo: {
-          mainPhotoUrl: 'https://example.com/images/react-logo.png',
-          thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
-        },
+        photoUrl: 'https://example.com/images/react-logo.png',
         instagram: 'https://instagram.com/johndoe',
         linkedin: 'https://linkedin.com/in/johndoe',
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'gold',
+          category: CompanyCategory.GOLD,
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
@@ -48,7 +50,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'dev',
+              theme: Theme.DEV,
             },
           ],
           jobs: [

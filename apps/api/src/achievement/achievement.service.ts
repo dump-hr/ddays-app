@@ -1,17 +1,21 @@
 import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
-import { prisma } from 'src/prisma';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AchievementService {
+  constructor(private readonly prisma: PrismaService) {}
+
   async create(dto: AchievementModifyDto): Promise<AchievementDto> {
-    const createdAchievement = await prisma.achievement.create({ data: dto });
+    const createdAchievement = await this.prisma.achievement.create({
+      data: dto,
+    });
 
     return createdAchievement;
   }
 
   async getAll(): Promise<AchievementDto[]> {
-    const achievements = await prisma.achievement.findMany({
+    const achievements = await this.prisma.achievement.findMany({
       select: {
         id: true,
         name: true,

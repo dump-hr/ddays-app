@@ -14,6 +14,7 @@ import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequ
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
+import { PrismaService } from './prisma.service';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
@@ -55,6 +56,6 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     BoothModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

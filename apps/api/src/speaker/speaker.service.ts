@@ -1,113 +1,90 @@
 import {
   SpeakerDto,
   SpeakerModifyDto,
-  SpeakerPhoto,
   SpeakerWithCompanyDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
-import { db } from 'db';
-import { company, speaker } from 'db/schema';
-import { eq } from 'drizzle-orm';
 import { BlobService } from 'src/blob/blob.service';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class SpeakerService {
-  constructor(private readonly blobService: BlobService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blobService: BlobService,
+  ) {}
 
   async create(dto: SpeakerModifyDto): Promise<SpeakerDto> {
     if (dto.companyId === 0) {
       dto.companyId = null;
     }
 
-    const [createdSpeaker] = await db.insert(speaker).values(dto).returning();
+    const createdSpeaker = await this.prisma.speaker.create({
+      data: dto,
+    });
 
     return createdSpeaker;
   }
 
-  async getAll() {
-    const speakers = await db
-      .select({
-        id: speaker.id,
-        firstName: speaker.firstName,
-        lastName: speaker.lastName,
-        title: speaker.title,
-        companyId: speaker.companyId,
-        photo: speaker.photo,
-        instagram: speaker.instagram,
-        linkedin: speaker.linkedin,
-        description: speaker.description,
-      })
-      .from(speaker)
-      .orderBy(speaker.firstName);
-
-    return speakers;
+  async getAll(): Promise<SpeakerDto[]> {
+    return await this.prisma.speaker.findMany({
+      orderBy: { firstName: 'asc' },
+    });
   }
 
-  async getOne(id: number) {
-    const [foundSpeaker] = await db
-      .select({
-        id: speaker.id,
-        firstName: speaker.firstName,
-        lastName: speaker.lastName,
-        title: speaker.title,
-        companyId: speaker.companyId,
-        photo: speaker.photo,
-        instagram: speaker.instagram,
-        linkedin: speaker.linkedin,
-        description: speaker.description,
-      })
-      .from(speaker)
-      .where(eq(speaker.id, id));
+  async getOne(id: number): Promise<SpeakerDto> {
+    const foundSpeaker = await this.prisma.speaker.findUnique({
+      where: { id },
+    });
+
+    if (!foundSpeaker) {
+      throw new Error('Speaker not found');
+    }
 
     return foundSpeaker;
   }
 
-  async getAllSpeakersWithCompany() {
-    const result = await db
-      .select()
-      .from(speaker)
-      .leftJoin(company, eq(speaker.companyId, company.id))
-      .orderBy(speaker.firstName);
-
-    const speakersWithCompany: SpeakerWithCompanyDto[] = result.map(
-      (speakerCompany) => {
-        return {
-          id: speakerCompany.speaker.id,
-          firstName: speakerCompany.speaker.firstName,
-          lastName: speakerCompany.speaker.lastName,
-          title: speakerCompany.speaker.title,
-          companyId: speakerCompany.speaker.companyId,
-          photo: speakerCompany.speaker.photo,
-          instagram: speakerCompany.speaker.instagram,
-          linkedin: speakerCompany.speaker.linkedin,
-          description: speakerCompany.speaker.description,
-          company: { ...speakerCompany.company, password: undefined },
-        };
+  async getAllSpeakersWithCompany(): Promise<SpeakerWithCompanyDto[]> {
+    const speakersWithCompany = await this.prisma.speaker.findMany({
+      include: {
+        company: {
+          select: {
+            id: true,
+            name: true,
+            category: true,
+            websiteUrl: true,
+            instagramUrl: true,
+            linkedinUrl: true,
+          },
+        },
       },
-    );
+      orderBy: { firstName: 'asc' },
+    });
 
     return speakersWithCompany;
   }
 
-  async remove(id: number) {
-    const [deletedSpeaker] = await db
-      .delete(speaker)
-      .where(eq(speaker.id, id))
-      .returning();
+  async remove(id: number): Promise<SpeakerDto> {
+    try {
+      const deletedSpeaker = await this.prisma.speaker.delete({
+        where: { id },
+      });
 
-    return deletedSpeaker;
+      return deletedSpeaker;
+    } catch (error) {
+      throw new Error('Speaker not found');
+    }
   }
 
-  async update(id: number, dto: SpeakerModifyDto) {
+  async update(id: number, dto: SpeakerModifyDto): Promise<SpeakerDto> {
     if (dto.companyId === 0) {
       dto.companyId = null;
     }
 
-    const [updatedSpeaker] = await db
-      .update(speaker)
-      .set(dto)
-      .where(eq(speaker.id, id))
-      .returning();
+    const updatedSpeaker = await this.prisma.speaker.update({
+      where: { id },
+      data: dto,
+    });
 
     return updatedSpeaker;
   }
@@ -122,35 +99,26 @@ export class SpeakerService {
       file.mimetype,
     );
 
-    const photo: SpeakerPhoto = {
-      mainPhotoUrl: uploadedPhoto,
-      thumbnailUrl: uploadedPhoto,
-    };
-
-    const [updatedSpeaker] = await db
-      .update(speaker)
-      .set({
-        photo,
-      })
-      .where(eq(speaker.id, id))
-      .returning({
-        id: speaker.id,
-        firstName: speaker.firstName,
-        lastName: speaker.lastName,
-        title: speaker.title,
-        companyId: speaker.companyId,
-        photo: speaker.photo,
-      });
+    const updatedSpeaker = await this.prisma.speaker.update({
+      where: { id },
+      data: { photoUrl: uploadedPhoto },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        title: true,
+        companyId: true,
+        photo: true,
+      },
+    });
 
     return updatedSpeaker;
   }
 
   async removePhoto(id: number): Promise<void> {
-    await db
-      .update(speaker)
-      .set({
-        photo: null,
-      })
-      .where(eq(speaker.id, id));
+    await this.prisma.speaker.update({
+      where: { id },
+      data: { photo: null },
+    });
   }
 }
