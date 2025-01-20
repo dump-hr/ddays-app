@@ -8,7 +8,10 @@
   "scripts": {
     "dev": "dotenv -c -- nest start --watch --preserveWatchOutput",
     "build": "dotenv -c -- nest build",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "db:generate": "dotenv -c -- prisma generate",
+    "db:migrate": "dotenv -c -- prisma migrate dev",
+    "db:studio": "dotenv -c -- prisma studio"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.485.0",
