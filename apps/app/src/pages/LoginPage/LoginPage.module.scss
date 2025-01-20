@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 16px 16px 0px 0px;
+  background-color: $primary-background;
+  box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.title {
+  @include heading-2;
+  font-weight: 500;
+  text-align: left;
+  color: $primary-black;
+  line-height: 28px;
+  letter-spacing: -0.24px;
+  margin-bottom: 24px;
+  width: 295px;
+  white-space: nowrap;
+}
+
+.closeIcon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 0.417px;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 24px;
+  gap: 32px;
+}
