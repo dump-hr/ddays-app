@@ -2,10 +2,12 @@
     &Wrapper {
         position: relative;
     }
+
     &Icon{
         margin: 0;
         padding: 0;
     }
+    
     &Badge{
         position: absolute;
         top: -15px;
@@ -21,5 +23,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    @media (max-width: $breakpoint-mobile-lg) {
+        &Wrapper{
+            margin-right: 10px;
+        }
     }
 }
