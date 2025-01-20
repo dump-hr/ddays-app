@@ -1,0 +1,417 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Achievement {
+  id                   Int                 @id @default(autoincrement())
+  name                 String
+  description          String?
+  points               Int?                @default(0)
+  fulfillmentCodeCount Int?
+  isHidden             Boolean?            @default(false)
+  createdAt            DateTime?           @default(now()) @db.Timestamp(6)
+  achievementToCode    AchievementToCode[]
+  userToAchievement    UserToAchievement[]
+}
+
+model AchievementToCode {
+  achievementId Int
+  codeId        Int
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  code          Code        @relation(fields: [codeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([achievementId, codeId])
+}
+
+model Avatar {
+  id        Int        @id @default(autoincrement())
+  userId    Int?
+  color     Colors?
+  face      Face?
+  accessory Accessory?
+  body      Body?
+  user      User?      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Booth {
+  id        Int              @id @default(autoincrement())
+  name      String           @unique
+  category  CompanyCategory?
+  companyId Int?             @unique
+  company   Company?         @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rating    Rating[]
+}
+
+model Code {
+  id                Int                 @id @default(autoincrement())
+  value             String
+  description       String?
+  points            Int?                @default(0)
+  isActive          Boolean?            @default(true)
+  isSingleUse       Boolean?            @default(false)
+  hasPage           Boolean?            @default(false)
+  expirationDate    DateTime?           @db.Timestamp(6)
+  createdAt         DateTime?           @default(now()) @db.Timestamp(6)
+  achievementToCode AchievementToCode[]
+  company           Company[]
+  event             Event[]
+}
+
+model Company {
+  id                         Int                 @id @default(autoincrement())
+  password                   String?
+  category                   CompanyCategory?
+  name                       String
+  username                   String              @unique
+  description                String?
+  opportunitiesDescription   String?
+  websiteUrl                 String?
+  instagramUrl               String?
+  linkedinUrl                String?
+  logoImage                  String?
+  landingImage               String?
+  landingImageCompanyCulture String?
+  bookOfStandards            String?
+  video                      String?
+  codeId                     Int?
+  booth                      Booth?
+  code                       Code?               @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  companyToFlyTalk           CompanyToFlyTalk[]
+  companyToInterest          CompanyToInterest[]
+  job                        Job[]
+  speaker                    Speaker[]
+}
+
+model CompanyToFlyTalk {
+  companyId Int
+  eventId   Int
+  company   Company @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([companyId, eventId])
+}
+
+model CompanyToInterest {
+  companyId  Int
+  interestId Int
+  company    Company  @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([companyId, interestId])
+}
+
+model Event {
+  id               Int                @id @default(autoincrement())
+  name             String
+  description      String?
+  type             EventType?
+  theme            Theme?
+  startsAt         String
+  endsAt           String
+  requirements     String?
+  footageLink      String?
+  maxParticipants  Int?
+  codeId           Int?
+  isOnEnglish      Boolean?           @default(false)
+  companyToFlyTalk CompanyToFlyTalk[]
+  code             Code?              @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  eventToInterest  EventToInterest[]
+  notification     Notification[]
+  rating           Rating[]
+  speakerToEvent   SpeakerToEvent[]
+  userToEvent      UserToEvent[]
+}
+
+model EventToInterest {
+  eventId    Int
+  interestId Int
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([eventId, interestId])
+}
+
+model Interest {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  theme             Theme
+  companyToInterest CompanyToInterest[]
+  eventToInterest   EventToInterest[]
+  userToInterest    UserToInterest[]
+}
+
+model Job {
+  id        Int       @id @default(autoincrement())
+  position  String
+  location  String?
+  details   String
+  link      String?
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  companyId Int
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Notification {
+  id               Int                @id @default(autoincrement())
+  title            String
+  description      String?
+  activatedAt      DateTime?          @db.Timestamp(6)
+  expiresAt        DateTime?          @db.Timestamp(6)
+  createdAt        DateTime?          @default(now()) @db.Timestamp(6)
+  createdByUserId  Int?
+  eventId          Int?
+  isActive         Boolean?           @default(true)
+  user             User?              @relation(fields: [createdByUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event            Event?             @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userNotification UserNotification[]
+}
+
+model NotificationTemplate {
+  id              Int       @id @default(autoincrement())
+  name            String
+  titleTemplate   String
+  contentTemplate String
+  createdAt       DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model Rating {
+  id      Int     @id @default(autoincrement())
+  userId  Int?
+  boothId Int?
+  eventId Int?
+  grades  Json?   @db.Json
+  comment String?
+  booth   Booth?  @relation(fields: [boothId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event   Event?  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Speaker {
+  id             Int              @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  title          String
+  companyId      Int?
+  photo          Json?
+  instagram      String?
+  linkedin       String?
+  description    String?
+  company        Company?         @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  speakerToEvent SpeakerToEvent[]
+}
+
+model SpeakerToEvent {
+  speakerId Int
+  eventId   Int
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  speaker   Speaker @relation(fields: [speakerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([speakerId, eventId])
+}
+
+model User {
+  id                         Int                 @id @default(autoincrement())
+  firstName                  String
+  lastName                   String
+  email                      String              @unique
+  phoneNumber                String              @unique
+  yearOfBirth                Int
+  occupation                 String?
+  password                   String?
+  points                     Int?
+  newsletterConsent          Boolean?
+  companiesNewsletterConsent Boolean?
+  isDeleted                  Boolean?
+  profilePhotoUrl            String?
+  avatar                     Avatar[]
+  notification               Notification[]
+  shoppingCart               ShoppingCart[]
+  userNotification           UserNotification[]
+  userToAchievement          UserToAchievement[]
+  userToEvent                UserToEvent[]
+  userToInterest             UserToInterest[]
+}
+
+model UserNotification {
+  userId         Int
+  notificationId Int
+  status         NotificationStatus @default(PENDING)
+  deliveredAt    DateTime?          @db.Timestamp(6)
+  readAt         DateTime?          @db.Timestamp(6)
+  notification   Notification       @relation(fields: [notificationId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user           User               @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, notificationId])
+}
+
+model UserToAchievement {
+  userId            Int
+  achievementId     Int
+  timeOfAchievement DateTime?   @db.Timestamp(6)
+  achievement       Achievement @relation(fields: [achievementId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user              User        @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, achievementId])
+}
+
+model UserToEvent {
+  userId           Int
+  eventId          Int
+  linkedinProfile  String?
+  githubProfile    String?
+  portfolioProfile String?
+  cv               String?
+  description      String?
+  event            Event   @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user             User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, eventId])
+}
+
+model UserToInterest {
+  userId     Int
+  interestId Int
+  interest   Interest @relation(fields: [interestId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, interestId])
+}
+
+model FrequentlyAskedQuestion {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+}
+
+model ShopItem {
+  id           Int            @id @default(autoincrement())
+  type         ShopItemType?
+  itemName     String?
+  quantity     Int?
+  price        Int?
+  shoppingCart ShoppingCart[]
+}
+
+model ShoppingCart {
+  shopItemId Int
+  userId     Int
+  quantity   Int?
+  stage      ShoppingCartItemStage?
+  orderedAt  DateTime?              @db.Timestamp(6)
+  takeByTime DateTime?              @db.Timestamp(6)
+  shopItem   ShopItem               @relation(fields: [shopItemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, shopItemId])
+}
+
+model SurveyQuestion {
+  id          Int                     @id @default(autoincrement())
+  question    String
+  description String?
+  inputLabel  String?
+  inputType   SurveyQuestionInputType
+  type        SurveyQuestionType
+}
+
+enum Accessory {
+  DEFAULT
+  SUNGLASSES
+  CROWN
+  ANGEL
+  BERET
+  NINJA
+  HEADPHONES
+  FLOWER
+}
+
+enum Body {
+  DEFAULT
+  SCARF
+  CHAIN
+  BASKETBALL
+  MACBOOK
+  SUNFLOWER
+  CATS
+  DUMBELL
+}
+
+enum Colors {
+  YELLOW
+  ORANGE
+  BROWN
+  PURPLE
+  GREEN
+  WHITE
+  RED
+  GRAY
+}
+
+enum CompanyCategory {
+  GOLD
+  SILVER
+  BRONZE
+  MEDIA
+  FRIEND
+}
+
+enum EventType {
+  LECTURE
+  WORKSHOP
+  FLY_TALK
+  CAMPFIRE_TALK
+  PANEL
+  OTHER
+}
+
+enum Face {
+  DEFAULT
+  EYELASHES
+  ANGRY
+  CRYING
+  MUSTACHE
+  NOSE_RING
+  TATTOO
+  MOLE
+}
+
+enum NotificationStatus {
+  PENDING
+  DELIVERED
+  READ
+}
+
+enum ShopItemType {
+  MUG
+  SHIRT
+  HOODIE
+  STICKER
+}
+
+enum ShoppingCartItemStage {
+  COLLECTED
+  UNCOLLECTED
+}
+
+enum SurveyQuestionInputType {
+  INPUT
+  TEXTAREA
+  RATING
+}
+
+enum SurveyQuestionType {
+  WORKSHOP
+  LECTURE
+  COMPANY
+}
+
+enum Theme {
+  DEV
+  DESIGN
+  MARKETING
+  TECH
+}

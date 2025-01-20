@@ -1,33 +1,30 @@
 import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
-import { db } from 'db';
-import { achievement } from 'db/schema';
-import { desc } from 'drizzle-orm';
+import { prisma } from 'src/prisma';
 
 @Injectable()
 export class AchievementService {
   async create(dto: AchievementModifyDto): Promise<AchievementDto> {
-    const [createdAchievement] = await db
-      .insert(achievement)
-      .values(dto)
-      .returning();
+    const createdAchievement = await prisma.achievement.create({ data: dto });
 
     return createdAchievement;
   }
 
   async getAll(): Promise<AchievementDto[]> {
-    const achievements = await db
-      .select({
-        id: achievement.id,
-        name: achievement.name,
-        description: achievement.description,
-        points: achievement.points,
-        fulfillmentCodeCount: achievement.fulfillmentCodeCount,
-        isHidden: achievement.isHidden,
-        createdAt: achievement.createdAt,
-      })
-      .from(achievement)
-      .orderBy(desc(achievement.points));
+    const achievements = await prisma.achievement.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        points: true,
+        fulfillmentCodeCount: true,
+        isHidden: true,
+        createdAt: true,
+      },
+      orderBy: {
+        points: 'desc',
+      },
+    });
 
     return achievements;
   }
