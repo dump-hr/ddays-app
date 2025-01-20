@@ -1,0 +1,23 @@
+.progressBarTab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 30px; 
+    min-height: 30px;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+
+    background-color: $black-10;
+    color: $primary-black;
+
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.activeProgressBarTab {
+    background-color: $primary-muted-orange;
+    color: $primary-white;
+}
