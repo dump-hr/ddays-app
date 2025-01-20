@@ -16,6 +16,19 @@
     gap: 12px;
     padding: 12px;
 
+    cursor: pointer;
+    user-select: none;
+    
+    transition: ease-in 100ms;
+
+    &:hover{
+        background-color: #414040;
+    }
+
+    &:active{
+        scale: 0.98;
+    }
+
     p{
         @include paragraph-16;
         padding: 0;
