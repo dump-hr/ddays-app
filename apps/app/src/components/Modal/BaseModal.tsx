@@ -1,6 +1,7 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import sprite from '../../assets/sprite.svg';
 import styles from './Modal.module.scss';
+import { useClickOutside } from '../../hooks/UseClickOutside';
 
 type BaseModalProps = {
   isOpen: boolean;
@@ -14,50 +15,62 @@ export const BaseModal: React.FC<BaseModalProps> = ({
   isOpen,
   onClose,
   title,
-  withOverlay = false,
+  withOverlay = true,
   children,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
+    let timeoutId: NodeJS.Timeout;
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      setShouldRender(true);
+      timeoutId = setTimeout(() => {
+        setAnimationClass(styles.opening);
+      }, 10);
     }
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
+    return () => clearTimeout(timeoutId);
+  }, [isOpen]);
 
-  if (!isOpen) return null;
+  useLayoutEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  const handleClose = () => {
+    onClose();
+  };
+
+  useClickOutside(modalRef, handleClose);
 
   return (
-    <>
-      {withOverlay && (
-        <div className={styles.backgroundOverlay} onClick={onClose} />
-      )}
-      <div ref={modalRef} className={styles.modalContainer}>
-        <div className={styles.modalHeaderWrapper}>
-          <p className={styles.modalTitle}>{title}</p>
-          <div onClick={onClose}>
-            <svg className={styles.modalCloseIcon} width={22} height={22}>
-              <use href={`${sprite}#close-icon`} />
-            </svg>
+    shouldRender && (
+      <>
+        {withOverlay && (
+          <div
+            className={`${styles.backgroundOverlay} ${animationClass}`}
+            onClick={handleClose}
+          />
+        )}
+        <div
+          ref={modalRef}
+          className={`${styles.modalContainer} ${animationClass}`}>
+          <div className={styles.modalHeaderWrapper}>
+            <p className={styles.modalTitle}>{title}</p>
+            <div onClick={handleClose}>
+              <svg className={styles.modalCloseIcon} width={22} height={22}>
+                <use href={`${sprite}#close-icon`} />
+              </svg>
+            </div>
           </div>
+          {children}
         </div>
-        {children}
-      </div>
-    </>
+      </>
+    )
   );
 };

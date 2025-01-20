@@ -1,7 +1,8 @@
 export enum ModalNames {
   NOTIFICATIONS = 'notifikacije',
   ENTER_CODE = 'unesi kod',
-  RATE = 'ocjeni',
+  RATE_BOOTH = 'ocjeni sponzorski štand',
+  RATE_LECTURE = 'ocjeni predavanje',
 
   INTERESTS = 'interesi',
   ACHIEVEMENTS = 'postignuća',
@@ -61,11 +62,10 @@ export const routes: { [key: string]: Route } = {
         name: ModalNames.ENTER_CODE,
       },
       {
-        name: ModalNames.RATE,
-        submenus: {
-          name: 'Rate',
-          options: ['stand', 'lecture'],
-        },
+        name: ModalNames.RATE_BOOTH,
+      },
+      {
+        name: ModalNames.RATE_LECTURE,
       },
     ],
   },

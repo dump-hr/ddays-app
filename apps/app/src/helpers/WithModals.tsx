@@ -13,7 +13,8 @@ const EmptyModal = (): ReactElement => {
 const MODAL_REGISTRY: Record<ModalNames, ReactElement> = {
   [ModalNames.NOTIFICATIONS]: <EmptyModal />,
   [ModalNames.ENTER_CODE]: <EmptyModal />,
-  [ModalNames.RATE]: <EmptyModal />,
+  [ModalNames.RATE_BOOTH]: <EmptyModal />,
+  [ModalNames.RATE_LECTURE]: <EmptyModal />,
   [ModalNames.INTERESTS]: <EmptyModal />,
   [ModalNames.ACHIEVEMENTS]: <EmptyModal />,
   [ModalNames.AVATARS]: <EmptyModal />,

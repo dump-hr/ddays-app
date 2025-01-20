@@ -5,6 +5,17 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     height: calc(100vh - 78px);
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+
+    &.opening {
+      animation-name: slideIn;
+    }
   }
 
   &HeaderWrapper {
@@ -12,6 +23,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    @media screen and (min-width: $breakpoint-tablet-lg) {
+      justify-content: center;
+    }
   }
 
   &Title {
@@ -21,6 +35,11 @@
 
   &CloseIcon {
     cursor: pointer;
+    @media screen and (min-width: $breakpoint-tablet-lg) {
+      position: absolute;
+      right: 72px;
+      top: calc(-6%);
+    }
   }
 }
 
@@ -33,4 +52,30 @@
   height: 100%;
   width: 100%;
   z-index: -1;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+
+  &.opening {
+    animation-name: fadeIn;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
