@@ -23,6 +23,7 @@
   max-width: 480px;
   z-index: 2;
   padding: 48px 24px;
+  margin: 0 auto;
 }
 
 .title {
@@ -68,14 +69,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../../assets/images/fesb pozadina.png');
+    background-image: url('../../assets/images/fesb-pozadina.png');
     background-repeat: no-repeat;
     background-position: center top;
     background-size: 100% 70%;
     z-index: 1;
 
     @media (min-width: $breakpoint-tablet) {
-      background-image: url('../../assets/images/fesb pozadina desktop.png');
+      background-image: url('../../assets/images/fesb-pozadina-desktop.png');
       top: 35px;
     }
   }
