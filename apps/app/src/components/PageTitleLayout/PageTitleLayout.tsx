@@ -3,7 +3,7 @@ import c from './PageTitleLayout.module.scss';
 
 type PageTitleLayoutType = {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const PageTitleLayout: React.FC<PageTitleLayoutType> = ({
@@ -11,10 +11,10 @@ const PageTitleLayout: React.FC<PageTitleLayoutType> = ({
   children,
 }) => {
   return (
-    <div className={c.pageTitleLayout}>
+    <main className={c.main}>
       <h1 className={c.title}>{title}</h1>
-      {children}
-    </div>
+      <div className={c.content}>{children}</div>
+    </main>
   );
 };
 
