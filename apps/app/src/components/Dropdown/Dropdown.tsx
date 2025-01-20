@@ -4,7 +4,7 @@ import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
 import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
 import clsx from 'clsx';
-import { useClickOutside } from '../../hooks/UseClickOutside';
+import { useClickOutside } from '../../hooks/TempClickOutside';
 
 type DropdownProps = {
   label: string;
