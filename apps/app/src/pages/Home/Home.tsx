@@ -1,4 +1,5 @@
 import c from './Home.module.scss';
+import TopCompaniesSection from './sections/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
       <header className={c.header}></header>
       <main className={c.main}>
         <EventsSection />
+        <TopCompaniesSection />
       </main>
     </div>
   );
