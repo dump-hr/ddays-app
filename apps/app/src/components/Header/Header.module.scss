@@ -1,8 +1,10 @@
-.header{
+.header {
     color: $primary-white;
     font-family: "NeueMachina";
     margin-block: 64px 32px;
     text-align: center;
+    user-select: none;
+
 
     .headerGreeting {
         display: flex;
@@ -10,16 +12,13 @@
         margin-bottom: 32px;
     }
 
-    h1{
+    h1 {
         @include heading-1;
         text-align: center;
         font-weight: 500;
     }
 
-}
-
-@media (max-width: $breakpoint-tablet) {
-    .header {
+    @media (max-width: $breakpoint-tablet) {
         margin-inline: 20px;
 
         .headerGreeting {
@@ -33,12 +32,9 @@
         h1 {
             text-align: start;
         }
-
     }
-}
 
-@media (max-width: $breakpoint-mobile-lg) {
-    .header {
+    @media (max-width: $breakpoint-mobile-lg) {
         margin-inline: 5px;
     }
 }
