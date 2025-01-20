@@ -1,0 +1,167 @@
+.lectures {
+  --spacing: 32px;
+  --padding: 24px;
+  --card-width: calc(100% - 2 * var(--padding));
+
+  box-sizing: border-box;
+  padding: 16px var(--padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 422px;
+    margin: 0 auto;
+  }
+
+  .scrollingCards {
+    --arrow-button-size: 44px;
+    --arrow-button-gap: 65px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      position: relative;
+      width: calc(
+        100% + 2 * var(--arrow-button-gap) + 2 * var(--arrow-button-size)
+      );
+      left: calc(-1 * (65px + 44px));
+    }
+
+    .arrowsContainer {
+      @media screen and (min-width: $breakpoint-tablet) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--arrow-button-gap);
+      }
+
+      .arrow {
+        display: none;
+        border-radius: 8px;
+        border: 1px solid $black-10;
+        background: $primary-beige;
+        height: var(--arrow-button-size);
+        width: var(--arrow-button-size);
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: filter 0.2s ease-in-out;
+        transition: scale 0.1s ease-in-out;
+        transition: opacity 0.2s ease-in-out;
+
+        &:first-of-type {
+          img {
+            transform: rotate(180deg);
+          }
+        }
+
+        &:hover {
+          filter: brightness(0.98);
+        }
+
+        &:active {
+          scale: 0.95;
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: initial;
+
+          &:hover {
+            filter: none;
+          }
+          &:active {
+            scale: 1;
+          }
+        }
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          display: flex;
+        }
+      }
+      .scrollingWrapper {
+        position: relative;
+        width: calc(100% + 2 * var(--padding));
+        left: calc(-1 * var(--padding));
+        overflow-x: scroll;
+        display: flex;
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          width: 100%;
+          left: 0;
+        }
+
+        .card {
+          width: var(--card-width);
+          margin-left: var(--padding);
+          align-self: flex-start;
+          flex: 0 0 auto;
+          scroll-snap-align: center;
+
+          @media screen and (min-width: $breakpoint-tablet) {
+            width: 100%;
+            &:first-of-type {
+              margin-left: var(--padding);
+            }
+
+            &:last-of-type {
+              margin-right: var(--padding);
+            }
+          }
+
+          &:first-of-type {
+            margin-left: calc(2 * var(--padding));
+          }
+
+          &:last-of-type {
+            margin-right: calc(2 * var(--padding));
+          }
+        }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+      }
+
+      .noEvents {
+        margin: 0 auto;
+        color: $black-50;
+        font-family: Inter;
+
+        &.hidden {
+          display: none;
+        }
+      }
+    }
+
+    .dotsContainer {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+
+      &.hidden {
+        display: none;
+      }
+
+      .dot {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background-color: $black-5;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+
+        &.active {
+          background-color: $primary-highlight;
+        }
+      }
+    }
+  }
+}
