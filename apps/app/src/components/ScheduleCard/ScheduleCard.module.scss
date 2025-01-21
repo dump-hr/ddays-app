@@ -151,6 +151,10 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    .divider {
+      margin: -10px 0;
+    }
   }
 
   .moderatorLabel {

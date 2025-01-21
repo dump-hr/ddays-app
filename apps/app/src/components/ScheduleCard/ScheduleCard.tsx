@@ -129,26 +129,31 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               speaker,
               index, // Pod pretpostavkom da je moderator prvi u listi (ako je panel).
             ) => (
-              <div className={c.speaker} key={index}>
-                <img
-                  className={c.image}
-                  src={speaker.photo?.thumbnailUrl}
-                  alt={speaker.firstName}
-                />
-                <div className={c.speakerInfoWrapper}>
-                  <p className={c.fullName}>
-                    {speaker.firstName} {speaker.lastName}
-                  </p>
-                  <p className={c.title}>{speaker.title}</p>
-                  <div className={c.logoContainer}>
-                    <img
-                      className={c.logo}
-                      src={speaker.company?.logoImage}
-                      alt=''
-                    />
+              <>
+                <div className={c.speaker} key={index}>
+                  <img
+                    className={c.image}
+                    src={speaker.photo?.thumbnailUrl}
+                    alt={speaker.firstName}
+                  />
+                  <div className={c.speakerInfoWrapper}>
+                    <p className={c.fullName}>
+                      {speaker.firstName} {speaker.lastName}
+                    </p>
+                    <p className={c.title}>{speaker.title}</p>
+                    <div className={c.logoContainer}>
+                      <img
+                        className={c.logo}
+                        src={speaker.company?.logoImage}
+                        alt=''
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+                {event.type === EventType.Panel && index === 0 && (
+                  <div className={c.divider} />
+                )}
+              </>
             ),
           )}
       </div>
