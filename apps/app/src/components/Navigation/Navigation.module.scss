@@ -1,5 +1,5 @@
 .container {
-  width: 100vw;
+  width: 100%;
   height: 78px;
   background-color: $primary-black;
   position: fixed;
@@ -8,6 +8,8 @@
   justify-content: space-around;
   align-items: center;
   z-index: 2;
+
+  display: none; //TEMP
 }
 
 .iconWrapper {
