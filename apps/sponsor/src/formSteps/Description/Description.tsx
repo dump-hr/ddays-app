@@ -10,9 +10,9 @@ import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
-  const [website, setWebsite] = useState<string>();
-  const [instagram, setInstagram] = useState<string>();
-  const [linkedin, setLinkedin] = useState<string>();
+  const [websiteUrl, setWebsiteUrl] = useState<string>();
+  const [instagramUrl, setInstagramUrl] = useState<string>();
+  const [linkedinUrl, setLinkedinUrl] = useState<string>();
   const [opportunitiesDescription, setOpportunitiesDescription] =
     useState<string>();
 
@@ -30,9 +30,9 @@ export const Description: FormComponent = ({ close }) => {
   const handleSubmit = async () => {
     await updateDescription.mutateAsync({
       description: description ?? company.description ?? '',
-      website: website ?? company.website ?? '',
-      instagram: instagram ?? company.instagram ?? '',
-      linkedin: linkedin ?? company.linkedin ?? '',
+      websiteUrl: websiteUrl ?? company.websiteUrl ?? '',
+      instagramUrl: instagramUrl ?? company.instagramUrl ?? '',
+      linkedinUrl: linkedinUrl ?? company.linkedinUrl ?? '',
       opportunitiesDescription:
         opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });
@@ -57,7 +57,7 @@ export const Description: FormComponent = ({ close }) => {
           rows={8}
         />
       </div>
-      {company.category === CompanyCategory.Gold && (
+      {company.category === CompanyCategory.GOLD && (
         <div className={c.inputContainer}>
           <TextArea
             value={
@@ -73,23 +73,23 @@ export const Description: FormComponent = ({ close }) => {
       )}
       <div className={c.inputContainer}>
         <Input
-          value={website ?? company.website ?? ''}
+          value={websiteUrl ?? company.websiteUrl ?? ''}
           label='Link na web stranicu'
-          onChange={(e) => setWebsite(e)}
+          onChange={(e) => setWebsiteUrl(e)}
         />
       </div>
       <div className={c.inputContainer}>
         <Input
-          value={instagram ?? company.instagram ?? ''}
+          value={instagramUrl ?? company.instagramUrl ?? ''}
           label='Link na Instagram profil'
-          onChange={(e) => setInstagram(e)}
+          onChange={(e) => setInstagramUrl(e)}
         />
       </div>
       <div className={c.inputContainer}>
         <Input
-          value={linkedin ?? company.linkedin ?? ''}
+          value={linkedinUrl ?? company.linkedinUrl ?? ''}
           label='Link na LinkedIn profil'
-          onChange={(e) => setLinkedin(e)}
+          onChange={(e) => setLinkedinUrl(e)}
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>

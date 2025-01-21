@@ -17,7 +17,9 @@ export class NotificationService {
 
   async create(dto: NotificationModifyDto): Promise<NotificationDto> {
     const createdNotification = await this.prisma.notification.create({
-      data: dto,
+      data: {
+        ...dto,
+      },
     });
 
     return createdNotification;

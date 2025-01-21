@@ -8,8 +8,8 @@ export type SpeakerDto = {
   title: string;
   companyId?: number;
   photoUrl?: string;
-  instagram?: string;
-  linkedin?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   description?: string;
 };
 
@@ -29,11 +29,11 @@ export class SpeakerModifyDto {
 
   @IsOptional()
   @IsString()
-  instagram?: string;
+  instagramUrl?: string;
 
   @IsOptional()
   @IsString()
-  linkedin?: string;
+  linkedinUrl?: string;
 
   @IsOptional()
   @IsString()
@@ -47,8 +47,8 @@ export type SpeakerWithCompanyDto = {
   title: string;
   companyId?: number;
   photoUrl?: string;
-  instagram?: string;
-  linkedin?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   description?: string;
   company?: CompanyPublicDto;
 };

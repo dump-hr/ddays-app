@@ -87,7 +87,9 @@ export class BoothService {
       }),
     );
 
-    return await this.prisma.booth.createMany({ data: booths });
+    return await this.prisma.$transaction(
+      booths.map((booth) => this.prisma.booth.create({ data: booth })),
+    );
   }
 
   async update(id: number, dto: BoothModifyDto) {

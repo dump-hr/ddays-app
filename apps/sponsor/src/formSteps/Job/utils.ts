@@ -2,11 +2,11 @@ import { CompanyCategory } from '@ddays-app/types';
 
 export const getMaxJobsPerTier = (category: CompanyCategory) => {
   switch (category) {
-    case CompanyCategory.Bronze:
+    case CompanyCategory.BRONZE:
       return 2;
-    case CompanyCategory.Silver:
+    case CompanyCategory.SILVER:
       return 3;
-    case CompanyCategory.Gold:
+    case CompanyCategory.GOLD:
       return 3;
     default:
       return 0;
