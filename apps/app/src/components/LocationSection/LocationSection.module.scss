@@ -9,6 +9,8 @@
   min-height: auto;
   padding-bottom: 40px;
 
+  overflow-x: hidden;
+
   @media (min-width: $breakpoint-tablet) {
     align-items: center;
     border-radius: 20px;
