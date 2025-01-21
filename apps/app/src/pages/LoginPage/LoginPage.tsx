@@ -1,6 +1,9 @@
 import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/Group.svg';
+import Button from '../../components/Button';
+import googleIcon from '../../assets/icons/google.svg';
+import { RouteNames } from '../../router/routes';
 
 export const LoginPage = () => {
   return (
@@ -28,6 +31,24 @@ export const LoginPage = () => {
             value=''
             onChange={() => {}}
           />
+          <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
+            Zaboravili ste lozinku?
+          </a>
+        </div>
+        <div className={c.buttonContainer}>
+          <Button variant='orange' onClick={() => {}}>
+            Prijavi se
+          </Button>
+          <Button variant='black' onClick={() => {}}>
+            <img src={googleIcon} alt='icon' className={c.googleIcon} />
+            Nastavi s Google
+          </Button>
+        </div>
+        <div className={c.registerContainer}>
+          <span className={c.noAccount}>Nemaš račun?</span>
+          <a href={RouteNames.REGISTER} className={c.registerLink}>
+            Registriraj se
+          </a>
         </div>
       </div>
     </div>

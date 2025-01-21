@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-radius: 16px 16px 0px 0px;
   background-color: $primary-background;
   box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
@@ -41,4 +40,61 @@
   justify-content: space-between;
   padding: 0px 24px;
   gap: 32px;
+}
+
+.forgotPassword {
+  @include paragraph-16;
+  color: var(--Primary-Black, #171615);
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  opacity: 0.6;
+  text-decoration: none;
+  align-self: flex-end;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 24px;
+  gap: 12px;
+  margin-top: 330px;
+}
+
+.buttonContainer.keyboardVisible {
+  margin-top: 50px;
+}
+
+.googleIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.registerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.noAccount {
+  @include paragraph-16;
+  color: var(--Primary-Black, #171615);
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  opacity: 0.6;
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.registerLink {
+  @include label-medium;
+  color: var(--Primary-Black, #171615);
+  text-align: right;
+  font-style: normal;
+  line-height: 22px;
+  text-decoration: none;
 }
