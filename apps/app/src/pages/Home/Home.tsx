@@ -1,6 +1,7 @@
 import c from './Home.module.scss';
 import TopCompaniesSection from './sections/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
+import LocationSection from '../../components/LocationSection';
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <header className={c.header}></header>
       <main className={c.main}>
         <EventsSection />
+        <LocationSection />
         <TopCompaniesSection />
       </main>
     </div>
