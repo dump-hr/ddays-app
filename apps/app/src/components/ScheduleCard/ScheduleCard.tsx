@@ -22,30 +22,30 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   function getThemeLabel(eventTheme: Theme) {
     switch (eventTheme) {
-      case 'dev':
+      case Theme.Dev:
         return 'DEV';
-      case 'design':
+      case Theme.Design:
         return 'DIZ';
-      case 'marketing':
+      case Theme.Marketing:
         return 'MARK';
-      case 'tech':
-        return 'MULT';
+      case Theme.Tech:
+        return 'TECH';
     }
   }
 
   function getTypeLabel(eventType: EventType) {
     switch (eventType) {
-      case 'lecture':
+      case EventType.Lecture:
         return 'PREDAVANJE';
-      case 'workshop':
+      case EventType.Workshop:
         return 'RADIONICA';
-      case 'flyTalk':
+      case EventType.FlyTalk:
         return 'FLY TALK';
-      case 'campfireTalk':
+      case EventType.CampfireTalk:
         return 'CAMPFIRE TALK';
-      case 'panel':
+      case EventType.Panel:
         return 'PANEL';
-      case 'other':
+      case EventType.Other:
         return 'OSTALO';
     }
   }
