@@ -1,0 +1,14 @@
+.headerCardsWrapper {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+
+    @media (max-width: $breakpoint-tablet) {
+        justify-content: stretch;
+
+        & > * {
+            flex-grow: 1;
+            max-width: none;
+        }
+    }
+}
