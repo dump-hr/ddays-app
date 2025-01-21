@@ -14,3 +14,12 @@ p {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
+
+input,
+textarea,
+button,
+select,
+div,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
