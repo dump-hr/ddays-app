@@ -1,0 +1,23 @@
+.main {
+  background-color: $primary-black;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .pageTitle {
+    @include heading-2;
+    font-weight: 400;
+    color: white;
+    text-transform: uppercase;
+    margin: 64px auto 24px 24px;
+  }
+
+  .contentWrapper {
+    width: 100%;
+    border-radius: 16px 16px 0px 0px;
+    background-color: $primary-background;
+    box-sizing: border-box;
+    padding: 16px 24px;
+  }
+}
