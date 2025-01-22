@@ -1,4 +1,5 @@
 import { Input } from '../../components/Input';
+import { useState } from 'react';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/Group.svg';
 import Button from '../../components/Button';
@@ -6,6 +7,9 @@ import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
 
 export const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div>
       <div>
@@ -21,15 +25,15 @@ export const LoginPage = () => {
             label='Email'
             type='text'
             placeholder='Email'
-            value=''
-            onChange={() => {}}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             label='Lozinka'
             type='password'
             placeholder='Lozinka'
-            value=''
-            onChange={() => {}}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
             Zaboravili ste lozinku?
