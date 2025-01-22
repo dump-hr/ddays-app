@@ -1,3 +1,24 @@
+.wrapper {
+  background-color: $primary-black;
+}
+
+.blackDiv {
+  @include heading-4;
+  color: $primary-background;
+  text-transform: uppercase;
+  height: 116px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 24px;
+  padding-top: 64px;
+
+  @media (min-width: $breakpoint-tablet) {
+    justify-content: center;
+    padding-bottom: 40px;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -5,7 +26,7 @@
   background-color: $primary-background;
   box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     box-shadow: none;
   }
 }
@@ -16,7 +37,7 @@
   justify-content: space-between;
   padding: 24px;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     justify-content: center;
     padding-top: 48px;
   }
@@ -33,7 +54,7 @@
   width: 295px;
   white-space: nowrap;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     text-align: center;
     @include heading-1;
     line-height: 30px;
@@ -49,7 +70,7 @@
   justify-content: center;
   align-items: center;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     display: none;
   }
 }
@@ -61,7 +82,7 @@
   padding: 0px 24px;
   gap: 32px;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     min-width: 500px;
     padding-top: 48px;
@@ -88,7 +109,7 @@
   gap: 12px;
   margin-top: 330px;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     min-width: 500px;
     padding-top: 56px;
@@ -111,7 +132,7 @@
   justify-content: space-between;
   padding: 24px;
 
-  @media (min-width: $breakpoint-desktop) {
+  @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     min-width: 500px;
   }
