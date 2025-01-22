@@ -4,6 +4,10 @@
   border-radius: 16px 16px 0px 0px;
   background-color: $primary-background;
   box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
+
+  @media (min-width: $breakpoint-desktop) {
+    box-shadow: none;
+  }
 }
 
 .titleContainer {
@@ -11,6 +15,11 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 24px;
+
+  @media (min-width: $breakpoint-desktop) {
+    justify-content: center;
+    padding-top: 48px;
+  }
 }
 
 .title {
@@ -23,6 +32,13 @@
   margin-bottom: 24px;
   width: 295px;
   white-space: nowrap;
+
+  @media (min-width: $breakpoint-desktop) {
+    text-align: center;
+    @include heading-1;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
 }
 
 .closeIcon {
@@ -32,6 +48,10 @@
   padding: 0.417px;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: $breakpoint-desktop) {
+    display: none;
+  }
 }
 
 .formContainer {
@@ -40,11 +60,13 @@
   justify-content: space-between;
   padding: 0px 24px;
   gap: 32px;
-}
 
-.input {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  @media (min-width: $breakpoint-desktop) {
+    margin: 0 auto;
+    min-width: 500px;
+    padding-top: 48px;
+    gap: 48px;
+  }
 }
 
 .forgotPassword {
@@ -65,6 +87,12 @@
   padding: 0px 24px;
   gap: 12px;
   margin-top: 330px;
+
+  @media (min-width: $breakpoint-desktop) {
+    margin: 0 auto;
+    min-width: 500px;
+    padding-top: 56px;
+  }
 }
 
 .buttonContainer.keyboardVisible {
@@ -82,6 +110,11 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 24px;
+
+  @media (min-width: $breakpoint-desktop) {
+    margin: 0 auto;
+    min-width: 500px;
+  }
 }
 
 .noAccount {

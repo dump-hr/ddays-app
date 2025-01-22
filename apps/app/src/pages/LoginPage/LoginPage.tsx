@@ -12,9 +12,6 @@ export const LoginPage = () => {
 
   return (
     <div>
-      <div>
-        <h1>Login Page</h1>
-      </div>
       <div className={c.container}>
         <div className={c.titleContainer}>
           <h1 className={c.title}>Dobro došli natrag!</h1>
