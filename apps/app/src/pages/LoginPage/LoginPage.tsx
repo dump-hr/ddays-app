@@ -9,6 +9,34 @@ import { RouteNames } from '../../router/routes';
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const validateInputs = () => {
+    let isValid = true;
+
+    if (!email) {
+      setEmailError('Hej, trebaš ispuniti sva polja.');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (!password) {
+      setPasswordError('Hej, trebaš ispuniti sva polja.');
+      isValid = false;
+    } else {
+      setPasswordError('');
+    }
+
+    return isValid;
+  };
+
+  const handleLogin = () => {
+    if (validateInputs()) {
+      console.log('Logging in');
+    }
+  };
 
   return (
     <div>
@@ -30,6 +58,7 @@ export const LoginPage = () => {
               placeholder='Email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={emailError}
             />
             <Input
               label='Lozinka'
@@ -37,13 +66,14 @@ export const LoginPage = () => {
               placeholder='Lozinka'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              error={passwordError}
             />
             <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
               Zaboravili ste lozinku?
             </a>
           </div>
           <div className={c.buttonContainer}>
-            <Button variant='orange' onClick={() => {}}>
+            <Button variant='orange' onClick={handleLogin}>
               Prijavi se
             </Button>
             <Button variant='black' onClick={() => {}}>

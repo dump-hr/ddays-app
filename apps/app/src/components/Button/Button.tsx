@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
         {...handlers}>
         <div className={c.content}>
           <img className={c.mr16} src={icon} alt='' />
-          <p>{children}</p>
+          <span>{children}</span>
         </div>
       </button>
     );
@@ -61,7 +61,7 @@ const Button: React.FC<ButtonProps> = ({
       })}
       {...handlers}>
       <div className={c.content}>
-        <p>{children}</p>
+        <span>{children}</span>
       </div>
     </button>
   );
