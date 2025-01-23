@@ -21,7 +21,7 @@ export const ProgressBar = () => {
   return (
     <div className={c.progressBar}>
       {[1, 2, 3, 4].map((step) => (
-        <>
+        <div key={step}>
           <ProgressBarTab
             key={step}
             stepIndex={step}
@@ -29,7 +29,7 @@ export const ProgressBar = () => {
             onClick={handleStepClick}
           />
           {step < 4 && <div className={c.dots}></div>}
-        </>
+        </div>
       ))}
     </div>
   );
