@@ -1,12 +1,9 @@
-import { ProgressBar } from '../../components/ProgressBar';
-import { FirstStepRegistrationForm } from '../../components/RegistrationForms/FirstStepRegistrationForm';
+import { GeneralRegistrationForm } from '../../components/RegistrationForms/GeneralRegistrationForm/GeneralRegistrationForm';
 
 export const RegisterPage = () => {
   return (
     <div>
-      <h1>Register</h1>
-      <ProgressBar />
-      <FirstStepRegistrationForm />
+      <GeneralRegistrationForm />
     </div>
   );
 };

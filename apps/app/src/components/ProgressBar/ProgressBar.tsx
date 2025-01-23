@@ -2,9 +2,16 @@ import { useState } from 'react';
 import c from './ProgressBar.module.scss';
 import { ProgressBarTab } from './ProgressBarTab';
 import React from 'react';
-export const ProgressBar = () => {
-  const [currentStep, setCurrentStep] = useState(1);
 
+type ProgressBarProps = {
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+};
+
+export const ProgressBar = ({
+  currentStep,
+  setCurrentStep,
+}: ProgressBarProps) => {
   const isAllowedForNextStep = () => {
     return true;
   };

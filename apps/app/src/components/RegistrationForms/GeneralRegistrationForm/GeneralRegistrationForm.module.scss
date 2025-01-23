@@ -1,0 +1,25 @@
+.generalRegistrationForm{
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+
+    .registrationUpper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+
+        h2{
+            color: $primary-black;
+            text-align: center;
+            font-family: NeueMachina;
+            font-size: 30px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+    }
+}
+
+
