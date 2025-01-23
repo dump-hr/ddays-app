@@ -1,22 +1,31 @@
 .wrapper {
   background-color: $primary-black;
+  display: flex;
+  flex-direction: column;
 }
 
 .blackDiv {
-  @include heading-4;
   color: $primary-background;
-  text-transform: uppercase;
   height: 116px;
   display: flex;
   justify-content: left;
   align-items: center;
   padding-left: 24px;
-  padding-top: 64px;
+  padding-top: 60px;
 
   @media (min-width: $breakpoint-tablet) {
     justify-content: center;
     padding-bottom: 40px;
   }
+}
+
+.pageName {
+  text-transform: uppercase;
+  @include heading-2;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -0.24px;
 }
 
 .container {

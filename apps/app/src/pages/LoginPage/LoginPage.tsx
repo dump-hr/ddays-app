@@ -14,7 +14,7 @@ export const LoginPage = () => {
     <div>
       <div className={c.wrapper}>
         <div className={c.blackDiv}>
-          <h1>Prijava</h1>
+          <h1 className={c.pageName}>Prijava</h1>
         </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
