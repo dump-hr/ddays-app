@@ -129,10 +129,16 @@
   margin-top: 50px;
 }
 
+.buttonContent {
+  display: flex;
+  align-items: center;
+}
+
 .googleIcon {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
+  margin-right: 16px;
+  margin-top: -2px;
 }
 
 .registerContainer {
@@ -149,7 +155,7 @@
 
 .noAccount {
   @include paragraph-16;
-  color: var(--Primary-Black, #171615);
+  color: $primary-black;
   font-style: normal;
   line-height: 22px;
   letter-spacing: -0.16px;

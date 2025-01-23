@@ -19,7 +19,9 @@ export const LoginPage = () => {
         <div className={c.container}>
           <div className={c.titleContainer}>
             <h1 className={c.title}>Dobro došli natrag!</h1>
-            <img src={closeIcon} alt='Close login' className={c.closeIcon} />
+            <a href='https://days.dump.hr'>
+              <img src={closeIcon} alt='Close login' className={c.closeIcon} />
+            </a>
           </div>
           <div className={c.formContainer}>
             <Input
@@ -45,8 +47,10 @@ export const LoginPage = () => {
               Prijavi se
             </Button>
             <Button variant='black' onClick={() => {}}>
-              <img src={googleIcon} alt='icon' className={c.googleIcon} />
-              Nastavi s Google
+              <div className={c.buttonContent}>
+                <img src={googleIcon} alt='icon' className={c.googleIcon} />
+                Nastavi s Google
+              </div>
             </Button>
           </div>
           <div className={c.registerContainer}>
