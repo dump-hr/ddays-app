@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import c from './ProgressBar.module.scss';
 import { ProgressBarTab } from './ProgressBarTab';
 import React from 'react';

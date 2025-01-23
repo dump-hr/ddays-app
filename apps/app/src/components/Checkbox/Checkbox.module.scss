@@ -7,15 +7,19 @@
 
     input[type='checkbox'] {
         appearance: none; 
-        min-width: 20px;
-        min-height: 20px;
-        border-radius: 4px;
-        background: $black-10;
+
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
+
+        min-width: 20px;
+        min-height: 20px;
+
+        border-radius: 4px;
         border: none;
+        background: $black-10;
+       
+        cursor: pointer;
     
         &:checked {
             background: $primary-muted-orange;
@@ -23,6 +27,7 @@
             &:after {
                 content: "";
                 background: url(./../../assets/icons/check-mark-icon.svg);
+                
                 position: absolute;
                 width: 9.583px;
                 height: 9.583px;
@@ -35,11 +40,13 @@
     }
 
     label {
-        color: $primary-black;
-        font-family: Inter;
-        letter-spacing: -0.16px;
         position: relative;
         top: 3px;
+
+        font-family: Inter;
+        letter-spacing: -0.16px;
+
+        color: $primary-black;
     }
 }
 
