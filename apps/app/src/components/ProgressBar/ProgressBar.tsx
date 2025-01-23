@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import c from './ProgressBar.module.scss';
 import { ProgressBarTab } from './ProgressBarTab';
+import React from 'react';
 export const ProgressBar = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -21,7 +22,7 @@ export const ProgressBar = () => {
   return (
     <div className={c.progressBar}>
       {[1, 2, 3, 4].map((step) => (
-        <div key={step}>
+        <React.Fragment key={step}>
           <ProgressBarTab
             key={step}
             stepIndex={step}
@@ -29,7 +30,7 @@ export const ProgressBar = () => {
             onClick={handleStepClick}
           />
           {step < 4 && <div className={c.dots}></div>}
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );
