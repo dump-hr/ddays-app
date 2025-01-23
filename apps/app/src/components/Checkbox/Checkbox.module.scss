@@ -1,0 +1,48 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+    
+    gap: 16px;
+    width: 100%;
+
+    input[type='checkbox'] {
+        appearance: none; 
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: $black-10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+    
+        &:checked {
+            background: $primary-muted-orange;
+
+            &:after {
+                content: "";
+                background: url(./../../assets/icons/Group.svg);
+                position: absolute;
+                width: 9.583px;
+                height: 9.583px;
+                background-size: contain;
+            }
+        }
+
+        
+        
+    }
+
+    label {
+        flex-grow: 1;
+        color: $primary-black;
+        font-family: Inter;
+        letter-spacing: -0.16px;
+    }
+}
+
+    
+
+
+  
