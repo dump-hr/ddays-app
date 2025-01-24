@@ -3,6 +3,7 @@ import { ProgressBar } from '../../ProgressBar';
 import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
+import { AuthFooter } from '../../AuthFooter';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +23,8 @@ export const GeneralRegistrationForm = () => {
       {/*TODO postavit ovdje treći i četvrti korak*/}
       {currentStep === 3 && <FirstStepRegistrationForm />}
       {currentStep === 4 && <SecondStepRegistrationForm />}
+
+      <AuthFooter leftMessage='Već imaš račun?' rightMessage='Prijavi se' />
     </div>
   );
 };
