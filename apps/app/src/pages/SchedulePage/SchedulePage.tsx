@@ -16,7 +16,10 @@ export const SchedulePage = () => {
     <main className={c.main}>
       <h1 className={c.pageTitle}>Raspored</h1>
       <div className={c.contentWrapper}>
-        <TabGroup setter={() => setActiveTab} defaultTab={TabId.FIRST_DAY}>
+        <TabGroup
+          setter={() => setActiveTab}
+          defaultTab={TabId.FIRST_DAY}
+          className={c.contentWidth}>
           <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
           <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
           <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
