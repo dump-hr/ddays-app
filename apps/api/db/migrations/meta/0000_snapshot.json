@@ -1,5 +1,5 @@
 {
-  "id": "30affba3-3201-4450-9e75-8130bae1bfa8",
+  "id": "8bf9c6d2-d4d7-4cf0-a2cc-cdaf2296a76a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -1191,7 +1191,7 @@
         },
         "photo": {
           "name": "photo",
-          "type": "json",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": false
         },
