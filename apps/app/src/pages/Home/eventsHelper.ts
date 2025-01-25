@@ -46,6 +46,8 @@ export function getNextEvents(events: EventWithSpeakerDto[]) {
   const panels = filterAndSortEventByType(events, 'panel');
   const campfireTalks = filterAndSortEventByType(events, 'campfireTalk');
 
+  console.log(lectures);
+
   const nextLectures = lectures.filter((event) => {
     const startsAt = new Date(event.startsAt);
     const now = new Date();

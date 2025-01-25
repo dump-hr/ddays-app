@@ -6,12 +6,25 @@ import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getLiveEvents, getNextEvents } from '../../eventsHelper';
 import c from './EventsSection.module.scss';
-import { events } from '../../events';
 import clsx from 'clsx';
 
 enum Tabs {
   U_Tijeku,
   Nadolazece,
+}
+
+async function fetchEvents(): Promise<EventWithSpeakerDto[] | undefined> {
+  try {
+    const response = await fetch('/api/event/with-speaker');
+    if (!response.ok) {
+      throw new Error('Failed to fetch events with speakers');
+    }
+    const data = await response.json();
+    console.log(data);
+    return data as EventWithSpeakerDto[];
+  } catch (error) {
+    console.error('Error fetching events with speakers:', error);
+  }
 }
 
 const EventsSection = () => {
@@ -20,8 +33,10 @@ const EventsSection = () => {
   );
 
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
-  const [displayedEvents, setDisplayedEvents] =
-    useState<EventWithSpeakerDto[]>(events);
+  const [displayedEvents, setDisplayedEvents] = useState<EventWithSpeakerDto[]>(
+    [],
+  );
+  const [events, setEvents] = useState<EventWithSpeakerDto[]>([]);
 
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
@@ -34,8 +49,8 @@ const EventsSection = () => {
     }
   };
 
-  const liveEvents = useMemo(() => getLiveEvents(events), []);
-  const nextEvents = useMemo(() => getNextEvents(events), []);
+  const liveEvents = useMemo(() => getLiveEvents(events), [events]);
+  const nextEvents = useMemo(() => getNextEvents(events), [events]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -74,7 +89,7 @@ const EventsSection = () => {
     items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
-  }, [container, liveEvents, nextEvents, displayedEvents]);
+  }, [container, liveEvents, nextEvents, displayedEvents, events]);
 
   const handleDotClick = (index: number) => {
     setSnappedCardIndex(index);
@@ -98,6 +113,15 @@ const EventsSection = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const loadEventsWithSpeakers = async () => {
+      const fetchedCompanies = await fetchEvents();
+      if (fetchedCompanies) setEvents(fetchedCompanies);
+    };
+
+    loadEventsWithSpeakers();
+  }, []);
 
   return (
     <section className={c.lectures}>
