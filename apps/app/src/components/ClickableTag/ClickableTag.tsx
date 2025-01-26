@@ -17,7 +17,7 @@ const ClickableTag: React.FC<ClickableTagProps> = ({
   return (
     <button
       id={id as string}
-      className={clsx({ [c.tab]: true, [c.isActive]: isActive })}
+      className={clsx({ [c.clickableTag]: true, [c.isActive]: isActive })}
       onClick={onClick}>
       {children}
     </button>

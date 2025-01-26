@@ -1,0 +1,14 @@
+.clickableTag {
+  @include paragraph-16;
+  color: white;
+  background-color: $primary-muted-orange;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 13px 37px;
+  border-radius: 4px;
+
+  .isActive {
+    outline: 1px solid black;
+  }
+}

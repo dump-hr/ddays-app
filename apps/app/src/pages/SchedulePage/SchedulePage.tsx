@@ -11,6 +11,14 @@ enum TabId {
   MY_SCHEDULE = 'my-schedule',
 }
 
+enum TagId {
+  ALL = 'all',
+  DEV = 'dev',
+  DESIGN = 'design',
+  TECH = 'tech',
+  MARKETING = 'marketing',
+}
+
 export const SchedulePage = () => {
   const [, setActiveTab] = useState(TabId.FIRST_DAY);
 
@@ -26,18 +34,15 @@ export const SchedulePage = () => {
           <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
           <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
         </TabGroup>
+
         <ClickableTagGroup
           setter={() => setActiveTab}
           className={c.contentWidth}>
-          <ClickableTag id='all'>Svi</ClickableTag>
-          <ClickableTag id='lecture'>Predavanja</ClickableTag>
-          <ClickableTag id='workshop'>Radionice</ClickableTag>
-          <ClickableTag id='panel'>Paneli</ClickableTag>
-
-          <ClickableTag id='all'>Svi</ClickableTag>
-          <ClickableTag id='lecture'>Predavanja</ClickableTag>
-          <ClickableTag id='workshop'>Radionice</ClickableTag>
-          <ClickableTag id='panel'>Paneli</ClickableTag>
+          <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
+          <ClickableTag id={TagId.DEV}>Dev</ClickableTag>
+          <ClickableTag id={TagId.DESIGN}>Dizajn</ClickableTag>
+          <ClickableTag id={TagId.TECH}>Tech</ClickableTag>
+          <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
         </ClickableTagGroup>
       </div>
     </main>
