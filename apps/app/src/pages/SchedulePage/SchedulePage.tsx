@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './SchedulePage.module.scss';
+import ClickableTagGroup from '../../components/ClickableTagGroup';
+import ClickableTag from '../../components/ClickableTag';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -24,6 +26,19 @@ export const SchedulePage = () => {
           <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
           <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
         </TabGroup>
+        <ClickableTagGroup
+          setter={() => setActiveTab}
+          className={c.contentWidth}>
+          <ClickableTag id='all'>Svi</ClickableTag>
+          <ClickableTag id='lecture'>Predavanja</ClickableTag>
+          <ClickableTag id='workshop'>Radionice</ClickableTag>
+          <ClickableTag id='panel'>Paneli</ClickableTag>
+
+          <ClickableTag id='all'>Svi</ClickableTag>
+          <ClickableTag id='lecture'>Predavanja</ClickableTag>
+          <ClickableTag id='workshop'>Radionice</ClickableTag>
+          <ClickableTag id='panel'>Paneli</ClickableTag>
+        </ClickableTagGroup>
       </div>
     </main>
   );
