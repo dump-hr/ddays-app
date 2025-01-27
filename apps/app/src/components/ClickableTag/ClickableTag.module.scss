@@ -5,10 +5,14 @@
   border: none;
   outline: none;
   box-sizing: border-box;
-  padding: 13px 37px;
+  padding: 9px 20px;
   border-radius: 4px;
 
   .isActive {
     outline: 1px solid black;
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 13px 37px;
   }
 }

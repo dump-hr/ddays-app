@@ -1,0 +1,35 @@
+.clickableTagGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  overflow-x: auto;
+  position: relative;
+  left: -24px;
+  width: calc(100% + 2 * 24px) !important;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  button {
+    &:first-of-type {
+      margin-left: 24px;
+    }
+    &:last-of-type {
+      margin-right: 24px;
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    left: 0;
+    width: 100%;
+    margin-left: 24px;
+
+    button {
+      margin: 0;
+    }
+  }
+}

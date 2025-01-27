@@ -21,6 +21,7 @@ enum TagId {
 
 export const SchedulePage = () => {
   const [, setActiveTab] = useState(TabId.FIRST_DAY);
+  const [, setActiveTag] = useState(TagId.ALL);
 
   return (
     <main className={c.main}>
@@ -36,7 +37,7 @@ export const SchedulePage = () => {
         </TabGroup>
 
         <ClickableTagGroup
-          setter={() => setActiveTab}
+          setter={() => setActiveTag}
           className={c.contentWidth}>
           <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
           <ClickableTag id={TagId.DEV}>Dev</ClickableTag>
