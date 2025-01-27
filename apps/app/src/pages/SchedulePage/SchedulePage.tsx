@@ -38,7 +38,8 @@ export const SchedulePage = () => {
 
         <ClickableTagGroup
           setter={() => setActiveTag}
-          className={c.contentWidth}>
+          className={c.contentWidth}
+          defaultTag={TagId.ALL}>
           <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
           <ClickableTag id={TagId.DEV}>Dev</ClickableTag>
           <ClickableTag id={TagId.DESIGN}>Dizajn</ClickableTag>
