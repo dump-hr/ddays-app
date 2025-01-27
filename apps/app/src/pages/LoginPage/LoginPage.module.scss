@@ -2,41 +2,45 @@
   background-color: $primary-black;
   display: flex;
   flex-direction: column;
+  min-height: 100dvh;
 }
 
-.blackDiv {
+.pageName {
   color: $primary-background;
-  height: 116px;
+  height: 50px;
   display: flex;
   justify-content: left;
   align-items: center;
   padding-left: 24px;
-  padding-top: 60px;
-
-  @media (min-width: $breakpoint-tablet) {
-    justify-content: center;
-    padding-bottom: 40px;
-  }
-}
-
-.pageName {
+  padding-top: 40px;
+  padding-bottom: 20px;
   text-transform: uppercase;
   @include heading-2;
   font-style: normal;
   font-weight: 500;
   line-height: 28px;
   letter-spacing: -0.24px;
+
+  @media (min-width: $breakpoint-tablet) {
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-top: 50px;
+  }
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 16px 16px 16px 16px;
   background-color: $primary-background;
   box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
+  flex-grow: 1;
+  justify-content: space-between;
 
   @media (min-width: $breakpoint-tablet) {
     box-shadow: none;
+    justify-content: flex-start;
+    margin: 24px;
   }
 }
 
@@ -59,9 +63,8 @@
   color: $primary-black;
   line-height: 28px;
   letter-spacing: -0.24px;
-  margin-bottom: 24px;
-  width: 295px;
-  white-space: nowrap;
+  max-width: 100%;
+  text-align: center;
 
   @media (min-width: $breakpoint-tablet) {
     text-align: center;
@@ -93,8 +96,8 @@
 
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
-    min-width: 500px;
-    padding-top: 48px;
+    min-width: 470px;
+    padding-top: 24px;
     gap: 48px;
   }
 }
@@ -116,11 +119,12 @@
   justify-content: space-between;
   padding: 0px 24px;
   gap: 12px;
-  margin-top: 330px;
+  margin-top: auto;
+  transition: transform 0.3s ease;
 
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
-    min-width: 500px;
+    min-width: 470px;
     padding-top: 56px;
   }
 }
@@ -145,7 +149,7 @@
 
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
-    min-width: 500px;
+    min-width: 470px;
   }
 }
 

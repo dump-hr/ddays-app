@@ -1,7 +1,7 @@
 import { Input } from '../../components/Input';
 import { useState } from 'react';
 import c from './LoginPage.module.scss';
-import closeIcon from '../../assets/icons/Group.svg';
+import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
 import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
@@ -14,9 +14,13 @@ export const LoginPage = () => {
 
   const validateInputs = () => {
     let isValid = true;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email) {
       setEmailError('Hej, trebaš ispuniti sva polja.');
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError('Hej, unesi ispravnu email adresu.');
       isValid = false;
     } else {
       setEmailError('');
@@ -41,9 +45,7 @@ export const LoginPage = () => {
   return (
     <div>
       <div className={c.wrapper}>
-        <div className={c.blackDiv}>
-          <h1 className={c.pageName}>Prijava</h1>
-        </div>
+        <div className={c.pageName}>Prijava</div>
         <div className={c.container}>
           <div className={c.titleContainer}>
             <h1 className={c.title}>Dobro došli natrag!</h1>
