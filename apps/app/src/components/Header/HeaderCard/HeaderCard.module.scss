@@ -1,0 +1,51 @@
+.headerCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 20vw;
+  width: 20vw;
+  min-width: 110px;
+  min-height: 110px;
+  max-width: 136px;
+  max-height: 136px;
+
+  border-radius: 8px;
+  background-color: $black-90;
+  gap: 12px;
+  padding: 12px;
+
+  @media screen and (max-width: 400px) {
+    min-width: 90px;
+    min-height: 90px;
+    gap: 8px;
+
+    img {
+      scale: 0.8;
+    }
+
+    p {
+      font-size: 14px !important;
+    }
+  }
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: ease-in 100ms;
+
+  &:hover {
+    background-color: #414040;
+  }
+
+  &:active {
+    scale: 0.98;
+  }
+
+  p {
+    @include paragraph-16;
+    padding: 0;
+    margin: 0;
+  }
+}
