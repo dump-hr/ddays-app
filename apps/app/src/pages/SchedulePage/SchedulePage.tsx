@@ -4,6 +4,7 @@ import TabGroup from '../../components/TabGroup';
 import c from './SchedulePage.module.scss';
 import ClickableTagGroup from '../../components/ClickableTagGroup';
 import ClickableTag from '../../components/ClickableTag';
+import clsx from 'clsx';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -38,7 +39,7 @@ export const SchedulePage = () => {
 
         <ClickableTagGroup
           setter={() => setActiveTag}
-          className={c.contentWidth}
+          className={clsx(c.contentWidth, c.tagGroup)}
           defaultTag={TagId.ALL}>
           <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
           <ClickableTag id={TagId.DEV}>Dev</ClickableTag>

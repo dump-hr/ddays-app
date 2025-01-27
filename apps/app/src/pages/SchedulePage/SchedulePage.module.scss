@@ -39,5 +39,10 @@
     @media screen and (min-width: $breakpoint-tablet) {
       border-radius: 16px;
     }
+
+    .tagGroup {
+      margin-top: 24px;
+      margin-bottom: 32px;
+    }
   }
 }

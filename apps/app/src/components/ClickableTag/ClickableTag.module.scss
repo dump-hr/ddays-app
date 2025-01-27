@@ -7,6 +7,8 @@
   box-sizing: border-box;
   padding: 9px 20px;
   border-radius: 4px;
+  cursor: pointer;
+  transition: 100ms ease-in-out;
 
   &.isActive {
     color: white;
