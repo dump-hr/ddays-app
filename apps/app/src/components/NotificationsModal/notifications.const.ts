@@ -12,7 +12,8 @@ export const notifications: Array<Notification> = [
     content:
       'This is the first notification and it is a very long notification that will be cut off after a few lines sdaasds dadsad asdasd asd das dasd asdasdas sadasdasd',
     time: new Date('2025-1-28-12:00'),
-  },{
+  },
+  {
     id: 2,
     title: 'Notification 2',
     content: 'This is the second notification',
