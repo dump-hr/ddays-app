@@ -5,20 +5,7 @@ import React, { useEffect, useState } from 'react';
 import TopCompany from '../../../../components/TopCompany';
 import RecommendationsButton from '../../../../components/RecommendationsButton';
 import { CompanyPublicDto } from '@ddays-app/types';
-
-async function fetchTopRatedCompanies(): Promise<CompanyPublicDto[] | undefined> {
-  try {
-    const response = await fetch('/api/company/top-rated');
-    if (!response.ok) {
-      throw new Error('Failed to fetch top-rated companies');
-    }
-    const data = await response.json();
-    console.log(data);
-    return data as CompanyPublicDto[];
-  } catch (error) {
-    console.error('Error fetching top-rated companies:', error);
-  }
-}
+import { fetchTopRatedCompanies} from '../../companiesHelper'
 
 const TopCompaniesSection: React.FC = () => {
   const [companies, setCompanies] = useState<CompanyPublicDto[]>([]);

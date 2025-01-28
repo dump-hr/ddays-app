@@ -97,3 +97,17 @@ export function getNextEvents(events: EventWithSpeakerDto[]) {
     return startsAt >= startOfDay && startsAt < endOfDay;
   }) as EventWithSpeakerDto[];
 }
+
+export async function fetchEvents(): Promise<EventWithSpeakerDto[] | undefined> {
+  try {
+    const response = await fetch('/api/event/with-speaker');
+    if (!response.ok) {
+      throw new Error('Failed to fetch events with speakers');
+    }
+    const data = await response.json();
+    console.log(data);
+    return data as EventWithSpeakerDto[];
+  } catch (error) {
+    console.error('Error fetching events with speakers:', error);
+  }
+}

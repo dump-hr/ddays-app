@@ -4,27 +4,13 @@ import TabGroup from '../../../../components/TabGroup';
 import ArrowRight from '../../../../assets/icons/arrow-right.svg';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getLiveEvents, getNextEvents } from '../../eventsHelper';
+import { getLiveEvents, getNextEvents, fetchEvents} from '../../eventsHelper';
 import c from './EventsSection.module.scss';
 import clsx from 'clsx';
 
 enum Tabs {
   U_Tijeku,
   Nadolazece,
-}
-
-async function fetchEvents(): Promise<EventWithSpeakerDto[] | undefined> {
-  try {
-    const response = await fetch('/api/event/with-speaker');
-    if (!response.ok) {
-      throw new Error('Failed to fetch events with speakers');
-    }
-    const data = await response.json();
-    console.log(data);
-    return data as EventWithSpeakerDto[];
-  } catch (error) {
-    console.error('Error fetching events with speakers:', error);
-  }
 }
 
 const EventsSection = () => {
