@@ -1,0 +1,50 @@
+.modalHeader {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.backButton {
+  position: absolute;
+  left: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title {
+  @include heading-2;
+  font-weight: 500;
+  color: black;
+}
+
+.modalWrapper {
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  inset: 0;
+}
+
+.modalContent {
+  background: white;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 20px;
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+  overflow-y: scroll;
+  padding-bottom: 40px;
+}
+
+.notificationsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 35px;
+}
