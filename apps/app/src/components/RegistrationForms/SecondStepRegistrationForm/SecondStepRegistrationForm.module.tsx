@@ -6,15 +6,15 @@ import { DropdownOption } from '../../Dropdown/DropdownOption';
 
 type UserData = {
   phoneNumber: string;
-  birthYear: number;
-  educationDegree: number;
+  birthYear: number | null;
+  educationDegree: number | null;
   occupation: string;
 };
 export const SecondStepRegistrationForm = () => {
   const [userData, setUserData] = useState<UserData>({
     phoneNumber: '',
-    birthYear: 0,
-    educationDegree: 0,
+    birthYear: null,
+    educationDegree: null,
     occupation: '',
   });
   const [educationDegreeOption, setEducationDegreeOption] =
@@ -71,7 +71,9 @@ export const SecondStepRegistrationForm = () => {
 
         <Input
           name='birthYear'
-          value={userData.birthYear?.toString()}
+          value={
+            userData.birthYear?.toString() ? userData.birthYear.toString() : ''
+          }
           placeholder='Godina rođenja'
           onChange={handleInputChange}
         />
