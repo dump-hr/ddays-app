@@ -2,8 +2,14 @@ import c from './FlyTalksPage.module.scss';
 import removeIcon from '../../assets/icons/remove.svg';
 import Button from '../../components/Button/Button';
 import FlyTalksDuckImage from '../../assets/images/fly-talks-duck.png';
+import { useNavigate } from 'react-router-dom';
 
 const FlyTalksPage = () => {
+  const navigate = useNavigate();
+
+  const handleNextButtonClick = () => {
+    navigate('/app/flyTalksList');
+  };
   return (
     <div className={c.page}>
       <header className={c.header}>
@@ -33,7 +39,10 @@ const FlyTalksPage = () => {
             <br />
             Prijavi se i pokaži zašto si baš ti najbolji izbor za njih!
           </p>
-          <Button variant='orange' className={c.nextButton}>
+          <Button
+            variant='orange'
+            className={c.nextButton}
+            onClick={handleNextButtonClick}>
             Dalje
           </Button>
         </div>

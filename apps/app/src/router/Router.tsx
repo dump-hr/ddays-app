@@ -18,6 +18,7 @@ import { ShoppingPage } from '../pages/ShoppingPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import FlyTalksListPage from '../pages/FlyTalksListPage/FlyTalksListPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
+        <Route path={RouteNames.FLY_TALKS_LIST} element={<FlyTalksListPage />} />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
       <Route path='/app/test' element={<TestPage />} />
