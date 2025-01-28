@@ -10,6 +10,7 @@ type UserData = {
   educationDegree: number | null;
   occupation: string;
 };
+
 export const SecondStepRegistrationForm = () => {
   const [userData, setUserData] = useState<UserData>({
     phoneNumber: '',
@@ -26,6 +27,16 @@ export const SecondStepRegistrationForm = () => {
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+  };
+
+  const handleDropdownChange = (
+    field: 'educationDegree' | 'occupation',
+    selectedOption: DropdownOption,
+  ) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      [field]: selectedOption.value,
     }));
   };
 
@@ -59,6 +70,8 @@ export const SecondStepRegistrationForm = () => {
     },
   ];
 
+  console.log(userData);
+
   return (
     <>
       <div className={c.inputFieldsWrapper}>
@@ -82,9 +95,10 @@ export const SecondStepRegistrationForm = () => {
           label='Stupanj obrazovanja'
           placeholder='Izaberi'
           options={educationDegreeOptions}
-          setOption={(selectedOption) =>
-            setEducationDegreeOption(selectedOption)
-          }
+          setOption={(selectedOption) => {
+            setEducationDegreeOption(selectedOption);
+            handleDropdownChange('educationDegree', selectedOption);
+          }}
           selectedOption={educationDegreeOption}
         />
 
@@ -92,7 +106,10 @@ export const SecondStepRegistrationForm = () => {
           label='Trenutna okupacija'
           placeholder='Izaberi'
           options={occupationOptions}
-          setOption={(selectedOption) => setOccupationOption(selectedOption)}
+          setOption={(selectedOption) => {
+            setOccupationOption(selectedOption);
+            handleDropdownChange('occupation', selectedOption);
+          }}
           selectedOption={occupationOption}
         />
       </div>
