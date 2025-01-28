@@ -3,6 +3,7 @@ import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './FlyTalksListPage.module.scss';
 import Button from '../../components/Button';
+import star from '../../assets/icons/star.svg';
 
 const FirstDayGroupsMock = [
   {
@@ -16,6 +17,13 @@ const FirstDayGroupsMock = [
     start: '11:30',
     end: '12:30',
     participantsNumber: 10,
+    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    hasUserApplied: false,
+  },
+  {
+    start: '11:30',
+    end: '12:30',
+    participantsNumber: 25,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: false,
   },
@@ -94,10 +102,23 @@ interface FlyTalksGroupProps {
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
   return (
-    <div className={c.group} key={key}>
+    <div
+      className={
+        group.hasUserApplied
+          ? `${c.group} ${c.groupApplied}`
+          : group.participantsNumber < 25
+            ? c.group
+            : `${c.group} ${c.groupFull}`
+      }
+      key={key}>
       <div className={c.groupHeader}>
         <div></div>
-        <p>{group.participantsNumber}/25 PRIJAVLJENIH</p>
+        <img className={c.starIcon} src={star} alt='' />
+        <p>
+          {!group.hasUserApplied
+            ? `${group.participantsNumber}/25 PRIJAVLJENIH`
+            : 'PRIJAVLJEN TERMIN'}
+        </p>
       </div>
       <p className={c.groupDuration}>
         {group.start} - {group.end}
@@ -111,7 +132,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
           </div>
         ))}
         <Button variant='orange' className={c.applyButton}>
-          Prijavi
+          {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
         </Button>
       </div>
     </div>
