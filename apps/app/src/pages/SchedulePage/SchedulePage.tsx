@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './SchedulePage.module.scss';
 import ClickableTagGroup from '../../components/ClickableTagGroup';
 import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
+import { EventWithSpeakerDto } from '@ddays-app/types';
+import { events } from './events';
+import CompactScheduleCard from '../../components/CompactScheduleCard';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -21,8 +24,24 @@ enum TagId {
 }
 
 export const SchedulePage = () => {
-  const [, setActiveTab] = useState(TabId.FIRST_DAY);
-  const [, setActiveTag] = useState(TagId.ALL);
+  const [activeTab, setActiveTab] = useState(TabId.FIRST_DAY);
+  const [activeTag, setActiveTag] = useState(TagId.ALL);
+  const [filteredEvents, setFilteredEvents] = useState<EventWithSpeakerDto[]>(
+    [],
+  );
+
+  useEffect(() => {
+    const dateFilter = new Date(
+      activeTab === TabId.FIRST_DAY ? '2025-05-23' : '2025-05-24',
+    );
+    setFilteredEvents(
+      events.filter(
+        (event) =>
+          new Date(event.startsAt).getDate() === dateFilter.getDate() &&
+          (event.theme === activeTag.toUpperCase() || activeTag === TagId.ALL),
+      ),
+    );
+  }, [activeTab, activeTag]);
 
   return (
     <main className={c.main}>
@@ -47,6 +66,10 @@ export const SchedulePage = () => {
           <ClickableTag id={TagId.TECH}>Tech</ClickableTag>
           <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
         </ClickableTagGroup>
+
+        {filteredEvents.map((event) => (
+          <CompactScheduleCard id='id' key={event.id} event={event} />
+        ))}
       </div>
     </main>
   );
