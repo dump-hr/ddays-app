@@ -1,9 +1,15 @@
 import sprite from './../../../assets/sprite.svg';
 import styles from './NotificationBell.module.scss';
 
-export const NotificationBell = () => {
+interface NotificationBellProps {
+  setOpenNotifications: (open: boolean) => void;
+}
+
+export const NotificationBell: React.FC<NotificationBellProps> = ({
+  setOpenNotifications,
+}) => {
   return (
-    <div className={styles.notificationWrapper}>
+    <div className={styles.notificationWrapper} onClick={() => setOpenNotifications(true)}>
       <svg className={styles.notificationIcon} width={32} height={32}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
