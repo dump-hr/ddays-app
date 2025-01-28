@@ -4,6 +4,8 @@ import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '../../AuthFooter';
+import Button from '../../Button/Button';
+import googleIcon from './../../../assets/icons/google-icon.svg';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -23,6 +25,16 @@ export const GeneralRegistrationForm = () => {
       {/*TODO postavit ovdje treći i četvrti korak*/}
       {currentStep === 3 && <FirstStepRegistrationForm />}
       {currentStep === 4 && <SecondStepRegistrationForm />}
+
+      <div className={c.buttonsWrapper}>
+        <Button type='submit' variant='orange' children='Registriraj se' />
+        <Button
+          type='submit'
+          variant='black'
+          children='Nastavi s Google'
+          icon={googleIcon}
+        />
+      </div>
 
       <AuthFooter leftMessage='Već imaš račun?' rightMessage='Prijavi se' />
     </div>

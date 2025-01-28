@@ -2,8 +2,6 @@ import { ChangeEvent, useState } from 'react';
 import { Input } from '../../Input';
 import c from './FirstStepRegistrationForm.module.scss';
 import { Checkbox } from '../../Checkbox';
-import Button from '../../Button';
-import googleIcon from '../../../assets/icons/google-icon.svg';
 
 type UserData = {
   firstName: string;
@@ -101,16 +99,6 @@ export const FirstStepRegistrationForm = () => {
           name='termsAndConditionsEnabled'
           onChange={handleCheckboxChange}
           key={3}
-        />
-      </div>
-
-      <div className={c.buttonsWrapper}>
-        <Button type='submit' variant='orange' children='Registriraj se' />
-        <Button
-          type='submit'
-          variant='black'
-          children='Nastavi s Google'
-          icon={googleIcon}
         />
       </div>
     </>

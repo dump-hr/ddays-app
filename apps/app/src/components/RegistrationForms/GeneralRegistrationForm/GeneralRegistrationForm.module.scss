@@ -23,6 +23,12 @@
             letter-spacing: -0.3px;
         }
     }
+
+    .buttonsWrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 }
 
 
