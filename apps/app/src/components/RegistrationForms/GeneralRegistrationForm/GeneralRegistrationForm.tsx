@@ -6,9 +6,34 @@ import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '../../AuthFooter';
 import Button from '../../Button/Button';
 import googleIcon from './../../../assets/icons/google-icon.svg';
+import { UserData } from '../../../types/user/user.dto';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
+  const [userData, setUserData] = useState<UserData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    repeatedPassword: '',
+    phoneNumber: '',
+    birthYear: null,
+    educationDegree: null,
+    occupation: null,
+    newsletterEnabled: false,
+    companiesNewsEnabled: false,
+    termsAndConditionsEnabled: false,
+  });
+
+  const updateUserData = (newData: Partial<UserData>) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      ...newData,
+    }));
+  };
+
+  console.log(userData);
 
   return (
     <div className={c.generalRegistrationForm}>
@@ -19,12 +44,23 @@ export const GeneralRegistrationForm = () => {
           setCurrentStep={setCurrentStep}
         />
       </div>
-      {currentStep === 1 && <FirstStepRegistrationForm />}
-      {currentStep === 2 && <SecondStepRegistrationForm />}
 
-      {/*TODO postavit ovdje treći i četvrti korak*/}
-      {currentStep === 3 && <FirstStepRegistrationForm />}
-      {currentStep === 4 && <SecondStepRegistrationForm />}
+      {currentStep === 1 && (
+        <FirstStepRegistrationForm
+          userData={userData}
+          updateUserData={updateUserData}
+        />
+      )}
+      {currentStep === 2 && (
+        <SecondStepRegistrationForm
+          userData={userData}
+          updateUserData={updateUserData}
+        />
+      )}
+
+      {/* TODO: Postaviti treći i četvrti korak */}
+      {currentStep === 3 && <div>Treći korak</div>}
+      {currentStep === 4 && <div>Četvrti korak</div>}
 
       <div className={c.buttonsWrapper}>
         <Button type='submit' variant='orange' children='Registriraj se' />

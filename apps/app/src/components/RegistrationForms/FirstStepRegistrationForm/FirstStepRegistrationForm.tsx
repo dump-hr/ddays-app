@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { Input } from '../../Input';
 import c from './FirstStepRegistrationForm.module.scss';
 import { Checkbox } from '../../Checkbox';
@@ -14,33 +14,25 @@ type UserData = {
   termsAndConditionsEnabled: boolean;
 };
 
-export const FirstStepRegistrationForm = () => {
-  const [userData, setUserData] = useState<UserData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    repeatedPassword: '',
-    newsletterEnabled: false,
-    companiesNewsEnabled: false,
-    termsAndConditionsEnabled: false,
-  });
+type Props = {
+  userData: UserData;
+  updateUserData: (newData: Partial<UserData>) => void;
+};
 
+export const FirstStepRegistrationForm = ({
+  userData,
+  updateUserData,
+}: Props) => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    updateUserData({ [name]: value });
   };
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: checked,
-    }));
+    updateUserData({ [name]: checked });
   };
+
   return (
     <>
       <div className={c.inputFieldsWrapper}>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import c from './SecondStepRegistrationForm.module.scss';
 import { Input } from '../../Input/Input';
 import Dropdown from '../../Dropdown/Dropdown';
@@ -7,70 +7,46 @@ import { DropdownOption } from '../../Dropdown/DropdownOption';
 type UserData = {
   phoneNumber: string;
   birthYear: number | null;
-  educationDegree: number | null;
-  occupation: string;
+  educationDegree: string | null;
+  occupation: string | null;
 };
 
-export const SecondStepRegistrationForm = () => {
-  const [userData, setUserData] = useState<UserData>({
-    phoneNumber: '',
-    birthYear: null,
-    educationDegree: null,
-    occupation: '',
-  });
-  const [educationDegreeOption, setEducationDegreeOption] =
-    useState<DropdownOption>();
-  const [occupationOption, setOccupationOption] = useState<DropdownOption>();
+type Props = {
+  userData: UserData;
+  updateUserData: (newData: Partial<UserData>) => void;
+};
 
+export const SecondStepRegistrationForm = ({
+  userData,
+  updateUserData,
+}: Props) => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    updateUserData({
+      [name]: name === 'birthYear' ? parseInt(value) || null : value,
+    });
   };
 
   const handleDropdownChange = (
     field: 'educationDegree' | 'occupation',
     selectedOption: DropdownOption,
   ) => {
-    setUserData((prevData) => ({
-      ...prevData,
+    updateUserData({
       [field]: selectedOption.value,
-    }));
+    });
   };
 
   const educationDegreeOptions: DropdownOption[] = [
-    {
-      value: 'A',
-      label: 'A',
-    },
-    {
-      value: 'b',
-      label: 'b',
-    },
-    {
-      value: 'cc',
-      label: 'cc',
-    },
+    { value: 'A', label: 'A' },
+    { value: 'B', label: 'B' },
+    { value: 'C', label: 'C' },
   ];
 
   const occupationOptions: DropdownOption[] = [
-    {
-      value: 'eefe',
-      label: 'eefe',
-    },
-    {
-      value: 'eee',
-      label: 'eee',
-    },
-    {
-      value: 'ee',
-      label: 'ee',
-    },
+    { value: 'D', label: 'D' },
+    { value: 'E', label: 'E' },
+    { value: 'F', label: 'F' },
   ];
-
-  console.log(userData);
 
   return (
     <>
@@ -84,9 +60,7 @@ export const SecondStepRegistrationForm = () => {
 
         <Input
           name='birthYear'
-          value={
-            userData.birthYear?.toString() ? userData.birthYear.toString() : ''
-          }
+          value={userData.birthYear?.toString() || ''}
           placeholder='Godina rođenja'
           onChange={handleInputChange}
         />
@@ -95,22 +69,24 @@ export const SecondStepRegistrationForm = () => {
           label='Stupanj obrazovanja'
           placeholder='Izaberi'
           options={educationDegreeOptions}
-          setOption={(selectedOption) => {
-            setEducationDegreeOption(selectedOption);
-            handleDropdownChange('educationDegree', selectedOption);
-          }}
-          selectedOption={educationDegreeOption}
+          setOption={(selectedOption) =>
+            handleDropdownChange('educationDegree', selectedOption)
+          }
+          selectedOption={educationDegreeOptions.find(
+            (option) => option.value === userData.educationDegree,
+          )}
         />
 
         <Dropdown
           label='Trenutna okupacija'
           placeholder='Izaberi'
           options={occupationOptions}
-          setOption={(selectedOption) => {
-            setOccupationOption(selectedOption);
-            handleDropdownChange('occupation', selectedOption);
-          }}
-          selectedOption={occupationOption}
+          setOption={(selectedOption) =>
+            handleDropdownChange('occupation', selectedOption)
+          }
+          selectedOption={occupationOptions.find(
+            (option) => option.value === userData.occupation,
+          )}
         />
       </div>
     </>
