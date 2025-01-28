@@ -5,12 +5,15 @@ import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
 import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
+import useDetectKeyboardOpen from '../../hooks/useDetectKeyboardOpen';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const isKeyboardOpen = useDetectKeyboardOpen(400, false);
 
   const validateInputs = () => {
     let isValid = true;
@@ -74,7 +77,10 @@ export const LoginPage = () => {
               Zaboravili ste lozinku?
             </a>
           </div>
-          <div className={c.buttonContainer}>
+          <div
+            className={`${c.buttonContainer} ${
+              isKeyboardOpen ? c.keyboardOpen : ''
+            }`}>
             <Button variant='orange' onClick={handleLogin}>
               Prijavi se
             </Button>
