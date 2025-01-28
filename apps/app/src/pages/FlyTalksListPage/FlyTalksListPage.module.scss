@@ -56,7 +56,7 @@
           border-radius: 8px 8px 0px 0px;
           background: #eddfcb;
 
-          .starIcon{
+          .starIcon {
             display: none;
           }
 
@@ -127,13 +127,32 @@
             text-transform: uppercase;
           }
         }
+
+        .applianceDisclaimer {
+          display: none;
+
+          border-radius: 0px 0px 16px 16px;
+          background: var(--Primary-Beige, #f5ede1);
+          border-radius: 0px 0px 8px 8px;
+          padding: 12px 24px;
+
+          p {
+            color: var(--Primary-Black, #171615);
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: -0.14px;
+          }
+        }
       }
 
       .groupApplied {
         .groupHeader {
           background: var(--Primary-Muted-orange, #e0553f);
 
-          .starIcon{
+          .starIcon {
             display: block;
           }
 
@@ -146,9 +165,19 @@
           }
         }
 
-        .applyButton {
-          background: #171615;
-          color: #ffffff;
+        .companiesList {
+          border-radius: 0;
+
+          .applyButton {
+            background: #171615;
+            color: #ffffff;
+          }
+        }
+
+        .applianceDisclaimer {
+          display: flex;
+          align-items: start;
+          gap: 10px;
         }
       }
 

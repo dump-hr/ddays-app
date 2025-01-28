@@ -4,6 +4,7 @@ import TabGroup from '../../components/TabGroup';
 import c from './FlyTalksListPage.module.scss';
 import Button from '../../components/Button';
 import star from '../../assets/icons/star.svg';
+import warning from '../../assets/images/warning.png';
 
 const FirstDayGroupsMock = [
   {
@@ -134,6 +135,13 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
         <Button variant='orange' className={c.applyButton}>
           {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
         </Button>
+      </div>
+      <div className={c.applianceDisclaimer}>
+        <img src={warning} alt="" />
+        <p>
+          Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
+          talk.
+        </p>
       </div>
     </div>
   );
