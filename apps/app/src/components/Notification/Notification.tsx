@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import c from './Notification.module.scss';
 import clsx from 'clsx';
+import { notifications } from '../NotificationsModal/notifications.const';
 
 type NotificationProps = {
   id: number;
@@ -70,7 +71,9 @@ const Notification: React.FC<NotificationProps> = ({
         )}
       </div>
       <p className={c.time}>{getPassedTime(time)}</p>
-      <div className={c.dottedBreak}></div>
+      {notifications.length !== id && (
+        <div className={c.dottedBreak}></div>
+      )}
     </div>
   );
 };
