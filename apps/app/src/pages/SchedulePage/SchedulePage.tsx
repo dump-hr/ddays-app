@@ -7,7 +7,7 @@ import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { events } from './events';
-import CompactScheduleCard from '../../components/CompactScheduleCard';
+import ScheduleCard from '../../components/ScheduleCard';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -48,7 +48,7 @@ export const SchedulePage = () => {
       <h1 className={c.pageTitle}>Raspored</h1>
       <div className={c.contentWrapper}>
         <TabGroup
-          setter={() => setActiveTab}
+          setter={(id) => setActiveTab(id as TabId)}
           defaultTab={TabId.FIRST_DAY}
           className={c.contentWidth}>
           <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
@@ -57,7 +57,7 @@ export const SchedulePage = () => {
         </TabGroup>
 
         <ClickableTagGroup
-          setter={() => setActiveTag}
+          setter={(id) => setActiveTag(id as TagId)}
           className={clsx(c.contentWidth, c.tagGroup)}
           defaultTag={TagId.ALL}>
           <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
@@ -68,7 +68,7 @@ export const SchedulePage = () => {
         </ClickableTagGroup>
 
         {filteredEvents.map((event) => (
-          <CompactScheduleCard id='id' key={event.id} event={event} />
+          <ScheduleCard clickHandler={() => {}} key={event.id} event={event} />
         ))}
       </div>
     </main>

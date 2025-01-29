@@ -1,7 +1,7 @@
 import c from './ClickableTagGroup.module.scss';
 import React, { useState } from 'react';
-import { TabProps } from '../Tab/Tab';
 import clsx from 'clsx';
+import { ClickableTagProps } from '../ClickableTag/ClickableTag';
 
 type ClickableTagGroupProps = {
   setter: (id: string) => void;
@@ -16,22 +16,22 @@ const ClickableTagGroup: React.FC<ClickableTagGroupProps> = ({
   defaultTag,
   className,
 }) => {
-  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const handleTabClick = (id: string) => {
-    setActiveTab(id);
+    setActiveTag(id);
     setter(id);
   };
 
   return (
     <div className={clsx(c.clickableTagGroup, className)}>
       {React.Children.map(children, (child, index) => {
-        if (React.isValidElement<TabProps>(child)) {
+        if (React.isValidElement<ClickableTagProps>(child)) {
           return React.cloneElement(child, {
             isActive:
-              activeTab === (child.props.id as string) ||
-              (activeTab === null && child.props.id === defaultTag) ||
-              (activeTab === null && defaultTag === undefined && index === 0),
+              activeTag === (child.props.id as string) ||
+              (activeTag === null && child.props.id === defaultTag) ||
+              (activeTag === null && defaultTag === undefined && index === 0),
             onClick: () => handleTabClick(child.props.id as string),
           });
         }
