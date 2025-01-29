@@ -1,8 +1,10 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import c from './SecondStepRegistrationForm.module.scss';
 import { Input } from '../../Input/Input';
 import Dropdown from '../../Dropdown/Dropdown';
 import { DropdownOption } from '../../Dropdown/DropdownOption';
+import { validateField, validations } from '../../../helpers/validateInput';
+import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 
 type UserData = {
   phoneNumber: string;
@@ -14,17 +16,27 @@ type UserData = {
 type Props = {
   userData: UserData;
   updateUserData: (newData: Partial<UserData>) => void;
+  isSubmitted: boolean;
 };
 
 export const SecondStepRegistrationForm = ({
   userData,
   updateUserData,
+  isSubmitted,
 }: Props) => {
+  const [errors, setErrors] = useState<RegistrationFormErrors>({});
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    updateUserData({
-      [name]: name === 'birthYear' ? parseInt(value) || null : value,
-    });
+
+    if (name === 'phoneNumber') {
+      const formattedPhoneNumber = validations.formatPhoneNumber(value);
+      updateUserData({ [name]: formattedPhoneNumber });
+    } else {
+      updateUserData({
+        [name]: name === 'birthYear' ? parseInt(value) || null : value,
+      });
+    }
   };
 
   const handleDropdownChange = (
@@ -35,6 +47,28 @@ export const SecondStepRegistrationForm = ({
       [field]: selectedOption.value,
     });
   };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      const newErrors: RegistrationFormErrors = {};
+
+      const fieldsToValidate: (keyof UserData)[] = [
+        'phoneNumber',
+        'birthYear',
+        'educationDegree',
+        'occupation',
+      ];
+
+      fieldsToValidate.forEach((field) => {
+        const error = validateField(field, userData[field], userData);
+        if (error) {
+          newErrors[field] = error;
+        }
+      });
+
+      setErrors(newErrors);
+    }
+  }, [isSubmitted, userData]);
 
   const educationDegreeOptions: DropdownOption[] = [
     { value: 'A', label: 'A' },
@@ -56,6 +90,7 @@ export const SecondStepRegistrationForm = ({
           value={userData.phoneNumber}
           placeholder='Broj mobitela'
           onChange={handleInputChange}
+          error={errors.phoneNumber}
         />
 
         <Input
@@ -63,6 +98,7 @@ export const SecondStepRegistrationForm = ({
           value={userData.birthYear?.toString() || ''}
           placeholder='Godina rođenja'
           onChange={handleInputChange}
+          error={errors.birthYear}
         />
 
         <Dropdown
@@ -75,6 +111,7 @@ export const SecondStepRegistrationForm = ({
           selectedOption={educationDegreeOptions.find(
             (option) => option.value === userData.educationDegree,
           )}
+          errorLabel={errors.educationDegree}
         />
 
         <Dropdown
@@ -87,6 +124,7 @@ export const SecondStepRegistrationForm = ({
           selectedOption={occupationOptions.find(
             (option) => option.value === userData.occupation,
           )}
+          errorLabel={errors.occupation}
         />
       </div>
     </>

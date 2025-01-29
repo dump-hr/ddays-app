@@ -55,6 +55,7 @@ export const GeneralRegistrationForm = () => {
         <SecondStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
+          isSubmitted={isSubmitted}
         />
       )}
 

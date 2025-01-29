@@ -89,6 +89,14 @@ export const validateField = (
         return 'Unesite ispravnu godinu rođenja';
       break;
 
+    case 'educationDegree':
+      if (!value) return 'Ovo polje je obavezno!';
+      break;
+
+    case 'occupation':
+      if (!value) return 'Ovo polje je obavezno';
+      break;
+
     case 'termsAndConditionsEnabled':
       if (!value) return 'Morate prihvatiti uvjete korištenja';
       break;
