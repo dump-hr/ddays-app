@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import styles from './NotificationsModal.module.scss';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import IconBell from '@/assets/icons/icon-bell.svg';
-import TabGroup from '@/components/TabGroup';
-import Tab from '@/components/Tab';
-import Notification from '@/components/Notification/Notification';
+import TabGroup from '../TabGroup';
+import Tab from '../Tab';
+import Notification from '../Notification/Notification';
 import { notifications } from './notifications.const';
 
 enum Tabs {
