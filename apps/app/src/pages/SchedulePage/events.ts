@@ -10,8 +10,8 @@ export const events: EventWithSpeakerDto[] = [
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'LECTURE',
-    theme: 'DEV',
+    type: 'lecture',
+    theme: 'dev',
     codeId: undefined,
     speakers: [
       {
@@ -29,13 +29,13 @@ export const events: EventWithSpeakerDto[] = [
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'GOLD',
+          category: 'gold',
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          instagramUrl: 'https://instagram.com/techco',
-          linkedinUrl: 'https://linkedin.com/company/techco',
+          instagram: 'https://instagram.com/techco',
+          linkedin: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -47,7 +47,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'DEV',
+              theme: 'dev',
             },
           ],
           jobs: [
@@ -74,8 +74,8 @@ export const events: EventWithSpeakerDto[] = [
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'WORKSHOP',
-    theme: 'DEV',
+    type: 'workshop',
+    theme: 'dev',
     codeId: undefined,
     speakers: [
       {
@@ -93,13 +93,13 @@ export const events: EventWithSpeakerDto[] = [
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'GOLD',
+          category: 'gold',
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          instagramUrl: 'https://instagram.com/techco',
-          linkedinUrl: 'https://linkedin.com/company/techco',
+          instagram: 'https://instagram.com/techco',
+          linkedin: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -111,7 +111,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'DEV',
+              theme: 'dev',
             },
           ],
           jobs: [
