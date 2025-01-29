@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import c from './Notification.module.scss';
 import clsx from 'clsx';
-import { notifications } from '../NotificationsModal/notifications.const';
 
 type NotificationProps = {
   id: number;
@@ -10,6 +9,7 @@ type NotificationProps = {
   time: Date;
   expandedNotificationId: number | null;
   setExpandedNotificationId: (id: number | null) => void;
+  notificationsLength: number;
 };
 
 //TODO: function that returns time string ex: 1 h ago or 10 min ago
@@ -21,6 +21,7 @@ const Notification: React.FC<NotificationProps> = ({
   time,
   expandedNotificationId,
   setExpandedNotificationId,
+  notificationsLength,
 }) => {
   const [showExpandButton, setShowExpandButton] = useState(false);
   const isExpanded = expandedNotificationId === id;
@@ -71,9 +72,7 @@ const Notification: React.FC<NotificationProps> = ({
         )}
       </div>
       <p className={c.time}>{getPassedTime(time)}</p>
-      {notifications.length !== id && (
-        <div className={c.dottedBreak}></div>
-      )}
+      {notificationsLength !== id && <div className={c.dottedBreak}></div>}
     </div>
   );
 };
