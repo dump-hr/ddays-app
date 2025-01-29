@@ -10,6 +10,7 @@ import { UserData } from '../../../types/user/user.dto';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [userData, setUserData] = useState<UserData>({
     firstName: '',
@@ -33,8 +34,6 @@ export const GeneralRegistrationForm = () => {
     }));
   };
 
-  console.log(userData);
-
   return (
     <div className={c.generalRegistrationForm}>
       <div className={c.registrationUpper}>
@@ -49,6 +48,7 @@ export const GeneralRegistrationForm = () => {
         <FirstStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
+          isSubmitted={isSubmitted}
         />
       )}
       {currentStep === 2 && (
@@ -63,7 +63,12 @@ export const GeneralRegistrationForm = () => {
       {currentStep === 4 && <div>Četvrti korak</div>}
 
       <div className={c.buttonsWrapper}>
-        <Button type='submit' variant='orange' children='Registriraj se' />
+        <Button
+          type='submit'
+          variant='orange'
+          children='Registriraj se'
+          onClick={() => setIsSubmitted(!isSubmitted)}
+        />
         <Button
           type='submit'
           variant='black'
