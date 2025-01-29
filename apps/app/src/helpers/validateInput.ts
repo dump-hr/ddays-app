@@ -17,9 +17,9 @@ export const validations = {
     return value.length >= 8 && /\d/.test(value);
   },
 
-  isValidPhoneNumber: (value: string) => {
+  isValidPhoneNumber: (value: string): boolean => {
     const cleanNumber = value.replace(/\s/g, '');
-    const phoneRegex = /^\+?\d{10,12}$/;
+    const phoneRegex = /^(?:\+?\d{11,13}|\d{9,10})$/;
     return phoneRegex.test(cleanNumber);
   },
 
@@ -53,10 +53,13 @@ export const validateField = (
 ): string | undefined => {
   switch (name) {
     case 'firstName':
+      if (!validations.isNotEmpty(value)) return 'Ovo polje je obavezno';
+      if (!validations.isValidName(value)) return 'Unesite ispravno ime';
+      break;
+
     case 'lastName':
       if (!validations.isNotEmpty(value)) return 'Ovo polje je obavezno';
-      if (!validations.isValidName(value))
-        return 'Unesite ispravno ime/prezime';
+      if (!validations.isValidName(value)) return 'Unesite ispravno prezime';
       break;
 
     case 'email':
