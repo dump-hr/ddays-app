@@ -5,6 +5,7 @@ import Dropdown from '../../Dropdown/Dropdown';
 import { DropdownOption } from '../../Dropdown/DropdownOption';
 import { validateField, validations } from '../../../helpers/validateInput';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
+import { UserDataFields } from '../../../types/user/user.dto';
 
 type UserData = {
   phoneNumber: string;
@@ -86,7 +87,7 @@ export const SecondStepRegistrationForm = ({
     <>
       <div className={c.inputFieldsWrapper}>
         <Input
-          name='phoneNumber'
+          name={UserDataFields.PhoneNumber}
           value={userData.phoneNumber}
           placeholder='Broj mobitela'
           onChange={handleInputChange}
@@ -94,7 +95,7 @@ export const SecondStepRegistrationForm = ({
         />
 
         <Input
-          name='birthYear'
+          name={UserDataFields.BirthYear}
           value={userData.birthYear?.toString() || ''}
           placeholder='Godina rođenja'
           onChange={handleInputChange}
@@ -106,7 +107,7 @@ export const SecondStepRegistrationForm = ({
           placeholder='Izaberi'
           options={educationDegreeOptions}
           setOption={(selectedOption) =>
-            handleDropdownChange('educationDegree', selectedOption)
+            handleDropdownChange(UserDataFields.EducationDegree, selectedOption)
           }
           selectedOption={educationDegreeOptions.find(
             (option) => option.value === userData.educationDegree,
@@ -119,7 +120,7 @@ export const SecondStepRegistrationForm = ({
           placeholder='Izaberi'
           options={occupationOptions}
           setOption={(selectedOption) =>
-            handleDropdownChange('occupation', selectedOption)
+            handleDropdownChange(UserDataFields.Occupation, selectedOption)
           }
           selectedOption={occupationOptions.find(
             (option) => option.value === userData.occupation,

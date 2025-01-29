@@ -4,6 +4,7 @@ import c from './FirstStepRegistrationForm.module.scss';
 import { Checkbox } from '../../Checkbox';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { validateField } from '../../../helpers/validateInput';
+import { UserDataFields } from '../../../types/user/user.dto';
 
 type UserData = {
   firstName: string;
@@ -63,28 +64,28 @@ export const FirstStepRegistrationForm = ({
     <>
       <div className={c.inputFieldsWrapper}>
         <Input
-          name='firstName'
+          name={UserDataFields.FirstName}
           value={userData.firstName}
           placeholder='Ime'
           onChange={handleInputChange}
           error={errors.firstName}
         />
         <Input
-          name='lastName'
+          name={UserDataFields.LastName}
           value={userData.lastName}
           placeholder='Prezime'
           onChange={handleInputChange}
           error={errors.lastName}
         />
         <Input
-          name='email'
+          name={UserDataFields.Email}
           value={userData.email}
           placeholder='Email'
           onChange={handleInputChange}
           error={errors.email}
         />
         <Input
-          name='password'
+          name={UserDataFields.Password}
           value={userData.password}
           placeholder='Lozinka'
           onChange={handleInputChange}
@@ -92,7 +93,7 @@ export const FirstStepRegistrationForm = ({
           type='password'
         />
         <Input
-          name='repeatedPassword'
+          name={UserDataFields.RepeatedPassword}
           value={userData.repeatedPassword}
           placeholder='Potvrdite lozinku'
           onChange={handleInputChange}
@@ -105,7 +106,7 @@ export const FirstStepRegistrationForm = ({
         <Checkbox
           label='Želim primati novosti o DUMP Days konferenciji.'
           checked={userData.newsletterEnabled}
-          name='newsletterEnabled'
+          name={UserDataFields.NewsletterEnabled}
           onChange={handleCheckboxChange}
           error={errors.termsAndConditionsEnabled}
           key={1}
@@ -113,7 +114,7 @@ export const FirstStepRegistrationForm = ({
         <Checkbox
           label='Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.'
           checked={userData.companiesNewsEnabled}
-          name='companiesNewsEnabled'
+          name={UserDataFields.CompaniesNewsEnabled}
           onChange={handleCheckboxChange}
           error={errors.termsAndConditionsEnabled}
           key={2}
@@ -121,7 +122,7 @@ export const FirstStepRegistrationForm = ({
         <Checkbox
           label='Slažem se s uvjetima i odredbama.'
           checked={userData.termsAndConditionsEnabled}
-          name='termsAndConditionsEnabled'
+          name={UserDataFields.TermsAndConditionsEnabled}
           onChange={handleCheckboxChange}
           error={errors.termsAndConditionsEnabled}
           key={3}

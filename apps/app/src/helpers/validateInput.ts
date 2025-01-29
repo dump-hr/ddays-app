@@ -1,4 +1,4 @@
-import { UserData } from '../types/user/user.dto';
+import { UserData, UserDataFields } from '../types/user/user.dto';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -18,6 +18,7 @@ export const validations = {
   },
 
   isValidPhoneNumber: (value: string): boolean => {
+    //TODO ovo mora bolje, npr trenutno prolazi 976480111
     const cleanNumber = value.replace(/\s/g, '');
     const phoneRegex = /^(?:\+?\d{11,13}|\d{9,10})$/;
     return phoneRegex.test(cleanNumber);
@@ -48,56 +49,63 @@ export const validations = {
 
 export const validateField = (
   name: keyof UserData,
-  value: any,
+  value: string | number | boolean | null | undefined,
   userData: Partial<UserData>,
 ): string | undefined => {
   switch (name) {
-    case 'firstName':
-      if (!validations.isNotEmpty(value)) return 'Ovo polje je obavezno';
-      if (!validations.isValidName(value)) return 'Unesite ispravno ime';
+    case UserDataFields.FirstName:
+      if (!validations.isNotEmpty(value as string))
+        return 'Ovo polje je obavezno';
+      if (!validations.isValidName(value as string))
+        return 'Unesite ispravno ime';
       break;
 
-    case 'lastName':
-      if (!validations.isNotEmpty(value)) return 'Ovo polje je obavezno';
-      if (!validations.isValidName(value)) return 'Unesite ispravno prezime';
+    case UserDataFields.LastName:
+      if (!validations.isNotEmpty(value as string))
+        return 'Ovo polje je obavezno';
+      if (!validations.isValidName(value as string))
+        return 'Unesite ispravno prezime';
       break;
 
-    case 'email':
-      if (!validations.isNotEmpty(value)) return 'Email je obavezan';
-      if (!validations.isValidEmail(value)) return 'Unesite ispravan email';
+    case UserDataFields.Email:
+      if (!validations.isNotEmpty(value as string)) return 'Email je obavezan';
+      if (!validations.isValidEmail(value as string))
+        return 'Unesite ispravan email';
       break;
 
-    case 'password':
-      if (!validations.isNotEmpty(value)) return 'Lozinka je obavezna';
-      if (!validations.isValidPassword(value))
+    case UserDataFields.Password:
+      if (!validations.isNotEmpty(value as string))
+        return 'Lozinka je obavezna';
+      if (!validations.isValidPassword(value as string))
         return 'Lozinka mora imati najmanje 8 znakova i broj';
       break;
 
-    case 'repeatedPassword':
+    case UserDataFields.RepeatedPassword:
       if (value !== userData.password) return 'Lozinke se ne podudaraju';
       break;
 
-    case 'phoneNumber':
-      if (!validations.isNotEmpty(value)) return 'Broj telefona je obavezan';
-      if (!validations.isValidPhoneNumber(value))
+    case UserDataFields.PhoneNumber:
+      if (!validations.isNotEmpty(value as string))
+        return 'Broj telefona je obavezan';
+      if (!validations.isValidPhoneNumber(value as string))
         return 'Unesite ispravan broj telefona';
       break;
 
-    case 'birthYear':
+    case UserDataFields.BirthYear:
       if (!value) return 'Godina rođenja je obavezna';
       if (!validations.isValidBirthYear(value.toString()))
         return 'Unesite ispravnu godinu rođenja';
       break;
 
-    case 'educationDegree':
+    case UserDataFields.EducationDegree:
       if (!value) return 'Ovo polje je obavezno!';
       break;
 
-    case 'occupation':
+    case UserDataFields.Occupation:
       if (!value) return 'Ovo polje je obavezno';
       break;
 
-    case 'termsAndConditionsEnabled':
+    case UserDataFields.TermsAndConditionsEnabled:
       if (!value) return 'Morate prihvatiti uvjete korištenja';
       break;
 
