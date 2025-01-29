@@ -67,9 +67,15 @@ export const SchedulePage = () => {
           <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
         </ClickableTagGroup>
 
-        {filteredEvents.map((event) => (
-          <ScheduleCard clickHandler={() => {}} key={event.id} event={event} />
-        ))}
+        <section className={clsx(c.eventsWrapper, c.contentWidth)}>
+          {filteredEvents.map((event) => (
+            <ScheduleCard
+              clickHandler={() => {}}
+              key={event.id}
+              event={event}
+            />
+          ))}
+        </section>
       </div>
     </main>
   );
