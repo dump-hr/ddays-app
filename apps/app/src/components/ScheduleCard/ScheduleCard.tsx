@@ -159,7 +159,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       </div>
 
       <Button
-        className={c.button}
+        className={clsx({
+          [c.button]: true,
+          [c.collapsibleContent]: true,
+          [c.collapsed]: !isOpen,
+        })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={clickHandler}>
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}

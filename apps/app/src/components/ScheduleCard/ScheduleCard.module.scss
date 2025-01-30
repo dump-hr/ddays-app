@@ -204,6 +204,8 @@
   }
 
   .button {
-    margin-top: 32px;
+    &.collapsed {
+      margin-top: -48px;
+    }
   }
 }
