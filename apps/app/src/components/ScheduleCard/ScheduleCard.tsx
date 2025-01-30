@@ -3,7 +3,7 @@ import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
 import Check from '../../assets/icons/check-1.svg';
 import Button from '../Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 
@@ -19,6 +19,14 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   clickHandler,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isLive, setIsLive] = useState(() => {
+    const now = new Date().getTime();
+    const start = new Date(event.startsAt).getTime();
+    const end = new Date(event.endsAt).getTime();
+
+    return now >= start && now <= end;
+  });
 
   function getThemeLabel(eventTheme: Theme) {
     switch (eventTheme) {
@@ -63,6 +71,22 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
   }
 
+  useEffect(() => {
+    const startMs = new Date(event.startsAt).getTime();
+    const endMs = new Date(event.endsAt).getTime();
+
+    const updateStatus = () => {
+      const now = new Date().getTime();
+      setIsLive(now >= startMs && now <= endMs);
+    };
+
+    updateStatus();
+
+    const interval = setInterval(updateStatus, 1000);
+
+    return () => clearInterval(interval);
+  }, [event.startsAt, event.endsAt]);
+
   return (
     <div className={c.scheduleCard}>
       {isAddedToSchedule && (
@@ -72,9 +96,19 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </div>
       )}
       <div className={c.timeAndArrow}>
-        <p className={c.time}>
-          {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
-        </p>
+        <div className={c.timeWrapper}>
+          {isLive && (
+            <div className={c.live}>
+              <div className={c.icon}>
+                <div className={c.innerCircle} />
+              </div>
+            </div>
+          )}
+          <p className={c.time}>
+            {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
+          </p>
+        </div>
+
         <img
           className={clsx({
             [c.arrowDown]: true,

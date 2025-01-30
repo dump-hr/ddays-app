@@ -32,9 +32,69 @@
     justify-content: space-between;
     align-items: center;
 
-    .time {
-      @include tag-14;
-      margin: 0;
+    .timeWrapper {
+      display: flex;
+      gap: 8px;
+
+      .live {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        @keyframes outer-circle-animation {
+          0% {
+            border: 1px solid rgba($primary-highlight, 0.3);
+          }
+          50% {
+            border: 1px solid rgba($primary-highlight, 1);
+          }
+          100% {
+            border: 1px solid rgba($primary-highlight, 0.3);
+          }
+        }
+
+        @keyframes inner-circle-animation {
+          0% {
+            background-color: rgba($primary-highlight, 0.3);
+          }
+          50% {
+            background-color: rgba($primary-highlight, 1);
+          }
+          100% {
+            background-color: rgba($primary-highlight, 0.3);
+          }
+        }
+
+        .icon {
+          position: relative;
+          height: 14px;
+          width: 14px;
+          border-radius: 100%;
+          border: 1px solid $primary-highlight;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: outer-circle-animation 2s infinite;
+          animation-delay: 0.2s;
+
+          .innerCircle {
+            height: 6px;
+            width: 6px;
+            border-radius: 100%;
+            background-color: $primary-highlight;
+            animation: inner-circle-animation 2s infinite;
+          }
+        }
+
+        .liveText {
+          @include tag-14;
+        }
+      }
+
+      .time {
+        @include tag-14;
+        margin: 0;
+      }
     }
 
     .arrowDown {

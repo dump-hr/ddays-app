@@ -37,8 +37,9 @@ export const SchedulePage = () => {
     setFilteredEvents(
       events.filter(
         (event) =>
-          new Date(event.startsAt).getDate() === dateFilter.getDate() &&
-          (event.theme === activeTag.toUpperCase() || activeTag === TagId.ALL),
+          (new Date(event.startsAt).getDate() === dateFilter.getDate() &&
+            event.theme === activeTag.toUpperCase()) ||
+          activeTag === TagId.ALL,
       ),
     );
   }, [activeTab, activeTag]);
