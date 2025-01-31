@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect } from 'react';
 import { Input } from '../../Input';
 import c from './FirstStepRegistrationForm.module.scss';
-import { Checkbox } from '../../Checkbox';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { validateField } from '../../../helpers/validateInput';
 import { UserDataFields } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
+import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 
 type UserData = {
   firstName: string;
@@ -37,17 +37,14 @@ export const FirstStepRegistrationForm = ({
     UserDataFields.Email,
     UserDataFields.Password,
     UserDataFields.RepeatedPassword,
+    UserDataFields.NewsletterEnabled,
+    UserDataFields.CompaniesNewsEnabled,
     UserDataFields.TermsAndConditionsEnabled,
   ];
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     updateUserData({ [name]: value });
-  };
-
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    updateUserData({ [name]: checked });
   };
 
   const validateFirstStep = () => {
@@ -132,32 +129,10 @@ export const FirstStepRegistrationForm = ({
         />
       </div>
 
-      <div className={c.checkboxFieldsWrapper}>
-        <Checkbox
-          label='Želim primati novosti o DUMP Days konferenciji.'
-          checked={userData.newsletterEnabled}
-          name={UserDataFields.NewsletterEnabled}
-          onChange={handleCheckboxChange}
-          error={errors[1]?.newsletterEnabled}
-          key={1}
-        />
-        <Checkbox
-          label='Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.'
-          checked={userData.companiesNewsEnabled}
-          name={UserDataFields.CompaniesNewsEnabled}
-          onChange={handleCheckboxChange}
-          error={errors[1]?.companiesNewsEnabled}
-          key={2}
-        />
-        <Checkbox
-          label='Slažem se s uvjetima i odredbama.'
-          checked={userData.termsAndConditionsEnabled}
-          name={UserDataFields.TermsAndConditionsEnabled}
-          onChange={handleCheckboxChange}
-          error={errors[1]?.termsAndConditionsEnabled}
-          key={3}
-        />
-      </div>
+      <CheckboxFieldsWrapper
+        userData={userData}
+        updateUserData={updateUserData}
+      />
     </>
   );
 };

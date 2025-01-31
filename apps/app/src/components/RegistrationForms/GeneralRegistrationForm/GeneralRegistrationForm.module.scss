@@ -24,6 +24,10 @@
         }
     }
 
+    @media (max-width: $breakpoint-tablet) {
+        padding-inline: 24px;
+    }
+
     .buttonsWrapper{
         display: flex;
         flex-direction: column;

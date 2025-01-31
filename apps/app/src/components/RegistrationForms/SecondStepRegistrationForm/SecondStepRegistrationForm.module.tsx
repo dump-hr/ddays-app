@@ -7,12 +7,16 @@ import { validateField, validations } from '../../../helpers/validateInput';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { UserDataFields } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
+import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 
 type UserData = {
   phoneNumber: string;
   birthYear: number | null;
   educationDegree: string | null;
   occupation: string | null;
+  newsletterEnabled: boolean;
+  companiesNewsEnabled: boolean;
+  termsAndConditionsEnabled: boolean;
 };
 
 type Props = {
@@ -33,6 +37,9 @@ export const SecondStepRegistrationForm = ({
     UserDataFields.BirthYear,
     UserDataFields.EducationDegree,
     UserDataFields.Occupation,
+    UserDataFields.NewsletterEnabled,
+    UserDataFields.CompaniesNewsEnabled,
+    UserDataFields.TermsAndConditionsEnabled,
   ];
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +89,8 @@ export const SecondStepRegistrationForm = ({
       userData.phoneNumber !== '' &&
       userData.birthYear !== null &&
       userData.educationDegree !== null &&
-      userData.occupation !== null
+      userData.occupation !== null &&
+      userData.termsAndConditionsEnabled !== null
     ) {
       return true;
     }
@@ -150,6 +158,11 @@ export const SecondStepRegistrationForm = ({
             (option) => option.value === userData.occupation,
           )}
           errorLabel={errors[2]?.occupation}
+        />
+
+        <CheckboxFieldsWrapper
+          userData={userData}
+          updateUserData={updateUserData}
         />
       </div>
     </>
