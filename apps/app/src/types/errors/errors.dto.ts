@@ -9,4 +9,6 @@ export type RegistrationFormErrors = {
   educationDegree?: string;
   occupation?: string;
   termsAndConditionsEnabled?: string;
+  newsletterEnabled: string;
+  companiesNewsEnabled: string;
 };
