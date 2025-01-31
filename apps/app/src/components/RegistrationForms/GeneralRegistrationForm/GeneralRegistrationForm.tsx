@@ -60,7 +60,7 @@ export const GeneralRegistrationForm = () => {
         break;
     }
     if (isStepValid(currentStep)) {
-      let nextStep = currentStep + 1;
+      const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
     }
   };
