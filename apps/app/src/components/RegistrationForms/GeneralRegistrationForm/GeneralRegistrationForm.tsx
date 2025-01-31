@@ -41,6 +41,7 @@ export const GeneralRegistrationForm = () => {
   };
 
   const { isStepValid } = useRegistration();
+
   const handleRegistrationClick = () => {
     switch (currentStep) {
       case 1:
@@ -62,7 +63,6 @@ export const GeneralRegistrationForm = () => {
       let nextStep = currentStep + 1;
       setCurrentStep(nextStep);
     }
-    console.log('currentStep: ', currentStep);
   };
 
   return (

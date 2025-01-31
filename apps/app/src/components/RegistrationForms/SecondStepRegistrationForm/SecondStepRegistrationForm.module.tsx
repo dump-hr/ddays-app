@@ -77,8 +77,20 @@ export const SecondStepRegistrationForm = ({
     }
   };
 
+  const allFieldsAreFilled = () => {
+    if (
+      userData.phoneNumber !== '' &&
+      userData.birthYear !== null &&
+      userData.educationDegree !== null &&
+      userData.occupation !== null
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
-    if (isSubmitted) {
+    if (isSubmitted || allFieldsAreFilled()) {
       validateSecondStep();
     }
   }, [isSubmitted, userData]);

@@ -70,8 +70,22 @@ export const FirstStepRegistrationForm = ({
     }
   };
 
+  const allFieldsAreFilled = () => {
+    if (
+      (userData.firstName != '' &&
+        userData.lastName !== '' &&
+        userData.email !== '',
+      userData.password !== '',
+      userData.repeatedPassword !== '')
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   useEffect(() => {
-    if (isSubmitted) {
+    if (isSubmitted || allFieldsAreFilled()) {
       validateFirstStep();
     }
   }, [isSubmitted, userData]);
@@ -124,7 +138,7 @@ export const FirstStepRegistrationForm = ({
           checked={userData.newsletterEnabled}
           name={UserDataFields.NewsletterEnabled}
           onChange={handleCheckboxChange}
-          error={errors[1]?.termsAndConditionsEnabled}
+          error={errors[1]?.newsletterEnabled}
           key={1}
         />
         <Checkbox
@@ -132,7 +146,7 @@ export const FirstStepRegistrationForm = ({
           checked={userData.companiesNewsEnabled}
           name={UserDataFields.CompaniesNewsEnabled}
           onChange={handleCheckboxChange}
-          error={errors[1]?.termsAndConditionsEnabled}
+          error={errors[1]?.companiesNewsEnabled}
           key={2}
         />
         <Checkbox

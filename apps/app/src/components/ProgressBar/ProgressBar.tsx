@@ -17,7 +17,7 @@ export const ProgressBar = ({
   const handleStepClick = (clickedStep: number) => {
     const isGoingBackwards = clickedStep <= currentStep;
     const isGoingForward = clickedStep === currentStep + 1;
-    console.log(isStepValid(currentStep));
+
     if (isGoingBackwards) {
       setCurrentStep(clickedStep);
     } else if (isGoingForward && isStepValid(currentStep)) {

@@ -19,7 +19,6 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [errors, setErrors] = useState<Record<number, RegistrationFormErrors>>(
     {},
   );
-  console.log(errors);
 
   const setStepErrors = (
     step: number,
