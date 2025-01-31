@@ -57,7 +57,7 @@ export const SecondStepRegistrationForm = ({
     });
   };
 
-  const validateFirstStep = () => {
+  const validateSecondStep = () => {
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     secondStepFields.forEach((key) => {
@@ -79,31 +79,9 @@ export const SecondStepRegistrationForm = ({
 
   useEffect(() => {
     if (isSubmitted) {
-      validateFirstStep();
+      validateSecondStep();
     }
   }, [isSubmitted, userData]);
-
-  // useEffect(() => {
-  //   if (isSubmitted) {
-  //     const newErrors: RegistrationFormErrors = {};
-
-  //     const fieldsToValidate: (keyof UserData)[] = [
-  //       'phoneNumber',
-  //       'birthYear',
-  //       'educationDegree',
-  //       'occupation',
-  //     ];
-
-  //     fieldsToValidate.forEach((field) => {
-  //       const error = validateField(field, userData[field], userData);
-  //       if (error) {
-  //         newErrors[field] = error;
-  //       }
-  //     });
-
-  //     setStepErrors(2, newErrors);
-  //   }
-  // }, [isSubmitted, userData, setStepErrors]);
 
   const educationDegreeOptions: DropdownOption[] = [
     { value: 'A', label: 'A' },

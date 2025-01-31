@@ -7,10 +7,16 @@ import { AuthFooter } from '../../AuthFooter';
 import Button from '../../Button/Button';
 import googleIcon from './../../../assets/icons/google-icon.svg';
 import { UserData } from '../../../types/user/user.dto';
+import { useRegistration } from '../../../providers/RegistrationContext';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState({
+    firstStepIsSubmitted: false,
+    secondStepIsSubmitted: false,
+    thirdStepIsSubmitted: false,
+    fourthStepIsSubmitted: false,
+  });
 
   const [userData, setUserData] = useState<UserData>({
     firstName: '',
@@ -34,6 +40,31 @@ export const GeneralRegistrationForm = () => {
     }));
   };
 
+  const { isStepValid } = useRegistration();
+  const handleRegistrationClick = () => {
+    switch (currentStep) {
+      case 1:
+        setIsSubmitted({ ...isSubmitted, firstStepIsSubmitted: true });
+        break;
+      case 2:
+        setIsSubmitted({ ...isSubmitted, secondStepIsSubmitted: true });
+        break;
+      case 3:
+        setIsSubmitted({ ...isSubmitted, thirdStepIsSubmitted: true });
+        break;
+      case 4:
+        setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+        break;
+      default:
+        break;
+    }
+    if (isStepValid(currentStep)) {
+      let nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+    }
+    console.log('currentStep: ', currentStep);
+  };
+
   return (
     <div className={c.generalRegistrationForm}>
       <div className={c.registrationUpper}>
@@ -48,14 +79,14 @@ export const GeneralRegistrationForm = () => {
         <FirstStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
-          isSubmitted={isSubmitted}
+          isSubmitted={isSubmitted.firstStepIsSubmitted}
         />
       )}
       {currentStep === 2 && (
         <SecondStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
-          isSubmitted={isSubmitted}
+          isSubmitted={isSubmitted.secondStepIsSubmitted}
         />
       )}
 
@@ -68,7 +99,7 @@ export const GeneralRegistrationForm = () => {
           type='submit'
           variant='orange'
           children='Registriraj se'
-          onClick={() => setIsSubmitted(!isSubmitted)}
+          onClick={handleRegistrationClick}
         />
         <Button
           type='submit'

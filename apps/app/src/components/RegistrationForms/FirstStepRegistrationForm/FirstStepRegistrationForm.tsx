@@ -76,26 +76,6 @@ export const FirstStepRegistrationForm = ({
     }
   }, [isSubmitted, userData]);
 
-  // useEffect(() => {
-  //   if (isSubmitted) {
-  //     const newErrors: Partial<RegistrationFormErrors> = {};
-
-  //     firstStepFields.forEach((key) => {
-  //       const error = validateField(key, userData[key], userData);
-
-  //       if (error) {
-  //         newErrors[key] = error;
-  //       }
-  //     });
-
-  //     if (Object.keys(newErrors).length > 0) {
-  //       setStepErrors(1, newErrors);
-  //     } else {
-  //       clearStepErrors(1);
-  //     }
-  //   }
-  // }, [isSubmitted, userData, setStepErrors, clearStepErrors]);
-
   return (
     <>
       <div className={c.inputFieldsWrapper}>
