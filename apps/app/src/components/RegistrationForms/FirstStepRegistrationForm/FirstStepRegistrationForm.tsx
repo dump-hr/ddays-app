@@ -1,10 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { Input } from '../../Input';
 import c from './FirstStepRegistrationForm.module.scss';
 import { Checkbox } from '../../Checkbox';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { validateField } from '../../../helpers/validateInput';
 import { UserDataFields } from '../../../types/user/user.dto';
+import { useRegistration } from '../../../providers/RegistrationContext';
 
 type UserData = {
   firstName: string;
@@ -28,7 +29,16 @@ export const FirstStepRegistrationForm = ({
   updateUserData,
   isSubmitted,
 }: Props) => {
-  const [errors, setErrors] = useState<RegistrationFormErrors>({});
+  const { errors, clearStepErrors, setStepErrors } = useRegistration();
+
+  const firstStepFields: (keyof UserData)[] = [
+    UserDataFields.FirstName,
+    UserDataFields.LastName,
+    UserDataFields.Email,
+    UserDataFields.Password,
+    UserDataFields.RepeatedPassword,
+    UserDataFields.TermsAndConditionsEnabled,
+  ];
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,25 +50,51 @@ export const FirstStepRegistrationForm = ({
     updateUserData({ [name]: checked });
   };
 
+  const validateFirstStep = () => {
+    const newErrors: Partial<RegistrationFormErrors> = {};
+
+    firstStepFields.forEach((key) => {
+      const error = validateField(key, userData[key], userData);
+
+      if (error) {
+        newErrors[key] = error;
+      } else {
+        newErrors[key] = '';
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setStepErrors(1, newErrors);
+    } else {
+      clearStepErrors(1);
+    }
+  };
+
   useEffect(() => {
     if (isSubmitted) {
-      const newErrors: RegistrationFormErrors = {};
-
-      Object.keys(userData).forEach((key) => {
-        const error = validateField(
-          key as keyof UserData,
-          userData[key as keyof UserData],
-          userData,
-        );
-
-        if (error) {
-          newErrors[key as keyof RegistrationFormErrors] = error;
-        }
-      });
-
-      setErrors(newErrors);
+      validateFirstStep();
     }
   }, [isSubmitted, userData]);
+
+  // useEffect(() => {
+  //   if (isSubmitted) {
+  //     const newErrors: Partial<RegistrationFormErrors> = {};
+
+  //     firstStepFields.forEach((key) => {
+  //       const error = validateField(key, userData[key], userData);
+
+  //       if (error) {
+  //         newErrors[key] = error;
+  //       }
+  //     });
+
+  //     if (Object.keys(newErrors).length > 0) {
+  //       setStepErrors(1, newErrors);
+  //     } else {
+  //       clearStepErrors(1);
+  //     }
+  //   }
+  // }, [isSubmitted, userData, setStepErrors, clearStepErrors]);
 
   return (
     <>
@@ -68,28 +104,28 @@ export const FirstStepRegistrationForm = ({
           value={userData.firstName}
           placeholder='Ime'
           onChange={handleInputChange}
-          error={errors.firstName}
+          error={errors[1]?.firstName}
         />
         <Input
           name={UserDataFields.LastName}
           value={userData.lastName}
           placeholder='Prezime'
           onChange={handleInputChange}
-          error={errors.lastName}
+          error={errors[1]?.lastName}
         />
         <Input
           name={UserDataFields.Email}
           value={userData.email}
           placeholder='Email'
           onChange={handleInputChange}
-          error={errors.email}
+          error={errors[1]?.email}
         />
         <Input
           name={UserDataFields.Password}
           value={userData.password}
           placeholder='Lozinka'
           onChange={handleInputChange}
-          error={errors.password}
+          error={errors[1]?.password}
           type='password'
         />
         <Input
@@ -97,7 +133,7 @@ export const FirstStepRegistrationForm = ({
           value={userData.repeatedPassword}
           placeholder='Potvrdite lozinku'
           onChange={handleInputChange}
-          error={errors.repeatedPassword}
+          error={errors[1]?.repeatedPassword}
           type='password'
         />
       </div>
@@ -108,7 +144,7 @@ export const FirstStepRegistrationForm = ({
           checked={userData.newsletterEnabled}
           name={UserDataFields.NewsletterEnabled}
           onChange={handleCheckboxChange}
-          error={errors.termsAndConditionsEnabled}
+          error={errors[1]?.termsAndConditionsEnabled}
           key={1}
         />
         <Checkbox
@@ -116,7 +152,7 @@ export const FirstStepRegistrationForm = ({
           checked={userData.companiesNewsEnabled}
           name={UserDataFields.CompaniesNewsEnabled}
           onChange={handleCheckboxChange}
-          error={errors.termsAndConditionsEnabled}
+          error={errors[1]?.termsAndConditionsEnabled}
           key={2}
         />
         <Checkbox
@@ -124,7 +160,7 @@ export const FirstStepRegistrationForm = ({
           checked={userData.termsAndConditionsEnabled}
           name={UserDataFields.TermsAndConditionsEnabled}
           onChange={handleCheckboxChange}
-          error={errors.termsAndConditionsEnabled}
+          error={errors[1]?.termsAndConditionsEnabled}
           key={3}
         />
       </div>

@@ -1,9 +1,12 @@
 import { GeneralRegistrationForm } from '../../components/RegistrationForms/GeneralRegistrationForm/GeneralRegistrationForm';
+import { RegistrationProvider } from '../../providers/RegistrationContext';
 
 export const RegisterPage = () => {
   return (
     <div>
-      <GeneralRegistrationForm />
+      <RegistrationProvider>
+        <GeneralRegistrationForm />
+      </RegistrationProvider>
     </div>
   );
 };

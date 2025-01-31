@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import c from './SecondStepRegistrationForm.module.scss';
 import { Input } from '../../Input/Input';
 import Dropdown from '../../Dropdown/Dropdown';
@@ -6,6 +6,7 @@ import { DropdownOption } from '../../Dropdown/DropdownOption';
 import { validateField, validations } from '../../../helpers/validateInput';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { UserDataFields } from '../../../types/user/user.dto';
+import { useRegistration } from '../../../providers/RegistrationContext';
 
 type UserData = {
   phoneNumber: string;
@@ -25,7 +26,14 @@ export const SecondStepRegistrationForm = ({
   updateUserData,
   isSubmitted,
 }: Props) => {
-  const [errors, setErrors] = useState<RegistrationFormErrors>({});
+  const { errors, clearStepErrors, setStepErrors } = useRegistration();
+
+  const secondStepFields: (keyof UserData)[] = [
+    UserDataFields.PhoneNumber,
+    UserDataFields.BirthYear,
+    UserDataFields.EducationDegree,
+    UserDataFields.Occupation,
+  ];
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,27 +57,53 @@ export const SecondStepRegistrationForm = ({
     });
   };
 
+  const validateFirstStep = () => {
+    const newErrors: Partial<RegistrationFormErrors> = {};
+
+    secondStepFields.forEach((key) => {
+      const error = validateField(key, userData[key], userData);
+
+      if (error) {
+        newErrors[key] = error;
+      } else {
+        newErrors[key] = '';
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setStepErrors(2, newErrors);
+    } else {
+      clearStepErrors(2);
+    }
+  };
+
   useEffect(() => {
     if (isSubmitted) {
-      const newErrors: RegistrationFormErrors = {};
-
-      const fieldsToValidate: (keyof UserData)[] = [
-        'phoneNumber',
-        'birthYear',
-        'educationDegree',
-        'occupation',
-      ];
-
-      fieldsToValidate.forEach((field) => {
-        const error = validateField(field, userData[field], userData);
-        if (error) {
-          newErrors[field] = error;
-        }
-      });
-
-      setErrors(newErrors);
+      validateFirstStep();
     }
   }, [isSubmitted, userData]);
+
+  // useEffect(() => {
+  //   if (isSubmitted) {
+  //     const newErrors: RegistrationFormErrors = {};
+
+  //     const fieldsToValidate: (keyof UserData)[] = [
+  //       'phoneNumber',
+  //       'birthYear',
+  //       'educationDegree',
+  //       'occupation',
+  //     ];
+
+  //     fieldsToValidate.forEach((field) => {
+  //       const error = validateField(field, userData[field], userData);
+  //       if (error) {
+  //         newErrors[field] = error;
+  //       }
+  //     });
+
+  //     setStepErrors(2, newErrors);
+  //   }
+  // }, [isSubmitted, userData, setStepErrors]);
 
   const educationDegreeOptions: DropdownOption[] = [
     { value: 'A', label: 'A' },
@@ -91,7 +125,7 @@ export const SecondStepRegistrationForm = ({
           value={userData.phoneNumber}
           placeholder='Broj mobitela'
           onChange={handleInputChange}
-          error={errors.phoneNumber}
+          error={errors[2]?.phoneNumber}
         />
 
         <Input
@@ -99,7 +133,7 @@ export const SecondStepRegistrationForm = ({
           value={userData.birthYear?.toString() || ''}
           placeholder='Godina rođenja'
           onChange={handleInputChange}
-          error={errors.birthYear}
+          error={errors[2]?.birthYear}
         />
 
         <Dropdown
@@ -112,7 +146,7 @@ export const SecondStepRegistrationForm = ({
           selectedOption={educationDegreeOptions.find(
             (option) => option.value === userData.educationDegree,
           )}
-          errorLabel={errors.educationDegree}
+          errorLabel={errors[2]?.educationDegree}
         />
 
         <Dropdown
@@ -125,7 +159,7 @@ export const SecondStepRegistrationForm = ({
           selectedOption={occupationOptions.find(
             (option) => option.value === userData.occupation,
           )}
-          errorLabel={errors.occupation}
+          errorLabel={errors[2]?.occupation}
         />
       </div>
     </>

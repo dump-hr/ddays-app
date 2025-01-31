@@ -1,3 +1,4 @@
+import { useRegistration } from '../../providers/RegistrationContext';
 import c from './ProgressBar.module.scss';
 import { ProgressBarTab } from './ProgressBarTab';
 import React from 'react';
@@ -11,17 +12,15 @@ export const ProgressBar = ({
   currentStep,
   setCurrentStep,
 }: ProgressBarProps) => {
-  const isAllowedForNextStep = () => {
-    return true;
-  };
+  const { isStepValid } = useRegistration();
 
   const handleStepClick = (clickedStep: number) => {
     const isGoingBackwards = clickedStep <= currentStep;
     const isGoingForward = clickedStep === currentStep + 1;
-
+    console.log(isStepValid(currentStep));
     if (isGoingBackwards) {
       setCurrentStep(clickedStep);
-    } else if (isGoingForward && isAllowedForNextStep()) {
+    } else if (isGoingForward && isStepValid(currentStep)) {
       setCurrentStep(clickedStep);
     }
   };
