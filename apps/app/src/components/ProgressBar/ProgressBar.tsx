@@ -31,7 +31,7 @@ export const ProgressBar = ({
           <ProgressBarTab
             key={step}
             stepIndex={step}
-            active={step === currentStep}
+            active={step <= currentStep}
             onClick={handleStepClick}
           />
           {step < 4 && <div className={c.dots}></div>}

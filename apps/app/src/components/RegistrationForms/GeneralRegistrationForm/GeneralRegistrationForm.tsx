@@ -11,12 +11,12 @@ import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 
 export const GeneralRegistrationForm = () => {
-  const [currentStep, setCurrentStep] = useState(4);
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
-    thirdStepIsSubmitted: false,
-    fourthStepIsSubmitted: false,
+    thirdStepIsSubmitted: true,
+    fourthStepIsSubmitted: true,
   });
 
   const [userData, setUserData] = useState<UserData>({
@@ -60,7 +60,12 @@ export const GeneralRegistrationForm = () => {
       default:
         break;
     }
-    if (isStepValid(currentStep)) {
+    console.log(isStepValid(currentStep));
+
+    if (currentStep === 3 || currentStep === 4) {
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+    } else if (isStepValid(currentStep)) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
     }
