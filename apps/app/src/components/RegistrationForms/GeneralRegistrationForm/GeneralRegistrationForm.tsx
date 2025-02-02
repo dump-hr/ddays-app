@@ -9,9 +9,10 @@ import googleIcon from './../../../assets/icons/google-icon.svg';
 import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
+import { RegistrationStep } from '../../../types/registration/registration.dto';
 
 export const GeneralRegistrationForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
@@ -45,16 +46,16 @@ export const GeneralRegistrationForm = () => {
 
   const handleRegistrationClick = () => {
     switch (currentStep) {
-      case 1:
+      case RegistrationStep.ONE:
         setIsSubmitted({ ...isSubmitted, firstStepIsSubmitted: true });
         break;
-      case 2:
+      case RegistrationStep.TWO:
         setIsSubmitted({ ...isSubmitted, secondStepIsSubmitted: true });
         break;
-      case 3:
+      case RegistrationStep.THREE:
         setIsSubmitted({ ...isSubmitted, thirdStepIsSubmitted: true });
         break;
-      case 4:
+      case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
         break;
       default:
@@ -62,7 +63,10 @@ export const GeneralRegistrationForm = () => {
     }
     console.log(isStepValid(currentStep));
 
-    if (currentStep === 3 || currentStep === 4) {
+    if (
+      currentStep === RegistrationStep.THREE ||
+      currentStep === RegistrationStep.FOUR
+    ) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
     } else if (isStepValid(currentStep)) {
@@ -81,14 +85,14 @@ export const GeneralRegistrationForm = () => {
         />
       </div>
 
-      {currentStep === 1 && (
+      {currentStep === RegistrationStep.ONE && (
         <FirstStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
           isSubmitted={isSubmitted.firstStepIsSubmitted}
         />
       )}
-      {currentStep === 2 && (
+      {currentStep === RegistrationStep.TWO && (
         <SecondStepRegistrationForm
           userData={userData}
           updateUserData={updateUserData}
@@ -97,8 +101,8 @@ export const GeneralRegistrationForm = () => {
       )}
 
       {/* TODO: Postaviti treći i četvrti korak */}
-      {currentStep === 3 && <div>Treći korak</div>}
-      {currentStep === 4 && <FourthStepRegistrationForm />}
+      {currentStep === RegistrationStep.THREE && <div>Treći korak</div>}
+      {currentStep === RegistrationStep.FOUR && <FourthStepRegistrationForm />}
 
       <div className={c.buttonsWrapper}>
         <Button
