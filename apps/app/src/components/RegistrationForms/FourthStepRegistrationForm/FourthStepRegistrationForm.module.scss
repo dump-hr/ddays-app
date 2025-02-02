@@ -42,10 +42,21 @@
                 font-family: Inter;
                 line-height: 20px;
                 cursor: pointer;
+                gap: 0.5rem;
 
                 &:hover{
                     background-color: $black-10;
                 }
+            }
+
+            .selected {
+                background-color: $primary-muted-orange;
+                color: $primary-white;
+
+                &:hover {
+                    background-color: $primary-highlight;
+                }
+
             }
 
         }

@@ -1,8 +1,23 @@
 import { useState } from 'react';
 import c from './FourthStepRegistrationForm.module.scss';
 import { interestsSections } from './temporaryMockData';
+import removeIcon from './../../../assets/icons/remove-icon.svg';
 
 export const FourthStepRegistrationForm = () => {
+  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
+    [],
+  );
+
+  const handleInterestClick = (interestName: string) => {
+    setUserSelectedInterests((prev) => {
+      if (prev.includes(interestName)) {
+        return prev.filter((interest) => interest !== interestName);
+      } else {
+        return [...prev, interestName];
+      }
+    });
+  };
+
   return (
     <div className={c.interests}>
       <p>
@@ -16,24 +31,27 @@ export const FourthStepRegistrationForm = () => {
 
           <div className={c.interestsCardsWrapper}>
             {section.interests.map((interest) => (
-              <div className={c.interestsCard} key={interest.id}>
+              <div
+                className={`${c.interestsCard} ${
+                  userSelectedInterests.includes(interest.name)
+                    ? c.selected
+                    : ''
+                }`}
+                key={interest.id}
+                onClick={() => handleInterestClick(interest.name)}>
                 {interest.name}
+                {userSelectedInterests.includes(interest.name) && (
+                  <img
+                    src={removeIcon}
+                    alt='remove icon'
+                    width={10}
+                    height={10}></img>
+                )}
               </div>
             ))}
           </div>
         </div>
       ))}
-
-      {/* <div className={c.interestsSection}>
-        <h3>Programiranje//</h3>
-        <div className={c.interestsCardsWrapper}>
-          <div className={c.interestsCard}>Web development</div>
-          <div className={c.interestsCard}>React</div>
-          <div className={c.interestsCard}>3JS</div>
-          <div className={c.interestsCard}>JavaScript</div>
-          <div className={c.interestsCard}>Mobile Development</div>
-        </div>
-      </div> */}
     </div>
   );
 };
