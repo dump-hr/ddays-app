@@ -100,23 +100,34 @@ export const GeneralRegistrationForm = () => {
         />
       )}
 
-      {/* TODO: Postaviti treći i četvrti korak */}
+      {/* TODO: Postaviti treći korak */}
       {currentStep === RegistrationStep.THREE && <div>Treći korak</div>}
       {currentStep === RegistrationStep.FOUR && <FourthStepRegistrationForm />}
 
       <div className={c.buttonsWrapper}>
-        <Button
-          type='submit'
-          variant='orange'
-          children='Registriraj se'
-          onClick={handleRegistrationClick}
-        />
-        <Button
-          type='submit'
-          variant='black'
-          children='Nastavi s Google'
-          icon={googleIcon}
-        />
+        {currentStep === RegistrationStep.FOUR ? (
+          <Button
+            type='submit'
+            variant='orange'
+            children='Spremi'
+            onClick={handleRegistrationClick}
+          />
+        ) : (
+          <>
+            <Button
+              type='submit'
+              variant='orange'
+              children='Registriraj se'
+              onClick={handleRegistrationClick}
+            />
+            <Button
+              type='submit'
+              variant='black'
+              children='Nastavi s Google'
+              icon={googleIcon}
+            />
+          </>
+        )}
       </div>
 
       <AuthFooter leftMessage='Već imaš račun?' rightMessage='Prijavi se' />
