@@ -8,9 +8,10 @@ import Button from '../../Button/Button';
 import googleIcon from './../../../assets/icons/google-icon.svg';
 import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
+import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 
 export const GeneralRegistrationForm = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(4);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
@@ -92,7 +93,7 @@ export const GeneralRegistrationForm = () => {
 
       {/* TODO: Postaviti treći i četvrti korak */}
       {currentStep === 3 && <div>Treći korak</div>}
-      {currentStep === 4 && <div>Četvrti korak</div>}
+      {currentStep === 4 && <FourthStepRegistrationForm />}
 
       <div className={c.buttonsWrapper}>
         <Button
