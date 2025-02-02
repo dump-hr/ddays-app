@@ -1,2 +1,2 @@
-import { SecondStepRegistrationForm } from './SecondStepRegistrationForm.module';
+import { SecondStepRegistrationForm } from './SecondStepRegistrationForm';
 export { SecondStepRegistrationForm };
