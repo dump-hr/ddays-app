@@ -78,7 +78,17 @@ export const GeneralRegistrationForm = () => {
   return (
     <div className={c.generalRegistrationForm}>
       <div className={c.registrationUpper}>
-        <h2>Obavezni podatci</h2>
+        <h2>
+          {currentStep === RegistrationStep.ONE ||
+          currentStep === RegistrationStep.TWO
+            ? 'Obavezni podatci'
+            : currentStep === RegistrationStep.THREE
+              ? 'Odaberi svoju slavicu'
+              : currentStep === RegistrationStep.FOUR
+                ? 'Odaberi svoje interese'
+                : ''}
+        </h2>
+
         <ProgressBar
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
