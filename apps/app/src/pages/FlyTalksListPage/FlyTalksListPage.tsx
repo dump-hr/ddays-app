@@ -5,42 +5,50 @@ import c from './FlyTalksListPage.module.scss';
 import Button from '../../components/Button';
 import star from '../../assets/icons/star.svg';
 import warning from '../../assets/images/warning.png';
+import { useNavigate } from 'react-router-dom';
 
-const FirstDayGroupsMock = [
+const groupsMock = [
   {
+    id: 1,
     start: '10:30',
     end: '11:30',
+    day: 1,
     participantsNumber: 10,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: true,
   },
   {
+    id: 2,
     start: '11:30',
     end: '12:30',
+    day: 1,
     participantsNumber: 10,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: false,
   },
   {
+    id: 3,
     start: '11:30',
     end: '12:30',
+    day: 1,
     participantsNumber: 25,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: false,
   },
-];
-
-const SecondDayGroupsMock = [
   {
+    id: 4,
     start: '10:30',
     end: '11:30',
+    day: 2,
     participantsNumber: 10,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: false,
   },
   {
+    id: 5,
     start: '11:30',
     end: '12:30',
+    day: 2,
     participantsNumber: 10,
     companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
     hasUserApplied: false,
@@ -79,13 +87,13 @@ const FlyTalksListPage = () => {
         </p>
         <div className={c.groupsList}>
           {selectedTab === Tabs.first_day &&
-            FirstDayGroupsMock.map((group, i) => (
-              <FlyTalksGroup key={i} group={group} />
-            ))}
+            groupsMock
+              .filter((group) => group.day === 1)
+              .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
           {selectedTab === Tabs.second_day &&
-            SecondDayGroupsMock.map((group, i) => (
-              <FlyTalksGroup key={i} group={group} />
-            ))}
+            groupsMock
+              .filter((group) => group.day === 2)
+              .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
         </div>
       </main>
     </div>
@@ -95,6 +103,7 @@ const FlyTalksListPage = () => {
 interface FlyTalksGroupProps {
   key: number;
   group: {
+    id: number;
     start: string;
     end: string;
     participantsNumber: number;
@@ -104,6 +113,14 @@ interface FlyTalksGroupProps {
 }
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
+  const navigate = useNavigate();
+
+  const handleApplyClick = () => {
+    if (!group.hasUserApplied) {
+      navigate(`/app/fly-talks-apply?id=${group.id}`);
+    }
+  };
+
   return (
     <div
       className={
@@ -134,7 +151,10 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
             {i !== 3 && <div className={c.divider}></div>}
           </div>
         ))}
-        <Button variant='orange' className={c.applyButton}>
+        <Button
+          variant='orange'
+          className={c.applyButton}
+          onClick={handleApplyClick}>
           {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
         </Button>
       </div>

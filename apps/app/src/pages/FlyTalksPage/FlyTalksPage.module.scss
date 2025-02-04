@@ -1,117 +1,114 @@
 .page {
-    background-color: $primary-black;
+  background-color: $primary-black;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Inter;
+  overflow: hidden;
+  align-items: center;
+
+  .header {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: Inter;
-    overflow: hidden;
-    align-items: center;
-  
+    height: 400px;
+
+    p {
+      color: $primary-white;
+      font-size: 24px;
+      font-weight: 500;
+      margin: 64px 0 0 24px;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    background-color: $primary-background;
+    border-radius: 12px 12px 0px 0px;
+    padding: 20px;
+    z-index: 1;
+
+    .mainContent {
+      max-width: 700px;
+      margin: auto;
+
+      .mainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 24px;
+        gap: 24px;
+        font-family: 'PP Neue Machina';
+
+        p {
+          font-size: 24px;
+          font-weight: 500;
+          color: $primary-black;
+        }
+      }
+
+      .copyParagraph {
+        margin-top: 16px;
+        font-size: 16px;
+        color: $primary-black;
+        line-height: 22px;
+        font-weight: 400;
+      }
+
+      .nextButton {
+        margin-top: 24px;
+        width: 100%;
+      }
+    }
+  }
+  .duckImage {
+    width: 200px;
+    position: absolute;
+    top: 110px;
+    right: 0;
+  }
+
+  @media screen and (min-width: 420px) {
     .header {
-      width: 100%;
+      height: 100px;
+      p {
+        margin: 24px 0 0 0;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 30px;
+        margin: 48px 0 0 24px;
+      }
+    }
+    .duckImage {
+      position: relative;
       height: 300px;
-
-      p{
-        color: $primary-white;
-        font-size: 24px;
-        font-weight: 500;
-        margin: 64px 0 0 24px ;
-      }
+      top: 30px;
+      margin-bottom: -10px;
+      margin-right: -50px;
     }
-  
+
     .main {
-      width: 100%;
-      height: 100%;
-      background-color: $primary-background;
-      border-radius: 12px 12px 0px 0px;
-      padding: 20px;
-      z-index: 1;
+      .mainContent {
+        max-width: 450px;
 
-      .mainContent{
-        max-width: 700px;
-        margin: auto;
+        .mainHeader {
+          justify-content: center;
 
-        .mainHeader{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 24px;
-            gap: 24px;
-            font-family: 'PP Neue Machina';
-
-            p{
-                font-size: 24px;
-                font-weight: 500;
-                color: $primary-black;
-            }
-        }
-
-        .copyParagraph{
-            margin-top: 16px;
-            font-size: 16px;
-            color: $primary-black;
-            line-height: 22px;
-            font-weight: 400;
-        }
-
-        .nextButton{
-            margin-top: 24px;
-            width: 100%;
-        }
-        }
-    }
-    .duckImage{
-        height: 300px;
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-
-      @media screen and (min-width: 420px){
-        .header{
-          height: 200px;
-          p{
-            margin-left: 0;
-            text-transform: uppercase;
-            text-align: center;
+          p {
             font-size: 30px;
-            margin: 48px 0 0 24px;
+            text-align: center;
+          }
+
+          img {
+            display: none;
           }
         }
-        .duckImage{
-          position: relative;
-          height: 400px;
-          max-width: 500px;
-          margin-bottom: -100px;
-          margin-right: -150px;
-        }
-        
-        .main{
-          .mainContent{
-            max-width: 450px;
-
-            .mainHeader{
-              justify-content: center;
-
-              p{
-                font-size: 30px;
-                text-align: center;
-              }
-
-              img{
-                display: none;
-              }
-            }
-            .copyParagraph{
-              margin-top: 25px;
-              font-size:16px;
-              text-align: center;
-            }
-          }
+        .copyParagraph {
+          margin-top: 25px;
+          font-size: 16px;
+          text-align: center;
         }
       }
+    }
+  }
 }
-
-
-  

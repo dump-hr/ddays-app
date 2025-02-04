@@ -8,7 +8,7 @@ const FlyTalksPage = () => {
   const navigate = useNavigate();
 
   const handleNextButtonClick = () => {
-    navigate('/app/flyTalksList');
+    navigate('/app/fly-talks-list');
   };
   return (
     <div className={c.page}>
