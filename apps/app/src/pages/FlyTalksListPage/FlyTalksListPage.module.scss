@@ -24,6 +24,9 @@
     border-radius: 12px 12px 0px 0px;
     padding: 20px;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .listInfoText {
       margin-top: 24px;
@@ -39,7 +42,7 @@
     .groupsList {
       margin-top: 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(1, minmax(300px, 1fr));
       gap: 24px;
 
       .group {
@@ -202,5 +205,30 @@
         }
       }
     }
+  }
+
+  @media screen  and (min-width: 425px) {
+      header{
+        text-align: center;
+        text-transform: uppercase;
+        height: 200px;
+      }
+
+      main{
+        .tabGroup{
+          width: 100%;
+          max-width: 400px;
+        }
+
+        .listInfoText{
+          max-width: 500px;
+          text-align: center;
+        }
+
+        .groupsList{
+          grid-template-columns: repeat(2, minmax(300px, 1fr));
+          max-width: 600px;
+        }
+      }
   }
 }

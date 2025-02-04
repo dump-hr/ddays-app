@@ -66,10 +66,12 @@ const FlyTalksListPage = () => {
         <p>Fly Talks</p>
       </header>
       <main>
-        <TabGroup setter={handleTabChange}>
-          <Tab id={Tabs.first_day}>23.05</Tab>
-          <Tab id={Tabs.second_day}>24.05</Tab>
-        </TabGroup>
+        <div className={c.tabGroup}>
+          <TabGroup setter={handleTabChange}>
+            <Tab id={Tabs.first_day}>23.05</Tab>
+            <Tab id={Tabs.second_day}>24.05</Tab>
+          </TabGroup>
+        </div>
         <p className={c.listInfoText}>
           Nakon prijave obavezno ostavi link na GitHub ili LinkedIn, te
           predstavi se u kratkim crtama što bolje možeš. Na temelju tog opisa i
@@ -137,7 +139,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
         </Button>
       </div>
       <div className={c.applianceDisclaimer}>
-        <img src={warning} alt="" />
+        <img src={warning} alt='' />
         <p>
           Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
           talk.
