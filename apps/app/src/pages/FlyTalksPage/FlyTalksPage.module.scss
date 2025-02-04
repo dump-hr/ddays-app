@@ -64,6 +64,48 @@
         position: absolute;
         top: 0;
         right: 0;
-    }
-  }
+      }
+
+      @media screen and (min-width: 768px){
+        .header{
+          height: 500px;
+          p{
+            text-align: center;
+            font-size: 20px;
+            margin: 48px 0 0 24px;
+          }
+        }
+        .duckImage{
+          height: 400px;
+          left: 45%;
+          top: 50px;
+        }
+        
+        .main{
+          .mainContent{
+            max-width: 450px;
+
+            .mainHeader{
+              justify-content: center;
+
+              p{
+                font-size: 30px;
+                text-align: center;
+              }
+
+              img{
+                display: none;
+              }
+            }
+            .copyParagraph{
+              margin-top: 25px;
+              font-size:16px;
+              text-align: center;
+            }
+          }
+        }
+      }
+}
+
+
   
