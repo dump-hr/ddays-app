@@ -1,0 +1,28 @@
+.confirmEmail {
+    display: flex;
+    flex-direction: column;
+    width: 422px;
+
+    .confirmEmailUpper {
+
+        margin-bottom: 48px;
+
+        h2{
+            color: $primary-black;
+            text-align: center;
+            font-family: NeueMachina;
+            font-size: 30px;
+            font-weight: 500;
+            line-height: 30px; 
+            margin-top: 40px;
+            margin-bottom: 18px;
+        }
+
+        p{
+            color: $primary-black;
+            text-align: center;
+            font-family: Inter;
+            line-height: 22px; /* 137.5% */
+        }
+    }
+}
