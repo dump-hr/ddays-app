@@ -55,58 +55,59 @@ export const validateField = (
   switch (name) {
     case UserDataFields.FirstName:
       if (!validations.isNotEmpty(value as string))
-        return 'Ovo polje je obavezno';
+        return 'Hej, ovo polje je obavezno';
       if (!validations.isValidName(value as string))
-        return 'Unesite ispravno ime';
+        return 'Hej, moraš unijeti ispravno ime';
       break;
 
     case UserDataFields.LastName:
       if (!validations.isNotEmpty(value as string))
-        return 'Ovo polje je obavezno';
+        return 'Hej, ovo polje je obavezno';
       if (!validations.isValidName(value as string))
-        return 'Unesite ispravno prezime';
+        return 'Hej, moraš unijeti ispravno prezime';
       break;
 
     case UserDataFields.Email:
-      if (!validations.isNotEmpty(value as string)) return 'Email je obavezan';
+      if (!validations.isNotEmpty(value as string))
+        return 'Hej, email je obavezan';
       if (!validations.isValidEmail(value as string))
-        return 'Unesite ispravan email';
+        return 'Hej, moraš unijeti ispravan email';
       break;
 
     case UserDataFields.Password:
       if (!validations.isNotEmpty(value as string))
-        return 'Lozinka je obavezna';
+        return 'Hej, lozinka je obavezna';
       if (!validations.isValidPassword(value as string))
-        return 'Lozinka mora imati najmanje 8 znakova i broj';
+        return 'Hej, lozinka mora imati najmanje 8 znakova i broj';
       break;
 
     case UserDataFields.RepeatedPassword:
-      if (value !== userData.password) return 'Lozinke se ne podudaraju';
+      if (value !== userData.password) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:
       if (!validations.isNotEmpty(value as string))
-        return 'Broj telefona je obavezan';
+        return 'Hej, broj telefona je obavezan';
       if (!validations.isValidPhoneNumber(value as string))
-        return 'Unesite ispravan broj telefona';
+        return 'Hej, moraš unijeti ispravan broj telefona';
       break;
 
     case UserDataFields.BirthYear:
-      if (!value) return 'Godina rođenja je obavezna';
+      if (!value) return 'Hej, godina rođenja je obavezna';
       if (!validations.isValidBirthYear(value.toString()))
-        return 'Unesite ispravnu godinu rođenja';
+        return 'Hej, moraš unijeti ispravnu godinu rođenja';
       break;
 
     case UserDataFields.EducationDegree:
-      if (!value) return 'Ovo polje je obavezno!';
+      if (!value) return 'Hej, ovo polje je obavezno!';
       break;
 
     case UserDataFields.Occupation:
-      if (!value) return 'Ovo polje je obavezno';
+      if (!value) return 'Hej, ovo polje je obavezno';
       break;
 
     case UserDataFields.TermsAndConditionsEnabled:
-      if (!value) return 'Morate prihvatiti uvjete korištenja';
+      if (!value) return 'Hej, prihvaćanje uvjeta korištenja je obavezno';
       break;
 
     default:
