@@ -1,0 +1,209 @@
+.scheduleCard {
+  background-color: $black-5;
+  display: flex;
+  gap: 14px;
+  flex-direction: column;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 24px;
+
+  .addedToSchedule {
+    background-color: $black-10;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 8px;
+    gap: 10px;
+    display: flex;
+
+    .ratingStar {
+      height: 16px;
+      width: 16px;
+    }
+
+    .label {
+      margin: 0;
+      @include heading-4;
+      text-transform: uppercase;
+    }
+  }
+
+  .timeAndArrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .time {
+      @include tag-14;
+      margin: 0;
+    }
+
+    .arrowDown {
+      cursor: pointer;
+      transform: rotate(180deg);
+      transition: transform 0.3s ease-in-out;
+
+      &.collapsed {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .theme {
+      background-color: $primary-muted-orange;
+      @include tag-14;
+      margin: 0;
+      color: white;
+      height: 24px;
+      width: 46px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .label {
+      @include tag-14;
+      margin: 0;
+    }
+  }
+
+  .eventName {
+    color: $primary-black;
+    @include paragraph-16;
+    margin: 0;
+  }
+
+  .collapsibleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition:
+      max-height 0.5s ease-in-out,
+      opacity 0.5s ease-in-out,
+      margin-top 0.5s ease-in-out;
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 0;
+
+    &.collapsed {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: -16px;
+    }
+  }
+
+  .eventDescription {
+    color: $black-70;
+    @include paragraph-16;
+    margin: 0;
+  }
+
+  .divider {
+    padding-top: 6px;
+    width: 100%;
+    @include dottedBreak(rgba(23, 22, 21, 0.5));
+  }
+
+  .eventRequirements {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    .mainLabel {
+      @include tag-14;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .requirement {
+      display: flex;
+      gap: 16px;
+
+      .checkContainer {
+        height: 20px;
+        width: 20px;
+        background-color: $primary-muted-orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+
+        .check {
+          height: 8px;
+          width: 8px;
+        }
+      }
+
+      .label {
+        margin: 0;
+        @include paragraph-16;
+      }
+    }
+  }
+
+  .speakers {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .divider {
+      margin: -10px 0;
+    }
+  }
+
+  .moderatorLabel {
+    @include tag-14;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .speaker {
+    display: flex;
+    gap: 12px;
+
+    .image {
+      width: 64px;
+      height: 67px;
+    }
+
+    .speakerInfoWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+
+      .fullName {
+        @include tag-14;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      .title {
+        @include tag-14;
+        text-transform: uppercase;
+        color: $black-50;
+        margin: 0;
+      }
+
+      .logoContainer {
+        max-height: 38px;
+        max-width: 80px;
+        .logo {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  .button {
+    margin-top: 32px;
+  }
+}
