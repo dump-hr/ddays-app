@@ -6,6 +6,7 @@ import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '../../AuthFooter';
 import Button from '../../Button/Button';
 import googleIcon from './../../../assets/icons/google-icon.svg';
+import closeIcon from './../../../assets/icons/black-remove-icon.svg';
 import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
@@ -87,6 +88,8 @@ export const GeneralRegistrationForm = () => {
               : currentStep === RegistrationStep.FOUR
                 ? 'Odaberi svoje interese'
                 : ''}
+
+          <img src={closeIcon} alt='close icon' width={20} height={20} />
         </h2>
 
         <ProgressBar

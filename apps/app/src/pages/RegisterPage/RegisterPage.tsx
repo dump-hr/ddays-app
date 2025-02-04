@@ -1,12 +1,16 @@
 import { GeneralRegistrationForm } from '../../components/RegistrationForms/GeneralRegistrationForm/GeneralRegistrationForm';
 import { RegistrationProvider } from '../../providers/RegistrationContext';
+import c from './RegisterPage.module.scss';
 
 export const RegisterPage = () => {
   return (
-    <div>
-      <RegistrationProvider>
-        <GeneralRegistrationForm />
-      </RegistrationProvider>
-    </div>
+    <section className={c.page}>
+      <header className={c.header}></header>
+      <main className={c.main}>
+        <RegistrationProvider>
+          <GeneralRegistrationForm />
+        </RegistrationProvider>
+      </main>
+    </section>
   );
 };
