@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.headerContainer {
+  padding-top: 4rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 2rem;
+  background: $primary-black;
+  height: 300px;
+}
+
+.title {
+  @include heading-2;
+  color: $white-text;
+  font-weight: 500;
+}
+
+.navigation {
+  display: flex;
+  gap: 6px;
+}
+
+.navButton {
+  background: $black-90;
+  border: none;
+  border-radius: 0.5rem;
+  display: block;
+  padding: 17.5px 45px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  p {
+    @include paragraph-16;
+    color: $white-text;
+  }
+}

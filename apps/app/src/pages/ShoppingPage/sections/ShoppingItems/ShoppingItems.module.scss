@@ -1,0 +1,51 @@
+.shoppingItemsWrapper {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  height: auto;
+  z-index: 5;
+  position: absolute;
+  top: 266px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $primary-background;
+  padding: 1.5rem;
+  /* overflow-y: scroll; */
+  display: flex;
+  flex-direction: column;
+}
+
+.shoppingUserPoints {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 1.5rem;
+  background: $primary-beige;
+  border-radius: 0.5rem;
+
+  p {
+    @include paragraph-16;
+    color: $black-70;
+  }
+
+  .points {
+    display: flex;
+    gap: 3px;
+    height: 28px;
+    img {
+      height: 22px;
+      width: 22px;
+    }
+    span {
+      @include heading-2;
+    }
+  }
+}
+
+.shoppingItemsContainer {
+}
+
+.shoppingItem {
+}
