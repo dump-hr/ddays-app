@@ -76,6 +76,12 @@ export const SchedulePage = () => {
               event={event}
             />
           ))}
+
+          {filteredEvents.length === 0 && (
+            <p className={c.noEvents}>
+              Trenutno ne postoji niti jedan događaj koji odgovara ovom filtru.
+            </p>
+          )}
         </section>
       </div>
     </main>
