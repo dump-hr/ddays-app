@@ -41,7 +41,7 @@ export const SchedulePage = () => {
         return (
           eventDate === dateFilter &&
           (activeTag === TagId.ALL ||
-            event.theme.toUpperCase() === activeTag.toUpperCase())
+            event.theme.toUpperCase() === activeTag.toUpperCase()) // BE TODO: Dodat uvjet kad je dodan u raspored
         );
       }),
     );
