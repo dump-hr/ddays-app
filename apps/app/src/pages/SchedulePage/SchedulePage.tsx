@@ -33,14 +33,17 @@ export const SchedulePage = () => {
   useEffect(() => {
     const dateFilter = new Date(
       activeTab === TabId.FIRST_DAY ? '2025-05-23' : '2025-05-24',
-    );
+    ).toDateString();
+
     setFilteredEvents(
-      events.filter(
-        (event) =>
-          (new Date(event.startsAt).getDate() === dateFilter.getDate() &&
-            event.theme === activeTag.toUpperCase()) ||
-          activeTag === TagId.ALL,
-      ),
+      events.filter((event) => {
+        const eventDate = new Date(event.startsAt).toDateString();
+        return (
+          eventDate === dateFilter &&
+          (activeTag === TagId.ALL ||
+            event.theme.toUpperCase() === activeTag.toUpperCase())
+        );
+      }),
     );
   }, [activeTab, activeTag]);
 
