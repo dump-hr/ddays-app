@@ -46,6 +46,19 @@
       margin-bottom: 32px;
     }
 
+    .toggleWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 33px;
+
+      & > p {
+        @include paragraph-16;
+        color: $primary-black;
+      }
+    }
+
     .eventsWrapper {
       display: flex;
       flex-direction: column;

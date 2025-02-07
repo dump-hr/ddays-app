@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { events } from './events';
 import ScheduleCard from '../../components/ScheduleCard';
+import ToggleButton from '../../components/ToggleButton';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -29,6 +30,7 @@ export const SchedulePage = () => {
   const [filteredEvents, setFilteredEvents] = useState<EventWithSpeakerDto[]>(
     [],
   );
+  const [calendarSyncToggled, setCalendarSyncToggled] = useState(false); // BE: postavit na vrijednost iz baze
 
   useEffect(() => {
     const dateFilter = new Date(
@@ -71,13 +73,19 @@ export const SchedulePage = () => {
           <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
         </ClickableTagGroup>
 
-        <section className={clsx(c.eventsWrapper, c.contentWidth)}>
-          {filteredEvents.map((event) => (
-            <ScheduleCard
-              clickHandler={() => {}}
-              key={event.id}
-              event={event}
+        {activeTab === TabId.MY_SCHEDULE && (
+          <div className={c.toggleWrapper}>
+            <ToggleButton
+              toggled={calendarSyncToggled}
+              onClick={() => setCalendarSyncToggled((prev) => !prev)}
             />
+            <p>Poveži s mojim kalendarom</p>
+          </div>
+        )}
+
+        <section className={clsx(c.eventsWrapper, c.contentWidth)}>
+          {filteredEvents.map((event, i) => (
+            <ScheduleCard clickHandler={() => {}} key={i} event={event} />
           ))}
 
           {filteredEvents.length === 0 && (
