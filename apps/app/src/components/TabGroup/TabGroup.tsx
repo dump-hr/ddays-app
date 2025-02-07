@@ -1,17 +1,20 @@
 import c from './TabGroup.module.scss';
 import React, { useState } from 'react';
 import { TabProps } from '../Tab/Tab';
+import clsx from 'clsx';
 
 type TabGroupProps = {
   setter: (id: string) => void;
   children: React.ReactNode;
   defaultTab?: string | number;
+  className?: string;
 };
 
 const TabGroup: React.FC<TabGroupProps> = ({
   setter,
   children,
   defaultTab,
+  className,
 }) => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
 
@@ -21,7 +24,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
   };
 
   return (
-    <div className={c.tabGroup}>
+    <div className={clsx(c.tabGroup, className)}>
       <div className={c.tabsWrapper}>
         {React.Children.map(children, (child, index) => {
           if (React.isValidElement<TabProps>(child)) {
