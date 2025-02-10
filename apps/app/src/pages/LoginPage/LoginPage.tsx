@@ -48,7 +48,12 @@ export const LoginPage = () => {
   return (
     <div>
       <div className={c.wrapper}>
-        <div className={c.pageName}>Prijava</div>
+        <div className={c.pageName}>
+          <span className={c.pageTitle}>Prijava</span>
+          <a href='https://days.dump.hr'>
+            <img src={closeIcon} alt='Close login' className={c.closeIcon} />
+          </a>
+        </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
             <h1 className={c.title}>Dobro došli natrag!</h1>
@@ -92,7 +97,7 @@ export const LoginPage = () => {
             </Button>
           </div>
           <div className={c.registerContainer}>
-            <span className={c.noAccount}>Nemaš račun?</span>
+            <a className={c.noAccount}>Nemaš račun?</a>
             <a href={RouteNames.REGISTER} className={c.registerLink}>
               Registriraj se
             </a>

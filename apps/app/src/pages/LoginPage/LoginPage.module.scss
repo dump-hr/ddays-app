@@ -7,31 +7,48 @@
 
 .pageName {
   color: $primary-background;
-  height: 50px;
+  height: 116px;
   display: flex;
   justify-content: left;
   align-items: center;
-  padding-left: 24px;
-  padding-top: 40px;
-  padding-bottom: 20px;
-  text-transform: uppercase;
-  @include heading-2;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 28px;
-  letter-spacing: -0.24px;
+
+  .pageTitle {
+    text-transform: uppercase;
+    @include heading-2;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.24px;
+    padding-left: 24px;
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+
+  .closeIcon {
+    display: none;
+  }
 
   @media (min-width: $breakpoint-tablet) {
-    justify-content: center;
-    padding-bottom: 20px;
-    padding-top: 50px;
+    .closeIcon {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 44px;
+      right: 72px;
+    }
+    .pageTitle {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 96px;
+    }
   }
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  border-radius: 16px 16px 16px 16px;
+  border-radius: 16px 16px 0 0;
   background-color: $primary-background;
   box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
   flex-grow: 1;
@@ -41,6 +58,7 @@
     box-shadow: none;
     justify-content: flex-start;
     margin: 24px;
+    border-radius: 16px;
   }
 }
 
@@ -68,7 +86,7 @@
 
   @media (min-width: $breakpoint-tablet) {
     text-align: center;
-    @include heading-1;
+    @include heading-2;
     line-height: 30px;
     letter-spacing: -0.3px;
   }
@@ -157,6 +175,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 24px;
+  padding-bottom: 60px;
 
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
@@ -166,13 +185,12 @@
 
 .noAccount {
   @include paragraph-16;
-  color: $primary-black;
+  color: $black-50;
   font-style: normal;
   line-height: 22px;
   letter-spacing: -0.16px;
   opacity: 0.6;
   text-decoration: none;
-  opacity: 0.6;
 }
 
 .registerLink {
