@@ -16,7 +16,7 @@ export class SpeakerService {
 
   async create(dto: SpeakerModifyDto): Promise<SpeakerDto> {
     if (dto.companyId === 0) {
-      dto.companyId = null;
+      dto.companyId = undefined;
     }
 
     const createdSpeaker = await this.prisma.speaker.create({

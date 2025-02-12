@@ -198,8 +198,8 @@ model Speaker {
   companyId      Int?
   photoUrl       String?
   photo          Json?
-  instagram      String?
-  linkedin       String?
+  instagramUrl   String?
+  linkedinUrl    String?
   description    String?
   company        Company?         @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   speakerToEvent SpeakerToEvent[]
