@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
+import CampfireTalks from 'assets/images/events/schedule/campfire-talks.png';
+import LunchImage from 'assets/images/events/schedule/pizza-lunch.png';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EventWithSpeakerDto } from '@ddays-app/types';
-import LunchImage from 'assets/images/events/schedule/pizza-lunch.png';
-import CampfireTalks from 'assets/images/events/schedule/campfire-talks.png';
+import { useEffect, useRef } from 'react';
+
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './ScheduleSection.module.scss';
 
@@ -34,7 +35,7 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
   const { isMobile } = useScreenSize(1030);
 
   const getImageSrcAndSetType = (src?: string): string => {
-    if (event.type === 'campfireTalk') return CampfireTalks;
+    if (event.type === EventType.CAMPFIRE_TALK) return CampfireTalks;
     if (event.name === 'Ručak') return LunchImage;
     if (!src) return '';
 

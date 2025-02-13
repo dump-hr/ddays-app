@@ -1,3 +1,5 @@
+import { CompanyCategory } from '@ddays-app/types';
+
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyRemoveLandingImage } from '../../api/company/useCompanyRemoveLandingImage';
 import { useCompanyRemoveLandingImageCompanyCulture } from '../../api/company/useCompanyRemoveLandingImageCompanyCulture';
@@ -49,7 +51,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
       <PhotoInputLabel
         title='Fotografije'
         content={
-          company?.category === 'gold'
+          company?.category === CompanyCategory.GOLD
             ? 'Priložite fotografije koje predstavljaju tvrtku. Kao zlatni sponzor imate pravo na dvije objave na društvenim mrežama. Predlažemo da jedna fotografija bude grupna fotografija zaposlenika, a druga proces mentoriranja kolega ili zajednički rad.'
             : 'Priložite fotografije koje predstavljaju tvrtku. Predlažemo da to bude grupna slika zaposlenika ili mentoriranje mlađih kolega.'
         }
@@ -73,7 +75,7 @@ export const PhotoUpload: FormComponent = ({ close }) => {
           handleRemove={handleRemove}
         />
 
-        {company?.category === 'gold' && (
+        {company?.category === CompanyCategory.GOLD && (
           <PhotoInput
             label={
               updateLandingImageCompanyCulture.isLoading

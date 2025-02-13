@@ -5,11 +5,7 @@ import {
 } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as migrator from 'drizzle-orm/node-postgres/migrator';
-import { drizzle } from 'drizzle-orm/postgres-js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { join } from 'path';
-import postgres from 'postgres';
 
 import { AppModule } from './app.module';
 import { PostgresErrorFilter } from './postgres-error.filter';
@@ -68,18 +64,6 @@ const setupProxies = (app: INestApplication) => {
   }
 };
 
-const migrate = async () => {
-  if (process.env.RUN_MIGRATIONS_ON_STARTUP !== 'true') return;
-
-  const sql = postgres(process.env.DATABASE_URL, {
-    max: 1,
-  });
-
-  await migrator.migrate(drizzle(sql), {
-    migrationsFolder: join(__dirname, '..', '..', 'db', 'migrations'),
-  });
-};
-
 const run = async (app: INestApplication) => {
   const port = process.env.PORT || 3000;
   const database = new URL(process.env.DATABASE_URL).pathname.slice(1);
@@ -99,7 +83,6 @@ async function bootstrap() {
   setupSwagger(app);
   setupProxies(app);
 
-  await migrate();
   await run(app);
 }
 bootstrap();
