@@ -92,7 +92,7 @@ export const LoginPage = () => {
             <Button variant='black' onClick={() => {}}>
               <div className={c.buttonContent}>
                 <img src={googleIcon} alt='icon' className={c.googleIcon} />
-                Nastavi s Google
+                Nastavi s Googleom
               </div>
             </Button>
           </div>
