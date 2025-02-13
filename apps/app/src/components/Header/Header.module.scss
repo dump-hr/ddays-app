@@ -1,0 +1,34 @@
+.header {
+  color: $primary-white;
+  font-family: 'NeueMachina';
+  margin-block: 64px 32px;
+  text-align: center;
+
+  .headerGreeting {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    @include heading-1;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    margin-inline: 20px;
+
+    .headerGreeting {
+      justify-content: space-between;
+
+      :last-child {
+        margin-left: auto;
+      }
+    }
+
+    h1 {
+      text-align: start;
+    }
+  }
+}

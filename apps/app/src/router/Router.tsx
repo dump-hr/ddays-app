@@ -17,6 +17,7 @@ import { SchedulePage } from '../pages/SchedulePage';
 import { ShoppingPage } from '../pages/ShoppingPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
+import TestPage from '../pages/TestPage/TestPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
+      <Route path='/app/test' element={<TestPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </React.Fragment>,
   ),
