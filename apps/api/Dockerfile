@@ -17,7 +17,6 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
-COPY --from=builder /app/out/full/apps/api/prisma ./apps/api/prisma
 RUN yarn install --immutable && yarn cache clean
 
 COPY --from=builder /app/out/full/ .
