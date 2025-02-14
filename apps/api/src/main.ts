@@ -99,7 +99,7 @@ async function bootstrap() {
   setupSwagger(app);
   setupProxies(app);
 
-  // await migrate();
+  await migrate();
   await run(app);
 }
 bootstrap();
