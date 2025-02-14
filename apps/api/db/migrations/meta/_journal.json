@@ -78,6 +78,13 @@
       "when": 1716132892106,
       "tag": "0010_slimy_stature",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1739538532294,
+      "tag": "0011_special_moira_mactaggert",
+      "breakpoints": true
     }
   ]
 }
