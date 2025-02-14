@@ -2,9 +2,9 @@
 
 @mixin heading-1 {
   font-family: NeueMachina;
-  font-size: 2.5rem; 
-  line-height: 3rem; 
-  letter-spacing: -1%; 
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: -1%;
 }
 
 @mixin heading-2 {
@@ -88,6 +88,17 @@
   background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
   background-size: 8px 2px;
   background-repeat: repeat-x;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin dottedBreakVertical($color: rgba(23, 22, 21, 0.3)) {
+  width: 2px;
+  height: 100%;
+  background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
+  background-size: 2px 8px;
+  background-repeat: repeat-y;
   background-color: transparent;
   white-space: nowrap;
   overflow: hidden;
