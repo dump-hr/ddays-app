@@ -75,6 +75,8 @@ const migrate = async () => {
     max: 1,
   });
 
+  console.log(join(__dirname, '..', '..', 'db', 'migrations'));
+
   await migrator.migrate(drizzle(sql), {
     migrationsFolder: join(__dirname, '..', '..', 'db', 'migrations'),
   });
@@ -99,7 +101,9 @@ async function bootstrap() {
   setupSwagger(app);
   setupProxies(app);
 
-  await migrate();
+  try {
+    await migrate();
+  } catch {}
   await run(app);
 }
 bootstrap();
