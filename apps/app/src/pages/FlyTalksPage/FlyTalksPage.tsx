@@ -1,7 +1,5 @@
+import PageTitleLayout from '../../components/PageTitleLayout';
+
 export const FlyTalksPage = () => {
-  return (
-    <div>
-      <h1>Fly Talks</h1>
-    </div>
-  );
+  return <PageTitleLayout title='Fly Talks'></PageTitleLayout>;
 };
