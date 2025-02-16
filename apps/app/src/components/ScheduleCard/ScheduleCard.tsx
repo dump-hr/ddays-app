@@ -22,30 +22,30 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   function getThemeLabel(eventTheme: Theme) {
     switch (eventTheme) {
-      case Theme.Dev:
+      case Theme.DEV:
         return 'DEV';
-      case Theme.Design:
+      case Theme.DESIGN:
         return 'DIZ';
-      case Theme.Marketing:
+      case Theme.MARKETING:
         return 'MARK';
-      case Theme.Tech:
+      case Theme.TECH:
         return 'TECH';
     }
   }
 
   function getTypeLabel(eventType: EventType) {
     switch (eventType) {
-      case EventType.Lecture:
+      case EventType.LECTURE:
         return 'PREDAVANJE';
-      case EventType.Workshop:
+      case EventType.WORKSHOP:
         return 'RADIONICA';
-      case EventType.FlyTalk:
+      case EventType.FLY_TALK:
         return 'FLY TALK';
-      case EventType.CampfireTalk:
+      case EventType.CAMPFIRE_TALK:
         return 'CAMPFIRE TALK';
-      case EventType.Panel:
+      case EventType.PANEL:
         return 'PANEL';
-      case EventType.Other:
+      case EventType.OTHER:
         return 'OSTALO';
     }
   }
@@ -119,7 +119,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       </section>
 
       <div className={c.divider} />
-      {event.type === EventType.Panel && (
+      {event.type === EventType.PANEL && (
         <p className={c.moderatorLabel}>Voditelj panela:</p>
       )}
       <div className={c.speakers}>
@@ -133,7 +133,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className={c.speaker} key={index}>
                   <img
                     className={c.image}
-                    src={speaker.photo?.thumbnailUrl}
+                    src={speaker.photoUrl}
                     alt={speaker.firstName}
                   />
                   <div className={c.speakerInfoWrapper}>
@@ -150,7 +150,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     </div>
                   </div>
                 </div>
-                {event.type === EventType.Panel && index === 0 && (
+                {event.type === EventType.PANEL && index === 0 && (
                   <div className={c.divider} />
                 )}
               </>

@@ -46,16 +46,16 @@ export const SpeakerForm: React.FC<SpeakerFormProps> = ({ id, onSuccess }) => {
       defaultValue: speaker?.companyId,
     },
     {
-      id: 'linkedin',
+      id: 'linkedinUrl',
       type: QuestionType.Field,
       title: 'LinkedIn',
-      defaultValue: speaker?.linkedin,
+      defaultValue: speaker?.linkedinUrl,
     },
     {
-      id: 'instagram',
+      id: 'instagramUrl',
       type: QuestionType.Field,
       title: 'Instagram',
-      defaultValue: speaker?.instagram,
+      defaultValue: speaker?.instagramUrl,
     },
     {
       id: 'description',
