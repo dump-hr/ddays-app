@@ -29,6 +29,14 @@ export const Description: FormComponent = ({ close }) => {
   }
 
   const handleSubmit = async () => {
+    const descriptionString = description ?? company.description ?? '';
+    const wordCount = descriptionString.split(/\s/).length;
+
+    if (wordCount < 65 || wordCount > 75) {
+      toast.error('Duljina teksta opisa ne odgovara uvjetima.');
+      return;
+    }
+
     const fullUrlRegex =
       /^(https?:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}(\/[^\s]*)?$/;
 
@@ -52,7 +60,7 @@ export const Description: FormComponent = ({ close }) => {
     }
 
     await updateDescription.mutateAsync({
-      description: description ?? company.description ?? '',
+      description: descriptionString,
       websiteUrl: websiteUrlString,
       instagramUrl: instagramUrlString,
       linkedinUrl: linkedinUrlString,
