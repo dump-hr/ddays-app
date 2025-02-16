@@ -1,5 +1,6 @@
 import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateDescription } from '../../api/company/useCompanyUpdateDescription';
@@ -28,11 +29,41 @@ export const Description: FormComponent = ({ close }) => {
   }
 
   const handleSubmit = async () => {
+    const descriptionString = description ?? company.description ?? '';
+    const wordCount = descriptionString.split(/\s/).length;
+
+    if (wordCount < 65 || wordCount > 75) {
+      toast.error('Duljina teksta opisa ne odgovara uvjetima.');
+      return;
+    }
+
+    const fullUrlRegex =
+      /^(https?:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}(\/[^\s]*)?$/;
+
+    const websiteUrlString = websiteUrl ?? company.websiteUrl ?? '';
+    const instagramUrlString = instagramUrl ?? company.instagramUrl ?? '';
+    const linkedinUrlString = linkedinUrl ?? company.linkedinUrl ?? '';
+
+    if (websiteUrlString && !fullUrlRegex.test(websiteUrlString)) {
+      toast.error('Link na web stranicu nije ispravan');
+      return;
+    }
+
+    if (instagramUrlString && !fullUrlRegex.test(instagramUrlString)) {
+      toast.error('Link na Instagram profil nije ispravan');
+      return;
+    }
+
+    if (linkedinUrlString && !fullUrlRegex.test(linkedinUrlString)) {
+      toast.error('Link na LinkedIn profil nije ispravan');
+      return;
+    }
+
     await updateDescription.mutateAsync({
-      description: description ?? company.description ?? '',
-      websiteUrl: websiteUrl ?? company.websiteUrl ?? '',
-      instagramUrl: instagramUrl ?? company.instagramUrl ?? '',
-      linkedinUrl: linkedinUrl ?? company.linkedinUrl ?? '',
+      description: descriptionString,
+      websiteUrl: websiteUrlString,
+      instagramUrl: instagramUrlString,
+      linkedinUrl: linkedinUrlString,
       opportunitiesDescription:
         opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });

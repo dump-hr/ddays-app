@@ -1,6 +1,6 @@
 import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -13,6 +13,8 @@ import c from './Job.module.scss';
 import { getMaxJobsPerTier } from './utils';
 
 export const Job: FormComponent = ({ close }) => {
+  const ref = useRef(true);
+
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
   const [displayErrors, setDisplayErrors] = useState(false);
 
@@ -23,8 +25,10 @@ export const Job: FormComponent = ({ close }) => {
 
   useEffect(() => {
     if (jobs.length) return;
-    setJobs(companyJobs ?? []);
-    if (!companyJobs?.length) handleAdd();
+    if (ref.current) {
+      setJobs(companyJobs ?? []);
+      ref.current = false;
+    }
   }, [companyJobs, jobs]);
 
   const handleAdd = () => {
