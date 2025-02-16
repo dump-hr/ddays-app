@@ -106,8 +106,8 @@ export class EventService {
           title: speaker.title,
           companyId: speaker.companyId,
           photo: speaker.photo,
-          instagram: speaker.instagramUrl,
-          linkedin: speaker.linkedinUrl,
+          instagram: speaker.instagram,
+          linkedin: speaker.linkedin,
           description: speaker.description,
           company: speaker.company
             ? { ...speaker.company, password: undefined }
