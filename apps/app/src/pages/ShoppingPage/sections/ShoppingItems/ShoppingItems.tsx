@@ -1,6 +1,7 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import ShoppingItem from '../../../../components/ShoppingItem';
+import { products } from './products';
 
 const ShoppingItems = () => {
   return (
@@ -13,11 +14,13 @@ const ShoppingItems = () => {
         </div>
       </div>
       <div className={styles.products}>
-        <ShoppingItem />
-        <ShoppingItem />
-        <ShoppingItem />
-        <ShoppingItem />
-        <ShoppingItem />
+        {products.map((product) => (
+          <ShoppingItem
+            key={product.id}
+            isInCart={product.id % 2 === 0} //privremeno
+            product={product}
+          />
+        ))}
       </div>
     </div>
   );

@@ -54,6 +54,21 @@
   height: 36px;
 }
 
+.inCart {
+  @include tag-14;
+  color: $primary-black;
+  position: absolute;
+  top: 8px;
+  right: 67px;
+  left: 8px;
+  background: $primary-beige;
+  border-radius: 6px;
+  padding: 4px 6px;
+  text-transform: uppercase;
+
+  color: $black-70;
+}
+
 .pointsText {
   @include heading-3;
   color: $black-70;
