@@ -44,11 +44,7 @@ export const Job: FormComponent = ({ close }) => {
   };
 
   const handleRemove = (idToRemove?: number) => {
-    setJobs((prev) => {
-      return prev
-        .filter(({ id }) => id !== idToRemove)
-        .map((job) => ({ ...job }));
-    });
+    setJobs((prev) => prev.filter((_, i) => i !== idToRemove));
   };
 
   const handleSave = async () => {
@@ -79,7 +75,7 @@ export const Job: FormComponent = ({ close }) => {
       </div>
 
       <div className={c.jobsContainer}>
-        {jobs.map(({ id, details, location, position, link }, index) => (
+        {jobs.map(({ details, location, position, link }, index) => (
           <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>
@@ -89,7 +85,7 @@ export const Job: FormComponent = ({ close }) => {
                     <span className={c.error}>(nepotpuni podaci)</span>
                   )}
               </h2>
-              <span onClick={() => handleRemove(id)} className={c.label}>
+              <span onClick={() => handleRemove(index)} className={c.label}>
                 Ukloni
               </span>
             </div>
