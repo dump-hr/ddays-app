@@ -5,7 +5,7 @@ export const getMaxJobsPerTier = (category: CompanyCategory) => {
     case CompanyCategory.BRONZE:
       return 2;
     case CompanyCategory.SILVER:
-      return 3;
+      return 2;
     case CompanyCategory.GOLD:
       return 3;
     default:
