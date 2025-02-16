@@ -35,19 +35,19 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     ...(process.env.NODE_ENV !== 'dev'
       ? [
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'web', 'dist'),
             exclude: ['/api/(.*)', '/app/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'app', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'app', 'dist'),
             serveRoot: '/app',
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'sponsor', 'dist'),
             serveRoot: '/sponsor',
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'admin', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'admin', 'dist'),
             serveRoot: '/admin',
           }),
         ]

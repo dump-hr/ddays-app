@@ -22,7 +22,7 @@ export class CompanyService {
 
     const createdCompany = await this.prisma.company.create({
       data: {
-        ...dto,
+        ...{ ...dto, interestIds: undefined },
         password: generatedPassword,
       },
     });
