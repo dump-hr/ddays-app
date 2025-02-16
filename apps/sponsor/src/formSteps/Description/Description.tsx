@@ -28,11 +28,18 @@ export const Description: FormComponent = ({ close }) => {
     return <div>Loading...</div>;
   }
 
+  function countWords(text: string): number {
+    return text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
+  }
+
   const handleSubmit = async () => {
     const descriptionString = description ?? company.description ?? '';
-    const wordCount = descriptionString.split(/\s/).length;
+    const wordCount = countWords(descriptionString);
 
-    if (wordCount < 65 || wordCount > 75) {
+    if (wordCount < 65 || wordCount >= 75) {
       toast.error('Duljina teksta opisa ne odgovara uvjetima.');
       return;
     }
