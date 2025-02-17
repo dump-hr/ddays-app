@@ -122,11 +122,10 @@
 
 .forgotPassword {
   @include paragraph-16;
-  color: var(--Primary-Black, #171615);
+  color: $black-50;
   font-style: normal;
   line-height: 22px;
   letter-spacing: -0.16px;
-  opacity: 0.6;
   text-decoration: none;
   align-self: flex-end;
   margin-top: -16px;
@@ -179,8 +178,8 @@
   font-style: normal;
   line-height: 22px;
   letter-spacing: -0.16px;
-  opacity: 0.6;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .registerLink {
