@@ -1,17 +1,15 @@
 import sprite from '@/assets/sprite.svg';
 import styles from './NotificationBell.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../../router/routes';
 
-interface NotificationBellProps {
-  setOpenNotifications: (open: boolean) => void;
-}
+export const NotificationBell: React.FC = () => {
+  const navigate = useNavigate();
 
-export const NotificationBell: React.FC<NotificationBellProps> = ({
-  setOpenNotifications,
-}) => {
   return (
     <div
       className={styles.notificationWrapper}
-      onClick={() => setOpenNotifications(true)}>
+      onClick={() => navigate(RouteNames.NOTIFICATIONS)}>
       <svg className={styles.notificationIcon} width={32} height={32}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
