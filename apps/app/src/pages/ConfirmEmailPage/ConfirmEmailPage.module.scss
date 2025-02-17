@@ -1,0 +1,30 @@
+.page {
+    background-color: $primary-black;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  
+    .header {
+    //   width: 100%;
+    //   height: 300px; // Temporary 
+    //   display: flex;
+    //   justify-content: center;
+
+    //   @media (max-width: $breakpoint-tablet) {
+    //     height: 350px;
+    //     justify-content: flex-end;
+    //   }
+
+    }
+  
+    .main {
+      width: 100%;
+      height: 100%;
+      background-color: $primary-background;
+      border-radius: 12px 12px 0px 0px;
+      display: flex;
+      justify-content: center;
+    }
+}
+  
