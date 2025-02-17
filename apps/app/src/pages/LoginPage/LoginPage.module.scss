@@ -141,16 +141,6 @@
   margin-top: auto;
   transition: transform 0.3s ease;
 
-  @media (max-width: $breakpoint-tablet) {
-    &.keyboardOpen {
-      transform: translateY(-140px);
-    }
-    &:not(.keyboardOpen) {
-      transform: translateY(0);
-      transition: transform 0.3s ease-in-out;
-    }
-  }
-
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     min-width: 470px;
