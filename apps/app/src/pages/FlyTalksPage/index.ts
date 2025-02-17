@@ -1,2 +1,2 @@
-import { FlyTalksPage } from './FlyTalksPage';
+import FlyTalksPage from './FlyTalksPage';
 export { FlyTalksPage };
