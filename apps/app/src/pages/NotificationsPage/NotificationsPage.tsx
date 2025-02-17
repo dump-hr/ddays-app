@@ -54,9 +54,9 @@ export const NotificationsPage: React.FC = () => {
   }, [notificationsTab, allNotifications, unreadNotifications]);
 
   return (
-    <div className={styles.modalWrapper}>
-      <div className={styles.modalContent}>
-        <div className={styles.modalHeader}>
+    <div className={styles.wrapper}>
+      <div className={styles.content}>
+        <div className={styles.header}>
           <div
             className={styles.backButton}
             onClick={() => navigate(RouteNames.HOME)}>

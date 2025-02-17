@@ -1,4 +1,4 @@
-.modalHeader {
+.header {
   display: flex;
   justify-content: center;
   margin-bottom: 28px;
@@ -22,14 +22,16 @@
   color: black;
 }
 
-.modalWrapper {
+.wrapper {
   z-index: 4;
   background: rgba(0, 0, 0, 0.9);
   position: fixed;
   inset: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.modalContent {
+.content {
   background: white;
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
@@ -38,6 +40,7 @@
   top: 64px;
   bottom: 0;
   width: 100%;
+  max-width: 579px;
   z-index: 5;
   overflow-y: auto;
   padding-bottom: 40px;
