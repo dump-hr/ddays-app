@@ -14,7 +14,6 @@ export const Header = () => {
 
         {isMobile && <NotificationBell />}
       </div>
-
       <HeaderCardsWrapper />
     </div>
   );
