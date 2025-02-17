@@ -1,0 +1,23 @@
+body {
+  background-color: $primary-black;
+  min-height: 100vh;
+}
+
+.header {
+  color: white;
+
+  .title {
+    @include heading-2;
+    span {
+      color: $black-70;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 16px 16px 0px 0px;
+}
