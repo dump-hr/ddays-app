@@ -10,7 +10,11 @@ export class InterestService {
     companyId: number,
     interestIds: number[],
   ): Promise<InterestDto[]> {
-    if (!interestIds || !interestIds.length) {
+    if (!interestIds || interestIds?.length === 0) {
+      // If no interestIds are provided, remove all interests for the company
+      await this.prisma.companyToInterest.deleteMany({
+        where: { companyId },
+      });
       return [];
     }
 
