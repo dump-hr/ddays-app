@@ -12,9 +12,9 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {
     title: 'Opisi tvrtke',
     description: (category) => {
-      if (category === CompanyCategory.Bronze)
+      if (category === CompanyCategory.BRONZE)
         return 'Predaja do 8. ožujka 2025.';
-      if (category === CompanyCategory.Silver)
+      if (category === CompanyCategory.SILVER)
         return 'Predaja do 15. ožujka 2025.';
       return 'Predaja do 1. travnja 2025.';
     },
@@ -23,9 +23,9 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Logo]: {
     title: 'Logotip tvrtke',
     description: (category) => {
-      if (category === CompanyCategory.Bronze)
+      if (category === CompanyCategory.BRONZE)
         return 'Predaja do 8. ožujka 2025.';
-      if (category === CompanyCategory.Silver)
+      if (category === CompanyCategory.SILVER)
         return 'Predaja do 15. ožujka 2025.';
       return 'Predaja do 1. travnja 2025.';
     },
@@ -34,9 +34,9 @@ export const sponsorForm: SponsorForm = {
   [FormSteps.Photos]: {
     title: 'Fotografije tvrtke',
     description: (category) => {
-      if (category === CompanyCategory.Bronze)
+      if (category === CompanyCategory.BRONZE)
         return 'Predaja do 8. ožujka 2025.';
-      if (category === CompanyCategory.Silver)
+      if (category === CompanyCategory.SILVER)
         return 'Predaja do 15. ožujka 2025.';
       return 'Predaja do 1. travnja 2025.';
     },

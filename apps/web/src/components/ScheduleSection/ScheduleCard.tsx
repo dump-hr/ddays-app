@@ -1,4 +1,4 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
 import MinusSvg from 'assets/icons/minus-black.svg';
 import PlusSvg from 'assets/icons/plus-black.svg';
 import { useEffect, useState } from 'react';
@@ -33,8 +33,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   const isOpenDescription = openCardId === event.id;
 
   const imagesList = event.speakers
-    ?.filter((speaker) => speaker.photo !== null)
-    .map((speaker) => speaker.photo?.mainPhotoUrl);
+    ?.filter((speaker) => speaker.photoUrl !== null)
+    .map((speaker) => speaker.photoUrl);
 
   const images = imagesList?.length === 0 ? [''] : imagesList!;
 
@@ -84,7 +84,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       <div className={c.scheduleCard}>
         {(isImageShown || isOpenDescription) && !isMobile && (
           <>
-            {event.type === 'panel' && images[currentImageIndex] && (
+            {event.type === EventType.PANEL && images[currentImageIndex] && (
               <>
                 <ScheduleImageCard
                   index={0}
@@ -107,7 +107,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               </>
             )}
 
-            {event.type !== 'panel' &&
+            {event.type !== EventType.PANEL &&
               images.map((image, index) => {
                 return (
                   <ScheduleImageCard
@@ -136,7 +136,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
           <div className={c.scheduleCardCenterWrapper}>
             <div className={c.scheduleCardCenter}>
-              {event.type !== 'other' && (
+              {event.type !== EventType.OTHER && (
                 <div className={c.themeBadge}>
                   <p className={c.themeBadgeText}>
                     {getThemeShort(event.theme)}

@@ -42,10 +42,10 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
       defaultValue: company?.description,
     },
     {
-      id: 'website',
+      id: 'websiteUrl',
       type: QuestionType.Field,
       title: 'Website',
-      defaultValue: company?.website,
+      defaultValue: company?.websiteUrl,
     },
     {
       id: 'category',

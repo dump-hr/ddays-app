@@ -1,35 +1,97 @@
-export enum Theme {
-  Dev = 'dev',
-  Design = 'design',
-  Tech = 'tech',
-  Marketing = 'marketing',
+export enum Accessory {
+  DEFAULT = 'DEFAULT',
+  SUNGLASSES = 'SUNGLASSES',
+  CROWN = 'CROWN',
+  ANGEL = 'ANGEL',
+  BERET = 'BERET',
+  NINJA = 'NINJA',
+  HEADPHONES = 'HEADPHONES',
+  FLOWER = 'FLOWER',
+}
+
+export enum Body {
+  DEFAULT = 'DEFAULT',
+  SCARF = 'SCARF',
+  CHAIN = 'CHAIN',
+  BASKETBALL = 'BASKETBALL',
+  MACBOOK = 'MACBOOK',
+  SUNFLOWER = 'SUNFLOWER',
+  CATS = 'CATS',
+  DUMBELL = 'DUMBELL',
+}
+
+export enum Colors {
+  YELLOW = 'YELLOW',
+  ORANGE = 'ORANGE',
+  BROWN = 'BROWN',
+  PURPLE = 'PURPLE',
+  GREEN = 'GREEN',
+  WHITE = 'WHITE',
+  RED = 'RED',
+  GRAY = 'GRAY',
 }
 
 export enum CompanyCategory {
-  Gold = 'gold',
-  Silver = 'silver',
-  Bronze = 'bronze',
-  Media = 'media',
-  Friend = 'friend',
+  GOLD = 'GOLD',
+  SILVER = 'SILVER',
+  BRONZE = 'BRONZE',
+  MEDIA = 'MEDIA',
+  FRIEND = 'FRIEND',
 }
 
 export enum EventType {
-  Lecture = 'lecture',
-  Workshop = 'workshop',
-  FlyTalk = 'flyTalk',
-  CampfireTalk = 'campfireTalk',
-  Panel = 'panel',
-  Other = 'other',
+  LECTURE = 'LECTURE',
+  WORKSHOP = 'WORKSHOP',
+  FLY_TALK = 'FLY_TALK',
+  CAMPFIRE_TALK = 'CAMPFIRE_TALK',
+  PANEL = 'PANEL',
+  OTHER = 'OTHER',
+}
+
+export enum Face {
+  DEFAULT = 'DEFAULT',
+  EYELASHES = 'EYELASHES',
+  ANGRY = 'ANGRY',
+  CRYING = 'CRYING',
+  MUSTACHE = 'MUSTACHE',
+  NOSE_RING = 'NOSE_RING',
+  TATTOO = 'TATTOO',
+  MOLE = 'MOLE',
+}
+
+export enum NotificationStatus {
+  PENDING = 'PENDING',
+  DELIVERED = 'DELIVERED',
+  READ = 'READ',
+}
+
+export enum ShopItemType {
+  MUG = 'MUG',
+  SHIRT = 'SHIRT',
+  HOODIE = 'HOODIE',
+  STICKER = 'STICKER',
+}
+
+export enum ShoppingCartItemStage {
+  COLLECTED = 'COLLECTED',
+  UNCOLLECTED = 'UNCOLLECTED',
 }
 
 export enum SurveyQuestionInputType {
-  Input = 'input',
-  Textarea = 'textarea',
-  Rating = 'rating',
+  INPUT = 'INPUT',
+  TEXTAREA = 'TEXTAREA',
+  RATING = 'RATING',
 }
 
 export enum SurveyQuestionType {
-  Workshop = 'workshop',
-  Lecture = 'lecture',
-  Company = 'company',
+  WORKSHOP = 'WORKSHOP',
+  LECTURE = 'LECTURE',
+  COMPANY = 'COMPANY',
+}
+
+export enum Theme {
+  DEV = 'DEV',
+  DESIGN = 'DESIGN',
+  MARKETING = 'MARKETING',
+  TECH = 'TECH',
 }
