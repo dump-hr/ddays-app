@@ -1,24 +1,22 @@
 import { useEffect, useMemo, useState } from 'react';
-import styles from './NotificationsModal.module.scss';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './NotificationsPage.module.scss';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import IconBell from '@/assets/icons/icon-bell.svg';
-import TabGroup from '../TabGroup';
-import Tab from '../Tab';
-import Notification from '../Notification/Notification';
+
+import TabGroup from '../../components/TabGroup';
+import Tab from '../../components/Tab';
+import Notification from '../../components/Notification/Notification';
 import { notifications } from './notifications.const';
+import { RouteNames } from '../../router/routes';
 
 enum Tabs {
   Sve,
   Nepročitano,
 }
 
-interface NotificationsModalProps {
-  setOpenNotifications: (open: boolean) => void;
-}
-
-export const NotificationsModal: React.FC<NotificationsModalProps> = ({
-  setOpenNotifications,
-}) => {
+export const NotificationsPage: React.FC = () => {
   const [expandedNotificationId, setExpandedNotificationId] = useState<
     number | null
   >(null);
@@ -32,8 +30,20 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
     setNotificationsTab(tab);
   };
 
-  const allNotifications = useMemo(() => notifications, []);
-  const unreadNotifications = useMemo(() => notifications.slice(0, 2), []);
+  const navigate = useNavigate();
+  const allNotifications = useMemo(
+    () =>
+      notifications
+        .sort((a, b) => {
+          return b.activatedAt!.getTime() - a.activatedAt!.getTime();
+        }),
+    [notifications],
+  );
+
+  const unreadNotifications = useMemo(
+    () => allNotifications.filter((notification) => notification.isActive),
+    [allNotifications],
+  );
 
   useEffect(() => {
     if (notificationsTab === Tabs.Sve) {
@@ -49,7 +59,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
         <div className={styles.modalHeader}>
           <div
             className={styles.backButton}
-            onClick={() => setOpenNotifications(false)}>
+            onClick={() => navigate(RouteNames.HOME)}>
             <img src={ArrowLeft} alt='back' />
           </div>
           <h2 className={styles.title}>NOTIFIKACIJE</h2>
@@ -61,13 +71,11 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
               <Tab id={Tabs.Nepročitano}>Nepročitano</Tab>
             </TabGroup>
             <div className={styles.notificationsContainer}>
-              {displayedNotifications.map((notification) => (
+              {displayedNotifications.map((notification, index) => (
                 <Notification
                   key={notification.id}
-                  id={notification.id}
-                  title={notification.title}
-                  content={notification.content}
-                  time={notification.time}
+                  index={index}
+                  notification={notification}
                   expandedNotificationId={expandedNotificationId}
                   setExpandedNotificationId={setExpandedNotificationId}
                   notificationsLength={displayedNotifications.length}
@@ -89,4 +97,4 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   );
 };
 
-export default NotificationsModal;
+export default NotificationsPage;
