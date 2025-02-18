@@ -26,7 +26,7 @@
   @include dottedBreakVertical;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 0.5px;
 }
 
 .dottedBorderBottomHorizontal {
@@ -41,7 +41,7 @@
   @include dottedBreakVertical;
   position: absolute;
   right: -2px;
-  top: 0;
+  top: 0.5px;
 }
 
 .addToCartButton {
