@@ -82,7 +82,7 @@
   letter-spacing: 0%;
 }
 
-@mixin dottedBreak($color: rgba(23, 22, 21, 0.3)) {
+@mixin dottedBreak($color: $black-30) {
   width: 100%;
   height: 2px;
   background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
@@ -93,7 +93,7 @@
   overflow: hidden;
 }
 
-@mixin dottedBreakVertical($color: rgba(23, 22, 21, 0.3)) {
+@mixin dottedBreakVertical($color: $black-30) {
   width: 2px;
   height: 100%;
   background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
