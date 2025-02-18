@@ -3,13 +3,27 @@ import styles from './HeaderCard.module.scss';
 interface HeaderCardProps {
   img: string;
   text: string;
-  width: number;
-  height: number;
+  imgWidth: number;
+  imgHeight: number;
+  width?: number | null;
+  height?: number | null;
 }
-export const HeaderCard = ({ img, text, width, height }: HeaderCardProps) => {
+export const HeaderCard = ({
+  img,
+  text,
+  imgWidth,
+  imgHeight,
+  width = null,
+  height = null,
+}: HeaderCardProps) => {
   return (
-    <div className={styles.headerCard}>
-      <img src={img} alt={text} width={width} height={height} />
+    <div
+      className={styles.headerCard}
+      style={{
+        ...(width ? { width: `${width}px` } : {}),
+        ...(height ? { height: `${height}px` } : {}),
+      }}>
+      <img src={img} alt={text} width={imgWidth} height={imgHeight} />
       <p>{text}</p>
     </div>
   );

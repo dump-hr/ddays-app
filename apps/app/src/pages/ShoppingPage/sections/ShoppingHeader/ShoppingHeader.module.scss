@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
+
+  img {
+    cursor: pointer;
+  }
 }
 
 .headerContainer {
@@ -23,25 +27,10 @@
   display: flex;
   justify-content: center;
   gap: 6px;
-}
+  color: $white-text;
 
-.navButton {
-  background: $black-90;
-  border: none;
-  border-radius: 0.5rem;
-  display: block;
-  padding: 17.5px 45px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  @media screen and (max-width: 379px) {
-    padding: 17.5px 25px;
-    
-  }
-
-  p {
-    @include paragraph-16;
-    color: $white-text;
+  img {
+    width: 79px;
+    height: 44px;
   }
 }

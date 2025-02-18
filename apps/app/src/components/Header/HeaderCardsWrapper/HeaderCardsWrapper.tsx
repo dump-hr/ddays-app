@@ -50,8 +50,8 @@ export const HeaderCardsWrapper = () => {
           key={card.id}
           img={card.img}
           text={card.text}
-          width={card.width}
-          height={card.height}
+          imgWidth={card.width}
+          imgHeight={card.height}
         />
       ))}
     </div>
