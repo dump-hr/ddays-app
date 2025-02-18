@@ -1,51 +1,56 @@
-.shoppingItemsWrapper {
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
-  height: auto;
-  z-index: 5;
-  position: absolute;
-  top: 266px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: $primary-background;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  gap: 1rem;
-}
+.shoppingItems {
+  &Wrapper {
+    background: $primary-background;
+    border-radius: 1rem;
 
-.shoppingUserPoints {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 10px 1.5rem;
-  background: $primary-beige;
-  border-radius: 0.5rem;
-  max-width: 342px;
-  min-width: 250px;
-  width: clamp(250px, 100%, 342px);
-  margin: 0 auto;
-
-  p {
-    @include paragraph-16;
-    color: $black-70;
+    height: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 1.5rem 1.5rem 1.5rem;
+    @media screen and (max-width: $breakpoint-desktop) {
+      margin: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
 
-  .points {
+  &Container {
     display: flex;
-    gap: 3px;
-    height: 28px;
-    img {
-      height: 22px;
-      width: 22px;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  &UserPoints {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 1.5rem;
+    background: $primary-beige;
+    border-radius: 0.5rem;
+
+    p {
+      @include paragraph-16;
+      color: $black-70;
     }
-    span {
-      @include heading-2;
+
+    .points {
+      display: flex;
+      gap: 3px;
+      height: 28px;
+      img {
+        height: 22px;
+        width: 22px;
+      }
+      span {
+        @include heading-2;
+      }
     }
   }
 }
@@ -55,19 +60,15 @@
   grid-template-columns: repeat(4, 171px);
   justify-content: center;
   padding-bottom: 1rem;
+  max-width: 640px;
 
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: repeat(3, 171px);
-    
+  grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 560px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(2, 171px);
-    
-  }
-
-  @media screen and (max-width: 389px) {
+  @media screen and (max-width: 360px) {
     grid-template-columns: repeat(1, 171px);
-    
   }
 }

@@ -6,7 +6,8 @@ import { products } from './products';
 const ShoppingItems = () => {
   return (
     <div className={styles.shoppingItemsWrapper}>
-      <div className={styles.shoppingUserPoints}>
+      <div className={styles.shoppingItemsContainer}>
+      <div className={styles.shoppingItemsUserPoints}>
         <p>Tvoje stanje s bodovima</p>
         <div className={styles.points}>
           <img src={StarIcon} alt='' />
@@ -21,6 +22,7 @@ const ShoppingItems = () => {
             product={product}
           />
         ))}
+      </div>
       </div>
     </div>
   );
