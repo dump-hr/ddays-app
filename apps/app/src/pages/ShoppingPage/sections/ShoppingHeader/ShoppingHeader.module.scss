@@ -1,10 +1,25 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-
+  text-align: center;
+  margin-bottom: 53px;
+  h1 {
+    font-size: 30px;
+  }
   img {
-    cursor: pointer;
+    position: absolute;
+    top: 48px;
+    right: 72px;
+  }
+
+  @media screen and (max-width: $breakpoint-desktop) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    h1 {
+      font-size: 24px;
+    }
+    img {
+      cursor: pointer;
+    }
   }
 }
 
@@ -14,7 +29,6 @@
   padding-right: 1.5rem;
   padding-bottom: 2rem;
   background: $primary-black;
-  height: 300px;
 }
 
 .title {
