@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
-import { ProductDTO } from '../../pages/ShoppingPage/sections/ShoppingItems/products';
+import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { ShopItemType } from '@ddays-app/types/src/enum';
+import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
 
 interface ShoppingItemProps {
   isInCart: boolean;
-  product: ProductDTO;
+  product: ShopItemDto;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ isInCart, product }) => {
@@ -16,8 +18,12 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ isInCart, product }) => {
       <div className={styles.dottedBorderBottomHorizontal} />
       <div className={styles.dottedBorderRightVertical} />
       {isInCart && <span className={styles.inCart}>U košarici</span>}
-      <img src={product.img} alt='' />
-      <h3>{product.name}</h3>
+      <img
+        className={styles.productImage}
+        src={getShopItemImgFromType(product.type as ShopItemType)}
+        alt=''
+      />
+      <h3>{product.itemName}</h3>
       <p className={styles.productSupply}>Na zalihama: {product.quantity}</p>
       <div className={styles.addToCartButton}>
         <img src={StarIcon} alt='' />
