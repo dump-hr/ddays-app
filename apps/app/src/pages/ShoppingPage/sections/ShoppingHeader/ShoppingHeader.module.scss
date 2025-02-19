@@ -1,10 +1,13 @@
 .header {
   text-align: center;
   margin-bottom: 53px;
+
   h1 {
     font-size: 30px;
   }
+
   img {
+    cursor: pointer;
     position: absolute;
     top: 48px;
     right: 72px;
@@ -14,11 +17,15 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+
     h1 {
       font-size: 24px;
     }
+
     img {
-      cursor: pointer;
+      position: relative;
+      top: 0;
+      right: 0;
     }
   }
 }
@@ -37,14 +44,40 @@
   font-weight: 500;
 }
 
-.navigation {
+.navContainer {
   display: flex;
   justify-content: center;
-  gap: 6px;
   color: $white-text;
+}
+
+.navigation {
+  display: flex;
+  gap: 6px;
+  position: relative;
 
   img {
     width: 79px;
     height: 44px;
+  }
+}
+
+.numberOfItemsInCart {
+  @include heading-3;
+  border: 2px solid $primary-black;
+  border-radius: 4px;
+  background: $primary-highlight;
+  display: flex;
+  height: 25px;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  right: 36.5px;
+  top: 56px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    right: 51px;
+    top: 43px;
   }
 }
