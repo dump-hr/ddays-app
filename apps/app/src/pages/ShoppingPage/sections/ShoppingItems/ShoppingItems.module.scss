@@ -24,7 +24,7 @@
     width: 100%;
     max-width: 640px;
   }
-
+  
   &UserPoints {
     display: flex;
     flex-direction: column;
@@ -67,7 +67,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 360px) {
-    grid-template-columns: repeat(1, 171px);
+  @media screen and (max-width: 370px) {
+    grid-template-columns: repeat(1, 1fr);
+    min-width: 171px;
   }
 }
