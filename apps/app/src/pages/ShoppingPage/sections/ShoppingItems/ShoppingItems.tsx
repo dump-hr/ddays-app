@@ -20,6 +20,7 @@ const ShoppingItems = () => {
             key={product.id}
             isInCart={product.id % 2 === 0} //privremeno
             product={product}
+            userPointsAmount={299}
           />
         ))}
       </div>
