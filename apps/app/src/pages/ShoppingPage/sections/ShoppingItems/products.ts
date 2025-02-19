@@ -1,82 +1,75 @@
-import CoffeeMug from '@/assets/images/coffee-mug.png';
+import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { ShopItemType } from '@ddays-app/types/src/enum';
 
-export type ProductDTO = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  img: string;
-};
-
-export const products: ProductDTO[] = [
+export const products: ShopItemDto[] = [
   {
     id: 1,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days shirt',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.SHIRT,
   },
   {
     id: 2,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.HOODIE,
   },
   {
     id: 3,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.MUG,
   },
   {
     id: 4,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.STICKER,
   },
   {
     id: 5,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.SHIRT,
   },
   {
     id: 6,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.HOODIE,
   },
   {
     id: 7,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.MUG,
   },
   {
     id: 8,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.STICKER,
   },
   {
     id: 9,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.SHIRT,
   },
   {
     id: 10,
-    name: 'Gucci dump days majica',
+    itemName: 'Gucci dump days majica',
     price: 299,
     quantity: 4,
-    img: CoffeeMug,
+    type: ShopItemType.HOODIE,
   },
 ];
