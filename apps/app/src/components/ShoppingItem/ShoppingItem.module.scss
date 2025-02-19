@@ -12,9 +12,18 @@
     font-weight: 500;
     text-transform: uppercase;
   }
+  img.productImage {
+    max-height: 144px;
+    max-width: 189px;
+    align-self: center;
+    object-fit: contain;
+  }
 
-  @media screen and (max-width: $breakpoint-mobile-lg) {
+  @media screen and (max-width: $breakpoint-desktop) {
     padding: 20px 12px;
+    img.productImage {
+      width: 144px;
+    }
   }
 }
 
@@ -68,7 +77,7 @@
   color: $primary-black;
   position: absolute;
   top: 8px;
-  right: 67px;
+  width: 96px;
   left: 8px;
   background: $primary-beige;
   border-radius: 6px;
