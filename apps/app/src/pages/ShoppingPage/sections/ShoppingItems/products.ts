@@ -62,7 +62,7 @@ export const products: ShopItemDto[] = [
     id: 9,
     itemName: 'Gucci dump days majica',
     price: 299,
-    quantity: 4,
+    quantity: 0,
     type: ShopItemType.SHIRT,
   },
   {
