@@ -5,5 +5,5 @@ export type ShopItemDto = {
   type: ShopItemType | null;
   itemName: string | null;
   quantity: number | null;
-  price: number | null;
+  price: number;
 };
