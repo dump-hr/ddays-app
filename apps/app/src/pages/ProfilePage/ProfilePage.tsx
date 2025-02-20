@@ -11,6 +11,7 @@ import UserEdit from '../../assets/icons/user-edit.svg';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
 import RecommendationsButton from '../../components/RecommendationsButton';
 import FeedbackButton from '../../components/FeedbackButton';
+import LogoutButton from '../../components/LogoutButton';
 
 const navigationItems = [
   {
@@ -76,6 +77,7 @@ export const ProfilePage = () => {
         <div className={c.buttonsWrapper}>
           <RecommendationsButton />
           <FeedbackButton />
+          <LogoutButton />
         </div>
       </main>
     </>
