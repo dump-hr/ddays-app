@@ -108,4 +108,8 @@
 .productSupply {
   @include paragraph-14;
   color: $black-50;
+
+  &Disabled {
+    color: $black-30;
+  }
 }

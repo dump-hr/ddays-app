@@ -47,8 +47,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
       />
       <h3>{product.itemName}</h3>
       <p
-        style={disabled ? { color: '#B3B3B2' } : {}}
-        className={styles.productSupply}>
+        className={`${styles.productSupply} ${disabled ? styles.productSupplyDisabled : ''}`}>
         Na zalihama: {product.quantity}
       </p>
       <div
