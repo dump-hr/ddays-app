@@ -9,6 +9,8 @@ import Trophy from '../../assets/icons/trophy.svg';
 import Gift from '../../assets/icons/gift.svg';
 import UserEdit from '../../assets/icons/user-edit.svg';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
+import RecommendationsButton from '../../components/RecommendationsButton';
+import FeedbackButton from '../../components/FeedbackButton';
 
 const navigationItems = [
   {
@@ -71,7 +73,10 @@ export const ProfilePage = () => {
             />
           ))}
         </div>
-        <div className={c.buttonsWrapper}></div>
+        <div className={c.buttonsWrapper}>
+          <RecommendationsButton />
+          <FeedbackButton />
+        </div>
       </main>
     </>
   );
