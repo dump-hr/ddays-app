@@ -4,7 +4,7 @@ import ArrowRight from '../../assets/icons/arrow-right.svg';
 import c from './LogoutButton.module.scss';
 
 type LogoutButtonProps = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const LogoutButton: React.FC<LogoutButtonProps> = ({ onClick }) => {

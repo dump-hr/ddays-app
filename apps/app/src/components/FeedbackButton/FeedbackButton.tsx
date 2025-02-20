@@ -4,7 +4,7 @@ import ArrowRight from '../../assets/icons/arrow-right-white.svg';
 import c from './FeedbackButton.module.scss';
 
 type FeedbackButtonProps = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const FeedbackButton: React.FC<FeedbackButtonProps> = ({ onClick }) => {
