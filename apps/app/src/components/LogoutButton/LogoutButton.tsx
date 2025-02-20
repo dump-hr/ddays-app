@@ -3,9 +3,13 @@ import ArrowRight from '../../assets/icons/arrow-right.svg';
 
 import c from './LogoutButton.module.scss';
 
-const LogoutButton = () => {
+type LogoutButtonProps = {
+  onClick: () => void;
+};
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({ onClick }) => {
   return (
-    <button className={c.button}>
+    <button onClick={onClick} className={c.button}>
       <div className={c.iconWrapper}>
         <img src={Logout} className={c.icon} />
       </div>
