@@ -7,12 +7,11 @@ export const ProfilePage = () => {
   return (
     <>
       <header className={c.header}>
-        <div className={c.basicInfoWrapper}>
-          <p className={c.title}>
-            <span>Profil</span> <br />
-            Marija Gudelj
-          </p>
-        </div>
+        <p className={c.title}>
+          <span>Profil</span> <br />
+          Marija Gudelj
+        </p>
+
         <div className={c.statsWrapper}>
           <AvatarPointsCircle points={900} avatar={TempAvatar} />
           <div className={c.stats}>

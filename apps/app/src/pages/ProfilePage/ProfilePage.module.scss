@@ -5,12 +5,27 @@ body {
 
 .header {
   color: white;
+  box-sizing: border-box;
+  padding: 64px 24px 40px;
 
   .title {
     @include heading-2;
     span {
       color: $black-70;
       text-transform: uppercase;
+    }
+    margin-bottom: 24px;
+  }
+
+  .statsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
   }
 }
