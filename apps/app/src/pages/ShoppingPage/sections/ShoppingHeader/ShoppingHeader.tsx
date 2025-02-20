@@ -8,13 +8,15 @@ import { HeaderCard } from '../../../../components/Header/HeaderCard/HeaderCard'
 import { RouteNames } from '../../../../router/routes';
 import { useDeviceType } from '../../../../hooks/UseDeviceType';
 
-const ShoppingHeader = () => {
+interface ShoppingHeaderProps {
+  numItemsInCart: number;
+}
+
+const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
   const [headerCardWidth, setHeaderCardWidth] = useState(168);
   const [headerCardHeight, setHeaderCardHeight] = useState(110);
-
   const { isMobile, isSmallMobile } = useDeviceType({ mobileBreakpoint: 769 });
   const navigate = useNavigate();
-  const itemsInCart = 1;
 
   const navigateHome = () => {
     navigate(RouteNames.HOME);
@@ -41,8 +43,8 @@ const ShoppingHeader = () => {
       </div>
       <div className={styles.navContainer}>
         <div className={styles.navigation}>
-          {itemsInCart > 0 && (
-            <div className={styles.numberOfItemsInCart}>{itemsInCart}</div>
+          {numItemsInCart > 0 && (
+            <div className={styles.numberOfItemsInCart}>{numItemsInCart}</div>
           )}
           <HeaderCard
             img={TransactionsIcon}

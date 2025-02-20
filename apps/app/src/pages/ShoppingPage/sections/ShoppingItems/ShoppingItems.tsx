@@ -3,27 +3,32 @@ import StarIcon from '@/assets/icons/rating-star-1.svg';
 import ShoppingItem from '../../../../components/ShoppingItem';
 import { products } from './products';
 
-const ShoppingItems = () => {
+interface ShoppingItemsProps {
+  setNumItemsInCart: (updateFn: (prev: number) => number) => void;
+}
+
+const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
   return (
     <div className={styles.shoppingItemsWrapper}>
       <div className={styles.shoppingItemsContainer}>
-      <div className={styles.shoppingItemsUserPoints}>
-        <p>Tvoje stanje s bodovima</p>
-        <div className={styles.points}>
-          <img src={StarIcon} alt='' />
-          <span>299</span>
+        <div className={styles.shoppingItemsUserPoints}>
+          <p>Tvoje stanje s bodovima</p>
+          <div className={styles.points}>
+            <img src={StarIcon} alt='' />
+            <span>299</span>
+          </div>
         </div>
-      </div>
-      <div className={styles.products}>
-        {products.map((product) => (
-          <ShoppingItem
-            key={product.id}
-            isInCart={product.id % 2 === 0} //privremeno
-            product={product}
-            userPointsAmount={299} //privremeno
-          />
-        ))}
-      </div>
+        <div className={styles.products}>
+          {products.map((product) => (
+            <ShoppingItem
+              key={product.id}
+              isInCart={product.id % 2 === 0} //privremeno
+              product={product}
+              userPointsAmount={299} //privremeno
+              setNumItemsInCart={setNumItemsInCart}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

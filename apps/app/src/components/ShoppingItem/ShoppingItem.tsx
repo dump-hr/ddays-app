@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
@@ -10,18 +10,29 @@ interface ShoppingItemProps {
   isInCart: boolean;
   userPointsAmount: number;
   product: ShopItemDto;
+  setNumItemsInCart: (updateFn: (prev: number) => number) => void;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({
   isInCart,
   product,
   userPointsAmount,
+  setNumItemsInCart,
 }) => {
   const outOfStock = product.quantity === 0;
   const notEnoughPoints = userPointsAmount < product.price;
 
-  const disabled = isInCart || outOfStock || notEnoughPoints;
-  
+  const [disabled, setDisabled] = useState(
+    isInCart || outOfStock || notEnoughPoints,
+  );
+
+  const handleCartBtnClick = () => {
+    if (disabled) return;
+
+    setNumItemsInCart((prev) => prev + 1);
+    setDisabled(true);
+  };
+
   return (
     <div className={styles.product}>
       <div className={styles.dottedBorderTopHorizontal} />
@@ -42,6 +53,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
       </p>
       <div
         aria-disabled={disabled}
+        onClick={handleCartBtnClick}
         className={`${styles.addToCartButton} ${
           disabled ? styles.addToCartButtonDisabled : ''
         }`}>
