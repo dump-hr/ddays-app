@@ -14,7 +14,7 @@ const AvatarPointsCircle: React.FC<AvatarPointsCircleProps> = ({
   return (
     <div className={c.outerCircle}>
       <div className={c.innerCircle}>
-        <img src={avatar} alt='' />
+        <img src={avatar} alt='Avatar' className={c.avatar} />
         <div className={c.levelWrapper}>
           <p className={c.level}>{levelStats.level}</p>
         </div>

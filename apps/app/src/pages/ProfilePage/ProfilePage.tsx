@@ -1,4 +1,6 @@
+import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import c from './ProfilePage.module.scss';
+import TempAvatar from '../../assets/images/temp-avatar.png';
 
 export const ProfilePage = () => {
   return (
@@ -10,7 +12,9 @@ export const ProfilePage = () => {
             Marija Gudelj
           </p>
         </div>
-        <div className={c.statsWrapper}></div>
+        <div className={c.statsWrapper}>
+          <AvatarPointsCircle points={500} avatar={TempAvatar} />
+        </div>
       </header>
       <main className={c.main}></main>
     </>
