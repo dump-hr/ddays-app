@@ -1,4 +1,4 @@
-const levelPoints: Record<number, number> = {
+export const levelPoints: Record<number, number> = {
   0: 1,
   200: 2,
   600: 3,
