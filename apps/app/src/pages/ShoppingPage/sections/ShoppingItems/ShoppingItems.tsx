@@ -1,7 +1,7 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import ShoppingItem from '../../../../components/ShoppingItem';
-import { products } from './products';
+import { products, userPointsAmount } from './products';
 
 interface ShoppingItemsProps {
   setNumItemsInCart: (updateFn: (prev: number) => number) => void;
@@ -15,7 +15,7 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
           <p>Tvoje stanje s bodovima</p>
           <div className={styles.points}>
             <img src={StarIcon} alt='' />
-            <span>299</span>
+            <span>{userPointsAmount}</span>
           </div>
         </div>
         <div className={styles.products}>
@@ -24,7 +24,7 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
               key={product.id}
               isInCart={product.id % 2 === 0} //privremeno
               product={product}
-              userPointsAmount={299} //privremeno
+              userPointsAmount={userPointsAmount}
               setNumItemsInCart={setNumItemsInCart}
             />
           ))}

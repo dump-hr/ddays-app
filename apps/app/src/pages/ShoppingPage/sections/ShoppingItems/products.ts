@@ -1,6 +1,8 @@
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 
+export const userPointsAmount = 299;
+
 export const products: ShopItemDto[] = [
   {
     id: 1,
