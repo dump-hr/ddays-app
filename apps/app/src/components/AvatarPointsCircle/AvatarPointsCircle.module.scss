@@ -15,6 +15,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    background-color: $black-90;
 
     .avatar {
       height: 70%;
@@ -22,6 +23,28 @@
 
     .levelWrapper {
       position: absolute;
+      bottom: 27px;
+      right: 41px;
+      height: 30px;
+      width: 30px;
+
+      border-radius: 4px;
+      border: 2px solid $primary-black;
+      background: $primary-highlight;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .level {
+        color: $primary-white;
+        font-family: NeueMachina;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        user-select: none;
+      }
     }
   }
 }

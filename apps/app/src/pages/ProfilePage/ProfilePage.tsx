@@ -13,7 +13,7 @@ export const ProfilePage = () => {
           </p>
         </div>
         <div className={c.statsWrapper}>
-          <AvatarPointsCircle points={1200} avatar={TempAvatar} />
+          <AvatarPointsCircle points={900} avatar={TempAvatar} />
         </div>
       </header>
       <main className={c.main}></main>

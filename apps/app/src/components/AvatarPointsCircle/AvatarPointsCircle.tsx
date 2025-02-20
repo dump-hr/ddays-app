@@ -40,7 +40,7 @@ const AvatarPointsCircle: React.FC<AvatarPointsCircleProps> = ({
   const percentageStyle = {
     backgroundImage: `conic-gradient(#E0553F, #E0553F ${getCirclePercentage(
       points,
-    )}%, black ${getCirclePercentage(points)}%, black)`,
+    )}%, #484747 ${getCirclePercentage(points)}%, #484747)`,
   };
 
   return (
