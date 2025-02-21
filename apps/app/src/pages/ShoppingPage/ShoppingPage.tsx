@@ -12,16 +12,20 @@ export const ShoppingPage = () => {
   useEffect(() => {
     if (isMounted.current) return;
 
-    if (!JSON.parse(localStorage.getItem('firstShopVisit') || 'false')) {
+    isMounted.current = true;
+    const storedValue = JSON.parse(
+      localStorage.getItem('firstShopVisit') || 'null',
+    );
+
+    if (storedValue === null) {
       localStorage.setItem('firstShopVisit', 'true');
       setFirstShopVisit(true);
-    } else {
-      localStorage.setItem('firstShopVisit', 'false');
-      setFirstShopVisit(false);
+      return;
     }
 
-    isMounted.current = true;
-  }, [isMounted]);
+    localStorage.setItem('firstShopVisit', 'false');
+    setFirstShopVisit(false);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
