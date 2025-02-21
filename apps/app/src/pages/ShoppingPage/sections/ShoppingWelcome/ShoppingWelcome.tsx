@@ -2,12 +2,27 @@ import styles from './ShoppingWelcome.module.scss';
 import NavigateHomeButton from '../../../../components/NavigateHomeButton';
 import Button from '../../../../components/Button';
 import DuckWelcomeImg from '../../../../assets/images/duck-shop-welcome.png';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../../../router/routes';
 
-const ShoppingWelcome = () => {
+interface ShoppingWelcomeProps {
+  setFirstShopVisit: (value: boolean) => void;
+}
+
+const ShoppingWelcome = ({ setFirstShopVisit }: ShoppingWelcomeProps) => {
+  const navigate = useNavigate();
+
+  const handleNextClick = () => {
+    navigate(RouteNames.SHOPPING);
+    localStorage.setItem('firstShopVisit', 'false');
+    setFirstShopVisit(false);
+  };
+
   return (
     <div className={styles.welcomeWrapper}>
       <h1>SHOPPING</h1>
-      <div className={styles.imageWrapper}>
+      <NavigateHomeButton />
+      <div className={styles.duckImageWrapper}>
         <img src={DuckWelcomeImg} alt='Shopping welcome' />
       </div>
       <div className={styles.contentWrapper}>
@@ -35,7 +50,10 @@ const ShoppingWelcome = () => {
             </div>
           </div>
         </div>
-        <Button variant='orange' className={styles.nextButton}>
+        <Button
+          variant='orange'
+          className={styles.nextButton}
+          onClick={handleNextClick}>
           DALJE
         </Button>
       </div>
