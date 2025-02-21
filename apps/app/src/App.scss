@@ -9,6 +9,10 @@ p {
   margin: 0px;
 }
 
+body {
+  overflow-x:hidden;
+}
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;

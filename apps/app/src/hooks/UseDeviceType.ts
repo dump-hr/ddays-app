@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react';
 
 enum DeviceType {
+  SMALL_MOBILE = 'small-mobile',
   MOBILE = 'mobile',
   DESKTOP = 'desktop',
 }
 
 type UseDeviceReturn = {
   isMobile: boolean;
+  isSmallMobile: boolean;
 };
 
 type UseDeviceProps = {
-  breakpoint?: number;
+  mobileBreakpoint?: number;
+  smallMobileBreakpoint?: number;
 };
 
 export const useDeviceType = ({
-  breakpoint = 769,
+  mobileBreakpoint = 769,
+  smallMobileBreakpoint = 370,
 }: UseDeviceProps): UseDeviceReturn => {
   const [deviceType, setDeviceType] = useState<DeviceType>(DeviceType.DESKTOP);
 
@@ -22,9 +26,13 @@ export const useDeviceType = ({
     if (typeof window === 'undefined') return;
 
     const checkDeviceType = () => {
-      const type =
-        window.innerWidth < breakpoint ? DeviceType.MOBILE : DeviceType.DESKTOP;
-      setDeviceType(type);
+      if (window.innerWidth < smallMobileBreakpoint) {
+        setDeviceType(DeviceType.SMALL_MOBILE);
+      } else if (window.innerWidth < mobileBreakpoint) {
+        setDeviceType(DeviceType.MOBILE);
+      } else {
+        setDeviceType(DeviceType.DESKTOP);
+      }
     };
 
     checkDeviceType();
@@ -34,9 +42,10 @@ export const useDeviceType = ({
     return () => {
       window.removeEventListener('resize', checkDeviceType);
     };
-  }, [breakpoint]);
+  }, [mobileBreakpoint, smallMobileBreakpoint]);
 
   return {
     isMobile: deviceType === DeviceType.MOBILE,
+    isSmallMobile: deviceType === DeviceType.SMALL_MOBILE,
   };
 };
