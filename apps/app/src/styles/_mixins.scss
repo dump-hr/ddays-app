@@ -103,3 +103,24 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@mixin roundedContainer(
+  $color: $primary-background,
+  $breakpoint: $breakpoint-desktop
+) {
+  background: $color;
+  border-radius: 1rem;
+  height: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+
+  @media screen and (max-width: $breakpoint) {
+    margin: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

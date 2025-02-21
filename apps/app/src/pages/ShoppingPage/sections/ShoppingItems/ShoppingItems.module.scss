@@ -1,20 +1,6 @@
 .shoppingItems {
   &Wrapper {
-    background: $primary-background;
-    border-radius: 1rem;
-
-    height: auto;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin: 0 1.5rem 1.5rem 1.5rem;
-    @media screen and (max-width: $breakpoint-desktop) {
-      margin: 0;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+    @include roundedContainer;
   }
 
   &Container {
@@ -24,7 +10,7 @@
     width: 100%;
     max-width: 640px;
   }
-  
+
   &UserPoints {
     display: flex;
     flex-direction: column;
