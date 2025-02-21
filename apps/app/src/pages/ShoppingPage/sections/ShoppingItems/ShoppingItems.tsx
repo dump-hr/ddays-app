@@ -22,7 +22,6 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
           {products.map((product) => (
             <ShoppingItem
               key={product.id}
-              isInCart={product.id % 2 === 0} //privremeno
               product={product}
               userPointsAmount={userPointsAmount}
               setNumItemsInCart={setNumItemsInCart}

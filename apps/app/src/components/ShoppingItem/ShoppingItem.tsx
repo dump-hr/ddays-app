@@ -7,18 +7,18 @@ import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
 
 interface ShoppingItemProps {
-  isInCart: boolean;
   userPointsAmount: number;
   product: ShopItemDto;
   setNumItemsInCart: (updateFn: (prev: number) => number) => void;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({
-  isInCart,
   product,
   userPointsAmount,
   setNumItemsInCart,
 }) => {
+  const [isInCart, setIsInCart] = useState(false);
+
   const outOfStock = product.quantity === 0;
   const notEnoughPoints = userPointsAmount < product.price;
 
@@ -30,6 +30,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
     if (disabled) return;
 
     setNumItemsInCart((prev) => prev + 1);
+    setIsInCart(true);
     setDisabled(true);
   };
 
@@ -47,7 +48,9 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
       />
       <h3>{product.itemName}</h3>
       <p
-        className={`${styles.productSupply} ${disabled ? styles.productSupplyDisabled : ''}`}>
+        className={`${styles.productSupply} ${
+          disabled ? styles.productSupplyDisabled : ''
+        }`}>
         Na zalihama: {product.quantity}
       </p>
       <div
