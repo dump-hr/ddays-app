@@ -1,9 +1,9 @@
 import styles from './ShoppingWelcome.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../../../router/routes';
 import NavigateHomeButton from '../../../../components/NavigateHomeButton';
 import Button from '../../../../components/Button';
 import DuckWelcomeImg from '../../../../assets/images/duck-shop-welcome.png';
-import { useNavigate } from 'react-router-dom';
-import { RouteNames } from '../../../../router/routes';
 
 interface ShoppingWelcomeProps {
   setFirstShopVisit: (value: boolean) => void;
