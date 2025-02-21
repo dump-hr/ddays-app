@@ -1,0 +1,69 @@
+.welcomeWrapper {
+  padding-top: 4rem;
+
+  h1 {
+    @include heading-2;
+    font-weight: 500;
+    color: $primary-white;
+    margin-left: 1.5rem;
+    padding-bottom: 16rem;
+  }
+}
+
+.imageWrapper {
+  position: absolute;
+  right: 0;
+  top: 153px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  h2 {
+    @include heading-2;
+    font-weight: 500;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+
+  &Wrapper {
+    @include roundedContainer;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    min-height: 494px;
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    flex: 1;
+  }
+
+  ul {
+    margin: 0;
+    padding-inline-start: 1.6rem;
+  }
+}
+
+.welcomeText {
+  @include paragraph-16;
+  color: $primary-black;
+}
+
+.nextButton {
+  width: 90vw;
+  @include label-medium;
+  font-weight: 600;
+}
