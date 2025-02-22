@@ -31,7 +31,7 @@ const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
       {...handlers}
       ref={buttonRef}>
       <p className={c.text}>
-        Preporuke samo za tebe {dimensions.width}
+        Preporuke samo za tebe
         <img className={c.arrow} src={Arrow} alt='' />
       </p>
       <img className={c.duck} src={Duck} alt='' />

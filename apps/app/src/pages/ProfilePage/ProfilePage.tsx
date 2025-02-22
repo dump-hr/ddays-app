@@ -50,17 +50,18 @@ export const ProfilePage = () => {
   return (
     <>
       <header className={c.header}>
-        <p className={c.title}>
-          <span>Profil</span> <br />
-          Marija Gudelj
-        </p>
+        <div className={c.flexWrapper}>
+          <p className={c.title}>
+            <span>Profil</span> <br />
+            Marija Gudelj
+          </p>
 
-        <div className={c.statsWrapper}>
           <AvatarPointsCircle points={900} avatar={TempAvatar} />
-          <div className={c.stats}>
-            <ProfileStat label='Bodovi' value='145' />
-            <ProfileStat label='Postignuća' value='3/25' />
-          </div>
+        </div>
+
+        <div className={c.stats}>
+          <ProfileStat label='Bodovi' value='145' />
+          <ProfileStat label='Postignuća' value='3/25' />
         </div>
       </header>
       <main className={c.main}>

@@ -12,24 +12,49 @@ body {
   box-sizing: border-box;
   padding: 64px 24px 40px;
 
-  .title {
-    @include heading-2;
-    span {
-      color: $black-70;
-      text-transform: uppercase;
-    }
-    margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
   }
 
-  .statsWrapper {
+  .flexWrapper {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 24px;
 
-    .stats {
-      display: flex;
-      flex-direction: column;
+    .title {
+      @include heading-2;
+      span {
+        color: $black-70;
+        text-transform: uppercase;
+      }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: column-reverse;
+      align-items: center;
+
+      .title {
+        text-align: center;
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 22px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: row;
       gap: 32px;
+      margin-bottom: 0;
     }
   }
 }
