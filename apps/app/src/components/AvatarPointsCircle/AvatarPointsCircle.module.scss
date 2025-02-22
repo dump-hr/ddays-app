@@ -6,6 +6,11 @@
   box-sizing: border-box;
   padding: 8px;
 
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 238px;
+    height: 238px;
+  }
+
   .innerCircle {
     width: 100%;
     height: 100%;
@@ -19,6 +24,8 @@
 
     .avatar {
       height: 70%;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .levelWrapper {
@@ -27,6 +34,13 @@
       right: 41px;
       height: 30px;
       width: 30px;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        bottom: 36px;
+        right: 54px;
+        height: 40px;
+        width: 40px;
+      }
 
       border-radius: 4px;
       border: 2px solid $primary-black;
@@ -44,6 +58,11 @@
         font-weight: 500;
         line-height: 28px;
         user-select: none;
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          font-size: 22px;
+          line-height: 37px;
+        }
       }
     }
   }
