@@ -4,9 +4,19 @@
     flex-direction: column;
     width: 100%;
     padding-top: 80px;
+    position: relative;
 
     @media (max-width: $breakpoint-tablet) {
         padding-top: 64px;
+    }
+
+    .closeIcon {
+        position: absolute;
+        top: 50px;
+        right: 20px;
+
+        height: 20px;
+        cursor: pointer;
     }
 
     h1{
@@ -19,6 +29,7 @@
         display: flex;
         width: 100%;
         justify-content: center;
+        margin-bottom: 48px;
 
         @media (max-width: $breakpoint-tablet) {
             justify-content: flex-start;
@@ -35,4 +46,5 @@
         position: relative;
         overflow: hidden;
     }
+
 }

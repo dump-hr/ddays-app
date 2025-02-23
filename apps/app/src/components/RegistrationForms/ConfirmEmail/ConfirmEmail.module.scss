@@ -3,9 +3,16 @@
     flex-direction: column;
     width: 422px;
 
+
+    button {
+        margin-inline: 24px;
+    }
+
     .confirmEmailUpper {
 
         margin-bottom: 48px;
+
+        
 
         h2{
             color: $primary-black;
@@ -16,6 +23,14 @@
             line-height: 30px; 
             margin-top: 40px;
             margin-bottom: 18px;
+
+            @media (max-width: $breakpoint-tablet) {
+                display: flex;
+                justify-content: space-between;
+                font-size: 24px;
+                line-height: 28px;
+                margin-inline: 24px;
+            }
         }
 
         p{
@@ -23,6 +38,11 @@
             text-align: center;
             font-family: Inter;
             line-height: 22px; /* 137.5% */
+
+            @media (max-width: $breakpoint-tablet)  {
+                margin-inline: 24px;
+                text-align: start;
+            }
         }
     }
 }
