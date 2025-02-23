@@ -62,7 +62,6 @@ export const GeneralRegistrationForm = () => {
       default:
         break;
     }
-    console.log(isStepValid(currentStep));
 
     if (
       currentStep === RegistrationStep.THREE ||

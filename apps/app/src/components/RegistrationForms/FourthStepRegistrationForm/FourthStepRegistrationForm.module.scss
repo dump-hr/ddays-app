@@ -8,6 +8,10 @@
         font-family: Inter;
         line-height: 22px;
         margin-bottom: 40px;
+
+        @media (max-width: $breakpoint-tablet) {
+            text-align: start;
+        }
     }
 
     .interestsSection{
