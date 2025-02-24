@@ -1,0 +1,36 @@
+.button {
+  display: flex;
+  background: none;
+  outline: none;
+  border: none;
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: 20px 0 20px 8px;
+  cursor: pointer;
+  position: relative;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .label {
+    @include paragraph-16;
+    margin: 0 auto 0 16px;
+  }
+
+  .arrow {
+    width: 24px;
+    height: 24px;
+  }
+
+  .dottedBreak {
+    @include dottedBreak;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
