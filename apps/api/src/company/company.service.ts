@@ -1,10 +1,17 @@
 import {
+  CompanyCategory,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
+<<<<<<< HEAD
+import { db } from 'db';
+import { booth, company } from 'db/schema';
+import { eq, sql } from 'drizzle-orm';
+=======
+>>>>>>> main
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
 import { PrismaService } from 'src/prisma.service';
@@ -48,6 +55,44 @@ export class CompanyService {
     return companies.map((company) => ({
       ...company,
       booth: company.booth?.name || null,
+    }));
+  }
+
+  async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
+    const companies = await db.execute(
+      sql`
+     SELECT
+       c.id,
+       c.category,
+       c.name,
+       c.description,
+       c.opportunities_description,
+       c.website_url,
+       c.instagram_url,
+       c.linkedin_url,
+       b.name AS booth,
+       COALESCE(AVG((r.grades->>'value')::NUMERIC), 0) AS average_rating
+     FROM company c
+     INNER JOIN booth b ON b.company_id = c.id
+     LEFT JOIN rating r ON r.booth_id = b.id
+     GROUP BY
+       c.id, b.id
+     ORDER BY average_rating DESC
+     LIMIT 5
+   `,
+    );
+
+    return companies.map((row) => ({
+      id: Number(row.id),
+      category: row.category as CompanyCategory,
+      name: String(row.name),
+      description: String(row.description),
+      opportunitiesDescription: String(row.opportunities_description),
+      website: String(row.website_url),
+      instagram: String(row.instagram_url),
+      linkedin: String(row.linkedin_url),
+      booth: String(row.booth),
+      averageRating: parseFloat(String(row.average_rating)),
     }));
   }
 
