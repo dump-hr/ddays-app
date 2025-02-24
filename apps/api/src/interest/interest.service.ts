@@ -1,65 +1,74 @@
 import { InterestDto, InterestModifyDto } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { db } from 'db';
-import { companyToInterest, interest } from 'db/schema';
-import { eq, inArray } from 'drizzle-orm';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class InterestService {
+  constructor(private readonly prisma: PrismaService) {}
+
   async connectToCompany(
     companyId: number,
     interestIds: number[],
   ): Promise<InterestDto[]> {
-    if (!interestIds || !interestIds.length) {
+    if (!interestIds || interestIds?.length === 0) {
+      // If no interestIds are provided, remove all interests for the company
+      await this.prisma.companyToInterest.deleteMany({
+        where: { companyId },
+      });
       return [];
     }
 
-    // TODO: throw error when some interestIds don't exist
-    const interests = await db
-      .select()
-      .from(companyToInterest)
-      .where(eq(companyToInterest.companyId, companyId));
+    // Fetch current company interests
+    const currentInterests = await this.prisma.companyToInterest.findMany({
+      where: { companyId },
+    });
 
-    const interestIdsToRemove = interests
+    const interestIdsToRemove = currentInterests
       .filter((interest) => !interestIds.includes(interest.interestId))
       .map((interest) => interest.interestId);
 
     const interestIdsToAdd = interestIds.filter(
       (interestId) =>
-        !interests.map((interest) => interest.interestId).includes(interestId),
+        !currentInterests.some(
+          (interest) => interest.interestId === interestId,
+        ),
     );
 
-    const interestsToAdd = interestIdsToAdd.map((interestId) => ({
-      companyId,
-      interestId,
-    }));
+    // Add and remove interests in a transaction
+    await this.prisma.$transaction(async (prisma) => {
+      if (interestIdsToRemove.length > 0) {
+        await prisma.companyToInterest.deleteMany({
+          where: {
+            companyId,
+            interestId: { in: interestIdsToRemove },
+          },
+        });
+      }
 
-    // TODO: stavit u db transakciju
-
-    if (interestIdsToRemove.length > 0) {
-      await db
-        .delete(companyToInterest)
-        .where(inArray(companyToInterest.interestId, interestIdsToRemove));
-    }
-
-    if (interestsToAdd.length > 0) {
-      await db.insert(companyToInterest).values(interestsToAdd);
-    }
+      if (interestIdsToAdd.length > 0) {
+        const interestsToAdd = interestIdsToAdd.map((interestId) => ({
+          companyId,
+          interestId,
+        }));
+        await prisma.companyToInterest.createMany({ data: interestsToAdd });
+      }
+    });
 
     return this.getForCompany(companyId);
   }
 
   async create(dto: InterestModifyDto): Promise<InterestDto> {
-    const [createdInterest] = await db.insert(interest).values(dto).returning();
+    const createdInterest = await this.prisma.interest.create({
+      data: dto,
+    });
 
     return createdInterest;
   }
 
   async getOne(id: number): Promise<InterestDto> {
-    const [foundInterest] = await db
-      .select()
-      .from(interest)
-      .where(eq(interest.id, id));
+    const foundInterest = await this.prisma.interest.findUnique({
+      where: { id },
+    });
 
     if (!foundInterest) {
       throw new NotFoundException('Interest not found');
@@ -69,47 +78,46 @@ export class InterestService {
   }
 
   async getAll(): Promise<InterestDto[]> {
-    const interests = await db
-      .select({
-        id: interest.id,
-        name: interest.name,
-        theme: interest.theme,
-      })
-      .from(interest)
-      .orderBy(interest.name);
-
-    return interests;
+    return await this.prisma.interest.findMany({
+      orderBy: { name: 'asc' },
+      select: {
+        id: true,
+        name: true,
+        theme: true,
+      },
+    });
   }
 
   async getForCompany(companyId: number): Promise<InterestDto[]> {
-    const interests = await db
-      .select({
-        id: interest.id,
-        name: interest.name,
-        theme: interest.theme,
-      })
-      .from(companyToInterest)
-      .rightJoin(interest, eq(companyToInterest.interestId, interest.id))
-      .where(eq(companyToInterest.companyId, companyId));
+    const interests = await this.prisma.companyToInterest.findMany({
+      where: { companyId },
+      include: {
+        interest: {
+          select: {
+            id: true,
+            name: true,
+            theme: true,
+          },
+        },
+      },
+    });
 
-    return interests;
+    return interests.map((relation) => relation.interest);
   }
 
   async remove(id: number): Promise<InterestDto> {
-    const [removedInterest] = await db
-      .delete(interest)
-      .where(eq(interest.id, id))
-      .returning();
+    const removedInterest = await this.prisma.interest.delete({
+      where: { id },
+    });
 
     return removedInterest;
   }
 
   async update(id: number, dto: InterestModifyDto): Promise<InterestDto> {
-    const [updatedInterest] = await db
-      .update(interest)
-      .set(dto)
-      .where(eq(interest.id, id))
-      .returning();
+    const updatedInterest = await this.prisma.interest.update({
+      where: { id },
+      data: dto,
+    });
 
     return updatedInterest;
   }

@@ -17,6 +17,7 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/out/full/apps/api/prisma ./apps/api/prisma
 RUN yarn install --immutable && yarn cache clean
 
 COPY --from=builder /app/out/full/ .
@@ -40,4 +41,4 @@ COPY --chown=nestjs:nestjs apps/sponsor/dist ./apps/sponsor/dist
 COPY --chown=nestjs:nestjs apps/web/dist ./apps/web/dist
 COPY --chown=nestjs:nestjs apps/app/dist ./apps/app/dist
 
-CMD node apps/api/dist/src/main.js
+CMD node apps/api/dist/main.js

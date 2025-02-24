@@ -1,17 +1,22 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import {
+  CompanyCategory,
+  EventType,
+  EventWithSpeakerDto,
+  Theme,
+} from '@ddays-app/types';
 
 export const events: EventWithSpeakerDto[] = [
   {
     id: 1,
     name: 'Mastering React',
     description: 'An advanced dive into React concepts.',
-    startsAt: '2025-01-19T08:00:00Z',
-    endsAt: '2025-01-19T23:00:00Z',
+    startsAt: '2025-01-21T08:00:00Z',
+    endsAt: '2025-01-21T23:00:00Z',
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'lecture',
-    theme: 'dev',
+    type: EventType.LECTURE,
+    theme: Theme.DEV,
     codeId: undefined,
     speakers: [
       {
@@ -20,23 +25,20 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photo: {
-          mainPhotoUrl: 'https://example.com/images/react-logo.png',
-          thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
-        },
-        instagram: 'https://instagram.com/johndoe',
-        linkedin: 'https://linkedin.com/in/johndoe',
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'gold',
+          category: CompanyCategory.GOLD,
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          website: 'https://techco.com',
-          instagram: 'https://instagram.com/techco',
-          linkedin: 'https://linkedin.com/company/techco',
+          websiteUrl: 'https://techco.com',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -48,7 +50,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'dev',
+              theme: Theme.DEV,
             },
           ],
           jobs: [
@@ -70,13 +72,18 @@ export const events: EventWithSpeakerDto[] = [
     id: 1,
     name: 'Mastering React',
     description: 'An advanced dive into React concepts.',
+<<<<<<< HEAD
     startsAt: '2025-01-25T08:00:00Z',
     endsAt: '2025-01-25T23:00:00Z',
+=======
+    startsAt: '2025-01-21T08:00:00Z',
+    endsAt: '2025-01-21T23:00:00Z',
+>>>>>>> main
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'workshop',
-    theme: 'dev',
+    type: EventType.WORKSHOP,
+    theme: Theme.DEV,
     codeId: undefined,
     speakers: [
       {
@@ -85,23 +92,20 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photo: {
-          mainPhotoUrl: 'https://example.com/images/react-logo.png',
-          thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
-        },
-        instagram: 'https://instagram.com/johndoe',
-        linkedin: 'https://linkedin.com/in/johndoe',
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'gold',
+          category: CompanyCategory.GOLD,
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          website: 'https://techco.com',
-          instagram: 'https://instagram.com/techco',
-          linkedin: 'https://linkedin.com/company/techco',
+          websiteUrl: 'https://techco.com',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -113,7 +117,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'dev',
+              theme: Theme.DEV,
             },
           ],
           jobs: [
