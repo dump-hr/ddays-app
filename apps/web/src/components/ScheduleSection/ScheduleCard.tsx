@@ -1,71 +1,73 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
 import MinusSvg from 'assets/icons/minus-black.svg';
 import PlusSvg from 'assets/icons/plus-black.svg';
 import { useEffect, useState } from 'react';
 
 import { useScreenSize } from '../../hooks/useScreenSize';
+import ScheduleImageCard from './ScheduleImageCard';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
   getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
+  getThemeShort,
 } from './utils';
-
-const getThemeShort = (theme: string) => {
-  switch (theme) {
-    case 'dev':
-      return 'DEV';
-    case 'design':
-      return 'DIZ';
-    case 'marketing':
-      return 'MARK';
-    case 'tech':
-      return 'TECH';
-  }
-};
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   openCardId: number | null;
   setOpenCardId: (id: number | null) => void;
+  lastClickedCardId: React.MutableRefObject<number | null>;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
   openCardId,
   setOpenCardId,
+  lastClickedCardId,
 }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(1);
+  const [isImageShown, setIsImageShown] = useState<boolean>(false);
 
-  const images = event.speakers
-    ?.filter((speaker) => speaker.photo !== null)
-    .map((speaker) => speaker.photo) || [''];
+  const { isMobile } = useScreenSize(1030);
+  const isOpenDescription = openCardId === event.id;
+
+  const imagesList = event.speakers
+    ?.filter((speaker) => speaker.photoUrl !== null)
+    .map((speaker) => speaker.photoUrl);
+
+  const images = imagesList?.length === 0 ? [''] : imagesList!;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      setCurrentImageIndex((prev) => {
+        const next = (prev + 1) % images!.length;
+        if (next === 0) return 1;
+        return next;
+      });
     }, 2000);
 
     return () => clearInterval(intervalId);
   }, []);
 
-  const cardAspectRatio = 401 / 320;
-  const { isMobile } = useScreenSize(930);
-
-  const isOpenDescription = openCardId === event.id;
-  const [isImageShown, setIsImageShown] = useState(false);
-
   const handleCardClick = () => {
+    if (!event.description) return;
+
     if (isOpenDescription) {
       setOpenCardId(null);
+      lastClickedCardId.current = event.id;
     } else {
       setOpenCardId(event.id);
+      lastClickedCardId.current = -1;
     }
   };
 
   const handleHover = () => {
-    if (!isOpenDescription) {
+    if (isOpenDescription) {
+      lastClickedCardId.current = event.id;
+    } else {
       setIsImageShown(true);
+      lastClickedCardId.current = -1;
     }
   };
 
@@ -80,17 +82,49 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       onClick={handleCardClick}
       className={c.scheduleCardContainer}>
       <div className={c.scheduleCard}>
-        {(isImageShown || isOpenDescription) &&
-          !isMobile &&
-          images[currentImageIndex] && (
-            <div className={c.speakerPhoto}>
-              <img
-                src={images[currentImageIndex]}
-                height={cardAspectRatio * 120}
-                width={120}
-              />
-            </div>
-          )}
+        {(isImageShown || isOpenDescription) && !isMobile && (
+          <>
+            {event.type === EventType.PANEL && images[currentImageIndex] && (
+              <>
+                <ScheduleImageCard
+                  index={0}
+                  src={images[0]}
+                  event={event}
+                  isOpenDescription={isOpenDescription}
+                  isImageShown={isImageShown}
+                  imagesLength={images.length}
+                  lastClickedCardId={lastClickedCardId}
+                />
+                <ScheduleImageCard
+                  index={1}
+                  src={images[currentImageIndex]}
+                  event={event}
+                  isOpenDescription={isOpenDescription}
+                  isImageShown={isImageShown}
+                  imagesLength={images.length}
+                  lastClickedCardId={lastClickedCardId}
+                />
+              </>
+            )}
+
+            {event.type !== EventType.PANEL &&
+              images.map((image, index) => {
+                return (
+                  <ScheduleImageCard
+                    key={index}
+                    index={index}
+                    src={image}
+                    event={event}
+                    isOpenDescription={isOpenDescription}
+                    isImageShown={isImageShown}
+                    imagesLength={images.length}
+                    lastClickedCardId={lastClickedCardId}
+                  />
+                );
+              })}
+          </>
+        )}
+
         <div className={c.scheduleCardLeftWrapper}>
           <div className={c.scheduleCardLeft}>
             <p className={c.timeText}>
@@ -102,7 +136,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
           <div className={c.scheduleCardCenterWrapper}>
             <div className={c.scheduleCardCenter}>
-              {event.type !== 'other' && (
+              {event.type !== EventType.OTHER && (
                 <div className={c.themeBadge}>
                   <p className={c.themeBadgeText}>
                     {getThemeShort(event.theme)}
@@ -135,7 +169,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </div>
         </div>
         <div className={c.scheduleCardRight}>
-          {event.description !== '' && (
+          {event.description && (
             <button className={c.plusButton}>
               {isOpenDescription ? (
                 <img src={MinusSvg} alt='minus' />

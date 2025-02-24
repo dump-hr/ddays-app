@@ -1,6 +1,6 @@
 import { Theme } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useEventGetAllWithSpeaker } from '../../api/event/useEventGetAllWithSpeaker';
 import { useScreenSize } from '../../hooks/useScreenSize';
@@ -24,6 +24,7 @@ const ScheduleSection = () => {
   const [date, setDate] = useState<ConferenceDay>(ConferenceDay.First);
   const { isMobile } = useScreenSize(1000);
   const [openedCardId, setOpenedCardId] = useState<number | null>(null);
+  const lastClickedCardId = useRef<number | null>(null);
 
   useEffect(() => {
     if (isMobile && theme !== null) {
@@ -69,30 +70,30 @@ const ScheduleSection = () => {
                 SVE
               </button>
               <button
-                onClick={() => setTheme(Theme.Dev)}
+                onClick={() => setTheme(Theme.DEV)}
                 className={clsx(c.scheduleButton, {
-                  [c.scheduleButtonFocused]: theme === Theme.Dev,
+                  [c.scheduleButtonFocused]: theme === Theme.DEV,
                 })}>
                 DEV
               </button>
               <button
-                onClick={() => setTheme(Theme.Design)}
+                onClick={() => setTheme(Theme.DESIGN)}
                 className={clsx(c.scheduleButton, {
-                  [c.scheduleButtonFocused]: theme === Theme.Design,
+                  [c.scheduleButtonFocused]: theme === Theme.DESIGN,
                 })}>
                 DIZAJN
               </button>
               <button
-                onClick={() => setTheme(Theme.Marketing)}
+                onClick={() => setTheme(Theme.MARKETING)}
                 className={clsx(c.scheduleButton, {
-                  [c.scheduleButtonFocused]: theme === Theme.Marketing,
+                  [c.scheduleButtonFocused]: theme === Theme.MARKETING,
                 })}>
                 MARKETING
               </button>
               <button
-                onClick={() => setTheme(Theme.Tech)}
+                onClick={() => setTheme(Theme.TECH)}
                 className={clsx(c.scheduleButton, {
-                  [c.scheduleButtonFocused]: theme === Theme.Tech,
+                  [c.scheduleButtonFocused]: theme === Theme.TECH,
                 })}>
                 TECH
               </button>
@@ -105,12 +106,13 @@ const ScheduleSection = () => {
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date,
               )
-              .map((event) => (
+              ?.map((event) => (
                 <ScheduleCard
                   key={event.id}
                   event={event}
                   openCardId={openedCardId}
                   setOpenCardId={setOpenedCardId}
+                  lastClickedCardId={lastClickedCardId}
                 />
               ))}
             {events.data?.length === 0 && 'Trenutno nema upisanih događaja'}

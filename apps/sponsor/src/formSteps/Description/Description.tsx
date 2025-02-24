@@ -1,5 +1,6 @@
 import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateDescription } from '../../api/company/useCompanyUpdateDescription';
@@ -10,7 +11,9 @@ import c from './Description.module.scss';
 
 export const Description: FormComponent = ({ close }) => {
   const [description, setDescription] = useState<string>();
-  const [website, setWebsite] = useState<string>();
+  const [websiteUrl, setWebsiteUrl] = useState<string>();
+  const [instagramUrl, setInstagramUrl] = useState<string>();
+  const [linkedinUrl, setLinkedinUrl] = useState<string>();
   const [opportunitiesDescription, setOpportunitiesDescription] =
     useState<string>();
 
@@ -25,10 +28,49 @@ export const Description: FormComponent = ({ close }) => {
     return <div>Loading...</div>;
   }
 
+  function countWords(text: string): number {
+    return text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
+  }
+
   const handleSubmit = async () => {
+    const descriptionString = description ?? company.description ?? '';
+    const wordCount = countWords(descriptionString);
+
+    if (wordCount < 65 || wordCount >= 75) {
+      toast.error('Duljina teksta opisa ne odgovara uvjetima.');
+      return;
+    }
+
+    const fullUrlRegex =
+      /^(https?:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}(\/[^\s]*)?$/;
+
+    const websiteUrlString = websiteUrl ?? company.websiteUrl ?? '';
+    const instagramUrlString = instagramUrl ?? company.instagramUrl ?? '';
+    const linkedinUrlString = linkedinUrl ?? company.linkedinUrl ?? '';
+
+    if (websiteUrlString && !fullUrlRegex.test(websiteUrlString)) {
+      toast.error('Link na web stranicu nije ispravan');
+      return;
+    }
+
+    if (instagramUrlString && !fullUrlRegex.test(instagramUrlString)) {
+      toast.error('Link na Instagram profil nije ispravan');
+      return;
+    }
+
+    if (linkedinUrlString && !fullUrlRegex.test(linkedinUrlString)) {
+      toast.error('Link na LinkedIn profil nije ispravan');
+      return;
+    }
+
     await updateDescription.mutateAsync({
-      description: description ?? company.description ?? '',
-      website: website ?? company.website ?? '',
+      description: descriptionString,
+      websiteUrl: websiteUrlString,
+      instagramUrl: instagramUrlString,
+      linkedinUrl: linkedinUrlString,
       opportunitiesDescription:
         opportunitiesDescription ?? company.opportunitiesDescription ?? '',
     });
@@ -53,7 +95,7 @@ export const Description: FormComponent = ({ close }) => {
           rows={8}
         />
       </div>
-      {company.category === CompanyCategory.Gold && (
+      {company.category === CompanyCategory.GOLD && (
         <div className={c.inputContainer}>
           <TextArea
             value={
@@ -69,9 +111,23 @@ export const Description: FormComponent = ({ close }) => {
       )}
       <div className={c.inputContainer}>
         <Input
-          value={website ?? company.website ?? ''}
+          value={websiteUrl ?? company.websiteUrl ?? ''}
           label='Link na web stranicu'
-          onChange={(e) => setWebsite(e)}
+          onChange={(e) => setWebsiteUrl(e)}
+        />
+      </div>
+      <div className={c.inputContainer}>
+        <Input
+          value={instagramUrl ?? company.instagramUrl ?? ''}
+          label='Link na Instagram profil'
+          onChange={(e) => setInstagramUrl(e)}
+        />
+      </div>
+      <div className={c.inputContainer}>
+        <Input
+          value={linkedinUrl ?? company.linkedinUrl ?? ''}
+          label='Link na LinkedIn profil'
+          onChange={(e) => setLinkedinUrl(e)}
         />
       </div>
       <button onClick={handleSubmit} className={c.button}>

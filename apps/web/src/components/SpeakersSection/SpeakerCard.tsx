@@ -37,7 +37,7 @@ const SpeakerCard: React.FC<SpeakerCardProps> = ({
         style={{ width: width }}
         className={c.card}
         onClick={handleOpenModal}>
-        <img src={speaker.photo} height={height} width={width} />
+        <img src={speaker.photoUrl} height={height} width={width} />
         <div className={c.cardInfoWrapper}>
           <h3 className={c.cardName}>
             {speaker.firstName} {speaker.lastName}

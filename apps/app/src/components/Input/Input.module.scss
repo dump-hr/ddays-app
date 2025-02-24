@@ -1,0 +1,82 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  transition: gap 0.3s ease-in-out;
+  width: 100%;
+
+  &:has(.error) {
+    gap: 4px;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  background-color: aqua;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-bottom: 1.5px solid transparent;
+  outline: none;
+  @include paragraph-16;
+  color: $primary-black;
+  padding: 5px 0 2px 0;
+  transition: opacity 0.3s ease-out;
+  transition: padding-top 0.3s ease-out;
+
+  &.error {
+    border-bottom-color: $error-light;
+  }
+
+  &.active {
+    border-bottom-color: $primary-black;
+  }
+
+  &.floating {
+    padding-top: 25px;
+  }
+}
+
+.placeholder {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  @include paragraph-16;
+  color: $black-70;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+
+  &.floating {
+    transform: translateY(-25px);
+    @include paragraph-14;
+  }
+}
+
+.dots {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include dottedBreak($primary-black);
+}
+
+.errorText {
+  @include paragraph-14;
+  color: $error-light;
+  transition: gap 0.3s ease-in;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

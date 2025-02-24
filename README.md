@@ -1,8 +1,8 @@
 <h1 align="center">DUMP Days App</h1>
 
-Env        | CI status
----------- | ---------
-Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/deploy.yml/badge.svg?branch=main) ![Lint](https://github.com/dump-hr/ddays-app/actions/workflows/lint.yml/badge.svg?branch=main)
+| Env        | CI status                                                                                                                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/deploy.yml/badge.svg?branch=main) ![Lint](https://github.com/dump-hr/ddays-app/actions/workflows/lint.yml/badge.svg?branch=main) |
 
 ## Development
 
@@ -15,7 +15,7 @@ Production | ![Deploy](https://github.com/dump-hr/ddays-app/actions/workflows/de
 
 1. Run `docker compose up` in separate terminal or follow steps below if you already have postgres server running locally.
 
-   If you use local postgres db server, create manually new database named `ddays-app` 
+   If you use local postgres db server, create manually new database named `ddays-app`
 
 2. Create `.env.local` file that can override configuration options from `.env` in web/api apps.
 
@@ -57,16 +57,15 @@ App is now accessible on <http://localhost:3000/>. API routes are prefixed with 
 yarn workspace <workspace> add <package>
 ```
 
-example: add `drizzle-kit` library to `api` app
+example: add `react-hot-toast` library to `admin` app
 
 ```
-yarn workspace api add drizzle-kit
+yarn workspace admin add react-hot-toast
 ```
 
 ## Useful resources
 
 - [NestJS + Vite setup with Turborepo](https://youtu.be/nY0R7pslbCI)
-- [Drizzle ORM](https://www.youtube.com/watch?v=Qo-RXkSwOtc)
 - [TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
 - [React Query Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)
 - [React Hook Form with ZOD Tutorial](https://www.youtube.com/watch?v=dldjCPa9ZW4)

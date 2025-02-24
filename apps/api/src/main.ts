@@ -5,11 +5,7 @@ import {
 } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as migrator from 'drizzle-orm/node-postgres/migrator';
-import { drizzle } from 'drizzle-orm/postgres-js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { join } from 'path';
-import postgres from 'postgres';
 
 import { AppModule } from './app.module';
 import { PostgresErrorFilter } from './postgres-error.filter';
@@ -43,7 +39,8 @@ const setupProxies = (app: INestApplication) => {
         (pathname: string) =>
           !pathname.startsWith('/api') &&
           !pathname.startsWith('/admin') &&
-          !pathname.startsWith('/sponsor'),
+          !pathname.startsWith('/sponsor') &&
+          !pathname.startsWith('/app'),
         { target: 'http://localhost:3004' },
       ),
     );
@@ -57,19 +54,14 @@ const setupProxies = (app: INestApplication) => {
       '/sponsor',
       createProxyMiddleware({ target: 'http://localhost:3003' }),
     );
+
+    app.use(
+      '/app',
+      createProxyMiddleware({
+        target: 'http://localhost:3005',
+      }),
+    );
   }
-};
-
-const migrate = async () => {
-  if (process.env.RUN_MIGRATIONS_ON_STARTUP !== 'true') return;
-
-  const sql = postgres(process.env.DATABASE_URL, {
-    max: 1,
-  });
-
-  await migrator.migrate(drizzle(sql), {
-    migrationsFolder: join(__dirname, '..', '..', 'db', 'migrations'),
-  });
 };
 
 const run = async (app: INestApplication) => {
@@ -91,7 +83,6 @@ async function bootstrap() {
   setupSwagger(app);
   setupProxies(app);
 
-  await migrate();
   await run(app);
 }
 bootstrap();

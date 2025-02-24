@@ -58,7 +58,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
           onClick={(e) => e.stopPropagation()}>
           <img src={CloseSvg} alt='Close' className={c.close} onClick={close} />
           <div className={c.modalImage}>
-            <img src={speaker.photo} width={320} height={400} />
+            <img src={speaker.photoUrl} width={320} height={400} />
           </div>
           <div className={c.modalRight}>
             <h2 className={c.modalSpeakerName}>
@@ -69,13 +69,13 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
               {speaker.company?.name ? '@ ' + speaker.company?.name : ''}
             </h3>
             <div className={c.socialsWrapper}>
-              {speaker.linkedin && (
-                <a className={c.socialsLink} href={speaker.linkedin}>
+              {speaker.linkedinUrl && (
+                <a className={c.socialsLink} href={speaker.linkedinUrl}>
                   {`[`} LINKEDIN {']'}
                 </a>
               )}
-              {speaker.instagram && (
-                <a className={c.socialsLink} href={speaker.instagram}>
+              {speaker.instagramUrl && (
+                <a className={c.socialsLink} href={speaker.instagramUrl}>
                   {`[`} INSTAGRAM {']'}
                 </a>
               )}

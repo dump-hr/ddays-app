@@ -18,7 +18,9 @@ export type CompanyPublicDto = {
   name: string;
   description?: string;
   opportunitiesDescription?: string;
-  website?: string;
+  websiteUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   booth?: string;
   logoImage?: string;
   landingImage?: string;
@@ -37,7 +39,9 @@ export type CompanyDto = {
   password: string;
   description?: string;
   opportunitiesDescription?: string;
-  website?: string;
+  websiteUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   boothId?: number;
   logoImage?: string;
   landingImage?: string;
@@ -70,8 +74,16 @@ export class CompanyModifyDto {
   @IsOptional()
   @IsString()
   @IsUrl()
-  @ValidateIf((e) => e.website !== '')
-  website: string;
+  @ValidateIf((e) => e.websiteUrl !== '')
+  websiteUrl: string;
+
+  @IsOptional()
+  @IsString()
+  instagramUrl: string;
+
+  @IsOptional()
+  @IsString()
+  linkedinUrl: string;
 
   @IsOptional()
   @IsNumber()
@@ -96,5 +108,17 @@ export class CompanyModifyDescriptionDto {
 
   @IsString()
   @IsUrl()
-  website: string;
+  websiteUrl: string;
+
+  @IsOptional()
+  @ValidateIf((e) => e.instagramUrl !== '')
+  @IsString()
+  @IsUrl()
+  instagramUrl: string;
+
+  @IsOptional()
+  @ValidateIf((e) => e.linkedinUrl !== '')
+  @IsString()
+  @IsUrl()
+  linkedinUrl: string;
 }
