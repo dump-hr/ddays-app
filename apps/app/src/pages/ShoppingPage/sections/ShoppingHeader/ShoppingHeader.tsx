@@ -14,19 +14,17 @@ interface ShoppingHeaderProps {
 const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
   const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(168);
   const [headerCardHeight, setHeaderCardHeight] = useState<number | null>(110);
-  const { isMobile, isSmallMobile } = useDeviceType({ mobileBreakpoint: 769 });
+  const { isMobile } = useDeviceType({ breakpoint: 769 });
 
   useEffect(() => {
     if (isMobile) {
-      setHeaderCardWidth(168);
-      setHeaderCardHeight(110);
-    } else if (isSmallMobile) {
       setHeaderCardWidth(null);
+      setHeaderCardHeight(110);
     } else {
       setHeaderCardWidth(136);
       setHeaderCardHeight(136);
     }
-  }, [isMobile, isSmallMobile]);
+  }, [isMobile, ]);
 
   return (
     <div className={styles.headerContainer}>
