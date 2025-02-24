@@ -1,13 +1,17 @@
 import styles from './ShoppingWelcome.module.scss';
-import NavigateHomeButton from '../../../../components/NavigateHomeButton';
+import DuckWelcomeImg from '@/assets/images/duck-shop-welcome.png';
+import { SHOPPING_RULES, WELCOME_PARAGRAPHS } from './welcomeSection.constants';
+
+import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
 import Button from '../../../../components/Button';
-import DuckWelcomeImg from '../../../../assets/images/duck-shop-welcome.png';
 
 interface ShoppingWelcomeProps {
   setFirstShopVisit: (value: boolean) => void;
 }
 
-const ShoppingWelcome = ({ setFirstShopVisit }: ShoppingWelcomeProps) => {
+const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
+  setFirstShopVisit,
+}) => {
   const handleNextClick = () => {
     localStorage.setItem('firstShopVisit', 'false');
     setFirstShopVisit(false);
@@ -27,20 +31,17 @@ const ShoppingWelcome = ({ setFirstShopVisit }: ShoppingWelcomeProps) => {
             <NavigateHomeButton />
           </div>
           <div className={styles.content}>
-            <p className={styles.welcomeText}>
-              Ove godine imamo takav i takav sistem, ovdi možete kupit svojim
-              bodovima to i to ali pazite jer ce vam to potrosit vase bodove
-            </p>
-            <p className={styles.welcomeText}>
-              Možete svoje stvari preuzet na štandu tako da pokažete svoj račun/
-              ili nešto gdje će se također voditi evidencija o vašim preuzetim
-              stvarima.{' '}
-            </p>
+            {WELCOME_PARAGRAPHS.map((paragraph, index) => (
+              <p key={index} className={styles.welcomeText}>
+                {paragraph}
+              </p>
+            ))}
             <div className={styles.welcomeText}>
               Pravila:
               <ul className={styles.welcomeText}>
-                <li>Pravilo 1</li>
-                <li>Pravilo 2</li>
+                {SHOPPING_RULES.map((rule, index) => (
+                  <li key={index}>{rule}</li>
+                ))}
               </ul>
             </div>
           </div>
