@@ -1,7 +1,7 @@
-import CrossIcon from '../../assets/icons/cross-icon.svg';
 import { useNavigate } from 'react-router-dom';
-import { RouteNames } from '../../router/routes';
 import styles from './NavigateHomeButton.module.scss';
+import CrossIcon from '../../assets/icons/cross-icon.svg';
+import { RouteNames } from '../../router/routes';
 
 const NavigateHomeButton = () => {
   const navigate = useNavigate();

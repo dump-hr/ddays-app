@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@/assets/icons/shopping-cart-icon.svg';
 
 import { useDeviceType } from '../../../../hooks/UseDeviceType';
 import { HeaderCard } from '../../../../components/Header/HeaderCard/HeaderCard';
-import NavigateHomeButton from '../../../../components/NavigateHomeButton';
+import { NavigateHomeButton }  from '../../../../components/NavigateHomeButton';
 
 interface ShoppingHeaderProps {
   numItemsInCart: number;
@@ -24,7 +24,7 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
       setHeaderCardWidth(136);
       setHeaderCardHeight(136);
     }
-  }, [isMobile, ]);
+  }, [isMobile]);
 
   return (
     <div className={styles.headerContainer}>

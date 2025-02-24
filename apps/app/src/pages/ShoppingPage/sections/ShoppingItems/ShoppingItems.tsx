@@ -1,6 +1,7 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
-import ShoppingItem from '../../../../components/ShoppingItem';
+
+import { ShoppingItem } from '../../../../components/ShoppingItem';
 import { products, userPointsAmount } from './products';
 
 interface ShoppingItemsProps {

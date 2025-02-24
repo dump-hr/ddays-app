@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
+
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';

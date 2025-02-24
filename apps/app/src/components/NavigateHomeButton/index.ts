@@ -1,3 +1,3 @@
 import NavigateHomeButton from './NavigateHomeButton';
 
-export default NavigateHomeButton;
+export {NavigateHomeButton};

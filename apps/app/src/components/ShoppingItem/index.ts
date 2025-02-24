@@ -1,3 +1,3 @@
 import ShoppingItem from './ShoppingItem';
 
-export default ShoppingItem;
+export { ShoppingItem };
