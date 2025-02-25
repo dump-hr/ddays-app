@@ -5,6 +5,7 @@ interface HeaderCardProps {
   text: string;
   imgWidth: number;
   imgHeight: number;
+  onClick?: () => void;
   width?: number | null;
   height?: number | null;
 }
@@ -13,12 +14,14 @@ export const HeaderCard = ({
   text,
   imgWidth,
   imgHeight,
+  onClick = () => {},
   width = null,
   height = null,
 }: HeaderCardProps) => {
   return (
     <div
       className={styles.headerCard}
+      onClick={onClick}
       style={{
         ...(width ? { width: `${width}px` } : {}),
         ...(height ? { height: `${height}px` } : {}),
