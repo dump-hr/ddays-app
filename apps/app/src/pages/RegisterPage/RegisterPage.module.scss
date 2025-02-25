@@ -1,7 +1,7 @@
 .page {
     background-color: $primary-black;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 0 24px 24px 24px;
@@ -47,7 +47,12 @@
       display: flex;
       justify-content: center;
       padding-block: 48px 76px;
+      // flex-grow: 1;
 
+      @media (max-width: $breakpoint-tablet) {
+        padding-block: 24px 48px;
+        border-radius: 12px 12px 0 0 ;
+      }
 
     }
   }

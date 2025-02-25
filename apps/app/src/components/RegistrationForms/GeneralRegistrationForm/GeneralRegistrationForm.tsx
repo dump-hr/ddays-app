@@ -11,14 +11,15 @@ import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
+import { useNavigate } from 'react-router-dom';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
-    thirdStepIsSubmitted: true,
-    fourthStepIsSubmitted: true,
+    thirdStepIsSubmitted: false,
+    fourthStepIsSubmitted: false,
   });
 
   const [userData, setUserData] = useState<UserData>({
@@ -35,6 +36,7 @@ export const GeneralRegistrationForm = () => {
     companiesNewsEnabled: false,
     termsAndConditionsEnabled: false,
   });
+  const navigate = useNavigate();
 
   const updateUserData = (newData: Partial<UserData>) => {
     setUserData((prevData) => ({
@@ -58,6 +60,7 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+        navigate('/app/confirm-email');
         break;
       default:
         break;
@@ -88,7 +91,13 @@ export const GeneralRegistrationForm = () => {
                 ? 'Odaberi svoje interese'
                 : ''}
 
-          <img src={closeIcon} alt='close icon' width={20} height={20} />
+          <img
+            src={closeIcon}
+            onClick={() => navigate('/app')}
+            alt='close icon'
+            width={20}
+            height={20}
+          />
         </h2>
 
         <ProgressBar
