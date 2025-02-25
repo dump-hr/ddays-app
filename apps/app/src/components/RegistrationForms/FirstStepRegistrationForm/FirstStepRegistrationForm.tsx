@@ -132,6 +132,7 @@ export const FirstStepRegistrationForm = ({
       <CheckboxFieldsWrapper
         userData={userData}
         updateUserData={updateUserData}
+        errorMessage={errors[1]?.termsAndConditionsEnabled}
       />
     </>
   );

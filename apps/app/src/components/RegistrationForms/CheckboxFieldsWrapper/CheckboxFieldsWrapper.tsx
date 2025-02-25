@@ -11,8 +11,13 @@ type UserData = {
 type Props = {
   userData: UserData;
   updateUserData: (newData: Partial<UserData>) => void;
+  errorMessage: string | undefined;
 };
-export const CheckboxFieldsWrapper = ({ userData, updateUserData }: Props) => {
+export const CheckboxFieldsWrapper = ({
+  userData,
+  updateUserData,
+  errorMessage,
+}: Props) => {
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     updateUserData({ [name]: checked });
@@ -42,7 +47,7 @@ export const CheckboxFieldsWrapper = ({ userData, updateUserData }: Props) => {
         key={3}
       />
 
-      <p className={c.errorMessage}></p>
+      <p className={c.errorMessage}>{errorMessage}</p>
     </div>
   );
 };
