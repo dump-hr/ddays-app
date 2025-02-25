@@ -73,9 +73,11 @@ export const SecondStepRegistrationForm = ({
       newErrors[key] = error || '';
     });
 
-    Object.keys(newErrors).length > 0
-      ? setStepErrors(2, newErrors)
-      : clearStepErrors(2);
+    if (Object.keys(newErrors).length > 0) {
+      setStepErrors(1, newErrors);
+    } else {
+      clearStepErrors(1);
+    }
   };
 
   const allFieldsAreFilled = () => {
