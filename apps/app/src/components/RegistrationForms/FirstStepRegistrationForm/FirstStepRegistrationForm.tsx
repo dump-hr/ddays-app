@@ -52,19 +52,12 @@ export const FirstStepRegistrationForm = ({
 
     firstStepFields.forEach((key) => {
       const error = validateField(key, userData[key], userData);
-
-      if (error) {
-        newErrors[key] = error;
-      } else {
-        newErrors[key] = '';
-      }
+      newErrors[key] = error || '';
     });
 
-    if (Object.keys(newErrors).length > 0) {
-      setStepErrors(1, newErrors);
-    } else {
-      clearStepErrors(1);
-    }
+    Object.keys(newErrors).length > 0
+      ? setStepErrors(1, newErrors)
+      : clearStepErrors(1);
   };
 
   const allFieldsAreFilled = () => {

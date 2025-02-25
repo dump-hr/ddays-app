@@ -12,9 +12,9 @@ export const FourthStepRegistrationForm = () => {
     setUserSelectedInterests((prev) => {
       if (prev.includes(interestName)) {
         return prev.filter((interest) => interest !== interestName);
-      } else {
-        return [...prev, interestName];
       }
+
+      return [...prev, interestName];
     });
   };
 

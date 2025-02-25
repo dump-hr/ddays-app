@@ -11,7 +11,7 @@ export const ConfirmEmail = () => {
     <div className={c.confirmEmail}>
       <div className={c.confirmEmailUpper}>
         <h2>
-          Potvrdi svoj e-mail{' '}
+          Potvrdi svoj e-mail
           {isMobile && (
             <img src={closeIcon} onClick={() => navigate('/app')}></img>
           )}

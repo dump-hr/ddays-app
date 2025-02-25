@@ -45,18 +45,19 @@ export const SecondStepRegistrationForm = ({
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    if (name === 'phoneNumber') {
+    if (name === UserDataFields.PhoneNumber) {
       const formattedPhoneNumber = validations.formatPhoneNumber(value);
       updateUserData({ [name]: formattedPhoneNumber });
     } else {
       updateUserData({
-        [name]: name === 'birthYear' ? parseInt(value) || null : value,
+        [name]:
+          name === UserDataFields.BirthYear ? parseInt(value) || null : value,
       });
     }
   };
 
   const handleDropdownChange = (
-    field: 'educationDegree' | 'occupation',
+    field: UserDataFields.EducationDegree | UserDataFields.Occupation,
     selectedOption: DropdownOption,
   ) => {
     updateUserData({
@@ -69,19 +70,12 @@ export const SecondStepRegistrationForm = ({
 
     secondStepFields.forEach((key) => {
       const error = validateField(key, userData[key], userData);
-
-      if (error) {
-        newErrors[key] = error;
-      } else {
-        newErrors[key] = '';
-      }
+      newErrors[key] = error || '';
     });
 
-    if (Object.keys(newErrors).length > 0) {
-      setStepErrors(2, newErrors);
-    } else {
-      clearStepErrors(2);
-    }
+    Object.keys(newErrors).length > 0
+      ? setStepErrors(2, newErrors)
+      : clearStepErrors(2);
   };
 
   const allFieldsAreFilled = () => {

@@ -66,6 +66,10 @@ export const GeneralRegistrationForm = () => {
         break;
     }
 
+    goToNextStepIfAllowed();
+  };
+
+  const goToNextStepIfAllowed = () => {
     if (
       currentStep === RegistrationStep.THREE ||
       currentStep === RegistrationStep.FOUR
