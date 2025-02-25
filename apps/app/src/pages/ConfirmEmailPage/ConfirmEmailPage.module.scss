@@ -10,19 +10,6 @@
       padding: 0;
   }
   
-    .header {
-    //   width: 100%;
-    //   height: 300px; // Temporary 
-    //   display: flex;
-    //   justify-content: center;
-
-    //   @media (max-width: $breakpoint-tablet) {
-    //     height: 350px;
-    //     justify-content: flex-end;
-    //   }
-
-    }
-  
     .main {
       width: 100%;
       height: 100%;
@@ -30,6 +17,10 @@
       border-radius: 12px;
       display: flex;
       justify-content: center;
+
+      @media (max-width: $breakpoint-tablet) {
+        border-radius: 12px 12px 0 0;
+      }
     }
 }
   
