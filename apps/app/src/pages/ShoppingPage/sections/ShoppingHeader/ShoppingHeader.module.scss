@@ -40,14 +40,14 @@
 
 .title {
   @include heading-2;
-  color: $white-text;
+  color: $primary-white;
   font-weight: 500;
 }
 
 .navContainer {
   display: flex;
   justify-content: center;
-  color: $white-text;
+  color: $primary-white;
 }
 
 .navigation {
