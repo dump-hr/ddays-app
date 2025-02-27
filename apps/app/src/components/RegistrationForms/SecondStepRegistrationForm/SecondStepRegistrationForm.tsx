@@ -8,6 +8,7 @@ import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { UserDataFields } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
+import { RegistrationStep } from '../../../types/registration/registration.dto';
 
 type UserData = {
   phoneNumber: string;
@@ -74,9 +75,9 @@ export const SecondStepRegistrationForm = ({
     });
 
     if (Object.keys(newErrors).length > 0) {
-      setStepErrors(1, newErrors);
+      setStepErrors(RegistrationStep.TWO, newErrors);
     } else {
-      clearStepErrors(1);
+      clearStepErrors(RegistrationStep.TWO);
     }
   };
 

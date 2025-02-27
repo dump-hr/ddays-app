@@ -6,6 +6,7 @@ import { validateField } from '../../../helpers/validateInput';
 import { UserDataFields } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
+import { RegistrationStep } from '../../../types/registration/registration.dto';
 
 type UserData = {
   firstName: string;
@@ -56,9 +57,9 @@ export const FirstStepRegistrationForm = ({
     });
 
     if (Object.keys(newErrors).length > 0) {
-      setStepErrors(1, newErrors);
+      setStepErrors(RegistrationStep.ONE, newErrors);
     } else {
-      clearStepErrors(1);
+      clearStepErrors(RegistrationStep.ONE);
     }
   };
 
