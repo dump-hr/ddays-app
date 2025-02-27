@@ -18,12 +18,14 @@ import { ShoppingPage } from '../pages/ShoppingPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>
       <Route path={RouteNames.LOGIN} element={<LoginPage />} />
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+      <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
