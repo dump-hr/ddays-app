@@ -10,11 +10,9 @@ export const SlavicaHeader = () => {
     <div className={c.slavicaHeader}>
       {!isMobile && <img src={closeIcon} className={c.closeIcon}></img>}
       <h1>REGISTRACIJA</h1>
-      {isMobile ? (
-        <img src={mobileSlavica}></img>
-      ) : (
-        <img src={desktopSlavica}></img>
-      )}
+      <img
+        src={isMobile ? mobileSlavica : desktopSlavica}
+        alt='patkica Slavica'></img>
     </div>
   );
 };
