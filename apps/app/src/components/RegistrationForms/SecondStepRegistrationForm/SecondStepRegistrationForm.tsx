@@ -82,16 +82,13 @@ export const SecondStepRegistrationForm = ({
   };
 
   const allFieldsAreFilled = () => {
-    if (
+    return (
       userData.phoneNumber !== '' &&
       userData.birthYear !== null &&
       userData.educationDegree !== null &&
       userData.occupation !== null &&
       userData.termsAndConditionsEnabled !== null
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
 
   useEffect(() => {

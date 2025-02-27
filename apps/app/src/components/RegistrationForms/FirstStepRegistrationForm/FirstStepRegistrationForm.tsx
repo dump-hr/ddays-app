@@ -64,17 +64,13 @@ export const FirstStepRegistrationForm = ({
   };
 
   const allFieldsAreFilled = () => {
-    if (
-      (userData.firstName != '' &&
-        userData.lastName !== '' &&
-        userData.email !== '',
-      userData.password !== '',
-      userData.repeatedPassword !== '')
-    ) {
-      return true;
-    }
-
-    return false;
+    return (
+      userData.firstName != '' &&
+      userData.lastName !== '' &&
+      userData.email !== '' &&
+      userData.password !== '' &&
+      userData.repeatedPassword !== ''
+    );
   };
 
   useEffect(() => {
