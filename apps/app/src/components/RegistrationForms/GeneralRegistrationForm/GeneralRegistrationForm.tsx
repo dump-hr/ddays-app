@@ -82,18 +82,25 @@ export const GeneralRegistrationForm = () => {
     }
   };
 
+  const displayStepTitle = (currentStep: RegistrationStep) => {
+    switch (currentStep) {
+      case RegistrationStep.ONE:
+      case RegistrationStep.TWO:
+        return 'Obavezni podaci';
+      case RegistrationStep.THREE:
+        return 'Odaberi svoju slavicu';
+      case RegistrationStep.FOUR:
+        return 'Odaberi svoje interese';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className={c.generalRegistrationForm}>
       <div className={c.registrationUpper}>
         <h2>
-          {currentStep === RegistrationStep.ONE ||
-          currentStep === RegistrationStep.TWO
-            ? 'Obavezni podatci'
-            : currentStep === RegistrationStep.THREE
-              ? 'Odaberi svoju slavicu'
-              : currentStep === RegistrationStep.FOUR
-                ? 'Odaberi svoje interese'
-                : ''}
+          {displayStepTitle(currentStep)}
 
           <img
             src={closeIcon}
