@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import c from './FourthStepRegistrationForm.module.scss';
 import { interestsSections } from './temporaryMockData';
-import removeIcon from './../../../assets/icons/remove-icon.svg';
+import RemoveIcon from '@/assets/icons/remove-icon.svg';
 
 export const FourthStepRegistrationForm = () => {
   const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
@@ -42,7 +42,7 @@ export const FourthStepRegistrationForm = () => {
                 {interest.name}
                 {userSelectedInterests.includes(interest.name) && (
                   <img
-                    src={removeIcon}
+                    src={RemoveIcon}
                     alt='remove icon'
                     width={10}
                     height={10}></img>

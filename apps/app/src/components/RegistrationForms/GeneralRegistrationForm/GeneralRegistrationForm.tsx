@@ -5,8 +5,8 @@ import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '../../AuthFooter';
 import Button from '../../Button/Button';
-import googleIcon from './../../../assets/icons/google-icon.svg';
-import closeIcon from './../../../assets/icons/black-remove-icon.svg';
+import GoogleIcon from '@/assets/icons/google-icon.svg';
+import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
@@ -103,7 +103,7 @@ export const GeneralRegistrationForm = () => {
           {displayStepTitle(currentStep)}
 
           <img
-            src={closeIcon}
+            src={CloseIcon}
             onClick={() => navigate('/app')}
             alt='close icon'
             width={20}
@@ -156,7 +156,7 @@ export const GeneralRegistrationForm = () => {
               type='submit'
               variant='black'
               children='Nastavi s Google'
-              icon={googleIcon}
+              icon={GoogleIcon}
             />
           </>
         )}

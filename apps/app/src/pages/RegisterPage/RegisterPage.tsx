@@ -2,7 +2,7 @@ import { GeneralRegistrationForm } from '../../components/RegistrationForms/Gene
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import { RegistrationProvider } from '../../providers/RegistrationContext';
 import c from './RegisterPage.module.scss';
-import closeIcon from './../../assets/icons/remove-icon.svg';
+import CloseIcon from '@/assets/icons/remove-icon.svg';
 import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
@@ -14,7 +14,7 @@ export const RegisterPage = () => {
         <h2>
           REGISTRACIJA
           {!isMobile && (
-            <img src={closeIcon} onClick={() => navigate('/app')}></img>
+            <img src={CloseIcon} onClick={() => navigate('/app')}></img>
           )}
         </h2>
       </header>

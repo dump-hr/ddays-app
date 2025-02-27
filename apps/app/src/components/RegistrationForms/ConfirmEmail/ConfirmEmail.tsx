@@ -1,7 +1,7 @@
 import { useDeviceType } from '../../../hooks/UseDeviceType';
 import Button from '../../Button/Button';
 import c from './ConfirmEmail.module.scss';
-import closeIcon from './../../../assets/icons/remove-icon-black.svg';
+import CloseIcon from '@/assets/icons/remove-icon-black.svg';
 import { useNavigate } from 'react-router-dom';
 
 export const ConfirmEmail = () => {
@@ -13,7 +13,7 @@ export const ConfirmEmail = () => {
         <h2>
           Potvrdi svoj e-mail
           {isMobile && (
-            <img src={closeIcon} onClick={() => navigate('/app')}></img>
+            <img src={CloseIcon} onClick={() => navigate('/app')}></img>
           )}
         </h2>
         <p>
