@@ -47,7 +47,13 @@
         letter-spacing: -0.16px;
 
         color: $primary-black;
+        cursor: pointer;
+
+        &:hover {
+            color: $black-70;
+        }
     }
+
 }
 
     

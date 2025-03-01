@@ -8,16 +8,18 @@ type CheckboxProps = {
   error?: string;
 } & Omit<React.HTMLProps<HTMLInputElement>, 'onChange'>;
 export const Checkbox = ({ name, checked, label, onChange }: CheckboxProps) => {
+  const id = `checkbox-${name}`;
   return (
     <>
       <div className={c.checkbox}>
         <input
           type='checkbox'
+          id={id}
           checked={checked}
           name={name}
           onChange={onChange}
         />
-        <label>{label}</label>
+        <label htmlFor={id}>{label}</label>
       </div>
     </>
   );
