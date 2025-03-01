@@ -18,10 +18,12 @@ export const validations = {
   },
 
   isValidPhoneNumber: (value: string): boolean => {
-    //TODO ovo mora bolje, npr trenutno prolazi 976480111
     const cleanNumber = value.replace(/\s/g, '');
-    const phoneRegex = /^(?:\+?\d{11,13}|\d{9,10})$/;
-    return phoneRegex.test(cleanNumber);
+
+    if (cleanNumber.startsWith('+')) {
+      return /^\+\d{11,13}$/.test(cleanNumber);
+    }
+    return /^0\d{8,9}$/.test(cleanNumber);
   },
 
   isValidBirthYear: (value: string) => {
