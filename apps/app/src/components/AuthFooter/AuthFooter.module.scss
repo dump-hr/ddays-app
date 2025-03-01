@@ -5,10 +5,10 @@
     color: $primary-black;
     margin-top: -16px ;
 
-    span:first-child{
+    a:first-child{
         opacity: 0.6;
     }
-    span:last-child{
+    a:last-child{
         font-weight: 600;
     }
 }

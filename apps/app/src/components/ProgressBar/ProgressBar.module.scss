@@ -7,6 +7,10 @@
     align-items: center;
     justify-content: space-evenly;
     padding: 16px;
+
+    @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+    }
 }
  
 .dots{

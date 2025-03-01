@@ -5,6 +5,12 @@
     gap: 40px;
     width: 422px;
 
+    @media (max-width: $breakpoint-tablet) {
+        width: 90%;
+    }
+
+
+
 
     .registrationUpper{
         display: flex;
@@ -41,10 +47,6 @@
                 }
             }
         }
-    }
-
-    @media (max-width: $breakpoint-tablet) {
-        padding-inline: 24px;
     }
 
     .buttonsWrapper{

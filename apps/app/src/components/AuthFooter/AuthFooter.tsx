@@ -10,8 +10,8 @@ export const AuthFooter = ({
   return (
     <div className={c.authFooter}>
       {/* TODO dodat da dodat da te rerouta na drugi page */}
-      <span>{leftMessage}</span>
-      <span>{rightMessage}</span>
+      <a>{leftMessage}</a>
+      <a>{rightMessage}</a>
     </div>
   );
 };
