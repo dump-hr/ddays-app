@@ -37,4 +37,32 @@ export const notifications: Array<NotificationDto> = [
     activatedAt: new Date('2025-2-17-17:00'),
     isActive: false,
   },
+  {
+    id: 6,
+    title: 'Notification 2',
+    content: 'This is the second notification',
+    activatedAt: new Date('2025-2-17-20:00'),
+    isActive: true,
+  },
+  {
+    id: 7,
+    title: 'Notification 3',
+    content: 'This is the third notification',
+    activatedAt: new Date('2025-2-17-19:00'),
+    isActive: true,
+  },
+  {
+    id: 8,
+    title: 'Notification 4',
+    content: 'This is the fourth notification',
+    activatedAt: new Date('2025-2-17-16:00'),
+    isActive: false,
+  },
+  {
+    id: 9,
+    title: 'Notification 4',
+    content: 'This is the fourth notification',
+    activatedAt: new Date('2025-2-17-17:00'),
+    isActive: false,
+  },
 ];
