@@ -149,7 +149,7 @@ export const GeneralRegistrationForm = () => {
             <Button
               type='submit'
               variant='orange'
-              children='Registriraj se'
+              children='Dalje'
               onClick={handleRegistrationClick}
             />
             <Button
