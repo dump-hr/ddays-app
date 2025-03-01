@@ -33,10 +33,9 @@ export const NotificationsPage: React.FC = () => {
   const navigate = useNavigate();
   const allNotifications = useMemo(
     () =>
-      notifications
-        .sort((a, b) => {
-          return b.activatedAt!.getTime() - a.activatedAt!.getTime();
-        }),
+      notifications.sort((a, b) => {
+        return b.activatedAt!.getTime() - a.activatedAt!.getTime();
+      }),
     [notifications],
   );
 
@@ -54,46 +53,50 @@ export const NotificationsPage: React.FC = () => {
   }, [notificationsTab, allNotifications, unreadNotifications]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <div
-            className={styles.backButton}
-            onClick={() => navigate(RouteNames.HOME)}>
-            <img src={ArrowLeft} alt='back' />
-          </div>
-          <h2 className={styles.title}>NOTIFIKACIJE</h2>
-        </div>
-        {notifications.length !== 0 ? (
-          <>
-            <TabGroup setter={handleTabChange}>
-              <Tab id={Tabs.Sve}>Sve</Tab>
-              <Tab id={Tabs.Nepročitano}>Nepročitano</Tab>
-            </TabGroup>
-            <div className={styles.notificationsContainer}>
-              {displayedNotifications.map((notification, index) => (
-                <Notification
-                  key={notification.id}
-                  index={index}
-                  notification={notification}
-                  expandedNotificationId={expandedNotificationId}
-                  setExpandedNotificationId={setExpandedNotificationId}
-                  notificationsLength={displayedNotifications.length}
-                />
-              ))}
+    <>
+      <div className={styles.wrapper} />
+      <div className={styles.notificationWrapper}>
+        <div className={styles.content}>
+          <div className={styles.header}>
+            <div
+              className={styles.backButton}
+              onClick={() => navigate(RouteNames.HOME)}>
+              <img src={ArrowLeft} alt='back' />
             </div>
-          </>
-        ) : (
-          <div className={styles.noNotificationsContainer}>
-            <img src={IconBell} alt='bell' />
-            <p className={styles.noNotificationsTitle}>NEMA NOTIFIKACIJA</p>
-            <p className={styles.noNotificationsLabel}>
-              Nažalost nemamo novosti za tebe, možda uskoro te zatrebamo
-            </p>
+            <h2 className={styles.title}>NOTIFIKACIJE</h2>
           </div>
-        )}
+          {notifications.length !== 0 ? (
+            <>
+              <TabGroup setter={handleTabChange}>
+                <Tab id={Tabs.Sve}>Sve</Tab>
+                <Tab id={Tabs.Nepročitano}>Nepročitano</Tab>
+              </TabGroup>
+
+              <div className={styles.notificationsContainer}>
+                {displayedNotifications.map((notification, index) => (
+                  <Notification
+                    key={notification.id}
+                    index={index}
+                    notification={notification}
+                    expandedNotificationId={expandedNotificationId}
+                    setExpandedNotificationId={setExpandedNotificationId}
+                    notificationsLength={displayedNotifications.length}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className={styles.noNotificationsContainer}>
+              <img src={IconBell} alt='bell' />
+              <p className={styles.noNotificationsTitle}>NEMA NOTIFIKACIJA</p>
+              <p className={styles.noNotificationsLabel}>
+                Nažalost nemamo novosti za tebe, možda uskoro te zatrebamo
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -22,28 +22,27 @@
   color: black;
 }
 
-.wrapper {
-  z-index: 4;
-  background: rgba(0, 0, 0, 0.9);
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-}
-
 .content {
   background: white;
+  position: relative;
+  max-width: $breakpoint-desktop;
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
   padding: 20px;
-  position: absolute;
-  top: 64px;
-  bottom: 0;
   width: 100%;
-  max-width: 579px;
-  z-index: 5;
-  overflow-y: auto;
   padding-bottom: 40px;
+}
+
+.notificationWrapper {
+  padding-top: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  @media screen and (min-width: $breakpoint-desktop) {
+    margin: 0 auto;
+  }
 }
 
 .notificationsContainer {
