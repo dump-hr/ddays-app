@@ -37,12 +37,17 @@ export const validations = {
     if (cleanPhoneNumber.startsWith('+')) {
       cleanPhoneNumber = cleanPhoneNumber.substring(0, 13);
       return cleanPhoneNumber.replace(
-        /(\+\d{3})(\d{2})(\d{3})(\d{4})/,
+        /(\+\d{3})(\d{2})(\d{3})(\d{3})/,
         '$1 $2 $3 $4',
       );
     } else {
       cleanPhoneNumber = cleanPhoneNumber.substring(0, 10);
-      return cleanPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+
+      if (cleanPhoneNumber.length === 9) {
+        return cleanPhoneNumber.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
+      } else {
+        return cleanPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+      }
     }
   },
 };
