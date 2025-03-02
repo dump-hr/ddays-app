@@ -19,11 +19,10 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
   setNumItemsInCart,
 }) => {
   const [isInCart, setIsInCart] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const outOfStock = product.quantity === 0;
   const notEnoughPoints = userPointsAmount < product.price;
-
-  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setDisabled(isInCart || outOfStock || notEnoughPoints);
