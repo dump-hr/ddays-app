@@ -38,11 +38,11 @@ const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
             ))}
             <div className={styles.welcomeText}>
               Pravila:
-              <ul className={styles.welcomeText}>
+              <div className={styles.welcomeText}>
                 {SHOPPING_RULES.map((rule, index) => (
-                  <li key={index}>{rule}</li>
+                  <p key={index}>{rule}</p>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
