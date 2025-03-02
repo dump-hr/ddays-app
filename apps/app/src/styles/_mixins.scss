@@ -106,7 +106,7 @@
 
 @mixin roundedContainer(
   $color: $primary-background,
-  $breakpoint: $breakpoint-desktop
+  $breakpoint: $breakpoint-tablet
 ) {
   background: $color;
   border-radius: 1rem;
