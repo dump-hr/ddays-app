@@ -17,10 +17,12 @@
     color: $primary-white;
     padding-bottom: 0;
     align-self: center;
+    margin-bottom: -120px;
 
     @media screen and (max-width: $breakpoint-tablet) {
       align-self: flex-start;
       margin-left: 1.5rem;
+      margin-bottom: 0;
       padding-bottom: 16rem;
       font-size: 24px;
     }
@@ -43,7 +45,7 @@
 .duckImageWrapper {
   position: relative;
   top: 120px;
-  right: -50px;
+  right: -65px;
 
   @media screen and (max-width: $breakpoint-tablet) {
     position: absolute;
@@ -92,13 +94,14 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    gap: 4rem;
+    gap: 15.8vh;
     z-index: 2;
     min-height: 494px;
 
     @media screen and (max-width: $breakpoint-tablet) {
       text-align: left;
       padding-bottom: 48px;
+      gap: 4rem;
     }
   }
 
