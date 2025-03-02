@@ -29,32 +29,32 @@
 }
 
 .dottedBorderTopHorizontal {
-  @include dottedBreak;
+  @include dottedBreak($size: 1px);
   position: absolute;
   top: 0;
   left: 2px;
-  width: 100%;
+  width: 98.5%;
 }
 
 .dottedBorderLeftVertical {
-  @include dottedBreakVertical;
+  @include dottedBreakVertical($size: 1px);
   position: absolute;
-  left: 0;
+  left: 0px;
   top: 0.5px;
 }
 
 .dottedBorderBottomHorizontal {
-  @include dottedBreak;
+  @include dottedBreak($size: 1px);
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 2px;
-  width: 100%;
+  width: 98.5%;
 }
 
 .dottedBorderRightVertical {
-  @include dottedBreakVertical;
+  @include dottedBreakVertical($size: 1px);
   position: absolute;
-  right: -2px;
+  right: -1px;
   top: 0.5px;
 }
 
