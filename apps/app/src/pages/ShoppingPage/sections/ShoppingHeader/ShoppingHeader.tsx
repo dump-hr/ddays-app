@@ -32,8 +32,8 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
         <h1 className={styles.title}>SHOPPING</h1>
         <NavigateHomeButton />
       </div>
-      <div className={styles.navContainer}>
-        <div className={styles.navigation}>
+     
+        <div className={styles.headerCardsContainer}>
           {numItemsInCart > 0 && (
             <div className={styles.numberOfItemsInCart}>{numItemsInCart}</div>
           )}
@@ -54,7 +54,6 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
             imgWidth={44}
           />
         </div>
-      </div>
     </div>
   );
 };

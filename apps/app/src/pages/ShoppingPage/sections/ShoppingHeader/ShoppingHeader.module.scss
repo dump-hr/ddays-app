@@ -44,16 +44,21 @@
   font-weight: 500;
 }
 
-.navContainer {
+.headerCardsContainer {
   display: flex;
+  position: relative;
+  gap: 7px;
   justify-content: center;
   color: $primary-white;
-}
 
-.navigation {
-  display: flex;
-  gap: 6px;
-  position: relative;
+  @media (max-width: $breakpoint-tablet) {
+    justify-content: stretch;
+
+    & > * {
+      flex-grow: 1;
+      max-width: none;
+    }
+  }
 
   img {
     width: 79px;
@@ -62,6 +67,7 @@
 }
 
 .numberOfItemsInCart {
+  pointer-events: none;
   @include heading-3;
   border: 2px solid $primary-black;
   border-radius: 4px;
