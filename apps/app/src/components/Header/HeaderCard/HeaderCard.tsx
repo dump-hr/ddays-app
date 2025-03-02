@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import styles from './HeaderCard.module.scss';
 
 interface HeaderCardProps {
@@ -17,7 +18,8 @@ export const HeaderCard = ({
   onClick = () => {},
   width = null,
   height = null,
-}: HeaderCardProps) => {
+  children,
+}: PropsWithChildren<HeaderCardProps>) => {
   return (
     <div
       className={styles.headerCard}
@@ -26,8 +28,11 @@ export const HeaderCard = ({
         ...(width ? { width: `${width}px` } : {}),
         ...(height ? { height: `${height}px` } : {}),
       }}>
-      <img src={img} alt={text} width={imgWidth} height={imgHeight} />
-      <p>{text}</p>
+      <div className={styles.headerCardInner}>
+        <img src={img} alt={text} width={imgWidth} height={imgHeight} />
+        <p>{text}</p>
+        {children}
+      </div>
     </div>
   );
 };

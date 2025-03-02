@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
- 
+  position: relative;
   min-width: 136px;
   min-height: 110px;
   max-height: 136px;
@@ -24,7 +23,7 @@
     }
 
     p {
-      font-size: 14px !important;
+      font-size: 14px;
     }
   }
 
@@ -46,4 +45,15 @@
     padding: 0;
     margin: 0;
   }
+}
+
+.headerCardInner{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 12px;
+  width: 110px;
+  height: 100%;
 }
