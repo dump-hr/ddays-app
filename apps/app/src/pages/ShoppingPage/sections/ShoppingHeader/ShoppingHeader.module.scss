@@ -80,10 +80,9 @@
   align-items: center;
   position: absolute;
   z-index: 2;
-  right: 36.5px;
-  top: 56px;
+  top: 43px; 
+  right: 20px;
   @media screen and (max-width: $breakpoint-tablet) {
-    right: 51px;
-    top: 43px;
+    top: 30px;
   }
 }

@@ -5,14 +5,14 @@ import ShoppingCartIcon from '@/assets/icons/shopping-cart-icon.svg';
 
 import { useDeviceType } from '../../../../hooks/UseDeviceType';
 import { HeaderCard } from '../../../../components/Header/HeaderCard/HeaderCard';
-import { NavigateHomeButton }  from '../../../../components/NavigateHomeButton';
+import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
 
 interface ShoppingHeaderProps {
   numItemsInCart: number;
 }
 
 const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
-  const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(168);
+  const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(136);
   const [headerCardHeight, setHeaderCardHeight] = useState<number | null>(110);
   const { isMobile } = useDeviceType({ breakpoint: 769 });
 
@@ -32,28 +32,28 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
         <h1 className={styles.title}>SHOPPING</h1>
         <NavigateHomeButton />
       </div>
-     
-        <div className={styles.headerCardsContainer}>
+
+      <div className={styles.headerCardsContainer}>
+        <HeaderCard
+          img={TransactionsIcon}
+          text='Transakcije'
+          width={headerCardWidth}
+          height={headerCardHeight}
+          imgHeight={78}
+          imgWidth={44}
+        />
+        <HeaderCard
+          img={ShoppingCartIcon}
+          text='Košarica'
+          width={headerCardWidth}
+          height={headerCardHeight}
+          imgHeight={78}
+          imgWidth={44}>
           {numItemsInCart > 0 && (
             <div className={styles.numberOfItemsInCart}>{numItemsInCart}</div>
           )}
-          <HeaderCard
-            img={TransactionsIcon}
-            text='Transakcije'
-            width={headerCardWidth}
-            height={headerCardHeight}
-            imgHeight={78}
-            imgWidth={44}
-          />
-          <HeaderCard
-            img={ShoppingCartIcon}
-            text='Košarica'
-            width={headerCardWidth}
-            height={headerCardHeight}
-            imgHeight={78}
-            imgWidth={44}
-          />
-        </div>
+        </HeaderCard>
+      </div>
     </div>
   );
 };
