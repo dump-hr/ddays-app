@@ -12,6 +12,14 @@ export const LoginPage = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const clearErrors = (field: string) => {
+    if (field === 'email') {
+      setEmailError('');
+    } else if (field === 'password') {
+      setPasswordError('');
+    }
+  };
+
   const validateInputs = () => {
     let isValid = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,7 +72,10 @@ export const LoginPage = () => {
               type='text'
               placeholder='Email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                clearErrors('email');
+              }}
               error={emailError}
             />
             <Input
@@ -72,7 +83,10 @@ export const LoginPage = () => {
               type='password'
               placeholder='Lozinka'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                clearErrors('password');
+              }}
               error={passwordError}
             />
             <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
