@@ -13,7 +13,7 @@
     right: 72px;
   }
 
-  @media screen and (max-width: $breakpoint-desktop) {
+  @media screen and (max-width: $breakpoint-tablet) {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
@@ -80,7 +80,7 @@
   align-items: center;
   position: absolute;
   z-index: 2;
-  top: 43px; 
+  top: 43px;
   right: 20px;
   @media screen and (max-width: $breakpoint-tablet) {
     top: 30px;
