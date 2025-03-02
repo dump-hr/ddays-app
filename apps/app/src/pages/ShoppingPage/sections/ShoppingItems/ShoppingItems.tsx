@@ -1,6 +1,6 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
-
+import { useEffect, useState } from 'react';
 import { ShoppingItem } from '../../../../components/ShoppingItem';
 import { products, userPointsAmount } from './products';
 
@@ -9,6 +9,12 @@ interface ShoppingItemsProps {
 }
 
 const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
+  const [userPoints, setUserPoints] = useState(0);
+
+  useEffect(() => {
+    setUserPoints(userPointsAmount);
+  }, []);
+
   return (
     <div className={styles.shoppingItemsWrapper}>
       <div className={styles.shoppingItemsContainer}>
@@ -16,7 +22,7 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
           <p>Tvoje stanje s bodovima</p>
           <div className={styles.points}>
             <img src={StarIcon} alt='' />
-            <span>{userPointsAmount}</span>
+            <span>{userPoints}</span>
           </div>
         </div>
         <div className={styles.products}>
@@ -24,7 +30,7 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
             <ShoppingItem
               key={product.id}
               product={product}
-              userPointsAmount={userPointsAmount}
+              userPointsAmount={userPoints}
               setNumItemsInCart={setNumItemsInCart}
             />
           ))}
