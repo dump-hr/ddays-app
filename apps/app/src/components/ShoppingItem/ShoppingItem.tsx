@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
@@ -23,9 +23,11 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
   const outOfStock = product.quantity === 0;
   const notEnoughPoints = userPointsAmount < product.price;
 
-  const [disabled, setDisabled] = useState(
-    isInCart || outOfStock || notEnoughPoints,
-  );
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setDisabled(isInCart || outOfStock || notEnoughPoints);
+  }, [isInCart, outOfStock, notEnoughPoints]);
 
   const handleCartBtnClick = () => {
     if (disabled) return;
