@@ -10,7 +10,12 @@ p {
 }
 
 body {
-  overflow-x:hidden;
+  position: relative;
+  overflow-x: hidden;
+}
+
+html{
+  overflow-x: hidden;
 }
 
 * {
