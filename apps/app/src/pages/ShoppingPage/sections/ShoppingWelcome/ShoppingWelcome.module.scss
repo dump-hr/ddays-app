@@ -23,7 +23,7 @@
       align-self: flex-start;
       margin-left: 1.5rem;
       margin-bottom: 0;
-      padding-bottom: 16rem;
+      padding-bottom: 10rem;
       font-size: 24px;
     }
   }
@@ -49,6 +49,7 @@
 
   @media screen and (max-width: $breakpoint-tablet) {
     position: absolute;
+    top: 23px;
     right: -126px;
   }
 }
@@ -86,6 +87,7 @@
   width: 100%;
 
   &Wrapper {
+    box-shadow: 0px -4px 20px 0px #1716154d;
     @include roundedContainer;
     display: flex;
     position: relative;
@@ -94,14 +96,20 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    gap: 15.8vh;
+    gap: 15.7vh;
     z-index: 2;
     min-height: 494px;
 
     @media screen and (max-width: $breakpoint-tablet) {
       text-align: left;
       padding-bottom: 48px;
-      gap: 4rem;
+      gap: 17.5vh;
+    }
+
+    @media screen and (max-width: $breakpoint-mobile-lg) {
+      text-align: left;
+      padding-bottom: 48px;
+      gap: 4.2rem;
     }
   }
 
