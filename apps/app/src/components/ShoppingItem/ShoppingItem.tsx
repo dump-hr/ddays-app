@@ -6,6 +6,7 @@ import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
+import toast from 'react-hot-toast';
 
 interface ShoppingItemProps {
   userPointsAmount: number;
@@ -33,7 +34,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
 
     setNumItemsInCart((prev) => prev + 1);
     setIsInCart(true);
-    setDisabled(true);
+    toast.success('Proizvod dodan u košaricu');
   };
 
   return (
