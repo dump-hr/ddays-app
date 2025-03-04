@@ -1,6 +1,5 @@
 import styles from './ShoppingWelcome.module.scss';
 import DuckWelcomeImg from '@/assets/images/duck-shop-welcome.png';
-import { SHOPPING_RULES, WELCOME_PARAGRAPHS } from './welcomeSection.constants';
 
 import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
 import Button from '../../../../components/Button';
@@ -31,18 +30,19 @@ const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
             <NavigateHomeButton />
           </div>
           <div className={styles.content}>
-            {WELCOME_PARAGRAPHS.map((paragraph, index) => (
-              <p key={index} className={styles.welcomeText}>
-                {paragraph}
-              </p>
-            ))}
+            <p className={styles.welcomeText}>
+              Ove godine imamo takav i takav sistem, ovdje možete kupit svojim
+              bodovima to i to ali pazite jer će to potrošit vaše bodove.
+            </p>
+            <p className={styles.welcomeText}>
+              Možete svoje stvari preuzet na štandu tako da pokažete svoj račun
+              ili nešto gdje će se također voditi evidencija o vašim preuzetim
+              stvarima.
+            </p>
             <div className={styles.welcomeText}>
               Pravila:
-              <div className={styles.welcomeText}>
-                {SHOPPING_RULES.map((rule, index) => (
-                  <p key={index}>{rule}</p>
-                ))}
-              </div>
+              <p>Pravilo 1:</p>
+              <p>Pravilo 2:</p>
             </div>
           </div>
         </div>
