@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0 1.5rem;
+  height: 100vh;
 
   @media screen and (max-width: $breakpoint-tablet) {
     margin: 0;
@@ -23,7 +24,7 @@
       align-self: flex-start;
       margin-left: 1.5rem;
       margin-bottom: 0;
-      padding-bottom: 10rem;
+      padding-bottom: 16rem;
       font-size: 24px;
     }
   }
@@ -49,7 +50,7 @@
 
   @media screen and (max-width: $breakpoint-tablet) {
     position: absolute;
-    top: 23px;
+
     right: -126px;
   }
 }
@@ -96,20 +97,17 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    gap: 15.7vh;
     z-index: 2;
     min-height: 494px;
-
+    height: 65vh;
     @media screen and (max-width: $breakpoint-tablet) {
       text-align: left;
       padding-bottom: 48px;
-      gap: 17.5vh;
     }
 
     @media screen and (max-width: $breakpoint-mobile-lg) {
       text-align: left;
       padding-bottom: 48px;
-      gap: 4.2rem;
     }
   }
 
@@ -120,6 +118,9 @@
     width: 100%;
     flex: 1;
     max-width: 422px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      max-width: none;
+    }
   }
 }
 
@@ -129,8 +130,11 @@
 }
 
 .nextButton {
-  width: 90vw;
-  max-width: 422px;
+  width: 100%;
   @include label-medium;
   font-weight: 600;
+  max-width: 422px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    max-width: none;
+  }
 }
