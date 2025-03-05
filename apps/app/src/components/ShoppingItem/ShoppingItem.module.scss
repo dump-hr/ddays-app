@@ -1,0 +1,115 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 12px;
+  width: 100%;
+  position: relative;
+
+  h3 {
+    @include heading-3;
+    color: $black-70;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  img.productImage {
+    height: 144px;
+    max-width: 189px;
+    align-self: center;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: $breakpoint-desktop) {
+    padding: 20px 12px;
+    img.productImage {
+      width: 144px;
+    }
+  }
+}
+
+.dottedBorderTopHorizontal {
+  @include dottedBreak($size: 1px);
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 98.5%;
+}
+
+.dottedBorderLeftVertical {
+  @include dottedBreakVertical($size: 1px);
+  position: absolute;
+  left: 0px;
+  top: 0.5px;
+}
+
+.dottedBorderBottomHorizontal {
+  @include dottedBreak($size: 1px);
+  position: absolute;
+  bottom: -1px;
+  left: 2px;
+  width: 98.5%;
+}
+
+.dottedBorderRightVertical {
+  @include dottedBreakVertical($size: 1px);
+  position: absolute;
+  right: -1px;
+  top: 0.5px;
+}
+
+.addToCartButton {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 10px;
+  background: $primary-beige;
+  border-radius: 6px;
+  height: 36px;
+
+  @media screen and (max-width: $breakpoint-desktop) {
+    border-radius: 0.5rem;
+    padding: 10px 1.5rem;
+  }
+
+  &Disabled {
+    background-color: $black-10;
+    cursor: not-allowed;
+
+    .pointsText {
+      color: $black-70;
+    }
+    .ratingStar {
+      width: 12px;
+    }
+  }
+}
+
+.inCart {
+  @include tag-14;
+  color: $primary-black;
+  position: absolute;
+  top: 8px;
+  width: 96px;
+  left: 8px;
+  background: $primary-beige;
+  border-radius: 6px;
+  padding: 4px 6px;
+  text-transform: uppercase;
+  color: $black-70;
+}
+
+.pointsText {
+  @include heading-3;
+  color: $primary-black;
+}
+
+.productSupply {
+  @include paragraph-14;
+  color: $black-50;
+
+  &Disabled {
+    color: $black-30;
+  }
+}

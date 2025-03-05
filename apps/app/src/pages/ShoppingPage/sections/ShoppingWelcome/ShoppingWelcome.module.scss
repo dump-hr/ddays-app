@@ -1,0 +1,140 @@
+.welcomeWrapper {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1.5rem;
+  height: 100vh;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    margin: 0;
+    padding-top: 4rem;
+  }
+
+  h1 {
+    @include heading-2;
+    font-weight: 500;
+    font-size: 30px;
+    color: $primary-white;
+    padding-bottom: 0;
+    align-self: center;
+    margin-bottom: -120px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      align-self: flex-start;
+      margin-left: 1.5rem;
+      margin-bottom: 0;
+      padding-bottom: 16rem;
+      font-size: 24px;
+    }
+  }
+
+  h1 + div {
+    display: block;
+    position: absolute;
+    top: 48px;
+    right: 72px;
+
+    > img {
+      @media screen and (max-width: $breakpoint-tablet) {
+        display: none;
+      }
+    }
+  }
+}
+
+.duckImageWrapper {
+  position: relative;
+  top: 120px;
+  right: -65px;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    position: absolute;
+
+    right: -126px;
+  }
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    justify-content: space-between;
+  }
+
+  div > img {
+    display: none;
+    @media screen and (max-width: $breakpoint-tablet) {
+      display: block;
+    }
+  }
+
+  h2 {
+    @include heading-2;
+    font-weight: 500;
+    font-size: 30px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      font-size: 24px;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+
+  &Wrapper {
+    box-shadow: 0px -4px 20px 0px #1716154d;
+    @include roundedContainer;
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding-bottom: 69px;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    z-index: 2;
+    min-height: 494px;
+    height: 65vh;
+    @media screen and (max-width: $breakpoint-tablet) {
+      text-align: left;
+      padding-bottom: 48px;
+    }
+
+    @media screen and (max-width: $breakpoint-mobile-lg) {
+      text-align: left;
+      padding-bottom: 48px;
+    }
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    flex: 1;
+    max-width: 422px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      max-width: none;
+    }
+  }
+}
+
+.welcomeText {
+  @include paragraph-16;
+  color: $primary-black;
+}
+
+.nextButton {
+  width: 100%;
+  @include label-medium;
+  font-weight: 600;
+  max-width: 422px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    max-width: none;
+  }
+}
