@@ -19,6 +19,7 @@
 
   .pageTitle {
     @include heading-2;
+    font-size: 30px;
     font-weight: 400;
     color: white;
     text-transform: uppercase;
@@ -26,6 +27,7 @@
 
     @media screen and (min-width: $breakpoint-tablet) {
       margin: 80px auto 40px;
+      font-size: 24px;
     }
   }
 
