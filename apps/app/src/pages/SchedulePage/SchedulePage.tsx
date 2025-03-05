@@ -73,17 +73,16 @@ export const SchedulePage = () => {
           <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
         </ClickableTagGroup>
 
-        {activeTab === TabId.MY_SCHEDULE && (
-          <div className={c.toggleWrapper}>
-            <ToggleButton
-              toggled={calendarSyncToggled}
-              onClick={() => setCalendarSyncToggled((prev) => !prev)}
-            />
-            <p>Poveži s mojim kalendarom</p>
-          </div>
-        )}
-
         <section className={clsx(c.eventsWrapper, c.contentWidth)}>
+          {activeTab === TabId.MY_SCHEDULE && (
+            <div className={c.toggleWrapper}>
+              <ToggleButton
+                toggled={calendarSyncToggled}
+                onClick={() => setCalendarSyncToggled((prev) => !prev)}
+              />
+              <p>Poveži s mojim kalendarom</p>
+            </div>
+          )}
           {filteredEvents.map((event, i) => (
             <ScheduleCard clickHandler={() => {}} key={i} event={event} />
           ))}

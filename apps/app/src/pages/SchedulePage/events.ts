@@ -10,8 +10,8 @@ export const events: EventWithSpeakerDto[] = [
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'lecture',
-    theme: 'dev',
+    type: 'LECTURE',
+    theme: 'DEV',
     codeId: undefined,
     speakers: [
       {
@@ -20,7 +20,7 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photo: {
+        photoUrl: {
           mainPhotoUrl: 'https://example.com/images/react-logo.png',
           thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
         },
@@ -29,13 +29,13 @@ export const events: EventWithSpeakerDto[] = [
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'gold',
+          category: 'GOLD',
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          instagram: 'https://instagram.com/techco',
-          linkedin: 'https://linkedin.com/company/techco',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -47,7 +47,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'dev',
+              theme: 'DEV',
             },
           ],
           jobs: [
@@ -74,8 +74,8 @@ export const events: EventWithSpeakerDto[] = [
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
-    type: 'workshop',
-    theme: 'dev',
+    type: 'WORKSHOP',
+    theme: 'DEV',
     codeId: undefined,
     speakers: [
       {
@@ -84,7 +84,7 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photo: {
+        photoUrl: {
           mainPhotoUrl: 'https://example.com/images/react-logo.png',
           thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
         },
@@ -93,13 +93,13 @@ export const events: EventWithSpeakerDto[] = [
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
-          category: 'gold',
+          category: 'GOLD',
           name: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
-          instagram: 'https://instagram.com/techco',
-          linkedin: 'https://linkedin.com/company/techco',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
           booth: 'Booth A1',
           logoImage: 'https://example.com/images/techco-logo.png',
           landingImage: 'https://example.com/images/techco-landing.png',
@@ -111,7 +111,7 @@ export const events: EventWithSpeakerDto[] = [
             {
               id: 1,
               name: 'Frontend Development',
-              theme: 'dev',
+              theme: 'DEV',
             },
           ],
           jobs: [

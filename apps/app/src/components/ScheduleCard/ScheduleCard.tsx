@@ -167,8 +167,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className={c.speaker} key={index}>
                   <img
                     className={c.image}
-                    src={speaker.photoUrl}
-                    alt={speaker.firstName}
+                    src={speaker.photoUrl} // BE TODO: treba bi photourl imat 2 podfielda: jedan za veliku sliku sta je na webu i jedan za malu sta je tu
+                    alt={speaker.firstName} // tj. mainPhotoUrl i thumbnailUrl, pogledaj seed za primjer
                   />
                   <div className={c.speakerInfoWrapper}>
                     <p className={c.fullName}>
