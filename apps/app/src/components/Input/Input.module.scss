@@ -15,7 +15,6 @@
 .inputWrapper {
   position: relative;
   width: 100%;
-  background-color: aqua;
 }
 
 .input {
@@ -75,8 +74,13 @@
   position: absolute;
   right: 0px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-60%);
   background: transparent;
   border: none;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
