@@ -9,6 +9,15 @@ p {
   margin: 0px;
 }
 
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+html{
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;

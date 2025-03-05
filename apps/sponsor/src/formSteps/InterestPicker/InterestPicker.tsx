@@ -19,7 +19,7 @@ export const InterestPicker: FormComponent = ({ close }) => {
   const connectInterests = useInterestConnectToCompany();
 
   const [activeInterests, setActiveInterests] = useState<InterestDto[]>([]);
-  const [currentTheme, setCurrentTheme] = useState(Theme.Dev);
+  const [currentTheme, setCurrentTheme] = useState(Theme.DEV);
 
   useEffect(() => {
     if (!interests || !company?.interests) return;

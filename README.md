@@ -57,16 +57,15 @@ App is now accessible on <http://localhost:3000/>. API routes are prefixed with 
 yarn workspace <workspace> add <package>
 ```
 
-example: add `drizzle-kit` library to `api` app
+example: add `react-hot-toast` library to `admin` app
 
 ```
-yarn workspace api add drizzle-kit
+yarn workspace admin add react-hot-toast
 ```
 
 ## Useful resources
 
 - [NestJS + Vite setup with Turborepo](https://youtu.be/nY0R7pslbCI)
-- [Drizzle ORM](https://www.youtube.com/watch?v=Qo-RXkSwOtc)
 - [TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
 - [React Query Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)
 - [React Hook Form with ZOD Tutorial](https://www.youtube.com/watch?v=dldjCPa9ZW4)

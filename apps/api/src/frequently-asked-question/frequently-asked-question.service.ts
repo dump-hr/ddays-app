@@ -3,41 +3,42 @@ import {
   FrequentlyAskedQuestionModifyDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
-import { db } from 'db';
-import { frequentlyAskedQuestion } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class FrequentlyAskedQuestionService {
+  constructor(private readonly prisma: PrismaService) {}
+
   async create(
     dto: FrequentlyAskedQuestionModifyDto,
   ): Promise<FrequentlyAskedQuestionDto> {
-    const [createdFrequentlyAskedQuestion] = await db
-      .insert(frequentlyAskedQuestion)
-      .values(dto)
-      .returning();
+    const createdFrequentlyAskedQuestion =
+      await this.prisma.frequentlyAskedQuestion.create({
+        data: dto,
+      });
 
     return createdFrequentlyAskedQuestion;
   }
 
   async getAll(): Promise<FrequentlyAskedQuestionDto[]> {
-    const frequentlyAskedQuestions = await db
-      .select({
-        id: frequentlyAskedQuestion.id,
-        question: frequentlyAskedQuestion.question,
-        answer: frequentlyAskedQuestion.answer,
-      })
-      .from(frequentlyAskedQuestion)
-      .orderBy(frequentlyAskedQuestion.id);
+    const frequentlyAskedQuestions =
+      await this.prisma.frequentlyAskedQuestion.findMany({
+        orderBy: { id: 'asc' },
+        select: {
+          id: true,
+          question: true,
+          answer: true,
+        },
+      });
 
     return frequentlyAskedQuestions;
   }
 
   async remove(id: number): Promise<FrequentlyAskedQuestionDto> {
-    const [deletedFrequentlyAskedQuestion] = await db
-      .delete(frequentlyAskedQuestion)
-      .where(eq(frequentlyAskedQuestion.id, id))
-      .returning();
+    const deletedFrequentlyAskedQuestion =
+      await this.prisma.frequentlyAskedQuestion.delete({
+        where: { id },
+      });
 
     return deletedFrequentlyAskedQuestion;
   }
@@ -46,11 +47,11 @@ export class FrequentlyAskedQuestionService {
     id: number,
     dto: FrequentlyAskedQuestionModifyDto,
   ): Promise<FrequentlyAskedQuestionDto> {
-    const [updatedFrequentlyAskedQuestion] = await db
-      .update(frequentlyAskedQuestion)
-      .set(dto)
-      .where(eq(frequentlyAskedQuestion.id, id))
-      .returning();
+    const updatedFrequentlyAskedQuestion =
+      await this.prisma.frequentlyAskedQuestion.update({
+        where: { id },
+        data: dto,
+      });
 
     return updatedFrequentlyAskedQuestion;
   }
