@@ -1,0 +1,25 @@
+.profileStat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .label {
+    @include paragraph-14;
+    color: $black-50;
+  }
+
+  .valueWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .value {
+      @include label-large;
+    }
+
+    .star {
+      width: 24px;
+      height: 22px;
+    }
+  }
+}
