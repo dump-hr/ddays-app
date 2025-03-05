@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { CompanyPublicDto } from '@ddays-app/types';
+=======
 import { CompanyCategory, CompanyDto } from '@ddays-app/types';
+>>>>>>> main
 import c from './TopCompany.module.scss';
 
 import BadgeGold from '../../assets/images/badge-gold.png';
@@ -6,7 +10,7 @@ import BadgeSilver from '../../assets/images/badge-silver.png';
 import BadgeBronze from '../../assets/images/badge-bronze.png';
 
 type TopCompanyProps = {
-  company: CompanyDto;
+  company: CompanyPublicDto;
   number: number;
 };
 
@@ -14,6 +18,8 @@ type NumberProps = {
   number: number;
 };
 
+<<<<<<< HEAD
+=======
 function getBoothId(company: CompanyDto) {
   let categoryMarker = '';
   switch (company.category) {
@@ -30,6 +36,7 @@ function getBoothId(company: CompanyDto) {
   return `${categoryMarker}${company.boothId}`;
 }
 
+>>>>>>> main
 const Number: React.FC<NumberProps> = ({ number: number }) => {
   let Badge;
   if (number === 1) {
@@ -53,7 +60,7 @@ const TopCompany: React.FC<TopCompanyProps> = ({ company, number }) => {
       </div>
       <div className={c.infoWrapper}>
         <p className={c.companyName}>{company.name}</p>
-        <p className={c.boothId}>{getBoothId(company)}</p>
+        <p className={c.boothId}>{company.booth}</p>
       </div>
     </div>
   );
