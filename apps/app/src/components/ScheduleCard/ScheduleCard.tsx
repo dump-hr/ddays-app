@@ -15,7 +15,7 @@ type ScheduleCardProps = {
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
-  isAddedToSchedule,
+  isAddedToSchedule, // BE: Provjerite implementaciju ovoga (ide li kroz event ili treba posebno queryjat)
   clickHandler,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -199,6 +199,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={clickHandler}>
+        {' '}
+        {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>
