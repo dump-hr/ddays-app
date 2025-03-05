@@ -15,7 +15,6 @@ const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
 
   const buttonRef = useRef(null);
   const dimensions = useRefDimensions(buttonRef);
-  console.log(dimensions);
 
   useEffect(() => {
     if (dimensions.width < 400) {
