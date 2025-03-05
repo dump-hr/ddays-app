@@ -13,10 +13,11 @@
     "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.5.2",
     "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
-    "@ddays-app/types": "1.0.0",
+    "@ddays-app/types": "*",
     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

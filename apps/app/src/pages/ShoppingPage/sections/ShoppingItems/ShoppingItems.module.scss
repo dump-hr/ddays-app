@@ -1,0 +1,69 @@
+.shoppingItems {
+  &Wrapper {
+    @include roundedContainer;
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 640px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      gap: 1rem;
+      max-width: none;
+    }
+  }
+
+  &UserPoints {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 1.5rem;
+    background: $primary-beige;
+    border-radius: 0.5rem;
+
+    p {
+      @include paragraph-16;
+      color: $black-70;
+    }
+
+    .points {
+      display: flex;
+      gap: 3px;
+      height: 28px;
+      img {
+        height: 22px;
+        width: 22px;
+      }
+      span {
+        @include heading-2;
+      }
+    }
+  }
+}
+
+.products {
+  display: grid;
+  justify-content: center;
+  padding-bottom: 1rem;
+  max-width: 640px;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 560px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 400px) {
+    grid-template-columns: repeat(1, 1fr);
+    min-width: 171px;
+  }
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    max-width: none;
+  }
+}

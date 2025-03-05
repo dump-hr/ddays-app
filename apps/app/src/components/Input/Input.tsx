@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import c from './Input.module.scss';
 import clsx from 'clsx';
-import EyeIcon from '../../assets/icons/Eye open.svg';
-import EyeClosedIcon from '../../assets/icons/Eye closed.svg';
+import EyeIcon from '../../assets/icons/eye-open.svg';
+import EyeClosedIcon from '../../assets/icons/eye-closed.svg';
 
 type InputProps = {
   value: string;
