@@ -157,7 +157,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             ),
           )}
       </div>
-
       <Button
         className={c.button}
         variant={isAddedToSchedule ? 'black' : 'orange'}
