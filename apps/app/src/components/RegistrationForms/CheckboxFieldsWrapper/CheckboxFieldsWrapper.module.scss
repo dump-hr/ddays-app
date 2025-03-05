@@ -1,0 +1,17 @@
+.checkboxFieldsWrapper{
+    margin-block: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+
+.errorMessage {
+    color: $error-light;
+    display: flex;
+    justify-content: center;
+
+    margin-block: 20px -20px;
+
+    @include paragraph-14;
+}
