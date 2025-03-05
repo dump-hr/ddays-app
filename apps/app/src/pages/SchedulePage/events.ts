@@ -20,12 +20,9 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photoUrl: {
-          mainPhotoUrl: 'https://example.com/images/react-logo.png',
-          thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
-        },
-        instagram: 'https://instagram.com/johndoe',
-        linkedin: 'https://linkedin.com/in/johndoe',
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
@@ -84,12 +81,9 @@ export const events: EventWithSpeakerDto[] = [
         lastName: 'Doe',
         title: 'Senior Developer',
         companyId: 1,
-        photoUrl: {
-          mainPhotoUrl: 'https://example.com/images/react-logo.png',
-          thumbnailUrl: 'https://example.com/images/john-doe-thumb.png',
-        },
-        instagram: 'https://instagram.com/johndoe',
-        linkedin: 'https://linkedin.com/in/johndoe',
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
         description: 'Expert in React and frontend technologies.',
         company: {
           id: 1,
