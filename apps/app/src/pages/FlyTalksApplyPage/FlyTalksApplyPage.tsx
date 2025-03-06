@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import addSvg from '../../assets/icons/add.svg';
 import binSvg from '../../assets/icons/bin.svg';
+import Button from '../../components/Button';
 
 const groupsMock = [
   {
@@ -70,9 +71,8 @@ const FlyTalksApplyPage = () => {
   const handleFileUploadClick = () => {
     if (fileInputRef.current && !file) {
       fileInputRef.current.click();
-    }
-    else{
-        setFile(undefined);
+    } else {
+      setFile(undefined);
     }
   };
 
@@ -130,7 +130,7 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23.5 // CETVRTAK' : '24.5 //PETAK'}
+              {group?.day === 1 ? '23.5 // PETAK' : '24.5 //SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}
@@ -186,6 +186,7 @@ const FlyTalksApplyPage = () => {
             onChange={handleAboutChange}
           />
           <p className={c.aboutLettersCounter}>{wordCount}/70</p>
+          <Button variant='orange' className={c.nextButton}>Dalje</Button>
         </div>
       </main>
     </div>
