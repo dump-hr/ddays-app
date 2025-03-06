@@ -3,12 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  height: 20vw;
-  width: 20vw;
-  min-width: 110px;
+  position: relative;
+  min-width: 136px;
   min-height: 110px;
-  max-width: 136px;
   max-height: 136px;
 
   border-radius: 8px;
@@ -26,7 +23,7 @@
     }
 
     p {
-      font-size: 14px !important;
+      font-size: 14px;
     }
   }
 
@@ -48,4 +45,15 @@
     padding: 0;
     margin: 0;
   }
+}
+
+.headerCardInner{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 12px;
+  width: 110px;
+  height: 100%;
 }

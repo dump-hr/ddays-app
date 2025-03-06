@@ -1,0 +1,126 @@
+import { EventWithSpeakerDto } from '@ddays-app/types';
+
+export const events: EventWithSpeakerDto[] = [
+  {
+    id: 1,
+    name: 'Mastering React',
+    description: 'An advanced dive into React concepts.',
+    startsAt: '2025-05-23T08:00:00Z',
+    endsAt: '2025-05-23T23:00:00Z',
+    maxParticipants: 100,
+    requirements: 'Basic React knowledge',
+    footageLink: undefined,
+    type: 'LECTURE',
+    theme: 'DEV',
+    codeId: undefined,
+    speakers: [
+      {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe',
+        title: 'Senior Developer',
+        companyId: 1,
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
+        description: 'Expert in React and frontend technologies.',
+        company: {
+          id: 1,
+          category: 'GOLD',
+          name: 'Tech Co.',
+          description:
+            'A leading tech company specializing in web development.',
+          opportunitiesDescription: 'We offer great growth opportunities.',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
+          booth: 'Booth A1',
+          logoImage: 'https://example.com/images/techco-logo.png',
+          landingImage: 'https://example.com/images/techco-landing.png',
+          landingImageCompanyCulture:
+            'https://example.com/images/techco-culture.png',
+          bookOfStandards: 'https://example.com/docs/standards.pdf',
+          video: 'https://youtube.com/techco',
+          interests: [
+            {
+              id: 1,
+              name: 'Frontend Development',
+              theme: 'DEV',
+            },
+          ],
+          jobs: [
+            {
+              id: 1,
+              position: 'Frontend Engineer',
+              location: 'Remote',
+              details: 'Build amazing React applications.',
+              link: 'https://jobs.techco.com/frontend',
+              createdAt: new Date('2025-01-01'),
+              companyId: 1,
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: 1,
+    name: 'Mastering React',
+    description: 'An advanced dive into React concepts.',
+    startsAt: '2025-05-23T08:00:00Z',
+    endsAt: '2025-05-23T23:00:00Z',
+    maxParticipants: 100,
+    requirements: 'Basic React knowledge',
+    footageLink: undefined,
+    type: 'WORKSHOP',
+    theme: 'DEV',
+    codeId: undefined,
+    speakers: [
+      {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe',
+        title: 'Senior Developer',
+        companyId: 1,
+        photoUrl: 'https://example.com/images/react-logo.png',
+        instagramUrl: 'https://instagram.com/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe',
+        description: 'Expert in React and frontend technologies.',
+        company: {
+          id: 1,
+          category: 'GOLD',
+          name: 'Tech Co.',
+          description:
+            'A leading tech company specializing in web development.',
+          opportunitiesDescription: 'We offer great growth opportunities.',
+          instagramUrl: 'https://instagram.com/techco',
+          linkedinUrl: 'https://linkedin.com/company/techco',
+          booth: 'Booth A1',
+          logoImage: 'https://example.com/images/techco-logo.png',
+          landingImage: 'https://example.com/images/techco-landing.png',
+          landingImageCompanyCulture:
+            'https://example.com/images/techco-culture.png',
+          bookOfStandards: 'https://example.com/docs/standards.pdf',
+          video: 'https://youtube.com/techco',
+          interests: [
+            {
+              id: 1,
+              name: 'Frontend Development',
+              theme: 'DEV',
+            },
+          ],
+          jobs: [
+            {
+              id: 1,
+              position: 'Frontend Engineer',
+              location: 'Remote',
+              details: 'Build amazing React applications.',
+              link: 'https://jobs.techco.com/frontend',
+              createdAt: new Date('2025-01-01'),
+              companyId: 1,
+            },
+          ],
+        },
+      },
+    ],
+  },
+];

@@ -1,10 +1,6 @@
 .title {
-  color: #000;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-  @include heading-3;
-  font-size: 14px;
+  color: $black-100;
+  @include heading-4;
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -12,24 +8,25 @@
 }
 
 .content {
-  color: #868685;
-  font-size: 14px;
-  font-style: normal;
-  line-height: 20px;
+  color: $black-80;
+  opacity: 0.78;
   margin-top: 0px;
   margin-bottom: 0px;
   @include paragraph-14;
+  text-align: left;
 }
 
 .time {
-  color: #b3b3b2;
+  color: $black-100;
+  opacity: 0.5;
   @include label-medium;
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: 16px;
   text-transform: uppercase;
   margin-bottom: 8px;
+  margin-top: 12px;
+  text-align: left;
 }
 
 .flex {
@@ -37,8 +34,7 @@
 }
 
 .expandButton {
-  color: #ff482f;
-  text-align: right;
+  color: $primary-highlight;
   @include label-medium;
   font-size: 12px;
   font-style: normal;
@@ -57,7 +53,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #ff3737;
+  background-color: $error-dark;
   align-self: center;
 }
 

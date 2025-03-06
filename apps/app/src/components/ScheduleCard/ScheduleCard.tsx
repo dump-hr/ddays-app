@@ -3,7 +3,7 @@ import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
 import Check from '../../assets/icons/check-1.svg';
 import Button from '../Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 
@@ -15,37 +15,45 @@ type ScheduleCardProps = {
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
-  isAddedToSchedule,
+  isAddedToSchedule, // BE: Provjerite implementaciju ovoga (ide li kroz event ili treba posebno queryjat)
   clickHandler,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isLive, setIsLive] = useState(() => {
+    const now = new Date().getTime();
+    const start = new Date(event.startsAt).getTime();
+    const end = new Date(event.endsAt).getTime();
+
+    return now >= start && now <= end;
+  });
+
   function getThemeLabel(eventTheme: Theme) {
     switch (eventTheme) {
-      case Theme.Dev:
+      case Theme.DEV:
         return 'DEV';
-      case Theme.Design:
+      case Theme.DESIGN:
         return 'DIZ';
-      case Theme.Marketing:
+      case Theme.MARKETING:
         return 'MARK';
-      case Theme.Tech:
+      case Theme.TECH:
         return 'TECH';
     }
   }
 
   function getTypeLabel(eventType: EventType) {
     switch (eventType) {
-      case EventType.Lecture:
+      case EventType.LECTURE:
         return 'PREDAVANJE';
-      case EventType.Workshop:
+      case EventType.WORKSHOP:
         return 'RADIONICA';
-      case EventType.FlyTalk:
+      case EventType.FLY_TALK:
         return 'FLY TALK';
-      case EventType.CampfireTalk:
+      case EventType.CAMPFIRE_TALK:
         return 'CAMPFIRE TALK';
-      case EventType.Panel:
+      case EventType.PANEL:
         return 'PANEL';
-      case EventType.Other:
+      case EventType.OTHER:
         return 'OSTALO';
     }
   }
@@ -63,6 +71,22 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
   }
 
+  useEffect(() => {
+    const startMs = new Date(event.startsAt).getTime();
+    const endMs = new Date(event.endsAt).getTime();
+
+    const updateStatus = () => {
+      const now = new Date().getTime();
+      setIsLive(now >= startMs && now <= endMs);
+    };
+
+    updateStatus();
+
+    const interval = setInterval(updateStatus, 1000);
+
+    return () => clearInterval(interval);
+  }, [event.startsAt, event.endsAt]);
+
   return (
     <div className={c.scheduleCard}>
       {isAddedToSchedule && (
@@ -72,9 +96,19 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </div>
       )}
       <div className={c.timeAndArrow}>
-        <p className={c.time}>
-          {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
-        </p>
+        <div className={c.timeWrapper}>
+          {isLive && (
+            <div className={c.live}>
+              <div className={c.icon}>
+                <div className={c.innerCircle} />
+              </div>
+            </div>
+          )}
+          <p className={c.time}>
+            {getTimeFromDate(event.startsAt)} - {getTimeFromDate(event.endsAt)}
+          </p>
+        </div>
+
         <img
           className={clsx({
             [c.arrowDown]: true,
@@ -119,7 +153,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
       </section>
 
       <div className={c.divider} />
-      {event.type === EventType.Panel && (
+      {event.type === EventType.PANEL && (
         <p className={c.moderatorLabel}>Voditelj panela:</p>
       )}
       <div className={c.speakers}>
@@ -133,8 +167,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className={c.speaker} key={index}>
                   <img
                     className={c.image}
-                    src={speaker.photo?.thumbnailUrl}
-                    alt={speaker.firstName}
+                    src={speaker.photoUrl} // BE TODO: treba bi photourl imat 2 podfielda: jedan za veliku sliku sta je na webu i jedan za malu sta je tu
+                    alt={speaker.firstName} // tj. mainPhotoUrl i thumbnailUrl, pogledaj seed za primjer
                   />
                   <div className={c.speakerInfoWrapper}>
                     <p className={c.fullName}>
@@ -150,18 +184,23 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     </div>
                   </div>
                 </div>
-                {event.type === EventType.Panel && index === 0 && (
+                {event.type === EventType.PANEL && index === 0 && (
                   <div className={c.divider} />
                 )}
               </>
             ),
           )}
       </div>
-
       <Button
-        className={c.button}
+        className={clsx({
+          [c.button]: true,
+          [c.collapsibleContent]: true,
+          [c.collapsed]: !isOpen,
+        })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={clickHandler}>
+        {' '}
+        {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>

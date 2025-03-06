@@ -1,6 +1,6 @@
 import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -13,6 +13,8 @@ import c from './Job.module.scss';
 import { getMaxJobsPerTier } from './utils';
 
 export const Job: FormComponent = ({ close }) => {
+  const ref = useRef(true);
+
   const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
   const [displayErrors, setDisplayErrors] = useState(false);
 
@@ -23,8 +25,10 @@ export const Job: FormComponent = ({ close }) => {
 
   useEffect(() => {
     if (jobs.length) return;
-    setJobs(companyJobs ?? []);
-    if (!companyJobs?.length) handleAdd();
+    if (ref.current) {
+      setJobs(companyJobs ?? []);
+      ref.current = false;
+    }
   }, [companyJobs, jobs]);
 
   const handleAdd = () => {
@@ -40,11 +44,7 @@ export const Job: FormComponent = ({ close }) => {
   };
 
   const handleRemove = (idToRemove?: number) => {
-    setJobs((prev) => {
-      return prev
-        .filter(({ id }) => id !== idToRemove)
-        .map((job) => ({ ...job }));
-    });
+    setJobs((prev) => prev.filter((_, i) => i !== idToRemove));
   };
 
   const handleSave = async () => {
@@ -75,7 +75,7 @@ export const Job: FormComponent = ({ close }) => {
       </div>
 
       <div className={c.jobsContainer}>
-        {jobs.map(({ id, details, location, position, link }, index) => (
+        {jobs.map(({ details, location, position, link }, index) => (
           <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>
@@ -85,7 +85,7 @@ export const Job: FormComponent = ({ close }) => {
                     <span className={c.error}>(nepotpuni podaci)</span>
                   )}
               </h2>
-              <span onClick={() => handleRemove(id)} className={c.label}>
+              <span onClick={() => handleRemove(index)} className={c.label}>
                 Ukloni
               </span>
             </div>

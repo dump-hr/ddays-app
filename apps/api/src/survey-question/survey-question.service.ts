@@ -4,81 +4,62 @@ import {
   SurveyQuestionType,
 } from '@ddays-app/types';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { db } from 'db';
-import { surveyQuestion } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class SurveyQuestionService {
+  constructor(private readonly prisma: PrismaService) {}
+
   async create(dto: SurveyQuestionModifyDto): Promise<SurveyQuestionDto> {
-    const [createdSurveyQuestion] = await db
-      .insert(surveyQuestion)
-      .values(dto)
-      .returning();
+    const createdSurveyQuestion = await this.prisma.surveyQuestion.create({
+      data: dto,
+    });
 
     return createdSurveyQuestion;
   }
 
   async getAll(): Promise<SurveyQuestionDto[]> {
-    const surveyQuestions = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        inputType: surveyQuestion.inputType,
-        type: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .orderBy(surveyQuestion.inputLabel);
+    const surveyQuestions = await this.prisma.surveyQuestion.findMany({
+      orderBy: { inputLabel: 'asc' },
+    });
 
     return surveyQuestions;
   }
 
   async getAllOfType(type: SurveyQuestionType): Promise<SurveyQuestionDto[]> {
-    const surveyQuestions = await db
-      .select({
-        id: surveyQuestion.id,
-        question: surveyQuestion.question,
-        description: surveyQuestion.description,
-        inputLabel: surveyQuestion.inputLabel,
-        inputType: surveyQuestion.inputType,
-        type: surveyQuestion.type,
-      })
-      .from(surveyQuestion)
-      .where(eq(surveyQuestion.type, type))
-      .orderBy(surveyQuestion.inputLabel);
+    const surveyQuestions = await this.prisma.surveyQuestion.findMany({
+      where: { type },
+      orderBy: { inputLabel: 'asc' },
+    });
 
     return surveyQuestions;
   }
 
   async remove(id: number): Promise<SurveyQuestionDto> {
-    const [deletedSurveyQuestion] = await db
-      .delete(surveyQuestion)
-      .where(eq(surveyQuestion.id, id))
-      .returning();
+    try {
+      const deletedSurveyQuestion = await this.prisma.surveyQuestion.delete({
+        where: { id },
+      });
 
-    if (!deletedSurveyQuestion) {
+      return deletedSurveyQuestion;
+    } catch (error) {
       throw new NotFoundException('Survey question not found');
     }
-
-    return deletedSurveyQuestion;
   }
 
   async update(
     id: number,
     dto: SurveyQuestionModifyDto,
   ): Promise<SurveyQuestionDto> {
-    const [updatedSurveyQuestion] = await db
-      .update(surveyQuestion)
-      .set(dto)
-      .where(eq(surveyQuestion.id, id))
-      .returning();
+    try {
+      const updatedSurveyQuestion = await this.prisma.surveyQuestion.update({
+        where: { id },
+        data: dto,
+      });
 
-    if (!updatedSurveyQuestion) {
+      return updatedSurveyQuestion;
+    } catch (error) {
       throw new NotFoundException('Survey question not found');
     }
-
-    return updatedSurveyQuestion;
   }
 }

@@ -13,11 +13,11 @@ import c from './Video.module.scss';
 
 const getMaxVideoDurationPerTier = (category: CompanyCategory) => {
   switch (category) {
-    case CompanyCategory.Bronze:
+    case CompanyCategory.BRONZE:
       return 10;
-    case CompanyCategory.Silver:
+    case CompanyCategory.SILVER:
       return 20;
-    case CompanyCategory.Gold:
+    case CompanyCategory.GOLD:
       return 30;
     default:
       return 0;

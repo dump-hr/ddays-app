@@ -4,6 +4,8 @@ import goldSponsor from 'assets/images/golden-sponsor.webp';
 import kodak from 'assets/images/kodak.webp';
 import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
@@ -11,9 +13,6 @@ import { useScreenSize } from '../../hooks/useScreenSize';
 import { SponsorJobCount } from './SponsorJobCount';
 import SponsorModal from './SponsorModal';
 import c from './SponsorSection.module.scss';
-
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,19 +28,19 @@ export const SponsorSection: React.FC = () => {
   const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
   const goldSponsors = sponsors.filter(
-    (sponsor) => sponsor.category === CompanyCategory.Gold,
+    (sponsor) => sponsor.category === CompanyCategory.GOLD,
   );
   const silverSponsors = sponsors.filter(
-    (sponsor) => sponsor.category === CompanyCategory.Silver,
+    (sponsor) => sponsor.category === CompanyCategory.SILVER,
   );
   const bronzeSponsors = sponsors.filter(
-    (sponsor) => sponsor.category === CompanyCategory.Bronze,
+    (sponsor) => sponsor.category === CompanyCategory.BRONZE,
   );
   const mediaSponsors = sponsors.filter(
-    (sponsor) => sponsor.category === CompanyCategory.Media,
+    (sponsor) => sponsor.category === CompanyCategory.MEDIA,
   );
   const friendSponsors = sponsors.filter(
-    (sponsor) => sponsor.category === CompanyCategory.Friend,
+    (sponsor) => sponsor.category === CompanyCategory.FRIEND,
   );
 
   const { isMobile } = useScreenSize(768);
@@ -190,7 +189,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {silverSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <a target='_blank' href={sponsor.website}>
+                <a target='_blank' href={sponsor.websiteUrl}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(silverSponsors.length % maxSponsors
@@ -213,7 +212,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {bronzeSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <a target='_blank' href={sponsor.website}>
+                <a target='_blank' href={sponsor.websiteUrl}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(bronzeSponsors.length % maxSponsors
@@ -235,7 +234,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {mediaSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <a target='_blank' href={sponsor.website}>
+                <a target='_blank' href={sponsor.websiteUrl}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(mediaSponsors.length % maxSponsors
@@ -258,7 +257,7 @@ export const SponsorSection: React.FC = () => {
           <section className={c.logos}>
             {friendSponsors.map((sponsor, index) => (
               <figure className={c.logo} key={sponsor.id}>
-                <a target='_blank' href={sponsor.website}>
+                <a target='_blank' href={sponsor.websiteUrl}>
                   <img src={sponsor.logoImage} alt={sponsor.name} />
                 </a>
                 {(friendSponsors.length % maxSponsors

@@ -14,6 +14,7 @@ import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequ
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
+import { PrismaService } from './prisma.service';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
@@ -34,19 +35,19 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     ...(process.env.NODE_ENV !== 'dev'
       ? [
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'web', 'dist'),
             exclude: ['/api/(.*)', '/app/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'app', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'app', 'dist'),
             serveRoot: '/app',
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'sponsor', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'sponsor', 'dist'),
             serveRoot: '/sponsor',
           }),
           ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', '..', '..', 'admin', 'dist'),
+            rootPath: join(__dirname, '..', '..', 'admin', 'dist'),
             serveRoot: '/admin',
           }),
         ]
@@ -55,6 +56,6 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
     BoothModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

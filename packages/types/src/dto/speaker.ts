@@ -1,20 +1,15 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CompanyPublicDto } from './company';
 
-export type SpeakerPhoto = {
-  mainPhotoUrl: string;
-  thumbnailUrl: string;
-};
-
 export type SpeakerDto = {
   id: number;
   firstName: string;
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: SpeakerPhoto;
-  instagram?: string;
-  linkedin?: string;
+  photoUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   description?: string;
 };
 
@@ -34,11 +29,11 @@ export class SpeakerModifyDto {
 
   @IsOptional()
   @IsString()
-  instagram?: string;
+  instagramUrl?: string;
 
   @IsOptional()
   @IsString()
-  linkedin?: string;
+  linkedinUrl?: string;
 
   @IsOptional()
   @IsString()
@@ -51,9 +46,9 @@ export type SpeakerWithCompanyDto = {
   lastName: string;
   title: string;
   companyId?: number;
-  photo?: SpeakerPhoto;
-  instagram?: string;
-  linkedin?: string;
+  photoUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   description?: string;
   company?: CompanyPublicDto;
 };
