@@ -114,6 +114,7 @@ export const GeneralRegistrationForm = () => {
         <ProgressBar
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
+          handleRegistrationClick={handleRegistrationClick}
         />
       </div>
 

@@ -6,11 +6,13 @@ import React from 'react';
 type ProgressBarProps = {
   currentStep: number;
   setCurrentStep: (step: number) => void;
+  handleRegistrationClick: () => void;
 };
 
 export const ProgressBar = ({
   currentStep,
   setCurrentStep,
+  handleRegistrationClick,
 }: ProgressBarProps) => {
   const { isStepValid } = useRegistration();
 
@@ -18,9 +20,14 @@ export const ProgressBar = ({
     const isGoingBackwards = clickedStep <= currentStep;
     const isGoingForward = clickedStep === currentStep + 1;
 
-    if (isGoingBackwards) {
-      setCurrentStep(clickedStep);
-    } else if (isGoingForward && isStepValid(currentStep)) {
+    const canChangeStep =
+      isGoingBackwards || (isGoingForward && isStepValid(currentStep));
+
+    if (isGoingForward) {
+      handleRegistrationClick();
+    }
+
+    if (canChangeStep) {
       setCurrentStep(clickedStep);
     }
   };
