@@ -9,9 +9,6 @@
         width: 90%;
     }
 
-
-
-
     .registrationUpper{
         display: flex;
         flex-direction: column;
@@ -32,7 +29,6 @@
                 display: none;
             }
 
-
             @media (max-width: $breakpoint-tablet) {
                 display: flex;
                 width: 100%;
@@ -44,6 +40,7 @@
 
                 img{
                     display: flex;
+                    cursor: pointer;
                 }
             }
         }
