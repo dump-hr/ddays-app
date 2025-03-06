@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import c from './Input.module.scss';
 import clsx from 'clsx';
-import EyeIcon from '../../assets/icons/eye-open.svg';
-import EyeClosedIcon from '../../assets/icons/eye-closed.svg';
+import EyeIcon from '@/assets/icons/eye-open.svg';
+import EyeClosedIcon from '@/assets/icons/eye-closed.svg';
 
 type InputProps = {
+  disabled?: boolean;
   value: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'email' | 'password';
 } & Omit<React.HTMLProps<HTMLInputElement>, 'onChange'>;
 
 export const Input = ({
+  disabled = false,
   value,
   placeholder,
   onChange,
@@ -22,7 +24,8 @@ export const Input = ({
 }: InputProps) => {
   const [isPasswordVisible, setPasswordToBeVisible] = useState(false);
   const [isFocused, setItIsFocus] = useState(false);
-  const isActive = value && !error;
+
+  const isActive = value && !error && !disabled && isFocused;
   const showLabel = isFocused || value;
 
   const passwordVisibility = () => {
@@ -36,6 +39,7 @@ export const Input = ({
     <div className={c.container} style={props.style}>
       <div className={c.inputWrapper}>
         <input
+          disabled={disabled}
           type={inputType}
           value={value}
           onChange={onChange}
@@ -63,7 +67,7 @@ export const Input = ({
           {placeholder}
         </label>
 
-        {!value && !error && <div className={c.dots}></div>}
+        {!error && !isActive && <div className={c.dots}></div>}
 
         {type === 'password' && (
           <button
