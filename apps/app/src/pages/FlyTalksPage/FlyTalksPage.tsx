@@ -19,7 +19,6 @@ const FlyTalksPage = () => {
         className={c.duckImage}
         src={FlyTalksDuckImage}
         alt=''
-        className={c.duckImage}
       />
       <main className={c.main}>
         <div className={c.mainContent}>
