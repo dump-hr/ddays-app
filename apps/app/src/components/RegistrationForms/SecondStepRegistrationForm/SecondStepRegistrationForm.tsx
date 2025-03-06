@@ -109,6 +109,14 @@ export const SecondStepRegistrationForm = ({
     { value: 'F', label: 'F' },
   ];
 
+  const hasError = (error: string | undefined) => {
+    if (error && error != '') {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <>
       <div className={c.inputFieldsWrapper}>
@@ -139,6 +147,7 @@ export const SecondStepRegistrationForm = ({
             (option) => option.value === userData.educationDegree,
           )}
           errorLabel={errors[2]?.educationDegree}
+          hasError={hasError(errors[2]?.educationDegree)}
         />
 
         <Dropdown
@@ -152,6 +161,7 @@ export const SecondStepRegistrationForm = ({
             (option) => option.value === userData.occupation,
           )}
           errorLabel={errors[2]?.occupation}
+          hasError={hasError(errors[2]?.occupation)}
         />
 
         <CheckboxFieldsWrapper

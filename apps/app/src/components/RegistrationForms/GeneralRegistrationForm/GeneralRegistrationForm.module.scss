@@ -6,7 +6,7 @@
     width: 422px;
 
     @media (max-width: $breakpoint-tablet) {
-        width: 90%;
+        padding-inline: 24px;
     }
 
     .registrationUpper{

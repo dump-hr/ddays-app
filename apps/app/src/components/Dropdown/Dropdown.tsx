@@ -43,7 +43,7 @@ const Dropdown = ({
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const widthStyle = { width: width };
-  const showError = (hasError || !selectedOption?.value) && !isOpen;
+  const showError = hasError && !isOpen;
 
   return (
     <div className={c.wrapper} style={widthStyle} ref={dropdownRef}>
