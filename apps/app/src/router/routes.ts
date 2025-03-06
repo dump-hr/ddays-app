@@ -29,6 +29,7 @@ export enum RouteNames {
   SCHEDULE = '/app/schedule',
   FLY_TALKS = '/app/flyTalks',
   SHOPPING = '/app/shopping',
+  NOTIFICATIONS = '/app/notifications',
 }
 
 export interface SubMenu {
