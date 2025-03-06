@@ -1,0 +1,68 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: $primary-black;
+  padding-top: 4rem;
+}
+
+.settings {
+  &Wrapper {
+    @include roundedContainer;
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 422px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      gap: 1rem;
+      max-width: none;
+    }
+  }
+
+  &Header {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      @include heading-2;
+      font-weight: 500;
+    }
+
+    &Edit{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .editButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $black-10;
+      height: 2rem;
+      width: 2rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+
+    .noBackground{
+      background-color: transparent;
+    }
+
+    .backButton {
+      cursor: pointer;
+    }
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
