@@ -1,20 +1,20 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import styles from './SettingsPage.module.scss';
+
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
 
 import { Input } from '../../components/Input';
-import Dropdown from '../../components/Dropdown/Dropdown';
-import { DropdownOption } from '../../components/Dropdown/DropdownOption';
+import Dropdown from '../../components/Dropdown';
 import { textInputs, dropdownInputs } from './inputs';
-import clsx from 'clsx';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing);
+    setIsEditing((prev) => !prev);
   };
 
   return (
@@ -49,11 +49,7 @@ const SettingsPage = () => {
                   type={input.type}
                   value={''}
                   placeholder={input.placeholder}
-                  onChange={function (
-                    e: React.ChangeEvent<HTMLInputElement>,
-                  ): void {
-                    throw new Error('Function not implemented.');
-                  }}
+                  onChange={() => {}}
                 />
               );
             })}
@@ -68,9 +64,7 @@ const SettingsPage = () => {
                       { value: 'Option 1', label: 'Option 1' },
                       { value: 'Option 2', label: 'Option 2' },
                     ]}
-                    setOption={function (option: DropdownOption): void {
-                      throw new Error('Function not implemented.');
-                    }}
+                    setOption={() => {}}
                     selectedOption={undefined}
                   />
                 );
@@ -81,11 +75,7 @@ const SettingsPage = () => {
                   disabled={!isEditing}
                   value={'Mikejla'}
                   placeholder={input}
-                  onChange={function (
-                    e: React.ChangeEvent<HTMLInputElement>,
-                  ): void {
-                    throw new Error('Function not implemented.');
-                  }}
+                  onChange={() => {}}
                 />
               );
             })}
