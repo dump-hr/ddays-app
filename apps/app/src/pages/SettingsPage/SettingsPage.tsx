@@ -6,9 +6,11 @@ import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
 
-import { Input } from '../../components/Input';
 import Dropdown from '../../components/Dropdown';
+import { Input } from '../../components/Input';
 import { textInputs, dropdownInputs } from './inputs';
+import { useUserContext } from '../../context/UserContext';
+import { useInputHandlers } from '../../hooks/useInputHandlers';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,6 +18,10 @@ const SettingsPage = () => {
   const handleEditClick = () => {
     setIsEditing((prev) => !prev);
   };
+
+  const { userData, setUserData: updateUserData } = useUserContext();
+  const { handleDropdownChange, handleInputChange } =
+    useInputHandlers(updateUserData);
 
   return (
     <div className={styles.wrapper}>
@@ -45,11 +51,12 @@ const SettingsPage = () => {
             {textInputs.map((input) => {
               return (
                 <Input
+                  name={input.name}
                   disabled={!isEditing}
                   type={input.type}
-                  value={''}
+                  value={userData[input.name]?.toString()}
                   placeholder={input.placeholder}
-                  onChange={() => {}}
+                  onChange={handleInputChange}
                 />
               );
             })}
@@ -58,23 +65,26 @@ const SettingsPage = () => {
               if (isEditing) {
                 return (
                   <Dropdown
-                    label={input}
-                    placeholder='Odaberite'
-                    options={[
-                      { value: 'Option 1', label: 'Option 1' },
-                      { value: 'Option 2', label: 'Option 2' },
-                    ]}
-                    setOption={() => {}}
-                    selectedOption={undefined}
+                    name={input.name}
+                    label={input.placeholder}
+                    placeholder={'Odaberite'}
+                    options={input.options}
+                    setOption={(selectedOption) =>
+                      handleDropdownChange(input.name, selectedOption)
+                    }
+                    selectedOption={input.options.find(
+                      (option) => option.value === userData[input.name],
+                    )}
                   />
                 );
               }
 
               return (
                 <Input
+                  name={input.name}
                   disabled={!isEditing}
-                  value={'Mikejla'}
-                  placeholder={input}
+                  value={userData[input.name]?.toString()}
+                  placeholder={input.placeholder}
                   onChange={() => {}}
                 />
               );
