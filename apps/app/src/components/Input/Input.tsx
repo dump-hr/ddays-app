@@ -6,7 +6,7 @@ import EyeClosedIcon from '@/assets/icons/eye-closed.svg';
 
 type InputProps = {
   disabled?: boolean;
-  value: string;
+  value: string | undefined;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
@@ -67,7 +67,7 @@ export const Input = ({
           {placeholder}
         </label>
 
-        {!error && !isActive && <div className={c.dots}></div>}
+        {!isActive && <div className={c.dots}></div>}
 
         {type === 'password' && (
           <button
