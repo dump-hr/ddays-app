@@ -53,3 +53,14 @@ export const dropdownInputs = [
     ],
   },
 ];
+
+export const checkboxInputs = [
+  {
+    name: UserDataFields.NewsletterEnabled,
+    label: 'Pretplati se na newsletter',
+  },
+  {
+    name: UserDataFields.TermsAndConditionsEnabled,
+    label: 'Prihvaćam uvjete korištenja',
+  },
+];

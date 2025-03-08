@@ -3,14 +3,18 @@ import { useState } from 'react';
 import styles from './SettingsPage.module.scss';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
+import ArrowRightIcon from '@/assets/icons/arrow-right.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
 
 import Dropdown from '../../components/Dropdown';
 import { Input } from '../../components/Input';
-import { textInputs, dropdownInputs } from './inputs';
+import { textInputs, dropdownInputs, checkboxInputs } from './inputs';
 import { useUserContext } from '../../context/UserContext';
 import { useInputHandlers } from '../../hooks/useInputHandlers';
+import { Checkbox } from '../../components/Checkbox';
+import Button from '../../components/Button';
+import { ButtonSettings } from '../../components/ButtonSettings';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -20,7 +24,7 @@ const SettingsPage = () => {
   };
 
   const { userData, setUserData: updateUserData } = useUserContext();
-  const { handleDropdownChange, handleInputChange } =
+  const { handleDropdownChange, handleInputChange, handleCheckboxChange } =
     useInputHandlers(updateUserData);
 
   return (
@@ -81,14 +85,39 @@ const SettingsPage = () => {
 
               return (
                 <Input
+                  disabled={true}
                   name={input.name}
-                  disabled={!isEditing}
                   value={userData[input.name]?.toString()}
                   placeholder={input.placeholder}
                   onChange={() => {}}
                 />
               );
             })}
+
+            {isEditing && (
+              <>
+                {checkboxInputs.map((input) => {
+                  return (
+                    <Checkbox
+                      name={input.name}
+                      checked={userData[input.name] as boolean}
+                      label={input.label}
+                      onChange={handleCheckboxChange}
+                    />
+                  );
+                })}
+                <Button variant='black' onClick={() => setIsEditing(false)}>
+                  SPREMI
+                </Button>
+              </>
+            )}
+
+            {!isEditing && (
+              <>
+                <ButtonSettings/>
+                <ButtonSettings/>
+              </>
+            )}
           </div>
         </div>
       </div>
