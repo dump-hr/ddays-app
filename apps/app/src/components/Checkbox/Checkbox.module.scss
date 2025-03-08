@@ -1,0 +1,53 @@
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 16px;
+  width: 100%;
+
+  input[type='checkbox'] {
+    appearance: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 20px;
+    min-height: 20px;
+
+    border-radius: 4px;
+    border: none;
+    background: $black-10;
+
+    cursor: pointer;
+
+    &:checked {
+      background: $primary-muted-orange;
+
+      &:after {
+        content: '';
+        background: url(./../../assets/icons/check-mark-icon.svg);
+
+        position: absolute;
+        width: 9.583px;
+        height: 9.583px;
+        background-size: contain;
+      }
+    }
+  }
+
+  label {
+    position: relative;
+    top: 3px;
+
+    font-family: Inter;
+    letter-spacing: -0.16px;
+
+    color: $primary-black;
+    cursor: pointer;
+
+    &:hover {
+      color: $black-70;
+    }
+  }
+}

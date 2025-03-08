@@ -25,6 +25,7 @@ export enum RouteNames {
   REGISTER = '/app/register',
   PASSWORD_RESET = '/app/password-reset',
   PROFILE = '/app/profile',
+  SETTINGS = '/app/settings',
   COMPANIES = '/app/companies',
   SCHEDULE = '/app/schedule',
   FLY_TALKS = '/app/flyTalks',

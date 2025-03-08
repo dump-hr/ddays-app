@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 type DropdownProps = {
+  name?: string;
   label: string;
   placeholder: string;
   options: DropdownOption[];
@@ -19,6 +20,7 @@ type DropdownProps = {
 };
 
 const Dropdown = ({
+  name,
   label,
   placeholder,
   options,
@@ -50,6 +52,7 @@ const Dropdown = ({
       {label && <label className={c.label}>{label}</label>}
 
       <button
+        name={name}
         className={clsx({
           [c.mainButton]: true,
           [c.isOpen]: isOpen,
