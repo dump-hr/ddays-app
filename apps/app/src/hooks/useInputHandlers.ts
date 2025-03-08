@@ -1,7 +1,10 @@
+import { ChangeEvent } from 'react';
 import { DropdownOption } from '../components/Dropdown/DropdownOption';
 import { UserDataFields } from '../types/enums';
 
-export const useInputHandlers = (updateState: (data: Record<string, unknown>) => void) => {
+export const useInputHandlers = (
+  updateState: (data: Record<string, unknown>) => void,
+) => {
   const handleDropdownChange = (
     field: UserDataFields,
     selectedOption: DropdownOption,
@@ -18,5 +21,10 @@ export const useInputHandlers = (updateState: (data: Record<string, unknown>) =>
     });
   };
 
-  return { handleDropdownChange, handleInputChange };
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    updateState({ [name]: checked });
+  };
+
+  return { handleDropdownChange, handleInputChange, handleCheckboxChange };
 };
