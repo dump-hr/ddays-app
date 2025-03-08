@@ -3,9 +3,10 @@ import { useState } from 'react';
 import styles from './SettingsPage.module.scss';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
-import ArrowRightIcon from '@/assets/icons/arrow-right.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
+import LockIcon from '@/assets/icons/lock-icon.svg';
+import ThrashIcon from '@/assets/icons/delete-icon.svg';
 
 import Dropdown from '../../components/Dropdown';
 import { Input } from '../../components/Input';
@@ -114,8 +115,12 @@ const SettingsPage = () => {
 
             {!isEditing && (
               <>
-                <ButtonSettings/>
-                <ButtonSettings/>
+                <ButtonSettings icon={LockIcon} variant={'grey'}>
+                  PROMIJENI LOZINKU
+                </ButtonSettings>
+                <ButtonSettings icon={ThrashIcon} variant={'red'}>
+                  IZBRIŠI PROFIL
+                </ButtonSettings>
               </>
             )}
           </div>
