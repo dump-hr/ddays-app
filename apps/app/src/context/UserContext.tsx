@@ -1,12 +1,14 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
 import { createContext, useState, useContext, ReactNode } from 'react';
+import { useEffect } from 'react';
 
-// Define the extended user data type with repeatedPassword
 export type ExtendedUserDto = UserDto & { repeatedPassword: string };
 
 interface UserContextType {
   userData: ExtendedUserDto;
-  setUserData: (data: Partial<ExtendedUserDto>) => void;
+  updateUserData: (data: Partial<ExtendedUserDto>) => void;
+  userSettingsData: ExtendedUserDto;
+  updateUserSettingsData: (data: Partial<ExtendedUserDto>) => void;
 }
 
 const defaultUserData: ExtendedUserDto = {
@@ -24,13 +26,26 @@ const defaultUserData: ExtendedUserDto = {
   termsAndConditionsEnabled: false,
 };
 
+const setInitialUserData = () => {
+  const userData = localStorage.getItem('userData');
+  if (userData) {
+    return JSON.parse(userData);
+  }
+  return defaultUserData;
+};
+
 const UserContext = createContext<UserContextType>({
   userData: defaultUserData,
-  setUserData: () => {},
+  updateUserData: () => {},
+  userSettingsData: defaultUserData,
+  updateUserSettingsData: () => {},
 });
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [userData, setUserData] = useState<ExtendedUserDto>(defaultUserData);
+  const [userData, setUserData] =
+    useState<ExtendedUserDto>(setInitialUserData());
+  const [userSettingsData, setUserSettingsData] =
+    useState<ExtendedUserDto>(setInitialUserData());
 
   const updateUserData = (newData: Partial<ExtendedUserDto>) => {
     setUserData((prevData) => ({
@@ -39,8 +54,25 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
+  const updateUserSettingsData = (newData: Partial<ExtendedUserDto>) => {
+    setUserSettingsData((prevData) => ({
+      ...prevData,
+      ...newData,
+    }));
+  };
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData]);
+
   return (
-    <UserContext.Provider value={{ userData, setUserData: updateUserData }}>
+    <UserContext.Provider
+      value={{
+        userData,
+        updateUserData,
+        userSettingsData,
+        updateUserSettingsData,
+      }}>
       {children}
     </UserContext.Provider>
   );
