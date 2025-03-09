@@ -31,7 +31,6 @@ const SettingsPage = () => {
               />
             ) : (
               <ChangePassword
-                isChangingPassword={isChangingPassword}
                 setIsChangingPassword={setIsChangingPassword}
               />
             )}
