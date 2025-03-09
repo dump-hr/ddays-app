@@ -45,7 +45,7 @@ export const Description: FormComponent = ({ close }) => {
     }
 
     const fullUrlRegex =
-      /^(https?:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}(\/[^\s]*)?$/;
+      /^https:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^?#\s]*)?(?:\?[^#\s]*)?(?:#[^\s]*)?$/;
 
     const websiteUrlString = websiteUrl ?? company.websiteUrl ?? '';
     const instagramUrlString = instagramUrl ?? company.instagramUrl ?? '';
