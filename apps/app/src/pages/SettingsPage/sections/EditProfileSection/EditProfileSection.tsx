@@ -35,6 +35,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
       {textInputs.map((input) => {
         return (
           <Input
+            key={input.name}
             name={input.name}
             disabled={!isEditing}
             type={input.type}
@@ -49,6 +50,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
         if (isEditing) {
           return (
             <Dropdown
+              key={input.name}
               name={input.name}
               label={input.placeholder}
               placeholder={'Odaberite'}
@@ -65,6 +67,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
 
         return (
           <Input
+            key={input.name}
             disabled={true}
             name={input.name}
             value={userSettingsData[input.name]?.toString()}
@@ -76,17 +79,18 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
 
       {isEditing && (
         <>
-        <div className={styles.checkboxContainer}>
-          {checkboxInputs.map((input) => {
-            return (
-              <Checkbox
-                name={input.name}
-                checked={userSettingsData[input.name] as boolean}
-                label={input.label}
-                onChange={handleCheckboxChange}
-              />
-            );
-          })}
+          <div className={styles.checkboxContainer}>
+            {checkboxInputs.map((input) => {
+              return (
+                <Checkbox
+                  key={input.name}
+                  name={input.name}
+                  checked={userSettingsData[input.name] as boolean}
+                  label={input.label}
+                  onChange={handleCheckboxChange}
+                />
+              );
+            })}
           </div>
           <Button variant='black' onClick={handleSaveClick}>
             SPREMI
