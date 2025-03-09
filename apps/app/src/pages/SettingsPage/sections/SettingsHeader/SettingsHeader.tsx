@@ -31,6 +31,11 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
   const handleEditClick = () => {
     if (isChangingPassword) {
       setIsChangingPassword(false);
+      updateUserSettingsData({
+        password: '',
+        newPassword: '',
+        repeatedPassword: '',
+      });
       return;
     }
     if (isEditing) updateUserSettingsData(userData);
