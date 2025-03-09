@@ -2,7 +2,10 @@ import { UserDto } from '@ddays-app/types/src/dto/user';
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
 
-export type ExtendedUserDto = UserDto & { repeatedPassword: string };
+export type ExtendedUserDto = UserDto & {
+  newPassword: string;
+  repeatedPassword: string;
+};
 
 interface UserContextType {
   userData: ExtendedUserDto;
@@ -15,8 +18,9 @@ const defaultUserData: ExtendedUserDto = {
   firstName: 'Toni',
   lastName: 'Grbić',
   email: 'tonigrbic.example.com',
-  password: 'pass1234',
-  repeatedPassword: 'pass1234',
+  password: '',
+  repeatedPassword: '',
+  newPassword: '',
   phoneNumber: '0912345678',
   birthYear: 2001,
   educationDegree: null,
