@@ -57,10 +57,10 @@ export const dropdownInputs = [
 export const checkboxInputs = [
   {
     name: UserDataFields.NewsletterEnabled,
-    label: 'Pretplati se na newsletter',
+    label: 'Želim primati novosti o DUMP Days konferenciji.',
   },
   {
     name: UserDataFields.TermsAndConditionsEnabled,
-    label: 'Prihvaćam uvjete korištenja',
+    label: 'Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.',
   },
 ];
