@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+import styles from './EditProfileSection.module.scss';
 import { useUserContext } from '../../../../context/UserContext';
 import { useInputHandlers } from '../../../../hooks/useInputHandlers';
 import { checkboxInputs, dropdownInputs, textInputs } from './inputs';
@@ -16,9 +18,17 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const { userData, setUserData: updateUserData } = useUserContext();
+  const { userSettingsData, updateUserSettingsData, updateUserData } =
+    useUserContext();
+
   const { handleDropdownChange, handleInputChange, handleCheckboxChange } =
-    useInputHandlers(updateUserData);
+    useInputHandlers(updateUserSettingsData);
+
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    updateUserData(userSettingsData);
+    toast.success('Podaci uspješno izmjenjeni!');
+  };
 
   return (
     <>
@@ -28,7 +38,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
             name={input.name}
             disabled={!isEditing}
             type={input.type}
-            value={userData[input.name]?.toString()}
+            value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
             onChange={handleInputChange}
           />
@@ -47,7 +57,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
                 handleDropdownChange(input.name, selectedOption)
               }
               selectedOption={input.options.find(
-                (option) => option.value === userData[input.name],
+                (option) => option.value === userSettingsData[input.name],
               )}
             />
           );
@@ -57,7 +67,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
           <Input
             disabled={true}
             name={input.name}
-            value={userData[input.name]?.toString()}
+            value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
             onChange={() => {}}
           />
@@ -66,17 +76,19 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
 
       {isEditing && (
         <>
+        <div className={styles.checkboxContainer}>
           {checkboxInputs.map((input) => {
             return (
               <Checkbox
                 name={input.name}
-                checked={userData[input.name] as boolean}
+                checked={userSettingsData[input.name] as boolean}
                 label={input.label}
                 onChange={handleCheckboxChange}
               />
             );
           })}
-          <Button variant='black' onClick={() => setIsEditing(false)}>
+          </div>
+          <Button variant='black' onClick={handleSaveClick}>
             SPREMI
           </Button>
         </>
