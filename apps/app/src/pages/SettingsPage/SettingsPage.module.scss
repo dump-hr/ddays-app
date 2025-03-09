@@ -1,14 +1,29 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   background: $primary-black;
-  padding-top: 4rem;
+  padding-top: 166px;
+  min-height: 100vh;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    padding-top: 4rem;
+  }
 }
+
+body {
+  padding: 0 !important;
+} //privremeno radi postojeceg paddinga na body
 
 .settings {
   &Wrapper {
     @include roundedContainer;
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      padding: 1.5rem;
+    }
   }
 
   &Container {
@@ -17,60 +32,27 @@
     gap: 40px;
     width: 100%;
     max-width: 422px;
-    
-    @media screen and (max-width: $breakpoint-tablet) {
 
+    @media screen and (max-width: $breakpoint-tablet) {
       max-width: none;
     }
   }
 
-  &Header {
-    display: flex;
-    gap: 0.9rem;
-    align-items: center;
-    justify-content: center;
-    h1 {
-      @include heading-2;
-      font-weight: 500;
-    }
-
-    &Edit {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .editButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $black-10;
-      height: 2rem;
-      width: 2rem;
-      border-radius: 4px;
-      margin-left: 0.5rem;
-      cursor: pointer;
-    }
-
-    .noBackground {
-      background-color: transparent;
-    }
-
-    .backButton {
-      cursor: pointer;
-    }
-  }
-
-  &ButtonsContainer{
+  &ButtonsContainer {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top:1rem;
+    margin-top: 1rem;
   }
 
   &Content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    min-height: 79.5vh;
+    min-height: 62vh;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      min-height: 76vh;
+    }
   }
 }
