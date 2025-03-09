@@ -1,0 +1,21 @@
+.clickableTag {
+  @include paragraph-16;
+  color: black;
+  background-color: $black-5;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 9px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 100ms ease-in-out;
+
+  &.isActive {
+    color: white;
+    background-color: $primary-muted-orange;
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 13px 37px;
+  }
+}

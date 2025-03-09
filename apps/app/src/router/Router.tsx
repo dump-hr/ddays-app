@@ -15,8 +15,10 @@ import { ProfilePage } from '../pages/ProfilePage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { SchedulePage } from '../pages/SchedulePage';
 import { ShoppingPage } from '../pages/ShoppingPage';
+import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
+import TestPage from '../pages/TestPage/TestPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.LOGIN} element={<LoginPage />} />
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
+      <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
@@ -32,6 +35,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
+      <Route path='/app/test' element={<TestPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </React.Fragment>,
   ),

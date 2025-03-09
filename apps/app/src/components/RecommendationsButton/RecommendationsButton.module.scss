@@ -14,7 +14,7 @@
   user-select: none;
   -webkit-user-drag: none;
 
-  @media screen and (max-width: 450px) {
+  &.compact {
     align-items: flex-start;
     height: 240px;
     .duck {

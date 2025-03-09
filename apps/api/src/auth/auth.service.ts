@@ -1,27 +1,30 @@
 import { JwtResponseDto } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { db } from 'db';
-import { company } from 'db/schema';
-import { eq } from 'drizzle-orm';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async companyPasswordLogin(
     username: string,
     password: string,
   ): Promise<JwtResponseDto> {
-    const [loginCompany] = await db
-      .select({
-        id: company.id,
-        username: company.username,
-        name: company.name,
-        password: company.password,
-      })
-      .from(company)
-      .where(eq(company.username, username));
+    const loginCompany = await this.prisma.company.findUnique({
+      where: {
+        username: username,
+      },
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        password: true,
+      },
+    });
 
     if (!loginCompany) {
       throw new BadRequestException('Company not found');

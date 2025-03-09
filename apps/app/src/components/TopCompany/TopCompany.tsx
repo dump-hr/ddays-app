@@ -1,4 +1,4 @@
-import { CompanyDto } from '@ddays-app/types';
+import { CompanyCategory, CompanyDto } from '@ddays-app/types';
 import c from './TopCompany.module.scss';
 
 import BadgeGold from '../../assets/images/badge-gold.png';
@@ -17,13 +17,13 @@ type NumberProps = {
 function getBoothId(company: CompanyDto) {
   let categoryMarker = '';
   switch (company.category) {
-    case 'gold':
+    case CompanyCategory.GOLD:
       categoryMarker = 'Z';
       break;
-    case 'silver':
+    case CompanyCategory.SILVER:
       categoryMarker = 'S';
       break;
-    case 'bronze':
+    case CompanyCategory.BRONZE:
       categoryMarker = 'B';
       break;
   }

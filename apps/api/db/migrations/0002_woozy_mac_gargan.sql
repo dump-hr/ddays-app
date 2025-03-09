@@ -1,1 +1,0 @@
-ALTER TABLE "speaker" ALTER COLUMN "photo" SET DATA TYPE jsonb;

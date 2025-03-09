@@ -1,28 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
+import { NotificationDto } from '@ddays-app/types';
+import { getPassedTime } from '../../helpers/getPassedTime';
 import c from './Notification.module.scss';
 import clsx from 'clsx';
 
-type NotificationProps = {
-  id: number;
-  title: string;
-  content: string;
-  time: Date;
+interface NotificationProps {
+  index: number;
+  notification: NotificationDto;
   expandedNotificationId: number | null;
   setExpandedNotificationId: (id: number | null) => void;
-};
-
-//TODO: function that returns time string ex: 1 h ago or 10 min ago
+  notificationsLength: number;
+}
 
 const Notification: React.FC<NotificationProps> = ({
-  id,
-  title,
-  content,
-  time,
+  index,
+  notification,
   expandedNotificationId,
   setExpandedNotificationId,
+  notificationsLength,
 }) => {
   const [showExpandButton, setShowExpandButton] = useState(false);
-  const isExpanded = expandedNotificationId === id;
+  const isExpanded = expandedNotificationId === notification.id;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -37,7 +35,7 @@ const Notification: React.FC<NotificationProps> = ({
   return (
     <div className={c.notificationWrapper}>
       <div className={clsx(c.flex, c.titleWrapper)}>
-        <h4 className={c.title}>{title}</h4>
+        <h4 className={c.title}>{notification.title}</h4>
         <div className={c.orangeDot}></div>
       </div>
 
@@ -46,81 +44,35 @@ const Notification: React.FC<NotificationProps> = ({
           ref={ref}
           className={c.content}
           style={
-            isExpanded
-              ? undefined
-              : {
+            !isExpanded
+              ? {
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   display: '-webkit-box',
                 }
+              : undefined
           }>
-          {content}
+          {notification.content}
           {showExpandButton && '...'}
         </p>
         {showExpandButton && (
           <button
             className={c.expandButton}
             onClick={() => {
-              setExpandedNotificationId(id);
+              setExpandedNotificationId(notification.id);
               setShowExpandButton(false);
             }}>
             Proširi
           </button>
         )}
       </div>
-      <p className={c.time}>{getPassedTime(time)}</p>
-      <div className={c.dottedBreak}></div>
+      <p className={c.time}>{getPassedTime(notification.activatedAt)}</p>
+      {notificationsLength - 1 !== index && (
+        <div className={c.dottedBreak}></div>
+      )}
     </div>
   );
-};
-
-const getPassedTime = (time: Date) => {
-  const now = new Date();
-  const diff = now.getTime() - time.getTime();
-  const diffInMinutes = Math.floor(diff / 1000 / 60);
-
-  if (diffInMinutes < 1) {
-    return 'sada';
-  }
-
-  if (diffInMinutes < 60) {
-    if (diffInMinutes % 10 === 1 && diffInMinutes !== 11) {
-      return `Prije ${diffInMinutes} minutu`;
-    }
-
-    if (
-      diffInMinutes % 10 < 5 &&
-      diffInMinutes % 10 !== 0 &&
-      (diffInMinutes < 10 || diffInMinutes > 20)
-    ) {
-      return `Prije ${diffInMinutes} minute`;
-    }
-
-    return `Prije ${diffInMinutes} minuta`;
-  }
-
-  const diffInHours = Math.floor(diffInMinutes / 60);
-
-  if (diffInHours < 24) {
-    if (diffInHours % 10 === 1 && diffInHours !== 11) {
-      return `Prije ${diffInHours} sat`;
-    }
-
-    if (diffInHours % 10 < 5 && (diffInHours < 10 || diffInHours > 20)) {
-      return `Prije ${diffInHours} sata`;
-    }
-
-    return `Prije ${diffInHours} sati`;
-  }
-
-  const diffInDays = Math.floor(diffInHours / 24);
-
-  if (diffInDays % 10 === 1 && diffInDays !== 11) {
-    return `Prije ${diffInDays} dan`;
-  }
-
-  return `Prije ${diffInDays} dana`;
 };
 
 export default Notification;
