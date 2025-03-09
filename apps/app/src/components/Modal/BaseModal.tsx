@@ -1,4 +1,10 @@
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+  PropsWithChildren,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import sprite from '../../assets/sprite.svg';
 import styles from './Modal.module.scss';
 import { useClickOutside } from '../../hooks/UseClickOutside';
@@ -8,10 +14,9 @@ type BaseModalProps = {
   onClose: () => void;
   title: string;
   withOverlay?: boolean;
-  children: ReactNode;
 };
 
-export const BaseModal: React.FC<BaseModalProps> = ({
+export const BaseModal: React.FC<PropsWithChildren<BaseModalProps>> = ({
   isOpen,
   onClose,
   title,

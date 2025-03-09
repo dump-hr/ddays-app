@@ -2,9 +2,9 @@ import { useRef, useState } from 'react';
 import React from 'react';
 import c from './Dropdown.module.scss';
 import { DropdownOption } from './DropdownOption';
-import ArrowIcon from '../../assets/icons/arrow-down-1.svg';
+import ArrowIcon from 'src/assets/icons/arrow-down-1.svg';
 import clsx from 'clsx';
-import { useClickOutside } from '../../hooks/UseClickOutside';
+import { useClickOutside } from 'src/hooks/UseClickOutside';
 
 type DropdownProps = {
   label: string;
