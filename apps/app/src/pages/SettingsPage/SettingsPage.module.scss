@@ -17,9 +17,9 @@
     gap: 40px;
     width: 100%;
     max-width: 422px;
-
+    
     @media screen and (max-width: $breakpoint-tablet) {
-      gap: 1rem;
+
       max-width: none;
     }
   }
@@ -34,7 +34,7 @@
       font-weight: 500;
     }
 
-    &Edit{
+    &Edit {
       display: flex;
       justify-content: space-between;
     }
@@ -51,7 +51,7 @@
       cursor: pointer;
     }
 
-    .noBackground{
+    .noBackground {
       background-color: transparent;
     }
 
@@ -60,9 +60,17 @@
     }
   }
 
+  &ButtonsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top:1rem;
+  }
+
   &Content {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    min-height: 79.5vh;
   }
 }

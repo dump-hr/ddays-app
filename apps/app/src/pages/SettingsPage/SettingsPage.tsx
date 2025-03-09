@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import styles from './SettingsPage.module.scss';
 
@@ -24,20 +25,21 @@ const SettingsPage = () => {
             setIsChangingPassword={setIsChangingPassword}
           />
           <div className={styles.settingsContent}>
-            {!isChangingPassword ? (
-              <EditProfileSection
-                isEditing={isEditing}
-                setIsEditing={setIsEditing}
-              />
-            ) : (
-              <ChangePassword
-                isChangingPassword={isChangingPassword}
-                setIsChangingPassword={setIsChangingPassword}
-              />
-            )}
-
+          
+              {!isChangingPassword ? (
+                <EditProfileSection
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
+                />
+              ) : (
+                <ChangePassword
+                  isChangingPassword={isChangingPassword}
+                  setIsChangingPassword={setIsChangingPassword}
+                />
+              )}
+           
             {!isEditing && !isChangingPassword && (
-              <>
+              <div className={styles.settingsButtonsContainer}>
                 <SettingsButton
                   icon={LockIcon}
                   variant={'grey'}
@@ -52,7 +54,7 @@ const SettingsPage = () => {
                   onClick={() => {}}>
                   Obriši račun
                 </SettingsButton>
-              </>
+              </div>
             )}
           </div>
         </div>
