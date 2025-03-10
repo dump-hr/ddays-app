@@ -13,6 +13,10 @@ const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
+  const handleDeleteAccount = () => {
+    // TODO: otvaranje popupa kakda bude gotov
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.settingsWrapper}>
@@ -48,7 +52,7 @@ const SettingsPage = () => {
                 <SettingsButton
                   icon={ThrashIcon}
                   variant={'red'}
-                  onClick={() => {}}>
+                  onClick={() => handleDeleteAccount()}>
                   Obriši račun
                 </SettingsButton>
               </div>
