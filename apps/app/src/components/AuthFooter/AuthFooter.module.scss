@@ -5,6 +5,10 @@
     color: $primary-black;
     margin-top: -16px ;
 
+    a {
+        cursor: pointer;
+    }
+
     a:first-child{
         opacity: 0.6;
     }
