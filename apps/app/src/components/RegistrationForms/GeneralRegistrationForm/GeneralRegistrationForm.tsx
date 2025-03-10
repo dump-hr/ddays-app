@@ -76,9 +76,11 @@ export const GeneralRegistrationForm = () => {
     ) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
+      scrollToTopOfTheScreen();
     } else if (isStepValid(currentStep)) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
+      scrollToTopOfTheScreen();
     }
   };
 
@@ -94,6 +96,10 @@ export const GeneralRegistrationForm = () => {
       default:
         return '';
     }
+  };
+
+  const scrollToTopOfTheScreen = () => {
+    window.scrollTo(0, 0);
   };
 
   return (
