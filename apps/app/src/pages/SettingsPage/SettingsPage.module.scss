@@ -11,10 +11,6 @@
   }
 }
 
-body {
-  padding: 0 !important;
-} //privremeno radi postojeceg paddinga na body
-
 .settings {
   &Wrapper {
     @include roundedContainer;
