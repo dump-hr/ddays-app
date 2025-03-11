@@ -10,6 +10,7 @@ import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import ArrowLeftWhiteIcon from '@/assets/icons/arrow-left-white.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
+import toast from 'react-hot-toast';
 
 interface SettingsHeaderProps {
   isEditing: boolean;
@@ -36,9 +37,13 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
         newPassword: '',
         repeatedPassword: '',
       });
+      toast.error('Izmjene nisu spremljene!');
       return;
     }
-    if (isEditing) updateUserSettingsData(userData);
+    if (isEditing) {
+      updateUserSettingsData(userData);
+      toast.error('Izmjene nisu spremljene!');
+    }
     setIsEditing(!isEditing);
   };
 
@@ -50,6 +55,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     if (isEditing || isChangingPassword) {
       setIsEditing(false);
       setIsChangingPassword(false);
+      toast.error('Izmjene nisu spremljene!');
       return;
     }
     navigate(RouteNames.PROFILE);
