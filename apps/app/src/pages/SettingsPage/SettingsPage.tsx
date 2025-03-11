@@ -1,4 +1,6 @@
+import toast from 'react-hot-toast';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './SettingsPage.module.scss';
 
 import LockIcon from '@/assets/icons/lock-icon.svg';
@@ -8,14 +10,18 @@ import { SettingsButton } from '../../components/SettingsButton';
 import { EditProfileSection } from './sections/EditProfileSection';
 import { ChangePassword } from './sections/ChangePassword';
 import { SettingsHeader } from './sections/SettingsHeader';
+import { RouteNames } from '../../router/routes';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleDeleteAccount = () => {
-    // TODO: otvaranje popupa kakda bude gotov
-  }
+    // TODO: otvaranje popupa kada bude spremno
+    toast.success('Račun uspješno obrisan!');
+    navigate(RouteNames.LOGIN);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -34,9 +40,7 @@ const SettingsPage = () => {
                 setIsEditing={setIsEditing}
               />
             ) : (
-              <ChangePassword
-                setIsChangingPassword={setIsChangingPassword}
-              />
+              <ChangePassword setIsChangingPassword={setIsChangingPassword} />
             )}
 
             {!isEditing && !isChangingPassword && (
