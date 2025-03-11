@@ -29,6 +29,9 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
   const { isMobile } = useDeviceType({ breakpoint: 768 });
   const { userData, updateUserSettingsData } = useUserContext();
 
+  const isEditingMode = isEditing || isChangingPassword;
+  const isNotEditingMode = !isEditing && !isChangingPassword;
+
   const handleEditClick = () => {
     if (isChangingPassword) {
       setIsChangingPassword(false);
@@ -40,6 +43,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
       toast.error('Izmjene nisu spremljene!');
       return;
     }
+
     if (isEditing) {
       updateUserSettingsData(userData);
       toast.error('Izmjene nisu spremljene!');
@@ -47,12 +51,13 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     setIsEditing(!isEditing);
   };
 
-  const handleBackClickMobile = () => {
-    navigate(RouteNames.PROFILE);
-  };
-
   const handleBackClick = () => {
-    if (isEditing || isChangingPassword) {
+    if (isMobile) {
+      navigate(RouteNames.PROFILE);
+      return;
+    }
+
+    if (isEditingMode) {
       setIsEditing(false);
       setIsChangingPassword(false);
       toast.error('Izmjene nisu spremljene!');
@@ -61,7 +66,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     navigate(RouteNames.PROFILE);
   };
 
-  const setHeaderTitle = () => {
+  const getHeaderTitle = () => {
     if (isEditing) return 'Uredi profil';
     if (isChangingPassword) return 'Promjena lozinke';
     return 'Postavke profila';
@@ -71,10 +76,10 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     <div
       className={clsx(
         styles.settingsHeader,
-        (isEditing || isChangingPassword) && styles.settingsHeaderEdit,
+        isEditingMode && styles.settingsHeaderEdit,
       )}>
-      {!isEditing && !isChangingPassword && isMobile && (
-        <div className={styles.backButton} onClick={handleBackClickMobile}>
+      {isNotEditingMode && isMobile && (
+        <div className={styles.backButton} onClick={handleBackClick}>
           <img src={ArrowLeftIcon} alt='back' />
         </div>
       )}
@@ -83,22 +88,22 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
           <img src={ArrowLeftWhiteIcon} alt='back' />
         </div>
       )}
-      <h1>{setHeaderTitle()}</h1>
+      <h1>{getHeaderTitle()}</h1>
       <div
         onClick={handleEditClick}
         className={clsx(
           isMobile && styles.editButton,
           !isMobile && styles.editButtonDesktop,
-          !isMobile && (isEditing || isChangingPassword) && styles.displayNone,
-          (isEditing || isChangingPassword) && styles.noBackground,
+          !isMobile && isEditingMode && styles.displayNone,
+          isEditingMode && styles.noBackground,
         )}>
-        {!isEditing && !isChangingPassword && (
+        {isNotEditingMode && (
           <>
             <img src={EditIcon} alt='edit' />
             {!isMobile && <span>UREDI SVOJE INTERESE</span>}
           </>
         )}
-        {(isEditing || isChangingPassword) && isMobile && (
+        {isEditingMode && isMobile && (
           <img src={CloseIcon} alt='close' />
         )}
       </div>
