@@ -18,7 +18,7 @@ const SettingsPage = () => {
   const navigate = useNavigate();
 
   const handleDeleteAccount = () => {
-    // TODO: otvaranje popupa kada bude spremno
+    // TODO: otvaranje popupa kada bude spremno i api poziv
     toast.success('Račun uspješno obrisan!');
     navigate(RouteNames.LOGIN);
   };

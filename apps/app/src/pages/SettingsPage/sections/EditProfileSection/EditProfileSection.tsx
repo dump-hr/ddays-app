@@ -27,6 +27,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   const handleSaveClick = () => {
     setIsEditing(false);
     updateUserData(userSettingsData);
+    // TODO: api poziv za izmjenu podataka user-a
     toast.success('Podaci uspješno izmjenjeni!');
   };
 
