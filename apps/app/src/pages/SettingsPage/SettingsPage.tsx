@@ -19,6 +19,7 @@ const SettingsPage = () => {
 
   const handleDeleteAccount = () => {
     // TODO: otvaranje popupa kada bude spremno i api poziv
+    localStorage.removeItem('userData');
     toast.success('Račun uspješno obrisan!');
     navigate(RouteNames.LOGIN);
   };
