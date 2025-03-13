@@ -3,8 +3,12 @@ import c from './ProfileAchievementsPage.module.scss';
 import TempAvatar from '../../assets/images/temp-avatar.png';
 import ProfileStat from '../../components/ProfileStat';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
+import TabGroup from '../../components/TabGroup';
+import Tab from '../../components/Tab';
+import { useState } from 'react';
 
 export const ProfileAchievementsPage = () => {
+  const [selectedTab, setSelectedTab] = useState('umra');
   return (
     <>
       <header className={c.header}>
@@ -27,6 +31,11 @@ export const ProfileAchievementsPage = () => {
           <img src={ArrowLeft} alt='' className={c.arrowLeft} />
           <h3 className={c.title}>Postignuća</h3>
         </header>
+        <TabGroup setter={setSelectedTab}>
+          <Tab id='all'>Sve</Tab>
+          <Tab id='completed'>Dovršeno</Tab>
+          <Tab id='remaining'>Preostalo</Tab>
+        </TabGroup>
       </main>
     </>
   );
