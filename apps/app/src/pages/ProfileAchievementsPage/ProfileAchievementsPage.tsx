@@ -6,9 +6,11 @@ import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import TabGroup from '../../components/TabGroup';
 import Tab from '../../components/Tab';
 import { useState } from 'react';
+import achievements from './achievements';
+import AchievementCard from '../../components/AchievementCard';
 
 export const ProfileAchievementsPage = () => {
-  const [selectedTab, setSelectedTab] = useState('umra');
+  const [, setSelectedTab] = useState('umra');
   return (
     <>
       <header className={c.header}>
@@ -36,6 +38,11 @@ export const ProfileAchievementsPage = () => {
           <Tab id='completed'>Dovršeno</Tab>
           <Tab id='remaining'>Preostalo</Tab>
         </TabGroup>
+        <div className={c.achievementsWrapper}>
+          {achievements.map((achievement) => (
+            <AchievementCard key={achievement.id} achievement={achievement} />
+          ))}
+        </div>
       </main>
     </>
   );
