@@ -71,27 +71,36 @@ body {
   flex-direction: column;
   row-gap: 24px;
 
+  .mainHeader {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .arrowLeft {
+      position: absolute;
+      left: 0;
+    }
+
+    .title {
+      color: $primary-black;
+      font-family: NeueMachina;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
+
   @media screen and (min-width: $breakpoint-tablet) {
     flex-direction: row;
     column-gap: 24px;
 
     padding: 48px 100px 72px;
     border-radius: 16px;
-
-    .navigationWrapper,
-    .buttonsWrapper {
-      width: 100%;
-    }
   }
 
   @media screen and (min-width: $breakpoint-tablet-lg) {
     column-gap: 125px;
     padding: 48px 157px 72px;
-  }
-
-  .buttonsWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
   }
 }

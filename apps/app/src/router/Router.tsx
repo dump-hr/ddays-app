@@ -19,6 +19,7 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import { ProfileAchievementsPage } from '../pages/ProfileAchievementsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,10 @@ const router = createBrowserRouter(
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
+        <Route
+          path={'/app/profile/achievements'}
+          element={<ProfileAchievementsPage />}
+        />
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />

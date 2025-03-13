@@ -1,50 +1,8 @@
 import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
-import c from './ProfilePage.module.scss';
+import c from './ProfileAchievementsPage.module.scss';
 import TempAvatar from '../../assets/images/temp-avatar.png';
 import ProfileStat from '../../components/ProfileStat';
-import Like from '../../assets/icons/like.svg';
-import Award from '../../assets/icons/award.svg';
-import Bag from '../../assets/icons/bag.svg';
-import Trophy from '../../assets/icons/trophy.svg';
-import Gift from '../../assets/icons/gift.svg';
-import UserEdit from '../../assets/icons/user-edit.svg';
-import ProfileNavigationButton from '../../components/ProfileNavigationButton';
-import RecommendationsButton from '../../components/RecommendationsButton';
-import FeedbackButton from '../../components/FeedbackButton';
-import LogoutButton from '../../components/LogoutButton';
-
-const navigationItems = [
-  {
-    icon: Like,
-    label: 'Moji interesi',
-    href: '',
-  },
-  {
-    icon: Award,
-    label: 'Moja postignuća',
-    href: '',
-  },
-  {
-    icon: Bag,
-    label: 'Avatari',
-    href: '',
-  },
-  {
-    icon: Trophy,
-    label: 'Leaderboard',
-    href: '',
-  },
-  {
-    icon: Gift,
-    label: 'Nagrade',
-    href: '',
-  },
-  {
-    icon: UserEdit,
-    label: 'Postavke profila',
-    href: '',
-  },
-];
+import ArrowLeft from '../../assets/icons/arrow-left.svg';
 
 export const ProfileAchievementsPage = () => {
   return (
@@ -65,21 +23,10 @@ export const ProfileAchievementsPage = () => {
         </div>
       </header>
       <main className={c.main}>
-        <div className={c.navigationWrapper}>
-          {navigationItems.map((item, index) => (
-            <ProfileNavigationButton
-              key={index}
-              icon={item.icon}
-              label={item.label}
-              href={item.href}
-            />
-          ))}
-        </div>
-        <div className={c.buttonsWrapper}>
-          <RecommendationsButton />
-          <FeedbackButton />
-          <LogoutButton />
-        </div>
+        <header className={c.mainHeader}>
+          <img src={ArrowLeft} alt='' className={c.arrowLeft} />
+          <h3 className={c.title}>Postignuća</h3>
+        </header>
       </main>
     </>
   );
