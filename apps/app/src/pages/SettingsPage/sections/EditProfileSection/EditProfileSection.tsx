@@ -1,13 +1,23 @@
 import toast from 'react-hot-toast';
 import styles from './EditProfileSection.module.scss';
-import { useUserContext } from '../../../../context/UserContext';
-import { useInputHandlers } from '../../../../hooks/useInputHandlers';
-import { checkboxInputs, dropdownInputs, textInputs } from './inputs';
+import { useEffect } from 'react';
+import { useUserContext } from '@/context/UserContext';
+import { useInputHandlers } from '@/hooks/useInputHandlers';
+import {
+  checkboxInputs,
+  dropdownInputs,
+  editProfileFields,
+  textInputs,
+} from './inputs';
 
-import Dropdown from '../../../../components/Dropdown';
-import Button from '../../../../components/Button';
-import { Checkbox } from '../../../../components/Checkbox';
-import { Input } from '../../../../components/Input';
+import Dropdown from '@/components/Dropdown';
+import Button from '@/components/Button';
+import { Checkbox } from '@/components/Checkbox';
+import { Input } from '@/components/Input';
+import { useRegistration } from '@/context/RegistrationContext';
+import { SettingsEdits } from '@/types/enums';
+import { validateField, allFieldsAreFilled } from '@/helpers/validateInput';
+import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 
 interface EditProfileSectionProps {
   isEditing: boolean;
@@ -24,7 +34,36 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   const { handleDropdownChange, handleInputChange, handleCheckboxChange } =
     useInputHandlers(updateUserSettingsData);
 
+  const { errors, clearStepErrors, setStepErrors, isStepValid } =
+    useRegistration();
+
+  const validateEditProfile = () => {
+    const newErrors: Partial<RegistrationFormErrors> = {};
+
+    editProfileFields.forEach((key) => {
+      const error = validateField(key, userSettingsData[key], userSettingsData);
+      newErrors[key] = error || '';
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setStepErrors(SettingsEdits.INFO, newErrors);
+    } else {
+      clearStepErrors(SettingsEdits.INFO);
+    }
+  };
+
+  useEffect(() => {
+    if (allFieldsAreFilled(editProfileFields, userSettingsData)) {
+      validateEditProfile();
+    }
+  }, [userSettingsData]);
+
   const handleSaveClick = () => {
+    validateEditProfile();
+    if (!isStepValid(SettingsEdits.INFO)) {
+      toast.error('Podaci nisu ispravno uneseni!');
+      return;
+    }
     setIsEditing(false);
     updateUserData(userSettingsData);
     // TODO: api poziv za izmjenu podataka user-a
@@ -43,6 +82,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
             value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
             onChange={handleInputChange}
+            error={errors[SettingsEdits.INFO]?.[input.name]}
           />
         );
       })}
@@ -62,6 +102,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
               selectedOption={input.options.find(
                 (option) => option.value === userSettingsData[input.name],
               )}
+              hasError={errors[SettingsEdits.INFO]?.[input.name] !== ''}
             />
           );
         }

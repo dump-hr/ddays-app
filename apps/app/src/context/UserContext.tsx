@@ -17,7 +17,7 @@ interface UserContextType {
 const defaultUserData: ExtendedUserDto = {
   firstName: 'Toni',
   lastName: 'Grbić',
-  email: 'tonigrbic.example.com',
+  email: 'tonigrbic@example.com',
   password: '',
   repeatedPassword: '',
   newPassword: '',

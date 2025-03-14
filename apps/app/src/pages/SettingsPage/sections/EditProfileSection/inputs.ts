@@ -1,4 +1,5 @@
 import { UserDataFields } from '../../../../types/enums';
+import { ExtendedUserDto } from '@/context/UserContext';
 type InputType = 'text' | 'email' | 'password';
 
 type Input = {
@@ -63,4 +64,20 @@ export const checkboxInputs = [
     name: UserDataFields.TermsAndConditionsEnabled,
     label: 'Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.',
   },
+];
+
+export const editProfileFields: (keyof ExtendedUserDto)[] = [
+  UserDataFields.FirstName,
+  UserDataFields.LastName,
+  UserDataFields.Email,
+  UserDataFields.PhoneNumber,
+  UserDataFields.BirthYear,
+  UserDataFields.EducationDegree,
+  UserDataFields.Occupation,
+];
+
+export const changePasswordFields: (keyof ExtendedUserDto)[] = [
+  UserDataFields.Password,
+  UserDataFields.RepeatedPassword,
+  UserDataFields.NewPassword,
 ];

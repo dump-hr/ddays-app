@@ -67,7 +67,7 @@ export const Input = ({
           {placeholder}
         </label>
 
-        {!isActive && <div className={c.dots}></div>}
+        {!isActive && !error && <div className={c.dots}></div>}
 
         {type === 'password' && (
           <button
