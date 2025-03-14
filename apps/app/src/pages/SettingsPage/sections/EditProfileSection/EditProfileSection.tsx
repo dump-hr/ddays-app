@@ -8,7 +8,7 @@ import {
   dropdownInputs,
   editProfileFields,
   textInputs,
-} from './inputs';
+} from '../inputs';
 
 import Dropdown from '@/components/Dropdown';
 import Button from '@/components/Button';
@@ -53,7 +53,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   };
 
   useEffect(() => {
-      validateEditProfile();
+    validateEditProfile();
   }, [userSettingsData]);
 
   const handleSaveClick = () => {

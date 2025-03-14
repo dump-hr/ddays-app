@@ -11,10 +11,7 @@ import { useInputHandlers } from '@/hooks/useInputHandlers';
 
 import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
-import {
-  changePasswordFields,
-  passwordInputs,
-} from '../EditProfileSection/inputs';
+import { changePasswordFields, passwordInputs } from '../inputs';
 import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 
 interface ChangePasswordProps {
