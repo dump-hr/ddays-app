@@ -40,17 +40,17 @@ export const textInputs: Input[] = [
 export const passwordInputs: Input[] = [
   {
     name: UserDataFields.Password,
-    placeholder: 'Stara lozinka',
-    type: 'password',
-  },
-  {
-    name: UserDataFields.RepeatedPassword,
-    placeholder: 'Ponovite staru lozinku',
+    placeholder: 'Trenutna lozinka',
     type: 'password',
   },
   {
     name: UserDataFields.NewPassword,
     placeholder: 'Nova lozinka',
+    type: 'password',
+  },
+  {
+    name: UserDataFields.RepeatedPassword,
+    placeholder: 'Potvrdi novu lozinku',
     type: 'password',
   },
 ];
