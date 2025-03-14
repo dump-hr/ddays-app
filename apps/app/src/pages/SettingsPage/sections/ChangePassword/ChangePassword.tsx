@@ -49,6 +49,11 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   }, [userSettingsData]);
 
   const handleSaveClick = () => {
+    if (allFieldsAreFilled(changePasswordFields, userSettingsData)) {
+      toast.error('Sva polja moraju biti popunjena!');
+      return;
+    }
+
     validateChangePassword();
     if (!isStepValid(SettingsEdits.PASSWORD)) {
       toast.error('Podaci nisu ispravno uneseni!');

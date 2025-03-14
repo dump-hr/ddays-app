@@ -59,6 +59,11 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   }, [userSettingsData]);
 
   const handleSaveClick = () => {
+    if (allFieldsAreFilled(editProfileFields, userSettingsData)) {
+      toast.error('Sva polja moraju biti popunjena!');
+      return;
+    }
+
     validateEditProfile();
     if (!isStepValid(SettingsEdits.INFO)) {
       toast.error('Podaci nisu ispravno uneseni!');
