@@ -27,6 +27,7 @@ export const Input = ({
 
   const isActive = value && !error && !disabled && isFocused;
   const showLabel = isFocused || value;
+  const shouldShowError = error && isFocused;
 
   const passwordVisibility = () => {
     setPasswordToBeVisible((prev) => !prev);
@@ -48,7 +49,7 @@ export const Input = ({
           placeholder=''
           className={clsx(
             c.input,
-            error && c.error,
+            shouldShowError && c.error,
             isActive && c.active,
             {
               [c.floating]: showLabel,
@@ -61,13 +62,13 @@ export const Input = ({
         <label
           className={clsx(c.placeholder, {
             [c.floating]: showLabel,
-            [c.error]: error,
+            [c.shouldShowError]: error,
             [c.active]: isActive,
           })}>
           {placeholder}
         </label>
 
-        {!isActive && !error && <div className={c.dots}></div>}
+        {!isActive && !shouldShowError && <div className={c.dots}></div>}
 
         {type === 'password' && (
           <button
@@ -79,7 +80,7 @@ export const Input = ({
         )}
       </div>
 
-      {error && (
+      {shouldShowError && (
         <span className={clsx(c.errorText, { visible: !!error })}>{error}</span>
       )}
     </div>
