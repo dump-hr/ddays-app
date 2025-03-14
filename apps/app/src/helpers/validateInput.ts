@@ -90,6 +90,13 @@ export const validateField = (
         return 'Hej, lozinka mora imati najmanje 8 znakova i broj';
       break;
 
+    case UserDataFields.NewPassword:
+      if (!validations.isNotEmpty(value as string))
+        return 'Hej, nova lozinka je obavezna';
+      if (!validations.isValidPassword(value as string))
+        return 'Hej, nova lozinka mora imati najmanje 8 znakova i broj';
+      break;
+
     case UserDataFields.RepeatedPassword as keyof UserDto:
       if (value !== userData.password && value !== userData.newPassword)
         return 'Hej, lozinke se ne podudaraju';
