@@ -1,4 +1,4 @@
-import { UserDataFields } from '../../../../types/enums';
+import { UserDataFields } from '@/types/enums';
 import { ExtendedUserDto } from '@/types/user';
 
 type InputType = 'text' | 'email' | 'password';
