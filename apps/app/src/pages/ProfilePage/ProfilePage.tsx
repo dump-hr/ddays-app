@@ -44,7 +44,7 @@ const navigationItems = [
   {
     icon: UserEdit,
     label: 'Postavke profila',
-    href: RouteNames.SETTINGS,
+    href: RouteNames.PROFILE_SETTINGS,
   },
 ];
 
