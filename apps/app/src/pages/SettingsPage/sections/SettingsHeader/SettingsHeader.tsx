@@ -60,6 +60,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     if (isEditingMode) {
       setIsEditing(false);
       setIsChangingPassword(false);
+      updateUserSettingsData(userData);
       toast.error('Izmjene nisu spremljene!');
       return;
     }
