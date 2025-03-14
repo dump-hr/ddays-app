@@ -44,8 +44,10 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    if (!isMounted) return;
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
+    }
     validateChangePassword();
   }, [userSettingsData]);
 
