@@ -37,6 +37,24 @@ export const textInputs: Input[] = [
   },
 ];
 
+export const passwordInputs: Input[] = [
+  {
+    name: UserDataFields.Password,
+    placeholder: 'Stara lozinka',
+    type: 'password',
+  },
+  {
+    name: UserDataFields.RepeatedPassword,
+    placeholder: 'Ponovite staru lozinku',
+    type: 'password',
+  },
+  {
+    name: UserDataFields.NewPassword,
+    placeholder: 'Nova lozinka',
+    type: 'password',
+  },
+];
+
 export const dropdownInputs = [
   {
     name: UserDataFields.EducationDegree,

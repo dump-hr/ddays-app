@@ -53,13 +53,11 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   };
 
   useEffect(() => {
-    if (allFieldsAreFilled(editProfileFields, userSettingsData)) {
       validateEditProfile();
-    }
   }, [userSettingsData]);
 
   const handleSaveClick = () => {
-    if (allFieldsAreFilled(editProfileFields, userSettingsData)) {
+    if (!allFieldsAreFilled(editProfileFields, userSettingsData)) {
       toast.error('Sva polja moraju biti popunjena!');
       return;
     }

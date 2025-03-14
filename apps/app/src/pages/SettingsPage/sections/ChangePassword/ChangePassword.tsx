@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from './ChangePassword.module.scss';
 
@@ -9,9 +9,12 @@ import { useUserContext } from '@/context/UserContext';
 import { useRegistration } from '@/context/RegistrationContext';
 import { useInputHandlers } from '@/hooks/useInputHandlers';
 
-import { SettingsEdits, UserDataFields } from '@/types/enums';
+import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
-import { changePasswordFields } from '../EditProfileSection/inputs';
+import {
+  changePasswordFields,
+  passwordInputs,
+} from '../EditProfileSection/inputs';
 import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 
 interface ChangePasswordProps {
@@ -21,6 +24,7 @@ interface ChangePasswordProps {
 export const ChangePassword: React.FC<ChangePasswordProps> = ({
   setIsChangingPassword,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
   const { userSettingsData, updateUserSettingsData } = useUserContext();
   const { handleInputChange } = useInputHandlers(updateUserSettingsData);
 
@@ -43,13 +47,13 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   };
 
   useEffect(() => {
-    if (allFieldsAreFilled(changePasswordFields, userSettingsData)) {
-      validateChangePassword();
-    }
+    setIsMounted(true);
+    if (!isMounted) return;
+    validateChangePassword();
   }, [userSettingsData]);
 
   const handleSaveClick = () => {
-    if (allFieldsAreFilled(changePasswordFields, userSettingsData)) {
+    if (!allFieldsAreFilled(changePasswordFields, userSettingsData)) {
       toast.error('Sva polja moraju biti popunjena!');
       return;
     }
@@ -78,32 +82,19 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   return (
     <div className={styles.changePasswordsContainer}>
       <div className={styles.passwordsInputs}>
-        <Input
-          name={UserDataFields.Password}
-          type='password'
-          placeholder='Trenutna lozinka'
-          value={userSettingsData['password']}
-          onChange={handleInputChange}
-          error={errors[SettingsEdits.PASSWORD]?.[UserDataFields.Password]}
-        />
-        <Input
-          name={UserDataFields.NewPassword}
-          type='password'
-          placeholder='Nova lozinka'
-          value={userSettingsData['newPassword']}
-          onChange={handleInputChange}
-          error={errors[SettingsEdits.PASSWORD]?.[UserDataFields.NewPassword]}
-        />
-        <Input
-          name={UserDataFields.RepeatedPassword}
-          type='password'
-          placeholder='Potvrdi novu lozinku'
-          value={userSettingsData['repeatedPassword']}
-          onChange={handleInputChange}
-          error={
-            errors[SettingsEdits.PASSWORD]?.[UserDataFields.RepeatedPassword]
-          }
-        />
+        {passwordInputs.map((input) => {
+          return (
+            <Input
+              key={input.name}
+              name={input.name}
+              type={input.type}
+              placeholder={input.placeholder}
+              value={userSettingsData[input.name]?.toString()}
+              onChange={handleInputChange}
+              error={errors[SettingsEdits.PASSWORD]?.[input.name]}
+            />
+          );
+        })}
       </div>
       <Button variant='black' onClick={handleSaveClick}>
         Spremi
