@@ -129,5 +129,5 @@ export const allFieldsAreFilled = (
   fields: (keyof ExtendedUserDto)[],
   userData: ExtendedUserDto,
 ) => {
-  return fields.every((key) => userData[key] !== null || userData[key] !== '');
+  return fields.every((key) => userData[key] !== null && userData[key] !== '');
 };
