@@ -1,6 +1,6 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
 import { UserDataFields } from '../types/enums';
-import { ExtendedUserDto } from '@/context/UserContext';
+import { ExtendedUserDto } from '@/types/user';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,

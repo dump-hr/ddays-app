@@ -1,11 +1,6 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
-
-export type ExtendedUserDto = UserDto & {
-  newPassword: string;
-  repeatedPassword: string;
-};
+import { ExtendedUserDto } from '@/types/user';
 
 interface UserContextType {
   userData: ExtendedUserDto;

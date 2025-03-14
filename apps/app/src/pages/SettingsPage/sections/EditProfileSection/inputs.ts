@@ -1,5 +1,6 @@
 import { UserDataFields } from '../../../../types/enums';
-import { ExtendedUserDto } from '@/context/UserContext';
+import { ExtendedUserDto } from '@/types/user';
+
 type InputType = 'text' | 'email' | 'password';
 
 type Input = {
