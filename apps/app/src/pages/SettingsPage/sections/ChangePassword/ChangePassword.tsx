@@ -1,15 +1,18 @@
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import styles from './ChangePassword.module.scss';
-import Button from '../../../../components/Button';
-import { Input } from '../../../../components/Input';
-import { useUserContext } from '../../../../context/UserContext';
-import { useInputHandlers } from '../../../../hooks/useInputHandlers';
-import { SettingsEdits, UserDataFields } from '@/types/enums';
+
+import Button from '@/components/Button';
+import { Input } from '@/components/Input';
+
+import { useUserContext } from '@/context/UserContext';
 import { useRegistration } from '@/context/RegistrationContext';
+import { useInputHandlers } from '@/hooks/useInputHandlers';
+
+import { SettingsEdits, UserDataFields } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields } from '../EditProfileSection/inputs';
 import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
-import { useEffect } from 'react';
 
 interface ChangePasswordProps {
   setIsChangingPassword: (value: boolean) => void;
@@ -53,7 +56,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
     }
     // TODO: validacija trenutne lozinke sa backendom
     // TODO izmjena lozinke sa backend
-    
+
     setPasswordInputsToDefault();
     toast.success('Podaci uspješno izmjenjeni!');
     setIsChangingPassword(false);

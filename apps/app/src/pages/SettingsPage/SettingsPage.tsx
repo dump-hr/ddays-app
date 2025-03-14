@@ -6,12 +6,12 @@ import styles from './SettingsPage.module.scss';
 import LockIcon from '@/assets/icons/lock-icon.svg';
 import ThrashIcon from '@/assets/icons/delete-icon.svg';
 
-import { SettingsButton } from '../../components/SettingsButton';
+import { RouteNames } from '@/router/routes';
+import { SettingsButton } from '@/components/SettingsButton';
 import { EditProfileSection } from './sections/EditProfileSection';
 import { ChangePassword } from './sections/ChangePassword';
 import { SettingsHeader } from './sections/SettingsHeader';
-import { RouteNames } from '../../router/routes';
-import { RegistrationProvider } from '../../context/RegistrationContext';
+import { RegistrationProvider } from '@/context/RegistrationContext';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);

@@ -1,16 +1,16 @@
 import clsx from 'clsx';
+import toast from 'react-hot-toast';
 import styles from './SettingsHeader.module.scss';
-import { RouteNames } from '../../../../router/routes';
+import { RouteNames } from '@/router/routes';
 
 import { useNavigate } from 'react-router-dom';
-import { useDeviceType } from '../../../../hooks/UseDeviceType';
-import { useUserContext } from '../../../../context/UserContext';
+import { useDeviceType } from '@/hooks/UseDeviceType';
+import { useUserContext } from '@/context/UserContext';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import ArrowLeftWhiteIcon from '@/assets/icons/arrow-left-white.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
-import toast from 'react-hot-toast';
 
 interface SettingsHeaderProps {
   isEditing: boolean;
@@ -103,9 +103,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
             {!isMobile && <span>UREDI SVOJE INTERESE</span>}
           </>
         )}
-        {isEditingMode && isMobile && (
-          <img src={CloseIcon} alt='close' />
-        )}
+        {isEditingMode && isMobile && <img src={CloseIcon} alt='close' />}
       </div>
     </div>
   );
