@@ -3,6 +3,7 @@ export type RegistrationFormErrors = {
   lastName?: string;
   email?: string;
   password?: string;
+  newPassword?: string;
   repeatedPassword?: string;
   phoneNumber?: string;
   birthYear?: string;

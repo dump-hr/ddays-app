@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import c from './CheckboxFieldsWrapper.module.scss';
 import { Checkbox } from '../../Checkbox';
-import { UserDataFields } from '../../../types/user/user.dto';
+import { UserDataFields } from '../../../types/enums';
 
 type UserData = {
   newsletterEnabled: boolean;

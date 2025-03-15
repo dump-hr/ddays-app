@@ -2,8 +2,11 @@ import { ChangeEvent, useEffect } from 'react';
 import { Input } from '../../Input';
 import c from './FirstStepRegistrationForm.module.scss';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
-import { validateField } from '../../../helpers/validateInput';
-import { UserDataFields } from '../../../types/user/user.dto';
+import {
+  allFieldsAreFilled,
+  validateField,
+} from '../../../helpers/validateInput';
+import { UserDataFields } from '../../../types/enums';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
@@ -63,18 +66,8 @@ export const FirstStepRegistrationForm = ({
     }
   };
 
-  const allFieldsAreFilled = () => {
-    return (
-      userData.firstName != '' &&
-      userData.lastName !== '' &&
-      userData.email !== '' &&
-      userData.password !== '' &&
-      userData.repeatedPassword !== ''
-    );
-  };
-
   useEffect(() => {
-    if (isSubmitted || allFieldsAreFilled()) {
+    if (isSubmitted || allFieldsAreFilled(firstStepFields, userData)) {
       validateFirstStep();
     }
   }, [isSubmitted, userData]);

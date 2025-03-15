@@ -3,9 +3,13 @@ import c from './SecondStepRegistrationForm.module.scss';
 import { Input } from '../../Input/Input';
 import Dropdown from '../../Dropdown/Dropdown';
 import { DropdownOption } from '../../Dropdown/DropdownOption';
-import { validateField, validations } from '../../../helpers/validateInput';
+import {
+  allFieldsAreFilled,
+  validateField,
+  validations,
+} from '../../../helpers/validateInput';
 import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
-import { UserDataFields } from '../../../types/user/user.dto';
+import { UserDataFields } from '../../../types/enums';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 
@@ -80,18 +84,18 @@ export const SecondStepRegistrationForm = ({
     }
   };
 
-  const allFieldsAreFilled = () => {
-    return (
-      userData.phoneNumber !== '' &&
-      userData.birthYear !== null &&
-      userData.educationDegree !== null &&
-      userData.occupation !== null &&
-      userData.termsAndConditionsEnabled !== null
-    );
-  };
+  // const allFieldsAreFilled = () => {
+  //   return (
+  //     userData.phoneNumber !== '' &&
+  //     userData.birthYear !== null &&
+  //     userData.educationDegree !== null &&
+  //     userData.occupation !== null &&
+  //     userData.termsAndConditionsEnabled !== null
+  //   );
+  // };
 
   useEffect(() => {
-    if (isSubmitted || allFieldsAreFilled()) {
+    if (isSubmitted || allFieldsAreFilled(secondStepFields, userData)) {
       validateSecondStep();
     }
   }, [isSubmitted, userData]);

@@ -1,4 +1,5 @@
-import { UserData, UserDataFields } from '../types/user/user.dto';
+import { UserDataFields } from '../types/enums';
+import { RegistrationDto } from '../types/user/user';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -55,9 +56,9 @@ export const validations = {
 };
 
 export const validateField = (
-  name: keyof UserData,
+  name: keyof RegistrationDto,
   value: string | number | boolean | null | undefined,
-  userData: Partial<UserData>,
+  userData: Partial<RegistrationDto>,
 ): string | undefined => {
   switch (name) {
     case UserDataFields.FirstName:
@@ -120,4 +121,11 @@ export const validateField = (
     default:
       return undefined;
   }
+};
+
+export const allFieldsAreFilled = (
+  fields: (keyof RegistrationDto)[],
+  userData: Partial<RegistrationDto>,
+) => {
+  return fields.every((key) => userData[key] !== null && userData[key] !== '');
 };

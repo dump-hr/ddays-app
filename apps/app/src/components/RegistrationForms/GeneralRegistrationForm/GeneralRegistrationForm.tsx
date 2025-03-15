@@ -7,11 +7,11 @@ import { AuthFooter } from '../../AuthFooter';
 import Button from '../../Button/Button';
 import GoogleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
-import { UserData } from '../../../types/user/user.dto';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
+import { RegistrationDto } from '../../../types/user/user';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -22,12 +22,13 @@ export const GeneralRegistrationForm = () => {
     fourthStepIsSubmitted: false,
   });
 
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<RegistrationDto>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     repeatedPassword: '',
+    newPassword: '',
     phoneNumber: '',
     birthYear: null,
     educationDegree: null,
@@ -38,7 +39,7 @@ export const GeneralRegistrationForm = () => {
   });
   const navigate = useNavigate();
 
-  const updateUserData = (newData: Partial<UserData>) => {
+  const updateUserData = (newData: Partial<RegistrationDto>) => {
     setUserData((prevData) => ({
       ...prevData,
       ...newData,
