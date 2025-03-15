@@ -1,0 +1,26 @@
+.button {
+  @include paragraph-16;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  background-color: $primary-muted-orange;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 24px;
+  display: flex;
+  transition: 200ms;
+
+  cursor: pointer;
+  &:hover {
+    background-color: #bd4634;
+  }
+
+  .icon {
+    margin-right: 12px;
+  }
+
+  .arrow {
+    margin-left: auto;
+  }
+}

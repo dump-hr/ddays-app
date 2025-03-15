@@ -1,0 +1,97 @@
+body {
+  background-color: $primary-black;
+  box-sizing: border-box;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 0 24px 24px;
+  }
+}
+
+.header {
+  color: white;
+  box-sizing: border-box;
+  padding: 64px 24px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .flexWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .title {
+      @include heading-2;
+      span {
+        color: $black-70;
+        text-transform: uppercase;
+      }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: column-reverse;
+      align-items: center;
+
+      .title {
+        text-align: center;
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 22px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: row;
+      gap: 32px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  background-color: white;
+  border-radius: 16px 16px 0px 0px;
+
+  box-sizing: border-box;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    flex-direction: row;
+    column-gap: 24px;
+
+    padding: 48px 100px 72px;
+    border-radius: 16px;
+
+    .navigationWrapper,
+    .buttonsWrapper {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet-lg) {
+    column-gap: 125px;
+    padding: 48px 157px 72px;
+  }
+
+  .buttonsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

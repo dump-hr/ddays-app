@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { PrismaService } from 'src/prisma.service';
 
 import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
@@ -16,6 +17,6 @@ import { JwtStrategy } from './sponsor.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AzureADStrategy, AuthService, JwtStrategy],
+  providers: [AzureADStrategy, AuthService, JwtStrategy, PrismaService],
 })
 export class AuthModule {}

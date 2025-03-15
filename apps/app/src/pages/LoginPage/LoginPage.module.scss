@@ -1,0 +1,192 @@
+.wrapper {
+  background-color: $primary-black;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.pageName {
+  color: $primary-background;
+  height: 116px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  .pageTitle {
+    text-transform: uppercase;
+    @include heading-2;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.24px;
+    padding-left: 24px;
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+
+  .closeIcon {
+    display: none;
+  }
+
+  @media (min-width: $breakpoint-tablet) {
+    .closeIcon {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 44px;
+      right: 72px;
+    }
+    .pageTitle {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 96px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px 16px 0 0;
+  background-color: $primary-background;
+  box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
+  flex-grow: 1;
+  justify-content: space-between;
+
+  @media (min-width: $breakpoint-tablet) {
+    box-shadow: none;
+    justify-content: flex-start;
+    margin: 24px;
+    border-radius: 16px;
+  }
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px;
+
+  @media (min-width: $breakpoint-tablet) {
+    justify-content: center;
+    padding-top: 48px;
+  }
+}
+
+.title {
+  @include heading-2;
+  font-weight: 500;
+  text-align: left;
+  color: $primary-black;
+  line-height: 28px;
+  letter-spacing: -0.24px;
+  max-width: 100%;
+  text-align: center;
+
+  @media (min-width: $breakpoint-tablet) {
+    text-align: center;
+    @include heading-2;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
+}
+
+.closeIcon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 0.417px;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 24px;
+  gap: 32px;
+
+  @media (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+    min-width: 470px;
+    padding-top: 24px;
+    gap: 48px;
+  }
+}
+
+.forgotPassword {
+  @include paragraph-16;
+  color: $black-50;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  text-decoration: none;
+  align-self: flex-end;
+  margin-top: -16px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 24px;
+  gap: 12px;
+  margin-top: auto;
+  transition: transform 0.3s ease;
+
+  @media (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+    min-width: 470px;
+    padding-top: 56px;
+  }
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+}
+
+.googleIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  margin-top: -2px;
+}
+
+.registerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px;
+  padding-bottom: 60px;
+
+  @media (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+    min-width: 470px;
+  }
+}
+
+.noAccount {
+  @include paragraph-16;
+  color: $black-50;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registerLink {
+  @include label-medium;
+  color: var(--Primary-Black, #171615);
+  text-align: right;
+  font-style: normal;
+  line-height: 22px;
+  text-decoration: none;
+}
