@@ -7,41 +7,42 @@ import { useNavigate } from 'react-router-dom';
 const FlyTalksPage = () => {
   const navigate = useNavigate();
 
-  const handleNextButtonClick = () => {
-    navigate('/app/fly-talks-list');
-  };
   return (
     <div className={c.page}>
       <header className={c.header}>
         <p>Fly Talks</p>
+        <img className={c.duckImage} src={FlyTalksDuckImage} alt='' />
       </header>
-      <img
-        className={c.duckImage}
-        src={FlyTalksDuckImage}
-        alt=''
-      />
       <main className={c.main}>
         <div className={c.mainContent}>
-          <div className={c.mainHeader}>
-            <p>Tražiš posao?</p>
-            <img src={removeIcon} alt='' height={20} width={20} />
+          <div>
+            <div className={c.mainHeader}>
+              <p>Tražiš posao?</p>
+              <img
+                src={removeIcon}
+                alt=''
+                height={20}
+                width={20}
+                onClick={() => navigate('/app')}
+              />
+            </div>
+            <p className={c.copyParagraph}>
+              Fly Talks ti omogućuju da razgovaraš 1-na-1 s poslodavcima,
+              upoznaš ih i otkriješ jeste li idealan match.
+              <br />
+              <br />
+              Tvrtke smo podijelili u nekoliko skupina. Odaberi jednu koja ti
+              najviše odgovara i iskoristi 8 minuta za razgovor sa svakom
+              tvrtkom iz te skupine. Tvrtke će selektirati nekoliko kandidata na
+              temelju popunjenih prijava. <br />
+              <br />
+              Prijavi se i pokaži zašto si baš ti najbolji izbor za njih!
+            </p>
           </div>
-          <p className={c.copyParagraph}>
-            Fly Talks ti omogućuju da razgovaraš 1-na-1 s poslodavcima, upoznaš
-            ih i otkriješ jeste li idealan match.
-            <br />
-            <br />
-            Tvrtke smo podijelili u nekoliko skupina. Odaberi jednu koja ti
-            najviše odgovara i iskoristi 8 minuta za razgovor sa svakom tvrtkom
-            iz te skupine. Tvrtke će selektirati nekoliko kandidata na temelju
-            popunjenih prijava. <br />
-            <br />
-            Prijavi se i pokaži zašto si baš ti najbolji izbor za njih!
-          </p>
           <Button
             variant='orange'
             className={c.nextButton}
-            onClick={handleNextButtonClick}>
+            onClick={() => navigate('/app/fly-talks-list')}>
             Dalje
           </Button>
         </div>
