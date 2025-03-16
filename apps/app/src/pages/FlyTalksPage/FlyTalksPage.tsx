@@ -1,53 +1,32 @@
-import c from './FlyTalksPage.module.scss';
-import removeIcon from '../../assets/icons/remove.svg';
-import Button from '../../components/Button/Button';
-import FlyTalksDuckImage from '../../assets/images/fly-talks-duck.png';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { FlyTalksWelcome } from '../../components/FlyTalksWelcome';
+import FlyTalksList from '../../components/FlyTalksList';
 
 const FlyTalksPage = () => {
-  const navigate = useNavigate();
+  const [firstFlyTalksVisit, setFirstFlyTalksVisit] = useState(false);
+
+  useEffect(() => {
+    const storedValue = JSON.parse(
+      localStorage.getItem('firstFlyTalksVisit') || 'null',
+    );
+
+    if (storedValue === null || storedValue === true) {
+      localStorage.setItem('firstFlyTalksVisit', 'true');
+      setFirstFlyTalksVisit(true);
+    } else {
+      localStorage.setItem('firstFlyTalksVisit', 'false');
+      setFirstFlyTalksVisit(false);
+    }
+  }, []);
 
   return (
-    <div className={c.page}>
-      <header className={c.header}>
-        <p>Fly Talks</p>
-        <img className={c.duckImage} src={FlyTalksDuckImage} alt='' />
-      </header>
-      <main className={c.main}>
-        <div className={c.mainContent}>
-          <div>
-            <div className={c.mainHeader}>
-              <p>Tražiš posao?</p>
-              <img
-                src={removeIcon}
-                alt=''
-                height={20}
-                width={20}
-                onClick={() => navigate('/app')}
-              />
-            </div>
-            <p className={c.copyParagraph}>
-              Fly Talks ti omogućuju da razgovaraš 1-na-1 s poslodavcima,
-              upoznaš ih i otkriješ jeste li idealan match.
-              <br />
-              <br />
-              Tvrtke smo podijelili u nekoliko skupina. Odaberi jednu koja ti
-              najviše odgovara i iskoristi 8 minuta za razgovor sa svakom
-              tvrtkom iz te skupine. Tvrtke će selektirati nekoliko kandidata na
-              temelju popunjenih prijava. <br />
-              <br />
-              Prijavi se i pokaži zašto si baš ti najbolji izbor za njih!
-            </p>
-          </div>
-          <Button
-            variant='orange'
-            className={c.nextButton}
-            onClick={() => navigate('/app/fly-talks-list')}>
-            Dalje
-          </Button>
-        </div>
-      </main>
-    </div>
+    <>
+      {firstFlyTalksVisit ? (
+        <FlyTalksWelcome setFirstFlyTalksVisit={setFirstFlyTalksVisit} />
+      ) : (
+        <FlyTalksList />
+      )}
+    </>
   );
 };
 

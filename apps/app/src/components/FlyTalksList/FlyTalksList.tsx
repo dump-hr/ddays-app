@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Tab from '../../components/Tab';
-import TabGroup from '../../components/TabGroup';
-import c from './FlyTalksListPage.module.scss';
-import Button from '../../components/Button';
+import Tab from '../Tab';
+import TabGroup from '../TabGroup';
+import c from './FlyTalksList.module.scss';
+import Button from '../Button';
 import star from '../../assets/icons/star.svg';
 import warning from '../../assets/images/warning.png';
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,7 @@ const groupsMock = [
   },
 ];
 
-const FlyTalksListPage = () => {
+const FlyTalksList = () => {
   enum Tabs {
     first_day,
     second_day,
@@ -169,4 +169,4 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
   );
 };
 
-export default FlyTalksListPage;
+export default FlyTalksList;

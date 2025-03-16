@@ -19,7 +19,6 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
-import FlyTalksListPage from '../pages/FlyTalksListPage/FlyTalksListPage';
 import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 
 const router = createBrowserRouter(
@@ -35,7 +34,6 @@ const router = createBrowserRouter(
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
-        <Route path={RouteNames.FLY_TALKS_LIST} element={<FlyTalksListPage />} />
         <Route path={RouteNames.FLY_TALKS_APPLY} element={<FlyTalksApplyPage />} />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
