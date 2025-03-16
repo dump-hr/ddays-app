@@ -60,6 +60,10 @@ export const validateField = (
   value: string | number | boolean | null | undefined,
   userData: Partial<RegistrationDto>,
 ): string | undefined => {
+  const isNotEmptyNewPass = validations.isNotEmpty(
+    userData.newPassword as string,
+  );
+  const field = isNotEmptyNewPass ? 'newPassword' : 'password';
   switch (name) {
     case UserDataFields.FirstName:
       if (!validations.isNotEmpty(value as string))
@@ -90,7 +94,7 @@ export const validateField = (
       break;
 
     case UserDataFields.RepeatedPassword:
-      if (value !== userData.password) return 'Hej, lozinke se ne podudaraju';
+      if (value !== userData[field]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:
