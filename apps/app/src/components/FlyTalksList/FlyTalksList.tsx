@@ -2,10 +2,9 @@ import { useState } from 'react';
 import Tab from '../Tab';
 import TabGroup from '../TabGroup';
 import c from './FlyTalksList.module.scss';
-import Button from '../Button';
-import star from '../../assets/icons/star.svg';
-import warning from '../../assets/images/warning.png';
-import { useNavigate } from 'react-router-dom';
+import FlyTalksGroup from '../FlyTalksGroup';
+import placeholderLogo from '../../assets/images/profico-logo.png'
+
 
 const groupsMock = [
   {
@@ -14,7 +13,7 @@ const groupsMock = [
     end: '11:30',
     day: 1,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: true,
   },
   {
@@ -23,7 +22,7 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -32,7 +31,7 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 25,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -41,7 +40,7 @@ const groupsMock = [
     end: '11:30',
     day: 2,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -50,7 +49,7 @@ const groupsMock = [
     end: '12:30',
     day: 2,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
 ];
@@ -100,73 +99,6 @@ const FlyTalksList = () => {
   );
 };
 
-interface FlyTalksGroupProps {
-  key: number;
-  group: {
-    id: number;
-    start: string;
-    end: string;
-    participantsNumber: number;
-    companies: string[];
-    hasUserApplied: boolean;
-  };
-}
 
-const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
-  const navigate = useNavigate();
-
-  const handleApplyClick = () => {
-    if (!group.hasUserApplied) {
-      navigate(`/app/fly-talks-apply?id=${group.id}`);
-    }
-  };
-
-  return (
-    <div
-      className={
-        group.hasUserApplied
-          ? `${c.group} ${c.groupApplied}`
-          : group.participantsNumber < 25
-            ? c.group
-            : `${c.group} ${c.groupFull}`
-      }
-      key={key}>
-      <div className={c.groupHeader}>
-        <div></div>
-        <img className={c.starIcon} src={star} alt='' />
-        <p>
-          {!group.hasUserApplied
-            ? `${group.participantsNumber}/25 PRIJAVLJENIH`
-            : 'PRIJAVLJEN TERMIN'}
-        </p>
-      </div>
-      <p className={c.groupDuration}>
-        {group.start} - {group.end}
-      </p>
-      <div className={c.companiesList}>
-        {group.companies.map((company, i) => (
-          <div key={i} className={c.company}>
-            <p>0{i + 1}</p>
-            <div>{company}</div>
-            {i !== 3 && <div className={c.divider}></div>}
-          </div>
-        ))}
-        <Button
-          variant='orange'
-          className={c.applyButton}
-          onClick={handleApplyClick}>
-          {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
-        </Button>
-      </div>
-      <div className={c.applianceDisclaimer}>
-        <img src={warning} alt='' />
-        <p>
-          Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
-          talk.
-        </p>
-      </div>
-    </div>
-  );
-};
 
 export default FlyTalksList;

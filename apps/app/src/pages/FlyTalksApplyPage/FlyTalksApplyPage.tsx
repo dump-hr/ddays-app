@@ -5,6 +5,7 @@ import { Input } from '../../components/Input';
 import addSvg from '../../assets/icons/add.svg';
 import binSvg from '../../assets/icons/bin.svg';
 import Button from '../../components/Button';
+import placeholderLogo from '../../assets/images/profico-logo.png'
 
 const groupsMock = [
   {
@@ -13,7 +14,7 @@ const groupsMock = [
     end: '11:30',
     day: 1,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: true,
   },
   {
@@ -22,7 +23,7 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -31,7 +32,7 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 25,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -40,7 +41,7 @@ const groupsMock = [
     end: '11:30',
     day: 2,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
   {
@@ -49,7 +50,7 @@ const groupsMock = [
     end: '12:30',
     day: 2,
     participantsNumber: 10,
-    companies: ['venio', 'profico', 'travelSoft', 'hrCloud'],
+    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
     hasUserApplied: false,
   },
 ];

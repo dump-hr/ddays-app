@@ -40,13 +40,14 @@ const FlyTalksWelcome: React.FC<FlyTalksWelcomeProps> = ({
             <p className={c.copyParagraph}>
               Fly Talks ti omogućuju da razgovaraš 1-na-1 s poslodavcima,
               upoznaš ih i otkriješ jeste li idealan match.
-              <br />
-              <br />
+            </p>
+            <p className={c.copyParagraph}>
               Tvrtke smo podijelili u nekoliko skupina. Odaberi jednu koja ti
               najviše odgovara i iskoristi 8 minuta za razgovor sa svakom
               tvrtkom iz te skupine. Tvrtke će selektirati nekoliko kandidata na
-              temelju popunjenih prijava. <br />
-              <br />
+              temelju popunjenih prijava.
+            </p>
+            <p className={c.copyParagraph}>
               Prijavi se i pokaži zašto si baš ti najbolji izbor za njih!
             </p>
           </div>
