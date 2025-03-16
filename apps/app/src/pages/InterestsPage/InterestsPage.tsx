@@ -25,10 +25,14 @@ export const InterestsPage = () => {
           <InterestProgressBar label='Product' percentage={22} />
         </div>
       </header>
-      {/* 
-      <Button variant='beige' icon={Pencil}>
-        Uredi svoje interese
-      </Button> */}
+
+      <main className={c.main}>
+        <div className={c.a}>
+          <Button variant='beige' icon={Pencil}>
+            Uredi svoje interese
+          </Button>
+        </div>
+      </main>
     </>
   );
 };
