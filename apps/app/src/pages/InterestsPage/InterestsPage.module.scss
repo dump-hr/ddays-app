@@ -1,0 +1,45 @@
+.header {
+    color: white;
+    box-sizing: border-box;
+    padding: 64px 24px 40px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+  
+    .flexWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+  
+      .title {
+        @include heading-2;
+        span {
+          color: $black-70;
+          text-transform: uppercase;
+        }
+      }
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        flex-direction: column-reverse;
+        align-items: center;
+  
+        .title {
+          text-align: center;
+        }
+      }
+
+    }
+
+    .statsWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+}

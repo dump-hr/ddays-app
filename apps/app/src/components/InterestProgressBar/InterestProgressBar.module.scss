@@ -1,0 +1,30 @@
+.interestsProgressBarContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    @include paragraph-14;
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+
+        .percentage {
+            font-family: NeueMontrealMono;
+        }
+    }
+
+    .progressTrack {
+        height: 4px;
+        width: 422px;
+        border-radius: 100px;
+        background-color: $black-70;
+
+        .progressFill {
+            height: 100%;
+            background-color: $primary-white;
+            border-radius: 100px;
+            transition: width 0.3s ease-in-out;
+        }
+    }
+}
+  

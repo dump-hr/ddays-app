@@ -19,6 +19,7 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import { InterestsPage } from '../pages/InterestsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +30,20 @@ const router = createBrowserRouter(
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
-        <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
+
+        <Route path={RouteNames.PROFILE}>
+          <Route index element={<ProfilePage />} />
+          <Route
+            path={RouteNames.PROFILE_INTERESTS}
+            element={<InterestsPage />}
+          />
+          <Route path={RouteNames.PROFILE_REWARDS} element={<></>} />
+          <Route path={RouteNames.PROFILE_SETTINGS} element={<></>} />
+          <Route path={RouteNames.PROFILE_ACHIEVEMENTS} element={<></>} />
+          <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
+          <Route path={RouteNames.PROFILE_LEADERBOARD} element={<></>} />
+          <Route path={RouteNames.PROFILE_RECOMMENDATIONS} element={<></>} />
+        </Route>
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
