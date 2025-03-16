@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SettingsPage.module.scss';
 
@@ -24,6 +24,11 @@ const SettingsPage = () => {
     toast.success('Račun uspješno obrisan!');
     navigate(RouteNames.LOGIN);
   };
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) body.scrollTo(0, 0);
+  }, [isChangingPassword]);
 
   return (
     <div className={styles.wrapper}>
