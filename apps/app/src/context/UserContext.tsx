@@ -1,15 +1,15 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { ExtendedUserDto } from '@/types/user';
+import { RegistrationDto } from '@/types/user/user';
 
 interface UserContextType {
-  userData: ExtendedUserDto;
-  updateUserData: (data: Partial<ExtendedUserDto>) => void;
-  userSettingsData: ExtendedUserDto;
-  updateUserSettingsData: (data: Partial<ExtendedUserDto>) => void;
+  userData: RegistrationDto;
+  updateUserData: (data: Partial<RegistrationDto>) => void;
+  userSettingsData: RegistrationDto;
+  updateUserSettingsData: (data: Partial<RegistrationDto>) => void;
 }
 
-const defaultUserData: ExtendedUserDto = {
+const defaultUserData: RegistrationDto = {
   firstName: 'Toni',
   lastName: 'Grbić',
   email: 'tonigrbic@example.com',
@@ -42,18 +42,18 @@ const UserContext = createContext<UserContextType>({
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] =
-    useState<ExtendedUserDto>(setInitialUserData());
+    useState<RegistrationDto>(setInitialUserData());
   const [userSettingsData, setUserSettingsData] =
-    useState<ExtendedUserDto>(setInitialUserData());
+    useState<RegistrationDto>(setInitialUserData());
 
-  const updateUserData = (newData: Partial<ExtendedUserDto>) => {
+  const updateUserData = (newData: Partial<RegistrationDto>) => {
     setUserData((prevData) => ({
       ...prevData,
       ...newData,
     }));
   };
 
-  const updateUserSettingsData = (newData: Partial<ExtendedUserDto>) => {
+  const updateUserSettingsData = (newData: Partial<RegistrationDto>) => {
     setUserSettingsData((prevData) => ({
       ...prevData,
       ...newData,

@@ -1,6 +1,6 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
 
-export type ExtendedUserDto = UserDto & {
+export type RegistrationDto = UserDto & {
   newPassword: string;
   repeatedPassword: string;
 };

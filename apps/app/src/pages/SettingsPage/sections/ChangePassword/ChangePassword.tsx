@@ -12,7 +12,7 @@ import { useInputHandlers } from '@/hooks/useInputHandlers';
 import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields, passwordInputs } from '../inputs';
-import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
+import { validateField } from '@/helpers/validateInput';
 
 interface ChangePasswordProps {
   setIsChangingPassword: (value: boolean) => void;
@@ -21,7 +21,7 @@ interface ChangePasswordProps {
 export const ChangePassword: React.FC<ChangePasswordProps> = ({
   setIsChangingPassword,
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { userSettingsData, updateUserSettingsData } = useUserContext();
   const { handleInputChange } = useInputHandlers(updateUserSettingsData);
 
@@ -44,20 +44,13 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   };
 
   useEffect(() => {
-    if (!isMounted) {
-      setIsMounted(true);
-      return;
-    }
-    validateChangePassword();
-  }, [userSettingsData]);
+    if (isSubmitted) validateChangePassword();
+  }, [userSettingsData, isSubmitted]);
 
   const handleSaveClick = () => {
-    if (!allFieldsAreFilled(changePasswordFields, userSettingsData)) {
-      toast.error('Sva polja moraju biti popunjena!');
-      return;
-    }
-
+    setIsSubmitted(true);
     validateChangePassword();
+
     if (!isStepValid(SettingsEdits.PASSWORD)) {
       toast.error('Podaci nisu ispravno uneseni!');
       return;
@@ -90,7 +83,9 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
               placeholder={input.placeholder}
               value={userSettingsData[input.name]?.toString()}
               onChange={handleInputChange}
-              error={errors[SettingsEdits.PASSWORD]?.[input.name]}
+              error={
+                isSubmitted ? errors[SettingsEdits.PASSWORD]?.[input.name] : ''
+              }
             />
           );
         })}

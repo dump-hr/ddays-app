@@ -1,6 +1,5 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
 import { UserDataFields } from '../types/enums';
-import { ExtendedUserDto } from '@/types/user';
+import { RegistrationDto } from '@/types/user/user';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -57,9 +56,9 @@ export const validations = {
 };
 
 export const validateField = (
-  name: keyof ExtendedUserDto,
+  name: keyof RegistrationDto,
   value: string | number | boolean | null | undefined,
-  userData: Partial<ExtendedUserDto>,
+  userData: Partial<RegistrationDto>,
 ): string | undefined => {
   switch (name) {
     case UserDataFields.FirstName:
@@ -97,9 +96,13 @@ export const validateField = (
         return 'Hej, nova lozinka mora imati najmanje 8 znakova i broj';
       break;
 
-    case UserDataFields.RepeatedPassword as keyof UserDto:
-      if (value !== userData.password && value !== userData.newPassword)
-        return 'Hej, lozinke se ne podudaraju';
+    case UserDataFields.RepeatedPassword:
+      const isNotEmptyNewPass = validations.isNotEmpty(
+        userData.newPassword as string,
+      );
+      const field = isNotEmptyNewPass ? 'newPassword' : 'password';
+
+      if (value !== userData[field]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:
@@ -133,8 +136,8 @@ export const validateField = (
 };
 
 export const allFieldsAreFilled = (
-  fields: (keyof ExtendedUserDto)[],
-  userData: ExtendedUserDto,
+  fields: (keyof RegistrationDto)[],
+  userData: Partial<RegistrationDto>,
 ) => {
   return fields.every((key) => userData[key] !== null && userData[key] !== '');
 };

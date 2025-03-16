@@ -1,5 +1,5 @@
 import { UserDataFields } from '@/types/enums';
-import { ExtendedUserDto } from '@/types/user';
+import { RegistrationDto } from '@/types/user/user';
 
 type InputType = 'text' | 'email' | 'password';
 
@@ -85,7 +85,7 @@ export const checkboxInputs = [
   },
 ];
 
-export const editProfileFields: (keyof ExtendedUserDto)[] = [
+export const editProfileFields: (keyof RegistrationDto)[] = [
   UserDataFields.FirstName,
   UserDataFields.LastName,
   UserDataFields.Email,
@@ -95,7 +95,7 @@ export const editProfileFields: (keyof ExtendedUserDto)[] = [
   UserDataFields.Occupation,
 ];
 
-export const changePasswordFields: (keyof ExtendedUserDto)[] = [
+export const changePasswordFields: (keyof RegistrationDto)[] = [
   UserDataFields.Password,
   UserDataFields.RepeatedPassword,
   UserDataFields.NewPassword,

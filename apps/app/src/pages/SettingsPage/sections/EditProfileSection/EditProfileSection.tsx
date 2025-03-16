@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import styles from './EditProfileSection.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '@/context/UserContext';
 import { useInputHandlers } from '@/hooks/useInputHandlers';
 import {
@@ -28,6 +28,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   isEditing,
   setIsEditing,
 }) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { userSettingsData, updateUserSettingsData, updateUserData } =
     useUserContext();
 
@@ -53,16 +54,13 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   };
 
   useEffect(() => {
-    validateEditProfile();
-  }, [userSettingsData]);
+    if (isSubmitted) validateEditProfile();
+  }, [userSettingsData, isSubmitted]);
 
   const handleSaveClick = () => {
-    if (!allFieldsAreFilled(editProfileFields, userSettingsData)) {
-      toast.error('Sva polja moraju biti popunjena!');
-      return;
-    }
-
+    setIsSubmitted(true);
     validateEditProfile();
+
     if (!isStepValid(SettingsEdits.INFO)) {
       toast.error('Podaci nisu ispravno uneseni!');
       return;
@@ -105,7 +103,10 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
               selectedOption={input.options.find(
                 (option) => option.value === userSettingsData[input.name],
               )}
-              hasError={errors[SettingsEdits.INFO]?.[input.name] !== ''}
+              hasError={
+                isSubmitted && errors[SettingsEdits.INFO]?.[input.name] !== ''
+              }
+              errorLabel={isSubmitted ? 'Opcija nije odabrana' : ''}
             />
           );
         }
