@@ -16,7 +16,7 @@ import { Checkbox } from '@/components/Checkbox';
 import { Input } from '@/components/Input';
 import { useRegistration } from '@/context/RegistrationContext';
 import { SettingsEdits } from '@/types/enums';
-import { validateField } from '@/helpers/validateInput';
+import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 
 interface EditProfileSectionProps {
@@ -54,7 +54,8 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   };
 
   useEffect(() => {
-    if (isSubmitted) validateEditProfile();
+    if (isSubmitted || allFieldsAreFilled(editProfileFields, userSettingsData))
+      validateEditProfile();
   }, [userSettingsData, isSubmitted]);
 
   const handleSaveClick = () => {

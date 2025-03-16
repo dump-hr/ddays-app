@@ -12,7 +12,7 @@ import { useInputHandlers } from '@/hooks/useInputHandlers';
 import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields, passwordInputs } from '../inputs';
-import { validateField } from '@/helpers/validateInput';
+import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 
 interface ChangePasswordProps {
   setIsChangingPassword: (value: boolean) => void;
@@ -44,7 +44,11 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   };
 
   useEffect(() => {
-    if (isSubmitted) validateChangePassword();
+    if (
+      isSubmitted ||
+      allFieldsAreFilled(changePasswordFields, userSettingsData)
+    )
+      validateChangePassword();
   }, [userSettingsData, isSubmitted]);
 
   const handleSaveClick = () => {
