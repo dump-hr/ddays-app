@@ -63,7 +63,7 @@ export const validateField = (
   const isNotEmptyNewPass = validations.isNotEmpty(
     userData.newPassword as string,
   );
-  const field = isNotEmptyNewPass ? 'newPassword' : 'password';
+  const passField = isNotEmptyNewPass ? 'newPassword' : 'password';
 
   switch (name) {
     case UserDataFields.FirstName:
@@ -102,7 +102,7 @@ export const validateField = (
       break;
 
     case UserDataFields.RepeatedPassword:
-      if (value !== userData[field]) return 'Hej, lozinke se ne podudaraju';
+      if (value !== userData[passField]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:
