@@ -27,7 +27,8 @@ export enum RouteNames {
   PROFILE = '/app/profile',
   COMPANIES = '/app/companies',
   SCHEDULE = '/app/schedule',
-  FLY_TALKS = '/app/flyTalks',
+  FLY_TALKS = '/app/fly-talks',
+  FLY_TALKS_APPLY = '/app/fly-talks-apply',
   SHOPPING = '/app/shopping',
   NOTIFICATIONS = '/app/notifications',
 }
