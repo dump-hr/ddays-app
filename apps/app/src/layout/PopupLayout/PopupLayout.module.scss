@@ -1,0 +1,33 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-color: #171615b2;
+  z-index: 10;
+}
+
+.container {
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  p {
+    @include paragraph-16;
+    color: $black-30;
+  }
+
+  h2 {
+    @include heading-2;
+    font-weight: 500;
+  }
+  @include roundedContainer($color: $black-90);
+  color: $primary-white;
+  min-height: 670px;
+}

@@ -3,6 +3,7 @@ import ThumbnailTemp from '../../assets/images/thumbnailUrl-temp.png';
 import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
+import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 
 const event = {
   id: 1,
@@ -126,6 +127,14 @@ const TestPage = () => {
         isAddedToSchedule={isAddedToSchedule}
         clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
       />
+
+      <PopupLayout>
+        <h2>Jesi li siguran da želiš obrisati račun?</h2>
+        <p>
+          Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i svi
+          tvoji bodovi i postignuća bit će izgubljeni.
+        </p>
+      </PopupLayout>
     </>
   );
 };
