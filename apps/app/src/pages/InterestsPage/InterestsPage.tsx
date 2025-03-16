@@ -11,7 +11,7 @@ export const InterestsPage = () => {
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
-            <span>Profil</span> <br />
+            <span>Interesi</span> <br />
             Marija Gudelj
           </p>
 
@@ -21,6 +21,7 @@ export const InterestsPage = () => {
         <div className={c.statsWrapper}>
           <InterestProgressBar label='Programiranje' percentage={50} />
           <InterestProgressBar label='Marketing' percentage={72} />
+          <InterestProgressBar label='Product' percentage={22} />
           <InterestProgressBar label='Product' percentage={22} />
         </div>
       </header>

@@ -6,11 +6,11 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
+    gap: 12px;
   
     @media screen and (min-width: $breakpoint-tablet) {
       flex-direction: column;
       align-items: center;
-      gap: 24px;
     }
   
     .flexWrapper {
@@ -41,5 +41,9 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+
+      @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+      }
     }
 }

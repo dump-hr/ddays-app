@@ -13,11 +13,19 @@
         }
     }
 
+    @media (max-width: $breakpoint-mobile-lg) {
+        font-size: 0.7rem;
+    }
+
     .progressTrack {
         height: 4px;
         width: 422px;
         border-radius: 100px;
         background-color: $black-70;
+
+        @media (max-width: $breakpoint-tablet) {
+            width: 100%;
+        }
 
         .progressFill {
             height: 100%;
