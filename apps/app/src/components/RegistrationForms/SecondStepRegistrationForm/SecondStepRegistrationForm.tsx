@@ -84,16 +84,6 @@ export const SecondStepRegistrationForm = ({
     }
   };
 
-  // const allFieldsAreFilled = () => {
-  //   return (
-  //     userData.phoneNumber !== '' &&
-  //     userData.birthYear !== null &&
-  //     userData.educationDegree !== null &&
-  //     userData.occupation !== null &&
-  //     userData.termsAndConditionsEnabled !== null
-  //   );
-  // };
-
   useEffect(() => {
     if (isSubmitted || allFieldsAreFilled(secondStepFields, userData)) {
       validateSecondStep();
