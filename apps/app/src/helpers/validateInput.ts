@@ -102,6 +102,8 @@ export const validateField = (
       break;
 
     case UserDataFields.RepeatedPassword:
+      if (!validations.isNotEmpty(value as string))
+        return 'Hej, potvrda lozinke je obavezna';
       if (value !== userData[passField]) return 'Hej, lozinke se ne podudaraju';
       break;
 
