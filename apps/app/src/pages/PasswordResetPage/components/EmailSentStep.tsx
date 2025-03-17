@@ -1,7 +1,7 @@
 import c from '../PasswordResetPage.module.scss';
 import closeIcon from '../../../assets/icons/close-icon.svg';
 import Button from '../../../components/Button';
-import duckImage from '../../../assets/images/duck-image.png';
+import duckImage from '../../../assets/images/duck-image-desktop.png';
 import { RouteNames } from '../../../router/routes';
 
 interface EmailSentStepProps {
