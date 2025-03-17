@@ -4,6 +4,7 @@ import { RouteNames } from '../../router/routes';
 import { WelcomeStep } from './components/WelcomeStep';
 import { EmailInputStep } from './components/EmailInputStep';
 import { EmailSentStep } from './components/EmailSentStep';
+import { ValidationRequiredStep } from './components/ValidationRequiredStep';
 import { NewPasswordStep } from './components/NewPasswordStep';
 import { SuccessStep } from './components/SuccessStep';
 
@@ -15,6 +16,7 @@ export const PasswordResetPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isValidated, setIsValidated] = useState(false); // ValidationRequiredStep/NewPasswordStep - ovisno o tome je li korisnik validirao link
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -96,7 +98,14 @@ export const PasswordResetPage = () => {
           />
         )}
         {step === 3 && <EmailSentStep email={email} onNext={handleNextStep} />}
-        {step === 4 && (
+        {step === 4 && !isValidated && (
+          <ValidationRequiredStep
+            onNext={() => {
+              setIsValidated(true);
+            }}
+          />
+        )}
+        {step === 4 && isValidated && (
           <NewPasswordStep
             newPassword={newPassword}
             confirmPassword={confirmPassword}
