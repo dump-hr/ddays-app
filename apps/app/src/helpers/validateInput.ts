@@ -1,4 +1,4 @@
-import { UserDataFields } from '../types/enums';
+import { UserDataFields } from '@/types/enums';
 import { RegistrationDto } from '@/types/user/user';
 
 export const validations = {
