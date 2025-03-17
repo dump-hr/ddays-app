@@ -72,13 +72,8 @@ export const events: EventWithSpeakerDto[] = [
     id: 1,
     name: 'Mastering React',
     description: 'An advanced dive into React concepts.',
-<<<<<<< HEAD
     startsAt: '2025-01-25T08:00:00Z',
     endsAt: '2025-01-25T23:00:00Z',
-=======
-    startsAt: '2025-01-21T08:00:00Z',
-    endsAt: '2025-01-21T23:00:00Z',
->>>>>>> main
     maxParticipants: 100,
     requirements: 'Basic React knowledge',
     footageLink: undefined,
