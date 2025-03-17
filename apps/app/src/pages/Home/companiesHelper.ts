@@ -1,4 +1,4 @@
-import { CompanyPublicDto } from '@ddays-app/types';
+import { CompanyPublicDto } from '@ddays-app/types/src';
 
 export async function fetchTopRatedCompanies(): Promise<CompanyPublicDto[] | undefined> {
   try {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import TopCompany from '../../../../components/TopCompany';
 import RecommendationsButton from '../../../../components/RecommendationsButton';
-import { CompanyPublicDto } from '@ddays-app/types';
+import { CompanyPublicDto } from '@ddays-app/types/src';
 import { fetchTopRatedCompanies} from '../../companiesHelper'
 
 const TopCompaniesSection: React.FC = () => {

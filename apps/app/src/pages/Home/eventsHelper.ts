@@ -1,4 +1,4 @@
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { EventWithSpeakerDto } from '@ddays-app/types/src';
 
 function filterAndSortEventByType(events: EventWithSpeakerDto[], type: string) {
   return events

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { CompanyPublicDto } from '@ddays-app/types';
-=======
-import { CompanyCategory, CompanyDto } from '@ddays-app/types';
->>>>>>> main
 import c from './TopCompany.module.scss';
 
 import BadgeGold from '../../assets/images/badge-gold.png';
@@ -18,25 +14,6 @@ type NumberProps = {
   number: number;
 };
 
-<<<<<<< HEAD
-=======
-function getBoothId(company: CompanyDto) {
-  let categoryMarker = '';
-  switch (company.category) {
-    case CompanyCategory.GOLD:
-      categoryMarker = 'Z';
-      break;
-    case CompanyCategory.SILVER:
-      categoryMarker = 'S';
-      break;
-    case CompanyCategory.BRONZE:
-      categoryMarker = 'B';
-      break;
-  }
-  return `${categoryMarker}${company.boothId}`;
-}
-
->>>>>>> main
 const Number: React.FC<NumberProps> = ({ number: number }) => {
   let Badge;
   if (number === 1) {
