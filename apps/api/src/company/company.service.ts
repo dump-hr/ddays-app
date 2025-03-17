@@ -66,7 +66,9 @@ export class CompanyService {
       const averageRating =
         ratings.length > 0
           ? ratings.reduce((acc, rating) => {
-              const value = Number((rating.grades as {value: number})?.value || 0);
+              const value = Number(
+                (rating.grades as { value: number })?.value || 0,
+              );
               return acc + value;
             }, 0) / ratings.length
           : 0;
