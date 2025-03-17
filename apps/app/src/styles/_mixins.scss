@@ -2,9 +2,9 @@
 
 @mixin heading-1 {
   font-family: NeueMachina;
-  font-size: 2.5rem; 
-  line-height: 3rem; 
-  letter-spacing: -1%; 
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: -1%;
 }
 
 @mixin heading-2 {
@@ -82,13 +82,45 @@
   letter-spacing: 0%;
 }
 
-@mixin dottedBreak($color: rgba(23, 22, 21, 0.3)) {
+@mixin dottedBreak($color: $black-30, $size: 2px) {
   width: 100%;
-  height: 2px;
+  height: $size;
   background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
-  background-size: 8px 2px;
+  background-size: 8px $size;
   background-repeat: repeat-x;
   background-color: transparent;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@mixin dottedBreakVertical($color: $black-30, $size: 2px) {
+  width: $size;
+  height: 100%;
+  background-image: radial-gradient(circle, $color 0.8px, transparent 0.3px);
+  background-size: $size 8px;
+  background-repeat: repeat-y;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin roundedContainer(
+  $color: $primary-background,
+  $breakpoint: $breakpoint-tablet
+) {
+  background: $color;
+  border-radius: 1rem;
+  height: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+
+  @media screen and (max-width: $breakpoint) {
+    margin: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
