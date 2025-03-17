@@ -10,6 +10,10 @@ export const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -19,6 +23,37 @@ export const PasswordResetPage = () => {
     if (field === 'email') {
       setEmailError('');
     }
+  };
+
+  const validateField = (
+    value: string,
+    minLength: number,
+    errorMessage: string,
+  ) => {
+    if (!value) return 'Hej, trebaš ispuniti sva polja.';
+    if (value.length < minLength) return errorMessage;
+    return '';
+  };
+
+  const validatePasswordMatch = (password: string, confirmPassword: string) => {
+    if (password !== confirmPassword) return 'Lozinke se moraju podudarati.';
+    return '';
+  };
+
+  const validatePasswords = () => {
+    const passwordError = validateField(
+      newPassword,
+      10,
+      'Lozinka mora imati najmanje 10 znakova.',
+    );
+    setPasswordError(passwordError);
+
+    const confirmPasswordError =
+      validateField(confirmPassword, 1, 'Hej, trebaš ispuniti sva polja.') ||
+      validatePasswordMatch(newPassword, confirmPassword);
+    setConfirmPasswordError(confirmPasswordError);
+
+    return !passwordError && !confirmPasswordError;
   };
 
   const validateInputs = () => {
@@ -33,7 +68,6 @@ export const PasswordResetPage = () => {
       isValid = false;
     } else {
       setEmailError('');
-      handleNextStep();
     }
 
     return isValid;
@@ -123,7 +157,13 @@ export const PasswordResetPage = () => {
                 />
               </div>
               <div className={c.buttonContainer}>
-                <Button variant='orange' onClick={validateInputs}>
+                <Button
+                  variant='orange'
+                  onClick={() => {
+                    if (validateInputs()) {
+                      handleNextStep();
+                    }
+                  }}>
                   Resetiraj lozinku
                 </Button>
               </div>
@@ -158,13 +198,74 @@ export const PasswordResetPage = () => {
               </div>
               <div className={c.textContainer}>
                 <p className={c.text}>
-                  Poslala sam ti link za resetiranje lozinke na
+                  Poslala sam ti link za resetiranje lozinke na{' '}
                   {email || 'tvoj email'}. Molim te da prije nastavljanja radnje
                   pratiš upute u mailu i autoriziraš promjenu lozinke.
                 </p>
               </div>
               <div className={c.buttonContainer}>
                 <Button variant='orange' onClick={handleNextStep}>
+                  Resetiraj lozinku
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
+        {step === 4 && (
+          <>
+            <div className={c.pageName}>
+              <span className={c.pageTitle}>Resetiraj lozinku</span>
+              <a href={RouteNames.LOGIN}>
+                <img
+                  src={closeIcon}
+                  alt='Close login'
+                  className={c.closeIcon}
+                />
+              </a>
+            </div>
+            <div className={c.container}>
+              <div className={c.titleContainer}>
+                <h1 className={c.title}>Upiši novu lozinku</h1>
+                <a href={RouteNames.LOGIN}>
+                  <img
+                    src={closeIcon}
+                    alt='Close login'
+                    className={c.closeIcon}
+                  />
+                </a>
+              </div>
+              <div className={c.textContainer}>
+                <Input
+                  label='Lozinka'
+                  type='password'
+                  placeholder='Lozinka'
+                  value={newPassword}
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                    setPasswordError('');
+                  }}
+                  error={passwordError}
+                />
+                <Input
+                  label='Ponovno unesi lozinku'
+                  type='password'
+                  placeholder='Ponovno unesi lozinku'
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    setConfirmPasswordError('');
+                  }}
+                  error={confirmPasswordError}
+                />
+              </div>
+              <div className={c.buttonContainer}>
+                <Button
+                  variant='orange'
+                  onClick={() => {
+                    if (validatePasswords()) {
+                      handleNextStep();
+                    }
+                  }}>
                   Resetiraj lozinku
                 </Button>
               </div>
