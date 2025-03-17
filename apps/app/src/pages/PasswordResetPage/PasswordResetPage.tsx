@@ -272,6 +272,48 @@ export const PasswordResetPage = () => {
             </div>
           </>
         )}
+        {step === 5 && (
+          <>
+            <div className={c.pageName}>
+              <span className={c.pageTitle}>Resetiraj lozinku</span>
+              <a href={RouteNames.LOGIN}>
+                <img
+                  src={closeIcon}
+                  alt='Close login'
+                  className={c.closeIcon}
+                />
+              </a>
+            </div>
+            <div className={c.duckContainer}>
+              <img src={duckImage} alt='Slavica' className={c.duckImage} />
+            </div>
+            <div className={c.container}>
+              <div className={c.titleContainer}>
+                <h1 className={c.title}>Uspješno promijenjena.</h1>
+                <a href={RouteNames.LOGIN}>
+                  <img
+                    src={closeIcon}
+                    alt='Close login'
+                    className={c.closeIcon}
+                  />
+                </a>
+              </div>
+              <div className={c.textContainer}>
+                <p className={c.text}>
+                  Odlično, nemoj da se ovo ponavlja. Vrati se sad na početnu i
+                  prijavi se.
+                </p>
+              </div>
+              <div className={c.buttonContainer}>
+                <Button
+                  variant='orange'
+                  onClick={() => (window.location.href = RouteNames.LOGIN)}>
+                  Zatvori
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
