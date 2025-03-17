@@ -1,0 +1,61 @@
+import c from '../PasswordResetPage.module.scss';
+import closeIcon from '../../../assets/icons/close-icon.svg';
+import Button from '../../../components/Button';
+import { Input } from '../../../components/Input';
+import { RouteNames } from '../../../router/routes';
+
+interface EmailInputStepProps {
+  email: string;
+  emailError: string;
+  onEmailChange: (value: string) => void;
+  onClearError: (field: string) => void;
+  onNext: () => void;
+}
+
+export const EmailInputStep = ({
+  email,
+  emailError,
+  onEmailChange,
+  onClearError,
+  onNext,
+}: EmailInputStepProps) => {
+  return (
+    <>
+      <div className={c.pageName}>
+        <span className={c.pageTitle}>Resetiraj lozinku</span>
+        <a href={RouteNames.LOGIN}>
+          <img src={closeIcon} alt='Close login' className={c.closeIcon} />
+        </a>
+      </div>
+      <div className={c.container}>
+        <div className={c.titleContainer}>
+          <h1 className={c.title}>Upiši svoj email</h1>
+          <a href={RouteNames.LOGIN}>
+            <img src={closeIcon} alt='Close login' className={c.closeIcon} />
+          </a>
+        </div>
+        <div className={c.textContainer}>
+          <p className={c.text}>
+            Upiši email na koji ćemo ti poslati link na tvoju novu lozinku.
+          </p>
+          <Input
+            label='Email'
+            type='text'
+            placeholder='Email'
+            value={email}
+            onChange={(e) => {
+              onEmailChange(e.target.value);
+              onClearError('email');
+            }}
+            error={emailError}
+          />
+        </div>
+        <div className={c.buttonContainer}>
+          <Button variant='orange' onClick={onNext}>
+            Resetiraj lozinku
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+};
