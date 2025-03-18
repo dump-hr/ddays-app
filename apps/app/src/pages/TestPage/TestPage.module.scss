@@ -1,0 +1,29 @@
+.popupImageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+.contentDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 36vh;
+
+  text-align: center;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    text-align: left;
+    gap: 90px;
+  }
+  p {
+    @include paragraph-16;
+    color: $black-30;
+  }
+
+  h2 {
+    @include heading-2;
+    font-weight: 500;
+  }
+}
