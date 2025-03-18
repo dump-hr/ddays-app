@@ -139,12 +139,11 @@ const TestPage = () => {
         <div className={styles.contentDiv}>
           <div
             style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-           
-              <h2>Jesi li siguran da želiš obrisati račun?</h2>
-              <p>
-                Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu
-                i svi tvoji bodovi i postignuća bit će izgubljeni.
-              </p>
+            <h2>Jesi li siguran da želiš obrisati račun?</h2>
+            <p>
+              Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
+              svi tvoji bodovi i postignuća bit će izgubljeni.
+            </p>
           </div>
           <Button variant='orange' style={{ width: '100%' }}>
             Svejedno obriši
