@@ -4,35 +4,49 @@ import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 
 interface PopupLayoutProps {
-  imgSrc?: string;
   headerTitle: string;
+  variant: 'light' | 'dark';
   closePopup: () => void;
   isOpen: boolean;
+  imgSrc?: string;
+  justifyContent?: 'center' | 'start' | 'end';
 }
 
 const PopupLayout = ({
   children,
   headerTitle,
-  imgSrc,
+  variant,
   closePopup,
   isOpen,
+  imgSrc = '',
+  justifyContent = 'start',
 }: PropsWithChildren<PopupLayoutProps>) => {
   return (
     <div className={clsx(styles.wrapper, { [styles.closed]: !isOpen })}>
-      <div className={styles.container}>
+      <div
+        className={clsx(
+          styles.container,
+          { [styles.dark]: variant === 'dark' },
+          { [styles.light]: variant === 'light' },
+          { [styles.center]: justifyContent === 'center' },
+          { [styles.start]: justifyContent === 'start' },
+          { [styles.end]: justifyContent === 'end' },
+        )}>
         <div className={styles.heading}>
-          <h2>{headerTitle}</h2>
+          <h2 className={styles.headingTitle}>{headerTitle}</h2>
           <img
             src={CloseIcon}
             onClick={closePopup}
             className={styles.closeIcon}
-            alt=''
+            alt='close'
           />
         </div>
-        <div className={styles.popupImageContainer}>
-          <img className={styles.popupImage} src={imgSrc} />
-        </div>
-        <div className={styles.contentDiv}>{children}</div>
+        {imgSrc && (
+          <div className={styles.popupImageContainer}>
+            <img className={styles.popupImage} src={imgSrc} alt='popup' />
+          </div>
+        )}
+        {children}
       </div>
     </div>
   );

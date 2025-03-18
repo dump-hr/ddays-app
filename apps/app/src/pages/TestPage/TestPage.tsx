@@ -4,9 +4,9 @@ import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
-import DuckGoodbyImg from '@/assets/images/duck-goodbye.png';
+import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png';
 import Button from '@/components/Button';
-
+import styles from './TestPage.module.scss';
 const event = {
   id: 1,
   name: 'Tech Innovations Summit',
@@ -130,23 +130,26 @@ const TestPage = () => {
         isAddedToSchedule={isAddedToSchedule}
         clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
       />
-
       <PopupLayout
-        headerTitle='Brisanje računa'
-        imgSrc={DuckGoodbyImg}
+        variant='dark'
+        headerTitle='BRISANJE RAČUNA'
         closePopup={() => setIsPopupOpen(false)}
-        isOpen={isPopupOpen}>
-        <div
-          style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <h2>Jesi li siguran da želiš obrisati račun?</h2>
-          <p>
-            Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
-            svi tvoji bodovi i postignuća bit će izgubljeni.
-          </p>
+        isOpen={isPopupOpen}
+        imgSrc={DuckGoodbyeImg}>
+        <div className={styles.contentDiv}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+           
+              <h2>Jesi li siguran da želiš obrisati račun?</h2>
+              <p>
+                Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu
+                i svi tvoji bodovi i postignuća bit će izgubljeni.
+              </p>
+          </div>
+          <Button variant='orange' style={{ width: '100%' }}>
+            Svejedno obriši
+          </Button>
         </div>
-        <Button variant='orange' style={{ width: '100%' }}>
-          Svejedno obriši
-        </Button>
       </PopupLayout>
     </>
   );

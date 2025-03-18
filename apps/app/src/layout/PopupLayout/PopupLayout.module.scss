@@ -1,4 +1,4 @@
-.wrapper {
+div.wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -6,24 +6,56 @@
   bottom: 0;
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   background-color: #171615b2;
   z-index: 10;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    align-items: flex-end;
+  }
 }
 
 div.closed {
   display: none;
 }
-.container {
-  @include roundedContainer($color: $black-90);
+
+div.light {
+  background-color: $primary-background;
+  color: $black-90;
+}
+
+div.dark {
+  background-color: $black-90;
   color: $primary-white;
-  min-height: 710px;
+}
+
+div.center {
+  justify-content: center;
+}
+
+div.start {
+  justify-content: flex-start;
+}
+
+div.end {
+  justify-content: flex-end;
+}
+
+.container {
+  @include roundedContainer();
   max-width: 579px;
+  min-height: 94.5vh;
   gap: 2rem;
+  padding: 40px 48px 48px;
+  margin-top: 1.5rem;
+  position: relative;
 
   @media screen and (max-width: $breakpoint-tablet) {
+    justify-content: flex-start;
     max-width: none;
-    min-height: 670px;
+    min-height: unset;
+    padding: 1.5rem;
+    margin-top: 0;
   }
 
   .heading {
@@ -32,12 +64,21 @@ div.closed {
     align-items: center;
     width: 100%;
 
-    h2 {
-      text-transform: uppercase;
+    &Title {
+      @include heading-2;
+      font-weight: 500;
     }
 
     .closeIcon {
       cursor: pointer;
+      position: absolute;
+      top: 40px;
+      right: 48px;
+      @media screen and (max-width: $breakpoint-tablet) {
+        position: static;
+        top: 0;
+        right: 0;
+      }
     }
   }
 
@@ -45,29 +86,5 @@ div.closed {
     width: 212px;
     height: 212px;
     margin-bottom: 1rem;
-  }
-
-  .contentDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    gap: 168px;
-    text-align: center;
-
-    @media screen and (max-width: $breakpoint-tablet) {
-      text-align: left;
-      gap: 90px;
-    }
-  }
-
-  p {
-    @include paragraph-16;
-    color: $black-30;
-  }
-
-  h2 {
-    @include heading-2;
-    font-weight: 500;
   }
 }
