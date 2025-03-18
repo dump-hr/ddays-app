@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "eslint": "^8.55.0",
-    "turbo": "^2.2.3"
+    "turbo": "^2.2.3",
+    "typescript": "^5.8.2"
   },
   "private": true,
   "packageManager": "yarn@1.22.22",
