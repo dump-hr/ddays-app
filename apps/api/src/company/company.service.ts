@@ -1,4 +1,5 @@
 import {
+  CompanyCategory,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -49,6 +50,50 @@ export class CompanyService {
       ...company,
       booth: company.booth?.name || null,
     }));
+  }
+
+  async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
+    const booths = await this.prisma.booth.findMany({
+      include: {
+        company: true,
+        rating: true,
+      },
+    });
+
+    const companiesWithAvgRating = booths.map((booth) => {
+      const ratings = booth.rating ?? [];
+
+      const averageRating =
+        ratings.length > 0
+          ? ratings.reduce((acc, rating) => {
+              const value = Number(
+                (rating.grades as { value: number })?.value || 0,
+              );
+              return acc + value;
+            }, 0) / ratings.length
+          : 0;
+
+      const company = booth.company;
+
+      return {
+        id: company.id,
+        category: company.category as CompanyCategory,
+        name: company.name,
+        description: company.description,
+        opportunitiesDescription: company.opportunitiesDescription,
+        website: company.websiteUrl,
+        instagram: company.instagramUrl,
+        linkedin: company.linkedinUrl,
+        booth: booth.name,
+        averageRating,
+      };
+    });
+
+    const topRated = companiesWithAvgRating
+      .sort((a, b) => b.averageRating - a.averageRating)
+      .slice(0, 5);
+
+    return topRated;
   }
 
   async getOne(id: number): Promise<CompanyDto> {
