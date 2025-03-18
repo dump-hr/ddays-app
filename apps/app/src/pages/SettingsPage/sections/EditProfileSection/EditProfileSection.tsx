@@ -15,8 +15,12 @@ import Button from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
 import { Input } from '@/components/Input';
 import { useRegistration } from '@/context/RegistrationContext';
-import { SettingsEdits } from '@/types/enums';
-import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
+import { SettingsEdits, UserDataFields } from '@/types/enums';
+import {
+  allFieldsAreFilled,
+  validateField,
+  validations,
+} from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 
 interface EditProfileSectionProps {
@@ -53,6 +57,12 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     }
   };
 
+  const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const formattedPhoneNumber = validations.formatPhoneNumber(value);
+    updateUserSettingsData({ [name]: formattedPhoneNumber });
+  };
+
   useEffect(() => {
     if (isSubmitted || allFieldsAreFilled(editProfileFields, userSettingsData))
       validateEditProfile();
@@ -83,7 +93,11 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
             type={input.type}
             value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
-            onChange={handleInputChange}
+            onChange={
+              input.name === UserDataFields.PhoneNumber
+                ? handleTelephoneChange
+                : handleInputChange
+            }
             error={errors[SettingsEdits.INFO]?.[input.name]}
           />
         );

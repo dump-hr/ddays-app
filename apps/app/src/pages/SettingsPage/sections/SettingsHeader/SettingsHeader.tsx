@@ -40,13 +40,13 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
         newPassword: '',
         repeatedPassword: '',
       });
-      toast.error('Izmjene nisu spremljene!');
+      toast('Izmjene nisu spremljene!', { icon: '⚠️' });
       return;
     }
 
     if (isEditing) {
       updateUserSettingsData(userData);
-      toast.error('Izmjene nisu spremljene!');
+      toast('Izmjene nisu spremljene!', { icon: '⚠️' });
     }
     setIsEditing(!isEditing);
   };
@@ -61,7 +61,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
       setIsEditing(false);
       setIsChangingPassword(false);
       updateUserSettingsData(userData);
-      toast.error('Izmjene nisu spremljene!');
+      toast('Izmjene nisu spremljene!', { icon: '⚠️' });
       return;
     }
     navigate(RouteNames.PROFILE);

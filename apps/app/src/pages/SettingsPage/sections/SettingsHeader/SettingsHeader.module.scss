@@ -7,7 +7,7 @@
   @media screen and (max-width: $breakpoint-tablet) {
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 0.9rem;
   }
 
@@ -24,7 +24,7 @@
     }
 
     @media screen and (max-width: 386px) {
-      text-align: center;
+      text-align: left;
     }
   }
 
