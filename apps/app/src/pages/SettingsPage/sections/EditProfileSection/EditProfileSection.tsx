@@ -36,8 +36,12 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   const { userSettingsData, updateUserSettingsData, updateUserData } =
     useUserContext();
 
-  const { handleDropdownChange, handleInputChange, handleCheckboxChange } =
-    useInputHandlers(updateUserSettingsData);
+  const {
+    handleDropdownChange,
+    handleInputChange,
+    handleCheckboxChange,
+    handleTelephoneChange,
+  } = useInputHandlers(updateUserSettingsData);
 
   const { errors, clearStepErrors, setStepErrors, isStepValid } =
     useRegistration();
@@ -55,12 +59,6 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     } else {
       clearStepErrors(SettingsEdits.INFO);
     }
-  };
-
-  const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const formattedPhoneNumber = validations.formatPhoneNumber(value);
-    updateUserSettingsData({ [name]: formattedPhoneNumber });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

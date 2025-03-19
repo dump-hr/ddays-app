@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { DropdownOption } from '../components/Dropdown/DropdownOption';
 import { UserDataFields } from '../types/enums';
+import { validations } from '@/helpers/validateInput';
 
 export const useInputHandlers = (
   updateState: (data: Record<string, unknown>) => void,
@@ -26,5 +27,16 @@ export const useInputHandlers = (
     updateState({ [name]: checked });
   };
 
-  return { handleDropdownChange, handleInputChange, handleCheckboxChange };
+  const handleTelephoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const formattedPhoneNumber = validations.formatPhoneNumber(value);
+    updateState({ [name]: formattedPhoneNumber });
+  };
+
+  return {
+    handleDropdownChange,
+    handleInputChange,
+    handleCheckboxChange,
+    handleTelephoneChange,
+  };
 };
