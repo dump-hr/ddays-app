@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { RegistrationDto } from '@/types/user/user';
+import { validations } from '@/helpers/validateInput';
 
 interface UserContextType {
   userData: RegistrationDto;
@@ -16,7 +17,7 @@ const defaultUserData: RegistrationDto = {
   password: '',
   repeatedPassword: '',
   newPassword: '',
-  phoneNumber: '0912345678',
+  phoneNumber: validations.formatPhoneNumber('0912345678'),
   birthYear: 2001,
   educationDegree: 'Option 1',
   occupation: 'Option 2',
@@ -28,7 +29,11 @@ const defaultUserData: RegistrationDto = {
 const setInitialUserData = () => {
   const userData = localStorage.getItem('userData');
   if (userData) {
-    return JSON.parse(userData);
+    const parsedUserData = JSON.parse(userData);
+    parsedUserData.phoneNumber = validations.formatPhoneNumber(
+      parsedUserData.phoneNumber,
+    );
+    return parsedUserData;
   }
   return defaultUserData;
 };
