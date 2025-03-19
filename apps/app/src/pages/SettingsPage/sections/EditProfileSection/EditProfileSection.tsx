@@ -19,7 +19,6 @@ import { SettingsEdits, UserDataFields } from '@/types/enums';
 import {
   allFieldsAreFilled,
   validateField,
-  validations,
 } from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 
