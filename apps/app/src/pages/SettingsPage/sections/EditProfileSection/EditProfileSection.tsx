@@ -63,6 +63,12 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     updateUserSettingsData({ [name]: formattedPhoneNumber });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    return e.target.name === UserDataFields.PhoneNumber
+      ? handleTelephoneChange(e)
+      : handleInputChange(e);
+  };
+
   useEffect(() => {
     if (isSubmitted || allFieldsAreFilled(editProfileFields, userSettingsData))
       validateEditProfile();
@@ -93,11 +99,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
             type={input.type}
             value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
-            onChange={
-              input.name === UserDataFields.PhoneNumber
-                ? handleTelephoneChange
-                : handleInputChange
-            }
+            onChange={handleChange}
             error={errors[SettingsEdits.INFO]?.[input.name]}
           />
         );
