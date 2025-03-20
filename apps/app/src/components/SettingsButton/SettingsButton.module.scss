@@ -1,0 +1,33 @@
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.grey {
+  background-color: $black-10;
+}
+
+.grey:hover {
+  background-color: $black-5;
+}
+
+.red {
+  background-color: $error-light;
+  color: $primary-white;
+}
+
+.red:hover{
+  background-color: $error-dark;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  @include label-medium;
+}

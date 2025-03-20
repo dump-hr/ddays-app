@@ -1,0 +1,84 @@
+.settingsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+  }
+
+  h1 {
+    @include heading-2;
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      font-size: 24px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 386px) {
+      text-align: left;
+    }
+  }
+
+  &Edit {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .editButton,
+  .editButtonDesktop {
+    @include label-medium;
+    color: $black-90;
+    background-color: $black-10;
+  }
+
+  .editButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.25rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+  }
+
+  div.displayNone {
+    display: none;
+  }
+
+  .editButtonDesktop {
+    max-width: 422px;
+    width: 100%;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $black-10;
+    border-radius: 4px;
+    gap: 1rem;
+  }
+
+  .noBackground {
+    background-color: transparent;
+  }
+
+  .backButtonDesktop {
+    position: absolute;
+    top: 48px;
+    left: 72px;
+  }
+
+  .backButton,
+  .backButtonDesktop,
+  .editButtonDesktop,
+  .editButton {
+    cursor: pointer;
+  }
+}

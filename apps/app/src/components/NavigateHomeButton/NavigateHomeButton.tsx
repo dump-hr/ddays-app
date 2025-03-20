@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './NavigateHomeButton.module.scss';
-import CrossIcon from '../../assets/icons/cross-icon.svg';
+import CloseIcon from '../../assets/icons/close-icon.svg';
 import { RouteNames } from '../../router/routes';
 
 const NavigateHomeButton = () => {
@@ -11,7 +11,7 @@ const NavigateHomeButton = () => {
   };
   return (
     <div onClick={navigateHome}>
-      <img src={CrossIcon} alt='' className={styles.button} />
+      <img src={CloseIcon} alt='' className={styles.button} />
     </div>
   );
 };

@@ -25,7 +25,7 @@
   outline: none;
   @include paragraph-16;
   color: $primary-black;
-  padding: 5px 0 2px 0;
+  padding: 5px 0 0.5rem 0;
   transition: opacity 0.3s ease-out;
   transition: padding-top 0.3s ease-out;
 
@@ -61,7 +61,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  @include dottedBreak($primary-black);
+  @include dottedBreak($primary-black, 1.5px);
 }
 
 .errorText {
