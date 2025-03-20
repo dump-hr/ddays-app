@@ -8,6 +8,7 @@ import Tab from '../../components/Tab';
 import { useEffect, useState } from 'react';
 import achievements from './achievements';
 import AchievementCard from '../../components/AchievementCard';
+import { useNavigate } from 'react-router-dom';
 
 export const ProfileAchievementsPage = () => {
   const tabs = [
@@ -41,6 +42,8 @@ export const ProfileAchievementsPage = () => {
     }
   }, [selectedTab]);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <header className={c.header}>
@@ -60,7 +63,12 @@ export const ProfileAchievementsPage = () => {
       </header>
       <main className={c.main}>
         <header className={c.mainHeader}>
-          <img src={ArrowLeft} alt='' className={c.arrowLeft} />
+          <img
+            src={ArrowLeft}
+            alt=''
+            className={c.arrowLeft}
+            onClick={() => navigate(-1)}
+          />
           <h3 className={c.title}>Postignuća</h3>
         </header>
         <TabGroup setter={setSelectedTab} className={c.tabGroup}>
