@@ -44,7 +44,7 @@ export const ProfileAchievementsPage = () => {
               key={achievement.id}
               achievement={achievement}
               goal={5}
-              progress={2}
+              progress={5}
             />
           ))}
         </div>

@@ -5,7 +5,7 @@ const achievements: AchievementDto[] = [
     id: 1,
     name: 'First achievement',
     description: 'This is the first achievement',
-    points: 10,
+    points: 20,
     createdAt: new Date(),
   },
   {
