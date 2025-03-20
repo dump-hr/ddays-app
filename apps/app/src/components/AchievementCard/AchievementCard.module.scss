@@ -8,23 +8,82 @@
 
   align-items: center;
 
-  $light-gray: #a2a2a2;
-
   .pointsWrapper {
     display: flex;
     align-items: center;
     gap: 2px;
+    margin-bottom: 16px;
 
     .star {
       width: 24px;
       height: 22px;
       scale: 0.8;
-      fill: $light-gray;
+      fill: $black-70;
     }
 
     .points {
       @include label-large;
-      color: $light-gray;
+      color: $black-70;
     }
+  }
+
+  .name {
+    color: $black-70;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  .description {
+    color: $black-70;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-bottom: 30px;
+  }
+
+  .pointsWrapper,
+  .name,
+  .description {
+    opacity: 0.5;
+  }
+
+  .progressBarInfo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    .stepCount,
+    .percentage {
+      color: $primary-black;
+      font-family: NeueMontrealMono;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+    }
+  }
+
+  .progressBar {
+    width: 100%;
+    height: 2px;
+    height: 4px;
+    background-color: $black-30;
+    border-radius: 4px;
+    margin: 0 10px;
+
+    .progress {
+      height: 100%;
+      border-radius: 4px;
+      background: $primary-highlight;
+    }
+  }
+
+  .progressBarInfo,
+  .progressBar {
+    width: calc(100% - 2 * 10px);
   }
 }

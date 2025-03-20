@@ -32,6 +32,9 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
         </p>
         <p className={c.percentage}>{percentage}%</p>
       </div>
+      <div className={c.progressBar}>
+        <div className={c.progress} style={{ width: `${percentage}%` }} />
+      </div>
     </div>
   );
 };
