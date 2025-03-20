@@ -1,22 +1,18 @@
-import { AchievementDto } from '@ddays-app/types';
 import c from './AchievementCard.module.scss';
 //import RedStar from '../../assets/icons/rating-star-1.svg';
 //import Star from '../../assets/icons/rating-star-1.svg';
 import sprite from '../../assets/sprite.svg';
 import clsx from 'clsx';
+import { Achievement } from '../../pages/ProfileAchievementsPage/achievements';
 
 type AchievementCardProps = {
-  achievement: AchievementDto;
-  goal: number;
-  progress: number;
+  achievement: Achievement;
 };
 
-const AchievementCard: React.FC<AchievementCardProps> = ({
-  achievement,
-  goal,
-  progress,
-}) => {
-  const percentage = Math.round((progress / goal) * 100);
+const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
+  const percentage = Math.round(
+    (achievement.progress / achievement.goal) * 100,
+  );
   const isCompleted = percentage >= 99;
 
   return (
@@ -37,7 +33,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
       <div className={c.progressBarWrapper}>
         <div className={c.progressBarInfo}>
           <p className={c.stepCount}>
-            {progress}/{goal}
+            {achievement.progress}/{achievement.goal}
           </p>
           <p className={c.percentage}>{percentage}%</p>
         </div>

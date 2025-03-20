@@ -61,6 +61,7 @@ body {
 
 .main {
   width: 100%;
+  min-height: 100vh; // Ako je mali broj postignuca da ne bude prenizak page
   background-color: white;
   border-radius: 16px 16px 0px 0px;
 

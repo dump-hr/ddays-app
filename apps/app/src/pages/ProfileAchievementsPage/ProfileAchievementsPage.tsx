@@ -5,12 +5,42 @@ import ProfileStat from '../../components/ProfileStat';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import TabGroup from '../../components/TabGroup';
 import Tab from '../../components/Tab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import achievements from './achievements';
 import AchievementCard from '../../components/AchievementCard';
 
 export const ProfileAchievementsPage = () => {
-  const [, setSelectedTab] = useState('umra');
+  const tabs = [
+    {
+      id: 'all',
+      label: 'Sve',
+    },
+    {
+      id: 'completed',
+      label: 'Dovršeno',
+    },
+    {
+      id: 'remaining',
+      label: 'Preostalo',
+    },
+  ];
+
+  const [selectedTab, setSelectedTab] = useState(tabs[0].id);
+  const [filteredAchievements, setFilteredAchievements] =
+    useState(achievements);
+
+  useEffect(() => {
+    if (selectedTab === 'completed') {
+      setFilteredAchievements(
+        achievements.filter((a) => a.progress === a.goal),
+      );
+    } else if (selectedTab === 'remaining') {
+      setFilteredAchievements(achievements.filter((a) => a.progress < a.goal));
+    } else {
+      setFilteredAchievements(achievements);
+    }
+  }, [selectedTab]);
+
   return (
     <>
       <header className={c.header}>
@@ -34,18 +64,15 @@ export const ProfileAchievementsPage = () => {
           <h3 className={c.title}>Postignuća</h3>
         </header>
         <TabGroup setter={setSelectedTab} className={c.tabGroup}>
-          <Tab id='all'>Sve</Tab>
-          <Tab id='completed'>Dovršeno</Tab>
-          <Tab id='remaining'>Preostalo</Tab>
+          {tabs.map((tab) => (
+            <Tab key={tab.id} id={tab.id}>
+              {tab.label}
+            </Tab>
+          ))}
         </TabGroup>
         <div className={c.achievementsWrapper}>
-          {achievements.map((achievement) => (
-            <AchievementCard
-              key={achievement.id}
-              achievement={achievement}
-              goal={5}
-              progress={5}
-            />
+          {filteredAchievements.map((achievement) => (
+            <AchievementCard key={achievement.id} achievement={achievement} />
           ))}
         </div>
       </main>
