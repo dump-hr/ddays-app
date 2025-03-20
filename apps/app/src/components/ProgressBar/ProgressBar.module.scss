@@ -1,0 +1,21 @@
+.progressBar{
+    background-color: $black-5;
+    width: 100%;
+    height: 62px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 16px;
+
+    @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+    }
+}
+ 
+.dots{
+    @include dottedBreak($primary-black);
+
+    display: flex;
+    margin-inline: 8px;
+}

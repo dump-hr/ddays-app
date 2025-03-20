@@ -1,0 +1,57 @@
+.generalRegistrationForm{
+    display: flex;
+    flex-direction: column;
+
+    gap: 40px;
+    width: 422px;
+
+    @media (max-width: $breakpoint-tablet) {
+        padding-inline: 24px;
+        width: 100%;
+    }
+
+    .registrationUpper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 40px;
+
+        h2{
+            font-family: NeueMachina;
+            color: $primary-black;
+            text-align: center;
+            
+            font-size: 30px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+
+            img {
+                display: none;
+            }
+
+            @media (max-width: $breakpoint-tablet) {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+
+                font-size: 24px;
+                line-height: 28px;
+
+                img{
+                    display: flex;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .buttonsWrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+
