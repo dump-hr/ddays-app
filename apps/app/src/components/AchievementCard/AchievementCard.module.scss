@@ -1,0 +1,30 @@
+.achievementCard {
+  background-color: $black-5;
+  box-sizing: border-box;
+  padding: 16px 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  $light-gray: #a2a2a2;
+
+  .pointsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    .star {
+      width: 24px;
+      height: 22px;
+      scale: 0.8;
+      fill: $light-gray;
+    }
+
+    .points {
+      @include label-large;
+      color: $light-gray;
+    }
+  }
+}

@@ -92,9 +92,6 @@ body {
   }
 
   @media screen and (min-width: $breakpoint-tablet) {
-    flex-direction: row;
-    column-gap: 24px;
-
     padding: 48px 100px 72px;
     border-radius: 16px;
   }

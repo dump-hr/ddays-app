@@ -40,7 +40,12 @@ export const ProfileAchievementsPage = () => {
         </TabGroup>
         <div className={c.achievementsWrapper}>
           {achievements.map((achievement) => (
-            <AchievementCard key={achievement.id} achievement={achievement} />
+            <AchievementCard
+              key={achievement.id}
+              achievement={achievement}
+              goal={5}
+              progress={2}
+            />
           ))}
         </div>
       </main>
