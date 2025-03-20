@@ -13,13 +13,13 @@
   .pointsWrapper {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     margin-bottom: 16px;
 
     .star {
       width: 24px;
       height: 22px;
-      scale: 0.8;
+      scale: 0.7;
       fill: $black-70;
     }
 

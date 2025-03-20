@@ -93,15 +93,8 @@ body {
 
   .achievementsWrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 16px;
-    row-gap: 24px;
-  }
-
-  .tabGroup,
-  .achievementsWrapper {
-    width: 641px;
-    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   @media screen and (min-width: $breakpoint-tablet) {
