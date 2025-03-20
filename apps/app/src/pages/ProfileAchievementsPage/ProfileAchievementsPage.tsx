@@ -45,7 +45,7 @@ export const ProfileAchievementsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className={c.page}>
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
@@ -84,6 +84,6 @@ export const ProfileAchievementsPage = () => {
           ))}
         </div>
       </main>
-    </>
+    </div>
   );
 };

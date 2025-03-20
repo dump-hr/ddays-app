@@ -48,7 +48,7 @@ const navigationItems = [
 
 export const ProfilePage = () => {
   return (
-    <>
+    <div className={c.page}>
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
@@ -81,6 +81,6 @@ export const ProfilePage = () => {
           <LogoutButton />
         </div>
       </main>
-    </>
+    </div>
   );
 };
