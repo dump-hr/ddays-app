@@ -91,6 +91,19 @@ body {
     }
   }
 
+  .achievementsWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 16px;
+    row-gap: 24px;
+  }
+
+  .tabGroup,
+  .achievementsWrapper {
+    width: 641px;
+    margin: 0 auto;
+  }
+
   @media screen and (min-width: $breakpoint-tablet) {
     padding: 48px 100px 72px;
     border-radius: 16px;

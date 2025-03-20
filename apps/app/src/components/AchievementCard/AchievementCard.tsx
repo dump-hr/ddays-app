@@ -34,14 +34,16 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
       <p className={c.name}>{achievement.name}</p>
       <p className={c.description}>{achievement.description}</p>
 
-      <div className={c.progressBarInfo}>
-        <p className={c.stepCount}>
-          {progress}/{goal}
-        </p>
-        <p className={c.percentage}>{percentage}%</p>
-      </div>
-      <div className={c.progressBar}>
-        <div className={c.progress} style={{ width: `${percentage}%` }} />
+      <div className={c.progressBarWrapper}>
+        <div className={c.progressBarInfo}>
+          <p className={c.stepCount}>
+            {progress}/{goal}
+          </p>
+          <p className={c.percentage}>{percentage}%</p>
+        </div>
+        <div className={c.progressBar}>
+          <div className={c.progress} style={{ width: `${percentage}%` }} />
+        </div>
       </div>
 
       <p className={c.completedMessage}>Završeno!</p>

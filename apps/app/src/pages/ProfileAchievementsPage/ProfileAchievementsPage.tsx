@@ -33,7 +33,7 @@ export const ProfileAchievementsPage = () => {
           <img src={ArrowLeft} alt='' className={c.arrowLeft} />
           <h3 className={c.title}>Postignuća</h3>
         </header>
-        <TabGroup setter={setSelectedTab}>
+        <TabGroup setter={setSelectedTab} className={c.tabGroup}>
           <Tab id='all'>Sve</Tab>
           <Tab id='completed'>Dovršeno</Tab>
           <Tab id='remaining'>Preostalo</Tab>
