@@ -71,6 +71,17 @@ body {
   flex-direction: column;
   row-gap: 24px;
 
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 16px 0;
+    border-radius: 16px;
+    align-items: center;
+
+    .tabGroup,
+    .achievementsWrapper {
+      width: 640px;
+    }
+  }
+
   .mainHeader {
     display: flex;
     justify-content: center;
@@ -89,21 +100,20 @@ body {
       font-weight: 500;
       text-transform: uppercase;
     }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      display: none;
+    }
   }
 
   .achievementsWrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-  }
 
-  @media screen and (min-width: $breakpoint-tablet) {
-    padding: 48px 100px 72px;
-    border-radius: 16px;
-  }
-
-  @media screen and (min-width: $breakpoint-tablet-lg) {
-    column-gap: 125px;
-    padding: 48px 157px 72px;
+    @media screen and (min-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 24px;
+    }
   }
 }
