@@ -1,0 +1,77 @@
+.wrapper {
+  margin-top: 64px;
+  background-color: $primary-white;
+  border-radius: 12px 12px 0px 0px;
+  height: 100vh;
+  position: relative;
+  padding: 28px 24px 0px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: 769px) {
+    margin-top: 166px;
+    padding-top: 48px;
+  }
+}
+
+.backButton {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  cursor: pointer;
+
+  @media screen and (min-width: 769px) {
+    top: calc(-86px - 32px);
+  }
+}
+
+.title {
+  font-family: NeueMachina;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -0.24px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 32px;
+  color: $primary-black;
+
+  @media screen and (min-width: 769px) {
+    font-size: 30px;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
+}
+
+.subtitle {
+  font-family: NeueMachina;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -0.24px;
+  color: $primary-black;
+  margin-bottom: 16px;
+}
+
+.text {
+  color: $primary-black;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  margin-bottom: 32px;
+}
+
+.sectionsWrapper {
+  max-width: 422px;
+}
