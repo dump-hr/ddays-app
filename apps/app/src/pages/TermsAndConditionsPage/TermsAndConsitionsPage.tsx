@@ -1,11 +1,13 @@
 import c from './TermsAndConditionsPage.module.scss';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
+import { useNavigate } from 'react-router-dom';
 
 export const TermsAndConditionsPage = () => {
-  //TODO: onClick function
+  const navigate = useNavigate();
+
   return (
     <div className={c.wrapper}>
-      <button className={c.backButton} onClick={() => {}}>
+      <button className={c.backButton} onClick={() => navigate(-1)}>
         <img src={ArrowLeft} alt='' />
       </button>
       <div className={c.sectionsWrapper}>
