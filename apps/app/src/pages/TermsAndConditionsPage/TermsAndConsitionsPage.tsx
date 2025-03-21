@@ -1,14 +1,18 @@
 import c from './TermsAndConditionsPage.module.scss';
+import ArrowLeftWhite from '@/assets/icons/arrow-left-white.svg';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
+import { useDeviceType } from '../../hooks/UseDeviceType';
 
 export const TermsAndConditionsPage = () => {
+  const { isMobile } = useDeviceType({});
+
   const navigate = useNavigate();
 
   return (
     <div className={c.wrapper}>
       <button className={c.backButton} onClick={() => navigate(-1)}>
-        <img src={ArrowLeft} alt='' />
+        <img src={isMobile ? ArrowLeft : ArrowLeftWhite} alt='' />
       </button>
       <div className={c.sectionsWrapper}>
         <h1 className={c.title}>Uvjeti i odredbe</h1>

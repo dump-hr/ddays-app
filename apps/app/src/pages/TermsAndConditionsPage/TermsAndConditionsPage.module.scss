@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 769px) {
     margin-top: 166px;
     padding-top: 48px;
   }
@@ -26,7 +26,7 @@
   left: 24px;
   cursor: pointer;
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 769px) {
     top: calc(-86px - 32px);
   }
 }
@@ -43,7 +43,7 @@
   margin-bottom: 32px;
   color: $primary-black;
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: 769px) {
     font-size: 30px;
     line-height: 30px;
     letter-spacing: -0.3px;
