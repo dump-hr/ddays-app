@@ -83,6 +83,10 @@ export const InterestsPage = () => {
           </p>
 
           <InterestCardsSection forUpdate />
+
+          <div className={c.saveBtnWrapper}>
+            <Button variant='black'>Spremi</Button>
+          </div>
         </div>
       )}
     </>

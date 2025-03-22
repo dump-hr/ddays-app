@@ -136,4 +136,9 @@
     max-width: 374px;
     margin-bottom: 48px;
   }
+
+  .saveBtnWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 }
