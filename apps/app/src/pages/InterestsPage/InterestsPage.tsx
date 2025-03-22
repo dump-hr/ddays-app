@@ -7,9 +7,20 @@ import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
+import CloseIcon from './../../assets/icons/remove-icon-black.svg';
+import { useState } from 'react';
 
 export const InterestsPage = () => {
+  const [editIsOpen, setEditIsOpen] = useState(false);
   const { isMobile } = useDeviceType({});
+
+  const handleEditYourInterestsClick = (isOpen: boolean) => {
+    setEditIsOpen(!isOpen);
+  };
+
+  const handleCloseIconClick = () => {
+    setEditIsOpen(false);
+  };
   return (
     <>
       <header className={c.header}>
@@ -41,7 +52,10 @@ export const InterestsPage = () => {
               </div>
             </div>
           ) : (
-            <Button variant='beige' icon={Pencil}>
+            <Button
+              variant='beige'
+              icon={Pencil}
+              onClick={() => handleEditYourInterestsClick(editIsOpen)}>
               Uredi svoje interese
             </Button>
           )}
@@ -51,6 +65,26 @@ export const InterestsPage = () => {
           </section>
         </div>
       </main>
+
+      {editIsOpen && (
+        <div className={c.interestsForUpdate}>
+          <div className={c.updateHeader}>
+            <h2>Uredi interese</h2>
+            <img
+              src={CloseIcon}
+              alt='close icon'
+              onClick={handleCloseIconClick}
+            />
+          </div>
+
+          <p>
+            Odaberi svoje interese, a mi ćemo ti preporučiti poslodavce,
+            predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
+          </p>
+
+          <InterestCardsSection forUpdate />
+        </div>
+      )}
     </>
   );
 };
