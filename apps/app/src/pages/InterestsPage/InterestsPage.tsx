@@ -5,8 +5,11 @@ import { InterestProgressBar } from '../../components/InterestProgressBar';
 import Button from '../../components/Button';
 import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
+import { useDeviceType } from '../../hooks/UseDeviceType';
+import ArrowLeft from '@/assets/icons/arrow-left.svg';
 
 export const InterestsPage = () => {
+  const { isMobile } = useDeviceType({});
   return (
     <>
       <header className={c.header}>
@@ -29,9 +32,19 @@ export const InterestsPage = () => {
 
       <main className={c.main}>
         <div className={c.wrapper}>
-          <Button variant='beige' icon={Pencil}>
-            Uredi svoje interese
-          </Button>
+          {isMobile ? (
+            <div className={c.wrapperHeader}>
+              <img src={ArrowLeft} alt='return icon' />
+              <h2>INTERESI</h2>
+              <div className={c.editIcon}>
+                <img src={Pencil} alt='edit icon' />
+              </div>
+            </div>
+          ) : (
+            <Button variant='beige' icon={Pencil}>
+              Uredi svoje interese
+            </Button>
+          )}
 
           <section className={c.interests}>
             <InterestCardsSection />

@@ -56,14 +56,48 @@
   background-color: white;
   border-radius: 24px;
 
+  @media (max-width: $breakpoint-tablet) {
+    border-radius: 24px 24px 0 0;
+  }
+
   .wrapper{
     display: flex;
     flex-direction: column;
     width: 422px;
     padding-top: 21px;
 
+    @media (max-width: $breakpoint-tablet) {
+      width: 100%;
+      padding-inline: 24px;
+    }
+
+    .wrapperHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; 
+
+      h2{
+        @include heading-2;
+        font-weight: 500;
+      }
+      
+      .editIcon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background-color: $black-10;
+        border-radius: 4px;
+      }
+    }
+
     .interests{
       margin-top: 35px;
+
+      @media (max-width: $breakpoint-tablet) {
+        @include tag-14;
+      }
     }
   }
 }
