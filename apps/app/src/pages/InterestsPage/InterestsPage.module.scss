@@ -56,10 +56,14 @@
   background-color: white;
   border-radius: 24px;
 
-  .a{
+  .wrapper{
     display: flex;
     flex-direction: column;
     width: 422px;
     padding-top: 21px;
+
+    .interests{
+      margin-top: 35px;
+    }
   }
 }

@@ -4,6 +4,7 @@ import TempAvatar from '../../assets/images/temp-avatar.png';
 import { InterestProgressBar } from '../../components/InterestProgressBar';
 import Button from '../../components/Button';
 import Pencil from '@/assets/icons/pencil-icon.svg';
+import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
 
 export const InterestsPage = () => {
   return (
@@ -27,10 +28,14 @@ export const InterestsPage = () => {
       </header>
 
       <main className={c.main}>
-        <div className={c.a}>
+        <div className={c.wrapper}>
           <Button variant='beige' icon={Pencil}>
             Uredi svoje interese
           </Button>
+
+          <section className={c.interests}>
+            <InterestCardsSection />
+          </section>
         </div>
       </main>
     </>
