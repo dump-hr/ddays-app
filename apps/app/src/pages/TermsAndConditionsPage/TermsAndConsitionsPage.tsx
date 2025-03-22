@@ -3,7 +3,6 @@ import ArrowLeftWhite from '@/assets/icons/arrow-left-white.svg';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDeviceType } from '../../hooks/UseDeviceType';
-import clsx from 'clsx';
 
 export const TermsAndConditionsPage = () => {
   const { isMobile } = useDeviceType({});
