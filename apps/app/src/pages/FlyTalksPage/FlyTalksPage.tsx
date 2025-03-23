@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { FlyTalksWelcome } from '../../components/FlyTalksWelcome';
-import FlyTalksList from '../../components/FlyTalksList';
+import { FlyTalksWelcome } from '../FlyTalksWelcome';
+import FlyTalksList from '../FlyTalksList';
 
 const FlyTalksPage = () => {
   const [firstFlyTalksVisit, setFirstFlyTalksVisit] = useState(false);

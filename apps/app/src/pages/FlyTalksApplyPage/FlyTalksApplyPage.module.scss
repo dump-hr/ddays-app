@@ -1,8 +1,5 @@
 .page {
   background-color: $primary-black;
-  width: 100%;
-  height: 100vh;
-  overflow: scroll;
   display: flex;
   flex-direction: column;
   font-family: Inter;
@@ -13,6 +10,7 @@
     height: 200px;
 
     p {
+      font-family: NeueMachina;
       color: $primary-white;
       font-size: 24px;
       font-weight: 500;
@@ -28,7 +26,7 @@
     z-index: 1;
 
     .mainContent {
-      max-width: 500px;
+      max-width: 422px;
       margin: auto;
 
       .timeContainer {
@@ -108,6 +106,7 @@
         justify-content: space-between;
         align-items: center;
         height: 56px;
+        cursor: pointer;
 
         p {
           color: var(--Primary-Black, #171615);
@@ -122,6 +121,7 @@
         button {
           background: none;
           border: none;
+          cursor: pointer;
         }
       }
       .nextButton {

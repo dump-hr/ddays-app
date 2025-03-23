@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Tab from '../Tab';
-import TabGroup from '../TabGroup';
+import Tab from '../../components/Tab';
+import TabGroup from '../../components/TabGroup';
 import c from './FlyTalksList.module.scss';
-import FlyTalksGroup from '../FlyTalksGroup';
+import FlyTalksGroup from '../../components/FlyTalksGroup';
 import placeholderLogo from '../../assets/images/profico-logo.png'
 
 

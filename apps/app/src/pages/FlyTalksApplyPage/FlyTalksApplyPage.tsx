@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import c from './FlyTalksApplyPage.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
-import addSvg from '../../assets/icons/add.svg';
-import binSvg from '../../assets/icons/bin.svg';
 import Button from '../../components/Button';
 import placeholderLogo from '../../assets/images/profico-logo.png'
+import FileInput from '../../components/FileInput';
 
 const groupsMock = [
   {
@@ -66,23 +65,6 @@ const FlyTalksApplyPage = () => {
   const [about, setAbout] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [file, setFile] = useState<File | undefined>(undefined);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileUploadClick = () => {
-    if (fileInputRef.current && !file) {
-      fileInputRef.current.click();
-    } else {
-      setFile(undefined);
-    }
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = event.target.files?.[0];
-    if (uploadedFile && uploadedFile.size < 5 * 1024 * 1024) {
-      setFile(uploadedFile);
-    }
-  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -165,18 +147,7 @@ const FlyTalksApplyPage = () => {
           <p className={c.applyStepsParagraph}>
             <span>02</span> UPLOADAJ CV
           </p>
-          <div className={c.fileUploadContainer}>
-            <p>{file ? file.name : 'priloži životopis'} </p>
-            <button onClick={handleFileUploadClick}>
-              <img src={file ? binSvg : addSvg} alt='' />
-            </button>
-            <input
-              type='file'
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
-          </div>
+          <FileInput file={file} setFile={setFile} />
           <p className={c.applyStepsParagraph}>
             <span>03</span> PREDSTAVI SE...
           </p>

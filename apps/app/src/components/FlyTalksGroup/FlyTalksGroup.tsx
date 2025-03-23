@@ -3,7 +3,7 @@ import star from '../../assets/icons/star.svg';
 import warning from '../../assets/images/warning.png';
 import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
-
+import sadEmoji from '../../assets/images/sad-emoji.png';
 
 interface FlyTalksGroupProps {
   key: number;
@@ -52,7 +52,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
         {group.companies.map((company, i) => (
           <div key={i} className={c.company}>
             <p>0{i + 1}</p>
-            <img src={company} alt="" />
+            <img src={company} alt='' />
             {i !== 3 && <div className={c.divider}></div>}
           </div>
         ))}
@@ -69,6 +69,10 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
           Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
           talk.
         </p>
+      </div>
+      <div className={c.fullGroupMessage}>
+        <img src={sadEmoji} alt='' />
+        <p>Ovaj termin je popunjen te ga zbog toga ne možeš prijaviti</p>
       </div>
     </div>
   );

@@ -61,7 +61,7 @@
       position: relative;
       align-items: center;
 
-      img{
+      img {
         height: 14px;
       }
 
@@ -73,7 +73,7 @@
     }
 
     .applyButton {
-      margin-top: 32px;
+      margin-top: 16px;
       width: 100%;
       text-transform: uppercase;
     }
@@ -86,6 +86,28 @@
     background: var(--Primary-Beige, #f5ede1);
     border-radius: 0px 0px 8px 8px;
     padding: 12px 24px;
+
+    p {
+      color: var(--Primary-Black, #171615);
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: -0.14px;
+    }
+  }
+
+  .fullGroupMessage {
+    display: none;
+    border-radius: 0px 0px 16px 16px;
+    background: var(--Black-5, #ebebeb);
+    border-radius: 0px 0px 8px 8px;
+    padding: 12px 24px;
+
+    img{
+      height: 24px;
+    }
 
     p {
       color: var(--Primary-Black, #171615);
@@ -150,5 +172,11 @@
 
   .applyButton {
     display: none;
+  }
+
+  .fullGroupMessage {
+    display: flex;
+    align-items: start;
+    gap: 10px;
   }
 }
