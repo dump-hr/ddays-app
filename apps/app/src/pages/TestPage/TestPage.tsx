@@ -4,7 +4,7 @@ import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
-import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png';
+/* import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png'; */
 import Button from '@/components/Button';
 import styles from './TestPage.module.scss';
 const event = {
