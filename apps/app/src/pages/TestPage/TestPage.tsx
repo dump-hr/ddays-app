@@ -130,15 +130,41 @@ const TestPage = () => {
         isAddedToSchedule={isAddedToSchedule}
         clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
       />
-      <PopupLayout
+      {/*  <PopupLayout
         variant='dark'
-        headerTitle='BRISANJE RAČUNA'
+        headerTitleComponent={<>Obriši račun</>}
         closePopup={() => setIsPopupOpen(false)}
         isOpen={isPopupOpen}
         imgSrc={DuckGoodbyeImg}>
         <div className={styles.contentDiv}>
           <div
             style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <h2>Jesi li siguran da želiš obrisati račun?</h2>
+            <p>
+              Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
+              svi tvoji bodovi i postignuća bit će izgubljeni.
+            </p>
+          </div>
+          <Button variant='orange' style={{ width: '100%' }}>
+            Svejedno obriši
+          </Button>
+        </div>
+      </PopupLayout> */}
+      <PopupLayout
+        variant='light'
+        headerTitleComponent={<>Unesi kod</>}
+        closePopup={() => setIsPopupOpen(false)}
+        isOpen={isPopupOpen}
+        opacity={0.9}
+        desktopStyle='stretch'>
+        <div className={styles.contentDiv}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem',
+              height: '300px',
+            }}>
             <h2>Jesi li siguran da želiš obrisati račun?</h2>
             <p>
               Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
