@@ -3,7 +3,7 @@ import c from './FlyTalksApplyPage.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import Button from '../../components/Button';
-import placeholderLogo from '../../assets/images/profico-logo.png'
+import placeholderLogo from '../../assets/images/profico-logo.png';
 import FileInput from '../../components/FileInput';
 
 const groupsMock = [
@@ -13,7 +13,12 @@ const groupsMock = [
     end: '11:30',
     day: 1,
     participantsNumber: 10,
-    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
+    companies: [
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+    ],
     hasUserApplied: true,
   },
   {
@@ -22,7 +27,12 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 10,
-    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
+    companies: [
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+    ],
     hasUserApplied: false,
   },
   {
@@ -31,7 +41,12 @@ const groupsMock = [
     end: '12:30',
     day: 1,
     participantsNumber: 25,
-    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
+    companies: [
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+    ],
     hasUserApplied: false,
   },
   {
@@ -40,7 +55,12 @@ const groupsMock = [
     end: '11:30',
     day: 2,
     participantsNumber: 10,
-    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
+    companies: [
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+    ],
     hasUserApplied: false,
   },
   {
@@ -49,7 +69,12 @@ const groupsMock = [
     end: '12:30',
     day: 2,
     participantsNumber: 10,
-    companies: [placeholderLogo, placeholderLogo, placeholderLogo, placeholderLogo],
+    companies: [
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+      placeholderLogo,
+    ],
     hasUserApplied: false,
   },
 ];
@@ -59,12 +84,16 @@ const FlyTalksApplyPage = () => {
   const [group, setGroup] = useState<(typeof groupsMock)[0] | undefined>(
     undefined,
   );
-  const [linkedIn, setLinkedIn] = useState('');
-  const [github, setGithub] = useState('');
-  const [portfolio, setPortfolio] = useState('');
-  const [about, setAbout] = useState('');
-  const [wordCount, setWordCount] = useState(0);
+
+  const [userData, setUserData] = useState({
+    linkedIn: '',
+    github: '',
+    portfolio: '',
+    about: '',
+  });
   const [file, setFile] = useState<File | undefined>(undefined);
+  const [error, setError] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -78,31 +107,39 @@ const FlyTalksApplyPage = () => {
     }
   }, [location.search]);
 
-  const handleLinkedInChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkedIn(event.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value,
+    }));
+
+    if (name === 'about') {
+      const wordCount = value
+        .trim()
+        .split(/\s+/)
+        .filter((word) => word.length > 0).length;
+      setWordCount(wordCount);
+    }
   };
 
-  const handleGithubChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGithub(event.target.value);
+  const handleApply = () => {
+    console.log(userData);
+    if (
+      Object.values(userData).some((value) => value === '') ||
+      file === undefined
+    ) {
+      setError(true);
+    }
   };
 
-  const handlePortfolioChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setPortfolio(event.target.value);
+  const handleError = (field: keyof typeof userData) => {
+    if (error === true && userData[field] === '') {
+      return 'Obavezno polje';
+    } else {
+      return '';
+    }
   };
-
-  const handleAboutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setAbout(value);
-    const wordCount = value
-      .trim()
-      .split(/\s+/)
-      .filter((word) => word.length > 0).length;
-    setWordCount(wordCount);
-  };
-
-  console.log(file);
 
   return (
     <div className={c.page}>
@@ -127,38 +164,55 @@ const FlyTalksApplyPage = () => {
             <span>01</span> LINKOVI
           </p>
           <Input
-            value={linkedIn}
+            value={userData.linkedIn}
             type='text'
+            name='linkedIn'
             placeholder='LinkedIn'
-            onChange={handleLinkedInChange}
+            onChange={handleInputChange}
+            error={handleError('linkedIn')}
           />
           <Input
-            value={github}
+            value={userData.github}
             type='text'
+            name='github'
             placeholder='Github'
-            onChange={handleGithubChange}
+            onChange={handleInputChange}
+            error={handleError('github')}
           />
           <Input
-            value={portfolio}
+            value={userData.portfolio}
             type='text'
+            name='portfolio'
             placeholder='Portfolio'
-            onChange={handlePortfolioChange}
+            onChange={handleInputChange}
+            error={handleError('portfolio')}
           />
           <p className={c.applyStepsParagraph}>
             <span>02</span> UPLOADAJ CV
           </p>
-          <FileInput file={file} setFile={setFile} />
+          <FileInput
+            file={file}
+            setFile={setFile}
+            error={error && file === undefined ? 'Obvezno polje' : ''}
+          />
           <p className={c.applyStepsParagraph}>
             <span>03</span> PREDSTAVI SE...
           </p>
           <Input
-            value={about}
+            value={userData.about}
             type='text'
+            name='about'
             placeholder='Napiši nešto o sebi...'
-            onChange={handleAboutChange}
+            onChange={handleInputChange}
+            error={handleError('about')}
           />
           <p className={c.aboutLettersCounter}>{wordCount}/70</p>
-          <Button variant='orange' className={c.nextButton}>Dalje</Button>
+          <Button
+            variant='orange'
+            className={c.nextButton}
+            onClick={handleApply}>
+            Dalje
+          </Button>
         </div>
       </main>
     </div>

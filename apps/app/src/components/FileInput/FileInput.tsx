@@ -6,9 +6,10 @@ import binSvg from '../../assets/icons/bin.svg';
 interface FileInputProps {
   file: File | undefined;
   setFile: (file: File | undefined) => void;
+  error?: string;
 }
 
-const FileInput: React.FC<FileInputProps> = ({ file, setFile }) => {
+const FileInput: React.FC<FileInputProps> = ({ file, setFile, error }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = () => {
@@ -31,18 +32,21 @@ const FileInput: React.FC<FileInputProps> = ({ file, setFile }) => {
   };
 
   return (
-    <div className={c.fileUploadContainer} onClick={handleFileUpload}>
-      <p>{file ? file.name : 'priloži životopis'} </p>
-      <button onClick={handleFileDelete}>
-        <img src={file ? binSvg : addSvg} alt='' />
-      </button>
-      <input
-        type='file'
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-    </div>
+    <>
+      <div className={c.fileUploadContainer} onClick={handleFileUpload}>
+        <p>{file ? file.name : 'priloži životopis'} </p>
+        <button onClick={handleFileDelete}>
+          <img src={file ? binSvg : addSvg} alt='' />
+        </button>
+        <input
+          type='file'
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+      </div>
+      {error && <p className={c.errorMessage}>{error}</p>}
+    </>
   );
 };
 
