@@ -8,7 +8,6 @@ export enum ModalNames {
   AVATARS = 'avatars',
   LEADERBOARD = 'leaderboard',
   PRIZES = 'prizes',
-  SETTINGS = 'settings',
 
   DISPLAY_AREA = 'display-area',
 
@@ -91,9 +90,9 @@ export const routes: { [key: string]: Route } = {
     path: RouteNames.REGISTER,
     name: 'Register',
   },
-  [RouteNames.PASSWORD_RESET]: {
-    path: RouteNames.PASSWORD_RESET,
-    name: 'Password Reset',
+  [RouteNames.PROFILE_INTERESTS]: {
+    path: RouteNames.PROFILE_INTERESTS,
+    name: 'Interests',
   },
   [RouteNames.PROFILE]: {
     path: RouteNames.PROFILE,
