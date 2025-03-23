@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import c from './CheckboxFieldsWrapper.module.scss';
 import { Checkbox } from '../../Checkbox';
 import { UserDataFields } from '../../../types/enums';
+import { RouteNames } from '../../../router/routes';
 
 type UserData = {
   newsletterEnabled: boolean;
@@ -46,6 +47,9 @@ export const CheckboxFieldsWrapper = ({
         onChange={handleCheckboxChange}
         key={3}
       />
+      <a className={c.link} href={RouteNames.TERMS_AND_CONDITIONS}>
+        Pregledaj uvjete i odredbe.
+      </a>
 
       <p className={c.errorMessage}>{errorMessage}</p>
     </div>

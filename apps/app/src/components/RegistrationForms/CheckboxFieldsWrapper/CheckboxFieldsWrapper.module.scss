@@ -1,17 +1,23 @@
-.checkboxFieldsWrapper{
-    margin-block: 16px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
+.checkboxFieldsWrapper {
+  margin-block: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .errorMessage {
-    color: $error-light;
-    display: flex;
-    justify-content: center;
+  color: $error-light;
+  display: flex;
+  justify-content: center;
 
-    margin-block: 20px -20px;
+  margin-block: 20px -20px;
 
-    @include paragraph-14;
+  @include paragraph-14;
+}
+
+.link {
+  @include paragraph-14;
+  color: $primary-highlight;
+  text-decoration: underline;
+  cursor: pointer;
 }
