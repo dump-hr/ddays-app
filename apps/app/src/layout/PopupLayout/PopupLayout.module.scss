@@ -7,12 +7,24 @@ div.wrapper {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #171615b2;
-  z-index: 10;
+  background-color: #171615;
+  z-index: 5;
 
   @media screen and (max-width: $breakpoint-tablet) {
     align-items: flex-end;
   }
+}
+
+.closeIconDesktop {
+  cursor: pointer;
+  position: absolute;
+  top: 40px;
+  right: 48px;
+  z-index: 10;
+}
+
+div.alignItemsEnd {
+  align-items: flex-end;
 }
 
 div.closed {
@@ -41,15 +53,25 @@ div.end {
   justify-content: flex-end;
 }
 
-.container {
+.desktopNormal {
   @include roundedContainer();
+  height: 708px;
   max-width: 579px;
-  min-height: 94.5vh;
   gap: 2rem;
   padding: 40px 48px 48px;
   margin-top: 1.5rem;
   position: relative;
+}
 
+.desktopStretch {
+  @include roundedContainer();
+  gap: 2rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.container {
   @media screen and (max-width: $breakpoint-tablet) {
     justify-content: flex-start;
     max-width: none;
@@ -57,34 +79,34 @@ div.end {
     padding: 1.5rem;
     margin-top: 0;
   }
+}
 
-  .heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 
-    &Title {
-      @include heading-2;
-      font-weight: 500;
-    }
-
-    .closeIcon {
-      cursor: pointer;
-      position: absolute;
-      top: 40px;
-      right: 48px;
-      @media screen and (max-width: $breakpoint-tablet) {
-        position: static;
-        top: 0;
-        right: 0;
-      }
-    }
+  &Title {
+    @include heading-2;
+    font-weight: 500;
   }
 
-  .popupImageContainer {
-    width: 212px;
-    height: 212px;
-    margin-bottom: 1rem;
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      position: static;
+      top: 0;
+      right: 0;
+    }
   }
+}
+
+.popupImageContainer {
+  width: 212px;
+  height: 212px;
+  margin-bottom: 1rem;
 }

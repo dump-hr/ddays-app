@@ -1,45 +1,70 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import styles from './PopupLayout.module.scss';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 
 interface PopupLayoutProps {
-  headerTitle: string;
+  headerTitleComponent: ReactNode;
   variant: 'light' | 'dark';
   closePopup: () => void;
   isOpen: boolean;
   imgSrc?: string;
   justifyContent?: 'center' | 'start' | 'end';
+  desktopStyle?: 'normal' | 'stretch';
+  opacity?: number;
 }
 
 const PopupLayout = ({
   children,
-  headerTitle,
+  headerTitleComponent,
   variant,
   closePopup,
   isOpen,
   imgSrc = '',
   justifyContent = 'start',
+  desktopStyle = 'normal',
+  opacity = 0.5,
 }: PropsWithChildren<PopupLayoutProps>) => {
   return (
-    <div className={clsx(styles.wrapper, { [styles.closed]: !isOpen })}>
+    <div
+      style={{ backgroundColor: `rgba(23, 22, 21, ${opacity})` }}
+      className={clsx(
+        styles.wrapper,
+        { [styles.closed]: !isOpen },
+        { [styles.alignItemsEnd]: desktopStyle === 'stretch' },
+      )}>
+      {desktopStyle === 'stretch' && (
+        <img
+          src={CloseIcon}
+          onClick={closePopup}
+          className={styles.closeIconDesktop}
+          alt='close'
+        />
+      )}
       <div
         className={clsx(
           styles.container,
+          { [styles.desktopStretch]: desktopStyle === 'stretch' },
+          { [styles.desktopNormal]: desktopStyle === 'normal' },
           { [styles.dark]: variant === 'dark' },
           { [styles.light]: variant === 'light' },
           { [styles.center]: justifyContent === 'center' },
           { [styles.start]: justifyContent === 'start' },
           { [styles.end]: justifyContent === 'end' },
         )}>
-        <div className={styles.heading}>
-          <h2 className={styles.headingTitle}>{headerTitle}</h2>
-          <img
-            src={CloseIcon}
-            onClick={closePopup}
-            className={styles.closeIcon}
-            alt='close'
-          />
+        <div
+          className={clsx(styles.heading, {
+            [styles.center]: desktopStyle === 'stretch',
+          })}>
+          <h2 className={styles.headingTitle}>{headerTitleComponent}</h2>
+          {desktopStyle === 'normal' && (
+            <img
+              src={CloseIcon}
+              onClick={closePopup}
+              className={styles.closeIcon}
+              alt='close'
+            />
+          )}
         </div>
         {imgSrc && (
           <div className={styles.popupImageContainer}>
