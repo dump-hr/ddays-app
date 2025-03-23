@@ -193,7 +193,8 @@ const FlyTalksApplyPage = () => {
           <FileInput
             file={file}
             setFile={setFile}
-            error={error && file === undefined ? 'Obvezno polje' : ''}
+            error={error && file === undefined ? 'Obavezno polje' : ''}
+            title='priloži životopis'
           />
           <p className={c.applyStepsParagraph}>
             <span>03</span> PREDSTAVI SE...

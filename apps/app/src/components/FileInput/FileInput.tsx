@@ -7,9 +7,10 @@ interface FileInputProps {
   file: File | undefined;
   setFile: (file: File | undefined) => void;
   error?: string;
+  title: string;
 }
 
-const FileInput: React.FC<FileInputProps> = ({ file, setFile, error }) => {
+const FileInput: React.FC<FileInputProps> = ({ file, setFile, error, title }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = () => {
@@ -34,7 +35,7 @@ const FileInput: React.FC<FileInputProps> = ({ file, setFile, error }) => {
   return (
     <>
       <div className={c.fileUploadContainer} onClick={handleFileUpload}>
-        <p>{file ? file.name : 'priloži životopis'} </p>
+        <p>{file ? file.name : title} </p>
         <button onClick={handleFileDelete}>
           <img src={file ? binSvg : addSvg} alt='' />
         </button>
