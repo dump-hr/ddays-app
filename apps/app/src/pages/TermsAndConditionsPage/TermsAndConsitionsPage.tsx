@@ -3,6 +3,7 @@ import ArrowLeftWhite from '@/assets/icons/arrow-left-white.svg';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDeviceType } from '../../hooks/UseDeviceType';
+import Button from '../../components/Button';
 
 export const TermsAndConditionsPage = () => {
   const { isMobile } = useDeviceType({});
@@ -204,6 +205,12 @@ export const TermsAndConditionsPage = () => {
             ili na drugi primjeren način.
           </p>
         </section>
+        <Button
+          variant='orange'
+          className={c.button}
+          onClick={() => navigate(-1)}>
+          Povratak
+        </Button>
       </div>
     </div>
   );
