@@ -124,7 +124,6 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = () => {
-    console.log(userData);
     if (
       Object.values(userData).some((value) => value === '') ||
       file === undefined
