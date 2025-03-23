@@ -6,7 +6,6 @@ import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
 
 interface FlyTalksGroupProps {
-  key: number;
   group: {
     id: number;
     start: string;
@@ -17,7 +16,7 @@ interface FlyTalksGroupProps {
   };
 }
 
-const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
+const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
   const navigate = useNavigate();
 
   const handleApplyClick = () => {
@@ -34,8 +33,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ key, group }) => {
           : group.participantsNumber < 25
             ? c.group
             : `${c.group} ${c.groupFull}`
-      }
-      key={key}>
+      }>
       <div className={c.groupHeader}>
         <div></div>
         <img className={c.starIcon} src={star} alt='' />
