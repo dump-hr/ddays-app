@@ -1,0 +1,54 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: $primary-black;
+  padding-top: 166px;
+  min-height: 100vh;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    padding-top: 4rem;
+  }
+}
+
+.settings {
+  &Wrapper {
+    @include roundedContainer;
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      padding: 1.5rem 1.5rem 3rem;
+    }
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 422px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      max-width: none;
+    }
+  }
+
+  &ButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1rem;
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-height: 62vh;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      min-height: 76vh;
+    }
+  }
+}
