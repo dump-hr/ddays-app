@@ -1,7 +1,8 @@
 import c from '../PasswordResetPage.module.scss';
-import closeIcon from '../../../assets/icons/close-icon.svg';
 import Button from '../../../components/Button';
-import duckImage from '../../../assets/images/duck-image-desktop.png';
+import { Header } from './Header';
+import closeIcon from '../../../assets/icons/close-icon.svg';
+import { Link } from 'react-router-dom';
 import { RouteNames } from '../../../router/routes';
 
 interface EmailSentStepProps {
@@ -12,21 +13,13 @@ interface EmailSentStepProps {
 export const EmailSentStep = ({ email, onNext }: EmailSentStepProps) => {
   return (
     <>
-      <div className={c.pageName}>
-        <span className={c.pageTitle}>Resetiraj lozinku</span>
-        <a href={RouteNames.LOGIN}>
-          <img src={closeIcon} alt='Close login' className={c.closeIcon} />
-        </a>
-      </div>
-      <div className={c.duckContainer}>
-        <img src={duckImage} alt='Slavica' className={c.duckImage} />
-      </div>
+      <Header showDuck={true} />
       <div className={c.container}>
         <div className={c.titleContainer}>
           <h1 className={c.title}>Poslan mail!</h1>
-          <a href={RouteNames.LOGIN}>
+          <Link to={RouteNames.LOGIN}>
             <img src={closeIcon} alt='Close login' className={c.closeIcon} />
-          </a>
+          </Link>
         </div>
         <div className={c.textContainer}>
           <p className={c.text}>

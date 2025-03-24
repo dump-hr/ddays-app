@@ -1,7 +1,9 @@
 import c from '../PasswordResetPage.module.scss';
-import closeIcon from '../../../assets/icons/close-icon.svg';
 import Button from '../../../components/Button';
 import { Input } from '../../../components/Input';
+import { Header } from './Header';
+import closeIcon from '../../../assets/icons/close-icon.svg';
+import { Link } from 'react-router-dom';
 import { RouteNames } from '../../../router/routes';
 
 interface NewPasswordStepProps {
@@ -25,18 +27,13 @@ export const NewPasswordStep = ({
 }: NewPasswordStepProps) => {
   return (
     <>
-      <div className={c.pageName}>
-        <span className={c.pageTitle}>Resetiraj lozinku</span>
-        <a href={RouteNames.LOGIN}>
-          <img src={closeIcon} alt='Close login' className={c.closeIcon} />
-        </a>
-      </div>
+      <Header />
       <div className={c.container}>
         <div className={c.titleContainer}>
           <h1 className={c.title}>Upiši novu lozinku</h1>
-          <a href={RouteNames.LOGIN}>
+          <Link to={RouteNames.LOGIN}>
             <img src={closeIcon} alt='Close login' className={c.closeIcon} />
-          </a>
+          </Link>
         </div>
         <div className={c.inputContainer}>
           <Input
