@@ -13,3 +13,8 @@ export enum UserDataFields {
   CompaniesNewsEnabled = 'companiesNewsEnabled',
   TermsAndConditionsEnabled = 'termsAndConditionsEnabled',
 }
+
+export enum SettingsEdits {
+  INFO,
+  PASSWORD,
+}

@@ -1,17 +1,19 @@
-import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import c from './ProfilePage.module.scss';
-import TempAvatar from '../../assets/images/temp-avatar.png';
+import TempAvatar from '@/assets/images/temp-avatar.png';
+import Like from '@/assets/icons/like.svg';
+import Award from '@/assets/icons/award.svg';
+import Bag from '@/assets/icons/bag.svg';
+import Trophy from '@/assets/icons/trophy.svg';
+import Gift from '@/assets/icons/gift.svg';
+import UserEdit from '@/assets/icons/user-edit.svg';
+
+import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import ProfileStat from '../../components/ProfileStat';
-import Like from '../../assets/icons/like.svg';
-import Award from '../../assets/icons/award.svg';
-import Bag from '../../assets/icons/bag.svg';
-import Trophy from '../../assets/icons/trophy.svg';
-import Gift from '../../assets/icons/gift.svg';
-import UserEdit from '../../assets/icons/user-edit.svg';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
 import RecommendationsButton from '../../components/RecommendationsButton';
 import FeedbackButton from '../../components/FeedbackButton';
 import LogoutButton from '../../components/LogoutButton';
+import { RouteNames } from '../../router/routes';
 
 const navigationItems = [
   {
@@ -42,13 +44,13 @@ const navigationItems = [
   {
     icon: UserEdit,
     label: 'Postavke profila',
-    href: '',
+    href: RouteNames.PROFILE_SETTINGS,
   },
 ];
 
 export const ProfilePage = () => {
   return (
-    <>
+    <div className={c.page}>
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
@@ -81,6 +83,6 @@ export const ProfilePage = () => {
           <LogoutButton />
         </div>
       </main>
-    </>
+    </div>
   );
 };
