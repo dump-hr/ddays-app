@@ -1,7 +1,8 @@
+import clsx from 'clsx';
 import { PropsWithChildren, ReactNode } from 'react';
 import styles from './PopupLayout.module.scss';
 import CloseIcon from '@/assets/icons/close-icon.svg';
-import clsx from 'clsx';
+import { useDeviceType } from '@/hooks/UseDeviceType';
 
 interface PopupLayoutProps {
   headerTitleComponent: ReactNode;
@@ -25,6 +26,8 @@ const PopupLayout = ({
   desktopStyle = 'normal',
   opacity = 0.5,
 }: PropsWithChildren<PopupLayoutProps>) => {
+  const { isMobile } = useDeviceType({ breakpoint: 768 });
+
   return (
     <div
       style={{ backgroundColor: `rgba(23, 22, 21, ${opacity})` }}
@@ -54,10 +57,10 @@ const PopupLayout = ({
         )}>
         <div
           className={clsx(styles.heading, {
-            [styles.center]: desktopStyle === 'stretch',
+            [styles.center]: desktopStyle === 'stretch' && !isMobile,
           })}>
           <h2 className={styles.headingTitle}>{headerTitleComponent}</h2>
-          {desktopStyle === 'normal' && (
+          {(isMobile || desktopStyle === 'normal') && (
             <img
               src={CloseIcon}
               onClick={closePopup}

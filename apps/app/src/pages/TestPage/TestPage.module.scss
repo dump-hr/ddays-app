@@ -15,7 +15,7 @@
 
   @media screen and (max-width: $breakpoint-tablet) {
     text-align: left;
-    gap: 90px;
+    gap: 50px;
   }
   p {
     @include paragraph-16;

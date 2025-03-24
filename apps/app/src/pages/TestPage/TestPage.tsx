@@ -130,7 +130,7 @@ const TestPage = () => {
         isAddedToSchedule={isAddedToSchedule}
         clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
       />
-      {/*  <PopupLayout
+      {/* <PopupLayout
         variant='dark'
         headerTitleComponent={<>Obriši račun</>}
         closePopup={() => setIsPopupOpen(false)}
@@ -156,14 +156,14 @@ const TestPage = () => {
         closePopup={() => setIsPopupOpen(false)}
         isOpen={isPopupOpen}
         opacity={0.9}
-        desktopStyle='stretch'>
+        desktopStyle='normal'>
         <div className={styles.contentDiv}>
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
               gap: '0.5rem',
-              height: '300px',
+              height: '200px',
             }}>
             <h2>Jesi li siguran da želiš obrisati račun?</h2>
             <p>
