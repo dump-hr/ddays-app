@@ -7,6 +7,8 @@ import { EmailSentStep } from './components/EmailSentStep';
 import { ValidationRequiredStep } from './components/ValidationRequiredStep';
 import { NewPasswordStep } from './components/NewPasswordStep';
 import { SuccessStep } from './components/SuccessStep';
+import { validations, validateField } from '../../helpers/validateInput';
+import { UserDataFields } from '@/types/enums';
 
 export const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
@@ -28,45 +30,29 @@ export const PasswordResetPage = () => {
     }
   };
 
-  const validateField = (
-    value: string,
-    minLength: number,
-    errorMessage: string,
-  ) => {
-    if (!value) return 'Hej, trebaš ispuniti sva polja.';
-    if (value.length < minLength) return errorMessage;
-    return '';
-  };
-
-  const validatePasswordMatch = (password: string, confirmPassword: string) => {
-    if (password !== confirmPassword) return 'Lozinke se moraju podudarati.';
-    return '';
-  };
-
   const validatePasswords = () => {
-    const passwordError = validateField(
-      newPassword,
-      10,
-      'Lozinka mora imati najmanje 10 znakova.',
-    );
+    const passwordError = !validations.isValidPassword(newPassword)
+      ? 'Lozinka mora imati najmanje 8 znakova i broj.'
+      : '';
     setPasswordError(passwordError);
 
-    const confirmPasswordError =
-      validateField(confirmPassword, 1, 'Hej, trebaš ispuniti sva polja.') ||
-      validatePasswordMatch(newPassword, confirmPassword);
-    setConfirmPasswordError(confirmPasswordError);
+    const confirmPasswordError = validateField(
+      UserDataFields.RepeatedPassword,
+      confirmPassword,
+      { newPassword },
+    );
+    setConfirmPasswordError(confirmPasswordError || '');
 
     return !passwordError && !confirmPasswordError;
   };
 
   const validateInputs = () => {
     let isValid = true;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!email) {
+    if (!validations.isNotEmpty(email)) {
       setEmailError('Hej, trebaš ispuniti sva polja.');
       isValid = false;
-    } else if (!emailRegex.test(email)) {
+    } else if (!validations.isValidEmail(email)) {
       setEmailError('Hej, unesi ispravnu email adresu.');
       isValid = false;
     } else {
