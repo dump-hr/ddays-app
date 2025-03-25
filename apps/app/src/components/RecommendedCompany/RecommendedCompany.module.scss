@@ -67,3 +67,9 @@
     }
   }
 }
+
+.separator {
+  @include dottedBreak($black-10);
+  width: calc(100% - 2 * 24px);
+  margin: 0 auto;
+}
