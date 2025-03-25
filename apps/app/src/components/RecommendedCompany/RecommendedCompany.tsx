@@ -1,5 +1,6 @@
 import { CompanyDto } from '@ddays-app/types';
 import c from './RecommendedCompany.module.scss';
+import clsx from 'clsx';
 
 type RecommendedCompanyProps = {
   number: number;
@@ -11,7 +12,11 @@ const RecommendedCompany: React.FC<RecommendedCompanyProps> = ({
   company,
 }) => {
   return (
-    <div className={c.recommendedCompany}>
+    <div
+      className={clsx({
+        [c.recommendedCompany]: true,
+        [c.first]: number === 1,
+      })}>
       <div className={c.numberWrapper}>
         <p>0{number}</p>
       </div>

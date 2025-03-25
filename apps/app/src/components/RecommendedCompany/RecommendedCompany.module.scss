@@ -5,6 +5,23 @@
   padding: 24px;
   gap: 16px;
 
+  &.first {
+    border: 1px solid $black-10;
+    background: $primary-beige;
+
+    .content {
+      .interestsWrapper {
+        .interest {
+          @include label-small;
+          color: $primary-white;
+          border-radius: 4px;
+          border: none;
+          background: $primary-muted-orange;
+        }
+      }
+    }
+  }
+
   .numberWrapper {
     height: 24px;
     width: 24px;
