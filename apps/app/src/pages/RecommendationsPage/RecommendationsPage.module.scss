@@ -1,0 +1,39 @@
+@mixin layoutSpacing {
+  margin: 0 24px;
+}
+
+.page {
+  background-color: $primary-black;
+  box-sizing: border-box;
+  padding-top: 64px;
+
+  .content {
+    background-color: $primary-background;
+    border-radius: 16px 16px 0px 0px;
+    padding-top: 24px;
+
+    .header {
+      @include layoutSpacing();
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .arrow {
+        position: absolute;
+        left: 0;
+      }
+
+      .title {
+        color: $primary-black;
+        font-family: NeueMachina;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ const RecommendationsPage = () => {
     <div className={c.page}>
       <main className={c.content}>
         <header className={c.header}>
-          <img src={ArrowLeft} alt='' />
+          <img className={c.arrow} src={ArrowLeft} />
           <h3 className={c.title}>Preporuke</h3>
         </header>
       </main>
