@@ -9,6 +9,7 @@ import { useDeviceType } from '../../hooks/UseDeviceType';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import CloseIcon from './../../assets/icons/remove-icon-black.svg';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const InterestsPage = () => {
   const [editIsOpen, setEditIsOpen] = useState(false);
@@ -26,6 +27,7 @@ export const InterestsPage = () => {
     userSelectedInterests,
   );
   const { isMobile } = useDeviceType({});
+  const navigate = useNavigate();
 
   const handleEditYourInterestsClick = () => {
     setTempSelectedInterests(userSelectedInterests);
@@ -64,10 +66,18 @@ export const InterestsPage = () => {
         <div className={c.wrapper}>
           {isMobile ? (
             <div className={c.wrapperHeader}>
-              <img src={ArrowLeft} alt='return icon' />
+              <img
+                src={ArrowLeft}
+                alt='return icon'
+                onClick={() => navigate('/app/profile')}
+              />
               <h2>INTERESI</h2>
               <div className={c.editIcon}>
-                <img src={Pencil} alt='edit icon' />
+                <img
+                  src={Pencil}
+                  alt='edit icon'
+                  onClick={handleEditYourInterestsClick}
+                />
               </div>
             </div>
           ) : (
