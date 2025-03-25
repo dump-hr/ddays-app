@@ -1,6 +1,4 @@
 import c from './AchievementCard.module.scss';
-//import RedStar from '../../assets/icons/rating-star-1.svg';
-//import Star from '../../assets/icons/rating-star-1.svg';
 import sprite from '../../assets/sprite.svg';
 import clsx from 'clsx';
 import { Achievement } from '../../pages/ProfileAchievementsPage/achievements';

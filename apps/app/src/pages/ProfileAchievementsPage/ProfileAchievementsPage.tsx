@@ -49,7 +49,7 @@ export const ProfileAchievementsPage = () => {
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
-            <span>Profil</span> <br />
+            <span>Postignuća</span> <br />
             Marija Gudelj
           </p>
 

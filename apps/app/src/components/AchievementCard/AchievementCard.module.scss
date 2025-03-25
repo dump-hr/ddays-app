@@ -1,10 +1,10 @@
 .achievementCard {
   background-color: $black-5;
   box-sizing: border-box;
-  padding: 16px 8px;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  padding: 16px 8px;
+  border-radius: 8px;
   height: 230px;
 
   align-items: center;
@@ -30,12 +30,9 @@
   }
 
   .name {
+    @include label-large;
     color: $black-70;
-    font-family: Inter;
     text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 18px;
 
     @media screen and (min-width: $breakpoint-tablet) {
       font-size: 20px;
@@ -45,12 +42,9 @@
   }
 
   .description {
+    @include paragraph-16;
     color: $black-70;
     text-align: center;
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
 
     @media screen and (min-width: $breakpoint-tablet) {
       font-size: 16px;
@@ -80,11 +74,8 @@
 
       .stepCount,
       .percentage {
+        @include tag-14;
         color: $primary-black;
-        font-family: NeueMontrealMono;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 16px;
       }
     }
 
@@ -113,12 +104,9 @@
     position: absolute;
     bottom: 24px;
 
+    @include label-large;
     color: $primary-white;
     text-align: center;
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 18px;
 
     @media screen and (min-width: $breakpoint-tablet) {
       font-size: 20px;

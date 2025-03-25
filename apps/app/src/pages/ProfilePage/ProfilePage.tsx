@@ -19,27 +19,27 @@ const navigationItems = [
   {
     icon: Like,
     label: 'Moji interesi',
-    href: '',
+    href: RouteNames.PROFILE_INTERESTS,
   },
   {
     icon: Award,
     label: 'Moja postignuća',
-    href: '',
+    href: RouteNames.PROFILE_ACHIEVEMENTS,
   },
   {
     icon: Bag,
     label: 'Avatari',
-    href: '',
+    href: RouteNames.PROFILE_AVATARS,
   },
   {
     icon: Trophy,
     label: 'Leaderboard',
-    href: '',
+    href: RouteNames.PROFILE_LEADERBOARD,
   },
   {
     icon: Gift,
     label: 'Nagrade',
-    href: '',
+    href: RouteNames.PROFILE_REWARDS,
   },
   {
     icon: UserEdit,
