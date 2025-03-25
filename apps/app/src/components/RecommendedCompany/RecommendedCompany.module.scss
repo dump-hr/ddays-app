@@ -22,10 +22,25 @@
     .companyName {
       @include heading-3;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
     .interestsWrapper {
       display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      width: 100%;
+
+      .interest {
+        @include paragraph-14;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 16px;
+        border-radius: 4px;
+        border: 1px solid $black-10;
+        background: $black-5;
+      }
     }
   }
 }
