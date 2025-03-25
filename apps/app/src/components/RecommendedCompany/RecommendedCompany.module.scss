@@ -1,0 +1,31 @@
+.recommendedCompany {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 24px;
+  gap: 16px;
+
+  .numberWrapper {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      @include tag-16;
+      color: $black-50;
+    }
+  }
+
+  .content {
+    .companyName {
+      @include heading-3;
+      text-transform: uppercase;
+    }
+
+    .interestsWrapper {
+      display: flex;
+    }
+  }
+}
