@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 type DropdownProps = {
+  name?: string;
   label: string;
   placeholder: string;
   options: DropdownOption[];
@@ -19,6 +20,7 @@ type DropdownProps = {
 };
 
 const Dropdown = ({
+  name,
   label,
   placeholder,
   options,
@@ -43,13 +45,14 @@ const Dropdown = ({
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const widthStyle = { width: width };
-  const showError = (hasError || !selectedOption?.value) && !isOpen;
+  const showError = hasError && !isOpen;
 
   return (
     <div className={c.wrapper} style={widthStyle} ref={dropdownRef}>
       {label && <label className={c.label}>{label}</label>}
 
       <button
+        name={name}
         className={clsx({
           [c.mainButton]: true,
           [c.isOpen]: isOpen,
