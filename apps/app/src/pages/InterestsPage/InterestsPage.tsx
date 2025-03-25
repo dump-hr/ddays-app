@@ -1,7 +1,4 @@
-import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import c from './InterestsPage.module.scss';
-import TempAvatar from '../../assets/images/temp-avatar.png';
-import { InterestProgressBar } from '../../components/InterestProgressBar';
 import Button from '../../components/Button';
 import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
@@ -10,6 +7,7 @@ import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import CloseIcon from './../../assets/icons/remove-icon-black.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ProfileHeader } from '../../components/ProfileHeader';
 
 export const InterestsPage = () => {
   const [editIsOpen, setEditIsOpen] = useState(false);
@@ -44,24 +42,7 @@ export const InterestsPage = () => {
   };
   return (
     <>
-      <header className={c.header}>
-        <div className={c.flexWrapper}>
-          <p className={c.title}>
-            <span>Interesi</span> <br />
-            Marija Gudelj
-          </p>
-
-          <AvatarPointsCircle points={900} avatar={TempAvatar} />
-        </div>
-
-        <div className={c.statsWrapper}>
-          <InterestProgressBar label='Programiranje' percentage={50} />
-          <InterestProgressBar label='Marketing' percentage={72} />
-          <InterestProgressBar label='Product' percentage={22} />
-          <InterestProgressBar label='Product' percentage={22} />
-        </div>
-      </header>
-
+      <ProfileHeader pageHeader='Interesi' userNameAndSurname='Marija Gudelj' />
       <main className={c.main}>
         <div className={c.wrapper}>
           {isMobile ? (
