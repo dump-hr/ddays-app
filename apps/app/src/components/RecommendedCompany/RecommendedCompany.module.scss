@@ -23,15 +23,21 @@
   }
 
   .numberWrapper {
-    height: 24px;
-    width: 24px;
+    height: 40px;
+    width: 40px;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
 
     p {
       @include tag-16;
       color: $black-50;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 

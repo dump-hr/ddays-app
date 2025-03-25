@@ -41,13 +41,15 @@
 
     .title {
       @include heading-2;
-      font-weight: 500;
       @include layoutSpacing();
+      font-weight: 500;
+      margin-bottom: 16px;
     }
 
     .paragraph {
       @include paragraph-16;
       @include layoutSpacing();
+      margin-bottom: 32px;
     }
   }
 }
