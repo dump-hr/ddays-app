@@ -1,5 +1,7 @@
 import c from './RecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
+import { recommendations } from './recommendations';
+import RecommendedCompany from '../../components/RecommendedCompany';
 
 const RecommendationsPage = () => {
   return (
@@ -14,6 +16,11 @@ const RecommendationsPage = () => {
           Na temelju tvojih interesa dajemo ti listu kurceva koja ti najviše
           odgovaraju.
         </p>
+        <div className={c.recommendationsWrapper}>
+          {recommendations.map((company, i) => (
+            <RecommendedCompany key={i} number={i + 1} company={company} />
+          ))}
+        </div>
       </main>
     </div>
   );

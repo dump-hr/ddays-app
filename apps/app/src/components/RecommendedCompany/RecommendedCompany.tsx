@@ -1,5 +1,5 @@
 import { CompanyDto } from '@ddays-app/types';
-import c from './RecommendedCompany.module.scss';
+import c from './RecommendedCompany.module.css';
 
 type RecommendedCompanyProps = {
   number: number;
