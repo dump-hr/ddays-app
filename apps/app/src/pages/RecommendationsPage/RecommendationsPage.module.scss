@@ -19,13 +19,16 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      margin-bottom: 40px;
 
       .arrow {
         position: absolute;
         left: 0;
+        width: 24px;
+        height: 24px;
       }
 
-      .title {
+      .pageTitle {
         color: $primary-black;
         font-family: NeueMachina;
         font-size: 24px;
@@ -34,6 +37,17 @@
         line-height: 28px;
         text-transform: uppercase;
       }
+    }
+
+    .title {
+      @include heading-2;
+      font-weight: 500;
+      @include layoutSpacing();
+    }
+
+    .paragraph {
+      @include paragraph-16;
+      @include layoutSpacing();
     }
   }
 }
