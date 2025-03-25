@@ -12,13 +12,32 @@ import { useState } from 'react';
 
 export const InterestsPage = () => {
   const [editIsOpen, setEditIsOpen] = useState(false);
+  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>([
+    'Web development',
+    'Java',
+    'C#',
+    'Kampanje',
+    'UX dizajn',
+    'UI',
+    'Figma',
+    'Product Owner',
+  ]);
+  const [tempSelectedInterests, setTempSelectedInterests] = useState(
+    userSelectedInterests,
+  );
   const { isMobile } = useDeviceType({});
 
-  const handleEditYourInterestsClick = (isOpen: boolean) => {
-    setEditIsOpen(!isOpen);
+  const handleEditYourInterestsClick = () => {
+    setTempSelectedInterests(userSelectedInterests);
+    setEditIsOpen(true);
   };
 
   const handleCloseIconClick = () => {
+    setEditIsOpen(false);
+  };
+
+  const handleSaveInterests = () => {
+    setUserSelectedInterests(tempSelectedInterests);
     setEditIsOpen(false);
   };
   return (
@@ -55,13 +74,16 @@ export const InterestsPage = () => {
             <Button
               variant='beige'
               icon={Pencil}
-              onClick={() => handleEditYourInterestsClick(editIsOpen)}>
+              onClick={handleEditYourInterestsClick}>
               Uredi svoje interese
             </Button>
           )}
 
           <section className={c.interests}>
-            <InterestCardsSection />
+            <InterestCardsSection
+              userSelectedInterests={userSelectedInterests}
+              setUserSelectedInterests={setUserSelectedInterests}
+            />
           </section>
         </div>
       </main>
@@ -82,10 +104,16 @@ export const InterestsPage = () => {
             predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
           </p>
 
-          <InterestCardsSection forUpdate />
+          <InterestCardsSection
+            forUpdate
+            userSelectedInterests={tempSelectedInterests}
+            setUserSelectedInterests={setTempSelectedInterests}
+          />
 
           <div className={c.saveBtnWrapper}>
-            <Button variant='black'>Spremi</Button>
+            <Button variant='black' onClick={handleSaveInterests}>
+              Spremi
+            </Button>
           </div>
         </div>
       )}

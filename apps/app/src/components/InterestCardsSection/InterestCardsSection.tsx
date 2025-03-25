@@ -1,28 +1,20 @@
 import RemoveIcon from '@/assets/icons/remove-icon.svg';
-import { useState } from 'react';
 import { interestsSections } from '../RegistrationForms/FourthStepRegistrationForm/temporaryMockData';
 import c from './InterestCardsSection.module.scss';
 
 type InterestCardsSectionProps = {
   forUpdate?: boolean;
+  userSelectedInterests: string[];
+  setUserSelectedInterests: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const InterestCardsSection = ({
   forUpdate = false,
+  userSelectedInterests,
+  setUserSelectedInterests,
 }: InterestCardsSectionProps) => {
-  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>([
-    'Web development',
-    'Java',
-    'C#',
-    'Kampanje',
-    'UX dizajn',
-    'UI',
-    'Figma',
-    'Product Owner',
-  ]);
-
   const handleInterestClick = (interestName: string) => {
-    if (!forUpdate) return;
+    if (!forUpdate || !setUserSelectedInterests) return;
 
     setUserSelectedInterests((prev) =>
       prev.includes(interestName)
