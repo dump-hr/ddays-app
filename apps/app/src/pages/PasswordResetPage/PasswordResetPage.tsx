@@ -1,12 +1,12 @@
 import c from './PasswordResetPage.module.scss';
 import { useState } from 'react';
 import { RouteNames } from '../../router/routes';
-import { WelcomeStep } from './components/WelcomeStep';
-import { EmailInputStep } from './components/EmailInputStep';
-import { EmailSentStep } from './components/EmailSentStep';
-import { ValidationRequiredStep } from './components/ValidationRequiredStep';
-import { NewPasswordStep } from './components/NewPasswordStep';
-import { SuccessStep } from './components/SuccessStep';
+import { WelcomeStep } from './steps/WelcomeStep';
+import { EmailInputStep } from './steps/EmailInputStep';
+import { EmailSentStep } from './steps/EmailSentStep';
+import { ValidationRequiredStep } from './steps/ValidationRequiredStep';
+import { NewPasswordStep } from './steps/NewPasswordStep';
+import { SuccessStep } from './steps/SuccessStep';
 import { validations, validateField } from '../../helpers/validateInput';
 import { UserDataFields } from '@/types/enums';
 
