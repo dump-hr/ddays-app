@@ -1,5 +1,6 @@
 @mixin layoutSpacing {
-  margin: 0 24px;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 
 .page {
@@ -11,6 +12,14 @@
     background-color: $primary-background;
     border-radius: 16px 16px 0px 0px;
     padding-top: 24px;
+
+    > * {
+      @media screen and (min-width: $breakpoint-tablet) {
+        max-width: 422px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+    }
 
     .header {
       @include layoutSpacing();
