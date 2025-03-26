@@ -2,6 +2,7 @@ import c from './RecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
+import EventsSection from './EventsSection';
 
 const RecommendationsPage = () => {
   return (
@@ -18,9 +19,20 @@ const RecommendationsPage = () => {
         </p>
         <div className={c.recommendationsWrapper}>
           {recommendations.map((company, i) => (
-            <RecommendedCompany key={i} number={i + 1} company={company} />
+            <RecommendedCompany
+              key={i}
+              number={i + 1}
+              company={company}
+              hasSeparator={i !== 4}
+            />
           ))}
         </div>
+        <h3 className={c.title}>Predavanja</h3>
+        <p className={c.paragraph}>
+          Na temelju tvojih interesa dajemo ti listu predavanja koja ti najviše
+          odgovaraju.
+        </p>
+        <EventsSection />
       </main>
     </div>
   );
