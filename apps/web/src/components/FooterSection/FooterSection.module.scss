@@ -64,9 +64,9 @@
     z-index: 1;
 
     @media screen and (max-width: 684px) {
-      font-size: 64px;
-      line-height: 62px;
-      letter-spacing: -3px;
+      font-size: 17.02vw;
+      line-height: 16.49vw;
+      letter-spacing: -0.8723vw;
     }
   }
 
@@ -92,6 +92,11 @@
     transition: 300ms;
     padding: 14px 16px;
     margin-top: 32px;
+
+    @media screen and (max-width: 400px) {
+      font-size: 4.5vw;
+      letter-spacing: 0.27vw;
+    }
   }
 
   .grainyButton {
@@ -197,6 +202,10 @@
 
 .bottomWrapper {
   padding: 0px 32px;
+
+  @media screen and (max-width: 450px) {
+    padding: 0px;
+  }
 }
 
 .questionsWrapper {
@@ -213,7 +222,6 @@
 
 .socialsWrapper {
   display: flex;
-  height: fit-content;
   position: absolute;
   bottom: -38px;
 
@@ -230,15 +238,8 @@
     }
 
     @media screen and (max-width: 650px) {
-      width: 106px;
-      height: 106px;
-      margin-left: -12px;
-      margin-right: -12px;
-    }
-
-    @media screen and (max-width: 361px) {
-      width: 94px;
-      height: 94px;
+      width: 28vw;
+      height: 28vw;
     }
   }
 }
@@ -251,7 +252,8 @@
   margin-top: 52px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 68px;
+    margin-top: 18.09vw;
+    margin-left: -5.374vw;
   }
 }
 
@@ -259,7 +261,8 @@
   margin-top: 28px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 16px;
+    margin-top: 4.255vw;
+    margin-left:2.39vw;
   }
 }
 
@@ -267,7 +270,8 @@
   margin-top: 60px;
 
   @media screen and (max-width: 650px) {
-    margin-top: 83px;
+    margin-top: 22.07vw;
+    margin-left: -4.02vw;
   }
 }
 
@@ -275,11 +279,8 @@
   height: 162px;
 
   @media screen and (max-width: 650px) {
-    height: 106px;
-  }
-
-  @media screen and (max-width: 361px) {
-    height: 94px;
+    margin-left: -7.69vw;
+    height: 28vw;
   }
 }
 
@@ -309,5 +310,6 @@
   @media screen and (max-width: 1032px) {
     flex-direction: column;
     text-align: center;
+    padding: 0px;
   }
 }
