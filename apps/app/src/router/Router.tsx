@@ -22,6 +22,7 @@ import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
+import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,8 +42,14 @@ const router = createBrowserRouter(
           <Route index element={<ProfilePage />} />
           <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
           <Route path={RouteNames.PROFILE_REWARDS} element={<></>} />
-          <Route path={RouteNames.PROFILE_SETTINGS} element={<SettingsPage />} />
-          <Route path={RouteNames.PROFILE_ACHIEVEMENTS} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_SETTINGS}
+            element={<SettingsPage />}
+          />
+          <Route
+            path={RouteNames.PROFILE_ACHIEVEMENTS}
+            element={<ProfileAchievementsPage />}
+          />
           <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
           <Route path={RouteNames.PROFILE_LEADERBOARD} element={<></>} />
           <Route path={RouteNames.PROFILE_RECOMMENDATIONS} element={<></>} />
