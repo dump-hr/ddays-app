@@ -1,5 +1,6 @@
-import { Input } from '../../components/Input';
 import { useState } from 'react';
+import { useUserLogin } from '../../api/useUserLogin';
+import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
@@ -11,6 +12,8 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const { mutate } = useUserLogin();
 
   const clearErrors = (field: string) => {
     if (field === 'email') {
@@ -46,7 +49,7 @@ export const LoginPage = () => {
 
   const handleLogin = () => {
     if (validateInputs()) {
-      console.log('Logging in');
+      mutate({ email, password });
     }
   };
 

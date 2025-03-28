@@ -49,12 +49,13 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<JwtResponseDto> {
+    console.log('email', email);
+    console.log('password', password);
     const loginUser = await this.prisma.user.findUnique({
       where: {
-        email: email,
+        email,
       },
       select: {
-        id: true,
         email: true,
         firstName: true,
         lastName: true,
@@ -73,7 +74,6 @@ export class AuthService {
     }
 
     const accessToken = this.jwtService.sign({
-      id: loginUser.id,
       email: loginUser.email,
       firstName: loginUser.firstName,
       lastName: loginUser.lastName,
