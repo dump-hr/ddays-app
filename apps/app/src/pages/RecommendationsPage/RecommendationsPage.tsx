@@ -1,5 +1,6 @@
 import c from './RecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
+import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
 import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
 import EventsSection from './EventsSection';
@@ -7,6 +8,7 @@ import EventsSection from './EventsSection';
 const RecommendationsPage = () => {
   return (
     <div className={c.page}>
+      <img src={ArrowWhite} className={c.whiteArrow} />
       <main className={c.content}>
         <header className={c.header}>
           <img className={c.arrow} src={ArrowLeft} />

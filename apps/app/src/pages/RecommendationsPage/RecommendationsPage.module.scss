@@ -7,6 +7,13 @@
   background-color: $primary-black;
   box-sizing: border-box;
   padding-top: 64px;
+  position: relative;
+
+  .whiteArrow {
+    position: absolute;
+    top: 48px;
+    left: 72px;
+  }
 
   .content {
     background-color: $primary-background;
@@ -19,6 +26,12 @@
         margin-left: auto !important;
         margin-right: auto !important;
       }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      margin: 0 24px 24px;
+      border-radius: 24px;
+      padding-top: 166px;
     }
 
     .header {
@@ -35,6 +48,10 @@
         left: 0;
         width: 24px;
         height: 24px;
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          display: none;
+        }
       }
 
       .pageTitle {
