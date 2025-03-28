@@ -7,18 +7,29 @@
   background-color: $primary-black;
   box-sizing: border-box;
   padding-top: 64px;
+  padding-bottom: inherit;
   position: relative;
+  display: flex;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding-top: 166px;
+  }
 
   .whiteArrow {
     position: absolute;
     top: 48px;
     left: 72px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      display: none;
+    }
   }
 
   .content {
     background-color: $primary-background;
     border-radius: 16px 16px 0px 0px;
     padding-top: 24px;
+    width: 100%;
 
     > * {
       @media screen and (min-width: $breakpoint-tablet) {
@@ -31,7 +42,6 @@
     @media screen and (min-width: $breakpoint-tablet) {
       margin: 0 24px 24px;
       border-radius: 24px;
-      padding-top: 166px;
     }
 
     .header {
