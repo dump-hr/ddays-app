@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import c from './EventsSection.module.scss';
 import { events } from './events';
 import clsx from 'clsx';
-import { getLiveEvents, getNextEvents } from '@/pages/Home/eventsHelper';
 import TabGroup from '@/components/TabGroup';
 import Tab from '@/components/Tab';
 import CompactScheduleCard from '@/components/CompactScheduleCard';
@@ -32,8 +31,20 @@ const EventsSection = () => {
     }
   };
 
-  const liveEvents = useMemo(() => getLiveEvents(events), []);
-  const nextEvents = useMemo(() => getNextEvents(events), []);
+  function filterEventsByDate(day: number) {
+    const date = new Date(day === 1 ? '2025-05-23' : '2025-05-24');
+    return events.filter((event) => {
+      const eventDate = new Date(event.startsAt);
+      return (
+        eventDate.getFullYear() === date.getFullYear() &&
+        eventDate.getMonth() === date.getMonth() &&
+        eventDate.getDate() === date.getDate()
+      );
+    });
+  }
+
+  const eventsDay1 = useMemo(() => filterEventsByDate(1), []);
+  const eventsDay2 = useMemo(() => filterEventsByDate(2), []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -42,11 +53,11 @@ const EventsSection = () => {
 
   useEffect(() => {
     if (lecturesTab === Tabs.DAY_1) {
-      setDisplayedEvents(liveEvents);
+      setDisplayedEvents(eventsDay1);
     } else if (lecturesTab === Tabs.DAY_2) {
-      setDisplayedEvents(nextEvents);
+      setDisplayedEvents(eventsDay2);
     }
-  }, [lecturesTab, liveEvents, nextEvents]);
+  }, [lecturesTab, eventsDay1, eventsDay2]);
 
   useEffect(() => {
     if (!container) return;
@@ -72,7 +83,7 @@ const EventsSection = () => {
     items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
-  }, [container, liveEvents, nextEvents, displayedEvents]);
+  }, [container, displayedEvents]);
 
   const handleDotClick = (index: number) => {
     setSnappedCardIndex(index);
@@ -135,7 +146,7 @@ const EventsSection = () => {
             <button
               className={c.arrow}
               onClick={() => handleDotClick(snappedCardIndex + 1)}
-              disabled={snappedCardIndex === liveEvents.length - 1}>
+              disabled={snappedCardIndex === displayedEvents.length - 1}>
               <img src={ArrowRight} alt='' />
             </button>
           )}
