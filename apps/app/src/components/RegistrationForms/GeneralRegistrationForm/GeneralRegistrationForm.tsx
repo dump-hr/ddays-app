@@ -12,6 +12,7 @@ import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '../../../types/user/user';
+import { useUserRegister } from '@/api/useUserRegister';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -37,6 +38,8 @@ export const GeneralRegistrationForm = () => {
     companiesNewsEnabled: false,
     termsAndConditionsEnabled: false,
   });
+
+  const { mutate } = useUserRegister();
   const navigate = useNavigate();
 
   const updateUserData = (newData: Partial<RegistrationDto>) => {
@@ -61,6 +64,7 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+        mutate(userData);
         navigate('/app/confirm-email');
         break;
       default:
