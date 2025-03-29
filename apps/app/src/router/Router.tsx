@@ -23,6 +23,7 @@ import TestPage from '../pages/TestPage/TestPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { RewardsPage } from '@/pages/RewardsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +42,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.PROFILE}>
           <Route index element={<ProfilePage />} />
           <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
-          <Route path={RouteNames.PROFILE_REWARDS} element={<></>} />
+          <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
             path={RouteNames.PROFILE_SETTINGS}
             element={<SettingsPage />}
