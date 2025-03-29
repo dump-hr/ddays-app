@@ -90,6 +90,10 @@ export const routes: { [key: string]: Route } = {
     path: RouteNames.REGISTER,
     name: 'Register',
   },
+  [RouteNames.PROFILE]: {
+    path: RouteNames.PROFILE,
+    name: 'Profile',
+  },
   [RouteNames.PROFILE_INTERESTS]: {
     path: RouteNames.PROFILE_INTERESTS,
     name: 'Interests',
