@@ -7,6 +7,11 @@
         cursor: pointer;
     }
 
+    @media (max-width: $breakpoint-tablet) {
+        padding: 0;
+        padding-top: 64px;
+    }
+
     .main {
         display: flex;
         flex-direction: column;
@@ -26,6 +31,10 @@
             max-width: 422px;
             text-align: center;
             margin-bottom: 40px;
+
+            @media (max-width: $breakpoint-tablet) {
+                text-align: start;
+            }
         }
 
         .rewardsSection {
@@ -34,6 +43,26 @@
             flex-wrap: wrap;
             margin-bottom: 48px;
             width: 422px;
+        }
+
+        @media (max-width: $breakpoint-tablet) {
+            border-radius: 16px 16px 0 0;
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 8px;
+                h2 {
+                    text-transform: uppercase;
+                    margin: 0;
+                }
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
         }
     }
 }
