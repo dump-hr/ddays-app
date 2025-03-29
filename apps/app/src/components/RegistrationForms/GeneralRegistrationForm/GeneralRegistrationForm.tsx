@@ -13,6 +13,7 @@ import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '../../../types/user/user';
 import { useUserRegister } from '@/api/auth/useUserRegister';
+import { RouteNames } from '@/router/routes';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -39,7 +40,7 @@ export const GeneralRegistrationForm = () => {
     termsAndConditionsEnabled: false,
   });
 
-  const { mutate } = useUserRegister();
+  const { mutate } = useUserRegister(() => navigate(RouteNames.CONFIRM_EMAIL));
   const navigate = useNavigate();
 
   const updateUserData = (newData: Partial<RegistrationDto>) => {
@@ -76,7 +77,6 @@ export const GeneralRegistrationForm = () => {
           newsletterEnabled: userData.newsletterEnabled,
           companiesNewsEnabled: userData.companiesNewsEnabled,
         });
-        navigate('/app/confirm-email');
         break;
       default:
         break;

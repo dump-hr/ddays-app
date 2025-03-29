@@ -9,8 +9,7 @@ const requestConfig = {
 
 const axiosInstance = axios.create(requestConfig);
 
-// odkometirat za produkciju
-/* axiosInstance.interceptors.request.use(async (config) => {
+axiosInstance.interceptors.request.use(async (config) => {
   const token = localStorage.getItem('accessToken');
 
   if (token) {
@@ -18,6 +17,8 @@ const axiosInstance = axios.create(requestConfig);
   }
 
   return config;
-}); */
+});
+
+axiosInstance.interceptors.response.use((response) => response.data);
 
 export default axiosInstance;

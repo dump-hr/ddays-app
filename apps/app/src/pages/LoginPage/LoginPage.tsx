@@ -6,6 +6,7 @@ import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
 import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,8 @@ export const LoginPage = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const { mutate } = useUserLogin();
+  const navigate = useNavigate();
+  const { mutate } = useUserLogin(() => navigate(RouteNames.HOME));
 
   const clearErrors = (field: string) => {
     if (field === 'email') {
