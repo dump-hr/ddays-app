@@ -8,7 +8,6 @@ export enum ModalNames {
   AVATARS = 'avatars',
   LEADERBOARD = 'leaderboard',
   PRIZES = 'prizes',
-  SETTINGS = 'settings',
 
   DISPLAY_AREA = 'display-area',
 
@@ -38,6 +37,7 @@ export enum RouteNames {
   SHOPPING = '/app/shopping',
   CONFIRM_EMAIL = '/app/confirm-email',
   NOTIFICATIONS = '/app/notifications',
+  TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
 }
 
 export interface SubMenu {
@@ -89,10 +89,6 @@ export const routes: { [key: string]: Route } = {
   [RouteNames.REGISTER]: {
     path: RouteNames.REGISTER,
     name: 'Register',
-  },
-  [RouteNames.PASSWORD_RESET]: {
-    path: RouteNames.PASSWORD_RESET,
-    name: 'Password Reset',
   },
   [RouteNames.PROFILE]: {
     path: RouteNames.PROFILE,
