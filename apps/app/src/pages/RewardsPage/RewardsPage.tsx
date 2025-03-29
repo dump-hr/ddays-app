@@ -1,6 +1,6 @@
 import c from './RewardsPage.module.scss';
 import ReturnIcon from '@/assets/icons/arrow-left-white.svg';
-import AwardImage from '@/assets/images/macbook.png';
+import { Reward } from '@/components/Reward';
 
 export const RewardsPage = () => {
   return (
@@ -15,23 +15,11 @@ export const RewardsPage = () => {
           negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade hihi
         </p>
 
-        <section className={c.awardsSection}>
-          <div className={c.award}>
-            <img src={AwardImage} alt='award image' />
-            <h3>Laptop macbook</h3>
-          </div>
-          <div className={c.award}>
-            <img src={AwardImage} alt='award image' />
-            <h3>Laptop macbook</h3>
-          </div>
-          <div className={c.award}>
-            <img src={AwardImage} alt='award image' />
-            <h3>Laptop macbook</h3>
-          </div>
-          <div className={c.award}>
-            <img src={AwardImage} alt='award image' />
-            <h3>Laptop macbook</h3>
-          </div>
+        <section className={c.rewardsSection}>
+          <Reward />
+          <Reward />
+          <Reward />
+          <Reward />
         </section>
       </main>
     </div>

@@ -1,0 +1,29 @@
+.reward {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px;
+    gap: 12px;
+    width: 50%;
+
+    border: 1px dashed $black-30;
+    border-radius: 4px;
+
+    &:nth-child(even) {
+        border-left: none;
+    }
+
+    &:nth-child(n+3):nth-last-child(n+3) {
+        border-bottom: none;
+    }
+
+    &:nth-child(3),
+    &:nth-child(4) {
+        border-top: none;
+    }
+
+    h3 {
+        @include heading-2;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+}
