@@ -1,10 +1,9 @@
 import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
-
 import { UserDto } from '@ddays-app/types/src/dto/user';
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { AuthService } from './auth.service';
 import { UserLoginDto } from './auth.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {

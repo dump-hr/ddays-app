@@ -15,6 +15,7 @@ const loginUser = async ({ email, password }: LoginDto) => {
 export const useUserLogin = () => {
   return useMutation([QUERY_KEYS.login], (body: LoginDto) => loginUser(body), {
     onSuccess: (data) => {
+      console.log(data);
       toast.success('Login successful!');
     },
     onError: (error) => {

@@ -14,6 +14,7 @@ export const useUserRegister = () => {
     (user: Partial<UserDto>) => registerUser(user),
     {
       onSuccess: (data) => {
+        console.log(data);
         toast.success('Login successful!');
       },
       onError: (error) => {
