@@ -34,6 +34,8 @@
 
             @media (max-width: $breakpoint-tablet) {
                 text-align: start;
+                width: 100%;
+                align-self: flex-start;
             }
         }
 
@@ -43,6 +45,10 @@
             flex-wrap: wrap;
             margin-bottom: 48px;
             width: 422px;
+
+            @media (max-width: $breakpoint-tablet) {
+                width: 100%;
+            }
         }
 
         @media (max-width: $breakpoint-tablet) {

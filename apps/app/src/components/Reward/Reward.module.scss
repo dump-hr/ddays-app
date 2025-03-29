@@ -25,5 +25,9 @@
         @include heading-2;
         font-weight: 500;
         text-transform: uppercase;
+
+        @media (max-width: $breakpoint-tablet) {
+            @include heading-3;
+        }
     }
 }
