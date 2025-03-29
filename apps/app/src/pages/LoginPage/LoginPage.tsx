@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUserLogin } from '../../api/useUserLogin';
+import { useUserLogin } from '../../api/auth/useUserLogin';
 import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';

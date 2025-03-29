@@ -12,7 +12,7 @@ import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '../../../types/user/user';
-import { useUserRegister } from '@/api/useUserRegister';
+import { useUserRegister } from '@/api/auth/useUserRegister';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
