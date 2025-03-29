@@ -11,3 +11,8 @@ export function parseJwt(token: string) {
 
   return JSON.parse(window.atob(base64));
 }
+
+export const logout = () => {
+  localStorage.removeItem('accessToken');
+  window.location.href = '/sponsor/login';
+};
