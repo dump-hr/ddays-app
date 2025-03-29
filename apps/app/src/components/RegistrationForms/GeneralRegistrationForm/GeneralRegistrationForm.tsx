@@ -64,7 +64,18 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
-        mutate(userData);
+        mutate({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          password: userData.password,
+          phoneNumber: userData.phoneNumber,
+          birthYear: userData.birthYear,
+          educationDegree: userData.educationDegree,
+          occupation: userData.occupation,
+          newsletterEnabled: userData.newsletterEnabled,
+          companiesNewsEnabled: userData.companiesNewsEnabled,
+        });
         navigate('/app/confirm-email');
         break;
       default:

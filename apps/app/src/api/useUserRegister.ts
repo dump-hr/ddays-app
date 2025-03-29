@@ -4,14 +4,14 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 import { UserDto } from '@ddays-app/types/src/dto/user';
 import toast from 'react-hot-toast';
 
-const registerUser = async (user: UserDto) => {
+const registerUser = async (user: Partial<UserDto>) => {
   return axios.post('/auth/user/register', user);
 };
 
 export const useUserRegister = () => {
   return useMutation(
     [QUERY_KEYS.register],
-    (user: UserDto) => registerUser(user),
+    (user: Partial<UserDto>) => registerUser(user),
     {
       onSuccess: (data) => {
         toast.success('Login successful!');

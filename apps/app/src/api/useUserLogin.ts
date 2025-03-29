@@ -9,10 +9,7 @@ type LoginDto = {
 };
 
 const loginUser = async ({ email, password }: LoginDto) => {
-  return axios.post('/auth/user/login', {
-    email,
-    password,
-  });
+  return axios.post('/auth/user/login', { email, password });
 };
 
 export const useUserLogin = () => {

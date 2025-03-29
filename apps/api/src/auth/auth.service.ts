@@ -49,8 +49,6 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<JwtResponseDto> {
-    console.log('email', email);
-    console.log('password', password);
     const loginUser = await this.prisma.user.findUnique({
       where: {
         email,
@@ -98,16 +96,8 @@ export class AuthService {
 
     const newUser = await this.prisma.user.create({
       data: {
-        email: register.email,
-        firstName: register.firstName,
-        lastName: register.lastName,
         password: hashedPassword,
-        phoneNumber: register.phoneNumber,
-        yearOfBirth: register.birthYear,
-        /* educationDegree: register.educationDegree, */
-        occupation: register.occupation,
-        newsletterConsent: register.newsletterEnabled,
-        companiesNewsletterConsent: register.companiesNewsEnabled,
+        ...register,
       },
     });
 

@@ -20,19 +20,15 @@ export class AuthController {
     );
   }
 
+  @Post('user/login')
+  async userPasswordLogin(
+    @Body() { email, password }: UserLoginDto,
+  ): Promise<JwtResponseDto> {
+    return await this.authService.userPasswordLogin(email, password);
+  }
+
   @Post('user/register')
   async userRegister(@Body() register: UserDto): Promise<JwtResponseDto> {
     return await this.authService.userRegister(register);
-  }
-
-  @Post('user/login')
-  async userPasswordLogin(
-    @Body() login: UserLoginDto,
-  ): Promise<JwtResponseDto> {
-    console.log('login', login);
-    return await this.authService.userPasswordLogin(
-      login.email,
-      login.password,
-    );
   }
 }
