@@ -13,7 +13,7 @@ export const Header = () => {
     <div className={styles.header}>
       <div className={styles.headerGreeting}>
         <h1>
-          Hello, {isMobile && <br />} {isLoggedIn ? firstName : 'guest'} 👋🏻
+          Hello, {isMobile && <br />} {isLoggedIn ? firstName : 'guest'}!👋🏻
         </h1>
         {isMobile && <NotificationBell />}
       </div>
