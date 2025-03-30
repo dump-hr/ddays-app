@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const requestConfig = {
   baseURL: '/api',
@@ -19,6 +19,20 @@ axiosInstance.interceptors.request.use(async (config) => {
   return config;
 });
 
-axiosInstance.interceptors.response.use((response) => response.data);
+type ErrorResponse = AxiosError & {
+  response: AxiosResponse<{
+    statusCode: number;
+    message: string;
+    error: string;
+  }>;
+};
+
+axiosInstance.interceptors.response.use(
+  (response) => response.data,
+
+  (error: ErrorResponse) => {
+    return Promise.reject(error.response.data.message || error.message);
+  },
+);
 
 export default axiosInstance;
