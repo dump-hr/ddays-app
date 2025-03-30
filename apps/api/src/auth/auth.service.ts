@@ -62,13 +62,13 @@ export class AuthService {
     });
 
     if (!loginUser) {
-      throw new BadRequestException('User not found');
+      throw new BadRequestException('Korisnik nije pronađen!');
     }
 
     const passwordsMatch = await compare(password, loginUser.password);
 
     if (!passwordsMatch) {
-      throw new BadRequestException('Password does not match');
+      throw new BadRequestException('Neispravna lozinka!');
     }
 
     const accessToken = this.jwtService.sign({
@@ -81,6 +81,18 @@ export class AuthService {
   }
 
   async userRegister(register: UserDto): Promise<JwtResponseDto> {
+    const existingPhoneNumber = await this.prisma.user.findUnique({
+      where: {
+        phoneNumber: register.phoneNumber,
+      },
+    });
+
+    if (existingPhoneNumber) {
+      throw new BadRequestException(
+        'Korisnik sa ovim brojem telefona već postoji!',
+      );
+    }
+
     const existingUser = await this.prisma.user.findUnique({
       where: {
         email: register.email,
@@ -88,7 +100,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new BadRequestException('User already exists');
+      throw new BadRequestException('Korisnik sa ovim emailom već postoji!');
     }
 
     const saltRounds = 10;
