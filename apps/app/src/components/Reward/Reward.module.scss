@@ -4,22 +4,7 @@
     padding: 16px 12px;
     gap: 12px;
     width: 50%;
-
-    border: 1px dashed $black-30;
-    border-radius: 4px;
-
-    &:nth-child(even) {
-        border-left: none;
-    }
-
-    &:nth-child(n+3):nth-last-child(n+3) {
-        border-bottom: none;
-    }
-
-    &:nth-child(3),
-    &:nth-child(4) {
-        border-top: none;
-    }
+    position: relative;
 
     h3 {
         @include heading-2;
@@ -30,4 +15,34 @@
             @include heading-3;
         }
     }
+
+    .dottedBorderTopHorizontal {
+        @include dottedBreak($size: 1px);
+        position: absolute;
+        top: 0;
+        left: 2px;
+        width: 98.5%;
+      }
+      
+      .dottedBorderLeftVertical {
+        @include dottedBreakVertical($size: 1px);
+        position: absolute;
+        left: 0px;
+        top: 0.5px;
+      }
+      
+      .dottedBorderBottomHorizontal {
+        @include dottedBreak($size: 1px);
+        position: absolute;
+        bottom: -1px;
+        left: 2px;
+        width: 98.5%;
+      }
+      
+      .dottedBorderRightVertical {
+        @include dottedBreakVertical($size: 1px);
+        position: absolute;
+        right: -1px;
+        top: 0.5px;
+      }
 }
