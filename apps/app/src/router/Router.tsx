@@ -23,6 +23,7 @@ import TestPage from '../pages/TestPage/TestPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,7 +52,10 @@ const router = createBrowserRouter(
             element={<ProfileAchievementsPage />}
           />
           <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
-          <Route path={RouteNames.PROFILE_LEADERBOARD} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_LEADERBOARD}
+            element={<ProfileLeaderboardPage />}
+          />
           <Route path={RouteNames.PROFILE_RECOMMENDATIONS} element={<></>} />
         </Route>
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
