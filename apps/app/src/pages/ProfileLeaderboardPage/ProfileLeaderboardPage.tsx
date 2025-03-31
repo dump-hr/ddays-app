@@ -5,8 +5,14 @@ import FirstPlaceDuck from '../../assets/images/first-place.png';
 import SecondPlaceDuck from '../../assets/images/second-place.png';
 import ThirdPlaceDuck from '../../assets/images/third-place.png';
 import star from '../../assets/icons/star-red.svg';
+import LeaderboardTableRow from '@/components/LeaderboardTableRow';
 
 export const ProfileLeaderboardPage = () => {
+  const leaderboardData = [
+    { id: 1, rank: 112, name: 'Marija', level: 2, points: 35 },
+    { id: 2, rank: 4, name: 'Omar', level: 2, points: 145 },
+    { id: 3, rank: 5, name: 'Omar', level: 2, points: 145 },
+  ];
   const navigate = useNavigate();
 
   return (
@@ -71,7 +77,21 @@ export const ProfileLeaderboardPage = () => {
           </div>
 
           <div className={c.leaderboardWrapper}>
-            {/* TODO: Implementirat poredak */}
+            <div className={c.leaderboardWrapper}>
+              <table className={c.leaderboardTable}>
+                <tbody>
+                  {leaderboardData.map((entry) => (
+                    <LeaderboardTableRow
+                      key={entry.id}
+                      rank={entry.rank}
+                      name={entry.name}
+                      level={entry.level}
+                      points={entry.points}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </main>

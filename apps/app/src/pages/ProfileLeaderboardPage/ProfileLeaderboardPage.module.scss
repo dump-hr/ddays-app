@@ -171,12 +171,39 @@
   margin-top: 5px;
 }
 
-.star {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-}
-
 .duckName {
   @include paragraph-14;
+}
+
+.leaderboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+
+  td {
+    padding: 8px 4px;
+    border-bottom: 1px solid #ddd;
+
+    &:first-child {
+      width: 50px;
+    }
+
+    &:nth-child(2) {
+      width: 40px;
+    }
+
+    &:nth-child(3) {
+      width: 150px;
+    }
+
+    &:last-child {
+      width: 80px;
+    }
+  }
+}
+
+.star {
+  width: 16px;
+  height: auto;
 }

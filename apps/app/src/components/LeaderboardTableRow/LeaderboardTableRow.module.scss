@@ -1,0 +1,51 @@
+.row {
+  @include label-medium;
+
+  td {
+    padding: 24px;
+  }
+}
+
+.rankCell {
+  padding-right: 0 !important;
+}
+
+.playerCell {
+  padding: 24px 0 !important;
+}
+
+.playerContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.duckIcon {
+  width: 57.891px;
+  height: 62.942px;
+  transform: rotate(0deg);
+  flex-shrink: 0;
+}
+
+.playerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.playerName {
+  @include paragraph-16;
+}
+
+.playerLevel {
+  @include paragraph-14;
+  text-transform: uppercase;
+}
+
+.pointsCell {
+  padding-right: 0 !important;
+}
+
+.star {
+  width: 16px;
+  height: auto;
+}
