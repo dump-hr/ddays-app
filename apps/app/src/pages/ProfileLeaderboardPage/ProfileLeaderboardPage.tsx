@@ -8,16 +8,40 @@ import star from '../../assets/icons/star-red.svg';
 import LeaderboardTableRow from '@/components/LeaderboardTableRow';
 
 export const ProfileLeaderboardPage = () => {
+  const personalRank = {
+    id: 0,
+    rank: 112,
+    name: 'Marija',
+    level: 2,
+    points: 35,
+  };
+
   const leaderboardData = [
-    { id: 1, rank: 112, name: 'Marija', level: 2, points: 35 },
-    { id: 2, rank: 4, name: 'Omar', level: 2, points: 145 },
-    { id: 3, rank: 5, name: 'Omar', level: 2, points: 145 },
+    { id: 1, rank: 4, name: 'Omar', level: 2, points: 145 },
+    { id: 2, rank: 5, name: 'Omar', level: 2, points: 145 },
+    { id: 3, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 4, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 5, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 6, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 7, rank: 5, name: 'Omar', level: 2, points: 145 },
+    { id: 8, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 9, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 10, rank: 6, name: 'Omar', level: 2, points: 145 },
+    { id: 11, rank: 6, name: 'Omar', level: 2, points: 145 },
   ];
+
   const navigate = useNavigate();
 
   return (
     <div className={c.page}>
-      <header className={c.header}></header>
+      <header className={c.header}>
+        <img
+          src={ArrowLeft}
+          alt=''
+          className={c.headerArrowLeft}
+          onClick={() => navigate(-1)}
+        />
+      </header>
       <main className={c.main}>
         <header className={c.mainHeader}>
           <img
@@ -77,6 +101,20 @@ export const ProfileLeaderboardPage = () => {
           </div>
 
           <div className={c.leaderboardWrapper}>
+            <div className={c.personalRankWrapper}>
+              <table className={c.leaderboardTable}>
+                <tbody>
+                  <LeaderboardTableRow
+                    key={personalRank.id}
+                    rank={personalRank.rank}
+                    name={personalRank.name}
+                    level={personalRank.level}
+                    points={personalRank.points}
+                  />
+                </tbody>
+              </table>
+            </div>
+
             <div className={c.leaderboardWrapper}>
               <table className={c.leaderboardTable}>
                 <tbody>

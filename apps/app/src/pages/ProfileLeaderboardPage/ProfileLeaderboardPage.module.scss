@@ -20,14 +20,23 @@
   }
 }
 
+.headerArrowLeft {
+  position: absolute;
+  left: 78px;
+  top: 40px;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
 .main {
   width: 100%;
   min-height: 100vh;
-  background-color: white;
+  background-color: $primary-white;
   border-radius: 16px 16px 0px 0px;
 
-  box-sizing: border-box;
-  padding: 24px;
+  //padding: 24px;
 
   display: flex;
   flex-direction: column;
@@ -52,6 +61,7 @@
       position: absolute;
       left: 0;
       cursor: pointer;
+      padding: 24px;
 
       @media screen and (min-width: $breakpoint-tablet) {
         display: none;
@@ -59,12 +69,14 @@
     }
 
     .title {
-      color: $primary-black;
-      font-family: NeueMachina;
-      font-size: 24px;
-      font-style: normal;
+      @include heading-2;
       font-weight: 500;
       text-transform: uppercase;
+      padding-top: 24px;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        text-transform: none;
+      }
     }
   }
 }
@@ -88,11 +100,11 @@
   align-items: center;
   gap: 18px;
   width: 100%;
-  padding: 0 16px;
   box-sizing: border-box;
   position: relative;
   margin-left: auto;
   max-width: 400px;
+  padding-bottom: 40px;
 
   @media screen and (min-width: $breakpoint-tablet) {
     padding: 0;
@@ -121,10 +133,6 @@
   display: block;
   width: 100%;
   height: 100%;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .firstPlace {
@@ -175,15 +183,29 @@
   @include paragraph-14;
 }
 
+.leaderboardWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.personalRankWrapper {
+  width: 100%;
+  border: 1px solid var(--Black-10, #e0e0df);
+  background: var(--Primary-Beige, #f5ede1);
+}
+
 .leaderboardTable {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
-  font-size: 14px;
+  text-align: center;
+
+  tr:not(:first-child) {
+    @include dottedBreak($primary-black, 1.5px);
+  }
 
   td {
     padding: 8px 4px;
-    border-bottom: 1px solid #ddd;
 
     &:first-child {
       width: 50px;
@@ -205,5 +227,4 @@
 
 .star {
   width: 16px;
-  height: auto;
 }
