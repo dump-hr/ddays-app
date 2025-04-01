@@ -38,6 +38,7 @@ export enum RouteNames {
   CONFIRM_EMAIL = '/app/confirm-email',
   NOTIFICATIONS = '/app/notifications',
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
+  RATE_COMPANY = '/app/rate-company',
 }
 
 export interface SubMenu {
@@ -178,6 +179,10 @@ export const routes: { [key: string]: Route } = {
         name: ModalNames.CART,
       },
     ],
+  },
+  [RouteNames.RATE_COMPANY]: {
+    path: RouteNames.RATE_COMPANY,
+    name: 'Rate Company',
   },
 } as const satisfies Record<string, Route>;
 
