@@ -1,0 +1,135 @@
+.wrapper {
+  background-color: $primary-black;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.pageName {
+  color: $primary-background;
+  height: 116px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  .closeIcon {
+    display: none;
+  }
+
+  @media (min-width: $breakpoint-tablet) {
+    .closeIcon {
+      display: flex;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 44px;
+      right: 72px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px 16px 0 0;
+  background-color: $primary-background;
+  box-shadow: 0px -4px 20px 0px rgba(23, 22, 21, 0.3);
+  flex-grow: 1;
+  justify-content: space-between;
+
+  @media (min-width: $breakpoint-tablet) {
+    box-shadow: none;
+    justify-content: flex-start;
+    margin: 24px;
+    border-radius: 16px;
+  }
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px;
+
+  @media (min-width: $breakpoint-tablet) {
+    justify-content: center;
+    padding-top: 48px;
+  }
+}
+
+.title {
+  @include heading-2;
+  font-weight: 500;
+  text-align: left;
+  color: $primary-black;
+  line-height: 28px;
+  letter-spacing: -0.24px;
+  max-width: 100%;
+  text-transform: uppercase;
+  max-width: 275px;
+
+  @media (min-width: $breakpoint-tablet) {
+    text-align: center;
+    @include heading-2;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
+}
+
+.closeIcon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 0.417px;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.companyDetails {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 24px;
+
+  .logo {
+    width: 119px;
+    height: 30px;
+    margin-bottom: 14px;
+  }
+
+  .companyLocationAtConference {
+    @include tag-16;
+    color: $primary-black;
+    border-radius: 8px;
+    height: 30px;
+    width: 30px;
+    background: var(--Beige, #f5ede1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 24px;
+  gap: 12px;
+  margin-top: auto;
+  transition: transform 0.3s ease;
+
+  @media (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+    min-width: 470px;
+    padding-top: 56px;
+  }
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+}
