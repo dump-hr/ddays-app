@@ -36,8 +36,6 @@
   background-color: $primary-white;
   border-radius: 16px 16px 0px 0px;
 
-  //padding: 24px;
-
   display: flex;
   flex-direction: column;
   row-gap: 24px;
@@ -103,12 +101,12 @@
   box-sizing: border-box;
   position: relative;
   margin-left: auto;
-  max-width: 400px;
-  padding-bottom: 40px;
+  padding: 43px 0 40px;
+  overflow: visible;
 
   @media screen and (min-width: $breakpoint-tablet) {
-    padding: 0;
     margin: 0 auto;
+    padding: 60px 0 48px;
   }
 }
 
@@ -124,6 +122,59 @@
   box-sizing: border-box;
   flex-shrink: 0;
   margin-bottom: 50px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 77.392px;
+    height: 58.044px;
+    flex-shrink: 0;
+    display: block;
+    background-image: url('../../assets/images/gold-medal.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 5;
+  }
+
+  &:nth-child(1) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72.391px;
+      height: 54.293px;
+      display: block;
+      background-image: url('../../assets/images/silver-medal.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      z-index: 5;
+    }
+  }
+
+  &:nth-child(3) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72.391px;
+      height: 54.293px;
+      display: block;
+      background-image: url('../../assets/images/bronze-medal.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      z-index: 5;
+    }
+  }
 }
 
 .duck {
@@ -216,7 +267,7 @@
     }
 
     &:nth-child(3) {
-      width: 150px;
+      width: 60px;
     }
 
     &:last-child {
