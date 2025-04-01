@@ -25,6 +25,11 @@
       top: 44px;
       right: 72px;
     }
+
+    .page {
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 
@@ -40,7 +45,7 @@
 
   @media (min-width: $breakpoint-tablet) {
     box-shadow: none;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 24px;
     border-radius: 16px;
   }
@@ -111,22 +116,53 @@
     justify-content: center;
     align-items: center;
   }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .breakline {
   @include dottedBreak($black-30, 2px);
   margin-top: 16px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    max-width: 422px;
+    margin: 18px auto;
+  }
 }
 
 .ratingContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: left;
   margin-top: 40px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    background-color: $primary-beige;
+    border-radius: 16px;
+    display: flex;
+    padding: 32px 70px;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin: 40px auto;
+    max-width: 422px;
+    width: 100%;
+  }
 
   .ratingQuestion {
     margin-bottom: 40px;
+    margin-left: 0px;
+    align-self: flex-start;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      text-align: center;
+      align-self: center;
+      margin-bottom: 40px;
+      margin-left: 0;
+    }
   }
 
   .ratingQuestion h3 {
@@ -159,7 +195,7 @@
 
   @media (min-width: $breakpoint-tablet) {
     margin: 0 auto;
-    min-width: 470px;
+    min-width: 422px;
     padding-top: 56px;
   }
 }

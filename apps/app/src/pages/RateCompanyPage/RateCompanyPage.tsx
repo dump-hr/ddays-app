@@ -1,7 +1,6 @@
 import c from './RateCompanyPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-import { RouteNames } from '../../router/routes';
 import StarRating from '../../components/StarRating';
 import HRCloudLogo from '../../assets/images/HRCloud.svg';
 
