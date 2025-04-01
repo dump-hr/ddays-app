@@ -3,17 +3,17 @@ import styles from './Header.module.scss';
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import { NotificationBell } from './NotificationBell';
 import { HeaderCardsWrapper } from './HeaderCardsWrapper';
-import { useLoggedInUser } from '@/hooks/useLoggedInUser';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 export const Header = () => {
   const { isMobile } = useDeviceType({});
-  const { firstName, isLoggedIn } = useLoggedInUser();
+  const { data: user } = useLoggedInUser();
 
   return (
     <div className={styles.header}>
       <div className={styles.headerGreeting}>
         <h1>
-          Hello, {isMobile && <br />} {isLoggedIn ? firstName : 'guest'}!👋🏻
+          Hello, {isMobile && <br />} {user?.firstName || 'guest'}!👋🏻
         </h1>
         {isMobile && <NotificationBell />}
       </div>
