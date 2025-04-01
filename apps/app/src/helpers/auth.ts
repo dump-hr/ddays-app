@@ -1,4 +1,6 @@
-export function isTokenExpired(token: string) {
+export function isTokenExpired(token: string | undefined) {
+  if (!token) return true;
+
   const expiry = JSON.parse(atob(token.split('.')[1])).exp;
   return Math.floor(new Date().getTime() / 1000) >= expiry;
 }
@@ -14,5 +16,6 @@ export function parseJwt(token: string) {
 
 export const logout = () => {
   localStorage.removeItem('accessToken');
-  window.location.href = '/sponsor/login';
+  localStorage.removeItem('userData');
+  window.location.href = '/app/login';
 };
