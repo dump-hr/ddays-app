@@ -1,9 +1,10 @@
 import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
 import { UserDto } from '@ddays-app/types/src/dto/user';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get, Req, UseGuards } from '@nestjs/common';
 
 import { UserLoginDto } from './auth.dto';
 import { AuthService } from './auth.service';
+import { UserGuard } from './user.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,5 +30,11 @@ export class AuthController {
   @Post('user/register')
   async userRegister(@Body() register: UserDto): Promise<JwtResponseDto> {
     return await this.authService.userRegister(register);
+  }
+
+  @Get('user/authenticated')
+  @UseGuards(UserGuard)
+  async findLoggedInUser(@Req() { user }) {
+    return await this.authService.getUserById(user.id);
   }
 }

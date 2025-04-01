@@ -54,6 +54,7 @@ export class AuthService {
         email,
       },
       select: {
+        id: true,
         email: true,
         firstName: true,
         lastName: true,
@@ -72,6 +73,7 @@ export class AuthService {
     }
 
     const accessToken = this.jwtService.sign({
+      id: loginUser.id,
       email: loginUser.email,
       firstName: loginUser.firstName,
       lastName: loginUser.lastName,
@@ -114,11 +116,18 @@ export class AuthService {
     });
 
     const accessToken = this.jwtService.sign({
+      id: newUser.id,
       email: newUser.email,
       firstName: newUser.firstName,
       lastName: newUser.lastName,
     });
 
     return { accessToken };
+  }
+
+  async getUserById(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+    });
   }
 }
