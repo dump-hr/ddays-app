@@ -8,7 +8,7 @@ export const RateCompanyPage = () => {
   return (
     <div>
       <div className={c.wrapper}>
-        <div className={c.pageName}>
+        <div className={c.page}>
           <a href='https://days.dump.hr'>
             <img src={closeIcon} alt='Close login' className={c.closeIcon} />
           </a>
@@ -24,6 +24,7 @@ export const RateCompanyPage = () => {
             <img src={HRCloudLogo} alt='Company logo' className={c.logo} />
             <text className={c.companyLocationAtConference}>Z4</text>
           </div>
+          <div className={c.breakline}></div>
 
           <div className={c.buttonContainer}>
             <Button
