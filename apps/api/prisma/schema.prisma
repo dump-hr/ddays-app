@@ -228,6 +228,7 @@ model User {
   newsletterEnabled          Boolean?
   companiesNewsEnabled       Boolean?
   isDeleted                  Boolean?
+  isConfirmed                Boolean?            @default(false)
   profilePhotoUrl            String?
   avatar                     Avatar[]
   notification               Notification[]
