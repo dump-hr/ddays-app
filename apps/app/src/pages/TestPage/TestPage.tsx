@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 /* import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png'; */
-import Button from '@/components/Button';
+import NotificationsPage from '../NotificationsPage/NotificationsPage';
 import styles from './TestPage.module.scss';
+import NotificationsSection from '@/components/NotificationsSection/NotificationsSection';
 const event = {
   id: 1,
   name: 'Tech Innovations Summit',
@@ -157,8 +158,24 @@ const TestPage = () => {
         isOpen={isPopupOpen}
         opacity={0.9}
         desktopStyle='normal'>
-        <div className={styles.contentDiv}>
-          <div
+        <div
+          style={{
+            overflowY: 'auto',
+            paddingRight: '0.5rem',
+          }}>
+          {' '}
+          <NotificationsSection />
+        </div>
+      </PopupLayout>
+
+      {/* <PopupLayout
+        variant='light'
+        headerTitleComponent={<>Unesi kod</>}
+        closePopup={() => setIsPopupOpen(false)}
+        isOpen={isPopupOpen}
+        opacity={0.9}
+        desktopStyle='normal'>
+        <div
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -170,12 +187,12 @@ const TestPage = () => {
               Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
               svi tvoji bodovi i postignuća bit će izgubljeni.
             </p>
-          </div>
+          </div> 
           <Button variant='orange' style={{ width: '100%' }}>
             Svejedno obriši
           </Button>
         </div>
-      </PopupLayout>
+      </PopupLayout> */}
     </>
   );
 };
