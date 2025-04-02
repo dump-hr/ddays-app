@@ -10,7 +10,6 @@ const DesktopNotificationsPopup = () => {
       headerTitleComponent={<>Unesi kod</>}
       closePopup={() => setIsPopupOpen(false)}
       isOpen={isPopupOpen}
-      opacity={0.9}
       desktopStyle='normal'>
       <div
         style={{
