@@ -4,6 +4,7 @@ import CloseIcon from '@/assets/icons/close-icon.svg';
 import { Reward } from '@/components/Reward';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { useNavigate } from 'react-router-dom';
+import { rewards } from './RewardsSeed';
 
 export const RewardsPage = () => {
   const { isMobile } = useDeviceType({});
@@ -40,10 +41,9 @@ export const RewardsPage = () => {
         </p>
 
         <section className={c.rewardsSection}>
-          <Reward />
-          <Reward />
-          <Reward />
-          <Reward />
+          {rewards.map((reward) => {
+            return <Reward name={reward.name} image={reward.image} />;
+          })}
         </section>
       </main>
     </div>
