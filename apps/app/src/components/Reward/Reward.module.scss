@@ -1,10 +1,18 @@
 .reward {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 16px 12px;
     gap: 12px;
     width: 50%;
     position: relative;
+
+    img {
+        max-width: 100%;
+        max-height: 139px;
+        object-fit: contain;
+        align-self: center;
+    }
 
     h3 {
         @include heading-2;
