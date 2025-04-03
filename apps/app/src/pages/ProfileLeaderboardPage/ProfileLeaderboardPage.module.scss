@@ -24,6 +24,7 @@
   position: absolute;
   left: 78px;
   top: 40px;
+  cursor: pointer;
 
   @media screen and (max-width: $breakpoint-tablet) {
     display: none;
@@ -74,6 +75,7 @@
 
       @media screen and (min-width: $breakpoint-tablet) {
         text-transform: none;
+        font-size: 30px;
       }
     }
   }
@@ -107,6 +109,7 @@
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     padding: 60px 0 48px;
+    gap: 60px;
   }
 }
 
@@ -190,18 +193,33 @@
   width: 150px;
   height: 150px;
   z-index: 3;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 194px;
+    height: 194px;
+  }
 }
 
 .secondPlace {
   width: 96px;
   height: 96px;
   z-index: 1;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 .thirdPlace {
   width: 96px;
   height: 96px;
   z-index: 1;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 .duckInfo {
