@@ -79,9 +79,10 @@ div.end {
 }
 
 .container {
+  min-height: 610px;
   @media screen and (max-width: $breakpoint-tablet) {
     justify-content: flex-start;
-    max-width: none;
+    /* max-width: none; */
     min-height: unset;
     padding: 1.5rem;
     margin-top: 0;

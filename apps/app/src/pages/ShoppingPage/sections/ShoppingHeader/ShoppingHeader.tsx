@@ -3,9 +3,10 @@ import styles from './ShoppingHeader.module.scss';
 import TransactionsIcon from '@/assets/icons/transactions-icon.svg';
 import ShoppingCartIcon from '@/assets/icons/shopping-cart-icon.svg';
 
-import { useDeviceType } from '../../../../hooks/UseDeviceType';
-import { HeaderCard } from '../../../../components/Header/HeaderCard/HeaderCard';
-import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
+import { useDeviceType } from '@/hooks/UseDeviceType';
+import { HeaderCard } from '@/components/Header/HeaderCard/HeaderCard';
+import { NavigateHomeButton } from '@/components/NavigateHomeButton';
+import ShoppingDonePopup from '../../popups/ShoppingDonePopup/ShoppingDonePopup';
 
 interface ShoppingHeaderProps {
   numItemsInCart: number;
@@ -14,6 +15,8 @@ interface ShoppingHeaderProps {
 const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
   const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(136);
   const [headerCardHeight, setHeaderCardHeight] = useState<number | null>(110);
+  const [isOpenShoppingDonePopup, setIsOpenShoppingDonePopup] =
+    useState<boolean>(false);
   const { isMobile } = useDeviceType({ breakpoint: 769 });
 
   useEffect(() => {
@@ -32,7 +35,10 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
         <h1 className={styles.title}>SHOPPING</h1>
         <NavigateHomeButton />
       </div>
-
+      <ShoppingDonePopup
+        isOpen={isOpenShoppingDonePopup}
+        closePopup={() => setIsOpenShoppingDonePopup(false)}
+      />
       <div className={styles.headerCardsContainer}>
         <HeaderCard
           img={TransactionsIcon}
@@ -41,6 +47,7 @@ const ShoppingHeader: React.FC<ShoppingHeaderProps> = ({ numItemsInCart }) => {
           height={headerCardHeight}
           imgHeight={78}
           imgWidth={44}
+          onClick={() => setIsOpenShoppingDonePopup(true)}
         />
         <HeaderCard
           img={ShoppingCartIcon}
