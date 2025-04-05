@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 4px;
 
+  @media screen and (min-width: $breakpoint-tablet) {
+    align-items: center;
+  }
+
   .label {
     @include paragraph-14;
     color: $black-50;

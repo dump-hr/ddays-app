@@ -1,7 +1,7 @@
 export type UserDto = {
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
   password: string;
   phoneNumber: string;
   birthYear: number | null;
