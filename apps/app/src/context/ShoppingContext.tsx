@@ -3,7 +3,7 @@ import {
   products,
   userPointsAmount,
 } from '@/pages/ShoppingPage/sections/ShoppingItems/products';
-import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { ShopItemDto, TransactionItemDto } from '@ddays-app/types/src/dto/shop';
 
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
@@ -13,8 +13,8 @@ interface ShoppingContextType {
   productsList: typeof products;
   setProductsList: React.Dispatch<React.SetStateAction<typeof products>>;
   totalCost: number;
-  boughtItems: ShopItemDto[];
-  setBoughtItems: React.Dispatch<React.SetStateAction<ShopItemDto[]>>;
+  boughtItems: TransactionItemDto[];
+  setBoughtItems: React.Dispatch<React.SetStateAction<TransactionItemDto[]>>;
 }
 
 const ShoppingContext = createContext<ShoppingContextType | undefined>(
@@ -32,10 +32,10 @@ export const useShoppingContext = () => {
 };
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
+  const [boughtItems, setBoughtItems] = useState<TransactionItemDto[]>([]);
   const [cartItems, setCartItems] = useState<ShopItemDto[]>([]);
   const [userPoints, setUserPoints] = useState(userPointsAmount);
   const [productsList, setProductsList] = useState(products);
-  const [boughtItems, setBoughtItems] = useState<ShopItemDto[]>([]);
 
   const totalCost = useMemo(
     () =>

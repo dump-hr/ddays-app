@@ -1,6 +1,7 @@
 import styles from './ConfirmPopup.module.scss';
 import StarIcon from '@/assets/icons/star.svg';
 import { useShoppingContext } from '@/context/ShoppingContext';
+import { ShoppingCartItemStage } from '@ddays-app/types/src/enum';
 
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
@@ -12,6 +13,24 @@ interface PopupProps {
 const ConfirmPopup = ({ isOpen, closePopup }: PopupProps) => {
   const { totalCost, cartItems, setBoughtItems, setCartItems } =
     useShoppingContext();
+
+  const buyItems = () => {
+    setBoughtItems((prev) => [
+      ...prev,
+      ...cartItems.map((item) => {
+        return {
+          shopItemId: item.id,
+          shopItem: item,
+          stage: ShoppingCartItemStage.UNCOLLECTED,
+          orderedAt: new Date().toISOString(),
+          userId: 1,
+          takeByTime: '21:00',
+          quantity: 1,
+        };
+      }),
+    ]);
+    setCartItems([]);
+  };
 
   return (
     <PopupLayout
@@ -34,8 +53,7 @@ const ConfirmPopup = ({ isOpen, closePopup }: PopupProps) => {
         variant='black'
         style={{ width: '100%' }}
         onClick={() => {
-          setBoughtItems((prev) => [...prev, ...cartItems]);
-          setCartItems([]);
+          buyItems();
           closePopup();
         }}>
         KUPI ZA
