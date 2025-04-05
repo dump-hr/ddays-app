@@ -5,9 +5,6 @@
   width: 100%;
   min-height: 144px;
   gap: 3rem;
-  /* padding-bottom: 12px; 
-  padding-top: 20px;
-  padding-right: 6px; */
   padding: 20px 6px 12px 0;
 
   @media screen and (max-width: $breakpoint-mobile-lg) {
@@ -21,8 +18,8 @@
 
 .imageContainer {
   width: 147px;
-  height: 144px; // Slightly reduced
-  flex-shrink: 0; // Prevent shrinking
+  height: 144px; 
+  flex-shrink: 0;
 
   img {
     width: 100%;
@@ -74,7 +71,7 @@
 
 .divider {
   @include dottedBreak($black-70, 2px);
-  width: 100%; // Ensure full width
+  width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
