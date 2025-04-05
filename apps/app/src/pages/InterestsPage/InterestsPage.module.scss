@@ -1,15 +1,23 @@
 .container {
   background-color: $primary-black;
+  padding-bottom: 24px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 0;
+  }
+
   .main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     background-color: white;
     border-radius: 24px;
+    margin-inline: 24px;
   
     @media (max-width: $breakpoint-tablet) {
       border-radius: 24px 24px 0 0;
+      width: 100%;
+      margin: 0;
     }
   
     .wrapper{
