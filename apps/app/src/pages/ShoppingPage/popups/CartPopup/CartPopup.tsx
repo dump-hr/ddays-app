@@ -3,6 +3,7 @@ import styles from './CartPopup.module.scss';
 import Button from '@/components/Button';
 import { useShoppingContext } from '@/context/ShoppingContext';
 import CartItem from '@/components/CartItem';
+import StarIcon from '@/assets/icons/star.svg';
 
 interface PopupProps {
   isOpen: boolean;
@@ -29,11 +30,7 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
         <div className={styles.contentDiv}>
           {cartItems.length > 0 ? (
             cartItems.map((item, index) => (
-              <CartItem 
-                key={index} 
-                item={item} 
-                index={index} 
-              />
+              <CartItem key={index} item={item} index={index} />
             ))
           ) : (
             <div className={styles.emptyCart}>
@@ -42,7 +39,9 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
           )}
         </div>
         <div className={styles.buttonContainer}>
-          <Button variant='black' style={{ width: '100%' }}>
+          <Button variant='black' style={{ width: '100%', marginTop: '10px' }}>
+            KUPI ZA
+            <img src={StarIcon} className={styles.starIcon} />
             {totalCost}
           </Button>
         </div>

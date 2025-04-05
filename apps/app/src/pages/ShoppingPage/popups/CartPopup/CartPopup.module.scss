@@ -9,7 +9,7 @@
   width: 100%;
 
   @media screen and (max-width: $breakpoint-tablet) {
-    height: auto
+    height: auto;
   }
 }
 
@@ -18,17 +18,17 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: 465px;
-  gap:20px;
-  
+  max-height: 472px;
+  gap: 20px;
+
   &::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -45,4 +45,9 @@
 .buttonContainer {
   margin-top: auto;
   width: 100%;
+}
+
+.starIcon {
+  margin-left: 10px;
+  margin-right: 5px;
 }

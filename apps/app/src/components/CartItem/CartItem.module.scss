@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 144px;
   gap: 3rem;
-  padding: 0px 6px 12px 0;
+  padding: 0px 3px 12px 0;
 
   @media screen and (max-width: $breakpoint-mobile-lg) {
     gap: 1rem;
@@ -30,8 +30,6 @@
 }
 
 .itemDetails {
-  flex: 1;
-  max-width: 224px;
   width: 100%;
   position: relative;
   display: flex;
