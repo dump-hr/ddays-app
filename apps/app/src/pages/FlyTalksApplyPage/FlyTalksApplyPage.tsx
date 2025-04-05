@@ -86,14 +86,19 @@ const FlyTalksApplyPage = () => {
     undefined,
   );
 
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<{
+    linkedIn: string;
+    github: string;
+    portfolio: string;
+    about: string;
+    file: File | undefined;
+  }>({
     linkedIn: '',
     github: '',
     portfolio: '',
     about: '',
     file: undefined,
   });
-  const [file, setFile] = useState<File | undefined>(undefined);
   const [isFormValid, setIsFormValid] = useState<boolean | undefined>(
     undefined,
   );
@@ -128,10 +133,7 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = () => {
-    if (
-      Object.values(userData).some((value) => value === '') ||
-      file === undefined
-    ) {
+    if (Object.values(userData).some((value) => value === '')) {
       setIsFormValid(false);
     }
   };
@@ -193,8 +195,8 @@ const FlyTalksApplyPage = () => {
             <span>02</span> UPLOADAJ CV
           </p>
           <FileInput
-            file={file}
-            setFile={setFile}
+            file={userData.file}
+            setFile={(file) => setUserData((prev) => ({ ...prev, file }))}
             error={isFormValid === false ? handleError('file') : undefined}
             title='priloži životopis'
           />
