@@ -8,7 +8,6 @@ export enum ModalNames {
   AVATARS = 'avatars',
   LEADERBOARD = 'leaderboard',
   PRIZES = 'prizes',
-  SETTINGS = 'settings',
 
   DISPLAY_AREA = 'display-area',
 
@@ -25,12 +24,21 @@ export enum RouteNames {
   REGISTER = '/app/register',
   PASSWORD_RESET = '/app/password-reset',
   PROFILE = '/app/profile',
+  PROFILE_INTERESTS = '/app/profile/interests',
+  PROFILE_REWARDS = '/app/profile/rewards',
+  PROFILE_SETTINGS = '/app/profile/settings',
+  PROFILE_ACHIEVEMENTS = '/app/profile/achievements',
+  PROFILE_AVATARS = '/app/profile/avatars',
+  PROFILE_LEADERBOARD = '/app/profile/leaderboard',
+  PROFILE_RECOMMENDATIONS = '/app/profile/recommendations',
   COMPANIES = '/app/companies',
   SCHEDULE = '/app/schedule',
   FLY_TALKS = '/app/fly-talks',
   FLY_TALKS_APPLY = '/app/fly-talks-apply',
   SHOPPING = '/app/shopping',
+  CONFIRM_EMAIL = '/app/confirm-email',
   NOTIFICATIONS = '/app/notifications',
+  TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
 }
 
 export interface SubMenu {
@@ -83,43 +91,37 @@ export const routes: { [key: string]: Route } = {
     path: RouteNames.REGISTER,
     name: 'Register',
   },
-  [RouteNames.PASSWORD_RESET]: {
-    path: RouteNames.PASSWORD_RESET,
-    name: 'Password Reset',
-  },
   [RouteNames.PROFILE]: {
     path: RouteNames.PROFILE,
     name: 'Profile',
-    modals: [
-      {
-        name: ModalNames.INTERESTS,
-        edit: true,
-      },
-      {
-        name: ModalNames.ACHIEVEMENTS,
-        submenus: {
-          name: 'Achievements',
-          options: ['all', 'completed', 'uncompleted'],
-        },
-      },
-      {
-        name: ModalNames.AVATARS,
-      },
-      {
-        name: ModalNames.LEADERBOARD,
-      },
-      {
-        name: ModalNames.PRIZES,
-      },
-      {
-        name: ModalNames.SETTINGS,
-        edit: true,
-        submenus: {
-          name: 'Settings',
-          options: ['change-password'],
-        },
-      },
-    ],
+  },
+  [RouteNames.PROFILE_INTERESTS]: {
+    path: RouteNames.PROFILE_INTERESTS,
+    name: 'Interests',
+  },
+  [RouteNames.PROFILE_REWARDS]: {
+    path: RouteNames.PROFILE_REWARDS,
+    name: 'Rewards',
+  },
+  [RouteNames.PROFILE_SETTINGS]: {
+    path: RouteNames.PROFILE_SETTINGS,
+    name: 'Settings',
+  },
+  [RouteNames.PROFILE_ACHIEVEMENTS]: {
+    path: RouteNames.PROFILE_ACHIEVEMENTS,
+    name: 'Achievements',
+  },
+  [RouteNames.PROFILE_AVATARS]: {
+    path: RouteNames.PROFILE_AVATARS,
+    name: 'Avatars',
+  },
+  [RouteNames.PROFILE_LEADERBOARD]: {
+    path: RouteNames.PROFILE_LEADERBOARD,
+    name: 'Leaderboard',
+  },
+  [RouteNames.PROFILE_RECOMMENDATIONS]: {
+    path: RouteNames.PROFILE_RECOMMENDATIONS,
+    name: 'Recommendations',
   },
   [RouteNames.COMPANIES]: {
     path: RouteNames.COMPANIES,

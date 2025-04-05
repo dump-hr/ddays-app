@@ -1,7 +1,7 @@
 import c from './ScheduleCard.module.scss';
 import RatingStar from '../../assets/icons/rating-star-1.svg';
 import ArrowDown from '../../assets/icons/arrow-down-1.svg';
-import Check from '../../assets/icons/check-1.svg';
+import Check from '../../assets/icons/check-mark-icon.svg';
 import Button from '../Button';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
