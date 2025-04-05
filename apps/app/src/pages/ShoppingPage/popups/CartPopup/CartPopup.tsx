@@ -10,7 +10,7 @@ interface PopupProps {
 }
 
 const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { cartItems } = useShoppingContext();
+  const { cartItems, totalCost } = useShoppingContext();
 
   return (
     <PopupLayout
@@ -23,22 +23,30 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
           </span>
         </>
       }
-      closePopup={() => closePopup()}
+      closePopup={closePopup}
       isOpen={isOpen}>
-      <div className={styles.contentDiv}>
-        {cartItems.length > 0 ? (
-          cartItems.map((item, index) => {
-            return <CartItem item={item} index={index} />;
-          })
-        ) : (
-          <div className={styles.emptyCart}>
-            <p>Košarica je prazna</p>
-          </div>
-        )}
+      <div className={styles.cartContainer}>
+        <div className={styles.contentDiv}>
+          {cartItems.length > 0 ? (
+            cartItems.map((item, index) => (
+              <CartItem 
+                key={index} 
+                item={item} 
+                index={index} 
+              />
+            ))
+          ) : (
+            <div className={styles.emptyCart}>
+              <p>Košarica je prazna</p>
+            </div>
+          )}
+        </div>
+        <div className={styles.buttonContainer}>
+          <Button variant='black' style={{ width: '100%' }}>
+            {totalCost}
+          </Button>
+        </div>
       </div>
-      <Button variant='black' style={{ width: '100%' }}>
-        Svejedno obriši
-      </Button>
     </PopupLayout>
   );
 };

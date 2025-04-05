@@ -2,9 +2,42 @@
   color: $black-50;
 }
 
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+  padding-top: 20px;
+}
+
 .contentDiv {
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 450px;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+  }
+}
+
+.emptyCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.buttonContainer {
+  margin-top: auto;
+  width: 100%;
 }
