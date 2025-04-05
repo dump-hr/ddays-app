@@ -4,13 +4,13 @@ import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
-import CloseIcon from './../../assets/icons/remove-icon-black.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileHeader } from '../../components/ProfileHeader';
+import PopupLayout from '../../layout/PopupLayout/PopupLayout';
 
 export const InterestsPage = () => {
-  const [editIsOpen, setEditIsOpen] = useState(false);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>([
     'Web development',
     'Java',
@@ -29,19 +29,15 @@ export const InterestsPage = () => {
 
   const handleEditYourInterestsClick = () => {
     setTempSelectedInterests(userSelectedInterests);
-    setEditIsOpen(true);
-  };
-
-  const handleCloseIconClick = () => {
-    setEditIsOpen(false);
+    setPopupIsOpen(true);
   };
 
   const handleSaveInterests = () => {
     setUserSelectedInterests(tempSelectedInterests);
-    setEditIsOpen(false);
+    setPopupIsOpen(false);
   };
   return (
-    <>
+    <div className={c.container}>
       <ProfileHeader pageHeader='Interesi' userNameAndSurname='Marija Gudelj' />
       <main className={c.main}>
         <div className={c.wrapper}>
@@ -79,17 +75,13 @@ export const InterestsPage = () => {
         </div>
       </main>
 
-      {editIsOpen && (
+      <PopupLayout
+        variant='light'
+        headerTitleComponent='Uredi interese'
+        closePopup={() => setPopupIsOpen(false)}
+        isOpen={popupIsOpen}
+        desktopStyle={'normal'}>
         <div className={c.interestsForUpdate}>
-          <div className={c.updateHeader}>
-            <h2>Uredi interese</h2>
-            <img
-              src={CloseIcon}
-              alt='close icon'
-              onClick={handleCloseIconClick}
-            />
-          </div>
-
           <p>
             Odaberi svoje interese, a mi ćemo ti preporučiti poslodavce,
             predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
@@ -107,7 +99,7 @@ export const InterestsPage = () => {
             </Button>
           </div>
         </div>
-      )}
-    </>
+      </PopupLayout>
+    </div>
   );
 };

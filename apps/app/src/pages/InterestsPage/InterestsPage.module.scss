@@ -1,95 +1,91 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-  border-radius: 24px;
-
-  @media (max-width: $breakpoint-tablet) {
-    border-radius: 24px 24px 0 0;
-    height: 100vh;
-  }
-
-  .wrapper{
+.container {
+  background-color: $primary-black;
+  .main {
     display: flex;
     flex-direction: column;
-    width: 422px;
-    padding-top: 21px;
-
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 24px;
+  
     @media (max-width: $breakpoint-tablet) {
-      width: 100%;
-      padding-inline: 24px;
+      border-radius: 24px 24px 0 0;
     }
-
-    .wrapperHeader {
+  
+    .wrapper{
+      display: flex;
+      flex-direction: column;
+      width: 422px;
+      padding-top: 21px;
+  
+      @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+        padding-inline: 24px;
+      }
+  
+      .wrapperHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+  
+        h2{
+          @include heading-2;
+          font-weight: 500;
+        }
+        
+        .editIcon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 32px;
+          height: 32px;
+          background-color: $black-10;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+  
+      .interests{
+        margin-top: 35px;
+  
+        @media (max-width: $breakpoint-tablet) {
+          @include tag-14;
+        }
+      }
+    }
+  }
+  
+  .interestsForUpdate {
+    background-color: $primary-background;
+    border-radius: 24px;
+  
+    .updateHeader{
       display: flex;
       justify-content: space-between;
-      align-items: center; 
-
-      h2{
+      align-items: center;
+      margin-bottom: 12px;
+  
+      h2 {
         @include heading-2;
         font-weight: 500;
       }
-      
-      .editIcon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 32px;
-        height: 32px;
-        background-color: $black-10;
-        border-radius: 4px;
-      }
-    }
-
-    .interests{
-      margin-top: 35px;
-
-      @media (max-width: $breakpoint-tablet) {
-        @include tag-14;
-      }
-    }
-  }
-}
-
-.interestsForUpdate {
-  position: absolute;
-  right: 24px;
-  top: 24px;
-
-  padding: 48px 48px 0 48px;
-  max-width: 772px;
   
-  background-color: $primary-background;
-  border-radius: 24px;
-
-  .updateHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-
-    h2 {
-      @include heading-2;
-      font-weight: 500;
+      img {
+        width: 20px;
+        height: 20px;
+        cursor: pointer
+      }
     }
-
-    img {
-      width: 20px;
-      height: 20px;
-      cursor: pointer
+  
+    p {
+      @include paragraph-14;
+      max-width: 374px;
+      margin-bottom: 48px;
     }
-  }
-
-  p {
-    @include paragraph-14;
-    max-width: 374px;
-    margin-bottom: 48px;
-  }
-
-  .saveBtnWrapper {
-    display: flex;
-    flex-direction: column;
+  
+    .saveBtnWrapper {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
