@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import {
   products,
   userPointsAmount,
@@ -12,14 +12,19 @@ interface ShoppingContextType {
   setUserPoints: React.Dispatch<React.SetStateAction<number>>;
   productsList: typeof products;
   setProductsList: React.Dispatch<React.SetStateAction<typeof products>>;
+  totalCost: number;
 }
 
-const ShoppingContext = createContext<ShoppingContextType | undefined>(undefined);
+const ShoppingContext = createContext<ShoppingContextType | undefined>(
+  undefined,
+);
 
 export const useShoppingContext = () => {
   const context = useContext(ShoppingContext);
   if (context === undefined) {
-    throw new Error('useShoppingContext must be used within a ShoppingProvider');
+    throw new Error(
+      'useShoppingContext must be used within a ShoppingProvider',
+    );
   }
   return context;
 };
@@ -28,7 +33,15 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<ShopItemDto[]>([]);
   const [userPoints, setUserPoints] = useState(userPointsAmount);
   const [productsList, setProductsList] = useState(products);
-    
+
+  const totalCost = useMemo(
+    () =>
+      cartItems.reduce((acc, product) => {
+        return acc + product.price;
+      }, 0),
+    [cartItems],
+  );
+
   return (
     <ShoppingContext.Provider
       value={{
@@ -38,6 +51,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
         setUserPoints,
         productsList,
         setProductsList,
+        totalCost,
       }}>
       {children}
     </ShoppingContext.Provider>
