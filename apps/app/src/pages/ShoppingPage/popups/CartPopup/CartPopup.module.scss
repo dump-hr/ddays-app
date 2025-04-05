@@ -6,7 +6,11 @@
   display: flex;
   flex-direction: column;
   height: calc(100% - 60px);
-  padding-top: 20px;
+  width: 100%;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    height: auto
+  }
 }
 
 .contentDiv {
@@ -14,7 +18,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: 450px;
+  max-height: 465px;
+  gap:20px;
   
   &::-webkit-scrollbar {
     width: 4px;

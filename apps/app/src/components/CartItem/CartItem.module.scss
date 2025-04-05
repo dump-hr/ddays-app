@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 144px;
   gap: 3rem;
-  padding: 20px 6px 12px 0;
+  padding: 0px 6px 12px 0;
 
   @media screen and (max-width: $breakpoint-mobile-lg) {
     gap: 1rem;
@@ -18,7 +18,7 @@
 
 .imageContainer {
   width: 147px;
-  height: 144px; 
+  height: 144px;
   flex-shrink: 0;
 
   img {
