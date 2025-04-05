@@ -12,6 +12,8 @@ import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '../../../types/user/user';
+import { useUserRegister } from '@/api/auth/useUserRegister';
+import { RouteNames } from '@/router/routes';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -37,6 +39,8 @@ export const GeneralRegistrationForm = () => {
     companiesNewsEnabled: false,
     termsAndConditionsEnabled: false,
   });
+
+  const { mutate } = useUserRegister(() => navigate(RouteNames.CONFIRM_EMAIL));
   const navigate = useNavigate();
 
   const updateUserData = (newData: Partial<RegistrationDto>) => {
@@ -61,7 +65,18 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
-        navigate('/app/confirm-email');
+        mutate({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          password: userData.password,
+          phoneNumber: userData.phoneNumber,
+          birthYear: userData.birthYear,
+          educationDegree: userData.educationDegree,
+          occupation: userData.occupation,
+          newsletterEnabled: userData.newsletterEnabled,
+          companiesNewsEnabled: userData.companiesNewsEnabled,
+        });
         break;
       default:
         break;
