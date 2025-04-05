@@ -1,16 +1,29 @@
+import { useState, useEffect } from 'react';
+import { useUserLogin } from '../../api/auth/useUserLogin';
 import { Input } from '../../components/Input';
-import { useState } from 'react';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
 import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
+import { useNavigate } from 'react-router-dom';
+import { isTokenExpired } from '@/helpers/auth';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const navigate = useNavigate();
+  const { mutate } = useUserLogin(() => navigate(RouteNames.HOME));
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && !isTokenExpired(accessToken)) {
+      navigate(RouteNames.HOME);
+    }
+  }, []);
 
   const clearErrors = (field: string) => {
     if (field === 'email') {
@@ -46,7 +59,7 @@ export const LoginPage = () => {
 
   const handleLogin = () => {
     if (validateInputs()) {
-      console.log('Logging in');
+      mutate({ email, password });
     }
   };
 
