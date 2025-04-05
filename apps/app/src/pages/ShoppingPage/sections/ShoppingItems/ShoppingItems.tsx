@@ -1,19 +1,13 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
-import { useEffect, useState } from 'react';
+
 import { ShoppingItem } from '../../../../components/ShoppingItem';
-import { products, userPointsAmount } from './products';
+import {
+  useShoppingContext,
+} from '@/context/ShoppingContext';
 
-interface ShoppingItemsProps {
-  setNumItemsInCart: (updateFn: (prev: number) => number) => void;
-}
-
-const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
-  const [userPoints, setUserPoints] = useState(0);
-
-  useEffect(() => {
-    setUserPoints(userPointsAmount);
-  }, []);
+const ShoppingItems: React.FC = () => {
+  const { userPoints, productsList } = useShoppingContext();
 
   return (
     <div className={styles.shoppingItemsWrapper}>
@@ -26,12 +20,11 @@ const ShoppingItems: React.FC<ShoppingItemsProps> = ({ setNumItemsInCart }) => {
           </div>
         </div>
         <div className={styles.products}>
-          {products.map((product) => (
+          {productsList.map((product) => (
             <ShoppingItem
               key={product.id}
               product={product}
               userPointsAmount={userPoints}
-              setNumItemsInCart={setNumItemsInCart}
             />
           ))}
         </div>

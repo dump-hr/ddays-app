@@ -7,18 +7,19 @@ import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
 import toast from 'react-hot-toast';
+import { useShoppingContext } from '@/context/ShoppingContext';
 
 interface ShoppingItemProps {
   userPointsAmount: number;
   product: ShopItemDto;
-  setNumItemsInCart: (updateFn: (prev: number) => number) => void;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({
   product,
   userPointsAmount,
-  setNumItemsInCart,
 }) => {
+  const { setCartItems } = useShoppingContext();
+
   const [isInCart, setIsInCart] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -32,7 +33,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
   const handleCartBtnClick = () => {
     if (disabled) return;
 
-    setNumItemsInCart((prev) => prev + 1);
+    setCartItems((prevItems) => [...prevItems, product]);
     setIsInCart(true);
     toast.success('Proizvod dodan u košaricu');
   };

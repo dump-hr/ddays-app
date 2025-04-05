@@ -4,9 +4,9 @@ import styles from './ShoppingPage.module.scss';
 import ShoppingItems from './sections/ShoppingItems';
 import ShoppingHeader from './sections/ShoppingHeader';
 import ShoppingWelcome from './sections/ShoppingWelcome';
+import { ShoppingProvider } from '@/context/ShoppingContext';
 
 export const ShoppingPage = () => {
-  const [numItemsInCart, setNumItemsInCart] = useState<number>(0);
   const [firstShopVisit, setFirstShopVisit] = useState<boolean>(false);
   const isMounted = useRef<boolean>(false);
 
@@ -30,14 +30,16 @@ export const ShoppingPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      {firstShopVisit ? (
-        <ShoppingWelcome setFirstShopVisit={setFirstShopVisit} />
-      ) : (
-        <>
-          <ShoppingHeader numItemsInCart={numItemsInCart} />
-          <ShoppingItems setNumItemsInCart={setNumItemsInCart} />
-        </>
-      )}
+      <ShoppingProvider>
+        {firstShopVisit ? (
+          <ShoppingWelcome setFirstShopVisit={setFirstShopVisit} />
+        ) : (
+          <>
+            <ShoppingHeader />
+            <ShoppingItems />
+          </>
+        )}
+      </ShoppingProvider>
     </div>
   );
 };
