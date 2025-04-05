@@ -43,7 +43,10 @@ const router = createBrowserRouter(
 
         <Route path={RouteNames.PROFILE}>
           <Route index element={<ProfilePage />} />
-          <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_INTERESTS}
+            element={<InterestsPage />}
+          />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
             path={RouteNames.PROFILE_SETTINGS}
