@@ -12,13 +12,11 @@
 
     p {
       color: $primary-white;
-      font-family: Inter;
       text-transform: uppercase;
-      font-size: 24px;
-      font-weight: 500;
       margin-top: 64px;
       align-self: flex-start;
       margin-left: 24px;
+      @include heading-2;
     }
     .duckImage {
       position: relative;
@@ -51,21 +49,17 @@
         justify-content: space-between;
         margin-top: 24px;
         gap: 24px;
-        font-family: NeueMachina;
 
         p {
-          font-size: 24px;
-          font-weight: 500;
+          @include heading-2;
           color: $primary-black;
         }
       }
 
       .copyParagraph {
         margin-top: 16px;
-        font-size: 16px;
-        color: $primary-black;
-        line-height: 22px;
-        font-weight: 400;
+        color: $primary-black;  
+        @include paragraph-16;
       }
 
       .nextButton {

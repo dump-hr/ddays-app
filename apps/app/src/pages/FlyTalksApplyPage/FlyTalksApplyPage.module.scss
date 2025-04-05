@@ -2,7 +2,6 @@
   background-color: $primary-black;
   display: flex;
   flex-direction: column;
-  font-family: Inter;
   align-items: center;
   min-width: 100%;
   min-height: 100%;
@@ -11,10 +10,8 @@
     width: 100%;
 
     p {
-      font-family: NeueMachina;
+      @include heading-2;
       color: $primary-white;
-      font-size: 24px;
-      font-weight: 500;
       margin: 64px 0 24px 24px;
     }
   }
@@ -42,13 +39,7 @@
         .dateParagraph {
           color: var(--Black-50, #868685);
           text-align: center;
-          font-feature-settings: 'ss12' on;
-          font-family: NeueMachina;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 20px;
-          letter-spacing: -0.16px;
+          @include heading-3;
           text-transform: uppercase;
         }
 
@@ -56,27 +47,21 @@
           color: var(--Black-90, #2d2c2c);
           text-align: center;
 
-          font-family: NeueMontrealMono;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 18px;
+          @include tag-16;
         }
       }
 
       .infoParagraph {
         margin-top: 24px;
         color: var(--Primary-Black, #171615);
-        font-family: Inter;
-        font-size: 16px;
+        @include paragraph-16;
       }
 
       .applyStepsParagraph {
         color: var(--Primary-Black, #171615);
         font-feature-settings: 'ss12' on;
         margin-top: 35px;
-        font-family: NeueMachina;
-        font-size: 16px;
+        @include paragraph-16;
 
         span {
           color: var(--Black-50, #868685);
@@ -91,7 +76,7 @@
       .aboutLettersCounter {
         color: var(--Primary-Black, #171615);
         text-align: right;
-        font-family: NeueMontrealMono;
+        @include tag-16;
         font-size: 14px;
         justify-self: end;
         margin-top: 16px;
@@ -111,11 +96,7 @@
 
         p {
           color: var(--Primary-Black, #171615);
-          font-family: Inter;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 600;
-          line-height: 22px;
+          @include paragraph-16;
           text-transform: uppercase;
         }
 
@@ -137,10 +118,10 @@
     .main {
       border-radius: 12px;
     }
-    .header{
-      p{
-         text-align: center;
-         margin-left: 0;
+    .header {
+      p {
+        text-align: center;
+        margin-left: 0;
       }
     }
   }

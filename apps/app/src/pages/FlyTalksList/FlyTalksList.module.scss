@@ -4,15 +4,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: Inter;
 
   header {
     width: 100%;
 
     p {
       color: $primary-white;
-      font-size: 24px;
-      font-weight: 500;
+      @include heading-2;
       margin: 64px 0 24px 24px;
       text-transform: uppercase;
     }
@@ -36,10 +34,7 @@
     .listInfoText {
       margin-top: 24px;
       color: var(--Primary-Black, #171615);
-      font-family: Inter;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
+      @include paragraph-16;
       line-height: 22px;
       letter-spacing: -0.16px;
     }
