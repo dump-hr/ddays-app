@@ -5,6 +5,7 @@ import { Input } from '../../components/Input';
 import Button from '../../components/Button';
 import placeholderLogo from '../../assets/images/profico-logo.png';
 import FileInput from '../../components/FileInput';
+import { validateFlyTalksInput } from '@/helpers/validateInput';
 
 const groupsMock = [
   {
@@ -90,9 +91,12 @@ const FlyTalksApplyPage = () => {
     github: '',
     portfolio: '',
     about: '',
+    file: undefined,
   });
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [error, setError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState<boolean | undefined>(
+    undefined,
+  );
   const [wordCount, setWordCount] = useState(0);
 
   useEffect(() => {
@@ -128,16 +132,15 @@ const FlyTalksApplyPage = () => {
       Object.values(userData).some((value) => value === '') ||
       file === undefined
     ) {
-      setError(true);
+      setIsFormValid(false);
     }
   };
 
   const handleError = (field: keyof typeof userData) => {
-    if (error === true && userData[field] === '') {
-      return 'Obavezno polje';
-    } else {
-      return '';
-    }
+    const errorMessage = validateFlyTalksInput([field], {
+      [field]: userData[field],
+    });
+    return errorMessage;
   };
 
   return (
@@ -168,7 +171,7 @@ const FlyTalksApplyPage = () => {
             name='linkedIn'
             placeholder='LinkedIn'
             onChange={handleInputChange}
-            error={handleError('linkedIn')}
+            error={isFormValid === false ? handleError('linkedIn') : undefined}
           />
           <Input
             value={userData.github}
@@ -176,7 +179,7 @@ const FlyTalksApplyPage = () => {
             name='github'
             placeholder='Github'
             onChange={handleInputChange}
-            error={handleError('github')}
+            error={isFormValid === false ? handleError('github') : undefined}
           />
           <Input
             value={userData.portfolio}
@@ -184,7 +187,7 @@ const FlyTalksApplyPage = () => {
             name='portfolio'
             placeholder='Portfolio'
             onChange={handleInputChange}
-            error={handleError('portfolio')}
+            error={isFormValid === false ? handleError('portfolio') : undefined}
           />
           <p className={c.applyStepsParagraph}>
             <span>02</span> UPLOADAJ CV
@@ -192,7 +195,7 @@ const FlyTalksApplyPage = () => {
           <FileInput
             file={file}
             setFile={setFile}
-            error={error && file === undefined ? 'Obavezno polje' : ''}
+            error={isFormValid === false ? handleError('file') : undefined}
             title='priloži životopis'
           />
           <p className={c.applyStepsParagraph}>
@@ -204,7 +207,7 @@ const FlyTalksApplyPage = () => {
             name='about'
             placeholder='Napiši nešto o sebi...'
             onChange={handleInputChange}
-            error={handleError('about')}
+            error={isFormValid === false ? handleError('about') : undefined}
           />
           <p className={c.aboutLettersCounter}>{wordCount}/70</p>
           <Button

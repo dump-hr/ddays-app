@@ -1,7 +1,7 @@
 .page {
   background-color: $primary-black;
-  width: 100%;
-  height: 100vh;
+  min-width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: Inter;
@@ -27,6 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-grow: 1;
 
     .tabGroup {
       width: 100%;
@@ -53,6 +54,8 @@
   }
 
   @media screen and (min-width: $breakpoint-tablet) {
+    padding: 24px;
+
     header {
       text-align: center;
     }

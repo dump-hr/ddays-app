@@ -1,123 +1,122 @@
 .page {
-    background-color: $primary-black;
+  background-color: $primary-black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: Inter;
-    align-items: center;
-  
-    .header {
-      width: 100%;
-      height: 350px;
+
+    p {
+      color: $primary-white;
+      font-family: Inter;
+      text-transform: uppercase;
+      font-size: 24px;
+      font-weight: 500;
+      margin-top: 64px;
+      align-self: flex-start;
+      margin-left: 24px;
+    }
+    .duckImage {
+      position: relative;
+      height: 200px;
+      top: 30px;
+      margin-bottom: -10px;
+      align-self: flex-end;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    background-color: $primary-background;
+    border-radius: 12px 12px 0px 0px;
+    padding: 20px;
+    z-index: 1;
+    flex-grow: 1;
+
+    .mainContent {
+      max-width: 450px;
+      margin: auto;
       display: flex;
       flex-direction: column;
-  
-      p {
-        color: $primary-white;
-        text-transform: uppercase;
-        font-size: 24px;
-        font-weight: 500;
-        margin-top: 64px;
-        align-self: flex-start;
-        margin-left: 24px;
-      }
-      .duckImage {
-        position: relative;
-        height: 200px;
-        top: 30px;
-        margin-bottom: -10px;
-        align-self: flex-end;
-      }
-    }
-  
-    .main {
-      width: 100%;
-      height: 100%;
-      background-color: $primary-background;
-      border-radius: 12px 12px 0px 0px;
-      padding: 20px;
-      z-index: 1;
-  
-      .mainContent {
-        max-width: 700px;
-        margin: auto;
+      justify-content: space-between;
+
+      .mainHeader {
         display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: space-between;
-        height: 100%;
-  
-        .mainHeader {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: 24px;
-          gap: 24px;
-          font-family: NeueMachina;
-  
-          p {
-            font-size: 24px;
-            font-weight: 500;
-            color: $primary-black;
-          }
-        }
-  
-        .copyParagraph {
-          margin-top: 16px;
-          font-size: 16px;
+        margin-top: 24px;
+        gap: 24px;
+        font-family: NeueMachina;
+
+        p {
+          font-size: 24px;
+          font-weight: 500;
           color: $primary-black;
-          line-height: 22px;
-          font-weight: 400;
         }
-  
-        .nextButton {
-          margin-top: 24px;
-          width: 100%;
-        }
+      }
+
+      .copyParagraph {
+        margin-top: 16px;
+        font-size: 16px;
+        color: $primary-black;
+        line-height: 22px;
+        font-weight: 400;
+      }
+
+      .nextButton {
+        margin-top: 24px;
+        width: 100%;
       }
     }
-  
-    @media screen and (min-width: $breakpoint-tablet) {
-      .header {
-        align-items: center;
-  
-        p {
-          margin-top: 80px;
-          margin-left: 0;
-          text-align: center;
-          font-size: 30px;
-          align-self: center;
-        }
-  
-        .duckImage{
-          align-self: center;
-        }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 24px;
+
+    .header {
+      align-items: center;
+
+      p {
+        margin-top: 80px;
+        margin-left: 0;
+        text-align: center;
+        font-size: 30px;
+        align-self: center;
       }
-  
-      .main {
-        border-radius: 12px;
-        .mainContent {
-          max-width: 450px;
-  
-          .mainHeader {
-            justify-content: center;
-  
-            p {
-              font-size: 30px;
-              text-align: center;
-            }
-  
-            img {
-              display: none;
-            }
-          }
-          .copyParagraph {
-            margin-top: 25px;
-            font-size: 16px;
+
+      .duckImage {
+        align-self: center;
+      }
+    }
+
+    .main {
+      border-radius: 12px;
+      .mainContent {
+        max-width: 450px;
+
+        .mainHeader {
+          justify-content: center;
+
+          p {
+            font-size: 30px;
             text-align: center;
           }
+
+          img {
+            display: none;
+          }
+        }
+        .copyParagraph {
+          margin-top: 25px;
+          font-size: 16px;
+          text-align: center;
         }
       }
     }
   }
-  
+}
