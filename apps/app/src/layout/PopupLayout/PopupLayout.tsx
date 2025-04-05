@@ -10,7 +10,7 @@ interface PopupLayoutProps {
   closePopup: () => void;
   isOpen: boolean;
   imgSrc?: string;
-  justifyContent?: 'center' | 'start' | 'end';
+  justifyContent?: 'center' | 'start' | 'end' | 'space-between';
   desktopStyle?: 'normal' | 'stretch';
   opacity?: number;
 }

@@ -6,19 +6,17 @@ import ShoppingCartIcon from '@/assets/icons/shopping-cart-icon.svg';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { HeaderCard } from '@/components/Header/HeaderCard/HeaderCard';
 import { NavigateHomeButton } from '@/components/NavigateHomeButton';
-import ShoppingDonePopup from '../../popups/ShoppingDonePopup/ShoppingDonePopup';
-import CartPopup from '../../popups/CartPopup/CartPopup';
 import { useShoppingContext } from '@/context/ShoppingContext';
+import CartPopup from '../../popups/CartPopup/CartPopup';
+import TransactionsPopup from '../../popups/TransactionsPopup';
 
 const ShoppingHeader: React.FC = () => {
   const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(136);
   const [headerCardHeight, setHeaderCardHeight] = useState<number | null>(110);
-  const [isOpenShoppingDonePopup, setIsOpenShoppingDonePopup] =
-    useState<boolean>(false);
   const { cartItems } = useShoppingContext();
 
   const [isOpenShoppingCart, setIsOpenShoppingCart] = useState(false);
-  /*   const [isOpenTransactions, setIsOpenTransactions] = useState(false); */
+  const [isOpenTransactions, setIsOpenTransactions] = useState(false);
 
   const { isMobile } = useDeviceType({ breakpoint: 769 });
 
@@ -38,14 +36,17 @@ const ShoppingHeader: React.FC = () => {
         <h1 className={styles.title}>SHOPPING</h1>
         <NavigateHomeButton />
       </div>
-      <ShoppingDonePopup
-        isOpen={isOpenShoppingDonePopup}
-        closePopup={() => setIsOpenShoppingDonePopup(false)}
+
+      <TransactionsPopup
+        isOpen={isOpenTransactions}
+        closePopup={() => setIsOpenTransactions(false)}
       />
+
       <CartPopup
         isOpen={isOpenShoppingCart}
         closePopup={() => setIsOpenShoppingCart(false)}
       />
+
       <div className={styles.headerCardsContainer}>
         <HeaderCard
           img={TransactionsIcon}
@@ -54,7 +55,7 @@ const ShoppingHeader: React.FC = () => {
           height={headerCardHeight}
           imgHeight={78}
           imgWidth={44}
-          onClick={() => setIsOpenShoppingDonePopup(true)}
+          onClick={() => setIsOpenTransactions(true)}
         />
         <HeaderCard
           img={ShoppingCartIcon}

@@ -30,7 +30,10 @@ const ShoppingDonePopup = ({ isOpen, closePopup }: PopupProps) => {
             Tvoje stvari zadržavamo samo sat vremena, stoga brzo na štand po
             stvari.
           </AlertSection>
-          <Button variant='black' style={{ width: '100%' }}>
+          <Button
+            variant='black'
+            style={{ width: '100%' }}
+            onClick={closePopup}>
             ZATVORI
           </Button>
         </div>

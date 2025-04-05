@@ -13,6 +13,8 @@ interface ShoppingContextType {
   productsList: typeof products;
   setProductsList: React.Dispatch<React.SetStateAction<typeof products>>;
   totalCost: number;
+  boughtItems: ShopItemDto[];
+  setBoughtItems: React.Dispatch<React.SetStateAction<ShopItemDto[]>>;
 }
 
 const ShoppingContext = createContext<ShoppingContextType | undefined>(
@@ -33,6 +35,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<ShopItemDto[]>([]);
   const [userPoints, setUserPoints] = useState(userPointsAmount);
   const [productsList, setProductsList] = useState(products);
+  const [boughtItems, setBoughtItems] = useState<ShopItemDto[]>([]);
 
   const totalCost = useMemo(
     () =>
@@ -52,6 +55,8 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
         productsList,
         setProductsList,
         totalCost,
+        boughtItems,
+        setBoughtItems,
       }}>
       {children}
     </ShoppingContext.Provider>

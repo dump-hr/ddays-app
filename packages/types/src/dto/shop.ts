@@ -1,4 +1,5 @@
 import { ShopItemType } from '@prisma/client';
+import { ShoppingCartItemStage } from 'src/enum';
 
 export type ShopItemDto = {
   id: number;
@@ -6,4 +7,14 @@ export type ShopItemDto = {
   itemName: string | null;
   quantity: number | null;
   price: number;
+};
+
+export type TransactionItemDto = {
+  shopItemId: number;
+  shopItem: ShopItemDto;
+  userId: number;
+  quantity: number;
+  stage: ShoppingCartItemStage;
+  orderedAt: string | null;
+  takeByTime: string | null;
 };
