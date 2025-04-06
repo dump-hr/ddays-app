@@ -1,14 +1,33 @@
+import { UserDto } from '@ddays-app/types/src/dto/user';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 import CheckIcon from '../../assets/icons/check.svg';
 import XIcon from '../../assets/icons/x.svg';
+import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
 
 const FlyTalksPage = () => {
+  const [modalUser, setModalUser] = useState<UserDto | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function handleOpenModal(user: UserDto) {
+    setModalUser(user);
+    setIsModalOpen(true);
+  }
+
   return (
     <div className={c.page}>
+      {isModalOpen && (
+        <FlyTalkUserModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          user={modalUser}
+        />
+      )}
+
       <div className={c.content}>
         <section className={c.titleSection}>
           <h2 className={c.title}>Fly Talks</h2>
@@ -40,7 +59,9 @@ const FlyTalksPage = () => {
                 </td>
                 <td>{applicant.email}</td>
                 <td>
-                  <p>Pregledaj detalje</p>
+                  <p onClick={() => handleOpenModal(applicant)}>
+                    Pregledaj detalje
+                  </p>
                 </td>
                 <td>
                   <button className={c.button}>Pregledaj CV</button>
