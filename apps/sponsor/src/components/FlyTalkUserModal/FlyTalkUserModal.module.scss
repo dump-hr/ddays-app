@@ -1,0 +1,71 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: 8px;
+
+  z-index: 3;
+  transform: translate(-50%, -50%);
+
+  background: black;
+  color: white;
+  padding: 40px 80px 55px 80px;
+  width: 650px;
+  max-height: 768px;
+  overflow-y: auto;
+
+  .subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 8px;
+  }
+
+  .fullName {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 38px;
+  }
+
+  .email {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    margin-bottom: 32px;
+  }
+
+  .about {
+    margin-bottom: 32px;
+  }
+
+  .link {
+    &:not(:last-of-type) {
+      margin-bottom: 8px;
+    }
+
+    > a {
+      color: white;
+    }
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
+
+.close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+}
