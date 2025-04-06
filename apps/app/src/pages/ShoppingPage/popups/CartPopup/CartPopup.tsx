@@ -24,10 +24,15 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
     closePopup();
   };
 
-  const closeConfirmPopup = () => {
+  const clickConfirmPopup = () => {
     setIsConfirmed(true);
     closePopup();
     setUserPoints((prev) => prev - totalCost);
+  };
+
+  const closeConfirmPopup = () => {
+    setIsBought(false);
+    setIsConfirmed(false);
   };
 
   const closeShoppingDonePopup = () => {
@@ -75,7 +80,11 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
       </PopupLayout>
 
       {isBought && (
-        <ConfirmPopup isOpen={isBought} closePopup={closeConfirmPopup} />
+        <ConfirmPopup
+          isOpen={isBought}
+          closePopup={closeConfirmPopup}
+          confirmPopup={clickConfirmPopup}
+        />
       )}
 
       {isConfirmed && (
