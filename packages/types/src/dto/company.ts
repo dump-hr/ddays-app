@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { CompanyCategory } from '../enum';
 import { InterestDto } from './interest';
-import { IsBetweenWordCount } from 'src/validators/is-between-word-count';
+import { IsBetweenWordCount } from '../validators/is-between-word-count';
 import { JobDto } from './job';
 
 export type CompanyPublicDto = {
