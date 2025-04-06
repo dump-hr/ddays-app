@@ -92,13 +92,13 @@ export const InterestsPage = () => {
             userSelectedInterests={tempSelectedInterests}
             setUserSelectedInterests={setTempSelectedInterests}
           />
-
-          <div className={c.saveBtnWrapper}>
-            <Button variant='black' onClick={handleSaveInterests}>
-              Spremi
-            </Button>
-          </div>
         </div>
+        <Button
+          variant='black'
+          style={{ width: '100%' }}
+          onClick={handleSaveInterests}>
+          Spremi
+        </Button>
       </PopupLayout>
     </div>
   );
