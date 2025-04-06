@@ -1,6 +1,6 @@
 import InfoMessage from '../../components/InfoMessage';
 import c from './FlyTalksPage.module.scss';
-import { applicants } from './seed';
+import { applicants1, applicants2 } from './seed';
 
 const FlyTalksPage = () => {
   return (
@@ -23,7 +23,7 @@ const FlyTalksPage = () => {
             </tr>
           </thead>
           <tbody>
-            {applicants.map((applicant, i) => (
+            {applicants1.map((applicant, i) => (
               <tr key={i}>
                 <td></td>
                 <td>
@@ -34,10 +34,35 @@ const FlyTalksPage = () => {
                   <p>Pregledaj detalje</p>
                 </td>
                 <td>
-                  <button>Pregledaj CV</button>
+                  <button className={c.button}>Pregledaj CV</button>
                 </td>
                 <td>
-                  <button>Odaberi</button>
+                  <button className={c.button}>Odaberi</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {applicants1.length !== 0 && applicants2.length !== 0 && (
+          <hr className={c.break} />
+        )}
+        <table className={c.table}>
+          <tbody>
+            {applicants2.map((applicant, i) => (
+              <tr key={i}>
+                <td></td>
+                <td>
+                  {applicant.firstName} {applicant.lastName}
+                </td>
+                <td>{applicant.email}</td>
+                <td>
+                  <p>Pregledaj detalje</p>
+                </td>
+                <td>
+                  <button className={c.button}>Pregledaj CV</button>
+                </td>
+                <td>
+                  <button className={c.button}>Odaberi</button>
                 </td>
               </tr>
             ))}
