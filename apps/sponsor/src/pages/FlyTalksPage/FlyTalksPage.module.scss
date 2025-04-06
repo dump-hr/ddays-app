@@ -1,0 +1,31 @@
+.page {
+  width: 100%;
+  background-color: #0e0e0e;
+
+  .content {
+    max-width: 1050px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 40px 0;
+  }
+}
+
+.titleSection {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #27292e;
+  background: rgba(39, 41, 46, 0.5);
+  box-sizing: border-box;
+  padding: 24px;
+
+  .title {
+    color: #fff;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    margin-bottom: 12px;
+  }
+}
