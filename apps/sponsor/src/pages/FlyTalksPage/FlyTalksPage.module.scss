@@ -30,3 +30,46 @@
     margin-bottom: 12px;
   }
 }
+
+.table {
+  width: 100%;
+  text-align: left;
+
+  th {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+
+  td {
+    &:nth-of-type(1) {
+      // status
+      width: 75px;
+    }
+    &:nth-of-type(2) {
+      // ime i prezime
+      width: 200px;
+    }
+    &:nth-of-type(3) {
+      // e-adresa
+      width: 200px;
+    }
+    &:nth-of-type(4) {
+      // opis
+      width: 162px;
+    }
+    &:nth-of-type(5) {
+      // CV
+      width: 140px;
+    }
+    &:last-of-type {
+      // odabir
+      width: auto;
+      text-align: right;
+    }
+  }
+}
