@@ -94,6 +94,19 @@
     &:active {
       background: rgba(255, 255, 255, 0.4);
     }
+
+    &.white {
+      background: rgba(255, 255, 255);
+      color: black;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      &:active {
+        background: rgba(255, 255, 255, 0.9);
+      }
+    }
   }
 }
 

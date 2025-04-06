@@ -1,3 +1,7 @@
+import clsx from 'clsx';
+
+import CheckIcon from '../../assets/icons/check.svg';
+import XIcon from '../../assets/icons/x.svg';
 import InfoMessage from '../../components/InfoMessage';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
@@ -8,7 +12,10 @@ const FlyTalksPage = () => {
       <div className={c.content}>
         <section className={c.titleSection}>
           <h2 className={c.title}>Fly Talks</h2>
-          <p>Ukupno prihvaćenih prijava: 3/25</p>
+          <p>
+            Ukupno prihvaćenih prijava: {applicants1.length}/
+            {applicants1.length + applicants2.length}
+          </p>
         </section>
         <InfoMessage message='Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00.' />
         <table className={c.table}>
@@ -25,7 +32,9 @@ const FlyTalksPage = () => {
           <tbody>
             {applicants1.map((applicant, i) => (
               <tr key={i}>
-                <td></td>
+                <td>
+                  <img src={CheckIcon} />
+                </td>
                 <td>
                   {applicant.firstName} {applicant.lastName}
                 </td>
@@ -37,7 +46,9 @@ const FlyTalksPage = () => {
                   <button className={c.button}>Pregledaj CV</button>
                 </td>
                 <td>
-                  <button className={c.button}>Odaberi</button>
+                  <button className={clsx(c.button, c.white)}>
+                    Ukloni odabir
+                  </button>
                 </td>
               </tr>
             ))}
@@ -50,7 +61,9 @@ const FlyTalksPage = () => {
           <tbody>
             {applicants2.map((applicant, i) => (
               <tr key={i}>
-                <td></td>
+                <td>
+                  <img src={XIcon} />
+                </td>
                 <td>
                   {applicant.firstName} {applicant.lastName}
                 </td>
