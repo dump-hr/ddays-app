@@ -34,3 +34,9 @@
 .buttonContainer {
   margin-top: 2rem;
 }
+
+.noTransactions {
+  @include heading-3;
+  font-weight: 500;
+  text-align: center;
+}

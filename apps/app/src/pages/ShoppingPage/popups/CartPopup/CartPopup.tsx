@@ -15,13 +15,24 @@ interface PopupProps {
 }
 
 const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { cartItems, totalCost } = useShoppingContext();
+  const { cartItems, totalCost, setUserPoints } = useShoppingContext();
   const [isBought, setIsBought] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const openConfirmPopup = () => {
     setIsBought(true);
     closePopup();
+  };
+
+  const closeConfirmPopup = () => {
+    setIsConfirmed(true);
+    closePopup();
+    setUserPoints((prev) => prev - totalCost);
+  };
+
+  const closeShoppingDonePopup = () => {
+    setIsBought(false);
+    setIsConfirmed(false);
   };
 
   return (
@@ -46,7 +57,7 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
               ))
             ) : (
               <div className={styles.emptyCart}>
-                <p>Košarica je prazna</p>
+                <p className={styles.noItems}>Košarica je prazna ⚠️</p>
               </div>
             )}
           </div>
@@ -64,23 +75,13 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
       </PopupLayout>
 
       {isBought && (
-        <ConfirmPopup
-          isOpen={isBought}
-          closePopup={() => {
-            setIsConfirmed(true);
-            closePopup();
-          }}
-        />
+        <ConfirmPopup isOpen={isBought} closePopup={closeConfirmPopup} />
       )}
 
       {isConfirmed && (
         <ShoppingDonePopup
           isOpen={isConfirmed}
-          closePopup={() => {
-            setIsConfirmed(false);
-            setIsBought(false);
-            closePopup();
-          }}
+          closePopup={closeShoppingDonePopup}
         />
       )}
     </>

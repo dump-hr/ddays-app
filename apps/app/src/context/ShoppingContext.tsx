@@ -1,9 +1,14 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import {
-  products,
-  userPointsAmount,
-} from '@/pages/ShoppingPage/sections/ShoppingItems/products';
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { products } from '@/pages/ShoppingPage/sections/ShoppingItems/products';
 import { ShopItemDto, TransactionItemDto } from '@ddays-app/types/src/dto/shop';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
@@ -32,10 +37,16 @@ export const useShoppingContext = () => {
 };
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
+  /* const { data: user, isLoading } = useLoggedInUser(); */
+
   const [boughtItems, setBoughtItems] = useState<TransactionItemDto[]>([]);
   const [cartItems, setCartItems] = useState<ShopItemDto[]>([]);
-  const [userPoints, setUserPoints] = useState(userPointsAmount);
+  const [userPoints, setUserPoints] = useState(1000 /* user?.points || 0 */);
   const [productsList, setProductsList] = useState(products);
+
+  /*  useEffect(() => {
+    if (user) setUserPoints(user?.points || 0);
+  }, [isLoading, user]); */
 
   const totalCost = useMemo(
     () =>
@@ -44,6 +55,8 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
       }, 0),
     [cartItems],
   );
+
+  useEffect(() => {}, [userPoints]);
 
   return (
     <ShoppingContext.Provider

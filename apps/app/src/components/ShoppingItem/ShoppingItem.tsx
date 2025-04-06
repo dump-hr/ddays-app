@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
@@ -6,25 +7,23 @@ import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
-import toast from 'react-hot-toast';
 import { useShoppingContext } from '@/context/ShoppingContext';
 
 interface ShoppingItemProps {
-  userPointsAmount: number;
   product: ShopItemDto;
 }
 
-const ShoppingItem: React.FC<ShoppingItemProps> = ({
-  product,
-  userPointsAmount,
-}) => {
-  const { setCartItems } = useShoppingContext();
+const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
+  const { setCartItems, userPoints, totalCost } = useShoppingContext();
 
   const [isInCart, setIsInCart] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
-  const outOfStock = product.quantity === 0;
-  const notEnoughPoints = userPointsAmount < product.price;
+  const outOfStock: boolean = product.quantity === 0;
+  const notEnoughPoints: boolean = useMemo(
+    () => userPoints < totalCost + product.price,
+    [userPoints, totalCost],
+  );
 
   useEffect(() => {
     setDisabled(isInCart || outOfStock || notEnoughPoints);

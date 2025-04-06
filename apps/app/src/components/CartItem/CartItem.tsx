@@ -11,9 +11,15 @@ interface CartItemProps {
   index: number;
 }
 const CartItem = ({ item, index }: CartItemProps) => {
-  const {
-    cartItems: { length },
-  } = useShoppingContext();
+  const { cartItems, setCartItems } = useShoppingContext();
+
+  const handleDelete = () => {
+    const updatedCartItems = cartItems.filter(
+      (cartItem) => cartItem.id !== item.id,
+    );
+    setCartItems(updatedCartItems);
+  };
+  
   return (
     <div className={styles.cartItemContainer}>
       <div className={styles.imageContainer}>
@@ -29,11 +35,11 @@ const CartItem = ({ item, index }: CartItemProps) => {
           <img src={RedStarIcon} />
           {item.price}
         </span>
-        <div className={styles.deleteButton}>
+        <div className={styles.deleteButton} onClick={handleDelete}>
           <img src={DeleteIcon} alt='delete' />
         </div>
       </div>
-      {length !== index + 1 && <div className={styles.divider} />}
+      {cartItems.length !== index + 1 && <div className={styles.divider} />}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { ShoppingCartItemStage } from '@ddays-app/types/src/enum';
 
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface PopupProps {
   isOpen: boolean;
@@ -13,19 +14,17 @@ interface PopupProps {
 const ConfirmPopup = ({ isOpen, closePopup }: PopupProps) => {
   const { totalCost, cartItems, setBoughtItems, setCartItems } =
     useShoppingContext();
-
+  const { data: user } = useLoggedInUser();
   const buyItems = () => {
     setBoughtItems((prev) => [
       ...prev,
       ...cartItems.map((item) => {
         return {
+          userId: user?.id ?? 0,
           shopItemId: item.id,
           shopItem: item,
           stage: ShoppingCartItemStage.UNCOLLECTED,
-          orderedAt: new Date().toISOString(),
-          userId: 1,
-          takeByTime: '21:00',
-          quantity: 1,
+          quantity: item.quantity || 1,
         };
       }),
     ]);

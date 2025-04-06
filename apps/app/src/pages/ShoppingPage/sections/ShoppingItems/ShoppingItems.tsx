@@ -1,10 +1,8 @@
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 
-import { ShoppingItem } from '../../../../components/ShoppingItem';
-import {
-  useShoppingContext,
-} from '@/context/ShoppingContext';
+import { ShoppingItem } from '@/components/ShoppingItem';
+import { useShoppingContext } from '@/context/ShoppingContext';
 
 const ShoppingItems: React.FC = () => {
   const { userPoints, productsList } = useShoppingContext();
@@ -24,7 +22,6 @@ const ShoppingItems: React.FC = () => {
             <ShoppingItem
               key={product.id}
               product={product}
-              userPointsAmount={userPoints}
             />
           ))}
         </div>

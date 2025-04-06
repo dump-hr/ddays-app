@@ -15,6 +15,4 @@ export type TransactionItemDto = {
   userId: number;
   quantity: number;
   stage: ShoppingCartItemStage;
-  orderedAt: string | null;
-  takeByTime: string | null;
 };

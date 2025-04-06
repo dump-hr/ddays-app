@@ -51,3 +51,8 @@
   margin-left: 10px;
   margin-right: 5px;
 }
+
+.noItems {
+  @include heading-3;
+  font-weight: 500;
+}
