@@ -24,7 +24,7 @@ div.open {
   background-image: url('../../../../assets/images/crumbled-paper-texture.png');
   position: relative;
   padding: 0 23px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $breakpoint-tablet) {
     max-width: 327px;
   }
 }
