@@ -1,24 +1,35 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import WhiteButton from '../../components/WhiteButton';
+import { calculateTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
 import TableRow from './TableRow';
 
 const FlyTalksPage = () => {
   const tabs = ['Grupa 1', 'Grupa 2'];
+  const targetTime = useMemo(() => new Date('2025-05-21T12:00:00'), []);
 
   const [modalUser, setModalUser] = useState<UserDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+  const [timeLeft, setTimeLeft] = useState<Date>(calculateTimeLeft(targetTime));
 
   function handleOpenModal(user: UserDto) {
     setModalUser(user);
     setIsModalOpen(true);
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(targetTime));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetTime]);
 
   return (
     <div className={c.page}>
@@ -34,7 +45,7 @@ const FlyTalksPage = () => {
         <section className={c.titleSection}>
           <h2 className={c.title}>Fly Talks</h2>
           <p>
-            Ukupno prihvaćenih prijava: {applicants1.length}/
+            Ukupno odabranih sudionika: {applicants1.length}/
             {applicants1.length + applicants2.length}
           </p>
           <div className={c.buttons}>
@@ -48,7 +59,11 @@ const FlyTalksPage = () => {
             ))}
           </div>
         </section>
-        <InfoMessage message='Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00.' />
+        <InfoMessage
+          message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00 (${Math.floor(
+            timeLeft.getTime() / (1000 * 60 * 60 * 24),
+          )}d ${timeLeft.getUTCHours()}h ${timeLeft.getUTCMinutes()}m ${timeLeft.getUTCSeconds()}s).`}
+        />
         <table className={c.table}>
           <thead>
             <tr>
