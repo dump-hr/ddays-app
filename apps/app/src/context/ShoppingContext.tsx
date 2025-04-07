@@ -10,7 +10,6 @@ import { products } from '@/pages/ShoppingPage/sections/ShoppingItems/products';
 import { ShopItemDto, TransactionItemDto } from '@ddays-app/types/src/dto/shop';
 /* import { useLoggedInUser } from '@/api/auth/useLoggedInUser'; */
 
-
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
   setCartItems: React.Dispatch<React.SetStateAction<ShopItemDto[]>>;
@@ -38,6 +37,7 @@ export const useShoppingContext = () => {
 };
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
+  /* ovo bi se odkomentiralo nakon testiranja jer sada  uvik se korisniku biti 0 bodova*/
   /* const { data: user, isLoading } = useLoggedInUser(); */
   const getCartItems = () => {
     const cartItems = localStorage.getItem('cartItems');
@@ -57,9 +57,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
     [cartItems],
   );
 
-  useEffect(() => {
-    
-  }, [userPoints]);
+  useEffect(() => {}, [userPoints]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
