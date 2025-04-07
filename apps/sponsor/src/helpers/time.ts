@@ -10,3 +10,12 @@ export function calculateTimeLeft(targetTime: Date): Date {
 
   return new Date(timeDifference);
 }
+
+export function formatTimeLeft(timeLeft: Date): string {
+  const days = Math.floor(timeLeft.getTime() / (1000 * 60 * 60 * 24));
+  const hours = timeLeft.getUTCHours();
+  const minutes = timeLeft.getUTCMinutes();
+  const seconds = timeLeft.getUTCSeconds();
+
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}

@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import WhiteButton from '../../components/WhiteButton';
-import { calculateTimeLeft } from '../../helpers/time';
+import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
+import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
 import TableRow from './TableRow';
@@ -12,7 +13,7 @@ import TableRow from './TableRow';
 const FlyTalksPage = () => {
   const tabs = ['Grupa 1', 'Grupa 2'];
   const hasOnlyOneGroup = false; // Stavit uvjet npr. je li zlatni. Druga opcija napunit array sa koliko ima grupa u bazi.
-  const targetTime = useMemo(() => new Date('2025-04-07T14:32:00'), []);
+  const targetTime = useMemo(() => SPONSOR_FLY_TALK_DEADLINE, []);
 
   const [modalUser, setModalUser] = useState<UserDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,9 +70,9 @@ const FlyTalksPage = () => {
           <InfoMessage message='Odabir sudionika zatvoren.' />
         ) : (
           <InfoMessage
-            message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00 (${Math.floor(
-              timeLeft.getTime() / (1000 * 60 * 60 * 24),
-            )}d ${timeLeft.getUTCHours()}h ${timeLeft.getUTCMinutes()}m ${timeLeft.getUTCSeconds()}s).`}
+            message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00. (${formatTimeLeft(
+              timeLeft,
+            )})`}
           />
         )}
 
