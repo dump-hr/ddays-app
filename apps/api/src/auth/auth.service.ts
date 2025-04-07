@@ -1,5 +1,5 @@
 import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserDto, UserModifyDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
@@ -129,5 +129,22 @@ export class AuthService {
     return this.prisma.user.findUnique({
       where: { id },
     });
+  }
+
+  async updateUserById(id: number, updateUser: UserModifyDto) {
+    const existingUser = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!existingUser) {
+      throw new BadRequestException('User not found');
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { id },
+      data: updateUser,
+    });
+
+    return updatedUser;
   }
 }

@@ -1,6 +1,14 @@
 import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { UserDto, UserModifyDto } from '@ddays-app/types/src/dto/user';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 
 import { UserLoginDto } from './auth.dto';
 import { AuthService } from './auth.service';
@@ -36,5 +44,14 @@ export class AuthController {
   @UseGuards(UserGuard)
   async findLoggedInUser(@Req() { user }) {
     return await this.authService.getUserById(user.id);
+  }
+
+  @Patch('user/authenticated')
+  @UseGuards(UserGuard)
+  async updateLoggedInUser(
+    @Req() { user },
+    @Body() updateUser: UserModifyDto,
+  ): Promise<UserModifyDto> {
+    return await this.authService.updateUserById(user.id, updateUser);
   }
 }
