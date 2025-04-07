@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { useShoppingContext } from '@/context/ShoppingContext';
+import TransactionPopup from '@/pages/ShoppingPage/popups/TransactionPopup';
 import styles from './TransactionItem.module.scss';
+
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { ShopItemType, ShoppingCartItemStage } from '@ddays-app/types';
 import { TransactionItemDto } from '@ddays-app/types/src/dto/shop';
-import { useState } from 'react';
-import TransactionPopup from '@/pages/ShoppingPage/popups/TransactionPopup';
 
 interface TransactionItemProps {
   item: TransactionItemDto;
