@@ -10,6 +10,8 @@ type TableRowProps = {
   handleOpenModal: (user: UserDto) => void;
   key: number;
   status: 'accepted' | 'rejected';
+  //cvHref: string;
+  //buttonHandler: () => void;
 };
 
 const TableRow: React.FC<TableRowProps> = ({
@@ -38,7 +40,9 @@ const TableRow: React.FC<TableRowProps> = ({
         <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
       </td>
       <td className={c.cell}>
-        <WhiteButton variant='primary'>Ukloni odabir</WhiteButton>
+        <WhiteButton variant='primary'>
+          {status === 'accepted' ? 'Ukloni odabir' : 'Odaberi'}
+        </WhiteButton>
       </td>
     </tr>
   );
