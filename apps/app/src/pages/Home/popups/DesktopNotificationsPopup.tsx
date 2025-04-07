@@ -1,15 +1,18 @@
-import { useState } from 'react';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import NotificationsSection from '@/components/NotificationsSection';
 
-const DesktopNotificationsPopup = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(true);
+interface PopupProps {
+  isOpen: boolean;
+  closePopup: () => void;
+}
+
+const DesktopNotificationsPopup = ({ isOpen, closePopup }: PopupProps) => {
   return (
     <PopupLayout
       variant='light'
       headerTitleComponent={<>Unesi kod</>}
-      closePopup={() => setIsPopupOpen(false)}
-      isOpen={isPopupOpen}
+      closePopup={() => closePopup()}
+      isOpen={isOpen}
       desktopStyle='normal'>
       <div
         style={{

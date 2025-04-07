@@ -3,11 +3,9 @@ import ThumbnailTemp from '../../assets/images/thumbnailUrl-temp.png';
 import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+import DesktopNotificationsPopup from '../Home/popups/DesktopNotificationsPopup';
 /* import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png'; */
-import NotificationsPage from '../NotificationsPage/NotificationsPage';
-import styles from './TestPage.module.scss';
-import NotificationsSection from '@/components/NotificationsSection/NotificationsSection';
+
 const event = {
   id: 1,
   name: 'Tech Innovations Summit',
@@ -151,22 +149,10 @@ const TestPage = () => {
           </Button>
         </div>
       </PopupLayout> */}
-      <PopupLayout
-        variant='light'
-        headerTitleComponent={<>Unesi kod</>}
-        closePopup={() => setIsPopupOpen(false)}
+      <DesktopNotificationsPopup
         isOpen={isPopupOpen}
-        desktopStyle='normal'>
-        <div
-          style={{
-            overflowY: 'auto',
-            paddingRight: '0.5rem',
-          }}>
-          {' '}
-          <NotificationsSection />
-        </div>
-      </PopupLayout>
-
+        closePopup={() => setIsPopupOpen(false)}
+      />
       {/* <PopupLayout
         variant='light'
         headerTitleComponent={<>Unesi kod</>}
