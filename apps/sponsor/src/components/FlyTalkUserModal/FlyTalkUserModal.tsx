@@ -9,9 +9,15 @@ type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   user: UserDto | null;
+  modalButtonText: string;
 };
 
-const FlyTalkUserModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
+const FlyTalkUserModal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  user,
+  modalButtonText,
+}) => {
   useEffect(() => {
     if (isOpen) {
       const width = document.body.clientWidth;
@@ -71,7 +77,7 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
         </p>
         <div className={c.buttons}>
           <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>
-          <WhiteButton variant='primary'>Odaberi</WhiteButton>
+          <WhiteButton variant='primary'>{modalButtonText}</WhiteButton>
         </div>
       </div>
     </div>

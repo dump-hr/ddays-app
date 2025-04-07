@@ -11,16 +11,19 @@ import TableRow from './TableRow';
 
 const FlyTalksPage = () => {
   const tabs = ['Grupa 1', 'Grupa 2'];
-  const targetTime = useMemo(() => new Date('2025-05-21T12:00:00'), []);
+  const hasOnlyOneGroup = false; // Stavit uvjet npr. je li zlatni. Druga opcija napunit array sa koliko ima grupa u bazi.
+  const targetTime = useMemo(() => new Date('2025-04-07T14:32:00'), []);
 
   const [modalUser, setModalUser] = useState<UserDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalButtonText, setModalButtonText] = useState('');
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [timeLeft, setTimeLeft] = useState<Date>(calculateTimeLeft(targetTime));
 
-  function handleOpenModal(user: UserDto) {
+  function handleOpenModal(user: UserDto, modalButtonText?: string) {
     setModalUser(user);
     setIsModalOpen(true);
+    setModalButtonText(modalButtonText || 'Odaberi');
   }
 
   useEffect(() => {
@@ -38,6 +41,7 @@ const FlyTalksPage = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           user={modalUser}
+          modalButtonText={modalButtonText}
         />
       )}
 
@@ -48,22 +52,29 @@ const FlyTalksPage = () => {
             Ukupno odabranih sudionika: {applicants1.length}/
             {applicants1.length + applicants2.length}
           </p>
-          <div className={c.buttons}>
-            {tabs.map((value) => (
-              <WhiteButton
-                variant={selectedTab === value ? 'primary' : 'secondary'}
-                key={value}
-                onClick={() => setSelectedTab(value)}>
-                {value}
-              </WhiteButton>
-            ))}
-          </div>
+          {!hasOnlyOneGroup && (
+            <div className={c.buttons}>
+              {tabs.map((value) => (
+                <WhiteButton
+                  variant={selectedTab === value ? 'primary' : 'secondary'}
+                  key={value}
+                  onClick={() => setSelectedTab(value)}>
+                  {value}
+                </WhiteButton>
+              ))}
+            </div>
+          )}
         </section>
-        <InfoMessage
-          message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00 (${Math.floor(
-            timeLeft.getTime() / (1000 * 60 * 60 * 24),
-          )}d ${timeLeft.getUTCHours()}h ${timeLeft.getUTCMinutes()}m ${timeLeft.getUTCSeconds()}s).`}
-        />
+        {timeLeft.getTime() === 0 ? (
+          <InfoMessage message='Odabir sudionika zatvoren.' />
+        ) : (
+          <InfoMessage
+            message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00 (${Math.floor(
+              timeLeft.getTime() / (1000 * 60 * 60 * 24),
+            )}d ${timeLeft.getUTCHours()}h ${timeLeft.getUTCMinutes()}m ${timeLeft.getUTCSeconds()}s).`}
+          />
+        )}
+
         <table className={c.table}>
           <thead>
             <tr>
@@ -80,8 +91,11 @@ const FlyTalksPage = () => {
               <TableRow
                 applicant={applicant}
                 key={i}
-                handleOpenModal={handleOpenModal}
+                handleOpenModal={() =>
+                  handleOpenModal(applicant, 'Ukloni odabir')
+                }
                 status='accepted'
+                timeLeft={timeLeft}
               />
             ))}
           </tbody>
@@ -97,6 +111,7 @@ const FlyTalksPage = () => {
                 key={i}
                 handleOpenModal={handleOpenModal}
                 status='rejected'
+                timeLeft={timeLeft}
               />
             ))}
           </tbody>

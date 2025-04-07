@@ -24,11 +24,12 @@ const TableRow: React.FC<TableRowProps> = ({
   timeLeft,
 }) => {
   function getStatusIcon(): string {
-    const isAccepted = true;
-    if (timeLeft?.getTime() !== 0) {
+    if (!timeLeft) return QuestionIcon;
+
+    const isAccepted = true; // iz baze
+    if (timeLeft.getTime() !== 0) {
       return QuestionIcon;
-    }
-    if (isAccepted) {
+    } else if (isAccepted) {
       return CheckIcon;
     } else {
       return XIcon;
