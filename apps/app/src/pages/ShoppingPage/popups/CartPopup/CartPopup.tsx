@@ -77,7 +77,8 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
             {cartItems.length > 0 ? (
               <>
                 KUPI ZA
-                <img src={StarIcon} className={styles.starIcon} /> {totalCost}
+                <img src={StarIcon} className={styles.starIcon} />
+                {totalCost}
               </>
             ) : (
               'ZATVORI'
