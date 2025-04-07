@@ -8,7 +8,6 @@ import {
 } from 'react';
 import { products } from '@/pages/ShoppingPage/sections/ShoppingItems/products';
 import { ShopItemDto, TransactionItemDto } from '@ddays-app/types/src/dto/shop';
-/* import { useLoggedInUser } from '@/api/auth/useLoggedInUser'; */
 
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
@@ -37,8 +36,8 @@ export const useShoppingContext = () => {
 };
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
-  /* ovo bi se odkomentiralo nakon testiranja jer sada  uvik se korisniku biti 0 bodova*/
-  /* const { data: user, isLoading } = useLoggedInUser(); */
+  /* dohvaćat user bodove sa backenda*/
+
   const getCartItems = () => {
     const cartItems = localStorage.getItem('cartItems');
     return cartItems ? JSON.parse(cartItems) : [];
@@ -46,7 +45,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
 
   const [boughtItems, setBoughtItems] = useState<TransactionItemDto[]>([]);
   const [cartItems, setCartItems] = useState<ShopItemDto[]>(getCartItems());
-  const [userPoints, setUserPoints] = useState(1000 /* user?.points || 0 */);
+  const [userPoints, setUserPoints] = useState(1000);
   const [productsList, setProductsList] = useState(products);
 
   const totalCost = useMemo(
@@ -56,8 +55,6 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
       }, 0),
     [cartItems],
   );
-
-  useEffect(() => {}, [userPoints]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
