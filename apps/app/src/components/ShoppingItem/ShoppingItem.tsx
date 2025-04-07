@@ -14,7 +14,8 @@ interface ShoppingItemProps {
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
-  const { setCartItems, userPoints, totalCost } = useShoppingContext();
+  const { setCartItems, userPoints, totalCost, cartItems } =
+    useShoppingContext();
 
   const [isInCart, setIsInCart] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -24,6 +25,11 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
     () => userPoints < totalCost + product.price,
     [userPoints, totalCost],
   );
+
+  useEffect(() => {
+    const isProductInCart = cartItems.some((item) => item.id === product.id);
+    setIsInCart(isProductInCart);
+  }, [cartItems, product]);
 
   useEffect(() => {
     setDisabled(isInCart || outOfStock || notEnoughPoints);
