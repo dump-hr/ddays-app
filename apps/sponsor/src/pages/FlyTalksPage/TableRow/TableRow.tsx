@@ -1,6 +1,7 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
 
 import CheckIcon from '../../../assets/icons/check.svg';
+import QuestionIcon from '../../../assets/icons/question.svg';
 import XIcon from '../../../assets/icons/x.svg';
 import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
@@ -10,6 +11,7 @@ type TableRowProps = {
   handleOpenModal: (user: UserDto) => void;
   key: number;
   status: 'accepted' | 'rejected';
+  timeLeft?: Date;
   //cvHref: string;
   //buttonHandler: () => void;
 };
@@ -19,11 +21,23 @@ const TableRow: React.FC<TableRowProps> = ({
   handleOpenModal,
   key,
   status,
+  timeLeft,
 }) => {
+  function getStatusIcon(): string {
+    const isAccepted = true;
+    if (timeLeft?.getTime() !== 0) {
+      return QuestionIcon;
+    }
+    if (isAccepted) {
+      return CheckIcon;
+    } else {
+      return XIcon;
+    }
+  }
   return (
     <tr key={key}>
       <td className={c.cell}>
-        <img src={status === 'accepted' ? CheckIcon : XIcon} />
+        <img src={getStatusIcon()} />
       </td>
       <td className={c.cell}>
         {applicant.firstName} {applicant.lastName}
