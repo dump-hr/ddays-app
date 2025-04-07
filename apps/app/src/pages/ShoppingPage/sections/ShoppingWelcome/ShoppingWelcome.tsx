@@ -1,8 +1,8 @@
 import styles from './ShoppingWelcome.module.scss';
 import DuckWelcomeImg from '@/assets/images/duck-shop-welcome.png';
 
-import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
-import Button from '../../../../components/Button';
+import { NavigateHomeButton } from '@/components/NavigateHomeButton';
+import Button from '@/components/Button';
 
 interface ShoppingWelcomeProps {
   setFirstShopVisit: (value: boolean) => void;

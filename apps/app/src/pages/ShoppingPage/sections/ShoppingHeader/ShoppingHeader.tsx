@@ -7,8 +7,8 @@ import { useDeviceType } from '@/hooks/UseDeviceType';
 import { HeaderCard } from '@/components/Header/HeaderCard/HeaderCard';
 import { NavigateHomeButton } from '@/components/NavigateHomeButton';
 import { useShoppingContext } from '@/context/ShoppingContext';
-import CartPopup from '../../popups/CartPopup/CartPopup';
-import TransactionsPopup from '../../popups/TransactionsPopup';
+import CartPopup from '@/pages/ShoppingPage/popups/CartPopup/CartPopup';
+import TransactionsPopup from '@/pages/ShoppingPage/popups/TransactionsPopup';
 
 const ShoppingHeader: React.FC = () => {
   const [headerCardWidth, setHeaderCardWidth] = useState<number | null>(136);
