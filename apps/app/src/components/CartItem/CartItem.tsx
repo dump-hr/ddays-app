@@ -5,13 +5,19 @@ import { useShoppingContext } from '@/context/ShoppingContext';
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import RedStarIcon from '@/assets/icons/star-red.svg';
 import DeleteIcon from '@/assets/icons/bin-delete.svg';
+import { useMemo } from 'react';
 
 interface CartItemProps {
   item: ShopItemDto;
   index: number;
 }
 const CartItem = ({ item, index }: CartItemProps) => {
-  const { cartItems, setCartItems } = useShoppingContext();
+  const { cartItems, setCartItems, productsList } = useShoppingContext();
+
+  const product = useMemo(
+    () => productsList.find((product) => product.id === item.id),
+    [productsList, item.id],
+  );
 
   const handleDelete = () => {
     const updatedCartItems = cartItems.filter(
@@ -19,7 +25,7 @@ const CartItem = ({ item, index }: CartItemProps) => {
     );
     setCartItems(updatedCartItems);
   };
-  
+
   return (
     <div className={styles.cartItemContainer}>
       <div className={styles.imageContainer}>
@@ -30,7 +36,9 @@ const CartItem = ({ item, index }: CartItemProps) => {
       </div>
       <div className={styles.itemDetails}>
         <h3>{item.itemName}</h3>
-        <p className={styles.quantity}>Na zalihama: {item.quantity}</p>
+        <p className={styles.quantity}>
+          Na zalihama: {product?.quantity ?? 'nepoznato'}
+        </p>
         <span className={styles.price}>
           <img src={RedStarIcon} />
           {item.price}
