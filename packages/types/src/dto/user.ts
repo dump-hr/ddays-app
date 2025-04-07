@@ -12,7 +12,7 @@ export type UserDto = {
   termsAndConditionsEnabled: boolean;
 };
 
-export interface UserModifyDto {
+export type UserModifyDto = {
   firstName: string;
   lastName: string;
   email: string;
@@ -24,4 +24,4 @@ export interface UserModifyDto {
   newsletterEnabled?: boolean;
   companiesNewsEnabled?: boolean;
   isConfirmed?: boolean;
-}
+};
