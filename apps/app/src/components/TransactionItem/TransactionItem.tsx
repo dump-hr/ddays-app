@@ -35,6 +35,7 @@ const TransactionItem = ({ item, index }: TransactionItemProps) => {
         <TransactionPopup
           isOpen={isOpenTransactionPopup}
           closePopup={() => setOpenTransactionPopup(false)}
+          item={item}
         />
       )}
       <div className={styles.imageContainer}>

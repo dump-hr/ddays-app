@@ -4,13 +4,15 @@ import CloseIcon from '@/assets/icons/close-icon.svg';
 import DumpDaysIcon from '@/assets/icons/dump-days-logo.svg';
 import { getCurrentDate } from '@/helpers/getCurrentDate';
 import QRCode from '@/assets/images/qr-code-placeholder.png';
+import { TransactionItemDto } from '@ddays-app/types/src/dto/shop';
 
 interface PopupProps {
   isOpen: boolean;
   closePopup: () => void;
+  item: TransactionItemDto;
 }
 
-const TransactionPopup = ({ isOpen, closePopup }: PopupProps) => {
+const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
   return (
     <div className={clsx(styles.wrapper, { [styles.open]: isOpen })}>
       <div className={styles.container}>
@@ -41,8 +43,8 @@ const TransactionPopup = ({ isOpen, closePopup }: PopupProps) => {
             </thead>
             <tbody>
               <tr>
-                <td>DIG. AKREDITACIJA</td>
-                <td>1</td>
+                <td>{item.shopItem.itemName?.toUpperCase()}</td>
+                <td>{item.quantity}</td>
                 <td>0,00EUR</td>
                 <td>0,00EUR</td>
               </tr>
@@ -73,13 +75,15 @@ const TransactionPopup = ({ isOpen, closePopup }: PopupProps) => {
           <div className={styles.additionalInfoTable}>
             <div className={styles.row}>
               <p className={styles.rowName}>Kor. ozn.</p>
-              <p className={styles.rowValue}>
-                e9f3b393-6d34-4d0d-98b8- a634d94f1c2e
-              </p>
+              <p className={styles.rowValue}>{item.userId}</p>
             </div>
             <div className={styles.row}>
               <p className={styles.rowName}>Datum</p>
-              <p className={styles.rowValue}>{getCurrentDate(new Date())}</p>
+              <p className={styles.rowValue}>
+                {getCurrentDate(
+                  new Date() /* promjeniti ovaj param sa datumom koji dolazi sa backend*/,
+                )}
+              </p>
             </div>
           </div>
           <p>Raspored dostupan na days.dump.hr!</p>

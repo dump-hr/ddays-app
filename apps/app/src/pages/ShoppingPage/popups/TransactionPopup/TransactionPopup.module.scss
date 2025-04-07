@@ -21,9 +21,9 @@ div.open {
   height: 90vh;
   min-height: 600px;
   background-color: rgb(233, 233, 233);
+  background-image: url('../../../../assets/images/crumbled-paper-texture.png');
   position: relative;
   padding: 0 23px;
-
   @media screen and (max-width: 768px) {
     max-width: 327px;
   }
@@ -44,7 +44,7 @@ div.open {
 
 .closeIcon {
   cursor: pointer;
-  background-color: #0000000f;
+  background-color: $black-10;
   padding: 9px;
   border-radius: 4.5px;
 }
@@ -73,6 +73,15 @@ div.open {
   width: 100%;
 }
 
+.tableArticle td {
+  margin-left: 6px;
+  padding-right: 12px;
+}
+
+.tableArticle td:last-child {
+  padding-right: 0;
+}
+
 .tableArticle > thead td {
   border-bottom: 2px dashed $primary-black;
   padding-bottom: 5px;
@@ -95,7 +104,7 @@ table > thead td:not(:first-of-type) {
   align-items: flex-start;
   padding-bottom: 20px;
   padding-top: 5px;
-  margin: 0px 2px 0;
+  margin: 0px 1.5px 0;
   border-bottom: 2px dashed $primary-black;
   border-top: 2px dashed $primary-black;
 }
@@ -103,6 +112,14 @@ table > thead td:not(:first-of-type) {
 .tablePayment {
   width: 100%;
   text-align: left;
+}
+
+.tablePayment td {
+  padding-right: 23px;
+}
+
+.tablePayment td:last-child {
+  padding-right: 0;
 }
 
 .tablePayment > thead td {
@@ -122,7 +139,7 @@ table > thead td:not(:first-of-type) {
   padding-top: 20px;
   padding-bottom: 20px;
   border-top: 2px dashed $primary-black;
-  margin: 0 2px;
+  margin: 0px 1.5px 0;
 }
 
 .row {
@@ -132,6 +149,9 @@ table > thead td:not(:first-of-type) {
 
 .rowName {
   min-width: 100px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    min-width: 80px;
+  }
 }
 
 .qrCodeContainer {
