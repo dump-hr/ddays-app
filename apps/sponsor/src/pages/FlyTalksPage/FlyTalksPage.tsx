@@ -1,13 +1,11 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
 import { useState } from 'react';
 
-import CheckIcon from '../../assets/icons/check.svg';
-import XIcon from '../../assets/icons/x.svg';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
-import WhiteButton from '../../components/WhiteButton';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
+import TableRow from './TableRow';
 
 const FlyTalksPage = () => {
   const [modalUser, setModalUser] = useState<UserDto | null>(null);
@@ -50,28 +48,12 @@ const FlyTalksPage = () => {
           </thead>
           <tbody>
             {applicants1.map((applicant, i) => (
-              <tr key={i}>
-                <td>
-                  <img src={CheckIcon} />
-                </td>
-                <td>
-                  {applicant.firstName} {applicant.lastName}
-                </td>
-                <td>{applicant.email}</td>
-                <td>
-                  <p
-                    onClick={() => handleOpenModal(applicant)}
-                    style={{ textDecoration: 'underline', cursor: 'pointer' }}>
-                    Pregledaj detalje
-                  </p>
-                </td>
-                <td>
-                  <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
-                </td>
-                <td>
-                  <WhiteButton variant='primary'>Ukloni odabir</WhiteButton>
-                </td>
-              </tr>
+              <TableRow
+                applicant={applicant}
+                key={i}
+                handleOpenModal={handleOpenModal}
+                status='accepted'
+              />
             ))}
           </tbody>
         </table>
@@ -81,24 +63,12 @@ const FlyTalksPage = () => {
         <table className={c.table}>
           <tbody>
             {applicants2.map((applicant, i) => (
-              <tr key={i}>
-                <td>
-                  <img src={XIcon} />
-                </td>
-                <td>
-                  {applicant.firstName} {applicant.lastName}
-                </td>
-                <td>{applicant.email}</td>
-                <td>
-                  <p>Pregledaj detalje</p>
-                </td>
-                <td>
-                  <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
-                </td>
-                <td>
-                  <WhiteButton variant='secondary'>Odaberi</WhiteButton>
-                </td>
-              </tr>
+              <TableRow
+                applicant={applicant}
+                key={i}
+                handleOpenModal={handleOpenModal}
+                status='rejected'
+              />
             ))}
           </tbody>
         </table>
