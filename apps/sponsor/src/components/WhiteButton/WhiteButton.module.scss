@@ -31,4 +31,14 @@
       background: rgba(255, 255, 255, 0.9);
     }
   }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    cursor: default;
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
 }

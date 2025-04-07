@@ -55,7 +55,7 @@ const TableRow: React.FC<TableRowProps> = ({
         <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
       </td>
       <td className={c.cell}>
-        <WhiteButton variant='primary'>
+        <WhiteButton variant='primary' disabled={timeLeft?.getTime() === 0}>
           {status === 'accepted' ? 'Ukloni odabir' : 'Odaberi'}
         </WhiteButton>
       </td>
