@@ -16,12 +16,12 @@ interface PopupProps {
 
 const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
   const { cartItems, totalCost, setUserPoints } = useShoppingContext();
-  const [isBought, setIsBought] = useState(false);
+  const [isBuyClicked, setIsBuyClicked] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const openConfirmPopup = () => {
     if (cartItems.length > 0) {
-      setIsBought(true);
+      setIsBuyClicked(true);
       return;
     }
     closePopup();
@@ -34,12 +34,12 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
   };
 
   const closeConfirmPopup = () => {
-    setIsBought(false);
+    setIsBuyClicked(false);
     setIsConfirmed(false);
   };
 
   const closeShoppingDonePopup = () => {
-    setIsBought(false);
+    setIsBuyClicked(false);
     setIsConfirmed(false);
   };
 
@@ -87,9 +87,9 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
         </div>
       </PopupLayout>
 
-      {isBought && (
+      {isBuyClicked && (
         <ConfirmPopup
-          isOpen={isBought}
+          isOpen={isBuyClicked}
           closePopup={closeConfirmPopup}
           confirmPopup={clickConfirmPopup}
         />
