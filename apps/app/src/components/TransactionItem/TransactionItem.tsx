@@ -3,14 +3,17 @@ import styles from './TransactionItem.module.scss';
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { ShopItemType, ShoppingCartItemStage } from '@ddays-app/types';
 import { TransactionItemDto } from '@ddays-app/types/src/dto/shop';
+import { useState } from 'react';
+import TransactionPopup from '@/pages/ShoppingPage/popups/TransactionPopup';
 
 interface TransactionItemProps {
   item: TransactionItemDto;
   index: number;
-  closePopup: () => void;
 }
 
-const TransactionItem = ({ item, index, closePopup }: TransactionItemProps) => {
+const TransactionItem = ({ item, index }: TransactionItemProps) => {
+  const [isOpenTransactionPopup, setOpenTransactionPopup] = useState(false);
+
   const {
     boughtItems: { length },
   } = useShoppingContext();
@@ -28,6 +31,12 @@ const TransactionItem = ({ item, index, closePopup }: TransactionItemProps) => {
 
   return (
     <div className={styles.cartItemContainer}>
+      {isOpenTransactionPopup && (
+        <TransactionPopup
+          isOpen={isOpenTransactionPopup}
+          closePopup={() => setOpenTransactionPopup(false)}
+        />
+      )}
       <div className={styles.imageContainer}>
         <img
           className={styles.image}
@@ -48,9 +57,12 @@ const TransactionItem = ({ item, index, closePopup }: TransactionItemProps) => {
           </span>
         </p>
         <p className={styles.quantity}>
-          Potrebno preuzesti do {item.takeByTime}
+          Potrebno preuzesti do 21:00h{' '}
+          {/*izmjeniti ovo kod spajanja sa backendom, polje takeByTime */}
         </p>
-        <div className={styles.viewTransactionButton} onClick={closePopup}>
+        <div
+          className={styles.viewTransactionButton}
+          onClick={() => setOpenTransactionPopup(true)}>
           RAČUN
         </div>
       </div>

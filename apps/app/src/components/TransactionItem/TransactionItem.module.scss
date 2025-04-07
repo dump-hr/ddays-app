@@ -4,8 +4,12 @@
   justify-content: flex-start;
   width: 100%;
   min-height: 156px;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0px 3px 12px 0;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    justify-content: space-between;
+  }
 
   @media screen and (max-width: $breakpoint-mobile-lg) {
     gap: 1rem;
@@ -15,7 +19,9 @@
 .imageContainer {
   width: 147px;
   height: 144px;
-  flex-shrink: 0;
+
+  min-width: 102px;
+  min-height: 110px;
 
   img {
     width: 100%;
