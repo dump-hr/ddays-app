@@ -1,6 +1,7 @@
 .page {
   width: 100%;
   background-color: #0e0e0e;
+  min-height: calc(100vh - 88px);
 
   .content {
     max-width: 1050px;
@@ -39,6 +40,11 @@
     display: flex;
     gap: 16px;
   }
+}
+
+.noApplicants {
+  text-align: center;
+  margin-top: 40px;
 }
 
 .table {

@@ -76,47 +76,53 @@ const FlyTalksPage = () => {
           />
         )}
 
-        <table className={c.table}>
-          <thead>
-            <tr>
-              <th>status</th>
-              <th>ime i prezime</th>
-              <th>e-adresa</th>
-              <th>opis i poveznice</th>
-              <th>CV</th>
-              <th>Odabir</th>
-            </tr>
-          </thead>
-          <tbody>
-            {applicants1.map((applicant, i) => (
-              <TableRow
-                applicant={applicant}
-                key={i}
-                handleOpenModal={() =>
-                  handleOpenModal(applicant, 'Ukloni odabir')
-                }
-                status='accepted'
-                timeLeft={timeLeft}
-              />
-            ))}
-          </tbody>
-        </table>
-        {applicants1.length !== 0 && applicants2.length !== 0 && (
-          <hr className={c.break} />
+        {applicants1.length === 0 && applicants2.length === 0 ? (
+          <p className={c.noApplicants}>Nema prijavljenih sudionika.</p>
+        ) : (
+          <>
+            <table className={c.table}>
+              <thead>
+                <tr>
+                  <th>status</th>
+                  <th>ime i prezime</th>
+                  <th>e-adresa</th>
+                  <th>opis i poveznice</th>
+                  <th>CV</th>
+                  <th>Odabir</th>
+                </tr>
+              </thead>
+              <tbody>
+                {applicants1.map((applicant, i) => (
+                  <TableRow
+                    applicant={applicant}
+                    key={i}
+                    handleOpenModal={() =>
+                      handleOpenModal(applicant, 'Ukloni odabir')
+                    }
+                    status='accepted'
+                    timeLeft={timeLeft}
+                  />
+                ))}
+              </tbody>
+            </table>
+            {applicants1.length !== 0 && applicants2.length !== 0 && (
+              <hr className={c.break} />
+            )}
+            <table className={c.table}>
+              <tbody>
+                {applicants2.map((applicant, i) => (
+                  <TableRow
+                    applicant={applicant}
+                    key={i}
+                    handleOpenModal={handleOpenModal}
+                    status='rejected'
+                    timeLeft={timeLeft}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
-        <table className={c.table}>
-          <tbody>
-            {applicants2.map((applicant, i) => (
-              <TableRow
-                applicant={applicant}
-                key={i}
-                handleOpenModal={handleOpenModal}
-                status='rejected'
-                timeLeft={timeLeft}
-              />
-            ))}
-          </tbody>
-        </table>
       </div>
     </div>
   );

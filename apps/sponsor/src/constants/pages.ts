@@ -22,13 +22,14 @@ export const pages: Page[] = [
     icon: materialsSvg,
     Component: MaterialsPage,
   },
+  /*
   {
     path: Path.FlyTalks,
     icon: flyTalksSvg,
     name: 'Fly Talks',
     Component: FlyTalksPage,
   },
-  /*{
+  {
     path: Path.Stand,
     icon: standSvg,
     name: 'Štand',
