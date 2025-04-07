@@ -21,41 +21,41 @@ export type UserDto = {
 };
 
 export class UserModifyDto {
-  @IsString()
+  /*@IsString()*/
   firstName: string;
 
-  @IsString()
+  /*@IsString()*/
   lastName: string;
 
-  @IsEmail()
+  /*@IsEmail()*/
   email: string;
-
-  @IsString()
+  /* 
+  @IsString()*/
   password: string;
-
-  @IsString()
+  /* 
+  @IsString()*/
   phoneNumber: string;
 
-  @IsNumber()
+  /*@IsNumber()*/
   birthYear: number;
 
-  @IsString()
-  @IsOptional()
+  /*@IsString()
+  @IsOptional()*/
   educationDegree?: string;
 
-  @IsString()
-  @IsOptional()
+  /*@IsString()
+  @IsOptional()*/
   occupation?: string;
 
-  @IsNumber()
-  @IsOptional()
+  /*@IsNumber()
+  @IsOptional()*/
   newsletterEnabled?: boolean;
 
-  @IsBoolean()
-  @IsOptional()
+  /*@IsBoolean()
+  @IsOptional()*/
   companiesNewsEnabled?: boolean;
 
-  @IsBoolean()
-  @IsOptional()
+  /*@IsBoolean()
+  @IsOptional()*/
   isConfirmed?: boolean;
 }
