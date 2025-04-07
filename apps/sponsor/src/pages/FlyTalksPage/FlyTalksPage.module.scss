@@ -19,6 +19,7 @@
   box-sizing: border-box;
   padding: 24px;
   margin-bottom: 20px;
+  position: relative;
 
   .title {
     color: #fff;
@@ -28,6 +29,15 @@
     line-height: normal;
     margin: 0;
     margin-bottom: 12px;
+  }
+
+  .buttons {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    translate: 0 -50%;
+    display: flex;
+    gap: 16px;
   }
 }
 

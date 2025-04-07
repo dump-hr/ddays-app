@@ -3,13 +3,17 @@ import { useState } from 'react';
 
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
+import WhiteButton from '../../components/WhiteButton';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
 import TableRow from './TableRow';
 
 const FlyTalksPage = () => {
+  const tabs = ['Grupa 1', 'Grupa 2'];
+
   const [modalUser, setModalUser] = useState<UserDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
 
   function handleOpenModal(user: UserDto) {
     setModalUser(user);
@@ -33,6 +37,16 @@ const FlyTalksPage = () => {
             Ukupno prihvaćenih prijava: {applicants1.length}/
             {applicants1.length + applicants2.length}
           </p>
+          <div className={c.buttons}>
+            {tabs.map((value) => (
+              <WhiteButton
+                variant={selectedTab === value ? 'primary' : 'secondary'}
+                key={value}
+                onClick={() => setSelectedTab(value)}>
+                {value}
+              </WhiteButton>
+            ))}
+          </div>
         </section>
         <InfoMessage message='Odabir sudionika zatvorit će se u srijedu 21. 5. u 12:00.' />
         <table className={c.table}>
