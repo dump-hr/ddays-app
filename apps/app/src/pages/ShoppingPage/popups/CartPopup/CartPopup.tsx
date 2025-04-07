@@ -6,8 +6,8 @@ import StarIcon from '@/assets/icons/star.svg';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
 import CartItem from '@/components/CartItem';
-import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
-import ShoppingDonePopup from '../ShoppingDonePopup/ShoppingDonePopup';
+import ConfirmPopup from '../ConfirmPopup';
+import ShoppingDonePopup from '../ShoppingDonePopup';
 
 interface PopupProps {
   isOpen: boolean;
