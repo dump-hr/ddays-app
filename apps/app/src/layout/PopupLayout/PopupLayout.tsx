@@ -54,6 +54,7 @@ const PopupLayout = ({
           { [styles.center]: justifyContent === 'center' },
           { [styles.start]: justifyContent === 'start' },
           { [styles.end]: justifyContent === 'end' },
+          { [styles.between]: justifyContent === 'space-between' },
         )}>
         <div
           className={clsx(styles.heading, {

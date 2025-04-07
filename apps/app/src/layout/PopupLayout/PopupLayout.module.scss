@@ -58,6 +58,10 @@ div.end {
   justify-content: flex-end;
 }
 
+div.between {
+  justify-content: space-between;
+}
+
 .desktopNormal {
   @include roundedContainer();
   height: 100%;
