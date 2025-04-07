@@ -14,6 +14,7 @@ const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
   const handleNextClick = () => {
     localStorage.setItem('firstShopVisit', 'false');
     setFirstShopVisit(false);
+    document.querySelector('body')!.scrollTo(0, 0);
   };
 
   return (
