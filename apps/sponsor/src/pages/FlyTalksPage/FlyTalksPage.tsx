@@ -59,7 +59,9 @@ const FlyTalksPage = () => {
                 </td>
                 <td>{applicant.email}</td>
                 <td>
-                  <p onClick={() => handleOpenModal(applicant)}>
+                  <p
+                    onClick={() => handleOpenModal(applicant)}
+                    style={{ textDecoration: 'underline', cursor: 'pointer' }}>
                     Pregledaj detalje
                   </p>
                 </td>

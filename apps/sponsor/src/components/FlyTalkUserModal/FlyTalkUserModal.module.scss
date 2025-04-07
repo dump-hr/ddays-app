@@ -9,7 +9,7 @@
 
   background: black;
   color: white;
-  padding: 40px 80px 55px 80px;
+  padding: 40px;
   width: 650px;
   max-height: 768px;
   overflow-y: auto;
@@ -33,6 +33,16 @@
     margin-bottom: 32px;
   }
 
+  .label {
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    display: block;
+  }
+
   .about {
     margin-bottom: 32px;
   }
@@ -44,6 +54,17 @@
 
     > a {
       color: white;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    margin-top: 32px;
+
+    > button {
+      width: 100%;
     }
   }
 }

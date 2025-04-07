@@ -2,6 +2,7 @@ import { UserDto } from '@ddays-app/types/src/dto/user';
 import { useEffect } from 'react';
 
 import CloseSvg from '../../assets/icons/close.svg';
+import WhiteButton from '../WhiteButton';
 import c from './FlyTalkUserModal.module.scss';
 
 type ModalProps = {
@@ -58,6 +59,7 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
           dignissimos est quaerat aut eveniet hic quisquam possimus eaque
           maiores? Reiciendis, porro corporis.
         </p>
+        <label className={c.label}>Poveznice</label>
         <p className={c.link}>
           LinkedIn: <a href='https://www.google.com'>https://www.google.com</a>
         </p>
@@ -68,8 +70,8 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({ isOpen, onClose, user }) => {
           Portfolio: <a href='https://www.google.com'>https://www.google.com</a>
         </p>
         <div className={c.buttons}>
-          <button className={c.button}>Pregledaj CV</button>
-          <button className={c.button}>Odaberi</button>
+          <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>
+          <WhiteButton variant='primary'>Odaberi</WhiteButton>
         </div>
       </div>
     </div>
