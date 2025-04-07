@@ -27,6 +27,13 @@
   }
 }
 
+.emptyTransactions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
 .noTransactions {
   @include heading-3;
   font-weight: 500;

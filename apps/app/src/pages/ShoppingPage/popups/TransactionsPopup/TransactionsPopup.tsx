@@ -26,7 +26,7 @@ const TransactionsPopup = ({ closePopup, isOpen }: PopupProps) => {
               <TransactionItem key={index} item={item} index={index} />
             ))
           ) : (
-            <div className={styles.emptyCart}>
+            <div className={styles.emptyTransactions}>
               <p className={styles.noTransactions}>Nema transackcija ⚠️</p>
             </div>
           )}
