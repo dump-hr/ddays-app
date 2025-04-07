@@ -53,9 +53,10 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
           </>
         }
         closePopup={closePopup}
-        isOpen={isOpen}>
-        <div className={styles.cartContainer}>
-          <div className={styles.contentDiv}>
+        isOpen={isOpen}
+        justifyContent='space-between'>
+        <div className={styles.contentDiv}>
+          <div className={styles.cartItemsList}>
             {cartItems.length > 0 ? (
               cartItems.map((item, index) => (
                 <CartItem key={index} item={item} index={index} />
@@ -66,16 +67,14 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
               </div>
             )}
           </div>
-          <div className={styles.buttonContainer}>
-            <Button
-              variant='black'
-              style={{ width: '100%', marginTop: '10px' }}
-              onClick={openConfirmPopup}>
-              KUPI ZA
-              <img src={StarIcon} className={styles.starIcon} />
-              {totalCost}
-            </Button>
-          </div>
+          <Button
+            variant='black'
+            style={{ width: '100%', marginTop: '10px' }}
+            onClick={openConfirmPopup}>
+            KUPI ZA
+            <img src={StarIcon} className={styles.starIcon} />
+            {totalCost}
+          </Button>
         </div>
       </PopupLayout>
 

@@ -2,23 +2,17 @@
   color: $black-50;
 }
 
-.cartContainer {
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 60px);
-  width: 100%;
-
-  @media screen and (max-width: $breakpoint-tablet) {
-    height: auto;
-  }
-}
-
 .contentDiv {
   width: 100%;
+}
+
+.cartItemsList {
+  overflow-y: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  max-height: 472px;
+
+  max-height: 430px;
   gap: 20px;
 
   &::-webkit-scrollbar {
@@ -40,11 +34,6 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-}
-
-.buttonContainer {
-  margin-top: auto;
-  width: 100%;
 }
 
 .starIcon {

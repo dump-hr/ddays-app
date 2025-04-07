@@ -17,17 +17,13 @@ const TransactionsPopup = ({ closePopup, isOpen }: PopupProps) => {
       variant='light'
       headerTitleComponent={<>Transakcije</>}
       closePopup={closePopup}
-      isOpen={isOpen}>
-      <div className={styles.cartContainer}>
-        <div className={styles.contentDiv}>
+      isOpen={isOpen}
+      justifyContent='space-between'>
+      <div className={styles.contentDiv}>
+        <div className={styles.transactionsList}>
           {boughtItems.length > 0 ? (
             boughtItems.map((item, index) => (
-              <TransactionItem
-                key={index}
-                item={item}
-                index={index}
-                closePopup={closePopup}
-              />
+              <TransactionItem key={index} item={item} index={index} />
             ))
           ) : (
             <div className={styles.emptyCart}>
@@ -35,14 +31,9 @@ const TransactionsPopup = ({ closePopup, isOpen }: PopupProps) => {
             </div>
           )}
         </div>
-        <div className={styles.buttonContainer}>
-          <Button
-            variant='black'
-            style={{ width: '100%' }}
-            onClick={closePopup}>
-            ZATVORI
-          </Button>
-        </div>
+        <Button variant='black' style={{ width: '100%' }} onClick={closePopup}>
+          ZATVORI
+        </Button>
       </div>
     </PopupLayout>
   );
