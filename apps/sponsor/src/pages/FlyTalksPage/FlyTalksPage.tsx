@@ -1,11 +1,11 @@
 import { UserDto } from '@ddays-app/types/src/dto/user';
-import clsx from 'clsx';
 import { useState } from 'react';
 
 import CheckIcon from '../../assets/icons/check.svg';
 import XIcon from '../../assets/icons/x.svg';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
+import WhiteButton from '../../components/WhiteButton';
 import c from './FlyTalksPage.module.scss';
 import { applicants1, applicants2 } from './seed';
 
@@ -64,12 +64,10 @@ const FlyTalksPage = () => {
                   </p>
                 </td>
                 <td>
-                  <button className={c.button}>Pregledaj CV</button>
+                  <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
                 </td>
                 <td>
-                  <button className={clsx(c.button, c.white)}>
-                    Ukloni odabir
-                  </button>
+                  <WhiteButton variant='primary'>Ukloni odabir</WhiteButton>
                 </td>
               </tr>
             ))}
@@ -93,10 +91,10 @@ const FlyTalksPage = () => {
                   <p>Pregledaj detalje</p>
                 </td>
                 <td>
-                  <button className={c.button}>Pregledaj CV</button>
+                  <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
                 </td>
                 <td>
-                  <button className={c.button}>Odaberi</button>
+                  <WhiteButton variant='secondary'>Odaberi</WhiteButton>
                 </td>
               </tr>
             ))}
