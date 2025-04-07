@@ -12,6 +12,7 @@ interface PopupProps {
   confirmPopup: () => void;
   closePopup: () => void;
 }
+
 const ConfirmPopup = ({ isOpen, confirmPopup, closePopup }: PopupProps) => {
   const { totalCost, cartItems, setBoughtItems, setCartItems } =
     useShoppingContext();

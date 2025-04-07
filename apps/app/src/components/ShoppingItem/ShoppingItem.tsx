@@ -38,7 +38,8 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const handleCartBtnClick = () => {
     if (disabled) return;
 
-    setCartItems((prevItems) => [...prevItems, product]);
+    /* provjerit može li se kupiti više od samo jednog istog proizvoda */
+    setCartItems((prevItems) => [...prevItems, { ...product, quantity: 1 }]);
     setIsInCart(true);
     toast.success('Proizvod dodan u košaricu');
   };
