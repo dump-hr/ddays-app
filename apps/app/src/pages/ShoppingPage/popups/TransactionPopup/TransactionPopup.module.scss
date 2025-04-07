@@ -40,6 +40,10 @@ div.open {
     content: url('../../../../assets/images/ripped-papper-mobile.png');
     bottom: 30px;
   }
+
+  @media screen and (max-width: 352px) {
+    bottom: 29px;
+  }
 }
 
 .closeIcon {
