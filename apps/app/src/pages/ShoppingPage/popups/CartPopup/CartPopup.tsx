@@ -20,7 +20,10 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const openConfirmPopup = () => {
-    setIsBought(true);
+    if (cartItems.length > 0) {
+      setIsBought(true);
+      return;
+    }
     closePopup();
   };
 
@@ -71,9 +74,14 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
             variant='black'
             style={{ width: '100%', marginTop: '10px' }}
             onClick={openConfirmPopup}>
-            KUPI ZA
-            <img src={StarIcon} className={styles.starIcon} />
-            {totalCost}
+            {cartItems.length > 0 ? (
+              <>
+                KUPI ZA
+                <img src={StarIcon} className={styles.starIcon} /> {totalCost}
+              </>
+            ) : (
+              'ZATVORI'
+            )}
           </Button>
         </div>
       </PopupLayout>
