@@ -17,7 +17,6 @@ import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
-import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -55,7 +54,6 @@ import { UserModule } from './user/user.module';
       : []),
 
     BoothModule,
-    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
