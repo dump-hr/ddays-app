@@ -4,3 +4,8 @@ export type RegistrationDto = UserDto & {
   repeatedPassword: string;
   newPassword: string;
 };
+
+export type LoginDto = {
+  email: string;
+  password: string;
+};

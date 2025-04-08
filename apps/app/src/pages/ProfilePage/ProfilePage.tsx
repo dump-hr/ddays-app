@@ -14,6 +14,8 @@ import RecommendationsButton from '../../components/RecommendationsButton';
 import FeedbackButton from '../../components/FeedbackButton';
 import LogoutButton from '../../components/LogoutButton';
 import { RouteNames } from '../../router/routes';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { logout } from '@/helpers/auth';
 
 const navigationItems = [
   {
@@ -49,13 +51,15 @@ const navigationItems = [
 ];
 
 export const ProfilePage = () => {
+  const { data: user } = useLoggedInUser();
+
   return (
     <div className={c.page}>
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
             <span>Profil</span> <br />
-            Marija Gudelj
+            {user?.firstName} {user?.lastName}
           </p>
 
           <AvatarPointsCircle points={900} avatar={TempAvatar} />
@@ -80,7 +84,7 @@ export const ProfilePage = () => {
         <div className={c.buttonsWrapper}>
           <RecommendationsButton />
           <FeedbackButton />
-          <LogoutButton />
+          <LogoutButton onClick={logout} />
         </div>
       </main>
     </div>
