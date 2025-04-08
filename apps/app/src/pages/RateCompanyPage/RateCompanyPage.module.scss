@@ -7,7 +7,7 @@
 
 .page {
   color: $primary-background;
-  height: 116px;
+  height: 64px;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -29,6 +29,7 @@
     .page {
       justify-content: center;
       align-items: center;
+      height: 116px;
     }
   }
 }
@@ -111,10 +112,14 @@
     border-radius: 8px;
     height: 30px;
     width: 30px;
-    background: var(--Beige, #f5ede1);
+    background: $primary-beige;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      width: 119px;
+    }
   }
 
   @media screen and (min-width: $breakpoint-tablet) {
@@ -146,37 +151,8 @@
     padding: 32px 70px;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
     margin: 40px auto;
     max-width: 422px;
-    width: 100%;
-  }
-
-  .ratingQuestion {
-    margin-bottom: 40px;
-    margin-left: 0px;
-    align-self: flex-start;
-
-    @media screen and (min-width: $breakpoint-tablet) {
-      text-align: center;
-      align-self: center;
-      margin-bottom: 40px;
-      margin-left: 0;
-    }
-  }
-
-  .ratingQuestion h3 {
-    @include heading-3;
-    color: $primary-black;
-    font-weight: normal;
-    font-size: 16px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .ratingQuestionText {
-    @include paragraph-16;
-    color: $primary-black;
   }
 }
 
