@@ -233,6 +233,12 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    .duckWrapper:nth-child(2) & {
+      bottom: -60px;
+    }
+  }
 }
 
 .duckPointsWrapper {
@@ -246,6 +252,14 @@
   @include label-medium;
   display: inline-block;
   margin-top: 5px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    font-size: 16px;
+
+    .duckWrapper:nth-child(2) & {
+      font-size: 20px;
+    }
+  }
 }
 
 .duckName {
@@ -260,8 +274,8 @@
 
 .personalRankWrapper {
   width: 100%;
-  border: 1px solid var(--Black-10, #e0e0df);
-  background: var(--Primary-Beige, #f5ede1);
+  border: 1px solid $black-10;
+  background: $primary-beige;
 }
 
 .leaderboardTable {
@@ -270,7 +284,7 @@
   text-align: center;
 
   tr:not(:first-child) {
-    @include dottedBreak($primary-black, 1.5px);
+    @include dottedBreak($black-50, 1.5px);
   }
 
   td {
