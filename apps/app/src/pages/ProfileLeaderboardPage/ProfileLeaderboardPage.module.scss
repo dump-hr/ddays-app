@@ -278,6 +278,26 @@
   background: $primary-beige;
 }
 
+.congratulationWrapper {
+  border: 1px solid $black-10;
+  border-radius: 8px;
+  background: $primary-beige;
+  padding: 12px;
+  text-align: center;
+  margin-bottom: 32px;
+  margin: 0 24px 32px;
+  width: calc(100% - 48px);
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 100%;
+    margin: 0 0 32px;
+  }
+
+  .congratulationText {
+    @include paragraph-16;
+  }
+}
+
 .leaderboardTable {
   width: 100%;
   border-collapse: collapse;
