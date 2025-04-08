@@ -21,13 +21,13 @@ const NotificationsSection = () => {
   const [displayedNotifications, setDisplayedNotifications] =
     useState(notifications);
 
-  const handleTabChange = (tab: string) => {
+  const handleTabChange = (tab: string | number) => {
     setNotificationsTab(tab);
   };
 
   const allNotifications = useMemo(
     () =>
-      notifications.sort((a, b) => {
+      [...notifications].sort((a, b) => {
         return b.activatedAt!.getTime() - a.activatedAt!.getTime();
       }),
     [notifications],
