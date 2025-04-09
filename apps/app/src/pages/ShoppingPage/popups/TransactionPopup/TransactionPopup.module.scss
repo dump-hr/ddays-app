@@ -8,6 +8,10 @@
   align-items: flex-end;
   display: none;
   padding: 1rem 0;
+  @media screen and (max-width: 390px) {
+    padding: 0rem;
+    
+  }
 }
 
 div.open {
