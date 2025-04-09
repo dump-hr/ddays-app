@@ -14,7 +14,7 @@ const verifyTransactionItem = async (
 
 export const useVerifyTransactionItem = () => {
   return useMutation(verifyTransactionItem, {
-    onSuccess: (_data: TransactionItemDto) => {
+    onSuccess: () => {
       toast.success(`Vaša transakcija je verificirana!`);
       queryClient.invalidateQueries([QUERY_KEYS.userTransactions]);
     },

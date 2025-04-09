@@ -49,10 +49,7 @@ export class ShopController {
 
   @Patch('transaction/:id/stage')
   @UseGuards(UserGuard)
-  verifyCollectedItem(
-    @Param('id', ParseIntPipe) id: number,
-    @Req() { user },
-  ) {
+  verifyCollectedItem(@Param('id', ParseIntPipe) id: number, @Req() { user }) {
     return this.shopService.verifyCollectedItem(id, user.id);
   }
 
