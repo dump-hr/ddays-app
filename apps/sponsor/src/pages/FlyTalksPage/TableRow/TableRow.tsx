@@ -9,7 +9,6 @@ import c from '../FlyTalksPage.module.scss';
 type TableRowProps = {
   applicant: UserDto;
   handleOpenModal: (user: UserDto) => void;
-  key: number;
   status: 'accepted' | 'rejected';
   timeLeft?: Date;
   //cvHref: string;
@@ -19,7 +18,6 @@ type TableRowProps = {
 const TableRow: React.FC<TableRowProps> = ({
   applicant,
   handleOpenModal,
-  key,
   status,
   timeLeft,
 }) => {
@@ -36,7 +34,7 @@ const TableRow: React.FC<TableRowProps> = ({
     }
   }
   return (
-    <tr key={key}>
+    <tr>
       <td className={c.cell}>
         <img src={getStatusIcon()} />
       </td>
