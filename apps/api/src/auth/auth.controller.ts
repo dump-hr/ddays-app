@@ -1,14 +1,6 @@
 import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
-import { UserDto, UserModifyDto } from '@ddays-app/types/src/dto/user';
-import {
-  Body,
-  Controller,
-  Get,
-  Patch,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { UserDto } from '@ddays-app/types/src/dto/user';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 
 import { UserLoginDto } from './auth.dto';
 import { AuthService } from './auth.service';

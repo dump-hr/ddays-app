@@ -1,5 +1,5 @@
 import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto, UserModifyDto } from '@ddays-app/types/src/dto/user';
+import { UserDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';

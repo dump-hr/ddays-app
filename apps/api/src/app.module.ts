@@ -15,9 +15,9 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
+import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
-import { ShopModule } from './shop/shop.module';
 
 @Module({
   imports: [
@@ -55,7 +55,6 @@ import { ShopModule } from './shop/shop.module';
       : []),
 
     BoothModule,
-
     ShopModule,
   ],
   controllers: [AppController],
