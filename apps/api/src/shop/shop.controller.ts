@@ -35,26 +35,25 @@ export class ShopController {
     return this.shopService.createShopItem(shopItemDto);
   }
 
-  @Post()
   @Get('items')
-  @UseGuards(UserGuard, AdminGuard)
+  @UseGuards(UserGuard)
   getAllShopItems() {
     return this.shopService.getAllShopItems();
   }
 
   @Get('transactions/:userId')
-  @UseGuards(UserGuard, AdminGuard)
+  @UseGuards(UserGuard)
   getAllUserTransactions(@Param('userId', ParseIntPipe) userId: number) {
     return this.shopService.getAllUserTransactions(userId);
   }
 
   @Patch('transaction/:id/stage')
   @UseGuards(UserGuard)
-  updateTransactionStage(
+  verifyCollectedItem(
     @Param('id', ParseIntPipe) id: number,
     @Req() { user },
   ) {
-    return this.shopService.updateTransactionStage(id, user.id);
+    return this.shopService.verifyCollectedItem(id, user.id);
   }
 
   @Patch('shopItem/:id')

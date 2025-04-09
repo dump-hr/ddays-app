@@ -17,47 +17,68 @@ export class ShopService {
   }
 
   async buyItem(transactionCreateDto: TransactionCreateDto) {
-    // create transaction item ShopCart model
     const { userId, quantity, shopItemId } = transactionCreateDto;
-    const newTransactionItem =
-      await this.createTransactionItem(transactionCreateDto);
 
-    // update the user points
-    const currentUser = await this.prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
+    const { currentUser, totalPrice, shopItem } =
+      await this.validateBuyItem(transactionCreateDto);
 
-    if (!currentUser) {
-      throw new BadRequestException('User not found');
-    }
+    return await this.prisma.$transaction(async (prisma) => {
+      // Create transaction item
+      const newTransactionItem = await prisma.transactionItem.create({
+        data: transactionCreateDto,
+        include: {
+          shopItem: true,
+        },
+      });
 
-    const updatedPoints =
-      currentUser.points - newTransactionItem.shopItem.price * quantity;
+      // Update user points
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          points: currentUser.points - totalPrice,
+        },
+      });
 
-    await this.prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        points: updatedPoints,
-      },
-    });
+      // Update shop item quantity
+      await prisma.shopItem.update({
+        where: { id: shopItemId },
+        data: {
+          quantity: shopItem.quantity - quantity,
+        },
+      });
 
-    // update the quantity of ShopItem
-    await this.prisma.shopItem.update({
-      where: {
-        id: shopItemId,
-      },
-      data: {
-        quantity: newTransactionItem.shopItem.quantity - quantity,
-      },
+      return newTransactionItem;
     });
   }
 
+  async validateBuyItem(transactionCreateDto: TransactionCreateDto) {
+    const { userId, quantity, shopItemId } = transactionCreateDto;
+    const currentUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!currentUser) {
+      throw new BadRequestException('Korisnik nije pronađen');
+    }
+
+    const shopItem = await this.prisma.shopItem.findUnique({
+      where: { id: shopItemId },
+    });
+
+    if (!shopItem) {
+      throw new BadRequestException('Artikl nije pronađen');
+    }
+
+    const totalPrice = quantity * shopItem.price;
+    if (currentUser.points < totalPrice || currentUser.points < 0) {
+      throw new BadRequestException('Nemate dovoljno bodova');
+    }
+
+    return { currentUser, totalPrice, shopItem };
+  }
+
   async createTransactionItem(transactionCreateDto: TransactionCreateDto) {
-    return await this.prisma.shoppingCart.create({
+    return await this.prisma.transactionItem.create({
       data: {
         ...transactionCreateDto,
       },
@@ -72,7 +93,7 @@ export class ShopService {
   }
 
   async getAllUserTransactions(userId: number) {
-    return await this.prisma.shoppingCart.findMany({
+    return await this.prisma.transactionItem.findMany({
       where: {
         userId,
       },
@@ -82,13 +103,11 @@ export class ShopService {
     });
   }
 
-  async updateTransactionStage(id: number, userId: number) {
-    const transactionItem = await this.prisma.shoppingCart.findUnique({
+  async verifyCollectedItem(id: number, userId: number) {
+    const transactionItem = await this.prisma.transactionItem.findUnique({
       where: {
-        userId_shopItemId: {
-          userId,
-          shopItemId: id,
-        },
+        id,
+        userId,
       },
     });
 
@@ -100,12 +119,10 @@ export class ShopService {
       throw new BadRequestException('Vaš artikl je već preuzet');
     }
 
-    await this.prisma.shoppingCart.update({
+    await this.prisma.transactionItem.update({
       where: {
-        userId_shopItemId: {
-          userId,
-          shopItemId: id,
-        },
+        id,
+        userId,
       },
       data: {
         stage: ShoppingCartItemStage.COLLECTED,
