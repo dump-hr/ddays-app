@@ -45,13 +45,4 @@ export class AuthController {
   async findLoggedInUser(@Req() { user }) {
     return await this.authService.getUserById(user.id);
   }
-
-  @Patch('user/authenticated')
-  @UseGuards(UserGuard)
-  async updateLoggedInUser(
-    @Req() { user },
-    @Body() updateUser: UserModifyDto,
-  ): Promise<UserModifyDto> {
-    return await this.authService.updateUserById(user.id, updateUser);
-  }
 }
