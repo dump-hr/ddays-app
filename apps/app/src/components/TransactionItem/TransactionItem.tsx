@@ -1,23 +1,23 @@
 import { useState } from 'react';
-import { useShoppingContext } from '@/context/ShoppingContext';
 import TransactionPopup from '@/pages/ShoppingPage/popups/TransactionPopup';
 import styles from './TransactionItem.module.scss';
 
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { ShopItemType, ShoppingCartItemStage } from '@ddays-app/types';
-import { TransactionItemDto } from '@ddays-app/types/src/dto/shop';
+import { TransactionItemResponseDto } from '@ddays-app/types/src/dto/shop';
+import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface TransactionItemProps {
-  item: TransactionItemDto;
+  item: TransactionItemResponseDto;
   index: number;
 }
 
 const TransactionItem = ({ item, index }: TransactionItemProps) => {
   const [isOpenTransactionPopup, setOpenTransactionPopup] = useState(false);
 
-  const {
-    boughtItems: { length },
-  } = useShoppingContext();
+  const { data: user } = useLoggedInUser();
+  const { data: boughtItems } = useGetAllUserTransactions(user?.id ?? 0);
 
   const getStageText = (stage: ShoppingCartItemStage) => {
     switch (stage) {
@@ -59,8 +59,7 @@ const TransactionItem = ({ item, index }: TransactionItemProps) => {
           </span>
         </p>
         <p className={styles.quantity}>
-          Potrebno preuzesti do 21:00h{' '}
-          {/*izmjeniti ovo kod spajanja sa backendom, polje takeByTime */}
+          {`Potrebno preuzesti do ${item.takeByTime}`}
         </p>
         <div
           className={styles.viewTransactionButton}
@@ -68,7 +67,7 @@ const TransactionItem = ({ item, index }: TransactionItemProps) => {
           RAČUN
         </div>
       </div>
-      {length !== index + 1 && <div className={styles.divider} />}
+      {boughtItems?.length !== index + 1 && <div className={styles.divider} />}
     </div>
   );
 };

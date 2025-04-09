@@ -36,11 +36,12 @@ const ShoppingHeader: React.FC = () => {
         <h1 className={styles.title}>SHOPPING</h1>
         <NavigateHomeButton />
       </div>
-
-      <TransactionsPopup
-        isOpen={isOpenTransactions}
-        closePopup={() => setIsOpenTransactions(false)}
-      />
+      {isOpenTransactions && (
+        <TransactionsPopup
+          isOpen={isOpenTransactions}
+          closePopup={() => setIsOpenTransactions(false)}
+        />
+      )}
 
       <CartPopup
         isOpen={isOpenShoppingCart}

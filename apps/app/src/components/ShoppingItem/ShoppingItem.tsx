@@ -4,13 +4,13 @@ import styles from './ShoppingItem.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
 
-import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { ShopItem } from '@prisma/client';
 import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
 import { useShoppingContext } from '@/context/ShoppingContext';
 
 interface ShoppingItemProps {
-  product: ShopItemDto;
+  product: ShopItem;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
@@ -22,7 +22,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
 
   const outOfStock: boolean = product.quantity === 0;
   const notEnoughPoints: boolean = useMemo(
-    () => userPoints < totalCost + product.price,
+    () => userPoints < totalCost + (product.price || 0),
     [userPoints, totalCost],
   );
 
@@ -39,7 +39,16 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
     if (disabled) return;
 
     /* provjerit može li se kupiti više od samo jednog istog proizvoda */
-    setCartItems((prevItems) => [...prevItems, { ...product, quantity: 1 }]);
+    setCartItems((prevItems) => [
+      ...prevItems,
+      {
+        ...product,
+        quantity: 1,
+        price: product.price ?? 0,
+        type: product.type as ShopItemType,
+        itemName: product.itemName,
+      },
+    ]);
     setIsInCart(true);
     toast.success('Proizvod dodan u košaricu');
   };

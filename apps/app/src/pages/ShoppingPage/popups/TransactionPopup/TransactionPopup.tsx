@@ -4,17 +4,17 @@ import styles from './TransactionPopup.module.scss';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import DumpDaysIcon from '@/assets/icons/dump-days-logo.svg';
 import { getCurrentDate } from '@/helpers/getCurrentDate';
-import { TransactionItemDto } from '@ddays-app/types/src/dto/shop';
+import { TransactionItemResponseDto } from '@ddays-app/types/src/dto/shop';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 
 interface PopupProps {
   isOpen: boolean;
   closePopup: () => void;
-  item: TransactionItemDto;
+  item: TransactionItemResponseDto;
 }
 
 const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
-  const { isMobile: isSmallMobile} = useDeviceType({breakpoint: 390})
+  const { isMobile: isSmallMobile } = useDeviceType({ breakpoint: 390 });
   return (
     <div className={clsx(styles.wrapper, { [styles.open]: isOpen })}>
       <div className={styles.container}>
@@ -33,7 +33,7 @@ const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
             <p>Ul. Ruđera Boškovića 32, 21000 Split</p>
             <p>Atrij fakulteta, dvorane A100 i A101</p>
             <br />
-            <p>Račun broj 21846103</p>
+            <p>Račun broj {`${item.id}`}</p>
             <br />
             <table className={styles.tableArticle}>
               <thead>
@@ -83,16 +83,17 @@ const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
               <div className={styles.row}>
                 <p className={styles.rowName}>Datum</p>
                 <p className={styles.rowValue}>
-                  {getCurrentDate(
-                    new Date() /* promjeniti ovaj param sa datumom koji dolazi sa backend*/,
-                  )}
+                  {getCurrentDate(item.orderedAt ?? new Date())}
                 </p>
               </div>
             </div>
             <p>Raspored dostupan na days.dump.hr!</p>
           </div>
           <div className={styles.qrCodeContainer}>
-            <QRCodeSVG value={'https://days.dump.hr'} size={!isSmallMobile ? 160 : 140} />
+            <QRCodeSVG
+              value={'https://days.dump.hr'}
+              size={!isSmallMobile ? 160 : 140}
+            />
           </div>
         </div>
       </div>

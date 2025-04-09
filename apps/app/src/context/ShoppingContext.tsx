@@ -6,19 +6,15 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { products } from '@/pages/ShoppingPage/sections/ShoppingItems/products';
-import { ShopItemDto, TransactionItemDto } from '@ddays-app/types/src/dto/shop';
+import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
   setCartItems: React.Dispatch<React.SetStateAction<ShopItemDto[]>>;
-  userPoints: number;
-  setUserPoints: React.Dispatch<React.SetStateAction<number>>;
-  productsList: typeof products;
-  setProductsList: React.Dispatch<React.SetStateAction<typeof products>>;
+  userPoints: number | null;
+  setUserPoints: React.Dispatch<React.SetStateAction<number | null>>;
   totalCost: number;
-  boughtItems: TransactionItemDto[];
-  setBoughtItems: React.Dispatch<React.SetStateAction<TransactionItemDto[]>>;
 }
 
 const ShoppingContext = createContext<ShoppingContextType | undefined>(
@@ -36,25 +32,28 @@ export const useShoppingContext = () => {
 };
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
-  /* dohvaćat user bodove sa backenda*/
-
   const getCartItems = () => {
     const cartItems = localStorage.getItem('cartItems');
     return cartItems ? JSON.parse(cartItems) : [];
   };
 
-  const [boughtItems, setBoughtItems] = useState<TransactionItemDto[]>([]);
   const [cartItems, setCartItems] = useState<ShopItemDto[]>(getCartItems());
-  const [userPoints, setUserPoints] = useState(1000);
-  const [productsList, setProductsList] = useState(products);
+  const { data: user, isLoading } = useLoggedInUser();
+  const [userPoints, setUserPoints] = useState<number | null>(
+    user?.points || 0,
+  );
 
   const totalCost = useMemo(
     () =>
       cartItems.reduce((acc, product) => {
-        return acc + product.price;
+        return acc + (product.price || 0);
       }, 0),
     [cartItems],
   );
+
+  useEffect(() => {
+    if (user && !isLoading) setUserPoints(user.points);
+  }, [user, isLoading]);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -67,11 +66,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
         setCartItems,
         userPoints,
         setUserPoints,
-        productsList,
-        setProductsList,
         totalCost,
-        boughtItems,
-        setBoughtItems,
       }}>
       {children}
     </ShoppingContext.Provider>

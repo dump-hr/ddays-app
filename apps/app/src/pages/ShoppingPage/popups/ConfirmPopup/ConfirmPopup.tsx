@@ -1,11 +1,12 @@
 import styles from './ConfirmPopup.module.scss';
 import StarIcon from '@/assets/icons/star.svg';
 import { useShoppingContext } from '@/context/ShoppingContext';
-import { ShoppingCartItemStage } from '@ddays-app/types/src/enum';
+import { useBuyShopItem } from '@/api/shop/useBuyShopItem';
 
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { ShoppingCartItemStage } from '@ddays-app/types';
 
 interface PopupProps {
   isOpen: boolean;
@@ -14,23 +15,21 @@ interface PopupProps {
 }
 
 const ConfirmPopup = ({ isOpen, confirmPopup, closePopup }: PopupProps) => {
-  const { totalCost, cartItems, setBoughtItems, setCartItems } =
-    useShoppingContext();
+  const { totalCost, cartItems, setCartItems } = useShoppingContext();
   const { data: user } = useLoggedInUser();
+  const { mutate: buyShopItem } = useBuyShopItem();
 
-  const buyItems = () => {
-    setBoughtItems((prev) => [
-      ...prev,
-      ...cartItems.map((item) => {
-        return {
+  const buyItems = async () => {
+    await Promise.all(
+      cartItems.map((item) =>
+        buyShopItem({
           userId: user?.id ?? 0,
           shopItemId: item.id,
-          shopItem: item,
+          quantity: item.quantity ?? 0,
           stage: ShoppingCartItemStage.UNCOLLECTED,
-          quantity: item.quantity || 1,
-        };
-      }),
-    ]);
+        }),
+      ),
+    );
     setCartItems([]);
   };
 
@@ -55,8 +54,8 @@ const ConfirmPopup = ({ isOpen, confirmPopup, closePopup }: PopupProps) => {
       <Button
         variant='black'
         style={{ width: '100%' }}
-        onClick={() => {
-          buyItems();
+        onClick={async () => {
+          await buyItems();
           confirmPopup();
         }}>
         KUPI ZA

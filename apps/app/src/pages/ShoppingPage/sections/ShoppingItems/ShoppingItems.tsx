@@ -1,3 +1,4 @@
+import { useGetAllShopItems } from '@/api/shop/useGetAllShopItems';
 import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 
@@ -5,7 +6,8 @@ import { ShoppingItem } from '@/components/ShoppingItem';
 import { useShoppingContext } from '@/context/ShoppingContext';
 
 const ShoppingItems: React.FC = () => {
-  const { userPoints, productsList } = useShoppingContext();
+  const { userPoints } = useShoppingContext();
+  const { data: productsList = [] } = useGetAllShopItems();
 
   return (
     <div className={styles.shoppingItemsWrapper}>
@@ -18,11 +20,8 @@ const ShoppingItems: React.FC = () => {
           </div>
         </div>
         <div className={styles.products}>
-          {productsList.map((product) => (
-            <ShoppingItem
-              key={product.id}
-              product={product}
-            />
+          {productsList?.map((product) => (
+            <ShoppingItem key={product.id} product={product} />
           ))}
         </div>
       </div>

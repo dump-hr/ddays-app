@@ -1,8 +1,9 @@
 import styles from './TransactionsPopup.module.scss';
-import { useShoppingContext } from '@/context/ShoppingContext';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
 import TransactionItem from '@/components/TransactionItem';
+import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface PopupProps {
   isOpen: boolean;
@@ -10,7 +11,8 @@ interface PopupProps {
 }
 
 const TransactionsPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { boughtItems } = useShoppingContext();
+  const { data: user } = useLoggedInUser();
+  const { data: boughtItems = [] } = useGetAllUserTransactions(user?.id ?? 0);
 
   return (
     <PopupLayout

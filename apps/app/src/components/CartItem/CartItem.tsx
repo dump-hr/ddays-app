@@ -6,13 +6,15 @@ import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import RedStarIcon from '@/assets/icons/star-red.svg';
 import DeleteIcon from '@/assets/icons/bin-delete.svg';
 import { useMemo } from 'react';
+import { useGetAllShopItems } from '@/api/shop/useGetAllShopItems';
 
 interface CartItemProps {
   item: ShopItemDto;
   index: number;
 }
 const CartItem = ({ item, index }: CartItemProps) => {
-  const { cartItems, setCartItems, productsList } = useShoppingContext();
+  const { cartItems, setCartItems } = useShoppingContext();
+  const { data: productsList=[]} = useGetAllShopItems();
 
   const product = useMemo(
     () => productsList.find((product) => product.id === item.id),
