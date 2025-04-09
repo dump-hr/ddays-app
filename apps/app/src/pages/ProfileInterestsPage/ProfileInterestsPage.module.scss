@@ -74,7 +74,7 @@
   
   .interestsForUpdate {
     background-color: $primary-background;
-    border-radius: 24px;
+    overflow-y: auto;
   
     .updateHeader{
       display: flex;
