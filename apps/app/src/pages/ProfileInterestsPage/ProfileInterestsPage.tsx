@@ -7,7 +7,7 @@ import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileHeader } from '../../components/ProfileHeader';
-import PopupLayout from '../../layout/PopupLayout/PopupLayout';
+import { InterestsForUpdatePopup } from './popups/InterestsForUpdatePopup';
 
 export const ProfileInterestsPage = () => {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -76,31 +76,13 @@ export const ProfileInterestsPage = () => {
         </div>
       </main>
 
-      <PopupLayout
-        variant='light'
-        headerTitleComponent='Uredi interese'
-        closePopup={() => setPopupIsOpen(false)}
+      <InterestsForUpdatePopup
         isOpen={popupIsOpen}
-        desktopStyle={'normal'}>
-        <div className={c.interestsForUpdate}>
-          <p>
-            Odaberi svoje interese, a mi ćemo ti preporučiti poslodavce,
-            predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
-          </p>
-
-          <InterestCardsSection
-            forUpdate
-            userSelectedInterests={tempSelectedInterests}
-            setUserSelectedInterests={setTempSelectedInterests}
-          />
-        </div>
-        <Button
-          variant='black'
-          style={{ width: '100%' }}
-          onClick={handleSaveInterests}>
-          Spremi
-        </Button>
-      </PopupLayout>
+        setIsOpen={setPopupIsOpen}
+        tempSelectedInterests={tempSelectedInterests}
+        setTempSelectedInterests={setTempSelectedInterests}
+        handleSaveInterests={handleSaveInterests}
+      />
     </div>
   );
 };
