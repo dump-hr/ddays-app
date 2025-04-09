@@ -1,4 +1,4 @@
-import c from './InterestsPage.module.scss';
+import c from './ProfileInterestsPage.module.scss';
 import Button from '../../components/Button';
 import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProfileHeader } from '../../components/ProfileHeader';
 import PopupLayout from '../../layout/PopupLayout/PopupLayout';
 
-export const InterestsPage = () => {
+export const ProfileInterestsPage = () => {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>([
     'Web development',
@@ -47,6 +47,7 @@ export const InterestsPage = () => {
                 src={ArrowLeft}
                 alt='return icon'
                 onClick={() => navigate('/app/profile')}
+                className={c.returnIcon}
               />
               <h2>INTERESI</h2>
               <div className={c.editIcon}>

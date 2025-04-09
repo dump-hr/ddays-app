@@ -35,11 +35,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center; 
+
+        img {
+          cursor: pointer
+        }
   
         h2{
           @include heading-2;
           font-weight: 500;
         }
+
+        .returnIcon {
+          margin-right: 21px;
+        }
+
         
         .editIcon {
           display: flex;

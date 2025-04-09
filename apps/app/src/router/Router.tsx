@@ -20,7 +20,7 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
-import { InterestsPage } from '../pages/InterestsPage';
+import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
@@ -45,7 +45,7 @@ const router = createBrowserRouter(
           <Route index element={<ProfilePage />} />
           <Route
             path={RouteNames.PROFILE_INTERESTS}
-            element={<InterestsPage />}
+            element={<ProfileInterestsPage />}
           />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
