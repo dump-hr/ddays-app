@@ -11,6 +11,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
@@ -45,6 +46,15 @@ export class ShopController {
   @UseGuards(UserGuard, AdminGuard)
   getAllUserTransactions(@Param('userId', ParseIntPipe) userId: number) {
     return this.shopService.getAllUserTransactions(userId);
+  }
+
+  @Patch('transaction/:id/stage')
+  @UseGuards(UserGuard)
+  updateTransactionStage(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() { user },
+  ) {
+    return this.shopService.updateTransactionStage(id, user.id);
   }
 
   @Patch('shopItem/:id')

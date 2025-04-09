@@ -1,3 +1,4 @@
+import { ShoppingCartItemStage } from '@ddays-app/types';
 import {
   ShopItemDto,
   TransactionCreateDto,
@@ -74,6 +75,40 @@ export class ShopService {
     return await this.prisma.shoppingCart.findMany({
       where: {
         userId,
+      },
+      include: {
+        shopItem: true,
+      },
+    });
+  }
+
+  async updateTransactionStage(id: number, userId: number) {
+    const transactionItem = await this.prisma.shoppingCart.findUnique({
+      where: {
+        userId_shopItemId: {
+          userId,
+          shopItemId: id,
+        },
+      },
+    });
+
+    if (!transactionItem) {
+      throw new BadRequestException('Transakcija nije pronađena');
+    }
+
+    if (transactionItem.stage === ShoppingCartItemStage.COLLECTED) {
+      throw new BadRequestException('Vaš artikl je već preuzet');
+    }
+
+    await this.prisma.shoppingCart.update({
+      where: {
+        userId_shopItemId: {
+          userId,
+          shopItemId: id,
+        },
+      },
+      data: {
+        stage: ShoppingCartItemStage.COLLECTED,
       },
     });
   }
