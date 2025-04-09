@@ -1,5 +1,5 @@
 import { ShoppingCartItemStage } from '../enum';
-import { ShopItemType, ShopItem, $Enums } from '@prisma/client';
+import { ShopItemType } from '@prisma/client';
 export type ShopItemDto = {
   id: number;
   type: ShopItemType | null;

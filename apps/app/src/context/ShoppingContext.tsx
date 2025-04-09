@@ -12,8 +12,8 @@ import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 interface ShoppingContextType {
   cartItems: ShopItemDto[];
   setCartItems: React.Dispatch<React.SetStateAction<ShopItemDto[]>>;
-  userPoints: number | null;
-  setUserPoints: React.Dispatch<React.SetStateAction<number | null>>;
+  userPoints: number;
+  setUserPoints: React.Dispatch<React.SetStateAction<number>>;
   totalCost: number;
 }
 
@@ -39,7 +39,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
 
   const [cartItems, setCartItems] = useState<ShopItemDto[]>(getCartItems());
   const { data: user, isLoading } = useLoggedInUser();
-  const [userPoints, setUserPoints] = useState<number | null>(
+  const [userPoints, setUserPoints] = useState<number>(
     user?.points || 0,
   );
 
@@ -52,7 +52,7 @@ export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    if (user && !isLoading) setUserPoints(user.points);
+    if (user && !isLoading) setUserPoints(user.points || 0);
   }, [user, isLoading]);
 
   useEffect(() => {
