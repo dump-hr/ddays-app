@@ -15,7 +15,7 @@ interface PopupProps {
 }
 
 const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { cartItems, totalCost, setUserPoints } = useShoppingContext();
+  const { cartItems, totalCost} = useShoppingContext();
   const [isBuyClicked, setIsBuyClicked] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
@@ -30,7 +30,6 @@ const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
   const clickConfirmPopup = () => {
     setIsConfirmed(true);
     closePopup();
-    setUserPoints((prev) => prev - totalCost);
   };
 
   const closeConfirmPopup = () => {

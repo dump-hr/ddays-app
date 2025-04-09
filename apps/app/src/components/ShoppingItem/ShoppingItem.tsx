@@ -6,24 +6,25 @@ import StarIconGrey from '@/assets/icons/rating-star-disabled.svg';
 
 import { ShopItem } from '@prisma/client';
 import { ShopItemType } from '@ddays-app/types/src/enum';
-import { getShopItemImgFromType } from '../../helpers/getShopItemImgFromType';
+import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { useShoppingContext } from '@/context/ShoppingContext';
+import { useGetUserPoints } from '@/api/shop/useGetUserPoints';
 
 interface ShoppingItemProps {
   product: ShopItem;
 }
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
-  const { setCartItems, userPoints, totalCost, cartItems } =
-    useShoppingContext();
+  const { setCartItems, totalCost, cartItems } = useShoppingContext();
+  const { data, isLoading } = useGetUserPoints();
 
   const [isInCart, setIsInCart] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   const outOfStock: boolean = product.quantity === 0;
   const notEnoughPoints: boolean = useMemo(
-    () => userPoints < totalCost + (product.price || 0),
-    [userPoints, totalCost],
+    () => (data?.points || 0) < totalCost + (product.price || 0),
+    [data, totalCost, isLoading],
   );
 
   useEffect(() => {

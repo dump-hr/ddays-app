@@ -3,10 +3,10 @@ import styles from './ShoppingItems.module.scss';
 import StarIcon from '@/assets/icons/rating-star-1.svg';
 
 import { ShoppingItem } from '@/components/ShoppingItem';
-import { useShoppingContext } from '@/context/ShoppingContext';
+import { useGetUserPoints } from '@/api/shop/useGetUserPoints';
 
 const ShoppingItems: React.FC = () => {
-  const { userPoints } = useShoppingContext();
+  const { data /* , isLoading */ } = useGetUserPoints();
   const { data: productsList = [] } = useGetAllShopItems();
 
   return (
@@ -16,7 +16,7 @@ const ShoppingItems: React.FC = () => {
           <p>Tvoje stanje s bodovima</p>
           <div className={styles.points}>
             <img src={StarIcon} alt='' />
-            <span>{userPoints}</span>
+            <span>{data?.points}</span>
           </div>
         </div>
         <div className={styles.products}>
