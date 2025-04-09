@@ -9,10 +9,17 @@ export type ShopItemDto = {
   price: number;
 };
 
+export type TransactionCreateDto = {
+  shopItemId: number;
+  userId: number;
+  quantity: number;
+  stage: ShoppingCartItemStage;
+};
+
 export type TransactionItemDto = {
   shopItemId: number;
   shopItem: ShopItemDto;
   userId: number;
   quantity: number;
   stage: ShoppingCartItemStage;
-};
+}
