@@ -16,7 +16,6 @@ import {
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { UserGuard } from 'src/auth/user.guard';
-
 import { ShopService } from './shop.service';
 
 @Controller('shop')
@@ -25,8 +24,8 @@ export class ShopController {
 
   @Post('buy')
   @UseGuards(UserGuard)
-  buyItem(@Body() transactionItemDto: TransactionCreateDto) {
-    return this.shopService.buyItem(transactionItemDto);
+  buyItems(@Body() transactionItemDtos: TransactionCreateDto[]) {
+    return this.shopService.buyItems(transactionItemDtos);
   }
 
   @Post('items')

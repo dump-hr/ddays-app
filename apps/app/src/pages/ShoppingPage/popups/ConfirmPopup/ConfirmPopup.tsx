@@ -17,22 +17,24 @@ interface PopupProps {
 const ConfirmPopup = ({ isOpen, confirmPopup, closePopup }: PopupProps) => {
   const { totalCost, cartItems, setCartItems } = useShoppingContext();
   const { data: user } = useLoggedInUser();
-  const { mutate: buyShopItem } = useBuyShopItem();
+  const { mutate: buyShopItemsMutation } = useBuyShopItem();
 
   const buyItems = async () => {
-    await Promise.all(
-      cartItems.map((item) =>
-        buyShopItem({
-          userId: user?.id ?? 0,
-          shopItemId: item.id,
-          quantity: item.quantity ?? 0,
-          stage: ShoppingCartItemStage.UNCOLLECTED,
-        }),
-      ),
-    );
+    const newTransactionItems = cartItems.map((item) => ({
+      userId: user?.id ?? 0,
+      shopItemId: item.id,
+      quantity: item.quantity ?? 0,
+      stage: ShoppingCartItemStage.UNCOLLECTED,
+    }));
+    buyShopItemsMutation(newTransactionItems);
     setCartItems([]);
   };
 
+  const handleConfirm = async () => {
+    buyItems();
+    confirmPopup();
+  };
+  
   return (
     <PopupLayout
       variant='light'
@@ -51,13 +53,7 @@ const ConfirmPopup = ({ isOpen, confirmPopup, closePopup }: PopupProps) => {
           a tebi ne vraćamo oduzete bodove.
         </p>
       </div>
-      <Button
-        variant='black'
-        style={{ width: '100%' }}
-        onClick={async () => {
-          await buyItems();
-          confirmPopup();
-        }}>
+      <Button variant='black' style={{ width: '100%' }} onClick={handleConfirm}>
         KUPI ZA
         <img src={StarIcon} className={styles.starIcon} />
         {totalCost}
