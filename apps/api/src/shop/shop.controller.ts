@@ -41,6 +41,12 @@ export class ShopController {
     return this.shopService.getAllShopItems();
   }
 
+  @Get('points')
+  @UseGuards(UserGuard)
+  getUserPoints(@Req() { user }) {
+    return this.shopService.getUserPoints(user.id);
+  }
+
   @Get('transactions/:userId')
   @UseGuards(UserGuard)
   getAllUserTransactions(@Param('userId', ParseIntPipe) userId: number) {

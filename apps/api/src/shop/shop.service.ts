@@ -31,7 +31,6 @@ export class ShopService {
         },
       });
 
-      // Update user points
       await prisma.user.update({
         where: { id: userId },
         data: {
@@ -90,6 +89,22 @@ export class ShopService {
 
   async getAllShopItems() {
     return await this.prisma.shopItem.findMany({});
+  }
+
+  async getUserPoints(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        points: true,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Korisnik nije pronađen');
+    }
+    return { points: user.points };
   }
 
   async getAllUserTransactions(userId: number) {
