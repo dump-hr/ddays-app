@@ -3,6 +3,7 @@ import c from './Home.module.scss';
 import TopCompaniesSection from './sections/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
+import CodePopup from './popups/CodePopup/CodePopup';
 
 const HomePage = () => {
   return (
@@ -14,6 +15,8 @@ const HomePage = () => {
         <EventsSection />
         <LocationSection />
         <TopCompaniesSection />
+
+        <CodePopup isOpen={true} closePopup={() => {}} />
       </main>
     </div>
   );
