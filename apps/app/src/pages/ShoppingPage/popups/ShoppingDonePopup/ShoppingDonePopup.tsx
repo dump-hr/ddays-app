@@ -15,7 +15,7 @@ const ShoppingDonePopup = ({ isOpen, closePopup }: PopupProps) => {
     <PopupLayout
       variant='dark'
       headerTitleComponent={<></>}
-      closePopup={() => closePopup()}
+      closePopup={closePopup}
       isOpen={isOpen}
       imgSrc={DuckCoolImg}>
       <img src={StarIcon} alt='star' className={styles.starIconTopRight} />

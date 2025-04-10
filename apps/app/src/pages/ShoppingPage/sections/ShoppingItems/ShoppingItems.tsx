@@ -6,7 +6,7 @@ import { ShoppingItem } from '@/components/ShoppingItem';
 import { useGetUserPoints } from '@/api/shop/useGetUserPoints';
 
 const ShoppingItems: React.FC = () => {
-  const { data /* , isLoading */ } = useGetUserPoints();
+  const { data } = useGetUserPoints();
   const { data: productsList = [] } = useGetAllShopItems();
 
   return (

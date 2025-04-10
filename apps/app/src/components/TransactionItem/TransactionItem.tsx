@@ -7,6 +7,7 @@ import { ShopItemType, ShoppingCartItemStage } from '@ddays-app/types';
 import { TransactionItemResponseDto } from '@ddays-app/types/src/dto/shop';
 import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { getTimeFromDate } from '@/helpers/getTimeFromDate';
 
 interface TransactionItemProps {
   item: TransactionItemResponseDto;
@@ -59,7 +60,10 @@ const TransactionItem = ({ item, index }: TransactionItemProps) => {
           </span>
         </p>
         <p className={styles.quantity}>
-          {`Potrebno preuzesti do ${item.takeByTime}`}
+          {`Potrebno preuzesti do ${
+            item.takeByTime &&
+            getTimeFromDate(new Date(item.takeByTime).toISOString())
+          }`}
         </p>
         <div
           className={styles.viewTransactionButton}
