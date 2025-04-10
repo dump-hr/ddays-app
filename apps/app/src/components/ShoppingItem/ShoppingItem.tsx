@@ -39,7 +39,6 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const handleCartBtnClick = () => {
     if (disabled) return;
 
-    /* provjerit može li se kupiti više od samo jednog istog proizvoda */
     setCartItems((prevItems) => [
       ...prevItems,
       {
