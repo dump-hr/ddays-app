@@ -1,5 +1,6 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import c from './CodePopup.module.scss';
+import CodeInput from '@/components/CodeInput';
 
 type CodePopupProps = {
   closePopup: () => void;
@@ -10,10 +11,12 @@ const CodePopup: React.FC<CodePopupProps> = ({ closePopup, isOpen }) => {
   return (
     <PopupLayout
       variant='light'
-      headerTitleComponent='Unesi kod'
+      headerTitleComponent='UNESI KOD'
       closePopup={closePopup}
       isOpen={isOpen}>
-      <div className={c.content}></div>
+      <div className={c.content}>
+        <CodeInput />
+      </div>
     </PopupLayout>
   );
 };
