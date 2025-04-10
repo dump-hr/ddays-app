@@ -53,7 +53,7 @@ export class ShopController {
     return this.shopService.getAllUserTransactions(userId);
   }
 
-  @Patch('transaction/:id/stage')
+  @Patch('transaction/:id/verify')
   @UseGuards(UserGuard)
   verifyCollectedItem(@Param('id', ParseIntPipe) id: number, @Req() { user }) {
     return this.shopService.verifyCollectedItem(id, user.id);
