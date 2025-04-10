@@ -83,7 +83,7 @@ const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
               <div className={styles.row}>
                 <p className={styles.rowName}>Datum</p>
                 <p className={styles.rowValue}>
-                  {getCurrentDate(item.orderedAt ?? new Date())}
+                  {getCurrentDate(new Date(item.orderedAt || ''))}
                 </p>
               </div>
             </div>
