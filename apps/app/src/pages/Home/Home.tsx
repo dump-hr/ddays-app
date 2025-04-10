@@ -11,7 +11,7 @@ const HomePage = () => {
         <Header />
       </header>
       <main className={c.main}>
-        <EventsSecton />
+        <EventsSection />
         <LocationSection />
         <TopCompaniesSection />
       </main>
