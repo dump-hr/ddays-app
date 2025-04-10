@@ -7,15 +7,24 @@ interface StarRatingProps {
   style?: React.CSSProperties;
   width?: string;
   height?: string;
+  onRatingChange?: (rating: number) => void;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({
   style = {},
   width = 'auto',
   height = 'auto',
+  onRatingChange,
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+
+  const handleRatingChange = (newRating: number) => {
+    setRating(newRating);
+    if (onRatingChange) {
+      onRatingChange(newRating);
+    }
+  };
 
   return (
     <div className={styles.container} style={style}>
@@ -24,7 +33,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           key={star}
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
-          onClick={() => setRating(star)}
+          onClick={() => handleRatingChange(star)}
           className={styles.starButton}>
           {star <= (hover || rating) ? (
             <img
