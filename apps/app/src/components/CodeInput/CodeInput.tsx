@@ -44,6 +44,17 @@ const CodeInput = () => {
         setCode(newCode);
         focusInput(index - 1);
       }
+    } else if (
+      e.key !== 'Backspace' &&
+      code[index] !== '' &&
+      index < code.length - 1
+    ) {
+      if (code[index + 1] !== '') {
+        const newCode = [...code];
+        newCode[index + 1] = '';
+        setCode(newCode);
+      }
+      focusInput(index + 1);
     }
   }
 
