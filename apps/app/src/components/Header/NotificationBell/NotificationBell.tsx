@@ -26,7 +26,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
 
   return (
     <div className={styles.notificationWrapper} onClick={handleClick}>
-      <svg className={styles.notificationIcon} width={32} height={32}>
+      <svg className={styles.notificationIcon} width={26} height={26}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
       {notifications.length > 0 && (

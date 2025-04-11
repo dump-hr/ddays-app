@@ -1,7 +1,15 @@
 .notification {
   &Wrapper {
+
     position: relative;
+    padding: 4px 6px;
+    border-radius: 6px;
+    max-height: 36px;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      background-color: $black-90;
+    }
   }
 
   &Icon {
@@ -11,11 +19,11 @@
 
   &Badge {
     position: absolute;
-    top: -15px;
-    right: -10px;
+    top: -8px;
+    right: -7px;
 
-    width: 27px;
-    height: 27px;
+    width: 24px;
+    height: 23px;
 
     background-color: $primary-highlight;
     border: 2px solid $primary-black;
