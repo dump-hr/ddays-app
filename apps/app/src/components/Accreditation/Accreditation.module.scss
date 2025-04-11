@@ -86,6 +86,8 @@
       bottom: 0;
       left: 0;
       transform: translateY(100%);
+      display: flex;
+      flex-direction: column;
 
       .header {
         width: 100%;
@@ -100,6 +102,7 @@
           border: none;
           background-color: rgba(0, 0, 0, 0.06);
           border-radius: 4px;
+          cursor: pointer;
         }
       }
 
@@ -126,7 +129,7 @@
         padding: 0 22px;
       }
 
-      .qrCodeImage {
+      .qrCodeContainer {
         width: 160px;
         height: auto;
         align-self: center;
@@ -186,6 +189,6 @@
 .wrapperClosing {
   animation: opacityOut 1s ease-in-out 1s;
 }
-.wrapperClosingSecondVisit{
-    animation: opacityOut 0.7s ease-out;
+.wrapperClosingSecondVisit {
+  animation: opacityOut 0.7s ease-out;
 }

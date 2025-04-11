@@ -3,11 +3,11 @@ import AccreditationPaperTexture from '@/assets/images/accreditaion-paper-textur
 import AccreditationRippedPaper from '@/assets/images/accreditation-ripped-paper.png';
 import Logo from '@/assets/icons/logo.svg';
 import AccreditationRecieptText from '@/assets/icons/accreditation-reciept-text.svg';
-import QRCodePlaceholder from '@/assets/images/qr-code-placeholder.png';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 import styles from './Accreditation.module.scss';
 import { useState, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 
 interface AccreditationProps {
   isOpen: boolean;
@@ -38,7 +38,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
       setClosingAnimationSecondVisit(false);
       onClose();
     }, 500);
-  }
+  };
 
   const firstAccreditationVisit = localStorage.getItem(
     'firstAccreditationVisit',
@@ -103,7 +103,9 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             <img src={Logo} alt='logo' className={styles.logo} />
             <button
               onClick={
-                firstAccreditationVisit === 'false' ? handleCloseSecondVisit : handleClose
+                firstAccreditationVisit === 'false'
+                  ? handleCloseSecondVisit
+                  : handleClose
               }>
               <img src={CloseIcon} alt='close' />
             </button>
@@ -119,15 +121,16 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             className={styles.accreditationRippedPaperImage}
           />
           <img
-            src={QRCodePlaceholder}
-            alt='qr-code-placeholder'
-            className={styles.qrCodeImage}
-          />
-          <img
             src={AccreditationPaperTexture}
             alt='accreditation-paper-texture'
             className={styles.accreditationPaperTextureImage}
           />
+          <div className={styles.qrCodeContainer}>
+            <QRCodeSVG
+              value={'https://days.dump.hr'}
+              size={140}
+            />
+          </div>
         </div>
         <div
           className={clsx(styles.bottomShade, {
