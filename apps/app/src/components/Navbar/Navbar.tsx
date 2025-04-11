@@ -1,6 +1,6 @@
 import styles from './Navbar.module.scss';
 import { ReactElement, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { NotificationBell } from '../Header/NotificationBell';
 import { RouteNames } from '@/router/routes';
 import sprite from '../../assets/sprite.svg';
@@ -67,12 +67,11 @@ const tabs: TabInfo[] = [
 ];
 
 export const Navbar = (): ReactElement => {
-  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.HOME);
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleTabChange = (tab: Tabs) => {
-    setSelectedTab(tab);
     navigate(tabs[tab].route);
   };
 
@@ -82,7 +81,7 @@ export const Navbar = (): ReactElement => {
         <div
           key={tab.id}
           className={`${styles.iconWrapper} ${
-            selectedTab === tab.id ? styles.activeIcon : ''
+            tab.route === pathname ? styles.activeIcon : ''
           }`}
           onClick={() => handleTabChange(tab.id)}>
           <svg width={tab.width} height={tab.height} className={styles.icon}>
@@ -92,9 +91,12 @@ export const Navbar = (): ReactElement => {
         </div>
       ))}
       <div className={styles.notificationBellContainer}>
-        <NotificationBell setIsOpenPopup={setIsOpenPopup}/>
+        <NotificationBell setIsOpenPopup={setIsOpenPopup} />
       </div>
-      <DesktopNotificationsPopup isOpen={isOpenPopup} closePopup={()=>setIsOpenPopup(false)}/>
+      <DesktopNotificationsPopup
+        isOpen={isOpenPopup}
+        closePopup={() => setIsOpenPopup(false)}
+      />
     </div>
   );
 };

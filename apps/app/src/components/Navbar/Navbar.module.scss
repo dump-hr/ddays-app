@@ -19,6 +19,10 @@
   transition: all 0.3s ease-in-out;
   gap: 14px;
   padding: 0 16px;
+  border-radius: 8px;
+  &:hover{
+    background-color: $black-90;
+  }
 }
 
 .activeIcon {
