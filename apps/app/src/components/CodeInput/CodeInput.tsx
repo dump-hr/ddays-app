@@ -1,9 +1,13 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import c from './CodeInput.module.scss';
 import clsx from 'clsx';
 
-const CodeInput = () => {
-  const [code, setCode] = useState(['', '', '', '', '', '']);
+type CodeInputProps = {
+  code: string[];
+  setCode: (code: string[]) => void;
+};
+
+const CodeInput: React.FC<CodeInputProps> = ({ code, setCode }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   function editChar(index: number, value: string) {
