@@ -25,7 +25,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setClosingAnimation(false);
       setOpenAnimationEnd(false);
-      localStorage.setItem('firstAccreditationVisit', 'true');
+      localStorage.setItem('firstAccreditationVisit', 'false');
       onClose();
     }, 2000);
   };
@@ -35,7 +35,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   );
 
   useEffect(() => {
-    if (isOpen && firstAccreditationVisit !== 'true') {
+    if (isOpen && firstAccreditationVisit !== 'false') {
       const glitchSteps: { transform: string; transition: string }[] = [];
       for (let i = 0; i < 10; i++) {
         glitchSteps.push({
@@ -73,24 +73,25 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
           [styles.terminalClosing]: closingAnimation,
         })}
         style={{
-          display: firstAccreditationVisit === 'true' ? 'none' : 'block',
+          display: firstAccreditationVisit === 'false' ? 'none' : 'block',
         }}
       />
       <div
         className={clsx(styles.accreditationPaperContainer, {
           [styles.paperClosingContainer]: closingAnimation,
+          [styles.paperContainerSecondVisit]: firstAccreditationVisit === 'false',
         })}>
         <div
           className={clsx(styles.accreditationPaper, {
             [styles.paperClosing]: closingAnimation,
-            [styles.paperOnSecondVisit]: firstAccreditationVisit === 'true',
+            [styles.paperOnSecondVisit]: firstAccreditationVisit === 'false',
           })}
           style={animationStyle}>
           <div className={styles.header}>
             <img src={Logo} alt='logo' className={styles.logo} />
             <button
               onClick={
-                firstAccreditationVisit === 'true' ? onClose : handleClose
+                firstAccreditationVisit === 'false' ? onClose : handleClose
               }>
               <img src={CloseIcon} alt='close' />
             </button>
@@ -121,7 +122,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             [styles.shadeOpenAnimationEnd]: openAnimationEnd,
           })}
           style={{
-            display: firstAccreditationVisit === 'true' ? 'none' : 'block',
+            display: firstAccreditationVisit === 'false' ? 'none' : 'block',
           }}></div>
       </div>
     </div>
