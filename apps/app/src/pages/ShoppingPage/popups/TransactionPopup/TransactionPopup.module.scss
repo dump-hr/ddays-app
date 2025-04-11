@@ -1,0 +1,169 @@
+.wrapper {
+  z-index: 100;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(23, 22, 21, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  display: none;
+  padding: 1rem 0;
+  @media screen and (max-width: 390px) {
+    padding: 0rem;
+    
+  }
+}
+
+div.open {
+  display: flex;
+}
+
+.container {
+  max-width: 369px;
+  max-height: 682px;
+  width: 100%;
+  height: 90vh;
+  min-height: 600px;
+  background-color: rgb(233, 233, 233);
+  background-image: url('../../../../assets/images/crumbled-paper-texture.png');
+  position: relative;
+  padding: 0 23px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    max-width: 327px;
+  }
+}
+
+.container::before {
+  z-index: 10;
+  position: relative;
+  bottom: 32px;
+  right: 23px;
+  content: url('../../../../assets/images/ripped-paper.png');
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    content: url('../../../../assets/images/ripped-papper-mobile.png');
+    bottom: 30px;
+  }
+
+  @media screen and (max-width: 352px) {
+    bottom: 29px;
+  }
+}
+
+.closeIcon {
+  cursor: pointer;
+  background-color: $black-10;
+  padding: 9px;
+  border-radius: 4.5px;
+}
+
+.heading {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+  bottom: 36px;
+}
+
+.textContainer {
+  font-family: LucidaSansTypewriter;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  min-width: 220px;
+  position: relative;
+  bottom: 20px;
+}
+
+.tableArticle {
+  text-align: left;
+  width: 100%;
+}
+
+.tableArticle td {
+  margin-left: 6px;
+  padding-right: 12px;
+}
+
+.tableArticle td:last-child {
+  padding-right: 0;
+}
+
+.tableArticle > thead td {
+  border-bottom: 2px dashed $primary-black;
+  padding-bottom: 5px;
+}
+
+.tableArticle > tbody td {
+  border-bottom: 2px dashed $primary-black;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+table > tbody td:not(:first-of-type),
+table > thead td:not(:first-of-type) {
+  text-align: right;
+}
+
+.totalContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  padding-top: 5px;
+  margin: 0px 1.5px 0;
+  border-bottom: 2px dashed $primary-black;
+  border-top: 2px dashed $primary-black;
+}
+
+.tablePayment {
+  width: 100%;
+  text-align: left;
+}
+
+.tablePayment td {
+  padding-right: 23px;
+}
+
+.tablePayment td:last-child {
+  padding-right: 0;
+}
+
+.tablePayment > thead td {
+  border-top: 2px dashed $primary-black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.tablePayment > tbody td {
+  border-bottom: 2px dashed $primary-black;
+  border-top: 2px dashed $primary-black;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.additionalInfoTable {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 2px dashed $primary-black;
+  margin: 0px 1.5px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rowName {
+  min-width: 100px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    min-width: 80px;
+  }
+}
+
+.qrCodeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

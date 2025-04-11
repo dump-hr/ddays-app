@@ -1,0 +1,11 @@
+.textContainer {
+  @include paragraph-16;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.starIcon {
+  margin-left: 10px;
+  margin-right: 5px;
+}

@@ -232,7 +232,7 @@ model User {
   profilePhotoUrl            String?
   avatar                     Avatar[]
   notification               Notification[]
-  shoppingCart               ShoppingCart[]
+  transactionItems           TransactionItem[]
   userNotification           UserNotification[]
   userToAchievement          UserToAchievement[]
   userToEvent                UserToEvent[]
@@ -291,15 +291,16 @@ model FrequentlyAskedQuestion {
 }
 
 model ShopItem {
-  id           Int            @id @default(autoincrement())
-  type         ShopItemType?
-  itemName     String?
-  quantity     Int?
-  price        Int?
-  shoppingCart ShoppingCart[]
+  id              Int            @id @default(autoincrement())
+  type            ShopItemType?
+  itemName        String?
+  quantity        Int?
+  price           Int?
+  TransactionItem TransactionItem[]
 }
 
-model ShoppingCart {
+model TransactionItem {
+  id         Int                    @id @default(autoincrement())
   shopItemId Int
   userId     Int
   quantity   Int?
@@ -308,8 +309,6 @@ model ShoppingCart {
   takeByTime DateTime?              @db.Timestamp(6)
   shopItem   ShopItem               @relation(fields: [shopItemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([userId, shopItemId])
 }
 
 model SurveyQuestion {

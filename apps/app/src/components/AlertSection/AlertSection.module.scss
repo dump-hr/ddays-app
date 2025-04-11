@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  width: 100%;
+  border-radius: 14px;
+  padding-top: 12px;
+  padding-right: 24px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  background-color: $black-70;
+  @include paragraph-14;
+}

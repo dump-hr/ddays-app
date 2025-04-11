@@ -9,3 +9,10 @@ export type LoginDto = {
   email: string;
   password: string;
 };
+
+export type UserPublicDto = UserDto & {
+  id: number;
+  points: number | null;
+  isDeleted: boolean;
+  isConfirmed: boolean;
+};

@@ -1,0 +1,47 @@
+.numItemsInCart {
+  color: $black-50;
+}
+
+.contentDiv {
+  width: 100%;
+}
+
+.cartItemsList {
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  max-height: 430px;
+  gap: 20px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+  }
+}
+
+.emptyCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.starIcon {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.noItems {
+  @include heading-3;
+  font-weight: 500;
+}

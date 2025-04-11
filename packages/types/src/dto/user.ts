@@ -11,3 +11,17 @@ export type UserDto = {
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled: boolean;
 };
+
+export type UserModifyDto = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  birthYear: number;
+  educationDegree?: string;
+  occupation?: string;
+  newsletterEnabled?: boolean;
+  companiesNewsEnabled?: boolean;
+  isConfirmed?: boolean;
+};

@@ -10,7 +10,7 @@ interface PopupLayoutProps {
   closePopup: () => void;
   isOpen: boolean;
   imgSrc?: string;
-  justifyContent?: 'center' | 'start' | 'end';
+  justifyContent?: 'center' | 'start' | 'end' | 'space-between';
   desktopStyle?: 'normal' | 'stretch';
   opacity?: number;
 }
@@ -54,6 +54,7 @@ const PopupLayout = ({
           { [styles.center]: justifyContent === 'center' },
           { [styles.start]: justifyContent === 'start' },
           { [styles.end]: justifyContent === 'end' },
+          { [styles.between]: justifyContent === 'space-between' },
         )}>
         <div
           className={clsx(styles.heading, {
