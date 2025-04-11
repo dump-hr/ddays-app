@@ -18,14 +18,13 @@ export class ShopService {
   }
 
   async buyItems(transactionCreateDtos: TransactionCreateDto[]) {
-    const { userId, currentUser, purchaseItems, totalPrice } =
+    const { userId, purchaseItems, totalPrice } =
       await this.validatePurchaseItems(transactionCreateDtos);
 
     await this.prisma.$transaction(async (prisma) => {
       const now = new Date();
       const takeByTime = new Date(now);
       takeByTime.setHours(21, 0, 0, 0);
-      //provjerit ovo jos
       if (now.getHours() >= 21) takeByTime.setDate(takeByTime.getDate() + 1);
 
       await prisma.transactionItem.createMany({
@@ -42,17 +41,17 @@ export class ShopService {
       await prisma.user.update({
         where: { id: userId },
         data: {
-          points: currentUser.points - totalPrice,
+          points: { decrement: totalPrice },
         },
       });
 
       // Update shop item quantities in bulk
       await Promise.all(
-        purchaseItems.map(({ quantity, shopItemId, shopItem }) =>
+        purchaseItems.map(({ quantity, shopItemId }) =>
           prisma.shopItem.update({
             where: { id: shopItemId },
             data: {
-              quantity: shopItem.quantity - quantity,
+              quantity: { decrement: quantity },
             },
           }),
         ),
@@ -82,13 +81,13 @@ export class ShopService {
       throw new BadRequestException('Korisnik nije pronađen');
     }
 
-    const { purchaseItems, totalPrice, shopItemIds } =
+    const { purchaseItems, totalPrice } =
       await this.calculateTotalPriceAndValidateShopItems(transactionCreateDtos);
     if (currentUser.points < totalPrice) {
       throw new BadRequestException('Nemate dovoljno bodova');
     }
 
-    return { userId, currentUser, shopItemIds, purchaseItems, totalPrice };
+    return { userId, purchaseItems, totalPrice };
   }
 
   async getAllShopItems() {
@@ -179,7 +178,6 @@ export class ShopService {
       },
     });
 
-    // Create lookup map for quick access
     const shopItemMap = new Map(shopItems.map((item) => [item.id, item]));
     let totalPrice = 0;
 
@@ -206,6 +204,6 @@ export class ShopService {
       return purchaseItem;
     });
 
-    return { purchaseItems, totalPrice, shopItemIds };
+    return { purchaseItems, totalPrice };
   }
 }
