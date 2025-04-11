@@ -10,7 +10,7 @@ const DesktopNotificationsPopup = ({ isOpen, closePopup }: PopupProps) => {
   return (
     <PopupLayout
       variant='light'
-      headerTitleComponent={<>Unesi kod</>}
+      headerTitleComponent={<>Notifikacije</>}
       closePopup={() => closePopup()}
       isOpen={isOpen}
       desktopStyle='normal'>
