@@ -4,10 +4,19 @@ import clsx from 'clsx';
 
 type CodeInputProps = {
   code: string[];
+  isError?: boolean;
+  className?: string;
   setCode: (code: string[]) => void;
+  setIsError: (isError: boolean) => void;
 };
 
-const CodeInput: React.FC<CodeInputProps> = ({ code, setCode }) => {
+const CodeInput: React.FC<CodeInputProps> = ({
+  code,
+  setCode,
+  isError,
+  setIsError,
+  className,
+}) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   function editChar(index: number, value: string) {
@@ -36,6 +45,8 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode }) => {
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number,
   ) {
+    e.preventDefault();
+    setIsError(false);
     switch (e.key) {
       case 'Backspace':
         if (code[index] !== '') editChar(index, '');
@@ -80,7 +91,10 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode }) => {
           type='text'
           maxLength={1}
           value={code[i]}
-          className={clsx(c.input, { [c.filled]: code[i] !== '' })}
+          className={clsx(c.input, className, {
+            [c.filled]: code[i] !== '',
+            [c.isError]: isError,
+          })}
           ref={(el) => (inputRefs.current[i] = el)}
           onKeyDown={(e) => handleKeyDown(e, i)}
         />

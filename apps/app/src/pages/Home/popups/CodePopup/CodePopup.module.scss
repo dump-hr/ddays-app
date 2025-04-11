@@ -1,12 +1,19 @@
-.content {
-  width: 100%;
+.codeInput {
   margin-top: 82px;
+}
+
+.message,
+.error {
+  text-align: center;
+  @include paragraph-14;
 }
 
 .message {
   color: $black-70;
-  text-align: center;
-  @include paragraph-14;
+}
+
+.error {
+  color: $error-light;
 }
 
 .button {

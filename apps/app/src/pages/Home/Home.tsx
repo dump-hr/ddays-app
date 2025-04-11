@@ -4,18 +4,11 @@ import TopCompaniesSection from './sections/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
-import { toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const HomePage = () => {
-  function handleCodeSubmit(code: string) {
-    toast(`Uneseni kod je: ${code}`, {
-      icon: '🎉',
-      style: {
-        background: '#333',
-        color: '#fff',
-      },
-      position: 'top-center',
-    });
+  function handleSuccessfulCodeSubmit() {
+    toast.success('Kod je uspješno unesen!');
   }
 
   return (
@@ -31,7 +24,7 @@ const HomePage = () => {
         <CodePopup
           isOpen={true}
           closePopup={() => {}}
-          onSubmit={handleCodeSubmit}
+          onSuccess={handleSuccessfulCodeSubmit}
         />
       </main>
     </div>

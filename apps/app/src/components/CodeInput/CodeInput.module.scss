@@ -36,5 +36,9 @@
     &.filled {
       border: 1px solid $black-50;
     }
+
+    &.isError {
+      border: 1px solid $error-light;
+    }
   }
 }
