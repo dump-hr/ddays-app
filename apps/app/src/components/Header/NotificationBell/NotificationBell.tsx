@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '@/router/routes';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { Dispatch, SetStateAction } from 'react';
+import { notifications } from '@/pages/NotificationsPage/notifications.const';
 
 interface NotificationBellProps {
   setIsOpenPopup?: Dispatch<SetStateAction<boolean>>;
@@ -28,8 +29,9 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
       <svg className={styles.notificationIcon} width={32} height={32}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
-
-      <div className={styles.notificationBadge}>3</div>
+      {notifications.length > 0 && (
+        <div className={styles.notificationBadge}>{notifications.length}</div>
+      )}
     </div>
   );
 };
