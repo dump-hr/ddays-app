@@ -1,3 +1,36 @@
+@keyframes slideUpFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .wrapper {
   position: fixed;
   bottom: 0;
@@ -7,6 +40,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: none;
+  animation: opacityIn 0.5s ease-in-out;
 
   .accreditationTerminalImage {
     width: 100%;
@@ -15,6 +49,13 @@
     bottom: 0;
     left: 0;
     max-width: 425px;
+    animation: slideUpFromBottom 0.7s ease-out;
+    transform-origin: bottom;
+  }
+
+  .terminalClosing {
+    transform: translateY(100%);
+    transition: transform 0.7s ease-in-out 1s;
   }
 
   .accreditationPaperContainer {
@@ -22,17 +63,18 @@
     position: absolute;
     bottom: 50px;
     height: 100vh;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 7.5%;
     max-width: 320px;
     overflow-y: hidden;
+    animation: opacityIn 1s ease-out;
+    transform-origin: bottom;
 
     .accreditationPaper {
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transform: translateY(100%);
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
 
       .header {
         width: 100%;
@@ -80,13 +122,27 @@
         margin-top: 20px;
         margin-bottom: 60px;
       }
-
     }
 
-    .paperClosing{
-        transform: rotate(20deg);
-        transform-origin: bottom right;
-        transition: all 1s ease-in-out;
+    @keyframes rotateAndTranslate {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(20deg); /* Rotate first */
+      }
+      100% {
+        transform: rotate(20deg) translateY(-100%); /* Then translate up */
+      }
+    }
+
+    .paperClosing {
+      transform-origin: bottom right; /* Keep the bottom-right corner fixed */
+      animation: rotateAndTranslate 2s ease-in; /* Total duration of the animation */
+    }
+
+    .paperOnSecondVisit {
+      transform: translateY(0);
     }
 
     .bottomShade {
@@ -95,18 +151,24 @@
       position: absolute;
       bottom: 0;
       left: 0;
+      animation: slideUpFromBottom 0.7s ease-out;
+      transform-origin: bottom;
       background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
     }
-    .shadeOpenAnimationEnd{
-        opacity: 0;
-        transition: all 1s ease-in-out;
+    .shadeOpenAnimationEnd {
+      opacity: 0;
+      transition: all 1s ease-in-out;
     }
   }
-  .paperClosingContainer{
+  .paperClosingContainer {
     overflow: visible;
   }
 }
 
 .wrapperOpen {
   display: block;
+}
+
+.wrapperClosing {
+  animation: opacityOut 1s ease-in-out 1s;
 }

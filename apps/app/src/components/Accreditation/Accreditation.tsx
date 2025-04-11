@@ -25,17 +25,22 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setClosingAnimation(false);
       setOpenAnimationEnd(false);
+      localStorage.setItem('firstAccreditationVisit', 'true');
       onClose();
-    }, 1500);
+    }, 2000);
   };
 
+  const firstAccreditationVisit = localStorage.getItem(
+    'firstAccreditationVisit',
+  );
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && firstAccreditationVisit !== 'true') {
       const glitchSteps: { transform: string; transition: string }[] = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 10; i++) {
         glitchSteps.push({
-          transform: `translateY(${100 - 5 * i}%)`,
-          transition: 'transform 0.1s ease-out',
+          transform: `translateY(${100 - 10 * i}%)`,
+          transition: `transform 0.2s ease-out ${i === 0 && 0.15}s`,
         });
       }
 
@@ -53,13 +58,23 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
         }
       }, 200);
     }
-  }, [isOpen]);
+  }, [isOpen, firstAccreditationVisit]);
   return (
-    <div className={clsx(styles.wrapper, { [styles.wrapperOpen]: isOpen })}>
+    <div
+      className={clsx(styles.wrapper, {
+          [styles.wrapperClosing]: closingAnimation,
+        [styles.wrapperOpen]: isOpen,
+      })}>
       <img
         src={AccreditationTerminal}
         alt='accreditation-terminal'
-        className={styles.accreditationTerminalImage}
+        className={clsx(styles.accreditationTerminalImage, {
+          [styles.terminalOpening]: isOpen,
+          [styles.terminalClosing]: closingAnimation,
+        })}
+        style={{
+          display: firstAccreditationVisit === 'true' ? 'none' : 'block',
+        }}
       />
       <div
         className={clsx(styles.accreditationPaperContainer, {
@@ -68,11 +83,15 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
         <div
           className={clsx(styles.accreditationPaper, {
             [styles.paperClosing]: closingAnimation,
+            [styles.paperOnSecondVisit]: firstAccreditationVisit === 'true',
           })}
           style={animationStyle}>
           <div className={styles.header}>
             <img src={Logo} alt='logo' className={styles.logo} />
-            <button onClick={handleClose}>
+            <button
+              onClick={
+                firstAccreditationVisit === 'true' ? onClose : handleClose
+              }>
               <img src={CloseIcon} alt='close' />
             </button>
           </div>
@@ -100,7 +119,10 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
         <div
           className={clsx(styles.bottomShade, {
             [styles.shadeOpenAnimationEnd]: openAnimationEnd,
-          })}></div>
+          })}
+          style={{
+            display: firstAccreditationVisit === 'true' ? 'none' : 'block',
+          }}></div>
       </div>
     </div>
   );
