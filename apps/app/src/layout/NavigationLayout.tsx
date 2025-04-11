@@ -1,14 +1,21 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Navigation } from '../components/Navigation';
 import styles from './NavigationLayout.module.scss';
 import Navbar from '@/components/Navbar';
 import { useDeviceType } from '@/hooks/UseDeviceType';
+import { navbarRoutes } from '@/router/routes';
 
 export const NavigationLayout = () => {
   const { isMobile } = useDeviceType({ breakpoint: 769 });
+  const location = useLocation();
+
+  const shouldShowNavbar = navbarRoutes.some(
+    (route) => route === location.pathname,
+  );
+
   return (
     <div className={styles.container}>
-      {!isMobile && <Navbar />}
+      {!isMobile && shouldShowNavbar && <Navbar />}
       <Outlet />
       {isMobile && <Navigation />}
     </div>
