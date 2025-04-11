@@ -17,22 +17,24 @@ interface AccreditationProps {
 const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   const [animationStyle, setAnimationStyle] = useState({});
   const [closingAnimation, setClosingAnimation] = useState(false);
+  const [openAnimationEnd, setOpenAnimationEnd] = useState(false);
 
   const handleClose = () => {
     setClosingAnimation(true);
+    setAnimationStyle({});
     setTimeout(() => {
-      onClose();
       setClosingAnimation(false);
-    }, 300);
-    onClose();
-  }
+      setOpenAnimationEnd(false);
+      onClose();
+    }, 1500);
+  };
 
   useEffect(() => {
     if (isOpen) {
-      const glitchSteps: { transform: string; transition: string; }[] = [];
+      const glitchSteps: { transform: string; transition: string }[] = [];
       for (let i = 0; i < 20; i++) {
         glitchSteps.push({
-          transform: `translateY(${100 -  5 * i}%)`,
+          transform: `translateY(${100 - 5 * i}%)`,
           transition: 'transform 0.1s ease-out',
         });
       }
@@ -41,7 +43,12 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
       const interval = setInterval(() => {
         setAnimationStyle(glitchSteps[step]);
         step++;
-        if (step >= glitchSteps.length) {
+        if (step > glitchSteps.length) {
+          setAnimationStyle({
+            transform: 'translateY(0)',
+            transition: 'transform 0.3s ease-out',
+          });
+          setOpenAnimationEnd(true);
           clearInterval(interval);
         }
       }, 200);
@@ -54,8 +61,15 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
         alt='accreditation-terminal'
         className={styles.accreditationTerminalImage}
       />
-      <div className={styles.accreditationPaperContainer}>
-        <div className={styles.accreditationPaper} style={animationStyle}>
+      <div
+        className={clsx(styles.accreditationPaperContainer, {
+          [styles.paperClosingContainer]: closingAnimation,
+        })}>
+        <div
+          className={clsx(styles.accreditationPaper, {
+            [styles.paperClosing]: closingAnimation,
+          })}
+          style={animationStyle}>
           <div className={styles.header}>
             <img src={Logo} alt='logo' className={styles.logo} />
             <button onClick={handleClose}>
@@ -83,7 +97,10 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             className={styles.accreditationPaperTextureImage}
           />
         </div>
-        <div className={styles.bottomShade}></div>
+        <div
+          className={clsx(styles.bottomShade, {
+            [styles.shadeOpenAnimationEnd]: openAnimationEnd,
+          })}></div>
       </div>
     </div>
   );
