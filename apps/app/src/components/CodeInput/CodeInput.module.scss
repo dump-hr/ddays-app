@@ -25,6 +25,14 @@
 
     transition: 200ms;
 
+    color: transparent;
+    text-shadow: 0 0 0 gray;
+    text-align: center;
+
+    &:focus {
+      border: 1px solid $black-90 !important;
+    }
+
     &.filled {
       border: 1px solid $black-50;
     }
