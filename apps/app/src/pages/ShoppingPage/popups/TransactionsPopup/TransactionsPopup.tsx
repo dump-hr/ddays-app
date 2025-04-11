@@ -3,7 +3,6 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Button from '@/components/Button';
 import TransactionItem from '@/components/TransactionItem';
 import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
-import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface PopupProps {
   isOpen: boolean;
@@ -11,8 +10,7 @@ interface PopupProps {
 }
 
 const TransactionsPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { data: user } = useLoggedInUser();
-  const { data: boughtItems = [] } = useGetAllUserTransactions(user?.id ?? 0);
+  const { data: boughtItems = [] } = useGetAllUserTransactions();
 
   return (
     <PopupLayout

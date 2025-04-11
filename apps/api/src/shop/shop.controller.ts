@@ -47,10 +47,10 @@ export class ShopController {
     return this.shopService.getUserPoints(user.id);
   }
 
-  @Get('transactions/:userId')
+  @Get('transactions/user')
   @UseGuards(UserGuard)
-  getAllUserTransactions(@Param('userId', ParseIntPipe) userId: number) {
-    return this.shopService.getAllUserTransactions(userId);
+  getAllUserTransactions(@Req() { user }) {
+    return this.shopService.getAllUserTransactions(user.id);
   }
 
   @Patch('transaction/:id/verify')

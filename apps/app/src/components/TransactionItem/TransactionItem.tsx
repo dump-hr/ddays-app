@@ -6,7 +6,6 @@ import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { ShopItemType, ShoppingCartItemStage } from '@ddays-app/types';
 import { TransactionItemResponseDto } from '@ddays-app/types/src/dto/shop';
 import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
-import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { getTimeFromDate } from '@/helpers/getTimeFromDate';
 
 interface TransactionItemProps {
@@ -16,9 +15,7 @@ interface TransactionItemProps {
 
 const TransactionItem = ({ item, index }: TransactionItemProps) => {
   const [isOpenTransactionPopup, setOpenTransactionPopup] = useState(false);
-
-  const { data: user } = useLoggedInUser();
-  const { data: boughtItems } = useGetAllUserTransactions(user?.id ?? 0);
+  const { data: boughtItems } = useGetAllUserTransactions();
 
   const getStageText = (stage: ShoppingCartItemStage) => {
     switch (stage) {
