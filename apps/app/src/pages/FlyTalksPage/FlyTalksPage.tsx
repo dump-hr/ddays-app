@@ -1,7 +1,33 @@
-export const FlyTalksPage = () => {
+import { useState, useEffect } from 'react';
+import { FlyTalksWelcome } from '../FlyTalksWelcome';
+import FlyTalksList from '../FlyTalksList';
+
+const FlyTalksPage = () => {
+  const [firstFlyTalksVisit, setFirstFlyTalksVisit] = useState(false);
+
+  useEffect(() => {
+    const storedValue = JSON.parse(
+      localStorage.getItem('firstFlyTalksVisit') || 'null',
+    );
+
+    if (storedValue === null || storedValue === true) {
+      localStorage.setItem('firstFlyTalksVisit', 'true');
+      setFirstFlyTalksVisit(true);
+    } else {
+      localStorage.setItem('firstFlyTalksVisit', 'false');
+      setFirstFlyTalksVisit(false);
+    }
+  }, []);
+
   return (
-    <div>
-      <h1>Fly Talks</h1>
-    </div>
+    <>
+      {firstFlyTalksVisit ? (
+        <FlyTalksWelcome setFirstFlyTalksVisit={setFirstFlyTalksVisit} />
+      ) : (
+        <FlyTalksList />
+      )}
+    </>
   );
 };
+
+export default FlyTalksPage;

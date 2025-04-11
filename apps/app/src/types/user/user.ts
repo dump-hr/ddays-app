@@ -9,3 +9,11 @@ export type LoginDto = {
   email: string;
   password: string;
 };
+
+export type FlyTalksRegistrationDto = {
+  linkedIn: string;
+  github: string;
+  portfolio: string;
+  about: string;
+  file: File | null;
+}
