@@ -18,6 +18,8 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   const [animationStyle, setAnimationStyle] = useState({});
   const [closingAnimation, setClosingAnimation] = useState(false);
   const [openAnimationEnd, setOpenAnimationEnd] = useState(false);
+  const [closingAnimationSecondVisit, setClosingAnimationSecondVisit] =
+    useState(false);
 
   const handleClose = () => {
     setClosingAnimation(true);
@@ -29,6 +31,14 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
       onClose();
     }, 2000);
   };
+
+  const handleCloseSecondVisit = () => {
+    setClosingAnimationSecondVisit(true);
+    setTimeout(() => {
+      setClosingAnimationSecondVisit(false);
+      onClose();
+    }, 500);
+  }
 
   const firstAccreditationVisit = localStorage.getItem(
     'firstAccreditationVisit',
@@ -62,7 +72,8 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={clsx(styles.wrapper, {
-          [styles.wrapperClosing]: closingAnimation,
+        [styles.wrapperClosing]: closingAnimation,
+        [styles.wrapperClosingSecondVisit]: closingAnimationSecondVisit,
         [styles.wrapperOpen]: isOpen,
       })}>
       <img
@@ -79,7 +90,8 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
       <div
         className={clsx(styles.accreditationPaperContainer, {
           [styles.paperClosingContainer]: closingAnimation,
-          [styles.paperContainerSecondVisit]: firstAccreditationVisit === 'false',
+          [styles.paperContainerSecondVisit]:
+            firstAccreditationVisit === 'false',
         })}>
         <div
           className={clsx(styles.accreditationPaper, {
@@ -91,7 +103,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             <img src={Logo} alt='logo' className={styles.logo} />
             <button
               onClick={
-                firstAccreditationVisit === 'false' ? onClose : handleClose
+                firstAccreditationVisit === 'false' ? handleCloseSecondVisit : handleClose
               }>
               <img src={CloseIcon} alt='close' />
             </button>
