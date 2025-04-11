@@ -1,3 +1,15 @@
 .content {
   width: 100%;
+  margin-top: 82px;
+}
+
+.message {
+  color: $black-70;
+  text-align: center;
+  @include paragraph-14;
+}
+
+.button {
+  width: 100%;
+  margin-top: auto;
 }
