@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import placeholderLogo from '../../assets/images/profico-logo.png';
 import FileInput from '../../components/FileInput';
 import { validateFlyTalksInput } from '@/helpers/validateInput';
+import ConfirmationPopup from './ConfirmationPopup';
 
 const groupsMock = [
   {
@@ -85,6 +86,7 @@ const FlyTalksApplyPage = () => {
   const [group, setGroup] = useState<(typeof groupsMock)[0] | undefined>(
     undefined,
   );
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
 
   const [userData, setUserData] = useState<{
     linkedIn: string;
@@ -135,7 +137,7 @@ const FlyTalksApplyPage = () => {
   const handleApply = () => {
     if (Object.values(userData).some((value) => value === '')) {
       setIsFormValid(false);
-    }
+    }else{setIsConfirmationPopupOpen(true);}
   };
 
   const handleError = (field: keyof typeof userData) => {
@@ -220,6 +222,13 @@ const FlyTalksApplyPage = () => {
           </Button>
         </div>
       </main>
+      <ConfirmationPopup
+        isOpen={isConfirmationPopupOpen}
+        onClose={() => {
+          setIsConfirmationPopupOpen(false);
+        }}
+        group={group}
+      />
     </div>
   );
 };

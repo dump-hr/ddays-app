@@ -39,11 +39,8 @@
   .groupDuration {
     text-align: center;
     color: var(--Black-90, #2d2c2c);
-    font-family: NeueMontrealMono;
+    @include tag-16;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 18px;
     background: var(--Beige, #f5ede1);
     padding: 12px;
   }
@@ -69,6 +66,12 @@
         position: absolute;
         bottom: 0;
         @include dottedBreak;
+      }
+
+      p{
+        @include tag-14;
+        color: var(--Black-30, #b8b8b8);
+        font-size: 14px;
       }
     }
 
