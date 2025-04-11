@@ -84,14 +84,14 @@ const CodeInput: React.FC<CodeInputProps> = ({
   }
 
   return (
-    <div className={c.codeInput}>
+    <div className={clsx(c.codeInput, className)}>
       {Object.keys(code).map((_, i) => (
         <input
           key={i}
           type='text'
           maxLength={1}
           value={code[i]}
-          className={clsx(c.input, className, {
+          className={clsx(c.input, {
             [c.filled]: code[i] !== '',
             [c.isError]: isError,
           })}
