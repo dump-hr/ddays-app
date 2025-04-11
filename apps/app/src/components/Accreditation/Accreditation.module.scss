@@ -1,0 +1,98 @@
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+
+  .accreditationTerminalImage {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 425px;
+  }
+
+  .accreditationPaperContainer {
+    width: 85%;
+    position: absolute;
+    bottom: 50px;
+    height: 80vh;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 320px;
+    overflow-y: hidden;
+
+    .accreditationPaper {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        color: #000;
+
+        button {
+          padding: 8px 8px 5px 8px;
+          border: none;
+          background-color: rgba(0, 0, 0, 0.06);
+          border-radius: 4px;
+        }
+      }
+
+      .accreditationRippedPaperImage {
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        top: -10px;
+        left: 0;
+      }
+
+      .accreditationPaperTextureImage {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      .accreditationRecieptText {
+        width: 100%;
+        height: auto;
+        padding: 0 22px;
+      }
+
+      .qrCodeImage {
+        width: 160px;
+        height: auto;
+        align-self: center;
+        margin-top: 20px;
+        margin-bottom: 60px;
+      }
+
+    }
+    .bottomShade {
+      width: 100%;
+      height: 55px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    }
+  }
+}
+
+.wrapperOpen {
+  display: block;
+}
