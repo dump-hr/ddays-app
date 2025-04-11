@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+  height: 78px;
+  background-color: $primary-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid $black-90;
+  position: relative;
+}
+
+.iconWrapper {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  transition: all 0.3s ease-in-out;
+  gap: 14px;
+  padding: 0 16px;
+}
+
+.activeIcon {
+  outline: 1px solid $primary-white;
+  border-radius: 8px;
+  background-color: $primary-black;
+}
+
+.tabName {
+  @include paragraph-14;
+  color: $primary-white;
+}
+
+.notificationBellContainer {
+  position: absolute;
+  right: 72px;
+  top: 25px;
+
+  @media screen and (max-width: $breakpoint-tablet-lg) {
+    right: 36px;
+    
+  }
+}
