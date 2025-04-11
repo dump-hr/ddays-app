@@ -24,6 +24,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include heading-3;
+    color: $primary-white;
+    font-weight: 500;
   }
 
   @media (max-width: $breakpoint-mobile-lg) {
