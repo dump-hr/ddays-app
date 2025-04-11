@@ -17,6 +17,8 @@
     "db:migrate": "yarn workspace api run db:migrate",
     "db:studio": "yarn workspace api run db:studio"
   },
-  "dependencies": {},
+  "dependencies": {
+    "qrcode.react": "^4.2.0"
+  },
   "name": "ddays-app"
 }

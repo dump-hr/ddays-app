@@ -5,6 +5,8 @@ import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
 import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 import { RouteNames } from '../../../router/routes';
+import { useState } from 'react';
+import Accreditation from '@/components/Accreditation';
 
 enum HeaderCards {
   ENTER_CODE,
@@ -22,6 +24,7 @@ type HeaderCardsInfo = {
 };
 
 export const HeaderCardsWrapper = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
@@ -38,7 +41,9 @@ export const HeaderCardsWrapper = () => {
       text: 'Akreditacija',
       width: 60,
       height: 39,
-      onClick: () => {},
+      onClick: () => {
+        setIsPopupOpen(true);
+      },
     },
     {
       id: HeaderCards.SHOPPING,
@@ -51,17 +56,20 @@ export const HeaderCardsWrapper = () => {
   ];
 
   return (
-    <div className={styles.headerCardsWrapper}>
-      {headerCards.map((card) => (
-        <HeaderCard
-          key={card.id}
-          img={card.img}
-          text={card.text}
-          imgWidth={card.width}
-          imgHeight={card.height}
-          onClick={card.onClick}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.headerCardsWrapper}>
+        {headerCards.map((card) => (
+          <HeaderCard
+            key={card.id}
+            img={card.img}
+            text={card.text}
+            imgWidth={card.width}
+            imgHeight={card.height}
+            onClick={card.onClick}
+          />
+        ))}
+      </div>
+      <Accreditation isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)}/>
+    </>
   );
 };
