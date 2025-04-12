@@ -6,13 +6,18 @@ import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import PointModifierPopup from './popups/PointModifierPopup';
 
 const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
     toast.success('Kod je uspješno unesen!');
+    setIsCodePopupOpen(false);
+    setIsPointModifierPopupOpen(true);
   }
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
+  const [isPointModifierPopupOpen, setIsPointModifierPopupOpen] =
+    useState(false);
 
   return (
     <div className={c.page}>
@@ -29,6 +34,12 @@ const HomePage = () => {
           closePopup={() => setIsCodePopupOpen(false)}
           onSuccess={handleSuccessfulCodeSubmit}
         />
+
+        <PointModifierPopup
+          isOpen={isPointModifierPopupOpen}
+          closePopup={() =>
+            setIsPointModifierPopupOpen(false)
+          }></PointModifierPopup>
       </main>
     </div>
   );

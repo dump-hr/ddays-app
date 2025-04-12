@@ -1,4 +1,8 @@
+import MessageDuck from '@/components/MessageDuck';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+import Backlight from '@/assets/images/backlight.svg';
+
+import c from './PointModifierPopup.module.scss';
 
 type PointModifierPopupProps = {
   isOpen: boolean;
@@ -15,7 +19,10 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
       variant='dark'
       desktopStyle='stretch'
       isOpen={isOpen}
-      closePopup={closePopup}></PopupLayout>
+      closePopup={closePopup}>
+      <img src={Backlight} className={c.backlight} />
+      <MessageDuck />
+    </PopupLayout>
   );
 };
 
