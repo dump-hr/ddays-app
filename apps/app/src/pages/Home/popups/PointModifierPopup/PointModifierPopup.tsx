@@ -7,11 +7,23 @@ import Button from '@/components/Button';
 
 type PointModifierPopupProps = {
   isOpen: boolean;
+  points: number;
   closePopup: () => void;
+};
+
+const paragraphText = {
+  positive: 'Bravo! Super te ide - još malo do nagrade!',
+  negative: 'Nažalost, morat ćemo ti oduzeti bodove. Nema predaje!',
+};
+
+const buttonText = {
+  positive: 'Dajemo ti',
+  negative: 'Oduzimamo ti',
 };
 
 const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
   isOpen,
+  points,
   closePopup,
 }) => {
   return (
@@ -24,13 +36,19 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
       showXButton={false}>
       <img src={Backlight} className={c.backlight} />
       <div className={c.content}>
-        <MessageDuck text='BRAVO!' progressPercent={80} />
-        <h3 className={c.title}>+10 BODOVA</h3>
+        <MessageDuck
+          text={points > 0 ? 'BRAVO!' : 'ŠTETA!'}
+          progressPercent={80}
+        />
+        <h3 className={c.title}>
+          {points > 0 && '+'}
+          {points} BODOVA
+        </h3>
         <p className={c.paragraph}>
-          Bravo! Super te ide - još malo do nagrade!
+          {points > 0 ? paragraphText.positive : paragraphText.negative}
         </p>
-        <Button className={c.button} variant='black' points={10}>
-          Dajemo ti
+        <Button className={c.button} variant='black' points={points}>
+          {points > 0 ? buttonText.positive : buttonText.negative}
         </Button>
       </div>
     </PopupLayout>
