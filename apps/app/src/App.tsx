@@ -1,13 +1,15 @@
 import { Router } from './router/Router';
 import { MessageToast } from './components/MessageToast';
-import { UserProvider } from './context/UserContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <UserProvider>
+    <QueryClientProvider client={queryClient}>
       <MessageToast />
       <Router />
-    </UserProvider>
+    </QueryClientProvider>
   );
 }
 

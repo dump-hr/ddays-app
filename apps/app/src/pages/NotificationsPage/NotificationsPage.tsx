@@ -10,6 +10,7 @@ import Tab from '../../components/Tab';
 import Notification from '../../components/Notification/Notification';
 import { notifications } from './notifications.const';
 import { RouteNames } from '../../router/routes';
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 
 enum Tabs {
   Sve,
@@ -17,6 +18,7 @@ enum Tabs {
 }
 
 export const NotificationsPage: React.FC = () => {
+  useAuthGuard();
   const [expandedNotificationId, setExpandedNotificationId] = useState<
     number | null
   >(null);
