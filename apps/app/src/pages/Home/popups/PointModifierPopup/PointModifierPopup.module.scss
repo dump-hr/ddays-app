@@ -3,3 +3,24 @@
   top: 0;
   z-index: 0;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .title {
+    color: white;
+    @include heading-2;
+    font-weight: 500;
+    margin-top: 94px;
+    margin-bottom: 12px;
+  }
+
+  .paragraph {
+    color: $black-30;
+    @include paragraph-16;
+    margin-bottom: 82px;
+  }
+}
