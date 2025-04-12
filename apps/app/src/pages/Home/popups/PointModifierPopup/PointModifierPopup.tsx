@@ -1,6 +1,7 @@
 import MessageDuck from '@/components/MessageDuck';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Backlight from '@/assets/images/backlight.svg';
+import RedBacklight from '@/assets/images/red-backlight.svg';
 
 import c from './PointModifierPopup.module.scss';
 import Button from '@/components/Button';
@@ -34,7 +35,10 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
       isOpen={isOpen}
       closePopup={closePopup}
       showXButton={false}>
-      <img src={Backlight} className={c.backlight} />
+      <img
+        src={points > 0 ? Backlight : RedBacklight}
+        className={c.backlight}
+      />
       <div className={c.content}>
         <MessageDuck
           text={points > 0 ? 'BRAVO!' : 'ŠTETA!'}
