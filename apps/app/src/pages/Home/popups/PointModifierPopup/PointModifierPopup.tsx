@@ -43,7 +43,9 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
         <MessageDuck
           text={points > 0 ? 'BRAVO!' : 'ŠTETA!'}
           progressPercent={80}
+          sparkles={points > 0}
         />
+
         <h3 className={c.title}>
           {points > 0 && '+'}
           {points} BODOVA

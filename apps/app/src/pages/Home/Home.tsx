@@ -36,7 +36,7 @@ const HomePage = () => {
         />
 
         <PointModifierPopup
-          points={-10}
+          points={10}
           isOpen={isPointModifierPopupOpen}
           closePopup={() =>
             setIsPointModifierPopupOpen(false)
