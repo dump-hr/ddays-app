@@ -22,7 +22,7 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
       closePopup={closePopup}
       showXButton={false}>
       <img src={Backlight} className={c.backlight} />
-      <MessageDuck text='BRAVO!' />
+      <MessageDuck text='BRAVO!' progressPercent={80} />
     </PopupLayout>
   );
 };
