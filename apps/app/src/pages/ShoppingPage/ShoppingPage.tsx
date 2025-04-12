@@ -7,14 +7,14 @@ import ShoppingHeader from './sections/ShoppingHeader';
 import ShoppingWelcome from './sections/ShoppingWelcome';
 
 export const ShoppingPage = () => {
-  const { firstShopVisit, setFirstShopVisit } =
+  const { firstPageVisit, setFirstPageVisit } =
     useIsFirstPageVisit('firstShopVisit');
 
   return (
     <div className={styles.wrapper}>
       <ShoppingProvider>
-        {firstShopVisit ? (
-          <ShoppingWelcome setFirstShopVisit={setFirstShopVisit} />
+        {firstPageVisit ? (
+          <ShoppingWelcome setFirstShopVisit={setFirstPageVisit} />
         ) : (
           <>
             <ShoppingHeader />

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useIsFirstPageVisit = (localStorageName: string) => {
-  const [firstShopVisit, setFirstShopVisit] = useState<boolean>(false);
+  const [firstPageVisit, setFirstPageVisit] = useState<boolean>(false);
   const isMounted = useRef<boolean>(false);
 
   useEffect(() => {
@@ -14,13 +14,13 @@ export const useIsFirstPageVisit = (localStorageName: string) => {
 
     if (storedValue === null || storedValue === true) {
       localStorage.setItem(localStorageName, 'true');
-      setFirstShopVisit(true);
+      setFirstPageVisit(true);
       return;
     }
 
     localStorage.setItem(localStorageName, 'false');
-    setFirstShopVisit(false);
+    setFirstPageVisit(false);
   }, []);
 
-  return { firstShopVisit, setFirstShopVisit };
+  return { firstPageVisit, setFirstPageVisit };
 };
