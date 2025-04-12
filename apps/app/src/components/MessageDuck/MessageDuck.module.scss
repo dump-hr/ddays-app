@@ -16,6 +16,22 @@
     transform: translate(-48%, 0);
   }
 
+  .text {
+    position: absolute;
+    text-align: center;
+    display: block;
+    color: $black-70;
+    z-index: 3;
+    top: 51%;
+    left: 71.5%;
+    font-size: 1.5rem;
+    width: 80px;
+    line-height: 20px;
+    font-size: 16px;
+    transform: translate(-50%, -50%) rotate(18deg);
+    @include heading-3;
+  }
+
   .progressRing {
     border-radius: 50%;
 
