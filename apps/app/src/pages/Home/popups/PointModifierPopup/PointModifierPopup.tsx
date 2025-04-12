@@ -19,7 +19,8 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
       variant='dark'
       desktopStyle='stretch'
       isOpen={isOpen}
-      closePopup={closePopup}>
+      closePopup={closePopup}
+      showXButton={false}>
       <img src={Backlight} className={c.backlight} />
       <MessageDuck />
     </PopupLayout>

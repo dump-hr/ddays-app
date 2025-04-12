@@ -4,9 +4,31 @@
   border-radius: 50%;
   overflow: hidden;
   background: $black-90;
+  z-index: 1;
+  position: relative;
 
   .duck {
-    width: 100%;
-    height: 100%;
+    width: 85%;
+    height: 85%;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-48%, 0);
+  }
+
+  .progressRing {
+    border-radius: 50%;
+
+    background: rgba($black-30, 0.2);
+    $thicc: 105px;
+    -webkit-mask: radial-gradient(transparent $thicc, #000 $thicc);
+    mask: radial-gradient(transparent $thicc, #000 $thicc);
+
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 }

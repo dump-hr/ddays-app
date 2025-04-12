@@ -13,6 +13,7 @@ interface PopupLayoutProps {
   justifyContent?: 'center' | 'start' | 'end';
   desktopStyle?: 'normal' | 'stretch';
   opacity?: number;
+  showXButton?: boolean;
 }
 
 const PopupLayout = ({
@@ -25,6 +26,7 @@ const PopupLayout = ({
   justifyContent = 'start',
   desktopStyle = 'normal',
   opacity = 0.5,
+  showXButton = true,
 }: PropsWithChildren<PopupLayoutProps>) => {
   const { isMobile } = useDeviceType({ breakpoint: 768 });
 
@@ -36,7 +38,7 @@ const PopupLayout = ({
         { [styles.closed]: !isOpen },
         { [styles.alignItemsEnd]: desktopStyle === 'stretch' },
       )}>
-      {desktopStyle === 'stretch' && (
+      {desktopStyle === 'stretch' && showXButton && (
         <img
           src={CloseIcon}
           onClick={closePopup}
@@ -60,7 +62,7 @@ const PopupLayout = ({
             [styles.center]: desktopStyle === 'stretch' && !isMobile,
           })}>
           <h2 className={styles.headingTitle}>{headerTitleComponent}</h2>
-          {(isMobile || desktopStyle === 'normal') && (
+          {(isMobile || desktopStyle === 'normal') && showXButton && (
             <img
               src={CloseIcon}
               onClick={closePopup}
