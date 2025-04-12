@@ -5,16 +5,19 @@ import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
     toast.success('Kod je uspješno unesen!');
   }
 
+  const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
+
   return (
     <div className={c.page}>
       <header className={c.header}>
-        <Header />
+        <Header openCodePopup={() => setIsCodePopupOpen(true)} />
       </header>
       <main className={c.main}>
         <EventsSection />
@@ -22,8 +25,8 @@ const HomePage = () => {
         <TopCompaniesSection />
 
         <CodePopup
-          isOpen={true}
-          closePopup={() => {}}
+          isOpen={isCodePopupOpen}
+          closePopup={() => setIsCodePopupOpen(false)}
           onSuccess={handleSuccessfulCodeSubmit}
         />
       </main>
