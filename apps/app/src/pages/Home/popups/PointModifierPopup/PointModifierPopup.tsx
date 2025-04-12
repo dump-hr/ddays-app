@@ -3,6 +3,7 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import Backlight from '@/assets/images/backlight.svg';
 
 import c from './PointModifierPopup.module.scss';
+import Button from '@/components/Button';
 
 type PointModifierPopupProps = {
   isOpen: boolean;
@@ -28,6 +29,9 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
         <p className={c.paragraph}>
           Bravo! Super te ide - još malo do nagrade!
         </p>
+        <Button className={c.button} variant='black' points={10}>
+          Dajemo ti
+        </Button>
       </div>
     </PopupLayout>
   );
