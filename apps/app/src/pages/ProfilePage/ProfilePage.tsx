@@ -1,59 +1,65 @@
-import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import c from './ProfilePage.module.scss';
-import TempAvatar from '../../assets/images/temp-avatar.png';
+import TempAvatar from '@/assets/images/temp-avatar.png';
+import Like from '@/assets/icons/like.svg';
+import Award from '@/assets/icons/award.svg';
+import Bag from '@/assets/icons/bag.svg';
+import Trophy from '@/assets/icons/trophy.svg';
+import Gift from '@/assets/icons/gift.svg';
+import UserEdit from '@/assets/icons/user-edit.svg';
+
+import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import ProfileStat from '../../components/ProfileStat';
-import Like from '../../assets/icons/like.svg';
-import Award from '../../assets/icons/award.svg';
-import Bag from '../../assets/icons/bag.svg';
-import Trophy from '../../assets/icons/trophy.svg';
-import Gift from '../../assets/icons/gift.svg';
-import UserEdit from '../../assets/icons/user-edit.svg';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
 import RecommendationsButton from '../../components/RecommendationsButton';
 import FeedbackButton from '../../components/FeedbackButton';
 import LogoutButton from '../../components/LogoutButton';
+import { RouteNames } from '../../router/routes';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { logout } from '@/helpers/auth';
 
 const navigationItems = [
   {
     icon: Like,
     label: 'Moji interesi',
-    href: '',
+    href: RouteNames.PROFILE_INTERESTS,
   },
   {
     icon: Award,
     label: 'Moja postignuća',
-    href: '',
+    href: RouteNames.PROFILE_ACHIEVEMENTS,
   },
   {
     icon: Bag,
     label: 'Avatari',
-    href: '',
+    href: RouteNames.PROFILE_AVATARS,
   },
   {
     icon: Trophy,
     label: 'Leaderboard',
-    href: '',
+    href: RouteNames.PROFILE_LEADERBOARD,
   },
   {
     icon: Gift,
     label: 'Nagrade',
-    href: '',
+    href: RouteNames.PROFILE_REWARDS,
   },
   {
     icon: UserEdit,
     label: 'Postavke profila',
-    href: '',
+    href: RouteNames.PROFILE_SETTINGS,
   },
 ];
 
 export const ProfilePage = () => {
+  const { data: user } = useLoggedInUser();
+
   return (
-    <>
+    <div className={c.page}>
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
             <span>Profil</span> <br />
-            Marija Gudelj
+            {user?.firstName} {user?.lastName}
           </p>
 
           <AvatarPointsCircle points={900} avatar={TempAvatar} />
@@ -78,9 +84,9 @@ export const ProfilePage = () => {
         <div className={c.buttonsWrapper}>
           <RecommendationsButton />
           <FeedbackButton />
-          <LogoutButton />
+          <LogoutButton onClick={logout} />
         </div>
       </main>
-    </>
+    </div>
   );
 };

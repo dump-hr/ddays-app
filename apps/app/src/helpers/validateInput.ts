@@ -1,5 +1,5 @@
-import { UserDataFields } from '../types/enums';
-import { RegistrationDto } from '../types/user/user';
+import { UserDataFields } from '@/types/enums';
+import { RegistrationDto } from '@/types/user/user';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -63,7 +63,8 @@ export const validateField = (
   const isNotEmptyNewPass = validations.isNotEmpty(
     userData.newPassword as string,
   );
-  const field = isNotEmptyNewPass ? 'newPassword' : 'password';
+  const passField = isNotEmptyNewPass ? 'newPassword' : 'password';
+
   switch (name) {
     case UserDataFields.FirstName:
       if (!validations.isNotEmpty(value as string))
@@ -93,8 +94,17 @@ export const validateField = (
         return 'Hej, lozinka mora imati najmanje 8 znakova i broj';
       break;
 
+    case UserDataFields.NewPassword:
+      if (!validations.isNotEmpty(value as string))
+        return 'Hej, nova lozinka je obavezna';
+      if (!validations.isValidPassword(value as string))
+        return 'Hej, nova lozinka mora imati najmanje 8 znakova i broj';
+      break;
+
     case UserDataFields.RepeatedPassword:
-      if (value !== userData[field]) return 'Hej, lozinke se ne podudaraju';
+      if (!validations.isNotEmpty(value as string))
+        return 'Hej, potvrda lozinke je obavezna';
+      if (value !== userData[passField]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:

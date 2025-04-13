@@ -1,0 +1,27 @@
+.cell {
+  &:nth-of-type(1) {
+    // status
+    width: 75px;
+  }
+  &:nth-of-type(2) {
+    // ime i prezime
+    width: 200px;
+  }
+  &:nth-of-type(3) {
+    // e-adresa
+    width: 200px;
+  }
+  &:nth-of-type(4) {
+    // opis
+    width: 162px;
+  }
+  &:nth-of-type(5) {
+    // CV
+    width: 140px;
+  }
+  &:last-of-type {
+    // odabir
+    width: auto;
+    text-align: right;
+  }
+}
