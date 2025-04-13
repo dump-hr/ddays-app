@@ -101,26 +101,28 @@ export const ProfileLeaderboardPage = () => {
           </div>
 
           <div className={c.leaderboardWrapper}>
-            {personalRank.rank === 1 ? (
-              <div className={c.congratulationWrapper}>
-                <h3 className={c.congratulationText}>
-                  🏆 Bravo, čestitamo na 1. mjestu!
-                </h3>
-              </div>
-            ) : (
-              <div className={c.personalRankWrapper}>
-                <table className={c.leaderboardTable}>
-                  <tbody>
-                    <LeaderboardTableRow
-                      key={personalRank.id}
-                      rank={personalRank.rank}
-                      name={personalRank.name}
-                      level={personalRank.level}
-                      points={personalRank.points}
-                    />
-                  </tbody>
-                </table>
-              </div>
+            {personalRank.rank === 1 && (
+              <>
+                <div className={c.congratulationWrapper}>
+                  <h3 className={c.congratulationText}>
+                    🏆 Bravo, čestitamo na 1. mjestu!
+                  </h3>
+                </div>
+
+                <div className={c.personalRankWrapper}>
+                  <table className={c.leaderboardTable}>
+                    <tbody>
+                      <LeaderboardTableRow
+                        key={personalRank.id}
+                        rank={personalRank.rank}
+                        name={personalRank.name}
+                        level={personalRank.level}
+                        points={personalRank.points}
+                      />
+                    </tbody>
+                  </table>
+                </div>
+              </>
             )}
 
             <div className={c.leaderboardWrapper}>
