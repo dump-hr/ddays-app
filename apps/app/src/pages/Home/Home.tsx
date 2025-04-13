@@ -7,17 +7,19 @@ import CodePopup from './popups/CodePopup/CodePopup';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import PointModifierPopup from './popups/PointModifierPopup';
+import NewLevelPopup from './popups/NewLevelPopup';
 
 const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
     toast.success('Kod je uspješno unesen!');
     setIsCodePopupOpen(false);
-    setIsPointModifierPopupOpen(true);
+    setIsNewLevelPopupOpen(true);
   }
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
   const [isPointModifierPopupOpen, setIsPointModifierPopupOpen] =
     useState(false);
+  const [isNewLevelPopupOpen, setIsNewLevelPopupOpen] = useState(false);
 
   return (
     <div className={c.page}>
@@ -38,9 +40,13 @@ const HomePage = () => {
         <PointModifierPopup
           points={10}
           isOpen={isPointModifierPopupOpen}
-          closePopup={() =>
-            setIsPointModifierPopupOpen(false)
-          }></PointModifierPopup>
+          closePopup={() => setIsPointModifierPopupOpen(false)}
+        />
+
+        <NewLevelPopup
+          isOpen={isNewLevelPopupOpen}
+          closePopup={() => setIsNewLevelPopupOpen(false)}
+        />
       </main>
     </div>
   );

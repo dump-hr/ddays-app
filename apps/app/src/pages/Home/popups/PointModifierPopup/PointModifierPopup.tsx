@@ -53,7 +53,11 @@ const PointModifierPopup: React.FC<PointModifierPopupProps> = ({
         <p className={c.paragraph}>
           {points > 0 ? paragraphText.positive : paragraphText.negative}
         </p>
-        <Button className={c.button} variant='black' points={points}>
+        <Button
+          className={c.button}
+          variant='black'
+          points={points}
+          onClick={closePopup}>
           {points > 0 ? buttonText.positive : buttonText.negative}
         </Button>
       </div>
