@@ -39,6 +39,7 @@ export enum RouteNames {
   NOTIFICATIONS = '/app/notifications',
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
   RATE_COMPANY = '/app/rate-company',
+  RATE_LECTURE = '/app/rate-lecture',
 }
 
 export interface SubMenu {
