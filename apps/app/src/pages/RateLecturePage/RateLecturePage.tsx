@@ -7,40 +7,40 @@ import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
 
 enum RatingType {
-  GENERAL_IMPRESSION = 'generalImpression',
-  STAND_CONTENT = 'standContent',
-  EXHIBITORS = 'exhibitors',
+  THEME = 'generalImpression',
+  PRESENTATION_SKILLS = 'standContent',
+  RELEVANCE = 'exhibitors',
 }
 
 interface RatingAnswers {
-  [RatingType.GENERAL_IMPRESSION]: number | null;
-  [RatingType.STAND_CONTENT]: number | null;
-  [RatingType.EXHIBITORS]: number | null;
+  [RatingType.THEME]: number | null;
+  [RatingType.PRESENTATION_SKILLS]: number | null;
+  [RatingType.RELEVANCE]: number | null;
 }
 
 const RATING_QUESTIONS = [
   {
-    type: RatingType.GENERAL_IMPRESSION,
-    title: 'Generalni dojam štanda',
-    text: 'Kakav je dojam štand ostavio na tebe?',
+    type: RatingType.THEME,
+    title: 'Poznavanje teme?',
+    text: 'Imaš li predznanje o ovoj temi?',
   },
   {
-    type: RatingType.STAND_CONTENT,
-    title: 'Sadržaj štanda',
-    text: 'Što se sve nudi? Je li ti bilo zabavno?',
+    type: RatingType.PRESENTATION_SKILLS,
+    title: 'prezentacijske vještine',
+    text: 'Ocijeni prezentacijske vještine predavača.',
   },
   {
-    type: RatingType.EXHIBITORS,
-    title: 'Izlagači',
-    text: 'Ocijeni svoj dojam o izlagačima.',
+    type: RatingType.RELEVANCE,
+    title: 'Relevantnost',
+    text: 'Koliko će ti ovo predavanje koristiti u budućnosti?',
   },
 ];
 
 export const RateLecturePage = () => {
   const [answers, setAnswers] = useState<RatingAnswers>({
-    [RatingType.GENERAL_IMPRESSION]: null,
-    [RatingType.STAND_CONTENT]: null,
-    [RatingType.EXHIBITORS]: null,
+    [RatingType.THEME]: null,
+    [RatingType.PRESENTATION_SKILLS]: null,
+    [RatingType.RELEVANCE]: null,
   });
 
   const allQuestionsAnswered = Object.values(answers).every(
@@ -64,7 +64,7 @@ export const RateLecturePage = () => {
         </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
-            <h1 className={c.title}>Ocjeni sponzorski štand</h1>
+            <h1 className={c.title}>Ocjeni predavanje</h1>
             <Link to={RouteNames.HOME}>
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </Link>
@@ -84,7 +84,7 @@ export const RateLecturePage = () => {
 
           <div className={c.buttonContainer}>
             <Button
-              variant='orange'
+              variant='black'
               onClick={() => console.log('Button clicked')}
               disabled={!allQuestionsAnswered}>
               Spremi
