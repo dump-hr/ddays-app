@@ -37,3 +37,12 @@
   font-weight: 500;
   font-display: fallback;
 }
+
+@font-face {
+  font-family: LucidaSansTypewriter;
+  src: url('@/assets/fonts/Lucida_Sans_Typewriter_Regular.ttf')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
