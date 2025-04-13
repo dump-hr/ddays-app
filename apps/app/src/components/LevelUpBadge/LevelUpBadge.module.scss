@@ -1,0 +1,21 @@
+.badge {
+  height: 226px;
+  width: 226px;
+  position: relative;
+
+  .badgeImage {
+    height: 100%;
+    width: 100%;
+  }
+
+  .level {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: NeueMachina;
+    color: $primary-muted-orange;
+    font-size: 100px;
+    font-weight: 900;
+  }
+}
