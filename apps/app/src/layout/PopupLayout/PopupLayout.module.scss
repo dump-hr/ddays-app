@@ -65,7 +65,7 @@ div.between {
 .desktopNormal {
   @include roundedContainer();
   height: 100%;
-  max-width: 579px;
+  width: 579px;
   //gap: 2rem; --> mislim da je ovo nepotrebno a utjece na cili content
   padding: 40px 48px 48px;
   margin-top: 1.5rem;
