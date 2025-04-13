@@ -75,8 +75,8 @@ const FlyTalksList = () => {
       <main>
         <div className={c.tabGroup}>
           <TabGroup setter={handleTabChange}>
-            <Tab id={Tabs.first_day}>23.05</Tab>
-            <Tab id={Tabs.second_day}>24.05</Tab>
+            <Tab id={Tabs.first_day}>23.5</Tab>
+            <Tab id={Tabs.second_day}>24.5</Tab>
           </TabGroup>
         </div>
         <p className={c.listInfoText}>

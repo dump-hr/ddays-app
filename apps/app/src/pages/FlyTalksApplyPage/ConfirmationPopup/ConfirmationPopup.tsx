@@ -22,8 +22,6 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   onClose,
   group,
 }) => {
-  console.log(group);
-
   return (
     <PopupLayout
       headerTitleComponent={'Uspješna prijava!'}
@@ -31,32 +29,34 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
       variant={'dark'}
       closePopup={onClose}
       isOpen={isOpen}>
-      <img
-        src={DuckFlyTalksConfirmationPng}
-        alt='duck-flytalks-confirmation'
-        className={c.duckFlyTalksConfirmationImage}
-      />
-      <div className={c.grupContainer}>
-        <p className={c.groupDuration}>
-          {group?.start} - {group?.end}
+      <div className={c.confirmationPopupContainer}>
+        <p className={c.infoParagraph}>
+          Uskoro ćemo te obavijestiti o rezultatu selekcije, a do tada istraži o
+          tvrtkama iz skupine da ostaviš što bolji dojam.
         </p>
-        <div className={c.companiesList}>
-          {group?.companies.map((company, i) => (
-            <div key={i} className={c.company}>
-              <p>0{i + 1}</p>
-              <img src={company} alt='' />
-              {i !== 3 && <div className={c.divider}></div>}
-            </div>
-          ))}
+        <img
+          src={DuckFlyTalksConfirmationPng}
+          alt='duck-flytalks-confirmation'
+          className={c.duckFlyTalksConfirmationImage}
+        />
+        <div className={c.grupContainer}>
+          <p className={c.groupDuration}>
+            {group?.start} - {group?.end}
+          </p>
+          <div className={c.companiesList}>
+            {group?.companies.map((company, i) => (
+              <div key={i} className={c.company}>
+                <p>0{i + 1}</p>
+                <img src={company} alt='' />
+                {i !== 3 && <div className={c.divider}></div>}
+              </div>
+            ))}
+          </div>
         </div>
+        <Button variant={'orange'} className={c.closeButton} onClick={onClose}>
+          Dalje
+        </Button>
       </div>
-      <p className={c.infoParagraph}>
-        Nakon prijave moraš čekati firme da potvrde ili odbiju tvoju prijavu, pa
-        ćeš dobit notifikaciju o tome.
-      </p>
-      <Button variant={'black'} className={c.closeButton} onClick={onClose}>
-        Zatvori
-      </Button>
     </PopupLayout>
   );
 };

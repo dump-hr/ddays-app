@@ -135,7 +135,7 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = () => {
-    if (Object.values(userData).some((value) => value === '')) {
+    if (Object.values(userData).some((value) => value === '' || value === undefined)) {
       setIsFormValid(false);
     }else{setIsConfirmationPopupOpen(true);}
   };
