@@ -1,0 +1,97 @@
+.page {
+  width: 100%;
+  background-color: #0e0e0e;
+  min-height: calc(100vh - 88px);
+
+  .content {
+    max-width: 1050px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 40px 0;
+  }
+}
+
+.titleSection {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #27292e;
+  background: rgba(39, 41, 46, 0.5);
+  box-sizing: border-box;
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative;
+
+  .title {
+    color: #fff;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    margin-bottom: 12px;
+  }
+
+  .buttons {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    translate: 0 -50%;
+    display: flex;
+    gap: 16px;
+  }
+}
+
+.noApplicants {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  border-spacing: 12px;
+  margin-top: 24px;
+
+  th {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+
+  td {
+    &:nth-of-type(1) {
+      // status
+      width: 75px;
+    }
+    &:nth-of-type(2) {
+      // ime i prezime
+      width: 200px;
+    }
+    &:nth-of-type(3) {
+      // e-adresa
+      width: 200px;
+    }
+    &:nth-of-type(4) {
+      // opis
+      width: 162px;
+    }
+    &:nth-of-type(5) {
+      // CV
+      width: 140px;
+    }
+    &:last-of-type {
+      // odabir
+      width: auto;
+      text-align: right;
+    }
+  }
+}
+
+.break {
+  border-color: rgba(255, 255, 255, 0.2);
+}
