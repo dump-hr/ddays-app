@@ -2,6 +2,7 @@ import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { RegistrationDto } from '@/types/user/user';
 import { validations } from '@/helpers/validateInput';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface UserContextType {
   userData: RegistrationDto;
@@ -11,9 +12,9 @@ interface UserContextType {
 }
 
 const defaultUserData: RegistrationDto = {
-  firstName: 'Toni',
-  lastName: 'Grbić',
-  email: 'tonigrbic@example.com',
+  firstName: '',
+  lastName: '',
+  email: '',
   password: '',
   repeatedPassword: '',
   newPassword: '',
@@ -50,6 +51,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     useState<RegistrationDto>(setInitialUserData());
   const [userSettingsData, setUserSettingsData] =
     useState<RegistrationDto>(setInitialUserData());
+  const { data: loggedInUser, isLoading } = useLoggedInUser();
 
   const updateUserData = (newData: Partial<RegistrationDto>) => {
     setUserData((prevData) => ({
@@ -68,6 +70,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem('userData', JSON.stringify(userData));
   }, [userData]);
+
+  useEffect(() => {
+    if (loggedInUser && !isLoading) {
+      updateUserData(loggedInUser);
+    }
+  }, [loggedInUser, isLoading]);
 
   return (
     <UserContext.Provider

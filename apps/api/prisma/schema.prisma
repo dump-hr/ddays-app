@@ -220,13 +220,15 @@ model User {
   lastName                   String
   email                      String              @unique
   phoneNumber                String              @unique
-  yearOfBirth                Int
+  birthYear                  Int
   occupation                 String?
+  educationDegree            String?
   password                   String?
   points                     Int?
-  newsletterConsent          Boolean?
-  companiesNewsletterConsent Boolean?
+  newsletterEnabled          Boolean?
+  companiesNewsEnabled       Boolean?
   isDeleted                  Boolean?
+  isConfirmed                Boolean?            @default(false)
   profilePhotoUrl            String?
   avatar                     Avatar[]
   notification               Notification[]
