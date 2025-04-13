@@ -13,7 +13,8 @@ const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
     toast.success('Kod je uspješno unesen!');
     setIsCodePopupOpen(false);
-    setIsNewLevelPopupOpen(true);
+    setIsPointModifierPopupOpen(true);
+    //setIsNewLevelPopupOpen(true);
   }
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
