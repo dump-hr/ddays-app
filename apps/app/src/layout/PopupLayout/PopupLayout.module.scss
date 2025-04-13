@@ -82,7 +82,7 @@ div.between {
 }
 
 .container {
-  min-height: 610px;
+  overflow: hidden;
   @media screen and (max-width: $breakpoint-tablet) {
     justify-content: flex-start;
     width: 100vw;
