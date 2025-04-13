@@ -6,11 +6,13 @@ import LevelUpBadge from '@/components/LevelUpBadge';
 type NewLevelPopupProps = {
   isOpen: boolean;
   closePopup: () => void;
+  level: number;
 };
 
 const NewLevelPopup: React.FC<NewLevelPopupProps> = ({
   isOpen,
   closePopup,
+  level,
 }) => {
   return (
     <PopupLayout
@@ -21,7 +23,7 @@ const NewLevelPopup: React.FC<NewLevelPopupProps> = ({
       closePopup={closePopup}
       desktopStyle='stretch'>
       <div className={c.content}>
-        <LevelUpBadge level={3} />
+        <LevelUpBadge level={level} />
         <h3 className={c.title}>ČESTITAMO!</h3>
         <p className={c.paragraph}>
           Bravo, majstore! Sljedeća razina te čeka! Jesi li spreman?

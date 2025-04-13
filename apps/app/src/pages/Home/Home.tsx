@@ -11,17 +11,21 @@ import NewLevelPopup from './popups/NewLevelPopup';
 const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
     setIsCodePopupOpen(false);
-    const isNewLevel = false;
+    const isNewLevel = true;
 
     if (isNewLevel) {
+      setLevel(3);
       setIsNewLevelPopupOpen(true);
       return;
     }
 
+    setPoints(-10);
     setIsPointModifierPopupOpen(true);
   }
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
+  const [points, setPoints] = useState(0);
+  const [level, setLevel] = useState(1);
   const [isPointModifierPopupOpen, setIsPointModifierPopupOpen] =
     useState(false);
   const [isNewLevelPopupOpen, setIsNewLevelPopupOpen] = useState(false);
@@ -43,12 +47,13 @@ const HomePage = () => {
         />
 
         <PointModifierPopup
-          points={10}
+          points={points}
           isOpen={isPointModifierPopupOpen}
           closePopup={() => setIsPointModifierPopupOpen(false)}
         />
 
         <NewLevelPopup
+          level={level}
           isOpen={isNewLevelPopupOpen}
           closePopup={() => setIsNewLevelPopupOpen(false)}
         />
