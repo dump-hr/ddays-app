@@ -10,6 +10,7 @@ export type LoginDto = {
   password: string;
 };
 
+
 export type FlyTalksRegistrationDto = {
   linkedIn: string;
   github: string;
@@ -17,3 +18,11 @@ export type FlyTalksRegistrationDto = {
   about: string;
   file: File | null;
 }
+
+export type UserPublicDto = UserDto & {
+  id: number;
+  points: number | null;
+  isDeleted: boolean;
+  isConfirmed: boolean;
+};
+

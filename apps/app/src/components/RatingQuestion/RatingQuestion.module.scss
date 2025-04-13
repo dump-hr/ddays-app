@@ -1,0 +1,29 @@
+.ratingQuestion {
+  margin-bottom: 40px;
+  margin-left: 0px;
+  align-self: flex-start;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    text-align: center;
+    align-self: center;
+    max-width: 100%;
+  }
+
+  h3 {
+    @include heading-3;
+    color: $primary-black;
+    font-weight: normal;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+}
+
+.ratingQuestionText {
+  @include paragraph-16;
+  color: $primary-black;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    text-align: center;
+  }
+}
