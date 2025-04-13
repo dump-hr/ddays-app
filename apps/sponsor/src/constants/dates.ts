@@ -1,0 +1,1 @@
+export const SPONSOR_FLY_TALK_DEADLINE = new Date('2025-05-21T10:00:00Z');
