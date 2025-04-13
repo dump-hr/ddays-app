@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import c from './CodeInput.module.scss';
 import clsx from 'clsx';
 
@@ -8,6 +8,7 @@ type CodeInputProps = {
   className?: string;
   setCode: (code: string[]) => void;
   setIsError: (isError: boolean) => void;
+  shouldFocus?: boolean;
 };
 
 const CodeInput: React.FC<CodeInputProps> = ({
@@ -16,6 +17,7 @@ const CodeInput: React.FC<CodeInputProps> = ({
   isError,
   setIsError,
   className,
+  shouldFocus,
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -32,6 +34,12 @@ const CodeInput: React.FC<CodeInputProps> = ({
       input.focus();
     }
   }
+
+  useEffect(() => {
+    if (shouldFocus && inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, [shouldFocus]);
 
   function unfocusInputs() {
     inputRefs.current.forEach((input) => {

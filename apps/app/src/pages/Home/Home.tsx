@@ -4,17 +4,21 @@ import TopCompaniesSection from './sections/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
-import toast from 'react-hot-toast';
 import { useState } from 'react';
 import PointModifierPopup from './popups/PointModifierPopup';
 import NewLevelPopup from './popups/NewLevelPopup';
 
 const HomePage = () => {
   function handleSuccessfulCodeSubmit() {
-    toast.success('Kod je uspješno unesen!');
     setIsCodePopupOpen(false);
+    const isNewLevel = false;
+
+    if (isNewLevel) {
+      setIsNewLevelPopupOpen(true);
+      return;
+    }
+
     setIsPointModifierPopupOpen(true);
-    //setIsNewLevelPopupOpen(true);
   }
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
