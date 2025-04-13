@@ -52,11 +52,11 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
               </div>
             ))}
           </div>
-        </div>
-        <Button variant={'orange'} className={c.closeButton} onClick={onClose}>
+        </div></div>
+        <Button variant={'orange'} style={{width:'100%'}} onClick={onClose}>
           Dalje
         </Button>
-      </div>
+      
     </PopupLayout>
   );
 };
