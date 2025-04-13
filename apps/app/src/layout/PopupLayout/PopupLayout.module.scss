@@ -78,6 +78,7 @@ div.end {
 }
 
 .container {
+  overflow: hidden;
   @media screen and (max-width: $breakpoint-tablet) {
     justify-content: flex-start;
     max-width: none;
