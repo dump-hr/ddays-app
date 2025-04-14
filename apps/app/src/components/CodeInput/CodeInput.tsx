@@ -24,7 +24,8 @@ const CodeInput: React.FC<CodeInputProps> = ({
   function editChar(index: number, value: string) {
     const newCode = [...code];
     newCode[index] = value;
-    setCode(newCode);
+    const uppercase = newCode.map((char) => char.toUpperCase());
+    setCode(uppercase);
   }
 
   function focusInput(index: number) {

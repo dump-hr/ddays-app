@@ -2,7 +2,6 @@
   width: 100%;
   display: flex;
   gap: 4px;
-  //height: 77px;
 
   .input {
     width: 100%;
@@ -10,6 +9,7 @@
     border-radius: 16px;
     outline: none;
     border: none;
+    text-transform: uppercase;
 
     border-radius: 16px;
     border: 1px solid $black-10;
