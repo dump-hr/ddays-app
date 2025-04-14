@@ -1,8 +1,8 @@
 import c from './TopCompaniesSection.module.scss';
 import TopCompany from '../../../../components/TopCompany';
 import RecommendationsButton from '../../../../components/RecommendationsButton';
-import { useGetTopRatedCompanies } from '@/api/booth/useGetTopratedCompanies';
 import React from 'react';
+import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
 
 
 const TopCompaniesSection: React.FC = () => {
