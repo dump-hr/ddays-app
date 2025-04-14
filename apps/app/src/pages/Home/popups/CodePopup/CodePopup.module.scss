@@ -13,6 +13,11 @@
 .error {
   text-align: center;
   @include paragraph-14;
+  margin-bottom: 108px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    margin-bottom: 0;
+  }
 }
 
 .message {
