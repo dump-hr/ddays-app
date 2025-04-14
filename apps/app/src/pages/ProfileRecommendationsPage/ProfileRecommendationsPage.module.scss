@@ -19,6 +19,7 @@
     position: absolute;
     top: 48px;
     left: 72px;
+    cursor: pointer;
 
     @media screen and (max-width: $breakpoint-tablet) {
       display: none;
@@ -58,7 +59,7 @@
         left: 0;
         width: 24px;
         height: 24px;
-
+        cursor: pointer;
         @media screen and (min-width: $breakpoint-tablet) {
           display: none;
         }

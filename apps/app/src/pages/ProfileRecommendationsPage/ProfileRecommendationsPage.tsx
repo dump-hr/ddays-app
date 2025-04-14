@@ -4,14 +4,25 @@ import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
 import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
 import EventsSection from './EventsSection';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '@/router/routes';
 
 const ProfileRecommendationsPage = () => {
+  const navigate = useNavigate();
   return (
     <div className={c.page}>
-      <img src={ArrowWhite} className={c.whiteArrow} />
+      <img
+        src={ArrowWhite}
+        className={c.whiteArrow}
+        onClick={() => navigate(RouteNames.PROFILE)}
+      />
       <main className={c.content}>
         <header className={c.header}>
-          <img className={c.arrow} src={ArrowLeft} />
+          <img
+            className={c.arrow}
+            src={ArrowLeft}
+            onClick={() => navigate(RouteNames.PROFILE)}
+          />
           <h3 className={c.pageTitle}>Preporuke</h3>
         </header>
         <h3 className={c.title}>Tvrtke</h3>
