@@ -34,9 +34,7 @@ const EventsSection = () => {
     }
   };
 
-  console.log('EVENTOBIIIIII', events);
   const liveEvents = useMemo(() => getLiveEvents(events), []);
-  console.log('LIVE EVENTS', liveEvents);
   const nextEvents = useMemo(() => getNextEvents(events), []);
 
   const containerRef = useRef<HTMLDivElement>(null);

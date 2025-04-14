@@ -16,8 +16,7 @@ const RecommendationsPage = () => {
         </header>
         <h3 className={c.title}>Tvrtke</h3>
         <p className={c.paragraph}>
-          Na temelju tvojih interesa dajemo ti listu kurceva koja ti najviše
-          odgovaraju.
+          Prema tvojim interesima vidimo da se najbolje slažeš s ovim tvrtkama.
         </p>
         <div className={c.recommendationsWrapper}>
           {recommendations.map((company, i) => (
@@ -31,8 +30,7 @@ const RecommendationsPage = () => {
         </div>
         <h3 className={c.title}>Predavanja</h3>
         <p className={c.paragraph}>
-          Na temelju tvojih interesa dajemo ti listu predavanja koja ti najviše
-          odgovaraju.
+          Na temelju tvojih interesa preporučamo ti sljedeća predavanja.
         </p>
         <EventsSection />
       </main>

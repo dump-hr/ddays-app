@@ -111,8 +111,8 @@ const EventsSection = () => {
   return (
     <section className={c.lectures}>
       <TabGroup setter={handleTabChange}>
-        <Tab id={Tabs.DAY_1}>23. svibnja</Tab>
-        <Tab id={Tabs.DAY_2}>24. svibnja</Tab>
+        <Tab id={Tabs.DAY_1}>23. 5. - PETAK</Tab>
+        <Tab id={Tabs.DAY_2}>24. 5. - SUBOTA</Tab>
       </TabGroup>
 
       <div className={c.scrollingCards}>
