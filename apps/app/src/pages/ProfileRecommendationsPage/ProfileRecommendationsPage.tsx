@@ -1,11 +1,11 @@
-import c from './RecommendationsPage.module.scss';
+import c from './ProfileRecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
 import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
 import EventsSection from './EventsSection';
 
-const RecommendationsPage = () => {
+const ProfileRecommendationsPage = () => {
   return (
     <div className={c.page}>
       <img src={ArrowWhite} className={c.whiteArrow} />
@@ -38,4 +38,4 @@ const RecommendationsPage = () => {
   );
 };
 
-export default RecommendationsPage;
+export default ProfileRecommendationsPage;
