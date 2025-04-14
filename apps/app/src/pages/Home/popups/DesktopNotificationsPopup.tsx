@@ -18,6 +18,7 @@ const DesktopNotificationsPopup = ({ isOpen, closePopup }: PopupProps) => {
         style={{
           overflowY: 'auto',
           paddingRight: '0.5rem',
+          height: '100%',
         }}>
         {' '}
         <NotificationsSection />

@@ -22,7 +22,9 @@ export const NotificationsPage: React.FC = () => {
             </div>
             <h2 className={styles.title}>NOTIFIKACIJE</h2>
           </div>
-          <NotificationsSection />
+          <div style={{ height: '100%'}}>
+            <NotificationsSection />
+          </div>
         </div>
       </div>
     </>
