@@ -1,23 +1,13 @@
 import c from './TopCompaniesSection.module.scss';
-
-import React, { useEffect, useState } from 'react';
-
 import TopCompany from '../../../../components/TopCompany';
 import RecommendationsButton from '../../../../components/RecommendationsButton';
-import { CompanyPublicDto } from '@ddays-app/types';
-import { fetchTopRatedCompanies} from '../../companiesHelper'
+import { useGetTopRatedCompanies } from '@/api/booth/useGetTopratedCompanies';
+import React from 'react';
+
 
 const TopCompaniesSection: React.FC = () => {
-  const [companies, setCompanies] = useState<CompanyPublicDto[]>([]);
 
-  useEffect(() => {
-    const loadTopRatedCompanies = async () => {
-      const fetchedCompanies = await fetchTopRatedCompanies();
-      if (fetchedCompanies) setCompanies(fetchedCompanies);
-    };
-
-    loadTopRatedCompanies();
-  }, []);
+  const { data: topCompanies= [] } = useGetTopRatedCompanies();
 
   return (
     <section className={c.topCompanies}>
@@ -27,7 +17,7 @@ const TopCompaniesSection: React.FC = () => {
           Otkrij najbolje sponzorske štandove prema ocjenama posjetitelja
           konferencije.
         </p>
-        {companies.map((company, index) => (
+        {topCompanies.map((company, index) => (
           <React.Fragment key={company.id}>
             {index !== 0 && <div className={c.divider} />}
             <TopCompany company={company} number={index + 1} />
