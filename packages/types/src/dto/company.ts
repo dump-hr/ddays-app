@@ -29,6 +29,7 @@ export type CompanyPublicDto = {
   video?: string;
   interests?: InterestDto[];
   jobs?: JobDto[];
+  averageRating?: number;
 };
 
 export type CompanyDto = {
