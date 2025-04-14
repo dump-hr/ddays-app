@@ -1,27 +1,35 @@
-import CompactScheduleCard from '../../../../components/CompactScheduleCard';
-import Tab from '../../../../components/Tab';
-import TabGroup from '../../../../components/TabGroup';
 import ArrowRight from '../../../../assets/icons/arrow-right.svg';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { getLiveEvents, getNextEvents } from '../../eventsHelper';
+import { useEffect, useRef, useState } from 'react';
 import c from './EventsSection.module.scss';
-import { events } from '../../events';
 import clsx from 'clsx';
+import CompactScheduleCard from '../CompactScheduleCard';
+import TabGroup from '../TabGroup';
+import Tab from '../Tab';
+
+type EventTab = {
+  label: string;
+  events: EventWithSpeakerDto[];
+};
+
+type EventsScrollerProps = {
+  eventTabs: EventTab[];
+};
 
 enum Tabs {
   U_Tijeku,
   Nadolazece,
 }
 
-const EventsSection = () => {
+const EventsScroller: React.FC<EventsScrollerProps> = ({ eventTabs }) => {
   const [lecturesTab, setLecturesTab] = useState<string | number>(
-    Tabs.U_Tijeku,
+    eventTabs[0].label,
   );
 
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
-  const [displayedEvents, setDisplayedEvents] =
-    useState<EventWithSpeakerDto[]>(events);
+  const [displayedEvents, setDisplayedEvents] = useState<EventWithSpeakerDto[]>(
+    eventTabs[0].events,
+  );
 
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
@@ -34,23 +42,16 @@ const EventsSection = () => {
     }
   };
 
-  console.log('EVENTOBIIIIII', events);
-  const liveEvents = useMemo(() => getLiveEvents(events), []);
-  console.log('LIVE EVENTS', liveEvents);
-  const nextEvents = useMemo(() => getNextEvents(events), []);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const currentEventRefs = useRef<(HTMLDivElement | null)[]>([]);
   const nextEventRefs = useRef<(HTMLDivElement | null)[]>([]);
   const container = containerRef.current;
 
   useEffect(() => {
-    if (lecturesTab === Tabs.U_Tijeku) {
-      setDisplayedEvents(liveEvents);
-    } else if (lecturesTab === Tabs.Nadolazece) {
-      setDisplayedEvents(nextEvents);
-    }
-  }, [lecturesTab, liveEvents, nextEvents]);
+    setDisplayedEvents(
+      eventTabs.find((tab) => tab.label === lecturesTab)?.events || [],
+    );
+  }, [eventTabs, lecturesTab]);
 
   useEffect(() => {
     if (!container) return;
@@ -76,7 +77,7 @@ const EventsSection = () => {
     items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
-  }, [container, liveEvents, nextEvents, displayedEvents]);
+  }, [container, displayedEvents]);
 
   const handleDotClick = (index: number) => {
     setSnappedCardIndex(index);
@@ -162,4 +163,4 @@ const EventsSection = () => {
     </section>
   );
 };
-export default EventsSection;
+export default EventsScroller;

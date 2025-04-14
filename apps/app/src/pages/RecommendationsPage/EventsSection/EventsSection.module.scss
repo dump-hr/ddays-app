@@ -1,7 +1,11 @@
 .lectures {
   --spacing: 32px;
-  --padding: 0;
+  --padding: 24px;
   --card-width: calc(100% - 2 * var(--padding));
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    --padding: 0;
+  }
 
   box-sizing: border-box;
   padding: 16px var(--padding);
