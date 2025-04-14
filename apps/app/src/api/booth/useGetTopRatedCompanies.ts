@@ -11,7 +11,7 @@ const getTopRatedCompanies = async (): Promise<
 
 export const useGetTopRatedCompanies= () => {
   return useQuery<CompanyPublicDto[]>(
-    [QUERY_KEYS.userTransactions],
+    [QUERY_KEYS.topRatedCompanies],
     getTopRatedCompanies,
   );
 };
