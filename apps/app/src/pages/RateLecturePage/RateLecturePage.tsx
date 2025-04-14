@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
+import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 
 enum RatingType {
   THEME = 'generalImpression',
@@ -69,6 +70,21 @@ export const RateLecturePage = () => {
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </Link>
           </div>
+          <LectureRatingCard
+            id='lecture-card'
+            className={c.customLectureCard}
+            name='Od CV-a do tehničkog intervjua: Kako impresionirati potencijalnog poslodavca'
+            theme='DEV'
+            type='LECTURE'
+            speakers={[
+              {
+                firstName: 'DAVOR',
+                lastName: 'BRUKETA',
+                title: 'FOUNDER & CREATIVE DIRECTOR',
+                companyName: 'BRUKETA&ŽINIĆ',
+              },
+            ]}
+          />
           <div className={c.ratingContainer}>
             {RATING_QUESTIONS.map((question) => (
               <RatingQuestion
