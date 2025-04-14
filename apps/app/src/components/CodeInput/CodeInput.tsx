@@ -35,12 +35,6 @@ const CodeInput: React.FC<CodeInputProps> = ({
     }
   }
 
-  useEffect(() => {
-    if (shouldFocus && inputRefs.current[0]) {
-      inputRefs.current[0].focus();
-    }
-  }, [shouldFocus]);
-
   function unfocusInputs() {
     inputRefs.current.forEach((input) => {
       if (input) {
@@ -49,45 +43,29 @@ const CodeInput: React.FC<CodeInputProps> = ({
     });
   }
 
-  function handleKeyDown(
-    e: React.KeyboardEvent<HTMLInputElement>,
+  useEffect(() => {
+    if (shouldFocus && inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, [shouldFocus]);
+
+  function handleOnChange(
+    e: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) {
-    e.preventDefault();
     setIsError(false);
-    switch (e.key) {
-      case 'Backspace':
-        if (code[index] !== '') editChar(index, '');
-        if (index > 0) {
-          focusInput(index - 1);
-        }
-        break;
-      case 'ArrowLeft':
-        if (index > 0) {
-          focusInput(index - 1);
-        }
-        break;
-      case 'ArrowRight':
-        if (index < code.length - 1) {
-          focusInput(index + 1);
-        }
-        break;
-      default:
-        if (e.key.length > 1) {
-          return;
-        }
+    const { value } = e.target;
+    editChar(index, value);
 
-        if (index < code.length - 1) {
-          focusInput(index + 1);
-        }
+    if (index === code.length - 1 && value !== '') {
+      unfocusInputs();
+    }
 
-        if (index === code.length - 1) {
-          unfocusInputs();
-        }
-
-        editChar(index, e.key);
-
-        break;
+    if (index !== code.length - 1 && value !== '') {
+      focusInput(index + 1);
+    }
+    if (index > 0 && value === '') {
+      focusInput(index - 1);
     }
   }
 
@@ -104,7 +82,8 @@ const CodeInput: React.FC<CodeInputProps> = ({
             [c.isError]: isError,
           })}
           ref={(el) => (inputRefs.current[i] = el)}
-          onKeyDown={(e) => handleKeyDown(e, i)}
+          onChange={(e) => handleOnChange(e, i)}
+          onFocus={() => setIsError(false)}
         />
       ))}
     </div>

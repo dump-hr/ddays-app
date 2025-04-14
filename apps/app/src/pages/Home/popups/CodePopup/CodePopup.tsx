@@ -30,12 +30,18 @@ const CodePopup: React.FC<CodePopupProps> = ({
     }
   }
 
+  function handleClosePopup() {
+    closePopup();
+    setCode(Array(6).fill(''));
+    setIsError(false);
+  }
+
   return (
     <PopupLayout
       variant='light'
       desktopStyle='stretch'
       headerTitleComponent='UNESI KOD'
-      closePopup={closePopup}
+      closePopup={handleClosePopup}
       isOpen={isOpen}>
       <CodeInput
         code={code}
