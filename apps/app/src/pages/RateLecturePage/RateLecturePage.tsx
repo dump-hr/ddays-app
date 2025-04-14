@@ -8,9 +8,9 @@ import { useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 
 enum RatingType {
-  THEME = 'generalImpression',
-  PRESENTATION_SKILLS = 'standContent',
-  RELEVANCE = 'exhibitors',
+  THEME = 'general',
+  PRESENTATION_SKILLS = 'presentation',
+  RELEVANCE = 'isUseful',
 }
 
 interface RatingAnswers {
