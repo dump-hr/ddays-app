@@ -1,9 +1,11 @@
 .codeInput {
   margin-top: 82px;
+  height: 77px;
 
   @media screen and (min-width: $breakpoint-tablet) {
     max-width: 642px;
     margin-top: 48px;
+    height: 112px;
   }
 }
 
