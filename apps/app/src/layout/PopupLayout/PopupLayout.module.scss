@@ -66,7 +66,7 @@ div.between {
   @include roundedContainer();
   height: 100%;
   width: 579px;
-  //gap: 2rem; --> mislim da je ovo nepotrebno a utjece na cili content
+  gap: 2rem;
   padding: 40px 48px 48px;
   margin-top: 1.5rem;
   position: relative;
