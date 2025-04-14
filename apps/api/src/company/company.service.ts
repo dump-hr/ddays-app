@@ -1,4 +1,5 @@
 import {
+  CompanyCategory,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -48,6 +49,41 @@ export class CompanyService {
     return companies.map((company) => ({
       ...company,
       booth: company.booth?.name || null,
+    }));
+  }
+
+  async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
+    const topCompanies: CompanyPublicDto[] = await this.prisma.$queryRaw`
+      SELECT 
+        c.id,
+        c.category,
+        c.name,
+        c.description,
+        c."opportunitiesDescription", 
+        c."websiteUrl",
+        c."instagramUrl",
+        c."linkedinUrl",
+        b.name as booth,
+        COALESCE(AVG(CAST((r.grades->>'value') AS DECIMAL)), 0) as averageRating
+      FROM "Booth" b
+      JOIN "Company" c ON b."companyId" = c.id
+      LEFT JOIN "Rating" r ON r."boothId" = b.id
+      GROUP BY c.id, b.id
+      ORDER BY averageRating DESC
+      LIMIT 5
+    `;
+
+    return topCompanies.map((company) => ({
+      id: company.id,
+      category: company.category as CompanyCategory,
+      name: company.name,
+      description: company.description,
+      opportunitiesDescription: company.opportunitiesDescription,
+      website: company.websiteUrl,
+      instagram: company.instagramUrl,
+      linkedin: company.linkedinUrl,
+      booth: company.booth,
+      averageRating: Number(company.averageRating),
     }));
   }
 
