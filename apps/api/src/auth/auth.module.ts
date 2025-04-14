@@ -7,6 +7,7 @@ import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './sponsor.strategy';
+import { UserJwtStrategy } from './user.strategy';
 
 @Module({
   imports: [
@@ -17,6 +18,12 @@ import { JwtStrategy } from './sponsor.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AzureADStrategy, AuthService, JwtStrategy, PrismaService],
+  providers: [
+    AzureADStrategy,
+    AuthService,
+    JwtStrategy,
+    UserJwtStrategy,
+    PrismaService,
+  ],
 })
 export class AuthModule {}

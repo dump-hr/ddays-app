@@ -3,7 +3,10 @@ import ThumbnailTemp from '../../assets/images/thumbnailUrl-temp.png';
 import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-
+import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+/* import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png'; */
+import Button from '@/components/Button';
+import styles from './TestPage.module.scss';
 const event = {
   id: 1,
   name: 'Tech Innovations Summit',
@@ -119,6 +122,7 @@ const event = {
 
 const TestPage = () => {
   const [isAddedToSchedule, setIsAddedToSchedule] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
   return (
     <>
       <ScheduleCard
@@ -126,6 +130,52 @@ const TestPage = () => {
         isAddedToSchedule={isAddedToSchedule}
         clickHandler={() => setIsAddedToSchedule((prev) => !prev)}
       />
+      {/* <PopupLayout
+        variant='dark'
+        headerTitleComponent={<>Obriši račun</>}
+        closePopup={() => setIsPopupOpen(false)}
+        isOpen={isPopupOpen}
+        imgSrc={DuckGoodbyeImg}>
+        <div className={styles.contentDiv}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <h2>Jesi li siguran da želiš obrisati račun?</h2>
+            <p>
+              Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
+              svi tvoji bodovi i postignuća bit će izgubljeni.
+            </p>
+          </div>
+          <Button variant='orange' style={{ width: '100%' }}>
+            Svejedno obriši
+          </Button>
+        </div>
+      </PopupLayout> */}
+      <PopupLayout
+        variant='light'
+        headerTitleComponent={<>Unesi kod</>}
+        closePopup={() => setIsPopupOpen(false)}
+        isOpen={isPopupOpen}
+        opacity={0.9}
+        desktopStyle='normal'>
+        <div className={styles.contentDiv}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem',
+              height: '200px',
+            }}>
+            <h2>Jesi li siguran da želiš obrisati račun?</h2>
+            <p>
+              Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
+              svi tvoji bodovi i postignuća bit će izgubljeni.
+            </p>
+          </div>
+          <Button variant='orange' style={{ width: '100%' }}>
+            Svejedno obriši
+          </Button>
+        </div>
+      </PopupLayout>
     </>
   );
 };

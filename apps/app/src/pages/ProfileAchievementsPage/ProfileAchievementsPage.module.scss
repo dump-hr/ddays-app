@@ -1,0 +1,121 @@
+.page {
+  background-color: $primary-black;
+  box-sizing: border-box;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 0 24px 24px;
+  }
+}
+
+.header {
+  color: white;
+  box-sizing: border-box;
+  padding: 64px 24px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .flexWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .title {
+      @include heading-2;
+      span {
+        color: $black-70;
+        text-transform: uppercase;
+      }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: column-reverse;
+      align-items: center;
+
+      .title {
+        text-align: center;
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 22px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      flex-direction: row;
+      gap: 32px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  min-height: 100vh; // Ako je mali broj postignuca da ne bude prenizak page
+  background-color: white;
+  border-radius: 16px 16px 0px 0px;
+
+  box-sizing: border-box;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 16px 0;
+    border-radius: 16px;
+    align-items: center;
+
+    .tabGroup,
+    .achievementsWrapper {
+      width: 640px;
+    }
+  }
+
+  .mainHeader {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .arrowLeft {
+      position: absolute;
+      left: 0;
+      cursor: pointer;
+    }
+
+    .title {
+      color: $primary-black;
+      font-family: NeueMachina;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .achievementsWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 24px;
+    }
+  }
+}

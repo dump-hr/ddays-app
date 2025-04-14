@@ -1,0 +1,131 @@
+div.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #171615;
+  z-index: 5;
+  padding: 1.5rem 0;
+  @media screen and (max-width: $breakpoint-tablet) {
+    align-items: flex-end;
+    padding: 0;
+  }
+}
+
+.closeIconDesktop {
+  cursor: pointer;
+  position: absolute;
+  top: 24px;
+  right: 48px;
+  z-index: 10;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+div.alignItemsEnd {
+  align-items: flex-end;
+}
+
+div.closed {
+  display: none;
+}
+
+div.light {
+  background-color: $primary-background;
+  color: $black-90;
+}
+
+div.dark {
+  background-color: $black-90;
+  color: $primary-white;
+}
+
+div.center {
+  justify-content: center;
+}
+
+div.start {
+  justify-content: flex-start;
+}
+
+div.end {
+  justify-content: flex-end;
+}
+
+div.between {
+  justify-content: space-between;
+}
+
+.desktopNormal {
+  @include roundedContainer();
+  height: 100%;
+  width: 579px;
+  gap: 2rem;
+  padding: 40px 48px 48px;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.desktopStretch {
+  @include roundedContainer();
+  gap: 2rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.container {
+  min-height: 610px;
+  @media screen and (max-width: $breakpoint-tablet) {
+    justify-content: flex-start;
+    width: 100vw;
+    min-height: unset;
+    padding: 1.5rem;
+    margin-top: 0;
+    max-height: 734px;
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &Title {
+    @include heading-2;
+    font-weight: 500;
+    font-size: 30px;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      font-size: 24px;
+    }
+  }
+
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      position: static;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.popupImageContainer {
+  width: 212px;
+  height: 212px;
+  margin-bottom: 1rem;
+}

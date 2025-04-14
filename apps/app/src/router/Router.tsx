@@ -22,7 +22,10 @@ import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
-import RecommendationsPage from '@/pages/RecommendationsPage';
+import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { RateCompanyPage } from '../pages/RateCompanyPage';
+import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
+import { RewardsPage } from '@/pages/RewardsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,23 +39,27 @@ const router = createBrowserRouter(
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
+      <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>
           <Route index element={<ProfilePage />} />
           <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
-          <Route path={RouteNames.PROFILE_REWARDS} element={<></>} />
+          <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
             path={RouteNames.PROFILE_SETTINGS}
             element={<SettingsPage />}
           />
-          <Route path={RouteNames.PROFILE_ACHIEVEMENTS} element={<></>} />
-          <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
-          <Route path={RouteNames.PROFILE_LEADERBOARD} element={<></>} />
           <Route
-            path={RouteNames.PROFILE_RECOMMENDATIONS}
-            element={<RecommendationsPage />}
+            path={RouteNames.PROFILE_ACHIEVEMENTS}
+            element={<ProfileAchievementsPage />}
           />
+          <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_LEADERBOARD}
+            element={<ProfileLeaderboardPage />}
+          />
+          <Route path={RouteNames.PROFILE_RECOMMENDATIONS} element={<></>} />
         </Route>
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
