@@ -1,3 +1,4 @@
+import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
 
 const JobOffersTab = () => {
@@ -13,6 +14,7 @@ const JobOffersTab = () => {
           Prijavi se - možda je baš jedna od ovih prilika idealna za tebe!
         </p>
       </div>
+      <SearchBar placeholder='Pretraži poslove' />
     </section>
   );
 };
