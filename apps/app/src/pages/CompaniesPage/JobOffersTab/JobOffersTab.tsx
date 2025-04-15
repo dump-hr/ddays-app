@@ -1,5 +1,7 @@
 import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
+import { jobOffers } from './jobOffers';
+import JobOfferButton from '@/components/JobOfferButton';
 
 const JobOffersTab = () => {
   return (
@@ -15,6 +17,9 @@ const JobOffersTab = () => {
         </p>
       </div>
       <SearchBar placeholder='Pretraži poslove' />
+      {jobOffers.map((job) => (
+        <JobOfferButton job={job} />
+      ))}
     </section>
   );
 };
