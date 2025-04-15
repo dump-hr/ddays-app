@@ -4,9 +4,11 @@ import { jobOffers } from './jobOffers';
 import JobOfferButton from '@/components/JobOfferButton';
 import { useState } from 'react';
 import { getCompanyName } from '@/helpers/getCompanyInfo';
+import JobOfferPopup from '../popups/JobOfferPopup';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <section className={c.section}>
@@ -35,9 +37,14 @@ const JobOffersTab = () => {
                 .includes(query.toUpperCase()),
           )
           .map((job) => (
-            <JobOfferButton job={job} />
+            <JobOfferButton job={job} onClick={() => setModalIsOpen(true)} />
           ))}
       </div>
+
+      <JobOfferPopup
+        isOpen={modalIsOpen}
+        closePopup={() => setModalIsOpen(false)}
+      />
     </section>
   );
 };

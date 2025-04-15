@@ -6,15 +6,16 @@ import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 
 type JobOfferButtonProps = {
   job: JobDto;
+  onClick?: () => void;
 };
 
-const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job }) => {
+const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job, onClick }) => {
   /**
    * Ideja je da se samo salje JobDto. Po volji ekstrahirat propove posebno.
    */
 
   return (
-    <div className={c.jobOfferButton}>
+    <div className={c.jobOfferButton} onClick={onClick}>
       <div className={c.logoWrapper}>
         <img src={getCompanyLogo(job.companyId)} alt='' />
       </div>
