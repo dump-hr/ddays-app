@@ -1,8 +1,8 @@
 import c from './JobOfferButton.module.scss';
 
 import { JobDto } from '@ddays-app/types';
-import ProficoLogo from '@/assets/images/Profico.svg';
 import ArrowRight from '@/assets/icons/arrow-right-sm-squared.svg';
+import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 
 type JobOfferButtonProps = {
   job: JobDto;
@@ -12,14 +12,6 @@ const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job }) => {
   /**
    * Ideja je da se samo salje JobDto. Po volji ekstrahirat propove posebno.
    */
-  function getCompanyName(companyId: number) {
-    return `Profico (${companyId})`;
-  }
-
-  function getCompanyLogo(companyId: number) {
-    if (companyId) return ProficoLogo;
-    return ProficoLogo;
-  }
 
   return (
     <div className={c.jobOfferButton}>

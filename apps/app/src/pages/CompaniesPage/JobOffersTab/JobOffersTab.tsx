@@ -2,8 +2,12 @@ import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
 import { jobOffers } from './jobOffers';
 import JobOfferButton from '@/components/JobOfferButton';
+import { useState } from 'react';
+import { getCompanyName } from '@/helpers/getCompanyInfo';
 
 const JobOffersTab = () => {
+  const [query, setQuery] = useState('');
+
   return (
     <section className={c.section}>
       <div className={c.introduction}>
@@ -16,11 +20,23 @@ const JobOffersTab = () => {
           Prijavi se - možda je baš jedna od ovih prilika idealna za tebe!
         </p>
       </div>
-      <SearchBar placeholder='Pretraži poslove' />
+      <SearchBar
+        placeholder='Pretraži poslove'
+        value={query}
+        onChange={(e) => setQuery(e.currentTarget.value)}
+      />
       <div className={c.jobOffersWrapper}>
-        {jobOffers.map((job) => (
-          <JobOfferButton job={job} />
-        ))}
+        {jobOffers
+          .filter(
+            (job) =>
+              job.position.toUpperCase().includes(query.toUpperCase()) ||
+              getCompanyName(job.companyId)
+                .toUpperCase()
+                .includes(query.toUpperCase()),
+          )
+          .map((job) => (
+            <JobOfferButton job={job} />
+          ))}
       </div>
     </section>
   );
