@@ -17,9 +17,11 @@ const JobOffersTab = () => {
         </p>
       </div>
       <SearchBar placeholder='Pretraži poslove' />
-      {jobOffers.map((job) => (
-        <JobOfferButton job={job} />
-      ))}
+      <div className={c.jobOffersWrapper}>
+        {jobOffers.map((job) => (
+          <JobOfferButton job={job} />
+        ))}
+      </div>
     </section>
   );
 };

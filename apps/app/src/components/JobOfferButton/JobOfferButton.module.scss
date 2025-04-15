@@ -1,0 +1,14 @@
+.jobOfferButton {
+  display: flex;
+  gap: 12px;
+
+  .logoWrapper {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: $primary-black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

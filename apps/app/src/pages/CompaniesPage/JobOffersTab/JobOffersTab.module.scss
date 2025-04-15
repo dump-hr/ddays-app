@@ -17,4 +17,11 @@
       @include paragraph-16;
     }
   }
+
+  .jobOffersWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 40px;
+  }
 }
