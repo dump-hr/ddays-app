@@ -1,8 +1,19 @@
+import c from './JobOffersTab.module.scss';
+
 const JobOffersTab = () => {
   return (
-    <>
-      <p>Job Offers</p>
-    </>
+    <section className={c.section}>
+      <div className={c.introduction}>
+        <h3 className={c.sectionTitle}>Otvorene pozicije</h3>
+        <p className={c.paragraph}>
+          Tražiš posao i ne znaš odakle krenuti? Pogledaj otvorene pozicije i
+          pronađi priliku koja odgovara tvojim interesima.
+        </p>
+        <p className={c.paragraph}>
+          Prijavi se - možda je baš jedna od ovih prilika idealna za tebe!
+        </p>
+      </div>
+    </section>
   );
 };
 

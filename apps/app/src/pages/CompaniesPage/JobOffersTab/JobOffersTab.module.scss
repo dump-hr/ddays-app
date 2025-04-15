@@ -1,0 +1,19 @@
+.section {
+  color: $primary-black;
+  padding: 32px 24px;
+
+  .introduction {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .sectionTitle {
+      @include heading-2;
+      font-weight: 500;
+    }
+
+    .paragraph {
+      @include paragraph-16;
+    }
+  }
+}
