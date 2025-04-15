@@ -12,6 +12,10 @@
       font-weight: 500;
       text-transform: uppercase;
       margin: 64px auto 16px 24px;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        margin: 80px auto 40px;
+      }
     }
   }
 
