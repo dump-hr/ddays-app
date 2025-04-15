@@ -19,11 +19,12 @@ export const CompaniesPage = () => {
         <h2 className={c.title}>Tvrtke</h2>
       </header>
       <main className={c.main}>
-        <TabGroup setter={setSelectedTab}>
+        <TabGroup setter={setSelectedTab} className={c.tabGroup}>
           <Tab id={TABS.TVRTKE}>Tvrtke</Tab>
           <Tab id={TABS.OGLASI}>Oglasi</Tab>
         </TabGroup>
         {selectedTab === TABS.TVRTKE && <CompaniesTab />}
+
         {selectedTab === TABS.OGLASI && <JobOffersTab />}
       </main>
     </div>
