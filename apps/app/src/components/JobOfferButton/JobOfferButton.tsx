@@ -2,6 +2,7 @@ import c from './JobOfferButton.module.scss';
 
 import { JobDto } from '@ddays-app/types';
 import ProficoLogo from '@/assets/images/Profico.svg';
+import ArrowRight from '@/assets/icons/arrow-right-sm-squared.svg';
 
 type JobOfferButtonProps = {
   job: JobDto;
@@ -26,8 +27,14 @@ const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job }) => {
         <img src={getCompanyLogo(job.companyId)} alt='' />
       </div>
       <div className={c.mainContent}>
-        <h4>{getCompanyName(job.companyId)}</h4>
-        <p>{job.position}</p>
+        <div className={c.arrowWrapper}>
+          <div className={c.positionWrapper}>
+            <h4 className={c.companyName}>{getCompanyName(job.companyId)}</h4>
+            <p className={c.position}>{job.position}</p>
+          </div>
+          <img src={ArrowRight} />
+        </div>
+        <div className={c.dottedBreak} />
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 .jobOfferButton {
   display: flex;
   gap: 12px;
+  color: $primary-black;
+  cursor: pointer;
 
   .logoWrapper {
     width: 28px;
@@ -10,5 +12,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .mainContent {
+    width: 100%;
+
+    .arrowWrapper {
+      display: flex;
+      justify-content: space-between;
+
+      .positionWrapper {
+        display: flex;
+        flex-direction: column;
+
+        .companyName {
+          @include heading-3;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        .position {
+          color: $black-50;
+          font-family: NeueMontrealMono;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 16px;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .dottedBreak {
+      height: 1px;
+      width: 100%;
+      @include dottedBreak();
+      margin-top: 12px;
+    }
   }
 }
