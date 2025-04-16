@@ -16,7 +16,6 @@ export type UserModifyDto = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
   phoneNumber: string;
   birthYear: number;
   educationDegree?: string;
