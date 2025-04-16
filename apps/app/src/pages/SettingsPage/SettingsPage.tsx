@@ -12,6 +12,7 @@ import { EditProfileSection } from './sections/EditProfileSection';
 import { ChangePassword } from './sections/ChangePassword';
 import { SettingsHeader } from './sections/SettingsHeader';
 import { RegistrationProvider } from '@/context/RegistrationContext';
+import { UserProvider } from '@/context/UserContext';
 
 const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,43 +35,47 @@ const SettingsPage = () => {
     <div className={styles.wrapper}>
       <div className={styles.settingsWrapper}>
         <div className={styles.settingsContainer}>
-          <RegistrationProvider>
-            <SettingsHeader
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              isChangingPassword={isChangingPassword}
-              setIsChangingPassword={setIsChangingPassword}
-            />
-            <div className={styles.settingsContent}>
-              {!isChangingPassword ? (
-                <EditProfileSection
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                />
-              ) : (
-                <ChangePassword setIsChangingPassword={setIsChangingPassword} />
-              )}
+          <UserProvider>
+            <RegistrationProvider>
+              <SettingsHeader
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                isChangingPassword={isChangingPassword}
+                setIsChangingPassword={setIsChangingPassword}
+              />
+              <div className={styles.settingsContent}>
+                {!isChangingPassword ? (
+                  <EditProfileSection
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                  />
+                ) : (
+                  <ChangePassword
+                    setIsChangingPassword={setIsChangingPassword}
+                  />
+                )}
 
-              {!isEditing && !isChangingPassword && (
-                <div className={styles.settingsButtonsContainer}>
-                  <SettingsButton
-                    icon={LockIcon}
-                    variant={'grey'}
-                    onClick={() => {
-                      setIsChangingPassword(true);
-                    }}>
-                    Promjeni lozinku
-                  </SettingsButton>
-                  <SettingsButton
-                    icon={ThrashIcon}
-                    variant={'red'}
-                    onClick={() => handleDeleteAccount()}>
-                    Obriši račun
-                  </SettingsButton>
-                </div>
-              )}
-            </div>
-          </RegistrationProvider>
+                {!isEditing && !isChangingPassword && (
+                  <div className={styles.settingsButtonsContainer}>
+                    <SettingsButton
+                      icon={LockIcon}
+                      variant={'grey'}
+                      onClick={() => {
+                        setIsChangingPassword(true);
+                      }}>
+                      Promjeni lozinku
+                    </SettingsButton>
+                    <SettingsButton
+                      icon={ThrashIcon}
+                      variant={'red'}
+                      onClick={() => handleDeleteAccount()}>
+                      Obriši račun
+                    </SettingsButton>
+                  </div>
+                )}
+              </div>
+            </RegistrationProvider>
+          </UserProvider>
         </div>
       </div>
     </div>
