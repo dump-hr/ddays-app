@@ -108,6 +108,13 @@
     }
   }
 
+  .tabGroup {
+    margin-top: 24px;
+    @media screen and (min-width: $breakpoint-tablet) {
+      margin-top: 0;
+    }
+  }
+
   .difficultyLabel {
     display: flex;
     align-items: center;
