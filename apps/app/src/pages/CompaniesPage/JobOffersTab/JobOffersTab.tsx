@@ -5,10 +5,17 @@ import JobOfferButton from '@/components/JobOfferButton';
 import { useState } from 'react';
 import { getCompanyName } from '@/helpers/getCompanyInfo';
 import JobOfferPopup from '../popups/JobOfferPopup';
+import { JobDto } from '@ddays-app/types';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalJobOffer, setModalJobOffer] = useState<JobDto | null>(null);
+
+  function handleModalOpen(job: JobDto) {
+    setModalJobOffer(job);
+    setModalIsOpen(true);
+  }
 
   return (
     <section className={c.section}>
@@ -37,13 +44,14 @@ const JobOffersTab = () => {
                 .includes(query.toUpperCase()),
           )
           .map((job) => (
-            <JobOfferButton job={job} onClick={() => setModalIsOpen(true)} />
+            <JobOfferButton job={job} onClick={() => handleModalOpen(job)} />
           ))}
       </div>
 
       <JobOfferPopup
         isOpen={modalIsOpen}
         closePopup={() => setModalIsOpen(false)}
+        job={modalJobOffer}
       />
     </section>
   );
