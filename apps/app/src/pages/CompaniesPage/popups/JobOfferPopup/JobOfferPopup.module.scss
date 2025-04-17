@@ -4,6 +4,10 @@
   flex-direction: column;
   gap: 18px;
 
+  @media screen and (min-width: $breakpoint-mobile) {
+    display: none;
+  }
+
   .contentWrapper {
     display: flex;
     justify-content: space-between;
@@ -33,17 +37,27 @@
 }
 
 .main {
+  width: 100%;
+  overflow-y: auto;
   .position {
     color: #fff;
     @include heading-1;
     font-weight: 500;
     text-transform: uppercase;
     margin-bottom: 24px;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+      display: none;
+    }
   }
 
   .details {
     color: rgba($primary-white, 0.8);
     @include paragraph-16;
+
+    @media screen and (min-width: $breakpoint-mobile) {
+      color: $black-90;
+    }
   }
 
   .listSection {
@@ -55,6 +69,11 @@
       text-transform: uppercase;
       font-weight: 500;
       margin: 48px 0 24px 0;
+
+      @media screen and (min-width: $breakpoint-mobile) {
+        color: $black-90;
+        margin: 32px 0 16px 0;
+      }
     }
 
     .list {
@@ -63,9 +82,17 @@
       gap: 12px;
       margin: 0;
 
+      @media screen and (min-width: $breakpoint-mobile) {
+        gap: 6px;
+      }
+
       .item {
         color: #e9e9ec;
         @include paragraph-16;
+
+        @media screen and (min-width: $breakpoint-mobile) {
+          color: $black-90;
+        }
       }
     }
   }
