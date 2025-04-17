@@ -12,7 +12,11 @@ import { useInputHandlers } from '@/hooks/useInputHandlers';
 import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields, passwordInputs } from '../inputs';
-import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
+import {
+  allFieldsAreFilled,
+  validateField,
+  validateRepeatedPassword,
+} from '@/helpers/validateInput';
 import { useChangeUserPassword } from '@/api/user/useChangeUserPassword';
 
 interface ChangePasswordProps {
@@ -23,8 +27,8 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   setIsChangingPassword,
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { userSettingsData, updateUserSettingsData } = useUserContext();
-  const { handleInputChange } = useInputHandlers(updateUserSettingsData);
+  const { passwordInputsData, updatePasswordInputsData } = useUserContext();
+  const { handleInputChange } = useInputHandlers(updatePasswordInputsData);
 
   const { errors, clearStepErrors, setStepErrors, isStepValid } =
     useRegistration();
@@ -35,9 +39,18 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     changePasswordFields.forEach((key) => {
-      const error = validateField(key, userSettingsData[key], userSettingsData);
+      const error = validateField(key, passwordInputsData[key]);
       newErrors[key] = error || '';
     });
+
+    const passwordsMatchError = validateRepeatedPassword(
+      passwordInputsData.newPassword,
+      passwordInputsData.repeatedPassword,
+    );
+
+    if (passwordsMatchError) {
+      newErrors.repeatedPassword = passwordsMatchError;
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setStepErrors(SettingsEdits.PASSWORD, newErrors);
@@ -49,10 +62,10 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   useEffect(() => {
     if (
       isSubmitted ||
-      allFieldsAreFilled(changePasswordFields, userSettingsData)
+      allFieldsAreFilled(changePasswordFields, passwordInputsData)
     )
       validateChangePassword();
-  }, [userSettingsData, isSubmitted]);
+  }, [passwordInputsData, isSubmitted]);
 
   const handleSaveClick = () => {
     setIsSubmitted(true);
@@ -64,8 +77,8 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
     }
 
     updateUserPasswordMutation.mutate({
-      currentPassword: userSettingsData.password ?? '',
-      newPassword: userSettingsData.newPassword ?? '',
+      currentPassword: passwordInputsData.password ?? '',
+      newPassword: passwordInputsData.newPassword ?? '',
     });
 
     setPasswordInputsToDefault();
@@ -73,7 +86,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   };
 
   const setPasswordInputsToDefault = () => {
-    updateUserSettingsData({
+    updatePasswordInputsData({
       password: '',
       newPassword: '',
       repeatedPassword: '',
@@ -90,7 +103,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
               name={input.name}
               type={input.type}
               placeholder={input.placeholder}
-              value={userSettingsData[input.name]?.toString()}
+              value={passwordInputsData[input.name]?.toString()}
               onChange={handleInputChange}
               error={
                 isSubmitted ? errors[SettingsEdits.PASSWORD]?.[input.name] : ''

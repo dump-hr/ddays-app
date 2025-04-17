@@ -49,7 +49,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     editProfileFields.forEach((key) => {
-      const error = validateField(key, userSettingsData[key], userSettingsData);
+      const error = validateField(key, userSettingsData[key]);
       newErrors[key] = error || '';
     });
 
@@ -82,9 +82,6 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     setIsEditing(false);
     const userDataToSend = { ...userSettingsData };
 
-    delete userDataToSend[UserDataFields.Password];
-    delete userDataToSend[UserDataFields.NewPassword];
-    delete userDataToSend[UserDataFields.RepeatedPassword];
     updateUserMutation.mutate(userDataToSend as UserModifyDto);
   };
 

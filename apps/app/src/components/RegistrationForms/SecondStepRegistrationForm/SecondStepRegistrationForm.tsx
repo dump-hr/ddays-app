@@ -12,8 +12,9 @@ import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
 import { UserDataFields } from '../../../types/enums';
 import { useRegistration } from '../../../providers/RegistrationContext';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
+import { RegistrationDto } from '@/types/user/user';
 
-type UserData = {
+/* type UserData = {
   phoneNumber: string;
   birthYear: number | null;
   educationDegree: string | null;
@@ -21,11 +22,11 @@ type UserData = {
   newsletterEnabled: boolean;
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled: boolean;
-};
+}; */
 
 type Props = {
-  userData: UserData;
-  updateUserData: (newData: Partial<UserData>) => void;
+  userData: Partial<RegistrationDto>;
+  updateUserData: (newData: Partial<RegistrationDto>) => void;
   isSubmitted: boolean;
 };
 
@@ -36,7 +37,7 @@ export const SecondStepRegistrationForm = ({
 }: Props) => {
   const { errors, clearStepErrors, setStepErrors } = useRegistration();
 
-  const secondStepFields: (keyof UserData)[] = [
+  const secondStepFields: (keyof Partial<RegistrationDto>)[] = [
     UserDataFields.PhoneNumber,
     UserDataFields.BirthYear,
     UserDataFields.EducationDegree,
@@ -73,7 +74,7 @@ export const SecondStepRegistrationForm = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     secondStepFields.forEach((key) => {
-      const error = validateField(key, userData[key], userData);
+      const error = validateField(key, userData[key]);
       newErrors[key] = error || '';
     });
 

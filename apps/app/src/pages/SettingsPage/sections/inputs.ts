@@ -1,15 +1,15 @@
-import { UserProfileFields } from '@/types/enums';
-import { ProfileSettingsDto } from '@/types/user/user';
+import { ChangePasswordFields, UserProfileFields } from '@/types/enums';
+import { PasswordInputs, ProfileSettingsDto } from '@/types/user/user';
 
 type InputType = 'text' | 'email' | 'password';
 
-type Input = {
-  name: UserProfileFields;
+type Input<T> = {
+  name: T;
   placeholder: string;
   type: InputType | undefined;
 };
 
-export const textInputs: Input[] = [
+export const textInputs: Input<UserProfileFields>[] = [
   {
     name: UserProfileFields.FirstName,
     placeholder: 'Ime',
@@ -37,19 +37,19 @@ export const textInputs: Input[] = [
   },
 ];
 
-export const passwordInputs: Input[] = [
+export const passwordInputs: Input<ChangePasswordFields>[] = [
   {
-    name: UserProfileFields.Password,
+    name: ChangePasswordFields.Password,
     placeholder: 'Trenutna lozinka',
     type: 'password',
   },
   {
-    name: UserProfileFields.NewPassword,
+    name: ChangePasswordFields.NewPassword,
     placeholder: 'Nova lozinka',
     type: 'password',
   },
   {
-    name: UserProfileFields.RepeatedPassword,
+    name: ChangePasswordFields.RepeatedPassword,
     placeholder: 'Potvrdi novu lozinku',
     type: 'password',
   },
@@ -116,8 +116,8 @@ export const editProfileFields: (keyof ProfileSettingsDto)[] = [
   UserProfileFields.Occupation,
 ];
 
-export const changePasswordFields: (keyof ProfileSettingsDto)[] = [
-  UserProfileFields.Password,
-  UserProfileFields.RepeatedPassword,
-  UserProfileFields.NewPassword,
+export const changePasswordFields: (keyof PasswordInputs)[] = [
+  ChangePasswordFields.Password,
+  ChangePasswordFields.RepeatedPassword,
+  ChangePasswordFields.NewPassword,
 ];
