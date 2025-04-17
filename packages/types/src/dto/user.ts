@@ -9,7 +9,6 @@ export type UserDto = {
   occupation: string | null;
   newsletterEnabled: boolean;
   companiesNewsEnabled: boolean;
-  termsAndConditionsEnabled: boolean;
 };
 
 export type UserModifyDto = {
@@ -17,10 +16,31 @@ export type UserModifyDto = {
   lastName: string;
   email: string;
   phoneNumber: string;
-  birthYear: number;
-  educationDegree?: string;
-  occupation?: string;
+  birthYear: number | null;
+  educationDegree: string | null;
+  occupation: string | null;
   newsletterEnabled?: boolean;
   companiesNewsEnabled?: boolean;
   isConfirmed?: boolean;
+  isDeleted?: boolean;
+};
+
+export type UserPublicDto = {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  birthYear: number | null;
+  educationDegree: string | null;
+  occupation: string | null;
+  newsletterEnabled: boolean;
+  companiesNewsEnabled: boolean;
+  isConfirmed: boolean;
+  isDeleted: boolean;
+}
+
+export type ChangeUserPasswordDto = {
+  currentPassword: string;
+  newPassword: string;
 };

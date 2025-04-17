@@ -1,37 +1,37 @@
-import { UserDataFields } from '@/types/enums';
-import { RegistrationDto } from '@/types/user/user';
+import { UserProfileFields } from '@/types/enums';
+import { ProfileSettingsDto } from '@/types/user/user';
 
 type InputType = 'text' | 'email' | 'password';
 
 type Input = {
-  name: UserDataFields;
+  name: UserProfileFields;
   placeholder: string;
   type: InputType | undefined;
 };
 
 export const textInputs: Input[] = [
   {
-    name: UserDataFields.FirstName,
+    name: UserProfileFields.FirstName,
     placeholder: 'Ime',
     type: 'text',
   },
   {
-    name: UserDataFields.LastName,
+    name: UserProfileFields.LastName,
     placeholder: 'Prezime',
     type: 'text',
   },
   {
-    name: UserDataFields.Email,
+    name: UserProfileFields.Email,
     placeholder: 'Email',
     type: 'email',
   },
   {
-    name: UserDataFields.PhoneNumber,
+    name: UserProfileFields.PhoneNumber,
     placeholder: 'Broj mobitela',
     type: 'text',
   },
   {
-    name: UserDataFields.BirthYear,
+    name: UserProfileFields.BirthYear,
     placeholder: 'Godina rođenja',
     type: 'text',
   },
@@ -39,17 +39,17 @@ export const textInputs: Input[] = [
 
 export const passwordInputs: Input[] = [
   {
-    name: UserDataFields.Password,
+    name: UserProfileFields.Password,
     placeholder: 'Trenutna lozinka',
     type: 'password',
   },
   {
-    name: UserDataFields.NewPassword,
+    name: UserProfileFields.NewPassword,
     placeholder: 'Nova lozinka',
     type: 'password',
   },
   {
-    name: UserDataFields.RepeatedPassword,
+    name: UserProfileFields.RepeatedPassword,
     placeholder: 'Potvrdi novu lozinku',
     type: 'password',
   },
@@ -57,15 +57,36 @@ export const passwordInputs: Input[] = [
 
 export const dropdownInputs = [
   {
-    name: UserDataFields.EducationDegree,
+    name: UserProfileFields.EducationDegree,
     placeholder: 'Stupanj obrazovanja',
     options: [
-      { value: 'Option 1', label: 'Option 1' },
-      { value: 'Option 2', label: 'Option 2' },
+      { value: 'Osnovno obrazovanje', label: 'Osnovno obrazovanje' },
+      {
+        value: 'Srednjoškolsko obrazovanje',
+        label: 'Srednjoškolsko obrazovanje',
+      },
+      { value: 'Stručni studiji', label: 'Stručni studiji' },
+      {
+        value: 'Sveučilišni preddiplomski studiji',
+        label: 'Sveučilišni preddiplomski studiji',
+      },
+      {
+        value: 'Sveučilišni diplomski studiji',
+        label: 'Sveučilišni diplomski studiji',
+      },
+      {
+        value: 'Specijalistički diplomski studij',
+        label: 'Specijalistički diplomski studij',
+      },
+      {
+        value: 'Poslijediplomski specijalistički studij',
+        label: 'Poslijediplomski specijalistički studij',
+      },
+      { value: 'Doktorski studij', label: 'Doktorski studij' },
     ],
   },
   {
-    name: UserDataFields.Occupation,
+    name: UserProfileFields.Occupation,
     placeholder: 'Trenutna okupacija',
     options: [
       { value: 'Option 1', label: 'Option 1' },
@@ -76,27 +97,27 @@ export const dropdownInputs = [
 
 export const checkboxInputs = [
   {
-    name: UserDataFields.NewsletterEnabled,
+    name: UserProfileFields.NewsletterEnabled,
     label: 'Želim primati novosti o DUMP Days konferenciji.',
   },
   {
-    name: UserDataFields.TermsAndConditionsEnabled,
+    name: UserProfileFields.CompaniesNewsEnabled,
     label: 'Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.',
   },
 ];
 
-export const editProfileFields: (keyof RegistrationDto)[] = [
-  UserDataFields.FirstName,
-  UserDataFields.LastName,
-  UserDataFields.Email,
-  UserDataFields.PhoneNumber,
-  UserDataFields.BirthYear,
-  UserDataFields.EducationDegree,
-  UserDataFields.Occupation,
+export const editProfileFields: (keyof ProfileSettingsDto)[] = [
+  UserProfileFields.FirstName,
+  UserProfileFields.LastName,
+  UserProfileFields.Email,
+  UserProfileFields.PhoneNumber,
+  UserProfileFields.BirthYear,
+  UserProfileFields.EducationDegree,
+  UserProfileFields.Occupation,
 ];
 
-export const changePasswordFields: (keyof RegistrationDto)[] = [
-  UserDataFields.Password,
-  UserDataFields.RepeatedPassword,
-  UserDataFields.NewPassword,
+export const changePasswordFields: (keyof ProfileSettingsDto)[] = [
+  UserProfileFields.Password,
+  UserProfileFields.RepeatedPassword,
+  UserProfileFields.NewPassword,
 ];
