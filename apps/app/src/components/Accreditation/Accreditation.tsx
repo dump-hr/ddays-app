@@ -2,12 +2,12 @@ import AccreditationTerminal from '@/assets/images/accreditation-terminal.png';
 import AccreditationPaperTexture from '@/assets/images/accreditaion-paper-texture.png';
 import AccreditationRippedPaper from '@/assets/images/accreditation-ripped-paper.png';
 import Logo from '@/assets/icons/logo.svg';
-import AccreditationRecieptText from '@/assets/icons/accreditation-reciept-text.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 import styles from './Accreditation.module.scss';
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import RecieptText from '../RecieptText';
 
 interface AccreditationProps {
   isOpen: boolean;
@@ -110,11 +110,15 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
               <img src={CloseIcon} alt='close' />
             </button>
           </div>
-          <img
-            className={styles.accreditationRecieptText}
-            src={AccreditationRecieptText}
-            alt='accreditation-reciept-text'
-          />
+              <RecieptText item={{
+                id: '123456789',
+                userId: 'user123', 
+                orderedAt: new Date(),
+                shopItem: {
+                  itemName: 'Akreditacija',
+                },
+                quantity: 1,
+                }}></RecieptText>
           <img
             src={AccreditationRippedPaper}
             alt='accreditation-ripped-paper'
