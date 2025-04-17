@@ -186,3 +186,17 @@
 .wrapperClosingSecondVisit {
   animation: opacityOut 0.7s ease-out;
 }
+
+@media (max-height: 750px) {
+  .wrapper {
+    .accreditationPaper {
+      scale: 0.85;
+      transform-origin: bottom center;
+    }
+
+    .paperOnSecondVisit {
+      scale: 0.85;
+      transform-origin: top left;
+    }
+  }
+}
