@@ -8,6 +8,21 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async updateUserProfile(userId: number, data: UserModifyDto) {
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ email: data.email }, { phoneNumber: data.phoneNumber }],
+        NOT: {
+          id: userId,
+        },
+      },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException(
+        'Korisnik sa tim mail-om ili brojem mobitela već postoji',
+      );
+    }
+
     return this.prisma.user.update({
       where: { id: userId },
       data: { ...data, birthYear: Number(data.birthYear) },
