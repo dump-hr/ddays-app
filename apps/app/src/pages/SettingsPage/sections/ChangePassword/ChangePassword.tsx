@@ -13,6 +13,7 @@ import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields, passwordInputs } from '../inputs';
 import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
+import { useChangeUserPassword } from '@/api/user/useChangeUserPassword';
 
 interface ChangePasswordProps {
   setIsChangingPassword: (value: boolean) => void;
@@ -27,6 +28,8 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
 
   const { errors, clearStepErrors, setStepErrors, isStepValid } =
     useRegistration();
+
+  const updateUserPasswordMutation = useChangeUserPassword();
 
   const validateChangePassword = () => {
     const newErrors: Partial<RegistrationFormErrors> = {};
@@ -59,11 +62,13 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
       toast.error('Podaci nisu ispravno uneseni!');
       return;
     }
-    // TODO: validacija trenutne lozinke sa backendom
-    // TODO izmjena lozinke sa backend
+
+    updateUserPasswordMutation.mutate({
+      currentPassword: userSettingsData.password ?? '',
+      newPassword: userSettingsData.newPassword ?? '',
+    });
 
     setPasswordInputsToDefault();
-    toast.success('Podaci uspješno izmjenjeni!');
     setIsChangingPassword(false);
   };
 

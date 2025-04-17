@@ -16,11 +16,10 @@ import { Checkbox } from '@/components/Checkbox';
 import { Input } from '@/components/Input';
 import { useRegistration } from '@/context/RegistrationContext';
 import { SettingsEdits, UserDataFields } from '@/types/enums';
-import {
-  allFieldsAreFilled,
-  validateField,
-} from '@/helpers/validateInput';
+import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
+import { usePatchCurrentUser } from '@/api/user/usePatchCurrentUser';
+import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 
 interface EditProfileSectionProps {
   isEditing: boolean;
@@ -32,7 +31,8 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
   setIsEditing,
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { userSettingsData, updateUserSettingsData, updateUserData } =
+  const updateUserMutation = usePatchCurrentUser();
+  const { userSettingsData, updateUserSettingsData } =
     useUserContext();
 
   const {
@@ -80,9 +80,12 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
       return;
     }
     setIsEditing(false);
-    updateUserData(userSettingsData);
-    // TODO: api poziv za izmjenu podataka user-a
-    toast.success('Podaci uspješno izmjenjeni!');
+    const userDataToSend = { ...userSettingsData };
+
+    delete userDataToSend[UserDataFields.Password];
+    delete userDataToSend[UserDataFields.NewPassword];
+    delete userDataToSend[UserDataFields.RepeatedPassword];
+    updateUserMutation.mutate(userDataToSend as UserModifyDto);
   };
 
   return (
