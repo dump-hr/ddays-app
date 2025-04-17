@@ -31,3 +31,42 @@
     width: 100%;
   }
 }
+
+.main {
+  .position {
+    color: #fff;
+    @include heading-1;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .details {
+    color: rgba($primary-white, 0.8);
+    @include paragraph-16;
+  }
+
+  .listSection {
+    width: 100%;
+
+    .listTitle {
+      color: #fff;
+      @include heading-3;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin: 48px 0 24px 0;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 0;
+
+      .item {
+        color: #e9e9ec;
+        @include paragraph-16;
+      }
+    }
+  }
+}

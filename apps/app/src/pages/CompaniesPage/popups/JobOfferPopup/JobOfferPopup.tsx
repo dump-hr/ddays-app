@@ -38,6 +38,31 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
         </div>
         <div className={c.dottedBreak} />
       </div>
+      <div className={c.main}>
+        <h2 className={c.position}>{job.position}</h2>
+        <p className={c.details}>{job.details}</p>
+
+        <div className={c.listSection}>
+          <h3 className={c.listTitle}>Što očekujemo od tebe?</h3>
+          <ul className={c.list}>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+          </ul>
+        </div>
+        <div className={c.listSection}>
+          <h3 className={c.listTitle}>Što možeš očekivati od nas?</h3>
+          <ul className={c.list}>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
+          </ul>
+        </div>
+      </div>
     </PopupLayout>
   );
 };
