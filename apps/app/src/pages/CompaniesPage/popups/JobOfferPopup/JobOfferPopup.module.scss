@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 18px;
 
-  @media screen and (min-width: $breakpoint-mobile) {
+  @media screen and (min-width: $breakpoint-tablet) {
     display: none;
   }
 
@@ -46,7 +46,7 @@
     text-transform: uppercase;
     margin-bottom: 24px;
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @media screen and (min-width: $breakpoint-tablet) {
       display: none;
     }
   }
@@ -55,7 +55,7 @@
     color: rgba($primary-white, 0.8);
     @include paragraph-16;
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @media screen and (min-width: $breakpoint-tablet) {
       color: $black-90;
     }
   }
@@ -70,7 +70,7 @@
       font-weight: 500;
       margin: 48px 0 24px 0;
 
-      @media screen and (min-width: $breakpoint-mobile) {
+      @media screen and (min-width: $breakpoint-tablet) {
         color: $black-90;
         margin: 32px 0 16px 0;
       }
@@ -82,7 +82,7 @@
       gap: 12px;
       margin: 0;
 
-      @media screen and (min-width: $breakpoint-mobile) {
+      @media screen and (min-width: $breakpoint-tablet) {
         gap: 6px;
       }
 
@@ -90,7 +90,7 @@
         color: #e9e9ec;
         @include paragraph-16;
 
-        @media screen and (min-width: $breakpoint-mobile) {
+        @media screen and (min-width: $breakpoint-tablet) {
           color: $black-90;
         }
       }
