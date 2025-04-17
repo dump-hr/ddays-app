@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Patch, Req, Delete, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Req,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 import { UserGuard } from 'src/auth/user.guard';
@@ -22,7 +30,7 @@ export class UserController {
     return this.userService.deleteUser(user.id);
   }
 
-  @Patch('profile/password')
+  @Patch('profile/change-password')
   @UseGuards(UserGuard)
   updateUserPassword(
     @Req() { user },
