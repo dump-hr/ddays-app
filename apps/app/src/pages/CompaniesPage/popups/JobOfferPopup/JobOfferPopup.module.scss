@@ -38,7 +38,11 @@
 
 .main {
   width: 100%;
-  overflow-y: auto;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    overflow-y: auto;
+  }
+
   .position {
     color: #fff;
     @include heading-1;

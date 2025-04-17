@@ -63,7 +63,10 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
             <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
           </ul>
         </div>
-        <Button className={c.button} variant='orange'>
+        <Button
+          className={c.button}
+          variant='orange'
+          onClick={() => window.open(job.link)}>
           Prijavi se
         </Button>
       </div>
