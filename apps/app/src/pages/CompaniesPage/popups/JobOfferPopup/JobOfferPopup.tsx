@@ -3,6 +3,7 @@ import { JobDto } from '@ddays-app/types';
 import c from './JobOfferPopup.module.scss';
 import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 import LocationPin from '@/assets/icons/location-pin.svg';
+import Button from '@/components/Button';
 
 type JobOfferPopupProps = {
   closePopup: () => void;
@@ -62,6 +63,9 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
             <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
           </ul>
         </div>
+        <Button className={c.button} variant='orange'>
+          Prijavi se
+        </Button>
       </div>
     </PopupLayout>
   );
