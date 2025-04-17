@@ -1,5 +1,5 @@
 import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserDto, UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
@@ -125,9 +125,23 @@ export class AuthService {
     return { accessToken };
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: number):Promise<UserPublicDto> {
     return this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phoneNumber: true,
+        birthYear: true,
+        educationDegree: true,
+        occupation: true,
+        newsletterEnabled: true,
+        companiesNewsEnabled: true,
+        isConfirmed: true,
+        isDeleted: true,
+      },
     });
   }
 }
