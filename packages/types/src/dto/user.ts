@@ -9,6 +9,7 @@ export type UserDto = {
   occupation: string | null;
   newsletterEnabled: boolean;
   companiesNewsEnabled: boolean;
+  termsAndConditionsEnabled?: boolean;
 };
 
 export type UserModifyDto = {
@@ -38,7 +39,7 @@ export type UserPublicDto = {
   companiesNewsEnabled: boolean;
   isConfirmed: boolean;
   isDeleted: boolean;
-}
+};
 
 export type ChangeUserPasswordDto = {
   currentPassword: string;
