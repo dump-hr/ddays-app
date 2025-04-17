@@ -8,7 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserModifyDto } from '@ddays-app/types/src/dto/user';
+import {
+  ChangeUserPasswordDto,
+  UserModifyDto,
+} from '@ddays-app/types/src/dto/user';
 import { UserGuard } from 'src/auth/user.guard';
 
 @Controller('user')
@@ -17,10 +20,7 @@ export class UserController {
 
   @Patch('profile')
   @UseGuards(UserGuard)
-  updateUserProfile(
-    @Req() { user },
-    @Body() userModifyDto: Partial<UserModifyDto>,
-  ) {
+  updateUserProfile(@Req() { user }, @Body() userModifyDto: UserModifyDto) {
     return this.userService.updateUserProfile(user.id, userModifyDto);
   }
 
@@ -34,8 +34,13 @@ export class UserController {
   @UseGuards(UserGuard)
   updateUserPassword(
     @Req() { user },
-    @Body() { password }: { password: string },
+    @Body()
+    { currentPassword, newPassword }: ChangeUserPasswordDto,
   ) {
-    return this.userService.updateUserPassword(user.id, password);
+    return this.userService.updateUserPassword(
+      user.id,
+      currentPassword,
+      newPassword,
+    );
   }
 }

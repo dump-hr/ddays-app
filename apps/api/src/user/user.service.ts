@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
@@ -7,16 +7,36 @@ import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async updateUserProfile(userId: number, data: Partial<UserModifyDto>) {
-
+  async updateUserProfile(userId: number, data: UserModifyDto) {
     return this.prisma.user.update({
       where: { id: userId },
-      data,
+      data: { ...data, birthYear: Number(data.birthYear) },
     });
   }
 
-  async updateUserPassword(userId: number, password: string) {
-    const newPasswordHash = await bcrypt.hash(password, 10);
+  async updateUserPassword(
+    userId: number,
+    currentPassword: string,
+    newPassword: string,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Korisnik nije pronađen');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Trenutna lozinka nije ispravna');
+    }
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
 
     return this.prisma.user.update({
       where: { id: userId },
