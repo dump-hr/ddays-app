@@ -8,15 +8,16 @@ interface UserContextType {
   passwordInputsData: PasswordInputs;
   updateUserSettingsData: (data: Partial<ProfileSettingsDto>) => void;
   updatePasswordInputsData: (data: Partial<PasswordInputs>) => void;
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
+  isChangingPassword: boolean;
+  setIsChangingPassword: (value: boolean) => void;
 }
 
 const defaultUserData: ProfileSettingsDto = {
   firstName: '',
   lastName: '',
   email: '',
-  /*   password: '',
-  newPassword: '',
-  repeatedPassword: '', */
   phoneNumber: '',
   birthYear: null,
   educationDegree: '',
@@ -36,10 +37,16 @@ const UserContext = createContext<UserContextType>({
   passwordInputsData: defaultPasswordInputsData,
   updateUserSettingsData: () => {},
   updatePasswordInputsData: () => {},
+  isEditing: false,
+  setIsEditing: () => {},
+  isChangingPassword: false,
+  setIsChangingPassword: () => {},
 });
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: loggedInUser, isLoading } = useLoggedInUser();
+  const [isEditing, setIsEditing] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [passwordInputsData, setPasswordInputsData] = useState<PasswordInputs>(
     defaultPasswordInputsData,
   );
@@ -62,10 +69,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (loggedInUser && !isLoading) {
+    if (loggedInUser && !isLoading && !isEditing) {
       updateUserSettingsData(loggedInUser);
     }
-  }, [loggedInUser, isLoading]);
+  }, [loggedInUser, isLoading, isEditing]);
 
   return (
     <UserContext.Provider
@@ -74,6 +81,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         updateUserSettingsData,
         passwordInputsData,
         updatePasswordInputsData,
+        isEditing,
+        setIsEditing,
+        isChangingPassword,
+        setIsChangingPassword,
       }}>
       {children}
     </UserContext.Provider>

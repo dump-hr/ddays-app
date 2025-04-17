@@ -19,15 +19,13 @@ import {
 } from '@/helpers/validateInput';
 import { useChangeUserPassword } from '@/api/user/useChangeUserPassword';
 
-interface ChangePasswordProps {
-  setIsChangingPassword: (value: boolean) => void;
-}
-
-export const ChangePassword: React.FC<ChangePasswordProps> = ({
-  setIsChangingPassword,
-}) => {
+export const ChangePassword: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { passwordInputsData, updatePasswordInputsData } = useUserContext();
+  const {
+    passwordInputsData,
+    updatePasswordInputsData,
+    setIsChangingPassword,
+  } = useUserContext();
   const { handleInputChange } = useInputHandlers(updatePasswordInputsData);
 
   const { errors, clearStepErrors, setStepErrors, isStepValid } =
@@ -76,13 +74,18 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
       return;
     }
 
-    updateUserPasswordMutation.mutate({
-      currentPassword: passwordInputsData.password ?? '',
-      newPassword: passwordInputsData.newPassword ?? '',
-    });
-
-    setPasswordInputsToDefault();
-    setIsChangingPassword(false);
+    updateUserPasswordMutation.mutate(
+      {
+        currentPassword: passwordInputsData.password ?? '',
+        newPassword: passwordInputsData.newPassword ?? '',
+      },
+      {
+        onSuccess: () => {
+          setPasswordInputsToDefault();
+          setIsChangingPassword(false);
+        },
+      },
+    );
   };
 
   const setPasswordInputsToDefault = () => {

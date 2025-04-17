@@ -9,18 +9,18 @@ import { EditProfileSection } from './sections/EditProfileSection';
 import { ChangePassword } from './sections/ChangePassword';
 import { SettingsHeader } from './sections/SettingsHeader';
 import { RegistrationProvider } from '@/context/RegistrationContext';
+import { useUserContext } from '@/context/UserContext';
 import DeleteAccountPopup from './popups/DeleteAccountPopup';
 
 const SettingsPage = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen] =
     useState(false);
 
   const handleDeleteAccount = () => {
-    // TODO: otvaranje popupa kada bude spremno i api poziv
     setIsDeleteAccountPopupOpen(true);
   };
+
+  const { isEditing, isChangingPassword, setIsChangingPassword } = useUserContext()
 
   useEffect(() => {
     const body = document.querySelector('body');
@@ -33,19 +33,15 @@ const SettingsPage = () => {
         <div className={styles.settingsContainer}>
           <RegistrationProvider>
             <SettingsHeader
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              isChangingPassword={isChangingPassword}
-              setIsChangingPassword={setIsChangingPassword}
+              
             />
             <div className={styles.settingsContent}>
               {!isChangingPassword ? (
                 <EditProfileSection
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
+                  
                 />
               ) : (
-                <ChangePassword setIsChangingPassword={setIsChangingPassword} />
+                <ChangePassword  />
               )}
 
               {!isEditing && !isChangingPassword && (

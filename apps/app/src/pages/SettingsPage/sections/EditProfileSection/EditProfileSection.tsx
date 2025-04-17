@@ -21,19 +21,10 @@ import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { usePatchCurrentUser } from '@/api/user/usePatchCurrentUser';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 
-interface EditProfileSectionProps {
-  isEditing: boolean;
-  setIsEditing: (value: boolean) => void;
-}
-
-export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
-  isEditing,
-  setIsEditing,
-}) => {
+export const EditProfileSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const updateUserMutation = usePatchCurrentUser();
-  const { userSettingsData, updateUserSettingsData } =
-    useUserContext();
+  const { userSettingsData, updateUserSettingsData, isEditing, setIsEditing } = useUserContext();
 
   const {
     handleDropdownChange,
@@ -79,10 +70,13 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
       toast.error('Podaci nisu ispravno uneseni!');
       return;
     }
-    setIsEditing(false);
-    const userDataToSend = { ...userSettingsData };
 
-    updateUserMutation.mutate(userDataToSend as UserModifyDto);
+    const userDataToSend = { ...userSettingsData };
+    updateUserMutation.mutate(userDataToSend as UserModifyDto, {
+      onSuccess: () => {
+        setIsEditing(false);
+      },
+    });
   };
 
   return (
