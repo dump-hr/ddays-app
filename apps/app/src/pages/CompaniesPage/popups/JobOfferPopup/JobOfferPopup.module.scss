@@ -1,0 +1,33 @@
+.headerWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 18px;
+
+  .contentWrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .companyLogo {
+      height: 19px;
+    }
+
+    .locationWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .location {
+        color: #fff;
+        @include tag-14;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .dottedBreak {
+    @include dottedBreak(rgba(white, 0.2));
+    height: 2px;
+    width: 100%;
+  }
+}
