@@ -38,6 +38,7 @@ jobs:
         with:
           node-version: 18.x
           cache: 'yarn'
+          cache-dependency-path: '**/package.json'
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -58,6 +59,7 @@ jobs:
         with:
           node-version: 18.x
           cache: 'yarn'
+          cache-dependency-path: '**/package.json'
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -78,6 +80,7 @@ jobs:
         with:
           node-version: 18.x
           cache: 'yarn'
+          cache-dependency-path: '**/package.json'
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -98,6 +101,7 @@ jobs:
         with:
           node-version: 18.x
           cache: 'yarn'
+          cache-dependency-path: '**/package.json'
 
       - name: Install dependencies
         run: yarn install --immutable
