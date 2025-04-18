@@ -1,4 +1,6 @@
+import { RouteNames } from '@/router/routes';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import router from '@/router/Router';
 
 const requestConfig = {
   baseURL: '/api',
@@ -31,6 +33,10 @@ axiosInstance.interceptors.response.use(
   (response) => response.data,
 
   (error: ErrorResponse) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem('accessToken');
+      router.navigate(RouteNames.LOGIN);
+    }
     return Promise.reject(error.response.data.message || error.message);
   },
 );
