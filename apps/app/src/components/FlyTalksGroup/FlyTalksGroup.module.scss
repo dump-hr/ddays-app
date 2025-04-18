@@ -1,0 +1,185 @@
+.group {
+  width: 100%;
+  border-radius: 8px;
+
+  .groupHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 24px;
+    padding: 10px;
+    border-radius: 8px 8px 0px 0px;
+    background: #eddfcb;
+
+    .starIcon {
+      display: none;
+    }
+
+    div {
+      background-color: var(--Succes-Green, #5fb728);
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+    }
+
+    p {
+      color: var(--Black-90, #2d2c2c);
+      font-feature-settings: 'ss12' on;
+      font-family: NeueMachina;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 18px;
+      letter-spacing: -0.14px;
+      text-transform: uppercase;
+    }
+  }
+
+  .groupDuration {
+    text-align: center;
+    color: var(--Black-90, #2d2c2c);
+    @include tag-16;
+    font-size: 16px;
+    background: var(--Beige, #f5ede1);
+    padding: 12px;
+  }
+
+  .companiesList {
+    padding: 0 24px 24px;
+    background: var(--White, #f5f5f5);
+    border-radius: 0px 0px 8px 8px;
+
+    .company {
+      display: flex;
+      gap: 20px;
+      padding-top: 20px;
+      padding-bottom: 16px;
+      position: relative;
+      align-items: center;
+
+      img {
+        height: 14px;
+      }
+
+      .divider {
+        position: absolute;
+        bottom: 0;
+        @include dottedBreak;
+      }
+
+      p{
+        @include tag-14;
+        color: var(--Black-30, #b8b8b8);
+        font-size: 14px;
+      }
+    }
+
+    .applyButton {
+      margin-top: 16px;
+      width: 100%;
+      text-transform: uppercase;
+    }
+  }
+
+  .applianceDisclaimer {
+    display: none;
+
+    border-radius: 0px 0px 16px 16px;
+    background: var(--Primary-Beige, #f5ede1);
+    border-radius: 0px 0px 8px 8px;
+    padding: 12px 24px;
+
+    p {
+      color: var(--Primary-Black, #171615);
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: -0.14px;
+    }
+  }
+
+  .fullGroupMessage {
+    display: none;
+    border-radius: 0px 0px 16px 16px;
+    background: var(--Black-5, #ebebeb);
+    border-radius: 0px 0px 8px 8px;
+    padding: 12px 24px;
+
+    img{
+      height: 24px;
+    }
+
+    p {
+      color: var(--Primary-Black, #171615);
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: -0.14px;
+    }
+  }
+}
+
+.groupApplied {
+  .groupHeader {
+    background: var(--Primary-Muted-orange, #e0553f);
+
+    .starIcon {
+      display: block;
+    }
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+
+  .companiesList {
+    border-radius: 0;
+
+    .applyButton {
+      background: #171615;
+      color: #ffffff;
+    }
+  }
+
+  .applianceDisclaimer {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+}
+
+.groupFull {
+  .groupHeader {
+    background: #171615;
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+  .groupDuration {
+    background: var(--Black-5, #ebebeb);
+  }
+
+  .applyButton {
+    display: none;
+  }
+
+  .fullGroupMessage {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+}
