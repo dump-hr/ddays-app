@@ -31,14 +31,15 @@
   padding: 20px;
   width: 100%;
   padding-bottom: 40px;
+  height: 100%;
 }
 
 .notificationWrapper {
   padding-top: 4rem;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   background-color: black;
   @media screen and (min-width: $breakpoint-desktop) {
     margin: 0 auto;
@@ -50,25 +51,4 @@
   flex-direction: column;
   gap: 2rem;
   margin-top: 35px;
-}
-
-.noNotificationsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 85%;
-  margin: 0 30px;
-}
-
-.noNotificationsTitle {
-  @include heading-3;
-  color: $black-50;
-  margin-top: 1.5rem;
-}
-
-.noNotificationsLabel {
-  @include paragraph-14;
-  color: $black-50;
-  margin-top: 6px;
 }

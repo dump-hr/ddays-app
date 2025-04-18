@@ -1,14 +1,14 @@
-type EventTheme = 'dev' | 'design' | 'marketing' | 'tech';
+import { Theme } from '@ddays-app/types';
 
-export function getThemeLabel(eventTheme: EventTheme | string) {
+export function getThemeLabel(eventTheme: Theme | string) {
   switch (eventTheme) {
-    case 'dev':
+    case 'DEV':
       return 'DEV';
-    case 'design':
+    case 'DESIGN':
       return 'DIZ';
-    case 'marketing':
+    case 'MARKETING':
       return 'MARK';
-    case 'tech':
-      return 'MULT';
+    case 'TECH':
+      return 'TECH';
   }
 }
