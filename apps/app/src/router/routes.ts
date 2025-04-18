@@ -41,6 +41,16 @@ export enum RouteNames {
   RATE_COMPANY = '/app/rate-company',
 }
 
+export const navbarRoutes = [
+  RouteNames.HOME,
+  RouteNames.PROFILE,
+  RouteNames.PROFILE_INTERESTS,
+  RouteNames.PROFILE_ACHIEVEMENTS,
+  RouteNames.COMPANIES,
+  RouteNames.SCHEDULE,
+  RouteNames.FLY_TALKS,
+];
+
 export interface SubMenu {
   name: string;
   options: string[];
