@@ -5,7 +5,11 @@ import { NotificationBell } from './NotificationBell';
 import { HeaderCardsWrapper } from './HeaderCardsWrapper';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
-export const Header = () => {
+type HeaderProps = {
+  openCodePopup: () => void;
+};
+
+export const Header: React.FC<HeaderProps> = ({ openCodePopup }) => {
   const { isMobile } = useDeviceType({});
   const { data: user } = useLoggedInUser();
 
@@ -17,7 +21,7 @@ export const Header = () => {
         </h1>
         {isMobile && <NotificationBell />}
       </div>
-      <HeaderCardsWrapper />
+      <HeaderCardsWrapper openCodePopup={openCodePopup} />
     </div>
   );
 };
