@@ -16,11 +16,8 @@ const SettingsPage = () => {
   const [isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen] =
     useState(false);
 
-  const handleDeleteAccount = () => {
-    setIsDeleteAccountPopupOpen(true);
-  };
-
-  const { isEditing, isChangingPassword, setIsChangingPassword } = useUserContext()
+  const { isEditing, isChangingPassword, setIsChangingPassword } =
+    useUserContext();
 
   useEffect(() => {
     const body = document.querySelector('body');
@@ -32,16 +29,12 @@ const SettingsPage = () => {
       <div className={styles.settingsWrapper}>
         <div className={styles.settingsContainer}>
           <RegistrationProvider>
-            <SettingsHeader
-              
-            />
+            <SettingsHeader />
             <div className={styles.settingsContent}>
               {!isChangingPassword ? (
-                <EditProfileSection
-                  
-                />
+                <EditProfileSection />
               ) : (
-                <ChangePassword  />
+                <ChangePassword />
               )}
 
               {!isEditing && !isChangingPassword && (
@@ -57,7 +50,7 @@ const SettingsPage = () => {
                   <SettingsButton
                     icon={ThrashIcon}
                     variant={'red'}
-                    onClick={() => handleDeleteAccount()}>
+                    onClick={() => setIsDeleteAccountPopupOpen(true)}>
                     Obriši račun
                   </SettingsButton>
                 </div>
