@@ -6,9 +6,9 @@ import ClickableTagGroup from '../../components/ClickableTagGroup';
 import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import { events } from './events';
 import ScheduleCard from '../../components/ScheduleCard';
 import ToggleButton from '../../components/ToggleButton';
+import { useEventGetAll } from '@/api/event/useEventGetAll';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -32,7 +32,11 @@ export const SchedulePage = () => {
   );
   const [calendarSyncToggled, setCalendarSyncToggled] = useState(false); // BE: postavit na vrijednost iz baze
 
+  const { data: events } = useEventGetAll();
+
   useEffect(() => {
+    if (!events) return;
+
     const dateFilter = new Date(
       activeTab === TabId.FIRST_DAY ? '2025-05-23' : '2025-05-24',
     ).toDateString();
