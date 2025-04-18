@@ -24,10 +24,10 @@ export class UserController {
     return this.userService.updateUserProfile(user.id, userModifyDto);
   }
 
-  @Delete('profile')
+  @Patch('profile/delete')
   @UseGuards(UserGuard)
-  deleteUser(@Req() { user }) {
-    return this.userService.deleteUser(user.id);
+  softDeleteUser(@Req() { user }) {
+    return this.userService.softDeleteUser(user.id);
   }
 
   @Patch('profile/change-password')
