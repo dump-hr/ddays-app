@@ -1,18 +1,18 @@
 import {
-  Body,
-  Controller,
-  Get,
-  Patch,
-  Req,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
-import { UserService } from './user.service';
-import {
   ChangeUserPasswordDto,
   UserModifyDto,
 } from '@ddays-app/types/src/dto/user';
+import {
+  Body,
+  Controller,
+  Delete,
+  Patch,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { UserGuard } from 'src/auth/user.guard';
+
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {

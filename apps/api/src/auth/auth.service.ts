@@ -125,7 +125,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async getUserById(id: number):Promise<UserPublicDto> {
+  async getUserById(id: number): Promise<UserPublicDto> {
     return this.prisma.user.findUnique({
       where: { id },
       select: {
