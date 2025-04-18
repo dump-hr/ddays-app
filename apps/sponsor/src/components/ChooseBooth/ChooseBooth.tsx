@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 
 import { useGetBooths } from '../../api/booth/useGetBooths';
 import { useReserveBooth } from '../../api/booth/useReserveBooth';
-import floorPlan from '../../assets/images/floor-plan.webp';
+import floorPlan from '../../assets/images/floor-plan-2025.png';
 import c from './ChooseBooth.module.scss';
 
 const socket = io();

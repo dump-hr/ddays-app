@@ -1,0 +1,54 @@
+.badge {
+  height: 226px;
+  width: 226px;
+  position: relative;
+  z-index: 1;
+
+  .rays {
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    animation: spinning 60s linear infinite;
+
+    @keyframes spinning {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 1;
+      }
+      33% {
+        transform: translate(-50%, -50%) rotate(120deg);
+        opacity: 0.5;
+      }
+      67% {
+        transform: translate(-50%, -50%) rotate(240deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .badgeImage {
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+  }
+
+  .level {
+    z-index: 2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: NeueMachina;
+    color: $primary-muted-orange;
+    font-size: 100px;
+    font-weight: 900;
+  }
+}

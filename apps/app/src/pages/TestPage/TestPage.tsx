@@ -3,10 +3,9 @@ import ThumbnailTemp from '../../assets/images/thumbnailUrl-temp.png';
 import ArasLogo from '../../assets/images/aras-logo-temp.svg';
 import { useState } from 'react';
 import { EventWithSpeakerDto } from '@ddays-app/types';
-import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+import DesktopNotificationsPopup from '../Home/popups/DesktopNotificationsPopup';
 /* import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png'; */
-import Button from '@/components/Button';
-import styles from './TestPage.module.scss';
+
 const event = {
   id: 1,
   name: 'Tech Innovations Summit',
@@ -150,15 +149,18 @@ const TestPage = () => {
           </Button>
         </div>
       </PopupLayout> */}
-      <PopupLayout
+      <DesktopNotificationsPopup
+        isOpen={isPopupOpen}
+        closePopup={() => setIsPopupOpen(false)}
+      />
+      {/* <PopupLayout
         variant='light'
         headerTitleComponent={<>Unesi kod</>}
         closePopup={() => setIsPopupOpen(false)}
         isOpen={isPopupOpen}
         opacity={0.9}
         desktopStyle='normal'>
-        <div className={styles.contentDiv}>
-          <div
+        <div
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -170,12 +172,12 @@ const TestPage = () => {
               Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
               svi tvoji bodovi i postignuća bit će izgubljeni.
             </p>
-          </div>
+          </div> 
           <Button variant='orange' style={{ width: '100%' }}>
             Svejedno obriši
           </Button>
         </div>
-      </PopupLayout>
+      </PopupLayout> */}
     </>
   );
 };

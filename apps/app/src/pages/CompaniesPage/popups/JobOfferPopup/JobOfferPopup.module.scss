@@ -1,0 +1,108 @@
+.headerWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 18px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+
+  .contentWrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .companyLogo {
+      height: 19px;
+    }
+
+    .locationWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .location {
+        color: #fff;
+        @include tag-14;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .dottedBreak {
+    @include dottedBreak(rgba(white, 0.2));
+    height: 2px;
+    width: 100%;
+  }
+}
+
+.main {
+  width: 100%;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    overflow-y: auto;
+  }
+
+  .position {
+    color: #fff;
+    @include heading-1;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .details {
+    color: rgba($primary-white, 0.8);
+    @include paragraph-16;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      color: $black-90;
+    }
+  }
+
+  .listSection {
+    width: 100%;
+
+    .listTitle {
+      color: #fff;
+      @include heading-3;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin: 48px 0 24px 0;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        color: $black-90;
+        margin: 32px 0 16px 0;
+      }
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 0;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        gap: 6px;
+      }
+
+      .item {
+        color: #e9e9ec;
+        @include paragraph-16;
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          color: $black-90;
+        }
+      }
+    }
+  }
+
+  .button {
+    width: 100%;
+    margin-top: 42px;
+  }
+}
