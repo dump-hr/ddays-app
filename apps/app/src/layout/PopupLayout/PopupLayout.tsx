@@ -6,7 +6,7 @@ import { useDeviceType } from '@/hooks/UseDeviceType';
 
 interface PopupLayoutProps {
   headerTitleComponent: ReactNode;
-  variant: 'light' | 'dark';
+  variant: 'light' | 'dark' | 'black-fullscreen';
   closePopup: () => void;
   isOpen: boolean;
   imgSrc?: string;
@@ -53,6 +53,7 @@ const PopupLayout = ({
           { [styles.desktopNormal]: desktopStyle === 'normal' },
           { [styles.dark]: variant === 'dark' },
           { [styles.light]: variant === 'light' },
+          { [styles.blackFullscreen]: variant === 'black-fullscreen' },
           { [styles.center]: justifyContent === 'center' },
           { [styles.start]: justifyContent === 'start' },
           { [styles.end]: justifyContent === 'end' },

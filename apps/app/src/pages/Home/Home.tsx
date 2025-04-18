@@ -1,6 +1,6 @@
 import { Header } from '../../components/Header';
 import c from './Home.module.scss';
-import TopCompaniesSection from './sections/TopCompaniesSection';
+import TopCompaniesSection from '../../components/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
