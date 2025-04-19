@@ -13,6 +13,7 @@ import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonal
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
+import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -38,6 +39,7 @@ export const SchedulePage = () => {
 
   const { data: events } = useEventGetAll();
   const { data: user } = useLoggedInUser();
+  const { data: mySchedule } = useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
 
   function handleAddToPersonalSchedule(eventId: number) {
@@ -68,6 +70,11 @@ export const SchedulePage = () => {
   useEffect(() => {
     if (!events) return;
 
+    if (activeTab === TabId.MY_SCHEDULE) {
+      setFilteredEvents(mySchedule || []);
+      return;
+    }
+
     const dateFilter = new Date(
       activeTab === TabId.FIRST_DAY ? '2025-05-23' : '2025-05-24',
     ).toDateString();
@@ -78,7 +85,7 @@ export const SchedulePage = () => {
         return (
           eventDate === dateFilter &&
           (activeTag === TagId.ALL ||
-            event.theme.toUpperCase() === activeTag.toUpperCase()) // BE TODO: Dodat uvjet kad je dodan u raspored
+            event.theme.toUpperCase() === activeTag.toUpperCase())
         );
       }),
     );

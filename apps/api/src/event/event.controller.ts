@@ -15,12 +15,16 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 
 import { EventService } from './event.service';
 import { UserToEvent } from '@prisma/client';
+import { UserGuard } from 'src/auth/user.guard';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
@@ -67,5 +71,13 @@ export class EventController {
     @Body() dto: UserToEventDto,
   ): Promise<UserToEvent> {
     return await this.eventService.joinEvent(eventId, dto);
+  }
+
+  @UseGuards(UserGuard)
+  @Get('my-schedule')
+  async getEventsInMySchedule(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<EventDto[]> {
+    return this.eventService.getEventsInMySchedule(user.id);
   }
 }

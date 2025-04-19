@@ -4,7 +4,7 @@ import {
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
-import { UserToEvent } from '@prisma/client';
+import { EventType, UserToEvent } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 
@@ -148,5 +148,45 @@ export class EventService {
         description: dto.description,
       },
     });
+  }
+
+  async getEventsInMySchedule(userId: number): Promise<EventDto[]> {
+    console.log('UPOMOCCCC' + userId);
+    const events = await this.prisma.userToEvent.findMany({
+      where: {
+        userId,
+        event: {
+          is: {
+            type: {
+              in: [EventType.WORKSHOP, EventType.LECTURE],
+            },
+          },
+        },
+      },
+      include: {
+        event: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            startsAt: true,
+            endsAt: true,
+            maxParticipants: true,
+            requirements: true,
+            footageLink: true,
+            type: true,
+            theme: true,
+            codeId: true,
+          },
+        },
+      },
+      orderBy: {
+        event: {
+          startsAt: 'asc',
+        },
+      },
+    });
+
+    return events.map((event) => event.event);
   }
 }
