@@ -4,7 +4,7 @@ import sprite from '../../assets/sprite.svg';
 import { RouteNames } from '@/router/routes';
 import { useNavigate } from 'react-router-dom';
 
-enum Tabs {
+enum TabId {
   HOME,
   SCHEDULE,
   FLY_TALKS,
@@ -13,7 +13,7 @@ enum Tabs {
 }
 
 type TabInfo = {
-  id: Tabs;
+  id: TabId;
   icon: string;
   width: number;
   height: number;
@@ -22,35 +22,35 @@ type TabInfo = {
 
 const tabs: TabInfo[] = [
   {
-    id: Tabs.HOME,
+    id: TabId.HOME,
     icon: 'home-icon',
     width: 24,
     height: 24,
     route: RouteNames.HOME,
   },
   {
-    id: Tabs.SCHEDULE,
+    id: TabId.SCHEDULE,
     icon: 'schedule-icon',
     width: 25,
     height: 24,
     route: RouteNames.SCHEDULE,
   },
   {
-    id: Tabs.FLY_TALKS,
+    id: TabId.FLY_TALKS,
     icon: 'fly-talks-icon',
     width: 22,
     height: 24,
     route: RouteNames.FLY_TALKS,
   },
   {
-    id: Tabs.COMPANIES,
+    id: TabId.COMPANIES,
     icon: 'companies-icon',
     width: 23,
     height: 24,
     route: RouteNames.COMPANIES,
   },
   {
-    id: Tabs.PROFILE,
+    id: TabId.PROFILE,
     icon: 'profile-icon',
     width: 22,
     height: 22,
@@ -59,10 +59,14 @@ const tabs: TabInfo[] = [
 ];
 
 export const Navigation = (): ReactElement => {
-  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.HOME);
+  const currentPath = window.location.pathname;
+  const currentTab = tabs.find((tab) => tab.route === currentPath);
+  const [selectedTab, setSelectedTab] = useState<TabId>(
+    currentTab ? currentTab.id : TabId.HOME,
+  );
   const navigate = useNavigate();
 
-  const handleTabChange = (tab: Tabs) => {
+  const handleTabChange = (tab: TabId) => {
     setSelectedTab(tab);
     navigate(tabs[tab].route);
   };
