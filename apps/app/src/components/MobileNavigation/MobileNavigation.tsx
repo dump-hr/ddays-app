@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import styles from './Navigation.module.scss';
+import styles from './MobileNavigation.module.scss';
 import sprite from '../../assets/sprite.svg';
 import { RouteNames } from '@/router/routes';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +58,7 @@ const tabs: TabInfo[] = [
   },
 ];
 
-export const Navigation = (): ReactElement => {
+export const MobileNavigation = (): ReactElement => {
   const currentPath = window.location.pathname;
   const currentTab = tabs.find((tab) => tab.route === currentPath);
   const [selectedTab, setSelectedTab] = useState<TabId>(

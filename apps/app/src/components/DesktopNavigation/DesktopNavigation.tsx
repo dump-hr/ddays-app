@@ -1,4 +1,4 @@
-import styles from './Navbar.module.scss';
+import styles from './DesktopNavigation.module.scss';
 import { ReactElement, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NotificationBell } from '../Header/NotificationBell';
@@ -66,7 +66,7 @@ const tabs: TabInfo[] = [
   },
 ];
 
-export const Navbar = (): ReactElement => {
+export const DesktopNavigation = (): ReactElement => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
