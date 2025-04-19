@@ -21,10 +21,18 @@ type HeaderCardsInfo = {
   width: number;
   height: number;
   onClick?: () => void;
+  openCodePopup?: () => void;
 };
 
 export const HeaderCardsWrapper = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+type HeaderCardsWrapperProps = {
+  openCodePopup?: () => void;
+};
+
+export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
+  openCodePopup,
+}) => {
   const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
@@ -33,7 +41,7 @@ export const HeaderCardsWrapper = () => {
       text: 'Unesi kod',
       width: 77,
       height: 34,
-      onClick: () => {},
+      onClick: () => openCodePopup && openCodePopup(),
     },
     {
       id: HeaderCards.ACCREDITATION,
