@@ -27,6 +27,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { RateLecturePage } from '../pages/RateLecturePage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
+import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,10 @@ const router = createBrowserRouter(
           <Route index element={<ProfilePage />} />
           <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
+          <Route
+            path={RouteNames.PROFILE_RECOMMENDATIONS}
+            element={<ProfileRecommendationsPage></ProfileRecommendationsPage>}
+          />
           <Route
             path={RouteNames.PROFILE_SETTINGS}
             element={<SettingsPage />}
@@ -77,3 +82,5 @@ const router = createBrowserRouter(
 export const Router = () => {
   return <RouterProvider router={router} />;
 };
+
+export default router;

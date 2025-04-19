@@ -93,6 +93,24 @@ const achievements: Achievement[] = [
     goal: 5,
     progress: 0,
   },
+  {
+    id: 11,
+    name: 'Eleventh achievement',
+    description: 'This is the eleventh achievement',
+    points: 210,
+    createdAt: new Date(),
+    goal: 5,
+    progress: 0,
+  },
+  {
+    id: 12,
+    name: 'Twelfth achievement',
+    description: 'This is the twelfth achievement',
+    points: 20000,
+    createdAt: new Date(),
+    goal: 5,
+    progress: 0,
+  },
 ];
 
 export default achievements;

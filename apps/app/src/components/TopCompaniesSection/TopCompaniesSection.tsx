@@ -2,9 +2,9 @@ import c from './TopCompaniesSection.module.scss';
 
 import React from 'react';
 
-import TopCompany from '../../../../components/TopCompany';
-import { companies } from '../../companies';
-import RecommendationsButton from '../../../../components/RecommendationsButton';
+import TopCompany from '../TopCompany';
+import { companies } from '../../pages/Home/companies';
+import RecommendationsButton from '../RecommendationsButton';
 
 const TopCompaniesSection = () => {
   return (

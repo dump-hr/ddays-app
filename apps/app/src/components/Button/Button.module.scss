@@ -12,6 +12,11 @@
   @include label-medium;
   transition: all 0.2s ease;
   display: block;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 }
 
 .content {
@@ -43,11 +48,11 @@
   background-color: #e0553f;
 }
 
-.orange:hover {
+.orange:hover:enabled {
   background-color: #d04e3a;
 }
 
-.orange:active {
+.orange:active:enabled {
   background-color: #b54532;
 }
 
@@ -55,11 +60,11 @@
   background-color: #171615;
 }
 
-.black:hover {
+.black:hover:enabled {
   background-color: #313131;
 }
 
-.black:active {
+.black:active:enabled {
   background-color: #000;
 }
 
@@ -68,10 +73,10 @@
   color: #2d2c2c;
 }
 
-.beige:hover {
+.beige:hover:enabled {
   background-color: #f1e3cf;
 }
 
-.beige:active {
+.beige:active:enabled {
   background-color: #eadac1;
 }

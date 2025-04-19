@@ -1,0 +1,33 @@
+.notificationsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 35px;
+}
+
+.noNotificationsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0px 30px 0;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    margin: 150px 30px 0;
+  }
+}
+
+.noNotificationsTitle {
+  @include heading-3;
+  color: $black-50;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.noNotificationsLabel {
+  @include paragraph-14;
+  color: $black-50;
+  margin-top: 6px;
+  text-align: center;
+}
