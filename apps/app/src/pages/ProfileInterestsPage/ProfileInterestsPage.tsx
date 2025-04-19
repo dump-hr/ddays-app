@@ -4,28 +4,34 @@ import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileHeader } from '../../components/ProfileHeader';
 import { InterestsForUpdatePopup } from './popups/InterestsForUpdatePopup';
+import { useUserSelectedInterests } from '@/api/interests/useUserSelectedInterests';
 
 export const ProfileInterestsPage = () => {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>([
-    'Web development',
-    'Java',
-    'C#',
-    'Kampanje',
-    'UX dizajn',
-    'UI',
-    'Figma',
-    'Product Owner',
-  ]);
+  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
+    [],
+  );
   const [tempSelectedInterests, setTempSelectedInterests] = useState(
     userSelectedInterests,
   );
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem('userData') || '');
+  const userId = user.id;
+
+  const { data: interestsFromApi, isLoading } =
+    useUserSelectedInterests(userId);
+  useEffect(() => {
+    if (interestsFromApi) {
+      setUserSelectedInterests(interestsFromApi.map((i) => i.name));
+    }
+    console.log(userSelectedInterests);
+  }, [interestsFromApi]);
 
   const handleEditYourInterestsClick = () => {
     setTempSelectedInterests(userSelectedInterests);
@@ -36,6 +42,7 @@ export const ProfileInterestsPage = () => {
     setUserSelectedInterests(tempSelectedInterests);
     setPopupIsOpen(false);
   };
+
   return (
     <div className={c.container}>
       <ProfileHeader pageHeader='Interesi' userNameAndSurname='Marija Gudelj' />
