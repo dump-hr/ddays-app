@@ -140,7 +140,7 @@ export class EventService {
     return await this.prisma.userToEvent.create({
       data: {
         userId: dto.userId,
-        eventId,
+        eventId: eventId,
         linkedinProfile: dto.linkedinProfile,
         githubProfile: dto.githubProfile,
         portfolioProfile: dto.portfolioProfile,

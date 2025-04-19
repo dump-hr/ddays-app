@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useMutation } from 'react-query';
 
 const eventAddToPersonalSchedule = (eventId: number, data: UserToEventDto) => {
-  return axios.post(`/event/${eventId}/join`, data);
+  return axios.post(`/api/event/${eventId}/join`, data);
 };
 
 export const useEventAddToPersonalSchedule = () => {

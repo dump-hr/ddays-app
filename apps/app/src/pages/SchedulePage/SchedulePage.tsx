@@ -9,6 +9,10 @@ import { EventWithSpeakerDto } from '@ddays-app/types';
 import ScheduleCard from '../../components/ScheduleCard';
 import ToggleButton from '../../components/ToggleButton';
 import { useEventGetAll } from '@/api/event/useEventGetAll';
+import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
+import { UserToEventDto } from '@ddays-app/types/src/dto/user';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import toast from 'react-hot-toast';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -33,6 +37,33 @@ export const SchedulePage = () => {
   const [calendarSyncToggled, setCalendarSyncToggled] = useState(false); // BE: postavit na vrijednost iz baze
 
   const { data: events } = useEventGetAll();
+  const { data: user } = useLoggedInUser();
+  const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
+
+  function handleAddToPersonalSchedule(eventId: number) {
+    if (!user) {
+      toast.error('Podaci prijavljenog korisnika nisu dostupni!');
+      return;
+    }
+
+    const data: UserToEventDto = {
+      userId: user.id,
+    };
+
+    eventAddToPersonalSchedule.mutate(
+      { eventId, data },
+      {
+        onSuccess: () => {
+          toast.success('Događaj uspješno dodan u raspored!');
+        },
+        onError: () => {
+          toast.error(
+            'Dogodila se pogreška prilikom dodavanja događaja u raspored!',
+          );
+        },
+      },
+    );
+  }
 
   useEffect(() => {
     if (!events) return;
@@ -88,7 +119,11 @@ export const SchedulePage = () => {
             </div>
           )}
           {filteredEvents.map((event, i) => (
-            <ScheduleCard clickHandler={() => {}} key={i} event={event} />
+            <ScheduleCard
+              clickHandler={() => handleAddToPersonalSchedule(event.id)}
+              key={i}
+              event={event}
+            />
           ))}
 
           {filteredEvents.length === 0 && (
