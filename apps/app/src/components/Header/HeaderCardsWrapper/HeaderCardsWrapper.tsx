@@ -24,8 +24,6 @@ type HeaderCardsInfo = {
   openCodePopup?: () => void;
 };
 
-export const HeaderCardsWrapper = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
 type HeaderCardsWrapperProps = {
   openCodePopup?: () => void;
 };
@@ -33,6 +31,7 @@ type HeaderCardsWrapperProps = {
 export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
   openCodePopup,
 }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
