@@ -12,6 +12,7 @@ export enum UserDataFields {
   NewsletterEnabled = 'newsletterEnabled',
   CompaniesNewsEnabled = 'companiesNewsEnabled',
   TermsAndConditionsEnabled = 'termsAndConditionsEnabled',
+  ProfilePhotoUrl = 'profilePhotoUrl',
 }
 
 export enum SettingsEdits {

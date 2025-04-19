@@ -12,6 +12,7 @@ import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '../../../types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '../../../types/user/user';
+import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -25,6 +26,7 @@ export const GeneralRegistrationForm = () => {
   const [userData, setUserData] = useState<RegistrationDto>({
     firstName: '',
     lastName: '',
+    profilePhotoUrl: '',
     email: '',
     password: '',
     repeatedPassword: '',
@@ -140,8 +142,9 @@ export const GeneralRegistrationForm = () => {
         />
       )}
 
-      {/* TODO: Postaviti treći korak */}
-      {currentStep === RegistrationStep.THREE && <div>Treći korak</div>}
+      {currentStep === RegistrationStep.THREE && (
+        <AvatarPickerRegistrationForm updateUserData={updateUserData} />
+      )}
       {currentStep === RegistrationStep.FOUR && <FourthStepRegistrationForm />}
 
       <div className={c.buttonsWrapper}>
