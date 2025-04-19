@@ -25,3 +25,12 @@ export type UserModifyDto = {
   companiesNewsEnabled?: boolean;
   isConfirmed?: boolean;
 };
+
+export type UserToEventDto = {
+  userId: number;
+  linkedinProfile?: string;
+  githubProfile?: string;
+  portfolioProfile?: string;
+  cv?: string;
+  description?: string;
+};

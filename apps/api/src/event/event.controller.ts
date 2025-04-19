@@ -3,6 +3,9 @@ import {
   EventModifyDto,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
+
+import { UserToEventDto } from '@ddays-app/types/src/dto/user';
+
 import {
   Body,
   Controller,
@@ -17,7 +20,7 @@ import {
 import { AdminGuard } from 'src/auth/admin.guard';
 
 import { EventService } from './event.service';
-
+import { UserToEvent } from '@prisma/client';
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
@@ -56,5 +59,13 @@ export class EventController {
     @Body() dto: EventModifyDto,
   ): Promise<EventDto> {
     return await this.eventService.update(id, dto);
+  }
+
+  @Post(':id/join')
+  async joinEvent(
+    @Param('id', ParseIntPipe) eventId: number,
+    @Body() dto: UserToEventDto,
+  ): Promise<UserToEvent> {
+    return await this.eventService.joinEvent(eventId, dto);
   }
 }

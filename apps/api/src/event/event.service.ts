@@ -4,7 +4,9 @@ import {
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
+import { UserToEvent } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
+import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 
 @Injectable()
 export class EventService {
@@ -132,5 +134,19 @@ export class EventService {
     });
 
     return updatedEvent;
+  }
+
+  async joinEvent(eventId: number, dto: UserToEventDto): Promise<UserToEvent> {
+    return await this.prisma.userToEvent.create({
+      data: {
+        userId: dto.userId,
+        eventId,
+        linkedinProfile: dto.linkedinProfile,
+        githubProfile: dto.githubProfile,
+        portfolioProfile: dto.portfolioProfile,
+        cv: dto.cv,
+        description: dto.description,
+      },
+    });
   }
 }
