@@ -17,6 +17,5 @@
     "db:migrate": "yarn workspace api run db:migrate",
     "db:studio": "yarn workspace api run db:studio"
   },
-  "dependencies": {},
   "name": "ddays-app"
 }

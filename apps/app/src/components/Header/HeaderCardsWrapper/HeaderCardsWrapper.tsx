@@ -5,6 +5,8 @@ import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
 import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 import { RouteNames } from '../../../router/routes';
+import { useState } from 'react';
+import Accreditation from '@/components/Accreditation';
 
 enum HeaderCards {
   ENTER_CODE,
@@ -29,6 +31,7 @@ type HeaderCardsWrapperProps = {
 export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
   openCodePopup,
 }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
@@ -45,7 +48,9 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       text: 'Akreditacija',
       width: 60,
       height: 39,
-      onClick: () => {},
+      onClick: () => {
+        setIsPopupOpen(true);
+      },
     },
     {
       id: HeaderCards.SHOPPING,
@@ -58,17 +63,23 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
   ];
 
   return (
-    <div className={styles.headerCardsWrapper}>
-      {headerCards.map((card) => (
-        <HeaderCard
-          key={card.id}
-          img={card.img}
-          text={card.text}
-          imgWidth={card.width}
-          imgHeight={card.height}
-          onClick={card.onClick}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.headerCardsWrapper}>
+        {headerCards.map((card) => (
+          <HeaderCard
+            key={card.id}
+            img={card.img}
+            text={card.text}
+            imgWidth={card.width}
+            imgHeight={card.height}
+            onClick={card.onClick}
+          />
+        ))}
+      </div>
+      <Accreditation
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
+    </>
   );
 };

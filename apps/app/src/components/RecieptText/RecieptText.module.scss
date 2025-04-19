@@ -1,0 +1,106 @@
+.textContainer {
+    font-family: LucidaSansTypewriter;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    min-width: 220px;
+    position: relative;
+    bottom: 20px;
+    padding: 0 22px;
+    text-align: left;
+    color: rgba(23, 22, 21, 1);
+    margin-top: 20px;
+  }
+
+  .tableArticle {
+    text-align: left;
+    width: 100%;
+  }
+
+  .tableArticle td {
+    margin-left: 6px;
+    padding-right: 12px;
+  }
+
+  .tableArticle td:last-child {
+    padding-right: 0;
+  }
+
+  .tableArticle > thead td {
+    border-bottom: 1.5px dashed $primary-black;
+    padding-bottom: 5px;
+  }
+
+  .tableArticle > tbody td {
+    border-bottom: 1.5px dashed $primary-black;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  table > tbody td:not(:first-of-type),
+  table > thead td:not(:first-of-type) {
+    text-align: right;
+  }
+
+  .totalContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    padding-top: 5px;
+    margin: 0px 1.5px 0;
+    border-bottom: 1.5px dashed $primary-black;
+    border-top: 1.5px dashed $primary-black;
+  }
+
+  .tablePayment {
+    width: 100%;
+    text-align: left;
+  }
+
+  .tablePayment td {
+    padding-right: 23px;
+  }
+
+  .tablePayment td:last-child {
+    padding-right: 0;
+  }
+
+  .tablePayment > thead td {
+    border-top: 1.5px dashed $primary-black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .tablePayment > tbody td {
+    border-bottom: 1.5px dashed $primary-black;
+    border-top: 1.5px dashed $primary-black;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .additionalInfoTable {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1.5px dashed $primary-black;
+    margin: 0px 1.5px 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .rowName {
+    min-width: 100px;
+    @media screen and (max-width: $breakpoint-tablet) {
+      min-width: 80px;
+    }
+  }
+
+  .qrCodeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

@@ -1,0 +1,202 @@
+@keyframes slideUpFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotateAndTranslate {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(20deg) translateY(-100%);
+  }
+}
+
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  animation: opacityIn 0.5s ease-in-out;
+
+  .accreditationTerminalImage {
+    max-width: 425px;
+    width: 100%;
+    height: auto;
+    max-width: 425px;
+    animation: slideUpFromBottom 0.7s ease-out;
+    transform-origin: bottom;
+  }
+
+  .terminalClosing {
+    transform: translateY(100%);
+    transition: transform 0.7s ease-in-out 1s;
+  }
+
+  .accreditationPaperContainer {
+    width: 85%;
+    position: absolute;
+    bottom: 50px;
+    height: 100vh;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 320px;
+    overflow-y: hidden;
+    animation: opacityIn 1s ease-out;
+    transform-origin: bottom;
+
+    .accreditationPaper {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      display: flex;
+      flex-direction: column;
+
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        color: #000;
+
+        button {
+          padding: 8px 8px 5px 8px;
+          border: none;
+          background-color: rgba(0, 0, 0, 0.06);
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+
+      .accreditationRippedPaperImage {
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        top: -10px;
+        left: 0;
+      }
+
+      .accreditationPaperTextureImage {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      .qrCodeContainer {
+        width: 160px;
+        height: auto;
+        align-self: center;
+        margin-top: 20px;
+        margin-bottom: 60px;
+      }
+    }
+
+    .paperClosing {
+      transform-origin: bottom right;
+      animation: rotateAndTranslate 2s ease-in;
+    }
+
+    .paperOnSecondVisit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 325px;
+      height: fit-content;
+    }
+
+    .bottomShade {
+      width: 100%;
+      height: 55px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      animation: slideUpFromBottom 0.7s ease-out;
+      transform-origin: bottom;
+      background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    }
+    .shadeOpenAnimationEnd {
+      opacity: 0;
+      transition: all 1s ease-in-out;
+    }
+  }
+  .paperClosingContainer {
+    overflow: visible;
+  }
+  .paperContainerSecondVisit {
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    max-width: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+.wrapperOpen {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.wrapperClosing {
+  animation: opacityOut 1s ease-in-out 1s;
+}
+.wrapperClosingSecondVisit {
+  animation: opacityOut 0.7s ease-out;
+}
+
+@media (max-height: 750px) {
+  .wrapper {
+    .accreditationPaper {
+      scale: 0.85;
+      transform-origin: bottom center;
+    }
+
+    .paperOnSecondVisit {
+      scale: 0.85;
+      transform-origin: top left;
+    }
+  }
+}
