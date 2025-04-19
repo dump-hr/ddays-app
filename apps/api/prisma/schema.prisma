@@ -218,8 +218,8 @@ model User {
   id                         Int                 @id @default(autoincrement())
   firstName                  String
   lastName                   String
-  email                      String              @unique
-  phoneNumber                String              @unique
+  email                      String              
+  phoneNumber                String              
   birthYear                  Int
   occupation                 String?
   educationDegree            String?
@@ -227,7 +227,7 @@ model User {
   points                     Int?
   newsletterEnabled          Boolean?
   companiesNewsEnabled       Boolean?
-  isDeleted                  Boolean?
+  isDeleted                  Boolean?            @default(false)
   isConfirmed                Boolean?            @default(false)
   profilePhotoUrl            String?
   avatar                     Avatar[]
@@ -237,6 +237,9 @@ model User {
   userToAchievement          UserToAchievement[]
   userToEvent                UserToEvent[]
   userToInterest             UserToInterest[]
+
+  @@unique([email, isDeleted])
+  @@unique([phoneNumber, isDeleted])
 }
 
 model UserNotification {

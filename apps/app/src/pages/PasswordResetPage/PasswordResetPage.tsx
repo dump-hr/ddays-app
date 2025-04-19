@@ -7,8 +7,10 @@ import { EmailSentStep } from './steps/EmailSentStep';
 import { ValidationRequiredStep } from './steps/ValidationRequiredStep';
 import { NewPasswordStep } from './steps/NewPasswordStep';
 import { SuccessStep } from './steps/SuccessStep';
-import { validations, validateField } from '../../helpers/validateInput';
-import { UserDataFields } from '@/types/enums';
+import {
+  validations,
+  validateRepeatedPassword,
+} from '../../helpers/validateInput';
 
 export const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
@@ -36,11 +38,11 @@ export const PasswordResetPage = () => {
       : '';
     setPasswordError(passwordError);
 
-    const confirmPasswordError = validateField(
-      UserDataFields.RepeatedPassword,
+    const confirmPasswordError = validateRepeatedPassword(
+      newPassword,
       confirmPassword,
-      { newPassword },
     );
+
     setConfirmPasswordError(confirmPasswordError || '');
 
     return !passwordError && !confirmPasswordError;

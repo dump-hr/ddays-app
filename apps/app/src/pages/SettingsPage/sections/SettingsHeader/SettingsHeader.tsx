@@ -12,22 +12,18 @@ import ArrowLeftWhiteIcon from '@/assets/icons/arrow-left-white.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import EditIcon from '@/assets/icons/pencil.svg';
 
-interface SettingsHeaderProps {
-  isEditing: boolean;
-  isChangingPassword: boolean;
-  setIsEditing: (value: boolean) => void;
-  setIsChangingPassword: (value: boolean) => void;
-}
-
-export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
-  isEditing,
-  isChangingPassword,
-  setIsEditing,
-  setIsChangingPassword,
-}) => {
+export const SettingsHeader: React.FC = () => {
   const navigate = useNavigate();
   const { isMobile } = useDeviceType({ breakpoint: 768 });
-  const { userData, updateUserSettingsData } = useUserContext();
+  const {
+    userSettingsData,
+    updateUserSettingsData,
+    updatePasswordInputsData,
+    isEditing,
+    isChangingPassword,
+    setIsChangingPassword,
+    setIsEditing,
+  } = useUserContext();
 
   const isEditingMode = isEditing || isChangingPassword;
   const isNotEditingMode = !isEditing && !isChangingPassword;
@@ -35,7 +31,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
   const handleEditClick = () => {
     if (isChangingPassword) {
       setIsChangingPassword(false);
-      updateUserSettingsData({
+      updatePasswordInputsData({
         password: '',
         newPassword: '',
         repeatedPassword: '',
@@ -45,7 +41,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     }
 
     if (isEditing) {
-      updateUserSettingsData(userData);
+      updateUserSettingsData(userSettingsData);
       toast('Izmjene nisu spremljene!', { icon: '⚠️' });
     }
     setIsEditing(!isEditing);
@@ -60,7 +56,7 @@ export const SettingsHeader: React.FC<SettingsHeaderProps> = ({
     if (isEditingMode) {
       setIsEditing(false);
       setIsChangingPassword(false);
-      updateUserSettingsData(userData);
+      updateUserSettingsData(userSettingsData);
       toast('Izmjene nisu spremljene!', { icon: '⚠️' });
       return;
     }

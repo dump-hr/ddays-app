@@ -12,29 +12,43 @@ import { useInputHandlers } from '@/hooks/useInputHandlers';
 import { SettingsEdits } from '@/types/enums';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { changePasswordFields, passwordInputs } from '../inputs';
-import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
+import {
+  allFieldsAreFilled,
+  validateField,
+  validateRepeatedPassword,
+} from '@/helpers/validateInput';
+import { useChangeUserPassword } from '@/api/user/useChangeUserPassword';
 
-interface ChangePasswordProps {
-  setIsChangingPassword: (value: boolean) => void;
-}
-
-export const ChangePassword: React.FC<ChangePasswordProps> = ({
-  setIsChangingPassword,
-}) => {
+export const ChangePassword: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { userSettingsData, updateUserSettingsData } = useUserContext();
-  const { handleInputChange } = useInputHandlers(updateUserSettingsData);
+  const {
+    passwordInputsData,
+    updatePasswordInputsData,
+    setIsChangingPassword,
+  } = useUserContext();
+  const { handleInputChange } = useInputHandlers(updatePasswordInputsData);
 
   const { errors, clearStepErrors, setStepErrors, isStepValid } =
     useRegistration();
+
+  const updateUserPasswordMutation = useChangeUserPassword();
 
   const validateChangePassword = () => {
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     changePasswordFields.forEach((key) => {
-      const error = validateField(key, userSettingsData[key], userSettingsData);
+      const error = validateField(key, passwordInputsData[key]);
       newErrors[key] = error || '';
     });
+
+    const passwordsMatchError = validateRepeatedPassword(
+      passwordInputsData.newPassword,
+      passwordInputsData.repeatedPassword,
+    );
+
+    if (passwordsMatchError) {
+      newErrors.repeatedPassword = passwordsMatchError;
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setStepErrors(SettingsEdits.PASSWORD, newErrors);
@@ -46,10 +60,10 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
   useEffect(() => {
     if (
       isSubmitted ||
-      allFieldsAreFilled(changePasswordFields, userSettingsData)
+      allFieldsAreFilled(changePasswordFields, passwordInputsData)
     )
       validateChangePassword();
-  }, [userSettingsData, isSubmitted]);
+  }, [passwordInputsData, isSubmitted]);
 
   const handleSaveClick = () => {
     setIsSubmitted(true);
@@ -59,16 +73,23 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
       toast.error('Podaci nisu ispravno uneseni!');
       return;
     }
-    // TODO: validacija trenutne lozinke sa backendom
-    // TODO izmjena lozinke sa backend
 
-    setPasswordInputsToDefault();
-    toast.success('Podaci uspješno izmjenjeni!');
-    setIsChangingPassword(false);
+    updateUserPasswordMutation.mutate(
+      {
+        currentPassword: passwordInputsData.password ?? '',
+        newPassword: passwordInputsData.newPassword ?? '',
+      },
+      {
+        onSuccess: () => {
+          setPasswordInputsToDefault();
+          setIsChangingPassword(false);
+        },
+      },
+    );
   };
 
   const setPasswordInputsToDefault = () => {
-    updateUserSettingsData({
+    updatePasswordInputsData({
       password: '',
       newPassword: '',
       repeatedPassword: '',
@@ -85,7 +106,7 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({
               name={input.name}
               type={input.type}
               placeholder={input.placeholder}
-              value={userSettingsData[input.name]?.toString()}
+              value={passwordInputsData[input.name]?.toString()}
               onChange={handleInputChange}
               error={
                 isSubmitted ? errors[SettingsEdits.PASSWORD]?.[input.name] : ''

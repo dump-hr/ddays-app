@@ -18,6 +18,7 @@ import { PrismaService } from './prisma.service';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
 
     BoothModule,
     ShopModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
