@@ -6,6 +6,8 @@ import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
+import PointModifierPopup from '../Home/popups/PointModifierPopup';
+import { useNavigate } from 'react-router-dom';
 
 enum RatingType {
   THEME = 'general',
@@ -38,6 +40,9 @@ const RATING_QUESTIONS = [
 ];
 
 export const RateLecturePage = () => {
+  const navigate = useNavigate();
+  const [isPointModifierOpen, setIsPointModifierOpen] = useState(false);
+  const [points, setPoints] = useState(0);
   const [answers, setAnswers] = useState<RatingAnswers>({
     [RatingType.THEME]: null,
     [RatingType.PRESENTATION_SKILLS]: null,
@@ -101,11 +106,23 @@ export const RateLecturePage = () => {
           <div className={c.buttonContainer}>
             <Button
               variant='black'
-              onClick={() => console.log('Button clicked')}
+              onClick={() => {
+                setPoints(50);
+                setIsPointModifierOpen(true);
+              }}
               disabled={!allQuestionsAnswered}>
               Spremi
             </Button>
           </div>
+
+          <PointModifierPopup
+            isOpen={isPointModifierOpen}
+            points={points}
+            closePopup={() => {
+              setIsPointModifierOpen(false);
+              navigate('/app');
+            }}
+          />
         </div>
       </div>
     </div>
