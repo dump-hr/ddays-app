@@ -1,4 +1,4 @@
-import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
+/* import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -59,5 +59,51 @@ export class NotificationController {
     @Body() dto: NotificationModifyDto,
   ): Promise<NotificationDto> {
     return await this.notificationService.update(id, dto);
+  }
+}
+ */
+
+import {
+  Controller,
+  Get,
+  Patch,
+  Param,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { NotificationService } from './notification.service';
+import { UserGuard } from '../auth/user.guard';
+
+@Controller('notifications')
+@UseGuards(UserGuard)
+export class NotificationController {
+  constructor(private readonly notificationService: NotificationService) {}
+
+  @Get()
+  async getUserNotifications(@Req() { user }) {
+    return this.notificationService.getUserNotifications(user.id);
+  }
+
+  @Get('count')
+  async getUnreadCount(@Req() { user }) {
+    return {
+      count: await this.notificationService.getUnreadNotificationsCount(
+        user.id,
+      ),
+    };
+  }
+
+  @Patch(':id/read')
+  async markAsRead(@Req() { user }, @Param('id', ParseIntPipe) id: number) {
+    return this.notificationService.markNotificationAsRead(user.id, id);
+  }
+
+  @Patch(':id/delivered')
+  async markAsDelivered(
+    @Req() { user },
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.notificationService.markNotificationAsDelivered(user.id, id);
   }
 }
