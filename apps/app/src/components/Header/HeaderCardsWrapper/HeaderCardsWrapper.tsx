@@ -69,7 +69,10 @@ export const HeaderCardsWrapper = () => {
           />
         ))}
       </div>
-      <Accreditation isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)}/>
+      <Accreditation
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
     </>
   );
 };
