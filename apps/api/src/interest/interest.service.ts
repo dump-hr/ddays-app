@@ -105,6 +105,23 @@ export class InterestService {
     return interests.map((relation) => relation.interest);
   }
 
+  async getForUser(userId: number): Promise<InterestDto[]> {
+    const interests = await this.prisma.userToInterest.findMany({
+      where: { userId },
+      include: {
+        interest: {
+          select: {
+            id: true,
+            name: true,
+            theme: true,
+          },
+        },
+      },
+    });
+
+    return interests.map((relation) => relation.interest);
+  }
+
   async remove(id: number): Promise<InterestDto> {
     const removedInterest = await this.prisma.interest.delete({
       where: { id },
