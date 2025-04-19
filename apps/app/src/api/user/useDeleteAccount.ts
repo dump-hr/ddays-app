@@ -11,7 +11,7 @@ const deleteCurrentUser = async () => {
 export const useDeleteAccount = () => {
   return useMutation(deleteCurrentUser, {
     onSuccess: () => {
-      toast.success('Profil je uspješno obrisan!');
+      toast.success('Račun je uspješno obrisan!');
       localStorage.removeItem('accessToken');
       router.navigate(RouteNames.LOGIN);
     },
