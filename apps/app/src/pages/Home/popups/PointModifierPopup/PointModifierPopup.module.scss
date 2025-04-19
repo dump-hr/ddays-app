@@ -1,0 +1,40 @@
+.backlight {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: auto;
+  width: 100%;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 422px;
+    margin: 0 auto;
+  }
+
+  .title {
+    color: white;
+    @include heading-2;
+    font-weight: 500;
+    margin-top: 94px;
+    margin-bottom: 12px;
+  }
+
+  .paragraph {
+    color: $black-30;
+    @include paragraph-16;
+    margin-bottom: 82px;
+  }
+
+  .button {
+    width: 100%;
+    z-index: 10;
+  }
+}
