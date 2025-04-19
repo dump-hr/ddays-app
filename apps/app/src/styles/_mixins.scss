@@ -125,3 +125,9 @@
     border-bottom-left-radius: 0;
   }
 }
+
+@mixin mobileNavigationPadding($additional: 0px) {
+  @media screen and (max-width: $breakpoint-tablet) {
+    padding-bottom: calc($mobile-navigation-height + $additional);
+  }
+}

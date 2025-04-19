@@ -60,6 +60,7 @@
 }
 
 .main {
+  @include mobileNavigationPadding(24px);
   width: 100%;
   background-color: white;
   border-radius: 16px 16px 0px 0px;

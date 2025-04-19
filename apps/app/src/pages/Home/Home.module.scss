@@ -13,5 +13,6 @@
     width: 100%;
     background-color: $primary-background;
     border-radius: 12px 12px 0px 0px;
+    @include mobileNavigationPadding();
   }
 }
