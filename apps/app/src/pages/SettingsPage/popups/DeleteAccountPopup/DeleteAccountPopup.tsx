@@ -2,9 +2,6 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import styles from './DeleteAccountPopup.module.scss';
 import DuckGoodbyeImg from '@/assets/images/duck-goodbye.png';
 import Button from '@/components/Button';
-import toast from 'react-hot-toast';
-import { RouteNames } from '@/router/routes';
-import { useNavigate } from 'react-router-dom';
 import { useDeleteAccount } from '@/api/user/useDeleteAccount';
 
 interface PopupProps {
@@ -13,14 +10,10 @@ interface PopupProps {
 }
 
 const DeleteAccountPopup = ({ isOpen, setIsOpen }: PopupProps) => {
-  const navigate = useNavigate();
   const deleteAccount = useDeleteAccount();
 
   const handleDelete = () => {
     deleteAccount.mutate();
-    localStorage.removeItem('userData');
-    toast.success('Račun uspješno obrisan!');
-    navigate(RouteNames.LOGIN);
   };
 
   return (
