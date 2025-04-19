@@ -14,6 +14,7 @@ export class UserService {
         NOT: {
           id: userId,
         },
+        isDeleted: false,
       },
     });
 
