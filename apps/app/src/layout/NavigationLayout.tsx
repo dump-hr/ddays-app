@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { Navigation } from '../components/Navigation';
+import { MobileNavigation } from '../components/MobileNavigation';
 import styles from './NavigationLayout.module.scss';
-import Navbar from '@/components/Navbar';
+import DesktopNavigation from '@/components/DesktopNavigation';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { navbarRoutes } from '@/router/routes';
 
@@ -15,9 +15,9 @@ export const NavigationLayout = () => {
 
   return (
     <div className={styles.container}>
-      {!isMobile && shouldShowNavbar && <Navbar />}
+      {!isMobile && shouldShowNavbar && <DesktopNavigation />}
       <Outlet />
-      {isMobile && <Navigation />}
+      {isMobile && <MobileNavigation />}
     </div>
   );
 };

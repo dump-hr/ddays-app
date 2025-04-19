@@ -28,7 +28,7 @@
 
   .content {
     background-color: $primary-background;
-    border-radius: 16px 16px 0px 0px;
+    border-radius: $border-radius-page-mobile;
     padding-top: 24px;
     width: 100%;
 
@@ -42,7 +42,7 @@
 
     @media screen and (min-width: $breakpoint-tablet) {
       margin: 0 24px 24px;
-      border-radius: 24px;
+      border-radius: $border-radius-page-desktop;
     }
 
     .header {
