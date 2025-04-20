@@ -4,6 +4,8 @@ import Duck from '../../assets/images/duck.png';
 import c from './RecommendationsButton.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import useRefDimensions from '../../hooks/useRefDimensions';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '@/router/routes';
 
 type RecommendationsButtonProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -12,6 +14,7 @@ const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
   ...handlers
 }) => {
   const [isCompact, setIsCompact] = useState(false);
+  const navigate = useNavigate();
 
   const buttonRef = useRef(null);
   const dimensions = useRefDimensions(buttonRef);
@@ -27,10 +30,11 @@ const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
   return (
     <div
       className={clsx(c.button, className, { [c.compact]: isCompact })}
+      onClick={() => navigate(RouteNames.PROFILE_RECOMMENDATIONS)}
       {...handlers}
       ref={buttonRef}>
       <p className={c.text}>
-        Preporuke samo za tebe
+        Moglo bi ti se svidit još i...{' '}
         <img className={c.arrow} src={Arrow} alt='' />
       </p>
       <img className={c.duck} src={Duck} alt='' />

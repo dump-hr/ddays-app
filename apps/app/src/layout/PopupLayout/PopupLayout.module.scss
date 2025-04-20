@@ -46,6 +46,20 @@ div.dark {
   color: $primary-white;
 }
 
+div.blackFullscreen {
+  background-color: $primary-black;
+  height: 100vh;
+  border-radius: 0;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    @include roundedContainer();
+    height: 100%;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    padding: 40px 48px 48px;
+  }
+}
+
 div.center {
   justify-content: center;
 }
@@ -73,7 +87,7 @@ div.between {
 }
 .desktopStretch {
   @include roundedContainer();
-  gap: 2rem;
+  //gap: 2rem;
   width: 100%;
   margin-top: 1.5rem;
   margin-bottom: 0;
