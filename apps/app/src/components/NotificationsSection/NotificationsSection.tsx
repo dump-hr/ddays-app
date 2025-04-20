@@ -48,7 +48,7 @@ const NotificationsSection = () => {
     if (!isLoading && notifications) {
       setLocalNotifications(notifications);
     }
-  }, [isLoading]);
+  }, [isLoading, notifications]);
 
   useEffect(() => {
     if (notificationsTab === Tabs.Sve) {

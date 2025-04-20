@@ -10,5 +10,8 @@ const getUserNotifications = async () => {
 export const useGetUserNotifications = () => {
   return useQuery(QUERY_KEYS.userNotifications, getUserNotifications, {
     refetchOnWindowFocus: true,
+    refetchInterval: 30000,
+    staleTime: 0,
+    cacheTime: 30000,
   });
 };
