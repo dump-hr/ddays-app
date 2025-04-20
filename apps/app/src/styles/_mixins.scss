@@ -110,7 +110,7 @@
   $breakpoint: $breakpoint-tablet
 ) {
   background: $color;
-  border-radius: 1rem;
+  border-radius: $border-radius-page-desktop;
   height: auto;
   padding: 1.5rem;
   display: flex;
@@ -121,7 +121,12 @@
 
   @media screen and (max-width: $breakpoint) {
     margin: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    border-radius: $border-radius-page-mobile;
+  }
+}
+
+@mixin mobileNavigationPadding($additional: 0px) {
+  @media screen and (max-width: $breakpoint-tablet) {
+    padding-bottom: calc($mobile-navigation-height + $additional);
   }
 }
