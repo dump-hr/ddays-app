@@ -5,7 +5,7 @@ export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
 
   isValidName: (value: string) => {
-    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s\-]{2,}$/;
+    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s-]{2,}$/;
     return nameRegex.test(value.trim());
   },
 
