@@ -85,7 +85,7 @@ export class NotificationController {
     return this.notificationService.getUserNotifications(user.id);
   }
 
-  @Get('count')
+  @Get('unread-count')
   async getUnreadCount(@Req() { user }) {
     return {
       count: await this.notificationService.getUnreadNotificationsCount(
