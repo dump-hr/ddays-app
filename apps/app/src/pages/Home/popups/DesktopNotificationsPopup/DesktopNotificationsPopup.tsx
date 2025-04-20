@@ -1,5 +1,6 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import NotificationsSection from '@/components/NotificationsSection';
+import styles from './DesktopNotificationsPopup.module.scss';
 
 interface PopupProps {
   isOpen: boolean;
@@ -14,13 +15,7 @@ const DesktopNotificationsPopup = ({ isOpen, closePopup }: PopupProps) => {
       closePopup={() => closePopup()}
       isOpen={isOpen}
       desktopStyle='normal'>
-      <div
-        style={{
-          overflowY: 'auto',
-          paddingRight: '0.5rem',
-          height: '100%',
-        }}>
-        {' '}
+      <div className={styles.contentDiv}>
         <NotificationsSection />
       </div>
     </PopupLayout>
