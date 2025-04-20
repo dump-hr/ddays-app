@@ -40,6 +40,14 @@ export class EventController {
     return await this.eventService.getAllWithSpeaker();
   }
 
+  @UseGuards(UserGuard)
+  @Get('my-schedule')
+  async getEventsInMySchedule(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<EventDto[]> {
+    return this.eventService.getEventsInMySchedule(user.id);
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.getOne(id);
@@ -71,13 +79,5 @@ export class EventController {
     @Body() dto: UserToEventDto,
   ): Promise<UserToEvent> {
     return await this.eventService.joinEvent(eventId, dto);
-  }
-
-  @UseGuards(UserGuard)
-  @Get('my-schedule')
-  async getEventsInMySchedule(
-    @Req() { user }: AuthenticatedRequest,
-  ): Promise<EventDto[]> {
-    return this.eventService.getEventsInMySchedule(user.id);
   }
 }

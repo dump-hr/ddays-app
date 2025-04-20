@@ -94,6 +94,7 @@ export const SchedulePage = () => {
   return (
     <main className={c.main}>
       <h1 className={c.pageTitle}>Raspored</h1>
+      <button onClick={() => console.log(mySchedule)}>getmyschedule</button>
       <div className={c.contentWrapper}>
         <TabGroup
           setter={(id) => setActiveTab(id as TabId)}

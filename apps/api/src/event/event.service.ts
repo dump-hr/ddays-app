@@ -151,17 +151,9 @@ export class EventService {
   }
 
   async getEventsInMySchedule(userId: number): Promise<EventDto[]> {
-    console.log('UPOMOCCCC' + userId);
     const events = await this.prisma.userToEvent.findMany({
       where: {
         userId,
-        event: {
-          is: {
-            type: {
-              in: [EventType.WORKSHOP, EventType.LECTURE],
-            },
-          },
-        },
       },
       include: {
         event: {

@@ -6,7 +6,6 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const eventGetMySchedule = async (): Promise<EventDto[]> => {
   const response = await axios.get('/event/my-schedule');
-  console.log('response', response.data);
   return response.data;
 };
 
