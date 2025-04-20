@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   userPoints: 'userPoints',
   userNotifications: 'userNotifications',
   currentUser: 'currentUser',
+  numOfUnreadNotifications: 'numOfUnreadNotifications',
 };
