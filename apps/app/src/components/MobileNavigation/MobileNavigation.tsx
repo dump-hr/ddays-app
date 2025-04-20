@@ -1,11 +1,11 @@
 import { ReactElement, useState } from 'react';
 import styles from './MobileNavigation.module.scss';
 import sprite from '../../assets/sprite.svg';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { NAVIGATION_TAB_ID, navigationTabs } from '@/router/navigationTabs';
 
 export const MobileNavigation = (): ReactElement => {
-  const currentPath = window.location.pathname;
+  const { pathname: currentPath } = useLocation();
   const currentTab = navigationTabs.find((tab) => tab.route === currentPath);
   const [selectedTab, setSelectedTab] = useState<NAVIGATION_TAB_ID>(
     currentTab ? currentTab.id : NAVIGATION_TAB_ID.HOME,
