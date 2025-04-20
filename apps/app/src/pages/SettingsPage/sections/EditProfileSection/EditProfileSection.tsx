@@ -3,12 +3,7 @@ import styles from './EditProfileSection.module.scss';
 import { useEffect, useState } from 'react';
 import { useUserContext } from '@/context/UserContext';
 import { useInputHandlers } from '@/hooks/useInputHandlers';
-import {
-  checkboxInputs,
-  dropdownInputs,
-  editProfileFields,
-  textInputs,
-} from '../inputs';
+import { checkboxInputs, editProfileFields, textInputs } from '../inputs';
 
 import Dropdown from '@/components/Dropdown';
 import Button from '@/components/Button';
@@ -20,11 +15,13 @@ import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { usePatchCurrentUser } from '@/api/user/usePatchCurrentUser';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
+import { dropdownInputs } from '@/constants/sharedInputs';
 
 export const EditProfileSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const updateUserMutation = usePatchCurrentUser();
-  const { userSettingsData, updateUserSettingsData, isEditing, setIsEditing } = useUserContext();
+  const { userSettingsData, updateUserSettingsData, isEditing, setIsEditing } =
+    useUserContext();
 
   const {
     handleDropdownChange,
