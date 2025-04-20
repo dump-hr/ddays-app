@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 import c from './CheckboxFieldsWrapper.module.scss';
-import { Checkbox } from '../../Checkbox';
-import { UserDataFields } from '../../../types/enums';
-import { RouteNames } from '../../../router/routes';
+import { Checkbox } from '@/components/Checkbox';
+import { UserDataFields } from '@/types/enums';
+import { RouteNames } from '@/router/routes';
 import { RegistrationDto } from '@/types/user/user';
 
 type Props = {

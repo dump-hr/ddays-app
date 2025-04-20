@@ -1,16 +1,16 @@
 import { ChangeEvent, useEffect } from 'react';
-import { Input } from '../../Input';
+import { Input } from '@/components/Input';
 import c from './FirstStepRegistrationForm.module.scss';
-import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
+import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import {
   allFieldsAreFilled,
   validateField,
   validateRepeatedPassword,
-} from '../../../helpers/validateInput';
-import { UserDataFields } from '../../../types/enums';
-import { useRegistration } from '../../../providers/RegistrationContext';
+} from '@/helpers/validateInput';
+import { UserDataFields } from '@/types/enums';
+import { useRegistration } from '@/providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
-import { RegistrationStep } from '../../../types/registration/registration.dto';
+import { RegistrationStep } from '@/types/registration/registration.dto';
 import { RegistrationDto } from '@/types/user/user';
 
 type Props = {
