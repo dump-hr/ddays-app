@@ -1,6 +1,7 @@
 import {
   EventDto,
   EventModifyDto,
+  EventWithCompanyDto,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import {
@@ -31,6 +32,11 @@ export class EventController {
   @Get('with-speaker')
   async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
+  }
+
+  @Get('with-company')
+  async GetAllWithCompany(): Promise<EventWithCompanyDto[]> {
+    return await this.eventService.getAllWithCompany();
   }
 
   @Get(':id')

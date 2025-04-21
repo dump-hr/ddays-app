@@ -1,6 +1,7 @@
 import {
   EventDto,
   EventModifyDto,
+  EventWithCompanyDto,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
@@ -114,6 +115,56 @@ export class EventService {
             : null,
         };
       }),
+    }));
+  }
+
+  async getAllWithCompany(): Promise<EventWithCompanyDto[]> {
+    const events = await this.prisma.event.findMany({
+      include: {
+        companyToFlyTalk: {
+          include: {
+            company: {
+              select: {
+                id: true,
+                name: true,
+                logoImage: true,
+              },
+            },
+          },
+        },
+        userToEvent: {
+          include: {
+            user: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return events.map((event) => ({
+      id: event.id,
+      name: event.name,
+      description: event.description,
+      startsAt: event.startsAt,
+      endsAt: event.endsAt,
+      maxParticipants: event.maxParticipants,
+      requirements: event.requirements,
+      footageLink: event.footageLink,
+      type: event.type,
+      theme: event.theme,
+      codeId: event.codeId,
+      isOnEnglish: event.isOnEnglish,
+      companies: event.companyToFlyTalk.map((relation) => ({
+        id: relation.company.id,
+        name: relation.company.name,
+        logoImage: relation.company.logoImage,
+      })),
+      user: event.userToEvent.map((relation) => ({
+        id: relation.user.id,
+      })),
     }));
   }
 

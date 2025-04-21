@@ -8,6 +8,8 @@ import {
 } from 'class-validator';
 import { EventType, Theme } from '../enum';
 import { SpeakerWithCompanyDto } from './speaker';
+import { CompanyDto, CompanyWithFlyTalkDto } from './company';
+import { UserWithFlyTalkDto } from './user';
 
 export type EventDto = {
   id: number;
@@ -37,6 +39,22 @@ export type EventWithSpeakerDto = {
   codeId?: number;
   speakers?: SpeakerWithCompanyDto[];
 };
+
+export type EventWithCompanyDto = {
+  id: number;
+  name: string;
+  description?: string;
+  startsAt: string;
+  endsAt: string;
+  maxParticipants?: number;
+  requirements?: string;
+  footageLink?: string;
+  type: `${EventType}`;
+  theme: `${Theme}`;
+  codeId?: number;
+  companies?: CompanyWithFlyTalkDto[];
+  users?: UserWithFlyTalkDto[];
+}
 
 export class EventModifyDto {
   @IsString()

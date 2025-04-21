@@ -25,3 +25,7 @@ export type UserModifyDto = {
   companiesNewsEnabled?: boolean;
   isConfirmed?: boolean;
 };
+
+export type UserWithFlyTalkDto = {
+  id: number;
+};

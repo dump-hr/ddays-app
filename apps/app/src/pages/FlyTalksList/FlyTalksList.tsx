@@ -3,80 +3,8 @@ import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './FlyTalksList.module.scss';
 import FlyTalksGroup from '../../components/FlyTalksGroup';
-import placeholderLogo from '../../assets/images/profico-logo.png';
-
-const groupsMock = [
-  {
-    id: 1,
-    start: '10:30',
-    end: '11:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: true,
-  },
-  {
-    id: 2,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 3,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 25,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 4,
-    start: '10:30',
-    end: '11:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 5,
-    start: '11:30',
-    end: '12:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-];
+import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 const FlyTalksList = () => {
   enum Tabs {
@@ -90,6 +18,26 @@ const FlyTalksList = () => {
   const handleTabChange = (tab: string) => {
     setSelectedTab(tab);
   };
+
+  const { data: event } = useGetAllFlyTalkGroups();
+  const { data: currentUser } = useLoggedInUser();
+  const groups =
+    event?.map((event) => ({
+      id: event.id,
+      start: event.startsAt.split('T')[1].slice(0, 5),
+      end: event.endsAt.split('T')[1].slice(0, 5),
+      day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+      participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
+      hasUserApplied: Array.isArray(event.users)
+        ? event.users.some((user) => user.id === currentUser?.id)
+        : false,
+      companies: Array.isArray(event.companies)
+        ? event.companies.map((company) => ({
+            ...company,
+            logoImage: company.logoImage || '',
+          }))
+        : [],
+    })) || [];
 
   return (
     <div className={c.page}>
@@ -110,11 +58,11 @@ const FlyTalksList = () => {
         </p>
         <div className={c.groupsList}>
           {selectedTab === Tabs.first_day &&
-            groupsMock
+            groups
               .filter((group) => group.day === 1)
               .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
           {selectedTab === Tabs.second_day &&
-            groupsMock
+            groups
               .filter((group) => group.day === 2)
               .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
         </div>

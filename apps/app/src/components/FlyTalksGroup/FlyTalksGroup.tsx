@@ -11,7 +11,11 @@ interface FlyTalksGroupProps {
     start: string;
     end: string;
     participantsNumber: number;
-    companies: string[];
+    companies: {
+      id: number;
+      logoImage: string;
+      name: string;
+    }[];
     hasUserApplied: boolean;
   };
 }
@@ -50,7 +54,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
         {group.companies.map((company, i) => (
           <div key={i} className={c.company}>
             <p>0{i + 1}</p>
-            <img src={company} alt='' />
+            <img src={company.logoImage} alt='' />
             {i !== 3 && <div className={c.divider}></div>}
           </div>
         ))}
