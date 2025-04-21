@@ -13,7 +13,7 @@ export const useUpdateReadNotification = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.userNotifications);
     },
-    onError: (error) => {
+    onError: (error: string) => {
       console.error('Error updating notification:', error);
     },
   });

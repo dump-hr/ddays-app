@@ -14,7 +14,7 @@ export const useGetNumOfUnreadNotifications = () => {
       refetchOnWindowFocus: true,
       refetchInterval: 30000,
       staleTime: 0,
-      cacheTime: 30000,
+      cacheTime: 60000,
     },
   );
 };
