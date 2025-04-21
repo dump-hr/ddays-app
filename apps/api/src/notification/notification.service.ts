@@ -1,99 +1,8 @@
-/* import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-
-@Injectable()
-export class NotificationService {
-  constructor(private readonly prisma: PrismaService) {}
-
-  async activate(id: number): Promise<NotificationDto> {
-    const activatedNotification = await this.prisma.notification.update({
-      where: { id },
-      data: { activatedAt: new Date() },
-    });
-
-    return activatedNotification;
-  }
-
-  async create(dto: NotificationModifyDto): Promise<NotificationDto> {
-    const createdNotification = await this.prisma.notification.create({
-      data: {
-        ...dto,
-      },
-    });
-
-    return createdNotification;
-  }
-
-  async deactivate(id: number): Promise<NotificationDto> {
-    const deactivatedNotification = await this.prisma.notification.update({
-      where: { id },
-      data: { activatedAt: null },
-    });
-
-    return deactivatedNotification;
-  }
-
-  async getActive(): Promise<NotificationDto[]> {
-    const notifications = await this.prisma.notification.findMany({
-      where: {
-        activatedAt: {
-          lte: new Date(),
-        },
-      },
-      orderBy: { activatedAt: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        activatedAt: true,
-      },
-    });
-
-    return notifications;
-  }
-
-  async getAll(): Promise<NotificationDto[]> {
-    const notifications = await this.prisma.notification.findMany({
-      orderBy: { activatedAt: 'desc' },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        activatedAt: true,
-      },
-    });
-
-    return notifications;
-  }
-
-  async remove(id: number): Promise<NotificationDto> {
-    const deletedNotification = await this.prisma.notification.delete({
-      where: { id },
-    });
-
-    return deletedNotification;
-  }
-
-  async update(
-    id: number,
-    dto: NotificationModifyDto,
-  ): Promise<NotificationDto> {
-    const updatedNotification = await this.prisma.notification.update({
-      where: { id },
-      data: dto,
-    });
-
-    return updatedNotification;
-  }
-}
- */
-
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { NotificationStatus } from '@prisma/client';
-import { EventDto } from '@ddays-app/types';
+import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
 
 @Injectable()
 export class NotificationService {
@@ -265,5 +174,109 @@ export class NotificationService {
         },
       },
     });
+  }
+  
+  async activate(id: number): Promise<NotificationDto> {
+    const activatedNotification = await this.prisma.notification.update({
+      where: { id },
+      data: { activatedAt: new Date() },
+    });
+
+    return activatedNotification;
+  }
+
+  async create(dto: NotificationModifyDto): Promise<NotificationDto> {
+    const createdNotification = await this.prisma.notification.create({
+      data: {
+        ...dto,
+      },
+    });
+
+    return createdNotification;
+  }
+
+  async createForAllUsers(
+    dto: NotificationModifyDto,
+  ): Promise<NotificationDto[]> {
+    const createdNotification = await this.create(dto);
+
+    const users = await this.prisma.user.findMany({
+      select: { id: true, isDeleted: true },
+      where: { isDeleted: false },
+    });
+
+    const userNotifications = users.map((user) => ({
+      userId: user.id,
+      notificationId: createdNotification.id,
+      status: NotificationStatus.DELIVERED,
+    }));
+
+    await this.prisma.userNotification.createMany({
+      data: userNotifications,
+    });
+
+    return [createdNotification];
+  }
+
+  async deactivate(id: number): Promise<NotificationDto> {
+    const deactivatedNotification = await this.prisma.notification.update({
+      where: { id },
+      data: { activatedAt: null },
+    });
+
+    return deactivatedNotification;
+  }
+
+  async getActive(): Promise<NotificationDto[]> {
+    const notifications = await this.prisma.notification.findMany({
+      where: {
+        activatedAt: {
+          lte: new Date(),
+        },
+      },
+      orderBy: { activatedAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        activatedAt: true,
+      },
+    });
+
+    return notifications;
+  }
+
+  async getAll(): Promise<NotificationDto[]> {
+    const notifications = await this.prisma.notification.findMany({
+      orderBy: { activatedAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        activatedAt: true,
+      },
+    });
+
+    return notifications;
+  }
+
+  async remove(id: number): Promise<NotificationDto> {
+    const deletedNotification = await this.prisma.notification.delete({
+      where: { id },
+    });
+
+    return deletedNotification;
+  }
+
+  async update(
+    id: number,
+    dto: NotificationModifyDto,
+  ): Promise<NotificationDto> {
+    const updatedNotification = await this.prisma.notification.update({
+      where: { id },
+      data: dto,
+    });
+
+    return updatedNotification;
   }
 }
