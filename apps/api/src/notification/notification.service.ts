@@ -1,8 +1,9 @@
+import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { PrismaService } from '../prisma.service';
 import { NotificationStatus } from '@prisma/client';
-import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
+
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class NotificationService {
@@ -175,7 +176,7 @@ export class NotificationService {
       },
     });
   }
-  
+
   async activate(id: number): Promise<NotificationDto> {
     const activatedNotification = await this.prisma.notification.update({
       where: { id },

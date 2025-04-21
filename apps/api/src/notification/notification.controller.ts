@@ -1,20 +1,21 @@
-import {
-  Controller,
-  Get,
-  Patch,
-  Param,
-  UseGuards,
-  Req,
-  ParseIntPipe,
-  Post,
-  Body,
-  Delete,
-  Put,
-} from '@nestjs/common';
-import { NotificationService } from './notification.service';
-import { UserGuard } from '../auth/user.guard';
-import { AdminGuard } from 'src/auth/admin.guard';
 import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { AdminGuard } from 'src/auth/admin.guard';
+
+import { UserGuard } from '../auth/user.guard';
+import { NotificationService } from './notification.service';
 
 @Controller('notifications')
 export class NotificationController {
