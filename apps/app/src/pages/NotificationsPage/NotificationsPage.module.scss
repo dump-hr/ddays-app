@@ -26,8 +26,7 @@
   background: white;
   position: relative;
   max-width: $breakpoint-desktop;
-  border-top-right-radius: 12px;
-  border-top-left-radius: 12px;
+  border-radius: $border-radius-page-mobile;
   padding: 20px;
   width: 100%;
   padding-bottom: 40px;
