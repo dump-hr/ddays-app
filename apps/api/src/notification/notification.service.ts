@@ -136,6 +136,21 @@ export class NotificationService {
     });
   }
 
+  async markNotificationsAsRead(userId: number, notificationIds: number[]) {
+    return this.prisma.userNotification.updateMany({
+      where: {
+        userId,
+        notificationId: {
+          in: notificationIds,
+        },
+      },
+      data: {
+        status: NotificationStatus.READ,
+        readAt: new Date(),
+      },
+    });
+  }
+
   async markNotificationAsRead(userId: number, notificationId: number) {
     return this.prisma.userNotification.update({
       where: {

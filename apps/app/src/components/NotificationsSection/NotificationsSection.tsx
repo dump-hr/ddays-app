@@ -29,13 +29,6 @@ const NotificationsSection = () => {
     setNotificationsTab(tab);
   };
 
-  // Handler to remove a notification from the local state
-  const handleRemoveNotification = (notificationId: number) => {
-    setLocalNotifications((prev) =>
-      prev.filter((n) => n.notificationId !== notificationId),
-    );
-  };
-
   const unreadNotifications = useMemo(
     () =>
       localNotifications.filter(
@@ -55,6 +48,10 @@ const NotificationsSection = () => {
       setDisplayedNotifications(localNotifications);
     } else if (notificationsTab === Tabs.Nepročitano) {
       setDisplayedNotifications(unreadNotifications);
+      localStorage.setItem(
+        'readNotifications',
+        JSON.stringify(unreadNotifications),
+      );
     }
   }, [notificationsTab, localNotifications, unreadNotifications]);
 
@@ -77,11 +74,9 @@ const NotificationsSection = () => {
                 key={notification.notificationId}
                 index={index}
                 notification={notification.notification}
-                notificationId={notification.notificationId}
                 expandedNotificationId={expandedNotificationId}
                 setExpandedNotificationId={setExpandedNotificationId}
                 notificationsLength={displayedNotifications.length}
-                onRemoveNotification={handleRemoveNotification}
               />
             ))}
           </div>

@@ -8,7 +8,7 @@ const getNumOfUnreadNotifications = async () => {
 
 export const useGetNumOfUnreadNotifications = () => {
   return useQuery(
-    QUERY_KEYS.numOfUnreadNotifications,
+    QUERY_KEYS.unreadNotificationsCount,
     getNumOfUnreadNotifications,
     {
       refetchOnWindowFocus: true,
