@@ -39,8 +39,14 @@ export class NotificationController {
 
   @Patch('read')
   @UseGuards(UserGuard)
-  async markNotificationsAsRead(@Req() { user }, @Body() notificationIds: number[]) {
-    return this.notificationService.markNotificationsAsRead(user.id, notificationIds);
+  async markNotificationsAsRead(
+    @Req() { user },
+    @Body() notificationIds: number[],
+  ) {
+    return this.notificationService.markNotificationsAsRead(
+      user.id,
+      notificationIds,
+    );
   }
 
   @Patch(':id/read')
