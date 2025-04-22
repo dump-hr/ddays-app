@@ -64,8 +64,8 @@ export class NotificationController {
     return this.notificationService.markNotificationAsDelivered(user.id, id);
   }
 
-  @UseGuards(AdminGuard)
   @Patch('activate/:id')
+  @UseGuards(AdminGuard)
   async activate(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<NotificationDto> {
@@ -87,6 +87,7 @@ export class NotificationController {
   }
 
   @Get('active')
+  @UseGuards(AdminGuard)
   async getActive(): Promise<NotificationDto[]> {
     return await this.notificationService.getActive();
   }

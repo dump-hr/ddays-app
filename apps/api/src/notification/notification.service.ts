@@ -1,9 +1,15 @@
-import { NotificationDto, NotificationModifyDto } from '@ddays-app/types';
+import {
+  EventDto,
+  EventType,
+  NotificationDto,
+  NotificationModifyDto,
+} from '@ddays-app/types';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { NotificationStatus } from '@prisma/client';
 
 import { PrismaService } from '../prisma.service';
+import { getEventTypeText } from './notification.helper';
 
 @Injectable()
 export class NotificationService {
@@ -61,7 +67,7 @@ export class NotificationService {
     }
   }
 
-  async createEventNotifications(event: any) {
+  async createEventNotifications(event: EventDto) {
     const existingNotification = await this.prisma.notification.findFirst({
       where: {
         eventId: event.id,
@@ -92,8 +98,10 @@ export class NotificationService {
 
     const notification = await this.prisma.notification.create({
       data: {
-        title: `Event Starting Soon: ${event.name}`,
-        content: `Your event "${event.name}" is starting in 15 minutes!`,
+        title: `Raspored: ${event.name}`,
+        content: `${getEventTypeText(
+          event.theme as EventType,
+        )} koje ste zabilježeli "${event.name}" počinje za 15 minuta!`,
         activatedAt: new Date(),
         expiresAt: new Date(Date.parse(event.startsAt) + 30 * 60 * 1000),
         isActive: true,
