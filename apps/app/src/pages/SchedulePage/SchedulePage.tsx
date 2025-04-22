@@ -80,7 +80,20 @@ export const SchedulePage = () => {
     if (myScheduleIsLoading) return;
 
     if (activeTab === TabId.MY_SCHEDULE) {
-      setFilteredEvents(mySchedule || []);
+      const filteredEvents = mySchedule
+        ?.filter((event) => {
+          return (
+            activeTag === TagId.ALL ||
+            event.theme.toUpperCase() === activeTag.toUpperCase()
+          );
+        })
+        .sort((a, b) => {
+          return (
+            new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+          );
+        });
+
+      setFilteredEvents(filteredEvents || []);
       return;
     }
 
