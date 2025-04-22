@@ -4,9 +4,15 @@ import {
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserToEvent } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
+
+export class AlreadyJoinedEventException extends HttpException {
+  constructor() {
+    super('Ovaj je događaj već dodan u tvoj raspored.', HttpStatus.BAD_REQUEST);
+  }
+}
 
 @Injectable()
 export class EventService {
@@ -137,6 +143,17 @@ export class EventService {
   }
 
   async joinEvent(eventId: number, dto: UserToEventDto): Promise<UserToEvent> {
+    const existingEntry = await this.prisma.userToEvent.findFirst({
+      where: {
+        userId: dto.userId,
+        eventId: eventId,
+      },
+    });
+
+    if (existingEntry) {
+      throw new AlreadyJoinedEventException();
+    }
+
     return await this.prisma.userToEvent.create({
       data: {
         userId: dto.userId,
@@ -151,7 +168,6 @@ export class EventService {
   }
 
   async getEventsInMySchedule(userId: number): Promise<EventDto[]> {
-    console.log('-----###-#-#-#-#-#-#> userId ' + userId);
     const events = await this.prisma.userToEvent.findMany({
       where: {
         userId,
@@ -180,10 +196,6 @@ export class EventService {
       },
     });
 
-    const filteredEvents = events.map((event) => event.event);
-    console.log(
-      '-----###-#-#-#-#-#-#> events ' + JSON.stringify(filteredEvents),
-    );
     return events.map((event) => event.event);
   }
 }

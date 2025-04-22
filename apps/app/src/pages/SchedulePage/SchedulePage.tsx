@@ -53,19 +53,7 @@ export const SchedulePage = () => {
       userId: user.id,
     };
 
-    eventAddToPersonalSchedule.mutate(
-      { eventId, data },
-      {
-        onSuccess: () => {
-          toast.success('Događaj uspješno dodan u raspored!');
-        },
-        onError: () => {
-          toast.error(
-            'Dogodila se pogreška prilikom dodavanja događaja u raspored!',
-          );
-        },
-      },
-    );
+    eventAddToPersonalSchedule.mutate({ eventId, data });
   }
 
   useEffect(() => {
