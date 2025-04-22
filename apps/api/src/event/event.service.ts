@@ -10,7 +10,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { UserToEvent } from '@prisma/client';
+import { EventType, UserToEvent } from '@prisma/client';
+import ical from 'ical-generator';
 import { PrismaService } from 'src/prisma.service';
 
 export class AlreadyJoinedEventException extends HttpException {
@@ -225,5 +226,34 @@ export class EventService {
     });
 
     return events.map((event) => event.event);
+  }
+
+  async generateIcal(userId: number): Promise<string> {
+    try {
+      const mySchedule = await this.getEventsInMySchedule(userId);
+      const calendar = ical({ name: 'DUMP Days 2025.' });
+
+      mySchedule.forEach((event) => {
+        let location = '';
+        if (event.type === EventType.LECTURE) location = 'A100';
+        else if (event.type === EventType.WORKSHOP) location = 'A101';
+
+        calendar.createEvent({
+          start: event.startsAt,
+          end: event.endsAt,
+          summary: event.name,
+          description: event.description,
+          location: location,
+        });
+      });
+
+      console.log('CALENDAR STRING -------> ' + calendar.toString());
+      return calendar.toString();
+    } catch {
+      throw new HttpException(
+        'Raspored korisnika nije pronađen',
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

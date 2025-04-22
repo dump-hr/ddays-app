@@ -38,6 +38,12 @@ export class EventController {
   }
 
   @UseGuards(UserGuard)
+  @Get('schedule-ical')
+  async generateIcal(@Req() { user }: AuthenticatedRequest): Promise<string> {
+    return await this.eventService.generateIcal(user.id);
+  }
+
+  @UseGuards(UserGuard)
   @Get('my-schedule')
   async getEventsInMySchedule(
     @Req() { user }: AuthenticatedRequest,

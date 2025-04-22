@@ -15,6 +15,7 @@ import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
+import { useEventGetIcalSchedule } from '@/api/event/useEventGetIcalSchedule';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -42,6 +43,7 @@ export const SchedulePage = () => {
   const { data: user } = useLoggedInUser();
   const { data: mySchedule, isLoading: myScheduleIsLoading } =
     useEventGetMySchedule();
+  const { data: icalSchedule } = useEventGetIcalSchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
   const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
 
@@ -98,11 +100,25 @@ export const SchedulePage = () => {
     );
   }, [activeTab, activeTag, events, mySchedule, myScheduleIsLoading]);
 
+  const downloadIcalFile = () => {
+    if (icalSchedule) {
+      const blob = new Blob([icalSchedule], { type: 'text/calendar' });
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schedule.ics';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  };
+
   return (
     <main className={c.main}>
       <h1 className={c.pageTitle}>Raspored</h1>
 
       <button onClick={() => console.log(mySchedule)}>getmyschedule</button>
+      <button onClick={downloadIcalFile}>getical</button>
 
       <div className={c.contentWrapper}>
         <TabGroup
