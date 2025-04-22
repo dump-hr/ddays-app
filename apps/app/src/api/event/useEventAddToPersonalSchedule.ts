@@ -21,7 +21,9 @@ export const useEventAddToPersonalSchedule = () => {
             icon: '⚠️',
           });
         } else {
-          toast.error('help');
+          toast.error(
+            'Došlo je do pogreške prilikom dodavanja događaja u raspored.',
+          );
         }
       },
     },
