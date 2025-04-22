@@ -7,7 +7,6 @@ import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import ScheduleCard from '../../components/ScheduleCard';
-import ToggleButton from '../../components/ToggleButton';
 import { useEventGetAll } from '@/api/event/useEventGetAll';
 import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
@@ -15,7 +14,8 @@ import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
-import { useNavigate } from 'react-router-dom';
+import Button from '@/components/Button';
+import CalendarLinkPopup from './popups/CalendarLinkPopup';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -37,8 +37,6 @@ export const SchedulePage = () => {
   const [filteredEvents, setFilteredEvents] = useState<EventWithSpeakerDto[]>(
     [],
   );
-  const [calendarSyncToggled, setCalendarSyncToggled] = useState(false); // BE: postavit na vrijednost iz baze
-  const navigate = useNavigate();
 
   const { data: events } = useEventGetAll();
   const { data: user } = useLoggedInUser();
@@ -46,6 +44,8 @@ export const SchedulePage = () => {
     useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
   const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
+
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
 
   function handleAddToPersonalSchedule(eventId: number) {
     if (!user) {
@@ -101,69 +101,63 @@ export const SchedulePage = () => {
   }, [activeTab, activeTag, events, mySchedule, myScheduleIsLoading]);
 
   return (
-    <main className={c.main}>
-      <h1 className={c.pageTitle}>Raspored</h1>
+    <>
+      <main className={c.main}>
+        <h1 className={c.pageTitle}>Raspored</h1>
+        <div className={c.contentWrapper}>
+          <TabGroup
+            setter={(id) => setActiveTab(id as TabId)}
+            defaultTab={TabId.FIRST_DAY}
+            className={c.contentWidth}>
+            <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
+            <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
+            <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
+          </TabGroup>
 
-      <button onClick={() => console.log(mySchedule)}>getmyschedule</button>
-      <button
-        onClick={() => {
-          navigate(`http://localhost:3004/api/schedule-ical/${user?.id}.ics`);
-        }}>
-        getical
-      </button>
+          <ClickableTagGroup
+            setter={(id) => setActiveTag(id as TagId)}
+            className={clsx(c.contentWidth, c.tagGroup)}
+            defaultTag={TagId.ALL}>
+            <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
+            <ClickableTag id={TagId.DEV}>Dev</ClickableTag>
+            <ClickableTag id={TagId.DESIGN}>Dizajn</ClickableTag>
+            <ClickableTag id={TagId.TECH}>Tech</ClickableTag>
+            <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
+          </ClickableTagGroup>
 
-      <div className={c.contentWrapper}>
-        <TabGroup
-          setter={(id) => setActiveTab(id as TabId)}
-          defaultTab={TabId.FIRST_DAY}
-          className={c.contentWidth}>
-          <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
-          <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
-          <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
-        </TabGroup>
-
-        <ClickableTagGroup
-          setter={(id) => setActiveTag(id as TagId)}
-          className={clsx(c.contentWidth, c.tagGroup)}
-          defaultTag={TagId.ALL}>
-          <ClickableTag id={TagId.ALL}>Svi</ClickableTag>
-          <ClickableTag id={TagId.DEV}>Dev</ClickableTag>
-          <ClickableTag id={TagId.DESIGN}>Dizajn</ClickableTag>
-          <ClickableTag id={TagId.TECH}>Tech</ClickableTag>
-          <ClickableTag id={TagId.MARKETING}>Marketing</ClickableTag>
-        </ClickableTagGroup>
-
-        <section className={clsx(c.eventsWrapper, c.contentWidth)}>
-          {activeTab === TabId.MY_SCHEDULE && (
-            <div className={c.toggleWrapper}>
-              <ToggleButton
-                toggled={calendarSyncToggled}
-                onClick={() => setCalendarSyncToggled((prev) => !prev)}
+          <section className={clsx(c.eventsWrapper, c.contentWidth)}>
+            {activeTab === TabId.MY_SCHEDULE && (
+              <Button variant='orange' onClick={() => setPopupIsOpen(true)}>
+                Poveži s mojim kalendarom
+              </Button>
+            )}
+            {filteredEvents.map((event, i) => (
+              <ScheduleCard
+                handleAddToPersonalSchedule={() =>
+                  handleAddToPersonalSchedule(event.id)
+                }
+                handleRemoveFromPersonalSchedule={() =>
+                  handleRemoveFromPersonalSchedule(event.id)
+                }
+                key={i}
+                event={event}
+                isAddedToSchedule={mySchedule?.some((e) => e.id === event.id)}
               />
-              <p>Poveži s mojim kalendarom</p>
-            </div>
-          )}
-          {filteredEvents.map((event, i) => (
-            <ScheduleCard
-              handleAddToPersonalSchedule={() =>
-                handleAddToPersonalSchedule(event.id)
-              }
-              handleRemoveFromPersonalSchedule={() =>
-                handleRemoveFromPersonalSchedule(event.id)
-              }
-              key={i}
-              event={event}
-              isAddedToSchedule={mySchedule?.some((e) => e.id === event.id)}
-            />
-          ))}
+            ))}
 
-          {filteredEvents.length === 0 && (
-            <p className={c.noEvents}>
-              Trenutno ne postoji niti jedan događaj koji odgovara ovom filtru.
-            </p>
-          )}
-        </section>
-      </div>
-    </main>
+            {filteredEvents.length === 0 && (
+              <p className={c.noEvents}>
+                Trenutno ne postoji niti jedan događaj koji odgovara ovom
+                filtru.
+              </p>
+            )}
+          </section>
+        </div>
+      </main>
+      <CalendarLinkPopup
+        isOpen={popupIsOpen}
+        closePopup={() => setPopupIsOpen(false)}
+      />
+    </>
   );
 };
