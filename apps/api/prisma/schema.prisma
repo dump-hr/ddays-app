@@ -224,7 +224,7 @@ model User {
   occupation                 String?
   educationDegree            String?
   password                   String?
-  points                     Int?
+  points                     Int?                 @default(0)
   newsletterEnabled          Boolean?
   companiesNewsEnabled       Boolean?
   isDeleted                  Boolean?            @default(false)
