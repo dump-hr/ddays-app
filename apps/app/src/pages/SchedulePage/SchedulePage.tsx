@@ -123,6 +123,7 @@ export const SchedulePage = () => {
               clickHandler={() => handleAddToPersonalSchedule(event.id)}
               key={i}
               event={event}
+              isAddedToSchedule={mySchedule?.some((e) => e.id === event.id)}
             />
           ))}
 
