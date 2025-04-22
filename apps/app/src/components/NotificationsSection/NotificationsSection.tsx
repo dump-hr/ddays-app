@@ -44,6 +44,11 @@ const NotificationsSection = () => {
   }, [isLoading, notifications]);
 
   useEffect(() => {
+    if (unreadNotifications.length === 0) {
+      setDisplayedNotifications([]);
+      return;
+    }
+    
     if (notificationsTab === Tabs.Sve) {
       setDisplayedNotifications(localNotifications);
     } else if (notificationsTab === Tabs.Nepročitano) {
@@ -61,7 +66,7 @@ const NotificationsSection = () => {
 
   return (
     <>
-      {localNotifications.length !== 0 ? (
+      {displayedNotifications.length !== 0 ? (
         <>
           <TabGroup setter={handleTabChange}>
             <Tab id={Tabs.Sve}>Sve</Tab>

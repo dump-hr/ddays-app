@@ -31,6 +31,7 @@ export class NotificationService {
       const startWindow = new Date(
         currentDate.getTime() + 60 * 1000 - tzOffsetMs,
       ).toISOString();
+
       const endWindow = new Date(
         currentDate.getTime() + 15 * 60 * 1000 - tzOffsetMs,
       ).toISOString();
@@ -71,11 +72,8 @@ export class NotificationService {
     const existingNotification = await this.prisma.notification.findFirst({
       where: {
         eventId: event.id,
-        createdAt: {
-          gte: new Date(Date.now() - 30 * 60 * 1000),
-        },
-        title: {
-          contains: 'Event Starting Soon',
+        expiresAt: {
+          gte: new Date(),
         },
       },
     });
@@ -98,7 +96,7 @@ export class NotificationService {
 
     const notification = await this.prisma.notification.create({
       data: {
-        title: `Raspored: ${event.name}`,
+        title: `Raspored`,
         content: `${getEventTypeText(
           event.theme as EventType,
         )} koje ste zabilježeli "${event.name}" počinje za 15 minuta!`,
