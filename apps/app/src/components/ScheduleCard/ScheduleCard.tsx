@@ -10,13 +10,15 @@ import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   isAddedToSchedule?: boolean;
-  clickHandler: () => void;
+  handleAddToPersonalSchedule: (eventId: number) => void;
+  handleRemoveFromPersonalSchedule: (eventId: number) => void;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
-  isAddedToSchedule, // BE: Provjerite implementaciju ovoga (ide li kroz event ili treba posebno queryjat)
-  clickHandler,
+  isAddedToSchedule,
+  handleAddToPersonalSchedule,
+  handleRemoveFromPersonalSchedule,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -69,6 +71,14 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     return eventRequirements.split(
       '/',
     ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
+  }
+
+  function handleClick() {
+    if (isAddedToSchedule) {
+      handleRemoveFromPersonalSchedule(event.id);
+    } else {
+      handleAddToPersonalSchedule(event.id);
+    }
   }
 
   useEffect(() => {
@@ -198,7 +208,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.collapsed]: !isOpen,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
-        onClick={clickHandler}>
+        onClick={handleClick}>
         {' '}
         {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}

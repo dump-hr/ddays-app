@@ -4,7 +4,12 @@ import {
   EventWithSpeakerDto,
 } from '@ddays-app/types';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserToEvent } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -163,6 +168,29 @@ export class EventService {
         portfolioProfile: dto.portfolioProfile,
         cv: dto.cv,
         description: dto.description,
+      },
+    });
+  }
+
+  async leaveEvent(eventId: number, dto: UserToEventDto): Promise<void> {
+    const existingEntry = await this.prisma.userToEvent.findFirst({
+      where: {
+        userId: dto.userId,
+        eventId: eventId,
+      },
+    });
+
+    if (!existingEntry) {
+      throw new NotFoundException('You are not currently joined to this event');
+    }
+
+    // Otherwise, delete the user from the event
+    await this.prisma.userToEvent.delete({
+      where: {
+        userId_eventId: {
+          userId: dto.userId,
+          eventId: eventId,
+        },
       },
     });
   }

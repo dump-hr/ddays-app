@@ -14,6 +14,7 @@ import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
+import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -42,6 +43,7 @@ export const SchedulePage = () => {
   const { data: mySchedule, isLoading: myScheduleIsLoading } =
     useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
+  const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
 
   function handleAddToPersonalSchedule(eventId: number) {
     if (!user) {
@@ -54,6 +56,21 @@ export const SchedulePage = () => {
     };
 
     eventAddToPersonalSchedule.mutate({ eventId, data });
+  }
+
+  function handleRemoveFromPersonalSchedule(eventId: number) {
+    if (!user) {
+      toast.error('Podaci prijavljenog korisnika nisu dostupni!');
+      return;
+    }
+
+    eventRemoveFromPersonalSchedule.mutate({
+      eventId,
+      data: {
+        userId: user.id,
+      },
+    });
+    return;
   }
 
   useEffect(() => {
@@ -120,7 +137,12 @@ export const SchedulePage = () => {
           )}
           {filteredEvents.map((event, i) => (
             <ScheduleCard
-              clickHandler={() => handleAddToPersonalSchedule(event.id)}
+              handleAddToPersonalSchedule={() =>
+                handleAddToPersonalSchedule(event.id)
+              }
+              handleRemoveFromPersonalSchedule={() =>
+                handleRemoveFromPersonalSchedule(event.id)
+              }
               key={i}
               event={event}
               isAddedToSchedule={mySchedule?.some((e) => e.id === event.id)}

@@ -77,4 +77,12 @@ export class EventController {
   ): Promise<UserToEvent> {
     return await this.eventService.joinEvent(eventId, dto);
   }
+
+  @Delete(':id/leave')
+  async leaveEvent(
+    @Param('id', ParseIntPipe) eventId: number,
+    @Body() dto: UserToEventDto,
+  ): Promise<void> {
+    return await this.eventService.leaveEvent(eventId, dto);
+  }
 }
