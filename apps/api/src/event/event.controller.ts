@@ -14,9 +14,11 @@ import {
   Patch,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { UserToEvent } from '@prisma/client';
+import { Response } from 'express';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { UserGuard } from 'src/auth/user.guard';
@@ -38,12 +40,6 @@ export class EventController {
   }
 
   @UseGuards(UserGuard)
-  @Get('schedule-ical')
-  async generateIcal(@Req() { user }: AuthenticatedRequest): Promise<string> {
-    return await this.eventService.generateIcal(user.id);
-  }
-
-  @UseGuards(UserGuard)
   @Get('my-schedule')
   async getEventsInMySchedule(
     @Req() { user }: AuthenticatedRequest,
@@ -54,6 +50,20 @@ export class EventController {
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.getOne(id);
+  }
+
+  @Get('schedule-ical/:userId.ics')
+  async generateIcal(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Res() res: Response,
+  ) {
+    res.header('Content-Type', 'text/calendar'); // MIME type for iCal files
+    res.header(
+      'Content-Disposition',
+      `attachment; filename=schedule-${userId}.ics`,
+    );
+    const icalData = await this.eventService.generateIcal(userId);
+    res.send(icalData);
   }
 
   @Get()

@@ -247,7 +247,6 @@ export class EventService {
         });
       });
 
-      console.log('CALENDAR STRING -------> ' + calendar.toString());
       return calendar.toString();
     } catch {
       throw new HttpException(

@@ -15,7 +15,7 @@ import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
-import { useEventGetIcalSchedule } from '@/api/event/useEventGetIcalSchedule';
+import { useNavigate } from 'react-router-dom';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -38,12 +38,12 @@ export const SchedulePage = () => {
     [],
   );
   const [calendarSyncToggled, setCalendarSyncToggled] = useState(false); // BE: postavit na vrijednost iz baze
+  const navigate = useNavigate();
 
   const { data: events } = useEventGetAll();
   const { data: user } = useLoggedInUser();
   const { data: mySchedule, isLoading: myScheduleIsLoading } =
     useEventGetMySchedule();
-  const { data: icalSchedule } = useEventGetIcalSchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
   const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
 
@@ -100,25 +100,17 @@ export const SchedulePage = () => {
     );
   }, [activeTab, activeTag, events, mySchedule, myScheduleIsLoading]);
 
-  const downloadIcalFile = () => {
-    if (icalSchedule) {
-      const blob = new Blob([icalSchedule], { type: 'text/calendar' });
-
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'schedule.ics';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }
-  };
-
   return (
     <main className={c.main}>
       <h1 className={c.pageTitle}>Raspored</h1>
 
       <button onClick={() => console.log(mySchedule)}>getmyschedule</button>
-      <button onClick={downloadIcalFile}>getical</button>
+      <button
+        onClick={() => {
+          navigate(`http://localhost:3004/api/schedule-ical/${user?.id}.ics`);
+        }}>
+        getical
+      </button>
 
       <div className={c.contentWrapper}>
         <TabGroup
