@@ -5,8 +5,7 @@ import axios from '../base';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const eventGetMySchedule = async (): Promise<EventDto[]> => {
-  const response = await axios.get('/event/my-schedule');
-  return response.data;
+  return axios.get<never, EventDto[]>('/event/my-schedule');
 };
 
 export const useEventGetMySchedule = () => {

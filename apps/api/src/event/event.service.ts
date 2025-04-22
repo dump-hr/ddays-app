@@ -3,10 +3,10 @@ import {
   EventModifyDto,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
-import { EventType, UserToEvent } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
+import { Injectable } from '@nestjs/common';
+import { UserToEvent } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class EventService {
@@ -151,6 +151,7 @@ export class EventService {
   }
 
   async getEventsInMySchedule(userId: number): Promise<EventDto[]> {
+    console.log('-----###-#-#-#-#-#-#> userId ' + userId);
     const events = await this.prisma.userToEvent.findMany({
       where: {
         userId,
@@ -179,6 +180,10 @@ export class EventService {
       },
     });
 
+    const filteredEvents = events.map((event) => event.event);
+    console.log(
+      '-----###-#-#-#-#-#-#> events ' + JSON.stringify(filteredEvents),
+    );
     return events.map((event) => event.event);
   }
 }

@@ -39,7 +39,8 @@ export const SchedulePage = () => {
 
   const { data: events } = useEventGetAll();
   const { data: user } = useLoggedInUser();
-  const { data: mySchedule } = useEventGetMySchedule();
+  const { data: mySchedule, isLoading: myScheduleIsLoading } =
+    useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
 
   function handleAddToPersonalSchedule(eventId: number) {
@@ -69,6 +70,7 @@ export const SchedulePage = () => {
 
   useEffect(() => {
     if (!events) return;
+    if (myScheduleIsLoading) return;
 
     if (activeTab === TabId.MY_SCHEDULE) {
       setFilteredEvents(mySchedule || []);
@@ -89,12 +91,14 @@ export const SchedulePage = () => {
         );
       }),
     );
-  }, [activeTab, activeTag]);
+  }, [activeTab, activeTag, events, mySchedule, myScheduleIsLoading]);
 
   return (
     <main className={c.main}>
       <h1 className={c.pageTitle}>Raspored</h1>
+
       <button onClick={() => console.log(mySchedule)}>getmyschedule</button>
+
       <div className={c.contentWrapper}>
         <TabGroup
           setter={(id) => setActiveTab(id as TabId)}

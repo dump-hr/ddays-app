@@ -3,9 +3,7 @@ import {
   EventModifyDto,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
-
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-
 import {
   Body,
   Controller,
@@ -15,16 +13,15 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { UserToEvent } from '@prisma/client';
 import { AdminGuard } from 'src/auth/admin.guard';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { UserGuard } from 'src/auth/user.guard';
 
 import { EventService } from './event.service';
-import { UserToEvent } from '@prisma/client';
-import { UserGuard } from 'src/auth/user.guard';
-import { AuthenticatedRequest } from 'src/auth/auth.dto';
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
