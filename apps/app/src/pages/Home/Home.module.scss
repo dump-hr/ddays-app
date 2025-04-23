@@ -1,9 +1,13 @@
 .page {
   background-color: $primary-black;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 24px;
+  }
 
   .header {
     width: 100%;
@@ -12,6 +16,11 @@
   .main {
     width: 100%;
     background-color: $primary-background;
-    border-radius: 12px 12px 0px 0px;
+    border-radius: $border-radius-page-mobile;
+    @include mobileNavigationPadding();
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      border-radius: $border-radius-page-desktop;
+    }
   }
 }
