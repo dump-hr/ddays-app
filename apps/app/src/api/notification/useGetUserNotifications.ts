@@ -4,7 +4,7 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 import { NotificationResponseDto } from '@ddays-app/types';
 
 const getUserNotifications = async () => {
-  return axios.get<never, NotificationResponseDto[]>('/notifications');
+  return axios.get<never, NotificationResponseDto[]>('/notifications/user');
 };
 
 export const useGetUserNotifications = () => {

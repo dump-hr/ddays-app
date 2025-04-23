@@ -20,10 +20,7 @@ const NotificationsSection = () => {
     Tabs.Sve,
   );
 
-  const { data: notifications, isLoading } = useGetUserNotifications();
-  const [localNotifications, setLocalNotifications] = useState<
-    NotificationResponseDto[]
-  >([]);
+  const { data: notifications } = useGetUserNotifications();
 
   const handleTabChange = (tab: string | number) => {
     setNotificationsTab(tab);
@@ -31,34 +28,33 @@ const NotificationsSection = () => {
 
   const unreadNotifications = useMemo(
     () =>
-      localNotifications.filter(
+      notifications?.filter(
         (notification) => notification.status !== NotificationStatus.READ,
       ),
-    [localNotifications],
+    [notifications],
   );
 
   useEffect(() => {
-    if (!isLoading && notifications) {
-      setLocalNotifications(notifications);
-    }
-  }, [isLoading, notifications]);
-
-  useEffect(() => {
-    if (unreadNotifications.length === 0) {
+    if (unreadNotifications?.length === 0) {
       setDisplayedNotifications([]);
       return;
     }
-    
+    setDisplayedNotifications(notifications || []);
+
     if (notificationsTab === Tabs.Sve) {
-      setDisplayedNotifications(localNotifications);
+      setDisplayedNotifications(notifications || []);
     } else if (notificationsTab === Tabs.Nepročitano) {
-      setDisplayedNotifications(unreadNotifications);
+      setDisplayedNotifications(unreadNotifications || []);
       localStorage.setItem(
         'readNotifications',
         JSON.stringify(unreadNotifications),
       );
     }
-  }, [notificationsTab, localNotifications, unreadNotifications]);
+  }, [
+    notificationsTab,
+    unreadNotifications,
+    notifications,
+  ]);
 
   const [displayedNotifications, setDisplayedNotifications] = useState<
     NotificationResponseDto[]
