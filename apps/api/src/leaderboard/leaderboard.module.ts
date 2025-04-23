@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
+
 import { LeaderboardController } from './leaderboard.controller';
 import { LeaderboardService } from './leaderboard.service';
-import { PrismaService } from 'src/prisma.service';
 
 @Module({
   controllers: [LeaderboardController],

@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
 import {
+  LeaderboardEntryDto,
+  LeaderboardQueryDto,
   LeaderboardResponseDto,
   UserRankResponseDto,
-  LeaderboardQueryDto,
-  LeaderboardEntryDto,
 } from '@ddays-app/types/src/dto/leaderboard';
+import { Injectable } from '@nestjs/common';
+
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class LeaderboardService {

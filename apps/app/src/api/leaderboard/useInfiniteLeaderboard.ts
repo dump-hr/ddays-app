@@ -15,7 +15,6 @@ export const useInfiniteLeaderboard = ({
   const getLeaderboard = async ({
     pageParam = 1,
   }): Promise<LeaderboardResponseDto> => {
-
     return axios.get<never, LeaderboardResponseDto>('leaderboard', {
       params: {
         page: pageParam,
@@ -32,7 +31,7 @@ export const useInfiniteLeaderboard = ({
   >([QUERY_KEYS.leaderboard, pageSize, includeDeleted], getLeaderboard, {
     getNextPageParam: (lastPage) => {
       // Calculate if there are more pages to load
-      const currentPage = Number(lastPage.page)
+      const currentPage = Number(lastPage.page);
       const totalPages = Math.ceil(lastPage.totalEntries / lastPage.pageSize);
 
       // If we haven't reached the last page, return the next page number

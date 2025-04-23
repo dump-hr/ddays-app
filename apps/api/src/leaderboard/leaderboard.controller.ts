@@ -1,12 +1,21 @@
-import { Controller, Get, Query, Param, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
-import { LeaderboardService } from './leaderboard.service';
-import { UserGuard } from '../auth/user.guard';
-import { 
-  LeaderboardResponseDto, 
-  UserRankResponseDto, 
+import {
+  LeaderboardEntryDto,
   LeaderboardQueryDto,
-  LeaderboardEntryDto 
+  LeaderboardResponseDto,
+  UserRankResponseDto,
 } from '@ddays-app/types/src/dto/leaderboard';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+
+import { UserGuard } from '../auth/user.guard';
+import { LeaderboardService } from './leaderboard.service';
 
 @Controller('leaderboard')
 export class LeaderboardController {
@@ -14,7 +23,7 @@ export class LeaderboardController {
 
   @Get()
   async getLeaderboard(
-    @Query() query: LeaderboardQueryDto
+    @Query() query: LeaderboardQueryDto,
   ): Promise<LeaderboardResponseDto> {
     return this.leaderboardService.getLeaderboard(query);
   }
@@ -27,16 +36,14 @@ export class LeaderboardController {
   @Get('user/:id')
   @UseGuards(UserGuard)
   async getUserRank(
-    @Param('id', ParseIntPipe) userId: number
+    @Param('id', ParseIntPipe) userId: number,
   ): Promise<UserRankResponseDto> {
     return this.leaderboardService.getUserRank(userId);
   }
 
   @Get('me')
   @UseGuards(UserGuard)
-  async getCurrentUserRank(
-    @Req() { user }
-  ): Promise<UserRankResponseDto> {
+  async getCurrentUserRank(@Req() { user }): Promise<UserRankResponseDto> {
     return this.leaderboardService.getUserRank(user.id);
   }
 }

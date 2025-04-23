@@ -13,13 +13,13 @@ import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { LeaderboardModule } from './leaderboard/leaderboard.module';
 
 @Module({
   imports: [

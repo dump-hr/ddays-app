@@ -20,7 +20,7 @@ export const NavigationLayout = () => {
       <UserProvider>
         <Outlet />
       </UserProvider>
-      {/* {isMobile && <MobileNavigation />} */}
+      {isMobile && <MobileNavigation />}
     </div>
   );
 };
