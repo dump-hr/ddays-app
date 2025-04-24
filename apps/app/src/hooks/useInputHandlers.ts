@@ -1,13 +1,13 @@
 import { ChangeEvent } from 'react';
 import { DropdownOption } from '../components/Dropdown/DropdownOption';
-import { UserDataFields } from '../types/enums';
+import { UserDataFields, UserProfileFields } from '../types/enums';
 import { validations } from '@/helpers/validateInput';
 
 export const useInputHandlers = (
   updateState: (data: Record<string, unknown>) => void,
 ) => {
   const handleDropdownChange = (
-    field: UserDataFields,
+    field: UserDataFields | UserProfileFields,
     selectedOption: DropdownOption,
   ) => {
     updateState({
@@ -18,7 +18,7 @@ export const useInputHandlers = (
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     updateState({
-      [name as UserDataFields]: value,
+      [name as UserDataFields | UserProfileFields]: value,
     });
   };
 

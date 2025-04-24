@@ -1,89 +1,90 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { RegistrationDto } from '@/types/user/user';
-import { validations } from '@/helpers/validateInput';
+import { PasswordInputs, ProfileSettingsDto } from '@/types/user/user';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface UserContextType {
-  userData: RegistrationDto;
-  updateUserData: (data: Partial<RegistrationDto>) => void;
-  userSettingsData: RegistrationDto;
-  updateUserSettingsData: (data: Partial<RegistrationDto>) => void;
+  userSettingsData: ProfileSettingsDto;
+  passwordInputsData: PasswordInputs;
+  updateUserSettingsData: (data: Partial<ProfileSettingsDto>) => void;
+  updatePasswordInputsData: (data: Partial<PasswordInputs>) => void;
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
+  isChangingPassword: boolean;
+  setIsChangingPassword: (value: boolean) => void;
 }
 
-const defaultUserData: RegistrationDto = {
+const defaultUserData: ProfileSettingsDto = {
   firstName: '',
   lastName: '',
   email: '',
-  password: '',
-  repeatedPassword: '',
-  newPassword: '',
-  phoneNumber: validations.formatPhoneNumber('0912345678'),
-  birthYear: 2001,
-  educationDegree: 'Option 1',
-  occupation: 'Option 2',
+  phoneNumber: '',
+  birthYear: null,
+  educationDegree: '',
+  occupation: '',
   newsletterEnabled: false,
   companiesNewsEnabled: false,
-  termsAndConditionsEnabled: false,
 };
 
-const setInitialUserData = () => {
-  const userData = localStorage.getItem('userData');
-  if (userData) {
-    const parsedUserData = JSON.parse(userData);
-    parsedUserData.phoneNumber = validations.formatPhoneNumber(
-      parsedUserData.phoneNumber,
-    );
-    return parsedUserData;
-  }
-  return defaultUserData;
+const defaultPasswordInputsData = {
+  password: '',
+  newPassword: '',
+  repeatedPassword: '',
 };
 
 const UserContext = createContext<UserContextType>({
-  userData: defaultUserData,
-  updateUserData: () => {},
   userSettingsData: defaultUserData,
+  passwordInputsData: defaultPasswordInputsData,
   updateUserSettingsData: () => {},
+  updatePasswordInputsData: () => {},
+  isEditing: false,
+  setIsEditing: () => {},
+  isChangingPassword: false,
+  setIsChangingPassword: () => {},
 });
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [userData, setUserData] =
-    useState<RegistrationDto>(setInitialUserData());
-  const [userSettingsData, setUserSettingsData] =
-    useState<RegistrationDto>(setInitialUserData());
   const { data: loggedInUser, isLoading } = useLoggedInUser();
+  const [isEditing, setIsEditing] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordInputsData, setPasswordInputsData] = useState<PasswordInputs>(
+    defaultPasswordInputsData,
+  );
 
-  const updateUserData = (newData: Partial<RegistrationDto>) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      ...newData,
-    }));
-  };
+  const [userSettingsData, setUserSettingsData] =
+    useState<ProfileSettingsDto>(defaultUserData);
 
-  const updateUserSettingsData = (newData: Partial<RegistrationDto>) => {
+  const updateUserSettingsData = (newData: Partial<ProfileSettingsDto>) => {
     setUserSettingsData((prevData) => ({
       ...prevData,
       ...newData,
     }));
   };
 
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData));
-  }, [userData]);
+  const updatePasswordInputsData = (newData: Partial<PasswordInputs>) => {
+    setPasswordInputsData((prevData) => ({
+      ...prevData,
+      ...newData,
+    }));
+  };
 
   useEffect(() => {
-    if (loggedInUser && !isLoading) {
-      updateUserData(loggedInUser);
+    if (loggedInUser && !isLoading && !isEditing) {
+      updateUserSettingsData(loggedInUser);
     }
-  }, [loggedInUser, isLoading]);
+  }, [loggedInUser, isLoading, isEditing]);
 
   return (
     <UserContext.Provider
       value={{
-        userData,
-        updateUserData,
         userSettingsData,
         updateUserSettingsData,
+        passwordInputsData,
+        updatePasswordInputsData,
+        isEditing,
+        setIsEditing,
+        isChangingPassword,
+        setIsChangingPassword,
       }}>
       {children}
     </UserContext.Provider>
