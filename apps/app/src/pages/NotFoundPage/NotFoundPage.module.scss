@@ -1,0 +1,26 @@
+.page {
+  background-color: $primary-beige;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .title {
+    color: $primary-muted-orange;
+    font-family: NeueMachina;
+    font-size: 200px;
+    font-style: normal;
+    font-weight: 800;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+      font-size: 100px;
+    }
+  }
+
+  .subtitle {
+    color: $primary-black;
+    @include paragraph-16;
+    margin-bottom: 48px;
+  }
+}

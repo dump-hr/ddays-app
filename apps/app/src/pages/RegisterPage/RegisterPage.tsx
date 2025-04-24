@@ -1,6 +1,6 @@
-import { GeneralRegistrationForm } from '../../components/RegistrationForms/GeneralRegistrationForm/GeneralRegistrationForm';
-import { useDeviceType } from '../../hooks/UseDeviceType';
-import { RegistrationProvider } from '../../providers/RegistrationContext';
+import { GeneralRegistrationForm } from '@/components/RegistrationForms/GeneralRegistrationForm/GeneralRegistrationForm';
+import { useDeviceType } from '@/hooks/UseDeviceType';
+import { RegistrationProvider } from '@/providers/RegistrationContext';
 import c from './RegisterPage.module.scss';
 import CloseIcon from '@/assets/icons/remove-icon.svg';
 import { useNavigate } from 'react-router-dom';
