@@ -7,22 +7,13 @@ import {
   allFieldsAreFilled,
   validateField,
   validations,
-} from '../../../helpers/validateInput';
-import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
-import { UserDataFields } from '../../../types/enums';
-import { useRegistration } from '../../../providers/RegistrationContext';
-import { RegistrationStep } from '../../../types/registration/registration.dto';
+} from '@/helpers/validateInput';
+import { RegistrationFormErrors } from '@/types/errors/errors.dto';
+import { UserDataFields, UserProfileFields } from '@/types/enums';
+import { useRegistration } from '@/providers/RegistrationContext';
+import { RegistrationStep } from '@/types/registration/registration.dto';
 import { RegistrationDto } from '@/types/user/user';
-
-/* type UserData = {
-  phoneNumber: string;
-  birthYear: number | null;
-  educationDegree: string | null;
-  occupation: string | null;
-  newsletterEnabled: boolean;
-  companiesNewsEnabled: boolean;
-  termsAndConditionsEnabled: boolean;
-}; */
+import { dropdownInputs } from '@/constants/sharedInputs';
 
 type Props = {
   userData: Partial<RegistrationDto>;
@@ -91,17 +82,15 @@ export const SecondStepRegistrationForm = ({
     }
   }, [isSubmitted, userData]);
 
-  const educationDegreeOptions: DropdownOption[] = [
-    { value: 'A', label: 'A' },
-    { value: 'B', label: 'B' },
-    { value: 'C', label: 'C' },
-  ];
+  const educationDegreeOptions =
+    dropdownInputs.find(
+      (dropdown) => dropdown.name === UserProfileFields.EducationDegree,
+    )?.options || [];
 
-  const occupationOptions: DropdownOption[] = [
-    { value: 'D', label: 'D' },
-    { value: 'E', label: 'E' },
-    { value: 'F', label: 'F' },
-  ];
+  const occupationOptions =
+    dropdownInputs.find(
+      (dropdown) => dropdown.name === UserProfileFields.Occupation,
+    )?.options || [];
 
   const hasError = (error: string | undefined) => {
     if (error && error != '') {

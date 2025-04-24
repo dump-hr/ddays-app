@@ -1,4 +1,4 @@
-import { useDeviceType } from '../../../hooks/UseDeviceType';
+import { useDeviceType } from '@/hooks/UseDeviceType';
 import c from './SlavicaHeader.module.scss';
 import MobileSlavica from '@/assets/images/confirm-email-slavica-mobile.png';
 import DesktopSlavica from '@/assets/images/confirm-email-slavicia-desktop.png';

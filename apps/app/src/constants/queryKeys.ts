@@ -5,6 +5,7 @@ export const QUERY_KEYS = {
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
   userNotifications: 'userNotifications',
+  events: 'events',
   currentUser: 'currentUser',
   unreadNotificationsCount: 'unreadNotificationsCount',
 };

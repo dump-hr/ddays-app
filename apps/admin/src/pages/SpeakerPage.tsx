@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { useSpeakerGetAll } from '../api/speaker/useSpeakerGetAll';
 import { useSpeakerRemove } from '../api/speaker/useSpeakerRemove';
 import { useSpeakerRemovePhoto } from '../api/speaker/useSpeakerRemovePhoto';
+import { useSpeakerRemoveSmallPhoto } from '../api/speaker/useSpeakerRemoveSmallPhoto';
 import { useSpeakerUpdatePhoto } from '../api/speaker/useSpeakerUpdatePhoto';
+import { useSpeakerUpdateSmallPhoto } from '../api/speaker/useSpeakerUpdateSmallPhoto';
 import { Button } from '../components/Button';
 import { FileUpload } from '../components/FileUpload';
 import { Modal } from '../components/Modal';
@@ -18,14 +20,24 @@ const SpeakerPage = () => {
 
   const removeSpeaker = useSpeakerRemove();
   const updatePhoto = useSpeakerUpdatePhoto();
+  const updateSmallPhoto = useSpeakerUpdateSmallPhoto();
   const removePhoto = useSpeakerRemovePhoto();
+  const removeSmallPhoto = useSpeakerRemoveSmallPhoto();
 
-  const handleUpload = async (files: File[]) => {
+  const handlePhotoUpload = async (files: File[]) => {
     await updatePhoto.mutateAsync({ id: speakerToEditId, file: files[0] });
   };
 
-  const handleRemove = async () => {
+  const handlePhotoRemove = async () => {
     await removePhoto.mutateAsync(speakerToEditId);
+  };
+
+  const handleSmallPhotoUpload = async (files: File[]) => {
+    await updateSmallPhoto.mutateAsync({ id: speakerToEditId, file: files[0] });
+  };
+
+  const handleSmallPhotoRemove = async () => {
+    await removeSmallPhoto.mutateAsync(speakerToEditId);
   };
 
   if (speakers.isLoading) {
@@ -48,14 +60,26 @@ const SpeakerPage = () => {
           }}
         />
         {speakerToEditId && (
-          <FileUpload
-            src={
-              speakers.data?.find((speaker) => speaker.id === speakerToEditId)
-                ?.photoUrl
-            }
-            handleUpload={handleUpload}
-            handleRemove={handleRemove}
-          />
+          <>
+            <p>Velika slika:</p>
+            <FileUpload
+              src={
+                speakers.data?.find((speaker) => speaker.id === speakerToEditId)
+                  ?.photoUrl
+              }
+              handleUpload={handlePhotoUpload}
+              handleRemove={handlePhotoRemove}
+            />
+            <p>Mala slika:</p>
+            <FileUpload
+              src={
+                speakers.data?.find((speaker) => speaker.id === speakerToEditId)
+                  ?.photoUrl
+              }
+              handleUpload={handleSmallPhotoUpload}
+              handleRemove={handleSmallPhotoRemove}
+            />
+          </>
         )}
       </Modal>
 

@@ -197,6 +197,7 @@ model Speaker {
   title          String
   companyId      Int?
   photoUrl       String?
+  smallPhotoUrl  String?
   photo          Json?
   instagramUrl   String?
   linkedinUrl    String?
@@ -294,7 +295,7 @@ model FrequentlyAskedQuestion {
 }
 
 model ShopItem {
-  id              Int            @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   type            ShopItemType?
   itemName        String?
   quantity        Int?
