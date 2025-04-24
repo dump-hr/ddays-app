@@ -7,7 +7,6 @@ import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import ScheduleCard from '../../components/ScheduleCard';
-import { useEventGetAll } from '@/api/event/useEventGetAll';
 import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
@@ -16,6 +15,7 @@ import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
 import Button from '@/components/Button';
 import CalendarLinkPopup from './popups/CalendarLinkPopup';
+import { useEventGetAllWithSpeakers } from '@/api/event/useEventGetAllWithSpeakers';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -38,7 +38,7 @@ export const SchedulePage = () => {
     [],
   );
 
-  const { data: events } = useEventGetAll();
+  const { data: events } = useEventGetAllWithSpeakers();
   const { data: user } = useLoggedInUser();
   const { data: mySchedule, isLoading: myScheduleIsLoading } =
     useEventGetMySchedule();

@@ -68,9 +68,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   }
 
   function getRequirements(eventRequirements: string) {
-    return eventRequirements.split(
-      '/',
-    ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
+    return eventRequirements.split('//') as string[];
   }
 
   function handleClick() {
@@ -177,8 +175,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className={c.speaker} key={index}>
                   <img
                     className={c.image}
-                    src={speaker.photoUrl} // BE TODO: treba bi photourl imat 2 podfielda: jedan za veliku sliku sta je na webu i jedan za malu sta je tu
-                    alt={speaker.firstName} // tj. mainPhotoUrl i thumbnailUrl, pogledaj seed za primjer
+                    src={speaker.smallPhotoUrl}
+                    alt={speaker.firstName}
                   />
                   <div className={c.speakerInfoWrapper}>
                     <p className={c.fullName}>
