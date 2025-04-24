@@ -1,3 +1,5 @@
+import { UserDto } from '@ddays-app/types/src/dto/user';
+
 export type RegistrationDto = {
   email: string;
   firstName: string;
@@ -35,4 +37,19 @@ export type PasswordInputs = {
 export type LoginDto = {
   email: string;
   password: string;
+};
+
+export type FlyTalksRegistrationDto = {
+  linkedIn: string;
+  github: string;
+  portfolio: string;
+  about: string;
+  file: File | null;
+};
+
+export type UserPublicDto = UserDto & {
+  id: number;
+  points: number | null;
+  isDeleted: boolean;
+  isConfirmed: boolean;
 };
