@@ -219,8 +219,8 @@ model User {
   id                   Int                 @id @default(autoincrement())
   firstName            String
   lastName             String
-  email                String              @unique
-  phoneNumber          String              @unique
+  email                String
+  phoneNumber          String
   birthYear            Int
   occupation           String?
   educationDegree      String?

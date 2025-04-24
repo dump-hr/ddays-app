@@ -115,6 +115,7 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: {
         ...register,
+        isDeleted: false,
         password: hashedPassword,
       },
     });
