@@ -11,12 +11,10 @@ const FlyTalksList = () => {
     first_day,
     second_day,
   }
-  const [selectedTab, setSelectedTab] = useState<string | number>(
-    Tabs.first_day,
-  );
+  const [selectedTab, setSelectedTab] = useState<number>(Tabs.first_day);
 
   const handleTabChange = (tab: string) => {
-    setSelectedTab(tab);
+    setSelectedTab(Number(tab));
   };
 
   const { data: event } = useGetAllFlyTalkGroups();
@@ -39,6 +37,10 @@ const FlyTalksList = () => {
         : [],
     })) || [];
 
+  const hasUserAlreadyAppliedOnDay = groups.some(
+    (group) => group.day === selectedTab + 1 && group.hasUserApplied === true,
+  );
+
   return (
     <div className={c.page}>
       <header>
@@ -60,11 +62,23 @@ const FlyTalksList = () => {
           {selectedTab === Tabs.first_day &&
             groups
               .filter((group) => group.day === 1)
-              .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
+              .map((group, i) => (
+                <FlyTalksGroup
+                  key={i}
+                  group={group}
+                  hasUserAlreadyAppliedOnDay={hasUserAlreadyAppliedOnDay}
+                />
+              ))}
           {selectedTab === Tabs.second_day &&
             groups
               .filter((group) => group.day === 2)
-              .map((group, i) => <FlyTalksGroup key={i} group={group} />)}
+              .map((group, i) => (
+                <FlyTalksGroup
+                  key={i}
+                  group={group}
+                  hasUserAlreadyAppliedOnDay={hasUserAlreadyAppliedOnDay}
+                />
+              ))}
         </div>
       </main>
     </div>

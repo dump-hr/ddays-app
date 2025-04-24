@@ -4,6 +4,8 @@ import warning from '../../assets/images/warning.png';
 import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
+import { useDeleteFlyTalkApplication } from '@/api/flyTalks/useDeleteFlyTalkApplication';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface FlyTalksGroupProps {
   group: {
@@ -18,14 +20,25 @@ interface FlyTalksGroupProps {
     }[];
     hasUserApplied: boolean;
   };
+  hasUserAlreadyAppliedOnDay?: boolean;
 }
 
-const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
+const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
+  group,
+  hasUserAlreadyAppliedOnDay,
+}) => {
   const navigate = useNavigate();
+  const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
+  const { data: user } = useLoggedInUser();
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
       navigate(`/app/fly-talks-apply?id=${group.id}`);
+    } else {
+      deleteFlyTalkApplication.mutate({
+        eventId: group.id,
+        userId: user?.id ?? 0,
+      });
     }
   };
 
@@ -58,12 +71,14 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
             {i !== 3 && <div className={c.divider}></div>}
           </div>
         ))}
-        <Button
-          variant='orange'
-          className={c.applyButton}
-          onClick={handleApplyClick}>
-          {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
-        </Button>
+        {(!hasUserAlreadyAppliedOnDay || group.hasUserApplied) && (
+          <Button
+            variant='orange'
+            className={c.applyButton}
+            onClick={handleApplyClick}>
+            {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
+          </Button>
+        )}
       </div>
       <div className={c.applianceDisclaimer}>
         <img src={warning} alt='' />

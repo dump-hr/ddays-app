@@ -1,89 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import c from './FlyTalksApplyPage.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import Button from '../../components/Button';
-import placeholderLogo from '../../assets/images/profico-logo.png';
 import FileInput from '../../components/FileInput';
 import { validateFlyTalksInput } from '@/helpers/validateInput';
 import ConfirmationPopup from './ConfirmationPopup';
+import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
+import { usePostApplyToFlyTalks } from '@/api/flyTalks/usePostApplyToFlyTalks';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
-const groupsMock = [
-  {
-    id: 1,
-    start: '10:30',
-    end: '11:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: true,
-  },
-  {
-    id: 2,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 3,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 25,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 4,
-    start: '10:30',
-    end: '11:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 5,
-    start: '11:30',
-    end: '12:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-];
 
 const FlyTalksApplyPage = () => {
   const location = useLocation();
-  const [group, setGroup] = useState<(typeof groupsMock)[0] | undefined>(
+  const {data: event} = useGetAllFlyTalkGroups();
+  const {data: currentUser} = useLoggedInUser();
+  const postApplyToFlyTalks = usePostApplyToFlyTalks();
+
+  const groups = useMemo(() => {
+    return event?.map((event) => ({
+      id: event.id,
+      start: event.startsAt.split('T')[1].slice(0, 5),
+      end: event.endsAt.split('T')[1].slice(0, 5),
+      day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+      participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
+      hasUserApplied: Array.isArray(event.users)
+        ? event.users.some((user) => user.id === 1)
+        : false,
+      companies: Array.isArray(event.companies)
+        ? event.companies.map((company) => ({
+            ...company,
+            logoImage: company.logoImage || '',
+          }))
+        : [],
+    })) || [];
+  }, [event]);
+
+  const [group, setGroup] = useState<(typeof groups)[0] | undefined>(
     undefined,
   );
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
@@ -111,12 +64,12 @@ const FlyTalksApplyPage = () => {
     const groupId = queryParams.get('id');
 
     if (groupId) {
-      const foundGroup = groupsMock.find(
+      const foundGroup = groups.find(
         (group) => group.id === Number(groupId),
       );
       setGroup(foundGroup);
     }
-  }, [location.search]);
+  }, [location.search, groups]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -137,7 +90,24 @@ const FlyTalksApplyPage = () => {
   const handleApply = () => {
     if (Object.values(userData).some((value) => value === '' || value === undefined)) {
       setIsFormValid(false);
-    }else{setIsConfirmationPopupOpen(true);}
+    }else{
+      postApplyToFlyTalks.mutate(
+        {
+          userId: currentUser?.id ?? 0,
+          eventId: group?.id ?? 0,
+          linkedinProfile: userData.linkedIn,
+          githubProfile: userData.github,
+          portfolioProfile: userData.portfolio,
+          cv: 'aaa',
+          description: userData.about,
+        },
+        {
+          onSuccess: () => {
+            setIsConfirmationPopupOpen(true);
+          },
+        }
+      );
+    }
   };
 
   const handleError = (field: keyof typeof userData) => {
@@ -156,7 +126,7 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23.5 // PETAK' : '24.5 //SUBOTA'}
+              {group?.day === 1 ? '23.5 // PETAK' : '24.5 // SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}

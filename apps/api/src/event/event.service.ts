@@ -3,6 +3,7 @@ import {
   EventModifyDto,
   EventWithCompanyDto,
   EventWithSpeakerDto,
+  UserToEventDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
@@ -17,6 +18,22 @@ export class EventService {
     });
 
     return createdEvent;
+  }
+
+  async applyToFlyTalk(dto: UserToEventDto): Promise<UserToEventDto> {
+    const appliedFlyTalk = await this.prisma.userToEvent.create({
+      data: {
+        userId: dto.userId,
+        eventId: dto.eventId,
+        linkedinProfile: dto.linkedinProfile,
+        githubProfile: dto.githubProfile,
+        portfolioProfile: dto.portfolioProfile,
+        cv: dto.cv,
+        description: dto.description,
+      },
+    });
+
+    return appliedFlyTalk;
   }
 
   async getAll(): Promise<EventDto[]> {
@@ -162,7 +179,7 @@ export class EventService {
         name: relation.company.name,
         logoImage: relation.company.logoImage,
       })),
-      user: event.userToEvent.map((relation) => ({
+      users: event.userToEvent.map((relation) => ({
         id: relation.user.id,
       })),
     }));
@@ -174,6 +191,22 @@ export class EventService {
     });
 
     return deletedEvent;
+  }
+
+  async deleteFlyTalkApplication(
+    userId: number,
+    eventId: number,
+  ): Promise<UserToEventDto> {
+    const deletedApplication = await this.prisma.userToEvent.delete({
+      where: {
+        userId_eventId: {
+          userId,
+          eventId,
+        },
+      },
+    });
+
+    return deletedApplication;
   }
 
   async update(id: number, dto: EventModifyDto): Promise<EventDto> {

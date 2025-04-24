@@ -3,6 +3,7 @@ import {
   EventModifyDto,
   EventWithCompanyDto,
   EventWithSpeakerDto,
+  UserToEventDto,
 } from '@ddays-app/types';
 import {
   Body,
@@ -29,6 +30,11 @@ export class EventController {
     return await this.eventService.create(dto);
   }
 
+  @Post('apply-to-flytalk')
+  async applyToFlyTalk(@Body() dto: UserToEventDto): Promise<UserToEventDto> {
+    return await this.eventService.applyToFlyTalk(dto);
+  }
+
   @Get('with-speaker')
   async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
@@ -47,6 +53,13 @@ export class EventController {
   @Get()
   async getAll(): Promise<EventDto[]> {
     return await this.eventService.getAll();
+  }
+
+  @Delete('delete-flytalk-application')
+  async deleteFlyTalkApplication(
+    @Body() { userId, eventId }: UserToEventDto,
+  ): Promise<UserToEventDto> {
+    return await this.eventService.deleteFlyTalkApplication(userId, eventId);
   }
 
   @UseGuards(AdminGuard)

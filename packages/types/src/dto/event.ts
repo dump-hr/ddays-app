@@ -9,7 +9,7 @@ import {
 import { EventType, Theme } from '../enum';
 import { SpeakerWithCompanyDto } from './speaker';
 import { CompanyDto, CompanyWithFlyTalkDto } from './company';
-import { UserWithFlyTalkDto } from './user';
+import { UserDto, UserWithFlyTalkDto } from './user';
 
 export type EventDto = {
   id: number;
@@ -54,7 +54,19 @@ export type EventWithCompanyDto = {
   codeId?: number;
   companies?: CompanyWithFlyTalkDto[];
   users?: UserWithFlyTalkDto[];
-}
+};
+
+export type UserToEventDto = {
+  userId: number;
+  eventId: number;
+  linkedinProfile?: string;
+  githubProfile?: string;
+  portfolioProfile?: string;
+  cv?: string;
+  description?: string;
+  event?: EventDto; 
+  user?: UserDto; 
+};
 
 export class EventModifyDto {
   @IsString()

@@ -2,6 +2,7 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import c from './ConfirmationPopup.module.scss';
 import Button from '@/components/Button';
 import DuckFlyTalksConfirmationPng from '@/assets/images/duck-fly-talks-confirmation.png';
+import { useNavigate } from 'react-router-dom';
 
 interface ConfirmationPopupProps {
   isOpen: boolean;
@@ -10,9 +11,12 @@ interface ConfirmationPopupProps {
     id: number;
     start: string;
     end: string;
-    day: number;
     participantsNumber: number;
-    companies: string[];
+    companies: {
+      id: number;
+      logoImage: string;
+      name: string;
+    }[];
     hasUserApplied: boolean;
   };
 }
@@ -22,6 +26,12 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   onClose,
   group,
 }) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    onClose();
+    navigate('/app/fly-talks');
+  };
   return (
     <PopupLayout
       headerTitleComponent={'Uspješna prijava!'}
@@ -47,14 +57,17 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
             {group?.companies.map((company, i) => (
               <div key={i} className={c.company}>
                 <p>0{i + 1}</p>
-                <img src={company} alt='' />
+                <img src={company.logoImage} alt='' />
                 {i !== 3 && <div className={c.divider}></div>}
               </div>
             ))}
           </div>
         </div>
       </div>
-      <Button variant={'orange'} style={{ width: '100%' }} onClick={onClose}>
+      <Button
+        variant={'orange'}
+        style={{ width: '100%' }}
+        onClick={handleClose}>
         Dalje
       </Button>
     </PopupLayout>
