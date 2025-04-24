@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   background: $primary-black;
+  height: 100vh;
 }
