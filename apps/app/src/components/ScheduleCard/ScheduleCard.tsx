@@ -10,13 +10,15 @@ import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   isAddedToSchedule?: boolean;
-  clickHandler: () => void;
+  handleAddToPersonalSchedule: (eventId: number) => void;
+  handleRemoveFromPersonalSchedule: (eventId: number) => void;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
-  isAddedToSchedule, // BE: Provjerite implementaciju ovoga (ide li kroz event ili treba posebno queryjat)
-  clickHandler,
+  isAddedToSchedule,
+  handleAddToPersonalSchedule,
+  handleRemoveFromPersonalSchedule,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -66,9 +68,15 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   }
 
   function getRequirements(eventRequirements: string) {
-    return eventRequirements.split(
-      '/',
-    ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
+    return eventRequirements.split('//') as string[];
+  }
+
+  function handleClick() {
+    if (isAddedToSchedule) {
+      handleRemoveFromPersonalSchedule(event.id);
+    } else {
+      handleAddToPersonalSchedule(event.id);
+    }
   }
 
   useEffect(() => {
@@ -167,8 +175,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className={c.speaker} key={index}>
                   <img
                     className={c.image}
-                    src={speaker.photoUrl} // BE TODO: treba bi photourl imat 2 podfielda: jedan za veliku sliku sta je na webu i jedan za malu sta je tu
-                    alt={speaker.firstName} // tj. mainPhotoUrl i thumbnailUrl, pogledaj seed za primjer
+                    src={speaker.smallPhotoUrl}
+                    alt={speaker.firstName}
                   />
                   <div className={c.speakerInfoWrapper}>
                     <p className={c.fullName}>
@@ -198,9 +206,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.collapsed]: !isOpen,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
-        onClick={clickHandler}>
-        {' '}
-        {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
+        onClick={handleClick}>
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>
