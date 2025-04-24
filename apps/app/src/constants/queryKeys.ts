@@ -4,4 +4,5 @@ export const QUERY_KEYS = {
   shopItems: 'shopItems',
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
+  currentUser: 'currentUser',
 };

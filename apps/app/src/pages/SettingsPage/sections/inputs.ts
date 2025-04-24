@@ -1,102 +1,83 @@
-import { UserDataFields } from '@/types/enums';
-import { RegistrationDto } from '@/types/user/user';
+import { ChangePasswordFields, UserProfileFields } from '@/types/enums';
+import { PasswordInputs, ProfileSettingsDto } from '@/types/user/user';
 
 type InputType = 'text' | 'email' | 'password';
 
-type Input = {
-  name: UserDataFields;
+type Input<T> = {
+  name: T;
   placeholder: string;
   type: InputType | undefined;
 };
 
-export const textInputs: Input[] = [
+export const textInputs: Input<UserProfileFields>[] = [
   {
-    name: UserDataFields.FirstName,
+    name: UserProfileFields.FirstName,
     placeholder: 'Ime',
     type: 'text',
   },
   {
-    name: UserDataFields.LastName,
+    name: UserProfileFields.LastName,
     placeholder: 'Prezime',
     type: 'text',
   },
   {
-    name: UserDataFields.Email,
+    name: UserProfileFields.Email,
     placeholder: 'Email',
     type: 'email',
   },
   {
-    name: UserDataFields.PhoneNumber,
+    name: UserProfileFields.PhoneNumber,
     placeholder: 'Broj mobitela',
     type: 'text',
   },
   {
-    name: UserDataFields.BirthYear,
+    name: UserProfileFields.BirthYear,
     placeholder: 'Godina rođenja',
     type: 'text',
   },
 ];
 
-export const passwordInputs: Input[] = [
+export const passwordInputs: Input<ChangePasswordFields>[] = [
   {
-    name: UserDataFields.Password,
+    name: ChangePasswordFields.Password,
     placeholder: 'Trenutna lozinka',
     type: 'password',
   },
   {
-    name: UserDataFields.NewPassword,
+    name: ChangePasswordFields.NewPassword,
     placeholder: 'Nova lozinka',
     type: 'password',
   },
   {
-    name: UserDataFields.RepeatedPassword,
+    name: ChangePasswordFields.RepeatedPassword,
     placeholder: 'Potvrdi novu lozinku',
     type: 'password',
   },
 ];
 
-export const dropdownInputs = [
-  {
-    name: UserDataFields.EducationDegree,
-    placeholder: 'Stupanj obrazovanja',
-    options: [
-      { value: 'Option 1', label: 'Option 1' },
-      { value: 'Option 2', label: 'Option 2' },
-    ],
-  },
-  {
-    name: UserDataFields.Occupation,
-    placeholder: 'Trenutna okupacija',
-    options: [
-      { value: 'Option 1', label: 'Option 1' },
-      { value: 'Option 2', label: 'Option 2' },
-    ],
-  },
-];
-
 export const checkboxInputs = [
   {
-    name: UserDataFields.NewsletterEnabled,
+    name: UserProfileFields.NewsletterEnabled,
     label: 'Želim primati novosti o DUMP Days konferenciji.',
   },
   {
-    name: UserDataFields.TermsAndConditionsEnabled,
+    name: UserProfileFields.CompaniesNewsEnabled,
     label: 'Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.',
   },
 ];
 
-export const editProfileFields: (keyof RegistrationDto)[] = [
-  UserDataFields.FirstName,
-  UserDataFields.LastName,
-  UserDataFields.Email,
-  UserDataFields.PhoneNumber,
-  UserDataFields.BirthYear,
-  UserDataFields.EducationDegree,
-  UserDataFields.Occupation,
+export const editProfileFields: (keyof ProfileSettingsDto)[] = [
+  UserProfileFields.FirstName,
+  UserProfileFields.LastName,
+  UserProfileFields.Email,
+  UserProfileFields.PhoneNumber,
+  UserProfileFields.BirthYear,
+  UserProfileFields.EducationDegree,
+  UserProfileFields.Occupation,
 ];
 
-export const changePasswordFields: (keyof RegistrationDto)[] = [
-  UserDataFields.Password,
-  UserDataFields.RepeatedPassword,
-  UserDataFields.NewPassword,
+export const changePasswordFields: (keyof PasswordInputs)[] = [
+  ChangePasswordFields.Password,
+  ChangePasswordFields.RepeatedPassword,
+  ChangePasswordFields.NewPassword,
 ];
