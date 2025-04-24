@@ -45,7 +45,7 @@ export const ProfileLeaderboardPage = () => {
   // Set up intersection observer for infinite scrolling
   const observer = useRef<IntersectionObserver>();
   const lastRowRef = useCallback(
-    (node: any) => {
+    (node: HTMLElement | null) => {
       if (isFetchingNextPage) return;
       if (observer.current) observer.current.disconnect();
 
