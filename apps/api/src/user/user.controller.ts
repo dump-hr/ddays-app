@@ -19,8 +19,8 @@ export class UserController {
 
   @Patch('profile/delete')
   @UseGuards(UserGuard)
-  softDeleteUser(@Req() { user }) {
-    return this.userService.softDeleteUser(user.id);
+  deleteUser(@Req() { user }) {
+    return this.userService.deleteUser(user.id);
   }
 
   @Patch('profile/change-password')

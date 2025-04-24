@@ -129,7 +129,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async getUserById(id: number): Promise<UserPublicDto> {
+  async getUserById(id: number) {
     return this.prisma.user.findUnique({
       where: { id },
       select: {
@@ -144,7 +144,6 @@ export class AuthService {
         newsletterEnabled: true,
         companiesNewsEnabled: true,
         isConfirmed: true,
-        isDeleted: true,
       },
     });
   }

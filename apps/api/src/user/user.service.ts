@@ -60,7 +60,7 @@ export class UserService {
     });
   }
 
-  async softDeleteUser(userId: number) {
+  async deleteUser(userId: number) {
     return this.prisma.user.update({
       where: { id: userId },
       data: { isDeleted: true },

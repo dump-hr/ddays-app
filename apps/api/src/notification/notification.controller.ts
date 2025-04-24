@@ -21,7 +21,7 @@ import { NotificationService } from './notification.service';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @Get('/user')
+  @Get('user')
   @UseGuards(UserGuard)
   async getUserNotifications(@Req() { user }) {
     return this.notificationService.getUserNotifications(user.id);
