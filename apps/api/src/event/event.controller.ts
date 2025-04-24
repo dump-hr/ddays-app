@@ -43,7 +43,7 @@ export class EventController {
   @Get('my-schedule')
   async getEventsInMySchedule(
     @Req() { user }: AuthenticatedRequest,
-  ): Promise<EventDto[]> {
+  ): Promise<EventWithSpeakerDto[]> {
     return this.eventService.getEventsInMySchedule(user.id);
   }
 

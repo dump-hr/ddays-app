@@ -207,8 +207,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={handleClick}>
-        {' '}
-        {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>

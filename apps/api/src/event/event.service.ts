@@ -185,7 +185,6 @@ export class EventService {
       throw new NotFoundException('You are not currently joined to this event');
     }
 
-    // Otherwise, delete the user from the event
     await this.prisma.userToEvent.delete({
       where: {
         userId_eventId: {
@@ -196,36 +195,66 @@ export class EventService {
     });
   }
 
-  async getEventsInMySchedule(userId: number): Promise<EventDto[]> {
-    const events = await this.prisma.userToEvent.findMany({
-      where: {
-        userId,
-      },
+  async getEventsInMySchedule(userId: number): Promise<EventWithSpeakerDto[]> {
+    const mySchedule = await this.prisma.userToEvent.findMany({
+      where: { userId },
       include: {
         event: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            startsAt: true,
-            endsAt: true,
-            maxParticipants: true,
-            requirements: true,
-            footageLink: true,
-            type: true,
-            theme: true,
-            codeId: true,
+          include: {
+            speakerToEvent: {
+              include: {
+                speaker: {
+                  include: {
+                    company: {
+                      select: {
+                        id: true,
+                        name: true,
+                        category: true,
+                        websiteUrl: true,
+                        instagramUrl: true,
+                        linkedinUrl: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
-        },
-      },
-      orderBy: {
-        event: {
-          startsAt: 'asc',
         },
       },
     });
 
-    return events.map((event) => event.event);
+    return mySchedule.map((entry) => ({
+      id: entry.event.id,
+      name: entry.event.name,
+      description: entry.event.description,
+      startsAt: entry.event.startsAt,
+      endsAt: entry.event.endsAt,
+      maxParticipants: entry.event.maxParticipants,
+      requirements: entry.event.requirements,
+      footageLink: entry.event.footageLink,
+      type: entry.event.type,
+      theme: entry.event.theme,
+      codeId: entry.event.codeId,
+      speakers: entry.event.speakerToEvent.map((speakerRelation) => {
+        const speaker = speakerRelation.speaker;
+        return {
+          id: speaker.id,
+          firstName: speaker.firstName,
+          lastName: speaker.lastName,
+          title: speaker.title,
+          companyId: speaker.companyId,
+          photo: speaker.photo,
+          instagramUrl: speaker.instagramUrl,
+          linkedinUrl: speaker.linkedinUrl,
+          description: speaker.description,
+          company:
+            speaker.company?.id !== null
+              ? { ...speaker.company, password: undefined }
+              : null,
+        };
+      }),
+    }));
   }
 
   async generateIcal(userId: number): Promise<string> {
