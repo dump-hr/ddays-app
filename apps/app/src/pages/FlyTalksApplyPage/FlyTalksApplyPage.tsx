@@ -135,9 +135,15 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = () => {
-    if (Object.values(userData).some((value) => value === '' || value === undefined)) {
+    if (
+      Object.values(userData).some(
+        (value) => value === '' || value === undefined,
+      )
+    ) {
       setIsFormValid(false);
-    }else{setIsConfirmationPopupOpen(true);}
+    } else {
+      setIsConfirmationPopupOpen(true);
+    }
   };
 
   const handleError = (field: keyof typeof userData) => {
@@ -156,7 +162,7 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23.5 // PETAK' : '24.5 //SUBOTA'}
+              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. //SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}
