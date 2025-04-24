@@ -1,11 +1,11 @@
 import { UserDataFields } from '@/types/enums';
-import { RegistrationDto } from '@/types/user/user';
+import { ProfileSettingsDto, RegistrationDto } from '@/types/user/user';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
 
   isValidName: (value: string) => {
-    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s]{2,}$/;
+    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s-]{2,}$/;
     return nameRegex.test(value.trim());
   },
 
@@ -55,16 +55,18 @@ export const validations = {
   },
 };
 
-export const validateField = (
-  name: keyof RegistrationDto,
-  value: string | number | boolean | null | undefined,
-  userData: Partial<RegistrationDto>,
-): string | undefined => {
-  const isNotEmptyNewPass = validations.isNotEmpty(
-    userData.newPassword as string,
-  );
-  const passField = isNotEmptyNewPass ? 'newPassword' : 'password';
+export const validateRepeatedPassword = (
+  password: string | undefined,
+  repeatedPassword: string | undefined,
+) => {
+  if (password !== repeatedPassword) return 'Hej, lozinke se ne poklapaju!';
+  return undefined;
+};
 
+export const validateField = (
+  name: keyof RegistrationDto | keyof ProfileSettingsDto,
+  value: string | number | boolean | null | undefined,
+): string | undefined => {
   switch (name) {
     case UserDataFields.FirstName:
       if (!validations.isNotEmpty(value as string))
@@ -104,7 +106,6 @@ export const validateField = (
     case UserDataFields.RepeatedPassword:
       if (!validations.isNotEmpty(value as string))
         return 'Hej, potvrda lozinke je obavezna';
-      if (value !== userData[passField]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:

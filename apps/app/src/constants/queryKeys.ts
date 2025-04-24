@@ -5,4 +5,5 @@ export const QUERY_KEYS = {
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
   events: 'events',
+  currentUser: 'currentUser',
 };
