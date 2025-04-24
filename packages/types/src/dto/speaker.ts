@@ -8,6 +8,7 @@ export type SpeakerDto = {
   title: string;
   companyId?: number;
   photoUrl?: string;
+  smallPhotoUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
   description?: string;
@@ -47,6 +48,7 @@ export type SpeakerWithCompanyDto = {
   title: string;
   companyId?: number;
   photoUrl?: string;
+  smallPhotoUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
   description?: string;

@@ -45,3 +45,12 @@ export type ChangeUserPasswordDto = {
   currentPassword: string;
   newPassword: string;
 };
+
+export type UserToEventDto = {
+  userId: number;
+  linkedinProfile?: string;
+  githubProfile?: string;
+  portfolioProfile?: string;
+  cv?: string;
+  description?: string;
+};
