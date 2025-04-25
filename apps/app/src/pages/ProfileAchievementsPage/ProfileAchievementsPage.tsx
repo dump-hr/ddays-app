@@ -47,7 +47,9 @@ export const ProfileAchievementsPage = () => {
       setFilteredAchievements(completedAchievements);
     } else if (selectedTab === 'remaining') {
       setFilteredAchievements(
-        achievements.filter((a) => !completedAchievements.includes(a)),
+        achievements.filter(
+          (a) => !completedAchievements.some((c) => c.id === a.id),
+        ),
       );
     } else {
       setFilteredAchievements(achievements);
