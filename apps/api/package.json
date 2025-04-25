@@ -12,6 +12,7 @@
     "db:generate": "dotenv -c -- prisma generate",
     "db:migrate": "dotenv -c -- prisma migrate dev",
     "db:studio": "dotenv -c -- prisma studio",
+    "prisma": "dotenv -c -- prisma",
     "postinstall": "prisma generate"
   },
   "dependencies": {
