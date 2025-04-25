@@ -28,6 +28,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
+import AchievementScannerPage from '@/pages/AchievementScannerPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,10 @@ const router = createBrowserRouter(
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
+      <Route
+        path={RouteNames.ACHIEVEMENT_SCANNER}
+        element={<AchievementScannerPage />}
+      />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>
@@ -70,7 +75,10 @@ const router = createBrowserRouter(
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
-        <Route path={RouteNames.FLY_TALKS_APPLY} element={<FlyTalksApplyPage />} />
+        <Route
+          path={RouteNames.FLY_TALKS_APPLY}
+          element={<FlyTalksApplyPage />}
+        />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
       <Route path='/app/test' element={<TestPage />} />
