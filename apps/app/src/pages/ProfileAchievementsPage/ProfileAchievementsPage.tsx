@@ -6,12 +6,16 @@ import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import TabGroup from '../../components/TabGroup';
 import Tab from '../../components/Tab';
 import { useEffect, useState } from 'react';
-import achievements from './achievements';
 import AchievementCard from '../../components/AchievementCard';
 import { useNavigate } from 'react-router-dom';
 import { ACHIEVEMENT_DIFFICULTY } from '@/constants/achievementDifficulty';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { useAchievementGetAll } from '@/api/achievement/useAchievementGetAll';
 
 export const ProfileAchievementsPage = () => {
+  const { data: user } = useLoggedInUser();
+  const { data: achievements } = useAchievementGetAll();
+
   const tabs = [
     {
       id: 'all',
@@ -28,10 +32,12 @@ export const ProfileAchievementsPage = () => {
   ];
 
   const [selectedTab, setSelectedTab] = useState(tabs[0].id);
-  const [filteredAchievements, setFilteredAchievements] =
-    useState(achievements);
+  const [filteredAchievements] = useState(achievements || []);
 
   useEffect(() => {
+    /*
+    if (!achievements) return;
+
     if (selectedTab === 'completed') {
       setFilteredAchievements(
         achievements.filter((a) => a.progress === a.goal),
@@ -41,6 +47,7 @@ export const ProfileAchievementsPage = () => {
     } else {
       setFilteredAchievements(achievements);
     }
+      */
   }, [selectedTab]);
 
   const navigate = useNavigate();
@@ -65,7 +72,7 @@ export const ProfileAchievementsPage = () => {
         <div className={c.flexWrapper}>
           <p className={c.title}>
             <span>Postignuća</span> <br />
-            Marija Gudelj
+            {user?.firstName} {user?.lastName}
           </p>
 
           <AvatarPointsCircle points={900} avatar={TempAvatar} />
