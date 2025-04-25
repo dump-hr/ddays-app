@@ -5,11 +5,13 @@ import { AchievementDto } from '@ddays-app/types';
 
 type AchievementCardProps = {
   achievement: AchievementDto;
+  isCompleted?: boolean;
 };
 
-const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
-  const isCompleted = true;
-
+const AchievementCard: React.FC<AchievementCardProps> = ({
+  achievement,
+  isCompleted = false,
+}) => {
   return (
     <div
       className={clsx({

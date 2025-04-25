@@ -32,4 +32,19 @@ export class AchievementService {
 
     return achievements;
   }
+
+  async getCompletedAchievements(userId: number): Promise<AchievementDto[]> {
+    const completedAchievements = await this.prisma.userToAchievement.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        achievement: true,
+      },
+    });
+
+    return completedAchievements.map((userToAchievement) => ({
+      ...userToAchievement.achievement,
+    }));
+  }
 }

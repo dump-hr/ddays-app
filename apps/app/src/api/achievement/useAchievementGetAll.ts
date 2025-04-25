@@ -10,5 +10,5 @@ const achievementGetAll = () => {
 export const useAchievementGetAll = (
   options?: QueryOptions<AchievementDto[]>,
 ) => {
-  return useQuery(['event'], achievementGetAll, options);
+  return useQuery(['achievement'], achievementGetAll, options);
 };
