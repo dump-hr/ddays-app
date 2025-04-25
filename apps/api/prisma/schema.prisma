@@ -225,10 +225,10 @@ model User {
   occupation           String?
   educationDegree      String?
   password             String?
-  points               Int?
+  points               Int?                @default(0)
   newsletterEnabled    Boolean?
   companiesNewsEnabled Boolean?
-  isDeleted            Boolean?
+  isDeleted            Boolean?            @default(false)
   isConfirmed          Boolean?            @default(false)
   profilePhotoUrl      String?
   avatar               Avatar[]
@@ -238,6 +238,9 @@ model User {
   userToAchievement    UserToAchievement[]
   userToEvent          UserToEvent[]
   userToInterest       UserToInterest[]
+
+  @@unique([email, isDeleted])
+  @@unique([phoneNumber, isDeleted])
 }
 
 model UserNotification {

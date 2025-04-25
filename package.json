@@ -15,7 +15,8 @@
     "lint": "turbo run lint",
     "db:generate": "yarn workspace api run db:generate",
     "db:migrate": "yarn workspace api run db:migrate",
-    "db:studio": "yarn workspace api run db:studio"
+    "db:studio": "yarn workspace api run db:studio",
+    "prisma": "yarn workspace api run prisma"
   },
   "name": "ddays-app"
 }
