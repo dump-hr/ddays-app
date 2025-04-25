@@ -6,6 +6,7 @@ import {
   UserToEventDto,
 } from '@ddays-app/types';
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -14,8 +15,11 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AdminGuard } from 'src/auth/admin.guard';
 
 import { EventService } from './event.service';
@@ -33,6 +37,15 @@ export class EventController {
   @Post('apply-to-flytalk')
   async applyToFlyTalk(@Body() dto: UserToEventDto): Promise<UserToEventDto> {
     return await this.eventService.applyToFlyTalk(dto);
+  }
+
+  @Post('upload-cv')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadCV(@UploadedFile() file: Express.Multer.File): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+    return await this.eventService.uploadCV(file);
   }
 
   @Get('with-speaker')

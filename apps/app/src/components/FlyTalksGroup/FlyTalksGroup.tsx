@@ -39,6 +39,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
         eventId: group.id,
         userId: user?.id ?? 0,
       });
+      window.location.reload();
     }
   };
 

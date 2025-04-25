@@ -9,37 +9,41 @@ import ConfirmationPopup from './ConfirmationPopup';
 import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
 import { usePostApplyToFlyTalks } from '@/api/flyTalks/usePostApplyToFlyTalks';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
-
+import { useUploadCV } from '@/api/flyTalks/usePostUploadCV';
 
 const FlyTalksApplyPage = () => {
   const location = useLocation();
-  const {data: event} = useGetAllFlyTalkGroups();
-  const {data: currentUser} = useLoggedInUser();
+  const { data: event } = useGetAllFlyTalkGroups();
+  const { data: currentUser } = useLoggedInUser();
   const postApplyToFlyTalks = usePostApplyToFlyTalks();
+  const uploadCV = useUploadCV();
 
   const groups = useMemo(() => {
-    return event?.map((event) => ({
-      id: event.id,
-      start: event.startsAt.split('T')[1].slice(0, 5),
-      end: event.endsAt.split('T')[1].slice(0, 5),
-      day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
-      participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
-      hasUserApplied: Array.isArray(event.users)
-        ? event.users.some((user) => user.id === 1)
-        : false,
-      companies: Array.isArray(event.companies)
-        ? event.companies.map((company) => ({
-            ...company,
-            logoImage: company.logoImage || '',
-          }))
-        : [],
-    })) || [];
+    return (
+      event?.map((event) => ({
+        id: event.id,
+        start: event.startsAt.split('T')[1].slice(0, 5),
+        end: event.endsAt.split('T')[1].slice(0, 5),
+        day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+        participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
+        hasUserApplied: Array.isArray(event.users)
+          ? event.users.some((user) => user.id === 1)
+          : false,
+        companies: Array.isArray(event.companies)
+          ? event.companies.map((company) => ({
+              ...company,
+              logoImage: company.logoImage || '',
+            }))
+          : [],
+      })) || []
+    );
   }, [event]);
 
-  const [group, setGroup] = useState<(typeof groups)[0] | undefined>(
+  const [group, setGroup] = useState<(typeof groups)[0] | undefined>(undefined);
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+  const [uploadedCVUrl, setUploadedCVUrl] = useState<string | undefined>(
     undefined,
   );
-  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
 
   const [userData, setUserData] = useState<{
     linkedIn: string;
@@ -64,9 +68,7 @@ const FlyTalksApplyPage = () => {
     const groupId = queryParams.get('id');
 
     if (groupId) {
-      const foundGroup = groups.find(
-        (group) => group.id === Number(groupId),
-      );
+      const foundGroup = groups.find((group) => group.id === Number(groupId));
       setGroup(foundGroup);
     }
   }, [location.search, groups]);
@@ -87,10 +89,14 @@ const FlyTalksApplyPage = () => {
     }
   };
 
-  const handleApply = () => {
-    if (Object.values(userData).some((value) => value === '' || value === undefined)) {
+  const handleApply = async () => {
+    if (
+      Object.values(userData).some(
+        (value) => value === '' || value === undefined,
+      )
+    ) {
       setIsFormValid(false);
-    }else{
+    } else {
       postApplyToFlyTalks.mutate(
         {
           userId: currentUser?.id ?? 0,
@@ -98,16 +104,35 @@ const FlyTalksApplyPage = () => {
           linkedinProfile: userData.linkedIn,
           githubProfile: userData.github,
           portfolioProfile: userData.portfolio,
-          cv: 'aaa',
+          cv: uploadedCVUrl,
           description: userData.about,
         },
         {
           onSuccess: () => {
             setIsConfirmationPopupOpen(true);
           },
-        }
+        },
       );
     }
+  };
+
+  const handleApplyCV = async (file: File) => {
+    if (file) {
+      await uploadCV.mutateAsync(file, {
+        onSuccess: (cvUrl) => {
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            file: file,
+          }));
+          setUploadedCVUrl(cvUrl);
+        },
+      });
+      return;
+    }
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      file: undefined,
+    }));
   };
 
   const handleError = (field: keyof typeof userData) => {
@@ -168,7 +193,7 @@ const FlyTalksApplyPage = () => {
           </p>
           <FileInput
             file={userData.file}
-            setFile={(file) => setUserData((prev) => ({ ...prev, file }))}
+            setFile={(file) => handleApplyCV(file as File)}
             error={isFormValid === false ? handleError('file') : undefined}
             title='priloži životopis'
           />

@@ -6,11 +6,15 @@ import {
   UserToEventDto,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
+import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class EventService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blobService: BlobService,
+  ) {}
 
   async create(dto: EventModifyDto): Promise<EventDto> {
     const createdEvent = await this.prisma.event.create({
@@ -34,6 +38,16 @@ export class EventService {
     });
 
     return appliedFlyTalk;
+  }
+
+  async uploadCV(file: Express.Multer.File): Promise<string> {
+    const cv = await this.blobService.upload(
+      'user-cv',
+      file.buffer,
+      file.mimetype,
+    );
+    console.log(cv);
+    return cv;
   }
 
   async getAll(): Promise<EventDto[]> {
