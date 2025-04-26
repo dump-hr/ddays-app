@@ -103,8 +103,8 @@ export const ProfileAchievementsPage = () => {
           />
           <h3 className={c.title}>Postignuća</h3>
         </header>
-        <button onClick={() => console.log(completedAchievements)}>
-          Completed Achievements
+        <button onClick={() => navigate('/app/achievement-scanner')}>
+          Skener - pita san mihaelu za d33zajn :)
         </button>
         <TabGroup setter={setSelectedTab} className={c.tabGroup}>
           {tabs.map((tab) => (

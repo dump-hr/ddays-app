@@ -24,9 +24,12 @@ export class AchievementController {
     return await this.achievementService.create(dto);
   }
 
-  @Get()
-  async getAll(): Promise<AchievementDto[]> {
-    return await this.achievementService.getAll();
+  @UseGuards(UserGuard)
+  @Get('completed')
+  async getCompletedAchievements(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<AchievementDto[]> {
+    return await this.achievementService.getCompletedAchievements(user.id);
   }
 
   @Get(':uuid')
@@ -34,11 +37,8 @@ export class AchievementController {
     return await this.achievementService.getOne(uuid);
   }
 
-  @UseGuards(UserGuard)
-  @Get('completed')
-  async getCompletedAchievements(
-    @Req() { user }: AuthenticatedRequest,
-  ): Promise<AchievementDto[]> {
-    return await this.achievementService.getCompletedAchievements(user.id);
+  @Get()
+  async getAll(): Promise<AchievementDto[]> {
+    return await this.achievementService.getAll();
   }
 }

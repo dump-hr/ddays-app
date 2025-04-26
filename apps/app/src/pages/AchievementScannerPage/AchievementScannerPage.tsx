@@ -5,6 +5,8 @@ import ScannedAchievementPopup from './popups/ScannedAchievementPopup';
 import { QrCodeData, QrCodeDataType } from '@/types/qr/qr';
 import toast from 'react-hot-toast';
 import { useAchievementGetByUuid } from '@/api/achievement/useAchievementGetByUuid';
+import ArrowLeft from '@/assets/icons/arrow-left-white.svg';
+import { useNavigate } from 'react-router-dom';
 
 const AchievementScannerPage = () => {
   const [data, setData] = useState('');
@@ -46,19 +48,27 @@ const AchievementScannerPage = () => {
     setIsOpen(true);
   }
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className={c.page}>
-        <QrReader
-          onResult={(result) => {
-            if (!result || isOpen) return;
-            handleScan(result?.getText());
-          }}
-          className={c.qrReader}
-          constraints={{
-            facingMode: 'environment',
-          }}
-        />
+        <button className={c.backButton} onClick={() => navigate(-1)}>
+          <img src={ArrowLeft} alt='' />
+        </button>
+        <h1 className={c.title}>Skeniraj QR kod!</h1>
+        <div className={c.readerWrapper}>
+          <QrReader
+            onResult={(result) => {
+              if (!result || isOpen) return;
+              handleScan(result?.getText());
+            }}
+            className={c.qrReader}
+            constraints={{
+              facingMode: 'environment',
+            }}
+          />
+        </div>
       </div>
 
       <ScannedAchievementPopup

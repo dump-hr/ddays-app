@@ -1,5 +1,9 @@
 import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -35,7 +39,14 @@ export class AchievementService {
 
   async getOne(uuid: string): Promise<AchievementDto> {
     if (!uuid) {
-      throw new Error('UUID is required');
+      throw new BadRequestException('UUID is required');
+    }
+
+    const regex =
+      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+
+    if (!regex.test(uuid)) {
+      throw new BadRequestException('Invalid UUID format: ' + uuid);
     }
 
     const achievement = await this.prisma.achievement.findUnique({
@@ -45,7 +56,7 @@ export class AchievementService {
     });
 
     if (!achievement) {
-      throw new Error('Achievement not found');
+      throw new NotFoundException('Achievement not found');
     }
 
     return achievement;
