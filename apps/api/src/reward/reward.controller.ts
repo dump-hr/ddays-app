@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   ParseIntPipe,
   Post,
@@ -22,7 +23,7 @@ export class RewardController {
     return this.rewardService.createReward(rewardDto);
   }
 
-  @Post()
+  @Get()
   @UseGuards(UserGuard)
   getAllRewards() {
     return this.rewardService.getAllRewards();
