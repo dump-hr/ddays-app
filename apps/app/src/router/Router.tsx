@@ -24,6 +24,8 @@ import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { RateCompanyPage } from '../pages/RateCompanyPage';
+import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 
 const router = createBrowserRouter(
@@ -38,6 +40,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
+      <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
 
@@ -57,7 +60,10 @@ const router = createBrowserRouter(
             element={<ProfileAchievementsPage />}
           />
           <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
-          <Route path={RouteNames.PROFILE_LEADERBOARD} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_LEADERBOARD}
+            element={<ProfileLeaderboardPage />}
+          />
           <Route path={RouteNames.PROFILE_RECOMMENDATIONS} element={<></>} />
         </Route>
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
