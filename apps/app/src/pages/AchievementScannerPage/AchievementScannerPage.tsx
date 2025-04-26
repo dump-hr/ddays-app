@@ -76,6 +76,7 @@ const AchievementScannerPage = () => {
 
       {achievement && (
         <ScannedAchievementPopup
+          uuid={data}
           isOpen={isOpen}
           closePopup={() => {
             setIsOpen(false);

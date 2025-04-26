@@ -6,4 +6,6 @@ export const QUERY_KEYS = {
   userPoints: 'userPoints',
   events: 'events',
   currentUser: 'currentUser',
+  achievements: 'achievements',
+  achievementCompleted: 'achievementGetCompleted',
 };

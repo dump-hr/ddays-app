@@ -3,12 +3,15 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { AchievementDto } from '@ddays-app/types';
 import c from './ScannedAchievementPopup.module.scss';
 import Button from '@/components/Button';
+import { useAchievementComplete } from '@/api/achievement/useAchievementComplete';
+import toast from 'react-hot-toast';
 
 type ScannedAchievementPopupProps = {
   achievement: AchievementDto;
   isCompleted: boolean;
   isOpen: boolean;
   closePopup: () => void;
+  uuid: string;
 };
 
 const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
@@ -16,7 +19,19 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
   isCompleted,
   isOpen,
   closePopup,
+  uuid,
 }) => {
+  const completeAchievement = useAchievementComplete();
+
+  async function handleComplete() {
+    completeAchievement.mutate(uuid, {
+      onSuccess: () => {
+        toast.success('Postignuće je uspješno dodano!');
+        closePopup();
+      },
+    });
+  }
+
   return (
     <PopupLayout
       variant='light'
@@ -31,7 +46,11 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
             isCompleted={isCompleted}
           />
         </div>
-        <Button className={c.button} variant='orange' disabled={isCompleted}>
+        <Button
+          className={c.button}
+          variant='orange'
+          disabled={isCompleted}
+          onClick={handleComplete}>
           Preuzmi
         </Button>
       </div>

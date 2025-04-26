@@ -76,4 +76,36 @@ export class AchievementService {
       ...userToAchievement.achievement,
     }));
   }
+
+  async completeAchievement(
+    userId: number,
+    uuid: string,
+  ): Promise<AchievementDto> {
+    const achievement = await this.getOne(uuid);
+
+    if (!achievement) {
+      throw new NotFoundException('Achievement not found.');
+    }
+
+    const completedAchievementConnector =
+      await this.prisma.userToAchievement.create({
+        data: {
+          userId,
+          achievementId: achievement.id,
+        },
+      });
+
+    const completedAchievementDetails =
+      await this.prisma.achievement.findUnique({
+        where: {
+          id: completedAchievementConnector.achievementId,
+        },
+      });
+
+    if (!completedAchievementDetails) {
+      throw new NotFoundException('Completed achievement details not found.');
+    }
+
+    return completedAchievementDetails;
+  }
 }
