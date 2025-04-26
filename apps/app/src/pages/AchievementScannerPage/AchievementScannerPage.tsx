@@ -7,10 +7,13 @@ import toast from 'react-hot-toast';
 import { useAchievementGetByUuid } from '@/api/achievement/useAchievementGetByUuid';
 import ArrowLeft from '@/assets/icons/arrow-left-white.svg';
 import { useNavigate } from 'react-router-dom';
+import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
 
 const AchievementScannerPage = () => {
   const [data, setData] = useState('');
   const { data: achievement } = useAchievementGetByUuid(data);
+  const { data: completedAchievements } = useAchievementGetCompleted();
+
   const [isOpen, setIsOpen] = useState(false);
   const lastScanTimeRef = useRef<number>(0);
 
@@ -71,14 +74,20 @@ const AchievementScannerPage = () => {
         </div>
       </div>
 
-      <ScannedAchievementPopup
-        isOpen={isOpen}
-        closePopup={() => {
-          setIsOpen(false);
-          setData('');
-        }}
-        achievement={achievement}
-      />
+      {achievement && (
+        <ScannedAchievementPopup
+          isOpen={isOpen}
+          closePopup={() => {
+            setIsOpen(false);
+            setData('');
+          }}
+          achievement={achievement}
+          isCompleted={
+            completedAchievements?.some((a) => a.id === achievement?.id) ||
+            false
+          }
+        />
+      )}
     </>
   );
 };

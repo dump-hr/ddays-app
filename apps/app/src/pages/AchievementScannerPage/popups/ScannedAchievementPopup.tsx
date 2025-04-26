@@ -1,14 +1,19 @@
+import AchievementCard from '@/components/AchievementCard';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { AchievementDto } from '@ddays-app/types';
+import c from './ScannedAchievementPopup.module.scss';
+import Button from '@/components/Button';
 
 type ScannedAchievementPopupProps = {
-  achievement: AchievementDto | undefined;
+  achievement: AchievementDto;
+  isCompleted: boolean;
   isOpen: boolean;
   closePopup: () => void;
 };
 
 const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
   achievement,
+  isCompleted,
   isOpen,
   closePopup,
 }) => {
@@ -19,8 +24,17 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
       headerTitleComponent='Postignuće skenirano!'
       isOpen={isOpen}
       closePopup={closePopup}>
-      <p>Name: {achievement?.name}</p>
-      <p>Description: {achievement?.description}</p>
+      <div className={c.content}>
+        <div className={c.achievementCardWrapper}>
+          <AchievementCard
+            achievement={achievement}
+            isCompleted={isCompleted}
+          />
+        </div>
+        <Button className={c.button} variant='orange' disabled={isCompleted}>
+          Preuzmi
+        </Button>
+      </div>
     </PopupLayout>
   );
 };
