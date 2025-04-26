@@ -34,10 +34,8 @@ export const RewardsPage = () => {
           <h2>Nagrade</h2>
         )}
         <p>
-          Osvoji negrade hihi Osvoji negrade hihiOsvoji negrade hihiOsvoji
-          negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade
-          hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji
-          negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade hihi
+          Ove nagrade dijelimo na zatvaranju konferencije. Zato se potrudi da
+          skupiš i sačuvaš što više bodova!
         </p>
 
         <section className={c.rewardsSection}>
