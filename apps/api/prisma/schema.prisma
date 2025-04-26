@@ -9,6 +9,8 @@ datasource db {
 
 model Achievement {
   id                   Int                 @id @default(autoincrement())
+  uuid                 String?             @unique @default(uuid()) @db.Uuid
+  activationCode       String?             @unique
   name                 String
   description          String?
   points               Int?                @default(0)

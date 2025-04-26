@@ -33,6 +33,24 @@ export class AchievementService {
     return achievements;
   }
 
+  async getOne(uuid: string): Promise<AchievementDto> {
+    if (!uuid) {
+      throw new Error('UUID is required');
+    }
+
+    const achievement = await this.prisma.achievement.findUnique({
+      where: {
+        uuid: uuid,
+      },
+    });
+
+    if (!achievement) {
+      throw new Error('Achievement not found');
+    }
+
+    return achievement;
+  }
+
   async getCompletedAchievements(userId: number): Promise<AchievementDto[]> {
     const completedAchievements = await this.prisma.userToAchievement.findMany({
       where: {

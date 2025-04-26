@@ -4,9 +4,11 @@ import { useState } from 'react';
 import ScannedAchievementPopup from './popups/ScannedAchievementPopup';
 import { QrCodeData, QrCodeDataType } from '@/types/qr/qr';
 import toast from 'react-hot-toast';
+import { useAchievementGetByUuid } from '@/api/achievement/useAchievementGetByUuid';
 
 const AchievementScannerPage = () => {
-  const [data] = useState('No result');
+  const [data, setData] = useState('');
+  const { data: achievement } = useAchievementGetByUuid(data);
   const [isOpen, setIsOpen] = useState(false);
 
   function handleScan(data: string) {
@@ -16,8 +18,8 @@ const AchievementScannerPage = () => {
 
     try {
       parsedData = JSON.parse(data) as QrCodeData;
-    } catch (error) {
-      toast.error('Greška prilikom parsiranja podataka! ' + error);
+    } catch {
+      toast.error('Ovaj QR kod nije ispravan!');
       return;
     }
 
@@ -31,7 +33,8 @@ const AchievementScannerPage = () => {
       return;
     }
 
-    toast.success('Postignuće skenirano! ' + parsedData.data);
+    setData(parsedData.data);
+    setIsOpen(true);
   }
 
   return (
@@ -47,12 +50,15 @@ const AchievementScannerPage = () => {
             facingMode: 'environment',
           }}
         />
-        <p>{data}</p>
       </div>
+
       <ScannedAchievementPopup
         isOpen={isOpen}
-        closePopup={() => setIsOpen(false)}
-        achievementId={data}
+        closePopup={() => {
+          setIsOpen(false);
+          setData('');
+        }}
+        achievement={achievement}
       />
     </>
   );

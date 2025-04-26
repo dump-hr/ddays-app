@@ -1,5 +1,13 @@
 import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { UserGuard } from 'src/auth/user.guard';
@@ -19,6 +27,11 @@ export class AchievementController {
   @Get()
   async getAll(): Promise<AchievementDto[]> {
     return await this.achievementService.getAll();
+  }
+
+  @Get(':uuid')
+  async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
+    return await this.achievementService.getOne(uuid);
   }
 
   @UseGuards(UserGuard)

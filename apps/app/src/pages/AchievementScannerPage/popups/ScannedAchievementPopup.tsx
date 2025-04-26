@@ -1,13 +1,14 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+import { AchievementDto } from '@ddays-app/types';
 
 type ScannedAchievementPopupProps = {
-  achievementId: string;
+  achievement: AchievementDto | undefined;
   isOpen: boolean;
   closePopup: () => void;
 };
 
 const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
-  achievementId,
+  achievement,
   isOpen,
   closePopup,
 }) => {
@@ -18,7 +19,8 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
       headerTitleComponent='Postignuće skenirano!'
       isOpen={isOpen}
       closePopup={closePopup}>
-      <p>{achievementId}</p>
+      <p>Name: {achievement?.name}</p>
+      <p>Description: {achievement?.description}</p>
     </PopupLayout>
   );
 };
