@@ -1,6 +1,6 @@
 import axios from '../base';
 import { useQuery } from 'react-query';
-import { RewardDto } from '@ddays-app/types/src/dto/reward';
+import { RewardDto } from '@ddays-app/types';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 const getAllRewards = async (): Promise<RewardDto[]> => {
   return axios.get('/reward');

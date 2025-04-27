@@ -1,5 +1,4 @@
-import { RewardModifyDto } from '@ddays-app/types';
-import { RewardDto } from '@ddays-app/types/src/dto/reward';
+import { RewardDto, RewardModifyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,

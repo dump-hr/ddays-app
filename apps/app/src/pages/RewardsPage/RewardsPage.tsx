@@ -5,7 +5,7 @@ import { Reward } from '@/components/Reward';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllRewards } from '@/api/reward/useGetAllRewards';
-import { RewardDto } from '@ddays-app/types/src/dto/reward';
+import { RewardDto } from '@ddays-app/types';
 
 export const RewardsPage = () => {
   const { isMobile } = useDeviceType({});
