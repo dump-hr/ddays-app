@@ -4,7 +4,6 @@ import { AchievementDto } from '@ddays-app/types';
 import c from './ScannedAchievementPopup.module.scss';
 import Button from '@/components/Button';
 import { useAchievementComplete } from '@/api/achievement/useAchievementComplete';
-import toast from 'react-hot-toast';
 
 type ScannedAchievementPopupProps = {
   achievement: AchievementDto;
@@ -26,7 +25,6 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
   async function handleComplete() {
     completeAchievement.mutate(uuid, {
       onSuccess: () => {
-        toast.success('Postignuće je uspješno dodano!');
         closePopup();
       },
     });

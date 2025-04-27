@@ -92,6 +92,7 @@ export class AchievementService {
         data: {
           userId,
           achievementId: achievement.id,
+          timeOfAchievement: new Date(),
         },
       });
 

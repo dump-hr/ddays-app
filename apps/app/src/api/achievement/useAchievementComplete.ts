@@ -11,10 +11,13 @@ const achievementComplete = (uuid: string) => {
 export const useAchievementComplete = () => {
   return useMutation<AchievementDto, Error, string>(
     [QUERY_KEYS.achievements, QUERY_KEYS.achievementCompleted],
-    (uuid: string) => achievementComplete(uuid), // Pass uuid here
+    (uuid: string) => achievementComplete(uuid),
     {
       onSuccess: () => {
         toast.success('Postignuće je uspješno dodano!');
+      },
+      onError: () => {
+        toast.error('Došlo je do greške prilikom dodavanja postignuća!');
       },
     },
   );
