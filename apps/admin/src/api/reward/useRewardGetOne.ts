@@ -1,6 +1,7 @@
 import { RewardDto } from '@ddays-app/types';
-import { api } from '..';
 import { QueryOptions, useQuery } from 'react-query';
+
+import { api } from '..';
 
 const rewardGetOne = async (id: number) => {
   return await api.get<never, RewardDto>(`/reward/${id}`);

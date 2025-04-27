@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from 'react-query';
-import { api } from '..';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '..';
 
 const rewardUpdateImage = async (rewardFile: {
   id: number | undefined;

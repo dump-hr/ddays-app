@@ -1,12 +1,13 @@
-import { useForm } from 'react-hook-form';
-import { useRewardGetOne } from '../api/reward/useRewardGetOne';
-import { Question, QuestionType } from '../types/question';
 import { RewardModifyDto } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { InputHandler } from '../components/InputHandler';
-import { Button } from '../components/Button';
+import { useForm } from 'react-hook-form';
+
 import { useRewardCreate } from '../api/reward/useRewardCreate';
+import { useRewardGetOne } from '../api/reward/useRewardGetOne';
 import { useRewardUpdate } from '../api/reward/useRewardUpdate';
+import { Button } from '../components/Button';
+import { InputHandler } from '../components/InputHandler';
+import { Question, QuestionType } from '../types/question';
 
 type RewardFormProps = {
   id?: number;

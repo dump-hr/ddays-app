@@ -1,7 +1,8 @@
 import { RewardDto, RewardModifyDto } from '@ddays-app/types';
-import { api } from '..';
-import { useMutation, useQueryClient } from 'react-query';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '..';
 
 const rewardUpdate = async (dto: RewardModifyDto & { id: number }) => {
   return await api.patch<RewardModifyDto, RewardDto>(`/reward/${dto.id}`, {
