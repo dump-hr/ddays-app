@@ -109,4 +109,13 @@ export class AchievementService {
 
     return completedAchievementDetails;
   }
+
+  async update(id: number, dto: AchievementModifyDto): Promise<AchievementDto> {
+    const updatedAchievement = await this.prisma.achievement.update({
+      where: { id },
+      data: dto,
+    });
+
+    return updatedAchievement;
+  }
 }

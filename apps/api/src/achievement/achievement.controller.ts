@@ -4,6 +4,8 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -35,6 +37,15 @@ export class AchievementController {
   @Get(':uuid')
   async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
     return await this.achievementService.getOne(uuid);
+  }
+
+  @UseGuards(AdminGuard)
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AchievementModifyDto,
+  ): Promise<AchievementDto> {
+    return await this.achievementService.update(id, dto);
   }
 
   @Get()

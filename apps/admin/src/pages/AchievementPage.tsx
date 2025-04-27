@@ -1,3 +1,4 @@
+import { AchievementDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useAchievementGetAll } from '../api/achievement/useAchievementGetAll';
@@ -9,7 +10,8 @@ import { AchievementForm } from '../forms/AchievementForm';
 const AchievementPage = () => {
   const achievements = useAchievementGetAll();
 
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [achievementToEdit, setAchievementToEdit] = useState<AchievementDto>();
 
   if (achievements.isLoading) {
     return <div>Loading...</div>;
@@ -17,14 +19,17 @@ const AchievementPage = () => {
   return (
     <>
       <Modal
-        isOpen={isCreateModalOpen}
+        isOpen={isModalOpen}
         onClose={() => {
-          setIsCreateModalOpen(false);
+          setIsModalOpen(false);
         }}>
-        <AchievementForm onSuccess={() => setIsCreateModalOpen(false)} />
+        <AchievementForm
+          onSuccess={() => setIsModalOpen(false)}
+          achievement={achievementToEdit}
+        />
       </Modal>
       <div className='flex'>
-        <Button variant='primary' onClick={() => setIsCreateModalOpen(true)}>
+        <Button variant='primary' onClick={() => setIsModalOpen(true)}>
           New
         </Button>
       </div>
@@ -32,6 +37,15 @@ const AchievementPage = () => {
         data={(achievements.data || []).map((achievement) => ({
           ...achievement,
         }))}
+        actions={[
+          {
+            label: 'Uredi',
+            action: (achievement) => {
+              setAchievementToEdit(achievement);
+              setIsModalOpen(true);
+            },
+          },
+        ]}
       />
     </>
   );

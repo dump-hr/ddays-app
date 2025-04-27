@@ -1,25 +1,22 @@
-import { AchievementModifyDto } from '@ddays-app/types';
+import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
 import { useAchievementCreate } from '../api/achievement/useAchievementCreate';
-import { useAchievementGetOne } from '../api/achievement/useAchievementGetOne';
 import { useAchievementUpdate } from '../api/achievement/useAchievementUpdate';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
 type AchievementFormProps = {
-  id?: number;
+  achievement?: AchievementDto;
   onSuccess: () => void;
 };
 
 export const AchievementForm: React.FC<AchievementFormProps> = ({
-  id,
+  achievement,
   onSuccess,
 }) => {
-  const { data: achievement, isLoading } = useAchievementGetOne(id);
-
   const createAchievement = useAchievementCreate();
   const updateAchievement = useAchievementUpdate();
 
@@ -54,10 +51,6 @@ export const AchievementForm: React.FC<AchievementFormProps> = ({
     resolver: classValidatorResolver(AchievementModifyDto),
   });
 
-  if (id && isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       {questions.map((q) => (
@@ -65,8 +58,11 @@ export const AchievementForm: React.FC<AchievementFormProps> = ({
       ))}
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          if (id) {
-            await updateAchievement.mutateAsync({ ...formData, id });
+          if (achievement) {
+            await updateAchievement.mutateAsync({
+              ...formData,
+              id: achievement.id,
+            });
           } else {
             await createAchievement.mutateAsync(formData);
           }
