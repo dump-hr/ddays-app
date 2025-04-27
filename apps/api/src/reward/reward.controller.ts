@@ -56,14 +56,6 @@ export class RewardController {
     return await this.rewardService.updateReward(id, dto);
   }
 
-  //TODO
-  //   @UseGuards(AdminGuard)
-  //   @Patch(':id')
-  //   async updateReward(
-  //     @Param('id', ParseIntPipe) id:number,
-  //     @Body() dto:
-  //   )
-
   @UseGuards(AdminGuard)
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -92,5 +84,11 @@ export class RewardController {
     file: Express.Multer.File,
   ): Promise<RewardDto> {
     return await this.rewardService.updateImage(id, file);
+  }
+
+  @UseGuards(AdminGuard)
+  @Delete('/photo/:id')
+  async removeImage(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return await this.rewardService.removeImage(id);
   }
 }

@@ -71,4 +71,11 @@ export class RewardService {
     });
     return updatedReward;
   }
+
+  async removeImage(id: number): Promise<void> {
+    await this.prisma.reward.update({
+      where: { id },
+      data: { imageUrl: null },
+    });
+  }
 }

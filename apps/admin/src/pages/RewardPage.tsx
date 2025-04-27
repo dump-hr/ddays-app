@@ -5,14 +5,26 @@ import { Table } from '../components/Table';
 import { Button } from '../components/Button';
 import { RewardForm } from '../forms/RewardForm';
 import { useRewardRemove } from '../api/reward/useRewardRemove';
+import { FileUpload } from '../components/FileUpload';
+import { useRewardUpdateImage } from '../api/reward/useRewardUpdateImage';
+import { useRewardRemoveImage } from '../api/reward/useRewardRemoveImage';
 
 const RewardPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rewardToEditId, setRewardToEditId] = useState<number>();
 
   const rewards = useRewardGetAll();
-
+  const updateImage = useRewardUpdateImage();
+  const removeImage = useRewardRemoveImage();
   const removeReward = useRewardRemove();
+
+  const handleImageUpload = async (files: File[]) => {
+    await updateImage.mutateAsync({ id: rewardToEditId, file: files[0] });
+  };
+
+  const handleImageRemove = async () => {
+    await removeImage.mutateAsync(rewardToEditId);
+  };
 
   if (rewards.isLoading) {
     return <div>Loading...</div>;
@@ -33,6 +45,19 @@ const RewardPage = () => {
             setRewardToEditId(undefined);
           }}
         />
+        {rewardToEditId && (
+          <>
+            <p>Slika:</p>
+            <FileUpload
+              src={
+                rewards.data?.find((reward) => reward.id === rewardToEditId)
+                  ?.imageUrl
+              }
+              handleUpload={handleImageUpload}
+              handleRemove={handleImageRemove}
+            />
+          </>
+        )}
       </Modal>
 
       <div className='flex'>
