@@ -17,22 +17,21 @@ import {
 import { RewardService } from './reward.service';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { RewardDto } from '@ddays-app/types/src/dto/reward';
-import { UserGuard } from 'src/auth/user.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { RewardModifyDto } from '@ddays-app/types';
 
 @Controller('reward')
 export class RewardController {
   constructor(private readonly rewardService: RewardService) {}
 
-  @Post('create')
+  @Post()
   @UseGuards(AdminGuard)
-  async createReward(@Body() rewardDto: RewardDto) {
+  async createReward(@Body() rewardDto: RewardModifyDto) {
     return this.rewardService.createReward(rewardDto);
   }
 
   @Get()
-  @UseGuards(UserGuard)
   async getAllRewards() {
     return this.rewardService.getAllRewards();
   }

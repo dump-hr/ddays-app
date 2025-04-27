@@ -6,4 +6,5 @@ export enum Path {
   Event = '/admin/event',
   Speaker = '/admin/speaker',
   Booth = '/admin/booth',
+  Reward = '/admin/reward',
 }

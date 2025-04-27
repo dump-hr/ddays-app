@@ -16,6 +16,7 @@ const navLinks = [
   { href: Path.Event, text: 'Event' },
   { href: Path.Speaker, text: 'Speaker' },
   { href: Path.Booth, text: 'Booth' },
+  { href: Path.Reward, text: 'Reward' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { RewardDto } from '@ddays-app/types/src/dto/reward';
 import { BlobService } from 'src/blob/blob.service';
+import { RewardModifyDto } from '@ddays-app/types';
 
 @Injectable()
 export class RewardService {
@@ -10,14 +11,28 @@ export class RewardService {
     private readonly blobService: BlobService,
   ) {}
 
-  async createReward(createRewardDto: RewardDto) {
-    await this.prisma.reward.create({
+  async createReward(createRewardDto: RewardModifyDto): Promise<RewardDto> {
+    const createdReward = await this.prisma.reward.create({
       data: createRewardDto,
     });
+
+    return createdReward;
   }
 
   async getAllRewards() {
     return await this.prisma.reward.findMany({});
+  }
+
+  async getOne(id: number): Promise<RewardDto> {
+    const foundReward = await this.prisma.reward.findUnique({
+      where: { id },
+    });
+
+    if (!foundReward) {
+      throw new Error('Reward not found');
+    }
+
+    return foundReward;
   }
 
   async removeReward(id: number) {
