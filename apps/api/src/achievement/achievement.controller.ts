@@ -2,6 +2,7 @@ import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -46,6 +47,11 @@ export class AchievementController {
     @Body() dto: AchievementModifyDto,
   ): Promise<AchievementDto> {
     return await this.achievementService.update(id, dto);
+  }
+  @UseGuards(AdminGuard)
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<AchievementDto> {
+    return await this.achievementService.remove(id);
   }
 
   @Get()

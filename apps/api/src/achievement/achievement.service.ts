@@ -118,4 +118,12 @@ export class AchievementService {
 
     return updatedAchievement;
   }
+
+  async remove(id: number): Promise<AchievementDto> {
+    const deletedAchievement = await this.prisma.achievement.delete({
+      where: { id },
+    });
+
+    return deletedAchievement;
+  }
 }
