@@ -15,11 +15,11 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
+import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { RewardModule } from './reward/reward.module';
 
 @Module({
   imports: [

@@ -1,3 +1,5 @@
+import { RewardModifyDto } from '@ddays-app/types';
+import { RewardDto } from '@ddays-app/types/src/dto/reward';
 import {
   Body,
   Controller,
@@ -14,12 +16,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { RewardService } from './reward.service';
-import { AdminGuard } from 'src/auth/admin.guard';
-import { RewardDto } from '@ddays-app/types/src/dto/reward';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { RewardModifyDto, SpeakerModifyDto } from '@ddays-app/types';
+import { AdminGuard } from 'src/auth/admin.guard';
+
+import { RewardService } from './reward.service';
 
 @Controller('reward')
 export class RewardController {
