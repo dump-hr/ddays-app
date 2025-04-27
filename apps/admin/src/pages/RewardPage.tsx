@@ -24,11 +24,15 @@ const RewardPage = () => {
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
+          setRewardToEditId(undefined);
         }}>
         <RewardForm
+          id={rewardToEditId}
           onSuccess={() => {
             setIsModalOpen(false);
-          }}></RewardForm>
+            setRewardToEditId(undefined);
+          }}
+        />
       </Modal>
 
       <div className='flex'>
@@ -40,6 +44,13 @@ const RewardPage = () => {
       <Table
         data={rewards.data}
         actions={[
+          {
+            label: 'Uredi',
+            action: (reward) => {
+              setRewardToEditId(reward.id);
+              setIsModalOpen(true);
+            },
+          },
           {
             label: 'Obriši',
             action: (reward) => {

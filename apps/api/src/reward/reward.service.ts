@@ -43,7 +43,7 @@ export class RewardService {
     });
   }
 
-  async updateReward(id: number, dto: RewardDto): Promise<RewardDto> {
+  async updateReward(id: number, dto: RewardModifyDto): Promise<RewardDto> {
     const updatedReward = await this.prisma.reward.update({
       where: { id },
       data: dto,

@@ -19,7 +19,7 @@ import { AdminGuard } from 'src/auth/admin.guard';
 import { RewardDto } from '@ddays-app/types/src/dto/reward';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { RewardModifyDto } from '@ddays-app/types';
+import { RewardModifyDto, SpeakerModifyDto } from '@ddays-app/types';
 
 @Controller('reward')
 export class RewardController {
@@ -36,10 +36,24 @@ export class RewardController {
     return this.rewardService.getAllRewards();
   }
 
+  @Get(':id')
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<RewardDto> {
+    return await this.rewardService.getOne(id);
+  }
+
   @Delete(':id')
   @UseGuards(AdminGuard)
   async removeReward(@Param('id', ParseIntPipe) id: number) {
     return this.rewardService.removeReward(id);
+  }
+
+  @UseGuards(AdminGuard)
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: RewardModifyDto,
+  ): Promise<RewardDto> {
+    return await this.rewardService.updateReward(id, dto);
   }
 
   //TODO
