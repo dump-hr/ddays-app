@@ -73,9 +73,6 @@ const EventsSection = () => {
         threshold: 1,
       },
     );
-    console.log(displayedEvents)
-    console.log("live:", liveEvents)
-    console.log("next:",nextEvents)
 
     items.forEach((item) => observer.observe(item));
 

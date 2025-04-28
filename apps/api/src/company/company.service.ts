@@ -53,38 +53,41 @@ export class CompanyService {
   }
 
   async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
-    const topCompanies: CompanyPublicDto[] = await this.prisma.$queryRaw`
-      SELECT 
-        c.id,
-        c.category,
-        c.name,
-        c.description,
-        c."opportunitiesDescription", 
-        c."websiteUrl",
-        c."instagramUrl",
-        c."linkedinUrl",
-        b.name as booth,
-        COALESCE(AVG(CAST((r.grades->>'value') AS DECIMAL)), 0) as averageRating
-      FROM "Booth" b
-      JOIN "Company" c ON b."companyId" = c.id
-      LEFT JOIN "Rating" r ON r."boothId" = b.id
-      GROUP BY c.id, b.id
-      ORDER BY averageRating DESC
-      LIMIT 5
-    `;
+    const companies = await this.prisma.company.findMany({
+      include: {
+        booth: {
+          include: {
+            rating: true,
+          },
+        },
+      },
+    });
 
-    return topCompanies.map((company) => ({
-      id: company.id,
-      category: company.category as CompanyCategory,
-      name: company.name,
-      description: company.description,
-      opportunitiesDescription: company.opportunitiesDescription,
-      website: company.websiteUrl,
-      instagram: company.instagramUrl,
-      linkedin: company.linkedinUrl,
-      booth: company.booth,
-      averageRating: Number(company.averageRating),
-    }));
+    const companiesWithAvgRating = companies.map((company) => {
+      const ratings = company.booth?.rating ?? [];
+
+      const averageRating =
+        ratings.length > 0
+          ? ratings.reduce((acc, rating) => {
+              const value = Number(
+                (rating.grades as { value: number })?.value || 0,
+              );
+              return acc + value;
+            }, 0) / ratings.length
+          : 0;
+
+      return {
+        ...company,
+        booth: company.booth?.name,
+        averageRating,
+      };
+    });
+
+    const topRated = companiesWithAvgRating
+      .sort((a, b) => b.averageRating - a.averageRating)
+      .slice(0, 5);
+
+    return topRated;
   }
 
   async getOne(id: number): Promise<CompanyDto> {

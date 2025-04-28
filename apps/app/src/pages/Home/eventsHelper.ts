@@ -13,7 +13,6 @@ function filterAndSortEventByType(events: EventWithSpeakerDto[], type: string) {
 
 function getLiveEvent(events: EventWithSpeakerDto[]) {
   const now = new Date();
-  console.log(events);
   return events
     .filter((event) => {
       const startsAt = new Date(event.startsAt);
