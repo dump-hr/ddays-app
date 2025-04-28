@@ -10,6 +10,10 @@ export type AchievementDto = {
   createdAt: Date;
 };
 
+export type AchievementWithUuidDto = AchievementDto & {
+  uuid: string;
+};
+
 export class AchievementModifyDto {
   @IsString()
   name: string;

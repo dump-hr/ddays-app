@@ -126,4 +126,14 @@ export class AchievementService {
 
     return deletedAchievement;
   }
+
+  async getAchievementUuid(id: number): Promise<string> {
+    const achievementWithUuid = await this.prisma.achievement.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return achievementWithUuid.uuid;
+  }
 }
