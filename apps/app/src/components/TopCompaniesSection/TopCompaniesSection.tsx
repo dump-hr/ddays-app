@@ -1,23 +1,13 @@
 import c from './TopCompaniesSection.module.scss';
-<<<<<<< HEAD:apps/app/src/pages/Home/sections/TopCompaniesSection/TopCompaniesSection.tsx
-import TopCompany from '../../../../components/TopCompany';
-import RecommendationsButton from '../../../../components/RecommendationsButton';
 import React from 'react';
 import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
+import TopCompany from '../TopCompany';
+import RecommendationsButton from '../RecommendationsButton';
 
 
 const TopCompaniesSection: React.FC = () => {
 
   const { data: topCompanies= [] } = useGetTopRatedCompanies();
-=======
-
-import React from 'react';
-
-import TopCompany from '../TopCompany';
-import { companies } from '../../pages/Home/companies';
-import RecommendationsButton from '../RecommendationsButton';
->>>>>>> 32e9f1bda5492c1d6f236f7d5d5608d82fd52f72:apps/app/src/components/TopCompaniesSection/TopCompaniesSection.tsx
-
   return (
     <section className={c.topCompanies}>
       <div className={c.mainContent}>
