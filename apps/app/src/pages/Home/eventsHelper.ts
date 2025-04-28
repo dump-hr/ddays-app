@@ -13,7 +13,7 @@ function filterAndSortEventByType(events: EventWithSpeakerDto[], type: string) {
 
 function getLiveEvent(events: EventWithSpeakerDto[]) {
   const now = new Date();
-
+  console.log(events);
   return events
     .filter((event) => {
       const startsAt = new Date(event.startsAt);
@@ -25,10 +25,10 @@ function getLiveEvent(events: EventWithSpeakerDto[]) {
 }
 
 export function getLiveEvents(events: EventWithSpeakerDto[]) {
-  const lectures = filterAndSortEventByType(events, 'lecture');
-  const workshops = filterAndSortEventByType(events, 'workshop');
-  const panels = filterAndSortEventByType(events, 'panel');
-  const campfireTalks = filterAndSortEventByType(events, 'campfireTalk');
+  const lectures = filterAndSortEventByType(events, 'LECTURE');
+  const workshops = filterAndSortEventByType(events, 'WORKSHOP');
+  const panels = filterAndSortEventByType(events, 'PANEL');
+  const campfireTalks = filterAndSortEventByType(events, 'CAMPFIRE_TALK');
 
   const liveLecture = getLiveEvent(lectures);
   const liveWorkshop = getLiveEvent(workshops);
@@ -41,12 +41,10 @@ export function getLiveEvents(events: EventWithSpeakerDto[]) {
 }
 
 export function getNextEvents(events: EventWithSpeakerDto[]) {
-  const lectures = filterAndSortEventByType(events, 'lecture');
-  const workshops = filterAndSortEventByType(events, 'workshop');
-  const panels = filterAndSortEventByType(events, 'panel');
-  const campfireTalks = filterAndSortEventByType(events, 'campfireTalk');
-
-  console.log(lectures);
+  const lectures = filterAndSortEventByType(events, 'LECTURE');
+  const workshops = filterAndSortEventByType(events, 'WORKSHOP');
+  const panels = filterAndSortEventByType(events, 'PANEL');
+  const campfireTalks = filterAndSortEventByType(events, 'CAMPFIRE_TALK');
 
   const nextLectures = lectures.filter((event) => {
     const startsAt = new Date(event.startsAt);
@@ -96,18 +94,4 @@ export function getNextEvents(events: EventWithSpeakerDto[]) {
 
     return startsAt >= startOfDay && startsAt < endOfDay;
   }) as EventWithSpeakerDto[];
-}
-
-export async function fetchEvents(): Promise<EventWithSpeakerDto[] | undefined> {
-  try {
-    const response = await fetch('/api/event/with-speaker');
-    if (!response.ok) {
-      throw new Error('Failed to fetch events with speakers');
-    }
-    const data = await response.json();
-    console.log(data);
-    return data as EventWithSpeakerDto[];
-  } catch (error) {
-    console.error('Error fetching events with speakers:', error);
-  }
 }

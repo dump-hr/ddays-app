@@ -4,9 +4,10 @@ import TabGroup from '../../../../components/TabGroup';
 import ArrowRight from '../../../../assets/icons/arrow-right.svg';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getLiveEvents, getNextEvents, fetchEvents} from '../../eventsHelper';
+import { getLiveEvents, getNextEvents} from '../../eventsHelper';
 import c from './EventsSection.module.scss';
 import clsx from 'clsx';
+import { useGetCurrentEvents} from '@/api/event/useGetCurrentEvents';
 
 enum Tabs {
   U_Tijeku,
@@ -22,7 +23,8 @@ const EventsSection = () => {
   const [displayedEvents, setDisplayedEvents] = useState<EventWithSpeakerDto[]>(
     [],
   );
-  const [events, setEvents] = useState<EventWithSpeakerDto[]>([]);
+
+  const { data: events = [] } = useGetCurrentEvents();
 
   const handleTabChange = (tab: string) => {
     setLecturesTab(tab);
@@ -71,6 +73,9 @@ const EventsSection = () => {
         threshold: 1,
       },
     );
+    console.log(displayedEvents)
+    console.log("live:", liveEvents)
+    console.log("next:",nextEvents)
 
     items.forEach((item) => observer.observe(item));
 
@@ -99,15 +104,6 @@ const EventsSection = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const loadEventsWithSpeakers = async () => {
-      const fetchedCompanies = await fetchEvents();
-      if (fetchedCompanies) setEvents(fetchedCompanies);
-    };
-
-    loadEventsWithSpeakers();
-  }, []);
 
   return (
     <section className={c.lectures}>

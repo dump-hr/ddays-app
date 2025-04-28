@@ -1,7 +1,7 @@
 type EventTheme = 'dev' | 'design' | 'marketing' | 'tech';
 
 export function getThemeLabel(eventTheme: EventTheme | string) {
-  switch (eventTheme) {
+  switch (eventTheme.toLowerCase()) {
     case 'dev':
       return 'DEV';
     case 'design':
