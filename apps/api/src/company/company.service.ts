@@ -1,5 +1,4 @@
 import {
-  CompanyCategory,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
