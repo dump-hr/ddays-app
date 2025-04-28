@@ -1,0 +1,29 @@
+@keyframes slideUp {
+    0% {
+      transform: translateY(100%);
+    }
+    20% {
+      transform: translateY(80%);
+    }
+    25% {
+      transform: translateY(81%);
+    }
+    30% {
+      transform: translateY(70%);
+    }
+    60% {
+      transform: translateY(51%);
+    }
+    70% {
+      transform: translateY(40%);
+    }
+    80% {
+      transform: translateY(41%);
+    }
+    90% {
+      transform: translateY(20%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }

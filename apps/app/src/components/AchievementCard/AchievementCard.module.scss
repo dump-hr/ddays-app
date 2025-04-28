@@ -1,148 +1,120 @@
 .achievementCard {
   background-color: $black-5;
-  box-sizing: border-box;
+  border-radius: 8px;
+  height: 178px;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 16px 8px;
-  border-radius: 8px;
-  height: 230px;
+  align-items: flex-end;
 
-  align-items: center;
-  position: relative;
-
-  .pointsWrapper {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 16px;
-
-    .star {
-      width: 24px;
-      height: 22px;
-      scale: 0.7;
-      fill: $black-70;
-    }
-
-    .points {
-      @include label-large;
-      color: $black-70;
-    }
+  @media screen and (min-width: $breakpoint-tablet) {
+    height: 230px;
   }
 
-  .name {
-    @include label-large;
-    color: $black-70;
-    text-align: center;
-
-    @media screen and (min-width: $breakpoint-tablet) {
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 700;
-    }
-  }
-
-  .description {
-    @include paragraph-16;
-    color: $black-70;
-    text-align: center;
-
-    @media screen and (min-width: $breakpoint-tablet) {
-      font-size: 16px;
-      line-height: 22px;
-    }
-  }
-
-  .pointsWrapper,
-  .name,
-  .description {
-    opacity: 0.5;
-  }
-
-  .progressBarWrapper {
+  .mainContent {
+    box-sizing: border-box;
+    padding: 12px;
+    height: 100%;
     width: 100%;
+
     display: flex;
-    align-items: center;
     flex-direction: column;
-    position: absolute;
-    bottom: 24px;
+    align-items: center;
+    justify-content: center;
 
-    .progressBarInfo {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-
-      .stepCount,
-      .percentage {
-        @include tag-14;
-        color: $primary-black;
-      }
-    }
-
-    .progressBar {
-      width: 100%;
-      height: 2px;
-      height: 4px;
-      background-color: $black-30;
-      border-radius: 4px;
-
-      .progress {
-        height: 100%;
-        border-radius: 4px;
-        background: $primary-highlight;
-      }
-    }
-
-    .progressBarInfo,
-    .progressBar {
-      width: calc(100% - 2 * 16px);
-    }
-  }
-
-  .completedMessage {
-    display: none;
-    position: absolute;
-    bottom: 24px;
-
-    @include label-large;
-    color: $primary-white;
-    text-align: center;
-
-    @media screen and (min-width: $breakpoint-tablet) {
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 700;
-    }
-  }
-
-  &.completed {
-    background-color: $primary-black;
     .pointsWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+
       .star {
-        fill: $primary-highlight;
+        width: 24px;
+        height: 22px;
+        scale: 0.7;
+        fill: $black-70;
       }
+
       .points {
-        color: $primary-white;
+        @include heading-2;
+        color: $black-70;
       }
     }
 
     .name {
-      color: $primary-white;
+      @include paragraph-16;
+      font-weight: 600;
+      color: $black-70;
+      text-align: center;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 600;
+      }
+    }
+
+    .description {
+      @include paragraph-14;
+      color: $black-70;
+      text-align: center;
+      font-weight: 400;
+
+      @media screen and (min-width: $breakpoint-tablet) {
+        font-size: 14px;
+        line-height: 20px;
+      }
     }
 
     .pointsWrapper,
     .name,
     .description {
-      opacity: 1;
+      opacity: 0.5;
     }
+  }
 
-    .progressBarInfo,
-    .progressBar {
-      display: none;
-    }
+  $completed-message-wrapper-height: 28px;
+  .completedMessageWrapper {
+    width: 100%;
+    height: $completed-message-wrapper-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $primary-black;
 
     .completedMessage {
-      display: block;
+      @include paragraph-14;
+      color: $primary-white;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  &.completed {
+    background-color: $black-90;
+
+    .mainContent {
+      height: calc(100% - $completed-message-wrapper-height);
+      .pointsWrapper {
+        .star {
+          fill: $primary-highlight;
+        }
+        .points {
+          color: $primary-white;
+        }
+      }
+
+      .name {
+        color: $primary-white;
+      }
+
+      .pointsWrapper,
+      .name,
+      .description {
+        opacity: 1;
+      }
     }
   }
 }

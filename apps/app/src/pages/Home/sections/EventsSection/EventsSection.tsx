@@ -4,10 +4,10 @@ import TabGroup from '../../../../components/TabGroup';
 import ArrowRight from '../../../../assets/icons/arrow-right.svg';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getLiveEvents, getNextEvents} from '../../eventsHelper';
+import { getLiveEvents, getNextEvents } from '../../eventsHelper';
 import c from './EventsSection.module.scss';
 import clsx from 'clsx';
-import { useGetCurrentEvents} from '@/api/event/useGetCurrentEvents';
+import { useGetCurrentEvents } from '@/api/event/useGetCurrentEvents';
 
 enum Tabs {
   U_Tijeku,

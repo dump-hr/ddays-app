@@ -63,21 +63,21 @@
   width: 100%;
   min-height: 100vh; // Ako je mali broj postignuca da ne bude prenizak page
   background-color: white;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: $border-radius-page-mobile;
 
   box-sizing: border-box;
   padding: 24px;
 
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
 
   @media screen and (min-width: $breakpoint-tablet) {
     padding: 16px 0;
-    border-radius: 16px;
+    border-radius: $border-radius-page-desktop;
     align-items: center;
 
     .tabGroup,
+    .difficultyLabel,
     .achievementsWrapper {
       width: 640px;
     }
@@ -106,6 +106,28 @@
     @media screen and (min-width: $breakpoint-tablet) {
       display: none;
     }
+  }
+
+  .tabGroup {
+    margin-top: 24px;
+    @media screen and (min-width: $breakpoint-tablet) {
+      margin-top: 0;
+    }
+  }
+
+  .difficultyLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: $primary-beige;
+    height: 32px;
+
+    color: $black-70;
+
+    @include tag-14;
+
+    margin: 32px 0 16px;
   }
 
   .achievementsWrapper {

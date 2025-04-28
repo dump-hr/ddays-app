@@ -20,12 +20,14 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
 import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
+import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +49,10 @@ const router = createBrowserRouter(
           <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
+            path={RouteNames.PROFILE_RECOMMENDATIONS}
+            element={<ProfileRecommendationsPage></ProfileRecommendationsPage>}
+          />
+          <Route
             path={RouteNames.PROFILE_SETTINGS}
             element={<SettingsPage />}
           />
@@ -64,6 +70,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
+        <Route path={RouteNames.FLY_TALKS_APPLY} element={<FlyTalksApplyPage />} />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
       <Route path='/app/test' element={<TestPage />} />
@@ -75,3 +82,5 @@ const router = createBrowserRouter(
 export const Router = () => {
   return <RouterProvider router={router} />;
 };
+
+export default router;

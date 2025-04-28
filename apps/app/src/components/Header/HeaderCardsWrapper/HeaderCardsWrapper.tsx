@@ -5,6 +5,8 @@ import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
 import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 import { RouteNames } from '../../../router/routes';
+import { useState } from 'react';
+import Accreditation from '@/components/Accreditation';
 
 enum HeaderCards {
   ENTER_CODE,
@@ -19,9 +21,17 @@ type HeaderCardsInfo = {
   width: number;
   height: number;
   onClick?: () => void;
+  openCodePopup?: () => void;
 };
 
-export const HeaderCardsWrapper = () => {
+type HeaderCardsWrapperProps = {
+  openCodePopup?: () => void;
+};
+
+export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
+  openCodePopup,
+}) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
@@ -30,7 +40,7 @@ export const HeaderCardsWrapper = () => {
       text: 'Unesi kod',
       width: 77,
       height: 34,
-      onClick: () => {},
+      onClick: () => openCodePopup && openCodePopup(),
     },
     {
       id: HeaderCards.ACCREDITATION,
@@ -38,7 +48,9 @@ export const HeaderCardsWrapper = () => {
       text: 'Akreditacija',
       width: 60,
       height: 39,
-      onClick: () => {},
+      onClick: () => {
+        setIsPopupOpen(true);
+      },
     },
     {
       id: HeaderCards.SHOPPING,
@@ -51,17 +63,23 @@ export const HeaderCardsWrapper = () => {
   ];
 
   return (
-    <div className={styles.headerCardsWrapper}>
-      {headerCards.map((card) => (
-        <HeaderCard
-          key={card.id}
-          img={card.img}
-          text={card.text}
-          imgWidth={card.width}
-          imgHeight={card.height}
-          onClick={card.onClick}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.headerCardsWrapper}>
+        {headerCards.map((card) => (
+          <HeaderCard
+            key={card.id}
+            img={card.img}
+            text={card.text}
+            imgWidth={card.width}
+            imgHeight={card.height}
+            onClick={card.onClick}
+          />
+        ))}
+      </div>
+      <Accreditation
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
+    </>
   );
 };
