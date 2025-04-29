@@ -8,9 +8,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
+import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { UserGuard } from 'src/auth/user.guard';
 
 import { CodeService } from './code.service';
 
@@ -43,5 +46,14 @@ export class CodeController {
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<CodeDto> {
     return await this.codeService.remove(id);
+  }
+
+  @UseGuards(UserGuard)
+  @Post('apply/:code')
+  async apply(
+    @Param('code') code: string,
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<CodeDto> {
+    return await this.codeService.apply(code, user.id);
   }
 }

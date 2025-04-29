@@ -3,6 +3,8 @@ import c from './CodePopup.module.scss';
 import CodeInput from '@/components/CodeInput';
 import Button from '@/components/Button';
 import { useState } from 'react';
+import { useCodeApply } from '@/api/code/useCodeApply';
+import toast from 'react-hot-toast';
 
 type CodePopupProps = {
   isOpen: boolean;
@@ -16,24 +18,26 @@ const CodePopup: React.FC<CodePopupProps> = ({
   onSuccess,
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const applyCode = useCodeApply();
 
   function handleCodeSubmit(code: string) {
-    const isValid = code === '123456';
-
-    if (isValid) {
-      closePopup();
-      setCode(Array(6).fill(''));
-      onSuccess();
-    } else {
-      setIsError(true);
-    }
+    applyCode.mutate(code, {
+      onSuccess: () => {
+        toast.success('Kod je uspješno unesen!');
+        closePopup();
+        onSuccess();
+      },
+      onError: (error) => {
+        setErrorMessage('Upsich! ' + error.name);
+      },
+    });
   }
 
   function handleClosePopup() {
     closePopup();
     setCode(Array(6).fill(''));
-    setIsError(false);
+    setErrorMessage('');
   }
 
   return (
@@ -46,13 +50,13 @@ const CodePopup: React.FC<CodePopupProps> = ({
       <CodeInput
         code={code}
         setCode={setCode}
-        isError={isError}
-        setIsError={setIsError}
+        isError={errorMessage !== ''}
+        removeError={() => setErrorMessage('')}
         className={c.codeInput}
         shouldFocus={isOpen}
       />
-      {isError ? (
-        <p className={c.error}>Ne izmišljaj kodove, unesi pravi.</p>
+      {errorMessage ? (
+        <p className={c.error}>{errorMessage}</p>
       ) : (
         <p className={c.message}>Imaš kod za bodove? Unesi ga.</p>
       )}
@@ -60,7 +64,7 @@ const CodePopup: React.FC<CodePopupProps> = ({
       <Button
         className={c.button}
         variant='orange'
-        disabled={code.includes('') || isError}
+        disabled={code.includes('') || errorMessage !== ''}
         onClick={() => handleCodeSubmit(code.join(''))}>
         Unesi
       </Button>

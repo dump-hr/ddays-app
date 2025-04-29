@@ -6,6 +6,7 @@ import { useCodeCreate } from '../api/code/useCodeCreate';
 import { useCodeUpdate } from '../api/code/useCodeUpdate';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
+import { Helper } from '../helpers/date';
 import { Question, QuestionType } from '../types/question';
 
 type CodeFormProps = {
@@ -37,28 +38,28 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       defaultValue: code?.points,
     },
     {
-      id: 'is-active',
+      id: 'isActive',
       type: QuestionType.Checkbox,
       title: 'Aktivan',
       defaultValue: code?.isActive,
     },
     {
-      id: 'is-single-use',
+      id: 'isSingleUse',
       type: QuestionType.Checkbox,
       title: 'Jednokratan',
       defaultValue: code?.isSingleUse,
     },
     {
-      id: 'has-page',
+      id: 'hasPage',
       type: QuestionType.Checkbox,
       title: 'Ima stranicu',
       defaultValue: code?.hasPage,
     },
     {
-      id: 'expiration-date',
-      type: QuestionType.Date,
+      id: 'expirationDate',
+      type: QuestionType.DateTime,
       title: 'Datum isteka',
-      defaultValue: code?.expirationDate?.toString(),
+      defaultValue: Helper.formatExpirationDate(code?.expirationDate),
     },
   ];
 
@@ -74,6 +75,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       <Button
         onClick={form.handleSubmit(async (formData) => {
           if (code) {
+            console.log('formData', formData.expirationDate);
             await updateCode.mutateAsync({
               ...formData,
               id: code.id,

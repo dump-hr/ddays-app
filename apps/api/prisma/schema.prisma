@@ -50,7 +50,7 @@ model Booth {
 
 model Code {
   id                Int                 @id @default(autoincrement())
-  value             String
+  value             String              @unique
   description       String?
   points            Int?                @default(0)
   isActive          Boolean?            @default(true)
@@ -61,6 +61,16 @@ model Code {
   achievementToCode AchievementToCode[]
   company           Company[]
   event             Event[]
+  UserToCode        UserToCode[]
+}
+
+model UserToCode {
+  userId Int
+  codeId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  code   Code @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, codeId])
 }
 
 model Company {
@@ -239,6 +249,7 @@ model User {
   userToAchievement    UserToAchievement[]
   userToEvent          UserToEvent[]
   userToInterest       UserToInterest[]
+  UserToCode           UserToCode[]
 
   @@unique([email, isDeleted])
   @@unique([phoneNumber, isDeleted])

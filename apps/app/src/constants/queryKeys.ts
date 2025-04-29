@@ -8,4 +8,5 @@ export const QUERY_KEYS = {
   currentUser: 'currentUser',
   achievements: 'achievements',
   achievementCompleted: 'achievementGetCompleted',
+  codes: 'codes',
 };
