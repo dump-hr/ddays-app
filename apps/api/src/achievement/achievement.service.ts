@@ -1,4 +1,8 @@
-import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
+import {
+  AchievementDto,
+  AchievementModifyDto,
+  AchievementWithUuidDto,
+} from '@ddays-app/types';
 import {
   BadRequestException,
   Injectable,
@@ -127,13 +131,39 @@ export class AchievementService {
     return deletedAchievement;
   }
 
-  async getAchievementUuid(id: number): Promise<string> {
-    const achievementWithUuid = await this.prisma.achievement.findUnique({
-      where: {
-        id,
+  async getOneWithUuid(id: number): Promise<AchievementWithUuidDto> {
+    const achievement = await this.prisma.achievement.findUnique({
+      where: { id },
+    });
+
+    if (!achievement) {
+      throw new NotFoundException('Achievement not found');
+    }
+
+    return achievement;
+  }
+
+  async getAllWithUuid(): Promise<AchievementWithUuidDto[]> {
+    const achievements = await this.prisma.achievement.findMany({
+      select: {
+        id: true,
+        uuid: true,
+        name: true,
+        description: true,
+        points: true,
+        fulfillmentCodeCount: true,
+        isHidden: true,
+        createdAt: true,
+      },
+      orderBy: {
+        points: 'asc',
       },
     });
 
-    return achievementWithUuid.uuid;
+    if (!achievements) {
+      throw new NotFoundException('Achievements not found');
+    }
+
+    return achievements;
   }
 }

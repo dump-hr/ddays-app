@@ -1,4 +1,8 @@
-import { AchievementDto, AchievementModifyDto } from '@ddays-app/types';
+import {
+  AchievementDto,
+  AchievementModifyDto,
+  AchievementWithUuidDto,
+} from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -36,11 +40,20 @@ export class AchievementController {
   }
 
   @UseGuards(AdminGuard)
-  @Get('uuid/:id')
-  async getAchievementWithUuid(@Param('id') id: number): Promise<string> {
-    return await this.achievementService.getAchievementUuid(id);
+  @Get('with-uuid')
+  async getAllWithUuid(): Promise<AchievementWithUuidDto[]> {
+    return await this.achievementService.getAllWithUuid();
   }
 
+  @UseGuards(AdminGuard)
+  @Get('with-uuid/:id')
+  async getAchievementWithUuid(
+    @Param('id') id: number,
+  ): Promise<AchievementWithUuidDto> {
+    return await this.achievementService.getOneWithUuid(id);
+  }
+
+  @UseGuards(UserGuard)
   @Get(':uuid')
   async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
     return await this.achievementService.getOne(uuid);
