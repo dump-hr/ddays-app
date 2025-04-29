@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BlobModule } from './blob/blob.module';
 import { BoothModule } from './booth/booth.module';
+import { CodeModule } from './code/code.module';
 import { CompanyModule } from './company/company.module';
 import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
@@ -33,6 +34,7 @@ import { UserModule } from './user/user.module';
     NotificationModule,
     JobModule,
     SpeakerModule,
+    CodeModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
