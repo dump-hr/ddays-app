@@ -1,5 +1,5 @@
 import { CodeDto, CodeModifyDto } from '@ddays-app/types';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Helper } from 'src/helper';
 import { PrismaService } from 'src/prisma.service';
 
@@ -54,25 +54,28 @@ export class CodeService {
     });
 
     if (!foundCode) {
-      throw new Error('Taj kod ne postoji!');
+      throw new HttpException(
+        'Ne izmišljaj kodove, unesi pravi.',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     if (foundCode.expirationDate < new Date()) {
-      console.log('Code expired:', foundCode);
-      throw new Error('Taj kod je istekao!');
+      throw new HttpException('Taj je kod istekao!', HttpStatus.BAD_REQUEST);
     }
 
-    if (foundCode.isSingleUse) {
-      const isAlreadyUsed = await this.prisma.userToCode.findFirst({
-        where: {
-          codeId: foundCode.id,
-          userId: userId,
-        },
-      });
+    const isAlreadyUsed = await this.prisma.userToCode.findFirst({
+      where: {
+        codeId: foundCode.id,
+        userId: userId,
+      },
+    });
 
-      if (isAlreadyUsed) {
-        throw new BadRequestException('Taj kod je već iskorišten!');
-      }
+    if (isAlreadyUsed) {
+      throw new HttpException(
+        'Taj kod je već iskorišten!',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     await this.prisma.userToCode.create({

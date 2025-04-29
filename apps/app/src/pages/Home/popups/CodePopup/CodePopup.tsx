@@ -29,7 +29,7 @@ const CodePopup: React.FC<CodePopupProps> = ({
         onSuccess();
       },
       onError: (error) => {
-        setErrorMessage('Upsich! ' + error.name);
+        setErrorMessage(String(error));
       },
     });
   }
