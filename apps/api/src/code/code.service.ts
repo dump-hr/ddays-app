@@ -117,6 +117,27 @@ export class CodeService {
       })),
       skipDuplicates: true,
     });
+
+    const currentPoints = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        points: true,
+      },
+    });
+
+    if (currentPoints) {
+      const additionalPoints = completedAchievements.reduce(
+        (acc, achievement) => acc + achievement.points,
+        0,
+      );
+
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          points: currentPoints.points + additionalPoints,
+        },
+      });
+    }
   }
 
   async apply(code: string, userId: number): Promise<CodeDto> {

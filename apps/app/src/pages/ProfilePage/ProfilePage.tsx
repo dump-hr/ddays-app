@@ -16,6 +16,8 @@ import LogoutButton from '../../components/LogoutButton';
 import { RouteNames } from '../../router/routes';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { logout } from '@/helpers/auth';
+import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
+import { useAchievementGetAll } from '@/api/achievement/useAchievementGetAll';
 
 const navigationItems = [
   {
@@ -52,6 +54,8 @@ const navigationItems = [
 
 export const ProfilePage = () => {
   const { data: user } = useLoggedInUser();
+  const { data: completedAchievements } = useAchievementGetCompleted();
+  const { data: allAchievements } = useAchievementGetAll();
 
   return (
     <div className={c.page}>
@@ -67,7 +71,12 @@ export const ProfilePage = () => {
 
         <div className={c.stats}>
           <ProfileStat label='Bodovi' value={user?.points.toString() || '0'} />
-          <ProfileStat label='Postignuća' value='3/25' />
+          <ProfileStat
+            label='Postignuća'
+            value={`${completedAchievements?.length || 0}/${
+              allAchievements?.length || 0
+            }`}
+          />
         </div>
       </header>
       <main className={c.main}>

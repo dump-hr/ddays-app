@@ -111,6 +111,22 @@ export class AchievementService {
       throw new NotFoundException('Completed achievement details not found.');
     }
 
+    const currentPoints = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        points: true,
+      },
+    });
+
+    if (currentPoints) {
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          points: currentPoints.points + completedAchievementDetails.points,
+        },
+      });
+    }
+
     return completedAchievementDetails;
   }
 
