@@ -1,3 +1,3 @@
-import AchievementScannerPage from './AchievementScannerPage';
+import ScannerPage from './ScannerPage';
 
-export default AchievementScannerPage;
+export default ScannerPage;
