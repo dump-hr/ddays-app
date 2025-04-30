@@ -8,9 +8,11 @@ import { useForm } from 'react-hook-form';
 import { useAchievementGetAll } from '../api/achievement/useAchievementGetAll';
 import { useCodeUpdateAchievement } from '../api/code/useCodeConnectToAchievement';
 import { useCodeCreate } from '../api/code/useCodeCreate';
+import { useCodeGetAll } from '../api/code/useCodeGetAll';
 import { useCodeUpdate } from '../api/code/useCodeUpdate';
 import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
+import { CodeHelper } from '../helpers/code';
 import { Helper } from '../helpers/date';
 import { Question, QuestionType } from '../types/question';
 
@@ -24,13 +26,14 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
   const updateCode = useCodeUpdate();
   const { data: allAchievements } = useAchievementGetAll();
   const { mutateAsync: updateAchievements } = useCodeUpdateAchievement();
+  const { data: allCodes } = useCodeGetAll();
 
   const questions: Question[] = [
     {
       id: 'value',
       type: QuestionType.Field,
       title: 'Kod',
-      defaultValue: code?.value,
+      defaultValue: code?.value || CodeHelper.generateUniqueCode(allCodes),
     },
     {
       id: 'description',
@@ -66,7 +69,9 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       id: 'expirationDate',
       type: QuestionType.DateTime,
       title: 'Datum isteka',
-      defaultValue: Helper.formatExpirationDate(code?.expirationDate),
+      defaultValue:
+        Helper.formatExpirationDate(code?.expirationDate) ||
+        Helper.formatExpirationDate(new Date('2025-05-24T20:00:00.000')),
     },
     {
       id: 'achievements',

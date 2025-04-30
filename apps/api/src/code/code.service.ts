@@ -12,6 +12,12 @@ export class CodeService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CodeModifyDto): Promise<CodeDto> {
+    if (dto.value.length !== 6)
+      throw new HttpException(
+        'Code must be 6 characters long!',
+        HttpStatus.BAD_REQUEST,
+      );
+
     const createdCode = await this.prisma.code.create({
       data: {
         ...dto,
