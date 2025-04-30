@@ -52,6 +52,56 @@ export class CodeService {
     return deletedCode;
   }
 
+  async markCompletedAchievementsForNewCode(
+    userId: number,
+    newCodeId: number,
+  ): Promise<void> {
+    // Step 1: Fetch all the achievements that this code contributes to
+    const relevantAchievements = await this.prisma.achievementToCode.findMany({
+      where: {
+        codeId: newCodeId,
+      },
+      include: {
+        achievement: true, // Get the achievements associated with this code
+      },
+    });
+
+    // Step 2: For each relevant achievement, count how many codes the user has applied
+    // that are linked to this achievement
+    const completedAchievementsIds: number[] = [];
+
+    for (const { achievement } of relevantAchievements) {
+      // Get the count of applied codes for this achievement by the user
+      const appliedCodeCount = await this.prisma.userToCode.count({
+        where: {
+          userId: userId,
+          codeId: {
+            in: relevantAchievements
+              .filter((rel) => rel.achievementId === achievement.id)
+              .map((rel) => rel.codeId),
+          },
+        },
+      });
+
+      // Step 3: Check if the applied code count meets the fulfillment threshold
+      if (appliedCodeCount >= achievement.fulfillmentCodeCount) {
+        // If the achievement is complete, add it to the list
+        completedAchievementsIds.push(achievement.id);
+      }
+    }
+
+    // Step 4: If there are any completed achievements, link them to the user
+    if (completedAchievementsIds.length > 0) {
+      await this.prisma.userToAchievement.createMany({
+        data: completedAchievementsIds.map((achievementId) => ({
+          userId,
+          achievementId,
+        })),
+        skipDuplicates: true, // Avoid duplicates if they already exist
+      });
+    }
+  }
+
   async apply(code: string, userId: number): Promise<CodeDto> {
     const foundCode = await this.prisma.code.findUnique({
       where: { value: code },
@@ -93,7 +143,6 @@ export class CodeService {
   }
 
   async updateAchievementsForCode(codeId: number, achievementIds: number[]) {
-    // Case 1: If the achievements array is empty, delete all existing associations for the given codeId
     if (!achievementIds || achievementIds.length === 0) {
       await this.prisma.achievementToCode.deleteMany({
         where: {
@@ -103,7 +152,6 @@ export class CodeService {
       return { message: 'All achievements removed successfully' };
     }
 
-    // Case 2: If achievements are selected, delete old associations that are not in the selected list
     await this.prisma.achievementToCode.deleteMany({
       where: {
         codeId: codeId,
@@ -115,16 +163,14 @@ export class CodeService {
       },
     });
 
-    // Case 3: Insert new associations for selected achievements
     const newAchievements = achievementIds.map((achievementId) => ({
       codeId: codeId,
       achievementId: achievementId,
     }));
 
-    // Bulk insert new achievement associations
     await this.prisma.achievementToCode.createMany({
       data: newAchievements,
-      skipDuplicates: true, // Prevent duplicates
+      skipDuplicates: true,
     });
 
     return { message: 'Achievements updated successfully' };
@@ -133,10 +179,8 @@ export class CodeService {
   async getAllWithConnectedAchievements(): Promise<
     CodeWithConnectedAchievementsDto[]
   > {
-    // Step 1: Get all codes first
     const allCodes = await this.prisma.code.findMany();
 
-    // Step 2: Get the achievements and the associated codes
     const allAchievements = await this.prisma.achievementToCode.findMany({
       include: {
         code: true,
@@ -144,17 +188,14 @@ export class CodeService {
       },
     });
 
-    // Step 3: Reduce the results to group achievements by code
     const groupedCodes = allAchievements.reduce(
       (acc, { code, achievement }) => {
-        // If the code is already in the accumulator, add the achievement
         if (!acc[code.id]) {
           acc[code.id] = {
             ...code,
             connectedAchievements: [],
           };
         }
-        // Push the current achievement to the corresponding code's achievements array
         acc[code.id].connectedAchievements.push(achievement);
 
         return acc;
@@ -162,10 +203,8 @@ export class CodeService {
       {} as Record<number, CodeWithConnectedAchievementsDto>,
     );
 
-    // Step 4: Ensure all codes are included, even those with no achievements
     const finalResult = allCodes.map((code) => {
       if (!groupedCodes[code.id]) {
-        // If no achievements for this code, add an empty array
         return {
           ...code,
           connectedAchievements: [],
