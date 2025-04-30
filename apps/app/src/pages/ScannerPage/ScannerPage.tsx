@@ -1,5 +1,5 @@
 import { QrReader } from 'react-qr-reader';
-import c from './AchievementScannerPage.module.scss';
+import c from './ScannerPage.module.scss';
 import { useRef, useState } from 'react';
 import ScannedAchievementPopup from './popups/ScannedAchievementPopup';
 import { QrCodeData, QrCodeDataType } from '@/types/qr/qr';
@@ -9,7 +9,7 @@ import ArrowLeft from '@/assets/icons/arrow-left-white.svg';
 import { useNavigate } from 'react-router-dom';
 import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
 
-const AchievementScannerPage = () => {
+const ScannerPage = () => {
   const [data, setData] = useState('');
   const { data: achievement } = useAchievementGetByUuid(data);
   const { data: completedAchievements } = useAchievementGetCompleted();
@@ -93,4 +93,4 @@ const AchievementScannerPage = () => {
   );
 };
 
-export default AchievementScannerPage;
+export default ScannerPage;

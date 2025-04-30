@@ -28,7 +28,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
-import AchievementScannerPage from '@/pages/AchievementScannerPage';
+import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,10 +43,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
-      <Route
-        path={RouteNames.ACHIEVEMENT_SCANNER}
-        element={<AchievementScannerPage />}
-      />
+      <Route path={RouteNames.ACHIEVEMENT_SCANNER} element={<ScannerPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>
