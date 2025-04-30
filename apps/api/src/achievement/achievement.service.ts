@@ -3,11 +3,7 @@ import {
   AchievementModifyDto,
   AchievementWithUuidDto,
 } from '@ddays-app/types';
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -18,6 +14,13 @@ export class AchievementService {
     const createdAchievement = await this.prisma.achievement.create({
       data: dto,
     });
+
+    if (!createdAchievement) {
+      throw new HttpException(
+        'Failed to create achievement.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     return createdAchievement;
   }
@@ -65,14 +68,17 @@ export class AchievementService {
 
   async getOne(uuid: string): Promise<AchievementDto> {
     if (!uuid) {
-      throw new BadRequestException('UUID is required');
+      throw new HttpException('UUID is required.', HttpStatus.BAD_REQUEST);
     }
 
     const regex =
       /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
     if (!regex.test(uuid)) {
-      throw new BadRequestException('Invalid UUID format: ' + uuid);
+      throw new HttpException(
+        'Invalid UUID format: ' + uuid,
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const achievement = await this.prisma.achievement.findUnique({
@@ -82,9 +88,8 @@ export class AchievementService {
     });
 
     if (!achievement) {
-      throw new NotFoundException('Achievement not found');
+      throw new HttpException('Achievement not found.', HttpStatus.NOT_FOUND);
     }
-
     return achievement;
   }
 
@@ -110,7 +115,7 @@ export class AchievementService {
     const achievement = await this.getOne(uuid);
 
     if (!achievement) {
-      throw new NotFoundException('Achievement not found.');
+      throw new HttpException('Achievement not found.', HttpStatus.BAD_REQUEST);
     }
 
     const completedAchievementConnector =
@@ -130,7 +135,10 @@ export class AchievementService {
       });
 
     if (!completedAchievementDetails) {
-      throw new NotFoundException('Completed achievement details not found.');
+      throw new HttpException(
+        'Completed achievement details not found.',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     const currentPoints = await this.prisma.user.findUnique({
@@ -158,6 +166,13 @@ export class AchievementService {
       data: dto,
     });
 
+    if (!updatedAchievement) {
+      throw new HttpException(
+        'Failed to update achievement.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     return updatedAchievement;
   }
 
@@ -167,7 +182,7 @@ export class AchievementService {
     });
 
     if (!achievement) {
-      throw new NotFoundException('Achievement not found');
+      throw new HttpException('Achievement not found', HttpStatus.NOT_FOUND);
     }
 
     const users = await this.prisma.userToAchievement.findMany({
@@ -193,6 +208,13 @@ export class AchievementService {
       where: { id },
     });
 
+    if (!deletedAchievement) {
+      throw new HttpException(
+        'Failed to delete achievement.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     return deletedAchievement;
   }
 
@@ -202,7 +224,7 @@ export class AchievementService {
     });
 
     if (!achievement) {
-      throw new NotFoundException('Achievement not found');
+      throw new HttpException('Achievement not found.', HttpStatus.NOT_FOUND);
     }
 
     return achievement;
@@ -224,10 +246,6 @@ export class AchievementService {
         points: 'asc',
       },
     });
-
-    if (!achievements) {
-      throw new NotFoundException('Achievements not found');
-    }
 
     return achievements;
   }

@@ -25,6 +25,10 @@ export class CodeService {
       },
     });
 
+    if (!createdCode) {
+      throw new HttpException('Failed to create code.', HttpStatus.BAD_REQUEST);
+    }
+
     return createdCode;
   }
 
@@ -47,6 +51,10 @@ export class CodeService {
       },
     });
 
+    if (!updatedCode) {
+      throw new HttpException('Failed to update code.', HttpStatus.BAD_REQUEST);
+    }
+
     return updatedCode;
   }
 
@@ -57,7 +65,7 @@ export class CodeService {
     });
 
     if (!code) {
-      throw new HttpException('Code not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Code not found.', HttpStatus.NOT_FOUND);
     }
 
     const userToCodeRelations = await this.prisma.userToCode.findMany({
@@ -88,6 +96,10 @@ export class CodeService {
     const deletedCode = await this.prisma.code.delete({
       where: { id },
     });
+
+    if (!deletedCode) {
+      throw new HttpException('Failed to delete code.', HttpStatus.BAD_REQUEST);
+    }
 
     return deletedCode;
   }
@@ -150,19 +162,21 @@ export class CodeService {
       },
     });
 
-    if (currentPoints) {
-      const additionalPoints = completedAchievements.reduce(
-        (acc, achievement) => acc + achievement.points,
-        0,
-      );
-
-      await this.prisma.user.update({
-        where: { id: userId },
-        data: {
-          points: currentPoints.points + additionalPoints,
-        },
-      });
+    if (!currentPoints) {
+      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
     }
+
+    const additionalPoints = completedAchievements.reduce(
+      (acc, achievement) => acc + achievement.points,
+      0,
+    );
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        points: currentPoints.points + additionalPoints,
+      },
+    });
   }
 
   async apply(code: string, userId: number): Promise<CodeDto> {
@@ -226,14 +240,16 @@ export class CodeService {
       },
     });
 
-    if (currentPoints) {
-      await this.prisma.user.update({
-        where: { id: userId },
-        data: {
-          points: currentPoints.points + foundCode.points,
-        },
-      });
+    if (!currentPoints) {
+      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
     }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        points: currentPoints.points + foundCode.points,
+      },
+    });
 
     return foundCode;
   }
