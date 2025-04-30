@@ -23,6 +23,7 @@ export enum RouteNames {
   LOGIN = '/app/login',
   REGISTER = '/app/register',
   PASSWORD_RESET = '/app/password-reset',
+  PASSWORD_RESET_WITH_TOKEN = '/app/password-reset/:token',
   PROFILE = '/app/profile',
   PROFILE_INTERESTS = '/app/profile/interests',
   PROFILE_REWARDS = '/app/profile/rewards',

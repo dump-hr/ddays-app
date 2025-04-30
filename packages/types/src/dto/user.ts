@@ -46,6 +46,10 @@ export type ChangeUserPasswordDto = {
   newPassword: string;
 };
 
+export type ResetUserPasswordDto = {
+  newPassword: string;
+};
+
 export type UserToEventDto = {
   userId: number;
   linkedinProfile?: string;

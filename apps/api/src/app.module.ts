@@ -19,6 +19,7 @@ import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UserModule } from './user/user.module';
     NotificationModule,
     JobModule,
     SpeakerModule,
+    EmailModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

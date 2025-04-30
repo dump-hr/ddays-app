@@ -40,6 +40,10 @@ const router = createBrowserRouter(
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
+      <Route
+        path={RouteNames.PASSWORD_RESET_WITH_TOKEN}
+        element={<PasswordResetPage />}
+      />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
@@ -70,7 +74,10 @@ const router = createBrowserRouter(
         <Route path={RouteNames.COMPANIES} element={<CompaniesPage />} />
         <Route path={RouteNames.SCHEDULE} element={<SchedulePage />} />
         <Route path={RouteNames.FLY_TALKS} element={<FlyTalksPage />} />
-        <Route path={RouteNames.FLY_TALKS_APPLY} element={<FlyTalksApplyPage />} />
+        <Route
+          path={RouteNames.FLY_TALKS_APPLY}
+          element={<FlyTalksApplyPage />}
+        />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
       </Route>
       <Route path='/app/test' element={<TestPage />} />

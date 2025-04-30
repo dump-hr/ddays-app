@@ -238,6 +238,7 @@ model User {
   userToAchievement    UserToAchievement[]
   userToEvent          UserToEvent[]
   userToInterest       UserToInterest[]
+  passwordResetTokens  PasswordResetToken[]
 
   @@unique([email, isDeleted])
   @@unique([phoneNumber, isDeleted])
@@ -322,6 +323,42 @@ model SurveyQuestion {
   inputLabel  String?
   inputType   SurveyQuestionInputType
   type        SurveyQuestionType
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime @db.Timestamp(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Intern {
+  id                Int       @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  email             String    @unique
+  interviewStatus   String?
+  internDisciplines InternDiscipline[]
+  interviewSlot     InterviewSlot?
+}
+
+model InternDiscipline {
+  id          Int       @id @default(autoincrement())
+  internId    Int
+  discipline  String
+  priority    Int
+  status      String
+  intern      Intern    @relation(fields: [internId], references: [id], onDelete: Cascade)
+}
+
+model InterviewSlot {
+  id        Int      @id @default(autoincrement())
+  internId  Int      @unique
+  start     DateTime
+  end       DateTime
+  score     Int?
+  intern    Intern   @relation(fields: [internId], references: [id], onDelete: Cascade)
 }
 
 enum Accessory {
