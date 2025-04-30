@@ -51,6 +51,41 @@ export class CodeService {
   }
 
   async remove(id: number): Promise<CodeDto> {
+    // REMOVE ALL FROM usertocode relation and remove points equal to the deleted code for all users
+    const code = await this.prisma.code.findUnique({
+      where: { id },
+      select: { points: true },
+    });
+
+    if (!code) {
+      throw new HttpException('Code not found', HttpStatus.NOT_FOUND);
+    }
+
+    const userToCodeRelations = await this.prisma.userToCode.findMany({
+      where: { codeId: id },
+    });
+
+    const userIds = userToCodeRelations.map((relation) => relation.userId);
+    for (const userId of userIds) {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: { points: true },
+      });
+
+      if (user) {
+        await this.prisma.user.update({
+          where: { id: userId },
+          data: {
+            points: user.points - code.points,
+          },
+        });
+      }
+    }
+
+    await this.prisma.userToCode.deleteMany({
+      where: { codeId: id },
+    });
+
     const deletedCode = await this.prisma.code.delete({
       where: { id },
     });
