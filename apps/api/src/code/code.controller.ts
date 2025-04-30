@@ -33,6 +33,12 @@ export class CodeController {
     return await this.codeService.getAll();
   }
 
+  @UseGuards(UserGuard)
+  @Get('/get/:code')
+  async getOne(@Param('code') code: string): Promise<CodeDto> {
+    return await this.codeService.getOne(code);
+  }
+
   @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
@@ -55,6 +61,12 @@ export class CodeController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<CodeDto> {
     return await this.codeService.apply(code, user.id);
+  }
+
+  @UseGuards(UserGuard)
+  @Get('applied')
+  async getApplied(@Req() { user }: AuthenticatedRequest): Promise<CodeDto[]> {
+    return await this.codeService.getApplied(user.id);
   }
 
   @UseGuards(AdminGuard)

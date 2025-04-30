@@ -43,7 +43,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
-      <Route path={RouteNames.ACHIEVEMENT_SCANNER} element={<ScannerPage />} />
+      <Route path={RouteNames.SCANNER} element={<ScannerPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>

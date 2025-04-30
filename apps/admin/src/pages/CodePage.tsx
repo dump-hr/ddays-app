@@ -1,6 +1,7 @@
 import { CodeWithConnectedAchievementsDto } from '@ddays-app/types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import QRCode from 'react-qr-code';
 
 import { useCodeGetAllWithConnectedAchievements } from '../api/code/useCodeGetAllWithConnectedAchievements';
 import { useCodeRemove } from '../api/code/useCodeRemove';
@@ -23,6 +24,28 @@ const CodePage = () => {
     CodeWithConnectedAchievementsDto | undefined
   >(undefined);
 
+  const [isQrCodeOpen, setIsQrCodeOpen] = useState(false);
+  const [qrCodeCodeValue, setQrCodeCodeValue] = useState<string>();
+
+  const qrCodeContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const downloadSvg = () => {
+    if (qrCodeContainerRef.current) {
+      const svgElement = qrCodeContainerRef.current.querySelector('svg');
+      if (svgElement) {
+        const svgData = new XMLSerializer().serializeToString(svgElement);
+        const blob = new Blob([svgData], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `qrcode-${qrCodeCodeValue}.svg`;
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+    }
+  };
+
   if (codes.isLoading) {
     return <div>Loading...</div>;
   }
@@ -42,6 +65,17 @@ const CodePage = () => {
           }}
           code={codeToEdit}
         />
+      </Modal>
+
+      <Modal isOpen={isQrCodeOpen} onClose={() => setIsQrCodeOpen(false)}>
+        <div ref={qrCodeContainerRef}>
+          <QRCode
+            value={'{"dataType":"code","data":"' + qrCodeCodeValue + '"}'}
+          />
+        </div>
+        <div style={{ marginTop: '10px' }}>
+          <Button onClick={downloadSvg}>Download as SVG</Button>
+        </div>
       </Modal>
 
       <div className='flex'>
@@ -71,6 +105,13 @@ const CodePage = () => {
           ...code,
         }))}
         actions={[
+          {
+            label: 'QR',
+            action: (code) => {
+              setQrCodeCodeValue(code.value);
+              setIsQrCodeOpen(true);
+            },
+          },
           {
             label: 'Uredi',
             action: (code) => {

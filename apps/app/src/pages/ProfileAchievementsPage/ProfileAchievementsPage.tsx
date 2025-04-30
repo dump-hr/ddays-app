@@ -108,7 +108,7 @@ export const ProfileAchievementsPage = () => {
         <Button
           style={{ marginTop: '24px' }}
           variant='beige'
-          onClick={() => navigate('/app/achievement-scanner')}>
+          onClick={() => navigate('/app/scanner')}>
           Skeniraj QR kod
         </Button>
         <TabGroup setter={setSelectedTab} className={c.tabGroup}>

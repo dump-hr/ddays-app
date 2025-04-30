@@ -312,4 +312,25 @@ export class CodeService {
 
     return finalResult;
   }
+
+  async getApplied(userId: number): Promise<CodeDto[]> {
+    const appliedCodes = await this.prisma.userToCode.findMany({
+      where: { userId },
+      include: { code: true },
+    });
+
+    return appliedCodes.map((userToCode) => userToCode.code);
+  }
+
+  async getOne(value: string): Promise<CodeDto> {
+    const code = await this.prisma.code.findUnique({
+      where: { value },
+    });
+
+    if (!code) {
+      throw new HttpException('Code not found', HttpStatus.NOT_FOUND);
+    }
+
+    return code;
+  }
 }
