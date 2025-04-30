@@ -16,7 +16,6 @@ const CodePage = () => {
   const [codeToEdit, setCodeToEdit] = useState<
     CodeWithConnectedAchievementsDto | undefined
   >(undefined);
-  /// OVO GORE NAPRAVIT DA UZ KOD ODMA DODAJE I CONNECTED ACHIEVEMENTS!
 
   if (codes.isLoading) {
     return <div>Loading...</div>;
@@ -24,15 +23,20 @@ const CodePage = () => {
 
   return (
     <>
-      {codeToEdit && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={() => {
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setCodeToEdit(undefined);
+        }}>
+        <CodeForm
+          onSuccess={() => {
             setIsModalOpen(false);
-          }}>
-          <CodeForm onSuccess={() => setIsModalOpen(false)} code={codeToEdit} />
-        </Modal>
-      )}
+            setCodeToEdit(undefined);
+          }}
+          code={codeToEdit}
+        />
+      </Modal>
 
       <div className='flex'>
         <Button variant='primary' onClick={() => setIsModalOpen(true)}>

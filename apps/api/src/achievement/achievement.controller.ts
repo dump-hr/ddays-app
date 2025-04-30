@@ -62,7 +62,7 @@ export class AchievementController {
   @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() dto: AchievementModifyDto,
   ): Promise<AchievementDto> {
     return await this.achievementService.update(id, dto);

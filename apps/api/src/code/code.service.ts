@@ -52,54 +52,71 @@ export class CodeService {
     return deletedCode;
   }
 
-  async markCompletedAchievementsForNewCode(
-    userId: number,
-    newCodeId: number,
-  ): Promise<void> {
-    // Step 1: Fetch all the achievements that this code contributes to
-    const relevantAchievements = await this.prisma.achievementToCode.findMany({
-      where: {
-        codeId: newCodeId,
-      },
+  async markCompletedAchievementsForNewCode(userId: number): Promise<void> {
+    // Query to get all the user's applied codes and the associated achievements
+    const appliedCodesWithAchievements = await this.prisma.userToCode.findMany({
+      where: { userId }, // Filter by the userId
       include: {
-        achievement: true, // Get the achievements associated with this code
+        code: {
+          include: {
+            achievementToCode: {
+              include: {
+                achievement: true, // Include the achievements related to the code
+              },
+            },
+          },
+        },
       },
     });
 
-    // Step 2: For each relevant achievement, count how many codes the user has applied
-    // that are linked to this achievement
-    const completedAchievementsIds: number[] = [];
+    console.log(
+      'Applied Codes with Achievements:',
+      appliedCodesWithAchievements,
+    );
 
-    for (const { achievement } of relevantAchievements) {
-      // Get the count of applied codes for this achievement by the user
-      const appliedCodeCount = await this.prisma.userToCode.count({
-        where: {
-          userId: userId,
-          codeId: {
-            in: relevantAchievements
-              .filter((rel) => rel.achievementId === achievement.id)
-              .map((rel) => rel.codeId),
-          },
-        },
+    // Step 1: Count occurrences of each achievement (how many times it's linked to the user's codes)
+    const achievementCountMap: Record<number, number> = {};
+
+    appliedCodesWithAchievements.forEach((userCode) => {
+      // Loop through the achievementToCode relation (which contains all the linked achievements for the code)
+      userCode.code.achievementToCode.forEach(({ achievement }) => {
+        if (!achievementCountMap[achievement.id]) {
+          achievementCountMap[achievement.id] = 0;
+        }
+        achievementCountMap[achievement.id] += 1; // Increment count for the achievement
+      });
+    });
+
+    console.log('Achievement Count Map:', achievementCountMap);
+
+    // Step 2: Check if the count of each achievement meets the required fulfillmentCodeCount
+    const completedAchievements: any[] = [];
+
+    for (const achievementId in achievementCountMap) {
+      const achievement = await this.prisma.achievement.findUnique({
+        where: { id: parseInt(achievementId) },
       });
 
-      // Step 3: Check if the applied code count meets the fulfillment threshold
-      if (appliedCodeCount >= achievement.fulfillmentCodeCount) {
-        // If the achievement is complete, add it to the list
-        completedAchievementsIds.push(achievement.id);
+      if (achievement) {
+        const count = achievementCountMap[achievementId];
+
+        // Check if the applied count meets or exceeds the fulfillment requirement
+        if (count >= achievement.fulfillmentCodeCount) {
+          console.log(`Achievement "${achievement.name}" is completed!`);
+          completedAchievements.push(achievement);
+        }
       }
     }
 
-    // Step 4: If there are any completed achievements, link them to the user
-    if (completedAchievementsIds.length > 0) {
-      await this.prisma.userToAchievement.createMany({
-        data: completedAchievementsIds.map((achievementId) => ({
-          userId,
-          achievementId,
-        })),
-        skipDuplicates: true, // Avoid duplicates if they already exist
-      });
-    }
+    // Log completed achievements
+    console.log('Completed Achievements:', completedAchievements);
+    await this.prisma.userToAchievement.createMany({
+      data: completedAchievements.map((achievement) => ({
+        userId,
+        achievementId: achievement.id,
+      })),
+      skipDuplicates: true,
+    });
   }
 
   async apply(code: string, userId: number): Promise<CodeDto> {
@@ -138,6 +155,8 @@ export class CodeService {
         userId,
       },
     });
+
+    this.markCompletedAchievementsForNewCode(userId);
 
     return foundCode;
   }

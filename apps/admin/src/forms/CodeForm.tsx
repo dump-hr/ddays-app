@@ -15,7 +15,7 @@ import { Helper } from '../helpers/date';
 import { Question, QuestionType } from '../types/question';
 
 type CodeFormProps = {
-  code: CodeWithConnectedAchievementsDto;
+  code?: CodeWithConnectedAchievementsDto;
   onSuccess: () => void;
 };
 
@@ -72,7 +72,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       id: 'achievements',
       type: QuestionType.MultipleSelect,
       title: 'Povezana postignuća',
-      defaultValue: code.connectedAchievements?.map((a) => a.id) ?? [],
+      defaultValue: code?.connectedAchievements?.map((a) => a.id) ?? [],
       options:
         allAchievements
           ?.sort((a, b) => a.id - b.id)
@@ -96,20 +96,27 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
         onClick={form.handleSubmit(async (formData) => {
           const selectedAchievements = formData.achievements;
 
-          // Send selected achievements to the backend to update
-          await updateAchievements({
-            codeId: code.id,
-            achievementIds: selectedAchievements,
+          if (!code) {
+            const newCode = await createCode.mutateAsync(formData);
+
+            await updateAchievements({
+              codeId: newCode.id,
+              achievementIds: selectedAchievements,
+            });
+
+            onSuccess();
+            return;
+          }
+
+          await updateCode.mutateAsync({
+            ...formData,
+            id: code.id,
           });
 
-          if (code) {
-            await updateCode.mutateAsync({
-              ...formData,
-              id: code.id,
-            });
-          } else {
-            await createCode.mutateAsync(formData);
-          }
+          await updateAchievements({
+            codeId: code?.id,
+            achievementIds: selectedAchievements,
+          });
 
           onSuccess();
         })}>

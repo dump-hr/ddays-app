@@ -12,5 +12,5 @@ const codeGetAllWithConnectedAchievements = () => {
 export const useCodeGetAllWithConnectedAchievements = (
   options?: QueryOptions<CodeWithConnectedAchievementsDto[]>,
 ) => {
-  return useQuery(['code1'], codeGetAllWithConnectedAchievements, options);
+  return useQuery(['code'], codeGetAllWithConnectedAchievements, options);
 };

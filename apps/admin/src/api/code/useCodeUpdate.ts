@@ -21,6 +21,7 @@ export const useCodeUpdate = () => {
       toast.success('Kod uspješno uređen!');
     },
     onError: (error: string) => {
+      queryClient.invalidateQueries(['code']);
       toast.error(error);
     },
   });
