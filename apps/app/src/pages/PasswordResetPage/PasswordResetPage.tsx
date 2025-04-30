@@ -24,7 +24,7 @@ export const PasswordResetPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isValidated, setIsValidated] = useState(false);
-  const { mutate: sendEmail, isLoading } = useSendEmail();
+  const { mutate: sendEmail } = useSendEmail();
   const { mutate: resetPassword } = useResetPassword();
   const location = useLocation();
   const navigate = useNavigate();
