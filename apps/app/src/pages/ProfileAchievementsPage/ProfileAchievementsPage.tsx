@@ -13,6 +13,7 @@ import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { useAchievementGetAll } from '@/api/achievement/useAchievementGetAll';
 import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
 import { AchievementDto } from '@ddays-app/types';
+import Button from '@/components/Button';
 
 export const ProfileAchievementsPage = () => {
   const { data: user } = useLoggedInUser();
@@ -103,9 +104,13 @@ export const ProfileAchievementsPage = () => {
           />
           <h3 className={c.title}>Postignuća</h3>
         </header>
-        <button onClick={() => navigate('/app/achievement-scanner')}>
-          Skener - pita san mihaelu za d33zajn :)
-        </button>
+
+        <Button
+          style={{ marginTop: '24px' }}
+          variant='beige'
+          onClick={() => navigate('/app/achievement-scanner')}>
+          Skeniraj QR kod
+        </Button>
         <TabGroup setter={setSelectedTab} className={c.tabGroup}>
           {tabs.map((tab) => (
             <Tab key={tab.id} id={tab.id}>
