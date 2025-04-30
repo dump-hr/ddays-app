@@ -140,6 +140,33 @@ export class AchievementService {
   }
 
   async remove(id: number): Promise<AchievementDto> {
+    const achievement = await this.prisma.achievement.findUnique({
+      where: { id },
+    });
+
+    if (!achievement) {
+      throw new NotFoundException('Achievement not found');
+    }
+
+    const users = await this.prisma.userToAchievement.findMany({
+      where: { achievementId: id },
+      select: { user: true },
+    });
+
+    for (const user of users) {
+      const currentPoints = user.user.points;
+      await this.prisma.user.update({
+        where: { id: user.user.id },
+        data: {
+          points: currentPoints - achievement.points,
+        },
+      });
+    }
+
+    await this.prisma.userToAchievement.deleteMany({
+      where: { achievementId: id },
+    });
+
     const deletedAchievement = await this.prisma.achievement.delete({
       where: { id },
     });
