@@ -1,4 +1,5 @@
 import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
+import { AchievementDto } from './achievement';
 
 export type CodeDto = {
   id: number;
@@ -10,6 +11,10 @@ export type CodeDto = {
   hasPage?: boolean;
   expirationDate?: Date;
   createdAt?: Date;
+};
+
+export type CodeWithConnectedAchievementsDto = CodeDto & {
+  connectedAchievements?: AchievementDto[];
 };
 
 export class CodeModifyDto {

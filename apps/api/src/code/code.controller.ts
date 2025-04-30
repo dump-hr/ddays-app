@@ -56,4 +56,24 @@ export class CodeController {
   ): Promise<CodeDto> {
     return await this.codeService.apply(code, user.id);
   }
+
+  @UseGuards(AdminGuard)
+  @Post('update-achievements/:codeId')
+  async updateAchievements(
+    @Param('codeId', ParseIntPipe) codeId: number,
+    @Body() achievements: number[], // Array of achievement IDs
+  ) {
+    return await this.codeService.updateAchievementsForCode(
+      codeId,
+      achievements,
+    );
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('with-connected-achievements')
+  async getAllWithConnectedAchievements() {
+    const codeWithConnectedAchievements =
+      await this.codeService.getAllWithConnectedAchievements();
+    return codeWithConnectedAchievements;
+  }
 }

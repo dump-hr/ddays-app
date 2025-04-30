@@ -10,6 +10,11 @@ export type AchievementDto = {
   createdAt: Date;
 };
 
+export type AchievementToCodeDto = {
+  achievementId: number;
+  codeId: number;
+};
+
 export type AchievementWithUuidDto = AchievementDto & {
   uuid: string;
 };

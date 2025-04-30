@@ -1,7 +1,12 @@
-import { CodeDto, CodeModifyDto } from '@ddays-app/types';
+import {
+  CodeModifyDto,
+  CodeWithConnectedAchievementsDto,
+} from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
+import { useAchievementGetAll } from '../api/achievement/useAchievementGetAll';
+import { useCodeUpdateAchievement } from '../api/code/useCodeConnectToAchievement';
 import { useCodeCreate } from '../api/code/useCodeCreate';
 import { useCodeUpdate } from '../api/code/useCodeUpdate';
 import { Button } from '../components/Button';
@@ -10,13 +15,15 @@ import { Helper } from '../helpers/date';
 import { Question, QuestionType } from '../types/question';
 
 type CodeFormProps = {
-  code?: CodeDto;
+  code: CodeWithConnectedAchievementsDto;
   onSuccess: () => void;
 };
 
 export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
   const createCode = useCodeCreate();
   const updateCode = useCodeUpdate();
+  const { data: allAchievements } = useAchievementGetAll();
+  const { mutateAsync: updateAchievements } = useCodeUpdateAchievement();
 
   const questions: Question[] = [
     {
@@ -61,9 +68,22 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       title: 'Datum isteka',
       defaultValue: Helper.formatExpirationDate(code?.expirationDate),
     },
+    {
+      id: 'achievements',
+      type: QuestionType.MultipleSelect,
+      title: 'Povezana postignuća',
+      defaultValue: code.connectedAchievements?.map((a) => a.id) ?? [],
+      options:
+        allAchievements
+          ?.sort((a, b) => a.id - b.id)
+          .map((achievement) => ({
+            label: `${achievement.name} [${achievement.id}]`,
+            value: achievement.id,
+          })) ?? [],
+    },
   ];
 
-  const form = useForm<CodeModifyDto>({
+  const form = useForm<CodeModifyDto & { achievements: number[] }>({
     resolver: classValidatorResolver(CodeModifyDto),
   });
 
@@ -74,8 +94,15 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       ))}
       <Button
         onClick={form.handleSubmit(async (formData) => {
+          const selectedAchievements = formData.achievements;
+
+          // Send selected achievements to the backend to update
+          await updateAchievements({
+            codeId: code.id,
+            achievementIds: selectedAchievements,
+          });
+
           if (code) {
-            console.log('formData', formData.expirationDate);
             await updateCode.mutateAsync({
               ...formData,
               id: code.id,
@@ -83,6 +110,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
           } else {
             await createCode.mutateAsync(formData);
           }
+
           onSuccess();
         })}>
         Submit

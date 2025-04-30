@@ -1,7 +1,7 @@
-import { CodeDto } from '@ddays-app/types';
+import { CodeWithConnectedAchievementsDto } from '@ddays-app/types';
 import { useState } from 'react';
 
-import { useCodeGetAll } from '../api/code/useCodeGetAll';
+import { useCodeGetAllWithConnectedAchievements } from '../api/code/useCodeGetAllWithConnectedAchievements';
 import { useCodeRemove } from '../api/code/useCodeRemove';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
@@ -9,11 +9,14 @@ import { Table } from '../components/Table';
 import { CodeForm } from '../forms/CodeForm';
 
 const CodePage = () => {
-  const codes = useCodeGetAll();
+  const codes = useCodeGetAllWithConnectedAchievements();
   const removeCode = useCodeRemove();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [codeToEdit, setCodeToEdit] = useState<CodeDto | undefined>(undefined);
+  const [codeToEdit, setCodeToEdit] = useState<
+    CodeWithConnectedAchievementsDto | undefined
+  >(undefined);
+  /// OVO GORE NAPRAVIT DA UZ KOD ODMA DODAJE I CONNECTED ACHIEVEMENTS!
 
   if (codes.isLoading) {
     return <div>Loading...</div>;
@@ -21,13 +24,15 @@ const CodePage = () => {
 
   return (
     <>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}>
-        <CodeForm onSuccess={() => setIsModalOpen(false)} code={codeToEdit} />
-      </Modal>
+      {codeToEdit && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}>
+          <CodeForm onSuccess={() => setIsModalOpen(false)} code={codeToEdit} />
+        </Modal>
+      )}
 
       <div className='flex'>
         <Button variant='primary' onClick={() => setIsModalOpen(true)}>
@@ -38,14 +43,14 @@ const CodePage = () => {
         </Button>
       </div>
       <Table
-        data={(codes.data || []).map((achievement) => ({
-          ...achievement,
+        data={(codes.data || []).map((code) => ({
+          ...code,
         }))}
         actions={[
           {
             label: 'Uredi',
             action: (code) => {
-              setCodeToEdit(code);
+              setCodeToEdit(code as CodeWithConnectedAchievementsDto);
               setIsModalOpen(true);
             },
           },
@@ -53,7 +58,9 @@ const CodePage = () => {
             label: 'Obriši',
             action: (code) => {
               if (confirm('Are you sure?')) {
-                removeCode.mutateAsync(code.id);
+                removeCode.mutateAsync(
+                  (code as CodeWithConnectedAchievementsDto).id,
+                );
               }
             },
           },
