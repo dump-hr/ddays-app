@@ -14,6 +14,7 @@ import {
 import { useSendEmail } from '../../api/email/useSendEmail';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useResetPassword } from '../../api/user/useResetPassword';
+import { sendVerificationEmail } from '../../helpers/handleVerificationSent';
 
 export const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
@@ -73,40 +74,12 @@ export const PasswordResetPage = () => {
   };
 
   const handleVerificationSent = async () => {
-    try {
-      const response = await fetch('/api/email/generate-reset-token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (data.error) {
-        setEmailError('Korisnik s ovom email adresom ne postoji.');
-        return;
-      }
-
-      if (data.token) {
-        sendEmail(
-          {
-            email,
-            subject: 'DDays 2025 - Resetiranje lozinke',
-            text: `Pozdrav, klikni na link ispod da resetiraš lozinku: http://localhost:3005/app/password-reset/${data.token}`,
-          },
-          {
-            onSuccess: () => {
-              handleNextStep();
-            },
-          },
-        );
-      }
-    } catch (error) {
-      console.error('Greška pri generiranju tokena:', error);
-      alert('Došlo je do greške pri generiranju tokena');
-    }
+    await sendVerificationEmail(
+      email,
+      setEmailError,
+      handleNextStep,
+      sendEmail,
+    );
   };
 
   const clearErrors = (field: string) => {
