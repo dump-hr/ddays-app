@@ -7,14 +7,22 @@ import CodePopup from './popups/CodePopup/CodePopup';
 import { useState } from 'react';
 import PointModifierPopup from './popups/PointModifierPopup';
 import NewLevelPopup from './popups/NewLevelPopup';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { getLevelFromPoints } from '@/helpers/getLevelFromPoints';
 
 const HomePage = () => {
+  const { data: user } = useLoggedInUser();
+
   function handleSuccessfulCodeSubmit(points: number) {
     setIsCodePopupOpen(false);
-    const isNewLevel = false;
 
-    if (isNewLevel) {
-      setLevel(3);
+    if (!user) return;
+
+    const oldLevel = getLevelFromPoints(user.points).level;
+    const newLevel = getLevelFromPoints(user.points + points).level;
+
+    if (oldLevel !== newLevel) {
+      setLevel(newLevel);
       setIsNewLevelPopupOpen(true);
       return;
     }
