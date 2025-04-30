@@ -8,7 +8,7 @@ import useCountdown from '../../hooks/useCountdown';
 export const SpotsPage = () => {
   const currentCompany = useCompanyGetCurrentPublic();
   const { elapsedTime, didFinish } = useCountdown(
-    new UTCDate(2025, 4, 2, 10, 0).toString(),
+    new UTCDate(2025, 4, 5, 10, 0).toString(),
   );
 
   if (currentCompany.isLoading) {
