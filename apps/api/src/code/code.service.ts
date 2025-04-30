@@ -51,7 +51,6 @@ export class CodeService {
   }
 
   async remove(id: number): Promise<CodeDto> {
-    // REMOVE ALL FROM usertocode relation and remove points equal to the deleted code for all users
     const code = await this.prisma.code.findUnique({
       where: { id },
       select: { points: true },
@@ -94,15 +93,14 @@ export class CodeService {
   }
 
   async markCompletedAchievementsForNewCode(userId: number): Promise<void> {
-    // Query to get all the user's applied codes and the associated achievements
     const appliedCodesWithAchievements = await this.prisma.userToCode.findMany({
-      where: { userId }, // Filter by the userId
+      where: { userId },
       include: {
         code: {
           include: {
             achievementToCode: {
               include: {
-                achievement: true, // Include the achievements related to the code
+                achievement: true,
               },
             },
           },
@@ -110,27 +108,17 @@ export class CodeService {
       },
     });
 
-    console.log(
-      'Applied Codes with Achievements:',
-      appliedCodesWithAchievements,
-    );
-
-    // Step 1: Count occurrences of each achievement (how many times it's linked to the user's codes)
     const achievementCountMap: Record<number, number> = {};
 
     appliedCodesWithAchievements.forEach((userCode) => {
-      // Loop through the achievementToCode relation (which contains all the linked achievements for the code)
       userCode.code.achievementToCode.forEach(({ achievement }) => {
         if (!achievementCountMap[achievement.id]) {
           achievementCountMap[achievement.id] = 0;
         }
-        achievementCountMap[achievement.id] += 1; // Increment count for the achievement
+        achievementCountMap[achievement.id] += 1;
       });
     });
 
-    console.log('Achievement Count Map:', achievementCountMap);
-
-    // Step 2: Check if the count of each achievement meets the required fulfillmentCodeCount
     const completedAchievements: any[] = [];
 
     for (const achievementId in achievementCountMap) {
@@ -141,16 +129,12 @@ export class CodeService {
       if (achievement) {
         const count = achievementCountMap[achievementId];
 
-        // Check if the applied count meets or exceeds the fulfillment requirement
         if (count >= achievement.fulfillmentCodeCount) {
-          console.log(`Achievement "${achievement.name}" is completed!`);
           completedAchievements.push(achievement);
         }
       }
     }
 
-    // Log completed achievements
-    console.log('Completed Achievements:', completedAchievements);
     await this.prisma.userToAchievement.createMany({
       data: completedAchievements.map((achievement) => ({
         userId,

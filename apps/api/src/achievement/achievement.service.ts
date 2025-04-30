@@ -41,6 +41,28 @@ export class AchievementService {
     return achievements;
   }
 
+  async getAllPublic(): Promise<AchievementDto[]> {
+    const achievements = await this.prisma.achievement.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        points: true,
+        fulfillmentCodeCount: true,
+        isHidden: true,
+        createdAt: true,
+      },
+      where: {
+        isHidden: false,
+      },
+      orderBy: {
+        points: 'desc',
+      },
+    });
+
+    return achievements;
+  }
+
   async getOne(uuid: string): Promise<AchievementDto> {
     if (!uuid) {
       throw new BadRequestException('UUID is required');

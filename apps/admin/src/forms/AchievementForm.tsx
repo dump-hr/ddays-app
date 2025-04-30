@@ -46,7 +46,7 @@ export const AchievementForm: React.FC<AchievementFormProps> = ({
       defaultValue: achievement?.fulfillmentCodeCount,
     },
     {
-      id: 'is-hidden',
+      id: 'isHidden',
       type: QuestionType.Checkbox,
       title: 'Is Hidden',
       defaultValue: achievement?.isHidden,

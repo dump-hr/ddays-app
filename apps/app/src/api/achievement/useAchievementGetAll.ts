@@ -4,7 +4,7 @@ import { QueryOptions, useQuery } from 'react-query';
 import axios from '../base';
 
 const achievementGetAll = () => {
-  return axios.get<never, AchievementDto[]>('/achievement');
+  return axios.get<never, AchievementDto[]>('/achievement/public');
 };
 
 export const useAchievementGetAll = (

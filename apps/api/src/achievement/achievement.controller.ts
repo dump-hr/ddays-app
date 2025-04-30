@@ -39,6 +39,12 @@ export class AchievementController {
     return await this.achievementService.getCompletedAchievements(user.id);
   }
 
+  @UseGuards(UserGuard)
+  @Get('public')
+  async getAllPublic(): Promise<AchievementDto[]> {
+    return await this.achievementService.getAllPublic();
+  }
+
   @UseGuards(AdminGuard)
   @Get('with-uuid')
   async getAllWithUuid(): Promise<AchievementWithUuidDto[]> {
@@ -74,6 +80,7 @@ export class AchievementController {
     return await this.achievementService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Get()
   async getAll(): Promise<AchievementDto[]> {
     return await this.achievementService.getAll();
