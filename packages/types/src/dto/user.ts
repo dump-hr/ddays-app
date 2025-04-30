@@ -39,6 +39,7 @@ export type UserPublicDto = {
   companiesNewsEnabled: boolean;
   isConfirmed: boolean;
   isDeleted: boolean;
+  points: number;
 };
 
 export type ChangeUserPasswordDto = {

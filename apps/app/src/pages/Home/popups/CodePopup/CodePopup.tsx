@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 type CodePopupProps = {
   isOpen: boolean;
   closePopup: () => void;
-  onSuccess: () => void;
+  onSuccess: (points: number) => void;
 };
 
 const CodePopup: React.FC<CodePopupProps> = ({
@@ -23,10 +23,10 @@ const CodePopup: React.FC<CodePopupProps> = ({
 
   function handleCodeSubmit(code: string) {
     applyCode.mutate(code, {
-      onSuccess: () => {
+      onSuccess: (submittedCode) => {
         toast.success('Kod je uspješno unesen!');
         closePopup();
-        onSuccess();
+        onSuccess(submittedCode.points || 0);
       },
       onError: (error) => {
         setErrorMessage(String(error));
