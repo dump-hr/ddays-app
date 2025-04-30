@@ -167,7 +167,7 @@ export class CodeService {
 
   async apply(code: string, userId: number): Promise<CodeDto> {
     const foundCode = await this.prisma.code.findUnique({
-      where: { value: code },
+      where: { value: code, isActive: true },
     });
 
     if (!foundCode) {
@@ -175,6 +175,21 @@ export class CodeService {
         'Ne izmišljaj kodove, unesi pravi.',
         HttpStatus.BAD_REQUEST,
       );
+    }
+
+    if (foundCode.isSingleUse) {
+      const existingCode = await this.prisma.userToCode.findFirst({
+        where: {
+          codeId: foundCode.id,
+        },
+      });
+
+      if (existingCode) {
+        throw new HttpException(
+          'Taj kod je već iskorišten!',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     }
 
     if (foundCode.expirationDate < new Date()) {

@@ -22,7 +22,9 @@ export const useAchievementComplete = () => {
         ]);
       },
       onError: () => {
-        toast.error('Došlo je do greške prilikom dodavanja postignuća!');
+        toast.error('Došlo je do greške prilikom dodavanja postignuća!', {
+          position: 'bottom-center',
+        });
       },
     },
   );

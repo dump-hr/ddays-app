@@ -44,6 +44,9 @@ const ScannerPage = () => {
           currentTime +
           ' ' +
           lastScanTimeRef.current,
+        {
+          position: 'top-center',
+        },
       );
       return;
     }
