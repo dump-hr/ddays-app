@@ -15,9 +15,10 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
+import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
-import { AvatarModule } from './avatar/avatar.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -55,8 +56,8 @@ import { AvatarModule } from './avatar/avatar.module';
       : []),
 
     BoothModule,
-
-    AvatarModule,
+    ShopModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

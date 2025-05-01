@@ -1,18 +1,20 @@
 import { useState } from 'react';
-import { ProgressBar } from '../../ProgressBar';
+import { ProgressBar } from '@/components/ProgressBar';
 import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
-import { AuthFooter } from '../../AuthFooter';
-import Button from '../../Button/Button';
+import { AuthFooter } from '@/components//AuthFooter';
+import Button from '@/components/Button/Button';
 import GoogleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
-import { useRegistration } from '../../../providers/RegistrationContext';
+import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
-import { RegistrationStep } from '../../../types/registration/registration.dto';
+import { RegistrationStep } from '@/types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
-import { RegistrationDto } from '../../../types/user/user';
+import { RegistrationDto } from '@/types/user/user';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
+import { useUserRegister } from '@/api/auth/useUserRegister';
+import { RouteNames } from '@/router/routes';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -39,6 +41,8 @@ export const GeneralRegistrationForm = () => {
     companiesNewsEnabled: false,
     termsAndConditionsEnabled: false,
   });
+
+  const { mutate } = useUserRegister(() => navigate(RouteNames.CONFIRM_EMAIL));
   const navigate = useNavigate();
 
   const updateUserData = (newData: Partial<RegistrationDto>) => {
@@ -63,7 +67,18 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
-        navigate('/app/confirm-email');
+        mutate({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          password: userData.password,
+          phoneNumber: userData.phoneNumber,
+          birthYear: userData.birthYear,
+          educationDegree: userData.educationDegree,
+          occupation: userData.occupation,
+          newsletterEnabled: userData.newsletterEnabled,
+          companiesNewsEnabled: userData.companiesNewsEnabled,
+        });
         break;
       default:
         break;

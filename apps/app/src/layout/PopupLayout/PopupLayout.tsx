@@ -6,13 +6,14 @@ import { useDeviceType } from '@/hooks/UseDeviceType';
 
 interface PopupLayoutProps {
   headerTitleComponent: ReactNode;
-  variant: 'light' | 'dark';
+  variant: 'light' | 'dark' | 'black-fullscreen';
   closePopup: () => void;
   isOpen: boolean;
   imgSrc?: string;
-  justifyContent?: 'center' | 'start' | 'end';
+  justifyContent?: 'center' | 'start' | 'end' | 'space-between';
   desktopStyle?: 'normal' | 'stretch';
   opacity?: number;
+  showXButton?: boolean;
 }
 
 const PopupLayout = ({
@@ -25,6 +26,7 @@ const PopupLayout = ({
   justifyContent = 'start',
   desktopStyle = 'normal',
   opacity = 0.5,
+  showXButton = true,
 }: PropsWithChildren<PopupLayoutProps>) => {
   const { isMobile } = useDeviceType({ breakpoint: 768 });
 
@@ -36,7 +38,7 @@ const PopupLayout = ({
         { [styles.closed]: !isOpen },
         { [styles.alignItemsEnd]: desktopStyle === 'stretch' },
       )}>
-      {desktopStyle === 'stretch' && (
+      {desktopStyle === 'stretch' && showXButton && (
         <img
           src={CloseIcon}
           onClick={closePopup}
@@ -51,16 +53,18 @@ const PopupLayout = ({
           { [styles.desktopNormal]: desktopStyle === 'normal' },
           { [styles.dark]: variant === 'dark' },
           { [styles.light]: variant === 'light' },
+          { [styles.blackFullscreen]: variant === 'black-fullscreen' },
           { [styles.center]: justifyContent === 'center' },
           { [styles.start]: justifyContent === 'start' },
           { [styles.end]: justifyContent === 'end' },
+          { [styles.between]: justifyContent === 'space-between' },
         )}>
         <div
           className={clsx(styles.heading, {
             [styles.center]: desktopStyle === 'stretch' && !isMobile,
           })}>
           <h2 className={styles.headingTitle}>{headerTitleComponent}</h2>
-          {(isMobile || desktopStyle === 'normal') && (
+          {(isMobile || desktopStyle === 'normal') && showXButton && (
             <img
               src={CloseIcon}
               onClick={closePopup}

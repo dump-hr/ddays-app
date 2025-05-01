@@ -197,6 +197,7 @@ model Speaker {
   title          String
   companyId      Int?
   photoUrl       String?
+  smallPhotoUrl  String?
   photo          Json?
   instagramUrl   String?
   linkedinUrl    String?
@@ -215,26 +216,31 @@ model SpeakerToEvent {
 }
 
 model User {
-  id                         Int                 @id @default(autoincrement())
-  firstName                  String
-  lastName                   String
-  email                      String              @unique
-  phoneNumber                String              @unique
-  yearOfBirth                Int
-  occupation                 String?
-  password                   String?
-  points                     Int?
-  newsletterConsent          Boolean?
-  companiesNewsletterConsent Boolean?
-  isDeleted                  Boolean?
-  profilePhotoUrl            String?
-  avatar                     Avatar[]
-  notification               Notification[]
-  shoppingCart               ShoppingCart[]
-  userNotification           UserNotification[]
-  userToAchievement          UserToAchievement[]
-  userToEvent                UserToEvent[]
-  userToInterest             UserToInterest[]
+  id                   Int                 @id @default(autoincrement())
+  firstName            String
+  lastName             String
+  email                String
+  phoneNumber          String
+  birthYear            Int
+  occupation           String?
+  educationDegree      String?
+  password             String?
+  points               Int?                @default(0)
+  newsletterEnabled    Boolean?
+  companiesNewsEnabled Boolean?
+  isDeleted            Boolean?            @default(false)
+  isConfirmed          Boolean?            @default(false)
+  profilePhotoUrl      String?
+  avatar               Avatar[]
+  notification         Notification[]
+  transactionItems     TransactionItem[]
+  userNotification     UserNotification[]
+  userToAchievement    UserToAchievement[]
+  userToEvent          UserToEvent[]
+  userToInterest       UserToInterest[]
+
+  @@unique([email, isDeleted])
+  @@unique([phoneNumber, isDeleted])
 }
 
 model UserNotification {
@@ -289,15 +295,16 @@ model FrequentlyAskedQuestion {
 }
 
 model ShopItem {
-  id           Int            @id @default(autoincrement())
-  type         ShopItemType?
-  itemName     String?
-  quantity     Int?
-  price        Int?
-  shoppingCart ShoppingCart[]
+  id              Int               @id @default(autoincrement())
+  type            ShopItemType?
+  itemName        String?
+  quantity        Int?
+  price           Int?
+  TransactionItem TransactionItem[]
 }
 
-model ShoppingCart {
+model TransactionItem {
+  id         Int                    @id @default(autoincrement())
   shopItemId Int
   userId     Int
   quantity   Int?
@@ -306,8 +313,6 @@ model ShoppingCart {
   takeByTime DateTime?              @db.Timestamp(6)
   shopItem   ShopItem               @relation(fields: [shopItemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([userId, shopItemId])
 }
 
 model SurveyQuestion {

@@ -19,28 +19,22 @@ const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
         [c.achievementCard]: true,
         [c.completed]: isCompleted,
       })}>
-      <div className={c.pointsWrapper}>
-        <svg className={c.star}>
-          <use href={`${sprite}#star`} />
-        </svg>
-        <p className={c.points}>{achievement.points}</p>
-      </div>
-      <p className={c.name}>{achievement.name}</p>
-      <p className={c.description}>{achievement.description}</p>
-
-      <div className={c.progressBarWrapper}>
-        <div className={c.progressBarInfo}>
-          <p className={c.stepCount}>
-            {achievement.progress}/{achievement.goal}
-          </p>
-          <p className={c.percentage}>{percentage}%</p>
+      <div className={c.mainContent}>
+        <div className={c.pointsWrapper}>
+          <svg className={c.star}>
+            <use href={`${sprite}#star`} />
+          </svg>
+          <p className={c.points}>{achievement.points}</p>
         </div>
-        <div className={c.progressBar}>
-          <div className={c.progress} style={{ width: `${percentage}%` }} />
-        </div>
+        <p className={c.name}>{achievement.name}</p>
+        <p className={c.description}>{achievement.description}</p>
       </div>
 
-      <p className={c.completedMessage}>Završeno!</p>
+      {isCompleted && (
+        <div className={c.completedMessageWrapper}>
+          <p className={c.completedMessage}>Completed!</p>
+        </div>
+      )}
     </div>
   );
 };

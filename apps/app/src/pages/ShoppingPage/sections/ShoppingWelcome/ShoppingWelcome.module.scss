@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0 1.5rem;
-  height: 100vh;
+  height: 100%;
 
   @media screen and (max-width: $breakpoint-tablet) {
     margin: 0;
@@ -100,14 +100,14 @@
     z-index: 2;
     min-height: 494px;
     height: 65vh;
+    @include mobileNavigationPadding(24px);
+
     @media screen and (max-width: $breakpoint-tablet) {
       text-align: left;
-      padding-bottom: 48px;
     }
 
     @media screen and (max-width: $breakpoint-mobile-lg) {
       text-align: left;
-      padding-bottom: 48px;
     }
   }
 

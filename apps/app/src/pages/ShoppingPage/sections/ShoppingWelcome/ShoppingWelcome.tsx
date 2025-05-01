@@ -1,8 +1,8 @@
 import styles from './ShoppingWelcome.module.scss';
 import DuckWelcomeImg from '@/assets/images/duck-shop-welcome.png';
 
-import { NavigateHomeButton } from '../../../../components/NavigateHomeButton';
-import Button from '../../../../components/Button';
+import { NavigateHomeButton } from '@/components/NavigateHomeButton';
+import Button from '@/components/Button';
 
 interface ShoppingWelcomeProps {
   setFirstShopVisit: (value: boolean) => void;
@@ -14,6 +14,7 @@ const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
   const handleNextClick = () => {
     localStorage.setItem('firstShopVisit', 'false');
     setFirstShopVisit(false);
+    document.querySelector('body')!.scrollTo(0, 0);
   };
 
   return (

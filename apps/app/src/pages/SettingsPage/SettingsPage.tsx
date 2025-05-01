@@ -1,29 +1,23 @@
-import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './SettingsPage.module.scss';
 
 import LockIcon from '@/assets/icons/lock-icon.svg';
 import ThrashIcon from '@/assets/icons/delete-icon.svg';
 
-import { RouteNames } from '@/router/routes';
 import { SettingsButton } from '@/components/SettingsButton';
 import { EditProfileSection } from './sections/EditProfileSection';
 import { ChangePassword } from './sections/ChangePassword';
 import { SettingsHeader } from './sections/SettingsHeader';
 import { RegistrationProvider } from '@/context/RegistrationContext';
+import { useUserContext } from '@/context/UserContext';
+import DeleteAccountPopup from './popups/DeleteAccountPopup';
 
 const SettingsPage = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const navigate = useNavigate();
+  const [isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen] =
+    useState(false);
 
-  const handleDeleteAccount = () => {
-    // TODO: otvaranje popupa kada bude spremno i api poziv
-    localStorage.removeItem('userData');
-    toast.success('Račun uspješno obrisan!');
-    navigate(RouteNames.LOGIN);
-  };
+  const { isEditing, isChangingPassword, setIsChangingPassword } =
+    useUserContext();
 
   useEffect(() => {
     const body = document.querySelector('body');
@@ -35,20 +29,12 @@ const SettingsPage = () => {
       <div className={styles.settingsWrapper}>
         <div className={styles.settingsContainer}>
           <RegistrationProvider>
-            <SettingsHeader
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              isChangingPassword={isChangingPassword}
-              setIsChangingPassword={setIsChangingPassword}
-            />
+            <SettingsHeader />
             <div className={styles.settingsContent}>
               {!isChangingPassword ? (
-                <EditProfileSection
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                />
+                <EditProfileSection />
               ) : (
-                <ChangePassword setIsChangingPassword={setIsChangingPassword} />
+                <ChangePassword />
               )}
 
               {!isEditing && !isChangingPassword && (
@@ -64,12 +50,16 @@ const SettingsPage = () => {
                   <SettingsButton
                     icon={ThrashIcon}
                     variant={'red'}
-                    onClick={() => handleDeleteAccount()}>
+                    onClick={() => setIsDeleteAccountPopupOpen(true)}>
                     Obriši račun
                   </SettingsButton>
                 </div>
               )}
             </div>
+            <DeleteAccountPopup
+              isOpen={isDeleteAccountPopupOpen}
+              setIsOpen={setIsDeleteAccountPopupOpen}
+            />
           </RegistrationProvider>
         </div>
       </div>
