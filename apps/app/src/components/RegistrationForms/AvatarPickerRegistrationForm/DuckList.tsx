@@ -1,6 +1,7 @@
 import { FC, useState, useRef, useEffect, useCallback } from 'react';
 import { DuckObject, ducks } from '@/constants';
 import c from './AvatarPickerRegistrationForm.module.scss';
+import { ImageWrapper } from '@/components/ImageWrapper';
 
 type Props = {
   setSelectedDuck: (duck: DuckObject) => void;
@@ -164,9 +165,14 @@ const DuckCard: FC<DuckCardProps> = ({
       onClick={onClick}
       data-virtual-index={virtualIndex}
       data-real-index={realIndex}>
-      <div className={c.duckItemImageWrapper}>
-        <img src={imageSrc} alt={name} className={c.duckItemImage} />
-      </div>
+      <ImageWrapper
+        imageSrc={imageSrc}
+        altText={name}
+        isSelected={isSelected}
+        onClick={onClick}
+        width={194}
+        height={194}
+      />
       <div className={`${c.duckItemTextWrapper} ${isSelected ? '' : c.hidden}`}>
         <p className={c.duckItemTitle}>{name}</p>
         <p className={c.duckItemDescription}>{description}</p>

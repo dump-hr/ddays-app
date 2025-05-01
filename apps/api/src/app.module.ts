@@ -17,6 +17,7 @@ import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
+import { AvatarModule } from './avatar/avatar.module';
 
 @Module({
   imports: [
@@ -54,6 +55,8 @@ import { SurveyQuestionModule } from './survey-question/survey-question.module';
       : []),
 
     BoothModule,
+
+    AvatarModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

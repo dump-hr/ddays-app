@@ -347,7 +347,7 @@ enum Colors {
   BROWN
   PURPLE
   GREEN
-  WHITE
+  BLUE
   RED
   GRAY
 }

@@ -1,0 +1,205 @@
+.container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-out;
+
+  &.zoomedContainer {
+    height: 100%;
+
+    .avatarContainer {
+      transform-origin: center center;
+    }
+  }
+}
+
+.podium {
+  position: absolute;
+  z-index: 1;
+  bottom: -35%;
+  max-width: 768px;
+  width: 100%;
+}
+
+.avatarContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  transition: transform 0.3s ease-out;
+
+  &.zoomedIn {
+    transform: translateY(33%) scale(1.5);
+    transform-origin: center center;
+  }
+}
+
+.avatar {
+  position: absolute;
+  transition: all 0.3s ease-out;
+
+  &.colors {
+    z-index: 1;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+  }
+
+  &.face {
+    z-index: 2;
+
+    bottom: 34%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+
+    &.EYELASHES {
+      bottom: 54%;
+      width: 19%;
+      left: 36%;
+    }
+
+    &.ANGRY {
+      bottom: 61%;
+      width: 26%;
+      left: 36%;
+    }
+
+    &.CRYING {
+      bottom: 56%;
+      width: 15%;
+      left: 34%;
+    }
+
+    &.MOLE {
+      bottom: 45%;
+      width: 22%;
+      left: 33%;
+    }
+
+    &.MUSTACHE {
+      bottom: 46%;
+      width: 31%;
+      left: 31%;
+    }
+
+    &.NOSE_RING {
+      bottom: 40%;
+      width: 23%;
+      left: 32%;
+    }
+
+    &.TATTOO {
+      bottom: 35%;
+      width: 4%;
+      left: 50%;
+    }
+  }
+
+  &.accessories {
+    z-index: 3;
+
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+
+    &.SUNGLASSES {
+      bottom: 54%;
+      width: 35%;
+      left: 41%;
+    }
+
+    &.CROWN {
+      bottom: 68%;
+      width: 25%;
+      left: 35%;
+    }
+
+    &.ANGEL {
+      bottom: 55%;
+      width: 45%;
+      left: 40%;
+      z-index: 0;
+    }
+
+    &.BERET {
+      bottom: 55%;
+      width: 45%;
+      left: 44%;
+    }
+
+    &.NINJA {
+      bottom: 43%;
+      width: 54%;
+      left: 50%;
+    }
+
+    &.HEADPHONES {
+      bottom: 51%;
+      width: 40%;
+      left: 43%;
+    }
+
+    &.FLOWER {
+      bottom: 62%;
+      left: 51%;
+      width: 14%;
+    }
+  }
+
+  &.body {
+    z-index: 2;
+
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45%;
+
+    &.SCARF {
+      bottom: 14%;
+      width: 37%;
+      left: 37%;
+    }
+
+    &.CHAIN {
+      bottom: 17%;
+      width: 27%;
+      left: 41%;
+    }
+
+    &.BASKETBALL {
+      bottom: 1%;
+      left: 56%;
+      width: 38%;
+    }
+
+    &.MACBOOK {
+      bottom: 12%;
+      width: 45%;
+      left: 53%;
+    }
+
+    &.SUNFLOWER {
+      bottom: 20%;
+      left: 66%;
+      width: 27%;
+    }
+
+    &.CATS {
+      bottom: -2%;
+      left: 50%;
+      width: 44%;
+    }
+
+    &.DUMBELL {
+      bottom: -5%;
+      left: 47%;
+      width: 65%;
+    }
+  }
+}

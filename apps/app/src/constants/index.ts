@@ -1,1 +1,1 @@
-export * from './ducks';
+export * from './duckOptions';
