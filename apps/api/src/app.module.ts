@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { BlobModule } from './blob/blob.module';
 import { BoothModule } from './booth/booth.module';
 import { CompanyModule } from './company/company.module';
+import { EmailModule } from './email/email.module';
 import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
 import { InterestModule } from './interest/interest.module';
@@ -19,7 +20,6 @@ import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [

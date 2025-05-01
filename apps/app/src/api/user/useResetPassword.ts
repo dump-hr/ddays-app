@@ -1,7 +1,12 @@
 import axios from '../base';
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { ResetUserPasswordDto } from '@ddays-app/types/src/dto/user';
+
+type ErrorResponse = {
+  message: string;
+};
 
 const resetPassword = async (
   data: ResetUserPasswordDto & { token: string },
@@ -14,7 +19,7 @@ export const useResetPassword = () => {
     onSuccess: () => {
       toast.success('Lozinka je uspješno resetirana!');
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<ErrorResponse>) => {
       const errorMessage =
         error?.response?.data?.message || 'Greška pri resetiranju lozinke';
       toast.error(errorMessage);

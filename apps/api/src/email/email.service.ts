@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { randomBytes } from 'crypto';
 import { ServerClient } from 'postmark';
 import { PrismaService } from 'src/prisma.service';
-import { randomBytes } from 'crypto';
 
 @Injectable()
 export class EmailService {

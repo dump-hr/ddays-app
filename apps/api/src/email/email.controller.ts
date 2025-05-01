@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { EmailService } from './email.service';
 import { PrismaService } from 'src/prisma.service';
+
+import { EmailService } from './email.service';
 
 @Controller('email')
 export class EmailController {
