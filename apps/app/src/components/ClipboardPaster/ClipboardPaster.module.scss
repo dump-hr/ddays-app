@@ -1,0 +1,44 @@
+.clipboardPaster {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  border-radius: 4px;
+  border: 1px solid $black-10;
+  background: $black-5;
+
+  height: 60px;
+  padding: 2px 16px 4px 16px;
+  gap: 8px;
+
+  .text {
+    @include tag-16;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 8px;
+
+    .button {
+      border-radius: 4px;
+      background: $primary-muted-orange;
+      border: none;
+      color: $primary-white;
+      overflow-y: hidden;
+      padding: 8px 16px;
+      font-family: Inter;
+      cursor: pointer;
+
+      flex-shrink: 0;
+
+      &:first-of-type {
+        background: $black-10;
+        color: $primary-black;
+      }
+    }
+  }
+}

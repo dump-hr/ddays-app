@@ -23,6 +23,7 @@ export default defineConfig({
           @import "./src/styles/fonts.scss";
           @import "./src/styles/mixins.scss";
           @import "./src/styles/breakpoints.scss";
+          @import "./src/styles/consts.scss";
         `,
       },
     },

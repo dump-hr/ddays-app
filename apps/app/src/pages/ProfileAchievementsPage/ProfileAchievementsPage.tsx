@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import achievements from './achievements';
 import AchievementCard from '../../components/AchievementCard';
 import { useNavigate } from 'react-router-dom';
+import { ACHIEVEMENT_DIFFICULTY } from '@/constants/achievementDifficulty';
 
 export const ProfileAchievementsPage = () => {
   const tabs = [
@@ -44,6 +45,20 @@ export const ProfileAchievementsPage = () => {
 
   const navigate = useNavigate();
 
+  function getAchievementDifficulty(points: number): string {
+    const thresholds = Object.entries(ACHIEVEMENT_DIFFICULTY)
+      .map(([key, label]) => ({ max: Number(key), label }))
+      .sort((a, b) => a.max - b.max);
+
+    for (const { max, label } of thresholds) {
+      if (points <= max) {
+        return label;
+      }
+    }
+
+    return 'Unknown';
+  }
+
   return (
     <div className={c.page}>
       <header className={c.header}>
@@ -78,11 +93,29 @@ export const ProfileAchievementsPage = () => {
             </Tab>
           ))}
         </TabGroup>
-        <div className={c.achievementsWrapper}>
-          {filteredAchievements.map((achievement) => (
-            <AchievementCard key={achievement.id} achievement={achievement} />
-          ))}
-        </div>
+
+        {Object.values(ACHIEVEMENT_DIFFICULTY).map((difficulty) => {
+          const achievementsByDifficulty = filteredAchievements.filter(
+            (achievement) =>
+              getAchievementDifficulty(achievement.points || 0) === difficulty,
+          );
+
+          if (achievementsByDifficulty.length === 0) return null;
+
+          return (
+            <>
+              <div className={c.difficultyLabel}>{difficulty}</div>
+              <div className={c.achievementsWrapper}>
+                {achievementsByDifficulty.map((achievement) => (
+                  <AchievementCard
+                    key={achievement.id}
+                    achievement={achievement}
+                  />
+                ))}
+              </div>
+            </>
+          );
+        })}
       </main>
     </div>
   );

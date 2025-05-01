@@ -33,13 +33,24 @@ export enum RouteNames {
   PROFILE_RECOMMENDATIONS = '/app/profile/recommendations',
   COMPANIES = '/app/companies',
   SCHEDULE = '/app/schedule',
-  FLY_TALKS = '/app/flyTalks',
+  FLY_TALKS = '/app/fly-talks',
+  FLY_TALKS_APPLY = '/app/fly-talks-apply',
   SHOPPING = '/app/shopping',
   CONFIRM_EMAIL = '/app/confirm-email',
   NOTIFICATIONS = '/app/notifications',
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
   RATE_COMPANY = '/app/rate-company',
 }
+
+export const navbarRoutes = [
+  RouteNames.HOME,
+  RouteNames.PROFILE,
+  RouteNames.PROFILE_INTERESTS,
+  RouteNames.PROFILE_ACHIEVEMENTS,
+  RouteNames.COMPANIES,
+  RouteNames.SCHEDULE,
+  RouteNames.FLY_TALKS,
+];
 
 export interface SubMenu {
   name: string;

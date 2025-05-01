@@ -95,6 +95,23 @@ export class SpeakerController {
     return await this.speakerService.updatePhoto(id, file);
   }
 
+  @Patch('/small-photo/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateSmallSpeakerPhoto(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<SpeakerDto> {
+    return await this.speakerService.updateSmallPhoto(id, file);
+  }
+
   @UseGuards(AdminGuard)
   @Delete('/photo/:id')
   async removePhoto(@Param('id', ParseIntPipe) id: number): Promise<void> {
