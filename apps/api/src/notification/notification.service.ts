@@ -18,55 +18,64 @@ export class NotificationService {
   constructor(private prisma: PrismaService) {}
 
   // Check for upcoming events every minute
-  @Cron(CronExpression.EVERY_MINUTE)
-  async checkUpcomingEvents() {
-    this.logger.debug('Checking for upcoming events...');
+  // Simplified CRON job - only activates pending notifications
+@Cron(CronExpression.EVERY_MINUTE)
+async activatePendingNotifications() {
+  this.logger.debug('Activating pending notifications...');
 
-    try {
-      const currentDate = new Date();
+  try {
+    const now = new Date();
+    
+    // Find notifications that should be activated now
+    const pendingNotifications = await this.prisma.notification.findMany({
+      where: {
+        activatedAt: {
+          lte: now,
+        },
+        isActive: false,
+      },
+      include: {
+        userNotification: true,
+      },
+    });
 
-      // Add timezone offset to keep dates in local time
-      const tzOffsetMs = currentDate.getTimezoneOffset() * 60 * 1000;
+    if (pendingNotifications.length === 0) {
+      return;
+    }
 
-      const startWindow = new Date(
-        currentDate.getTime() + 60 * 1000 - tzOffsetMs,
-      ).toISOString();
+    this.logger.debug(`Found ${pendingNotifications.length} pending notifications to activate`);
 
-      const endWindow = new Date(
-        currentDate.getTime() + 15 * 60 * 1000 - tzOffsetMs,
-      ).toISOString();
+    // Activate each notification
+    for (const notification of pendingNotifications) {
+      await this.prisma.notification.update({
+        where: { id: notification.id },
+        data: { isActive: true },
+      });
 
-      this.logger.debug(
-        `Looking for events between: ${startWindow} and ${endWindow}`,
-      );
-
-      const upcomingEvents = await this.prisma.event.findMany({
-        where: {
-          startsAt: {
-            gte: startWindow,
-            lte: endWindow,
-          },
+      // Update status of user notifications
+      await this.prisma.userNotification.updateMany({
+        where: { notificationId: notification.id },
+        data: { 
+          status: NotificationStatus.DELIVERED,
+          deliveredAt: now 
         },
       });
 
-      if (upcomingEvents.length === 0) {
-        console.log('No upcoming events found');
-        return;
-      }
-
-      this.logger.debug(`Found ${upcomingEvents.length} upcoming events`);
-
-      for (const event of upcomingEvents) {
-        await this.createEventNotifications(event);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        this.logger.error('Error checking upcoming events', error.stack);
-      } else {
-        this.logger.error('Error checking upcoming events', String(error));
-      }
+      this.logger.log(
+        `Activated notification "${notification.title}" for ${notification.userNotification.length} users`
+      );
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      this.logger.error('Error activating pending notifications', error.stack);
+    } else {
+      this.logger.error('Error activating pending notifications', String(error));
     }
   }
+}
+
+// Remove the old createEventNotifications method since it's no longer needed
+// async createEventNotifications(event: EventDto) { ... }
 
   async createEventNotifications(event: EventDto) {
     const existingNotification = await this.prisma.notification.findFirst({
