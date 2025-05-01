@@ -430,8 +430,3 @@ enum Theme {
   MARKETING
   TECH
 }
-
-enum AdminLogAction {
-  Email
-  Other
-}
