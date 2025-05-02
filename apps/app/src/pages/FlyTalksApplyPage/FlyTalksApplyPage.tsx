@@ -10,6 +10,7 @@ import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
 import { usePostApplyToFlyTalks } from '@/api/flyTalks/usePostApplyToFlyTalks';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { useUploadCV } from '@/api/flyTalks/usePostUploadCV';
+import { formatTime } from '@/helpers/formatFlyTalksTime';
 
 const FlyTalksApplyPage = () => {
   const location = useLocation();
@@ -22,8 +23,8 @@ const FlyTalksApplyPage = () => {
     return (
       event?.map((event) => ({
         id: event.id,
-        start: event.startsAt.split('T')[1].slice(0, 5),
-        end: event.endsAt.split('T')[1].slice(0, 5),
+        start: formatTime(event.startsAt),
+        end: formatTime(event.endsAt),
         day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
         participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
         hasUserApplied: Array.isArray(event.users)
@@ -151,7 +152,7 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. //SUBOTA'}
+              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. // SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}

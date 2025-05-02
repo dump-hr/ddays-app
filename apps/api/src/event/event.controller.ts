@@ -54,7 +54,7 @@ export class EventController {
   }
 
   @Get('with-speaker')
-  async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
+  async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
   }
 
@@ -95,11 +95,13 @@ export class EventController {
     return await this.eventService.getAll();
   }
 
+  @UseGuards(UserGuard)
   @Delete('delete-flytalk-application')
   async deleteFlyTalkApplication(
-    @Body() { userId, eventId }: UserToEventDto,
+    @Body() { eventId: eventId }: { eventId: number },
+    @Req() { user }: AuthenticatedRequest,
   ): Promise<UserToEventDto> {
-    return await this.eventService.deleteFlyTalkApplication(userId, eventId);
+    return await this.eventService.deleteFlyTalkApplication(user.id, eventId);
   }
 
   @UseGuards(AdminGuard)

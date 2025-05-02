@@ -4,6 +4,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  @include mobileNavigationPadding(8px);
 
   header {
     width: 100%;

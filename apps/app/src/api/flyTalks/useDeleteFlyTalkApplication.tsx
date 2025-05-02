@@ -5,12 +5,11 @@ import toast from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
-const deleteFlyTalkApplication = async (data: {
-  userId: number;
-  eventId: number;
-}): Promise<{ userId: number; eventId: number }> => {
+const deleteFlyTalkApplication = async (
+  { eventId }: { eventId: number },
+): Promise<{ eventId: number }> => {
   return axios.delete('/event/delete-flytalk-application', {
-    data: data ,
+    data: { eventId },
   });
 };
 

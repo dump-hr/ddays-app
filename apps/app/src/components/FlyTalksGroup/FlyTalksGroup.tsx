@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
 import { useDeleteFlyTalkApplication } from '@/api/flyTalks/useDeleteFlyTalkApplication';
-import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface FlyTalksGroupProps {
   group: {
@@ -29,16 +28,12 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
 }) => {
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
-  const { data: user } = useLoggedInUser();
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
       navigate(`/app/fly-talks-apply?id=${group.id}`);
     } else {
-      deleteFlyTalkApplication.mutate({
-        eventId: group.id,
-        userId: user?.id ?? 0,
-      });
+      deleteFlyTalkApplication.mutate({ eventId: group.id });
       window.location.reload();
     }
   };
