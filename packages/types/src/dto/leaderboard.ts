@@ -5,7 +5,6 @@ export type LeaderboardEntryDto = {
   points: number;
   rank: number;
   profilePhotoUrl?: string;
-  /*   lastPointsUpdate: Date; */
 }
 
 export type LeaderboardResponseDto = {

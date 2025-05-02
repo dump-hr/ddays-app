@@ -8,8 +8,12 @@ const getUserRank = async (): Promise<UserRankResponseDto> => {
 };
 
 export const useGetUserRank = () => {
-  return useQuery<UserRankResponseDto>(QUERY_KEYS.leaderboardUserRank, getUserRank,{
-    refetchOnWindowFocus: false,
-    staleTime: 60000, // 1 minute
-  });
+  return useQuery<UserRankResponseDto>(
+    QUERY_KEYS.leaderboardUserRank,
+    getUserRank,
+    {
+      refetchOnWindowFocus: true,
+      staleTime: 60000, // 1 minute
+    },
+  );
 };

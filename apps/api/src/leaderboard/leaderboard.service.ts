@@ -20,16 +20,13 @@ export class LeaderboardService {
     const pageNum = Number(page) || 1;
     const skip = (pageNum - 1) * pageSize;
 
-    // Get users with points, filtering deleted users if needed
     const where = {
       ...(includeDeleted ? {} : { isDeleted: false }),
       points: { not: null },
     };
 
-    // Get total count for pagination
     const totalEntries = await this.prisma.user.count({ where });
 
-    // Get users ordered by points (descending) and last achievement time
     const users = await this.prisma.user.findMany({
       where,
       select: {
@@ -48,21 +45,13 @@ export class LeaderboardService {
           },
         },
       },
-      orderBy: [
-        { points: 'desc' },
-        // Ordering by the latest achievement time
-        // (as a proxy for last points update time)
-      ],
+      orderBy: [{ points: 'desc' }],
       skip,
       take: Number(pageSize),
     });
 
-    // Map users to leaderboard entries with ranks
     const entries = users.map((user, index) => {
       const rank = skip + index + 1;
-
-      /*      // Use the most recent achievement time or current date if no achievements
-      const lastPointsUpdate = user.userToAchievement[0]?.timeOfAchievement || new Date(); */
 
       return {
         id: user.id,
@@ -71,7 +60,6 @@ export class LeaderboardService {
         points: user.points || 0,
         rank,
         profilePhotoUrl: user.profilePhotoUrl,
-        /*  lastPointsUpdate, */
       };
     });
 
@@ -84,7 +72,6 @@ export class LeaderboardService {
   }
 
   async getUserRank(userId: number): Promise<UserRankResponseDto> {
-    // Get the user with their points
     const user = await this.prisma.user.findUnique({
       where: { id: userId, isDeleted: false },
       select: {
@@ -122,69 +109,7 @@ export class LeaderboardService {
 
     const rank = usersAbove + 1;
 
-    // Get 3 users above and below the current user for context
-    /*  const aboveUsers = await this.prisma.user.findMany({
-      where: {
-        isDeleted: false,
-        points: {
-          gt: user.points || 0,
-        },
-      },
-      orderBy: [
-        { points: 'asc' },
-      ],
-      take: 3,
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        points: true,
-        profilePhotoUrl: true,
-        userToAchievement: {
-          orderBy: {
-            timeOfAchievement: 'desc',
-          },
-          take: 1,
-          select: {
-            timeOfAchievement: true,
-          },
-        },
-      },
-    });
 
-    const belowUsers = await this.prisma.user.findMany({
-      where: {
-        isDeleted: false,
-        points: {
-          lte: user.points || 0,
-        },
-        id: {
-          not: userId,
-        },
-      },
-      orderBy: [
-        { points: 'desc' },
-      ],
-      take: 3,
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        points: true,
-        profilePhotoUrl: true,
-        userToAchievement: {
-          orderBy: {
-            timeOfAchievement: 'desc',
-          },
-          take: 1,
-          select: {
-            timeOfAchievement: true,
-          },
-        },
-      },
-    });
- */
-    // Format the entries
     const formatUser = (u, r): LeaderboardEntryDto => ({
       id: u.id,
       firstName: u.firstName,
@@ -192,13 +117,10 @@ export class LeaderboardService {
       points: u.points || 0,
       rank: r,
       profilePhotoUrl: u.profilePhotoUrl,
-      /*    lastPointsUpdate: u.userToAchievement[0]?.timeOfAchievement || new Date(), */
     });
 
     return {
       user: formatUser(user, rank),
-      /*    aboveUsers: aboveUsers.map((u, index) => formatUser(u, rank - index - 1)),
-        belowUsers: belowUsers.map((u, index) => formatUser(u, rank + index + 1)), */
     };
   }
 
@@ -235,8 +157,6 @@ export class LeaderboardService {
       points: user.points || 0,
       rank: index + 1,
       profilePhotoUrl: user.profilePhotoUrl,
-      lastPointsUpdate:
-        user.userToAchievement[0]?.timeOfAchievement || new Date(),
     }));
   }
 }

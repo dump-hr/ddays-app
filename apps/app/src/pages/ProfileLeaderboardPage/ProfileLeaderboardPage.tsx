@@ -2,47 +2,47 @@ import { useNavigate } from 'react-router-dom';
 import { useRef, useCallback } from 'react';
 import c from './ProfileLeaderboardPage.module.scss';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
-import FirstPlaceDuck from '../../assets/images/first-place.png';
-import SecondPlaceDuck from '../../assets/images/second-place.png';
-import ThirdPlaceDuck from '../../assets/images/third-place.png';
-import star from '../../assets/icons/star-red.svg';
+import FirstPlaceDuck from '@/assets/images/first-place.png';
+import SecondPlaceDuck from '@/assets/images/second-place.png';
+import ThirdPlaceDuck from '@/assets/images/third-place.png';
+import star from '@/assets/icons/star-red.svg';
 import LeaderboardTableRow from '@/components/LeaderboardTableRow';
-/* import LoadingSpinner from '@/components/LoadingSpinner'; */
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { useInfiniteLeaderboard } from '@/api/leaderboard/useInfiniteLeaderboard';
 import { useGetTopUsers } from '@/api/leaderboard/useGetTopUsers';
 import { useGetUserRank } from '@/api/leaderboard/useGetUserRank';
+import { getLevelFromPoints } from '@/helpers/getLevelFromPoints';
 
 export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
 
-  // Fetch leaderboard data with infinite scrolling
   const {
     data: leaderboardData,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     status: leaderboardStatus,
-  } = useInfiniteLeaderboard({ pageSize: 5 });
+  } = useInfiniteLeaderboard({ pageSize: 10 });
 
-  // Fetch top 3 users separately
   const { data: topUsers, status: topUsersStatus } = useGetTopUsers();
-
-  // Fetch current user's rank
   const { data: userRank, status: userRankStatus } = useGetUserRank();
 
-  // Flatten the pages data into a single array
   const flattenedLeaderboard =
     leaderboardData?.pages.flatMap((page) =>
       page.entries.map((entry) => ({
         id: entry.id,
         rank: entry.rank,
         name: `${entry.firstName} ${entry.lastName}`,
-        level: 0, // This would need to come from the API if it's tracked
+        level: getLevelFromPoints(entry.points).level,
         points: entry.points,
       })),
     ) || [];
 
-  // Set up intersection observer for infinite scrolling
+  const slicedLeaderboard = flattenedLeaderboard.slice(
+    3,
+    flattenedLeaderboard.length,
+  );
+
   const observer = useRef<IntersectionObserver>();
   const lastRowRef = useCallback(
     (node: HTMLElement | null) => {
@@ -50,8 +50,13 @@ export const ProfileLeaderboardPage = () => {
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
+        if (
+          entries[0].isIntersecting &&
+          hasNextPage
+        ) {
+          setTimeout(() => {
+            fetchNextPage();
+          }, 300);
         }
       });
 
@@ -60,45 +65,30 @@ export const ProfileLeaderboardPage = () => {
     [isFetchingNextPage, hasNextPage, fetchNextPage],
   );
 
-  // Prepare top users data
   const firstPlace = topUsers?.[0];
   const secondPlace = topUsers?.[1];
   const thirdPlace = topUsers?.[2];
 
-  // Get personal rank
   const isFirstPlace = userRank?.user?.rank === 1;
   const personalRankData = userRank?.user
     ? {
         id: userRank.user.id,
         rank: userRank.user.rank,
         name: `${userRank.user.firstName} ${userRank.user.lastName}`,
-        level: 0, // Would need to be provided by API
+        level: getLevelFromPoints(userRank.user.points).level,
         points: userRank.user.points,
       }
     : null;
 
-  // Loading states
-  if (
-    leaderboardStatus === 'loading' ||
-    topUsersStatus === 'loading' ||
-    userRankStatus === 'loading'
-  ) {
-    return (
-      <div className={c.loadingContainer}>
-        {/*  <LoadingSpinner /> */}
-        <div className={c.loadingText}>Loading...</div>
-      </div>
-    );
-  }
-
-  // Error states
   if (
     leaderboardStatus === 'error' ||
     topUsersStatus === 'error' ||
     userRankStatus === 'error'
   ) {
     return (
-      <div className={c.errorMessage}>Unable to load leaderboard data</div>
+      <div className={c.errorMessage}>
+        Nastao je problem sa učitavanjem ljestvice
+      </div>
     );
   }
 
@@ -211,10 +201,10 @@ export const ProfileLeaderboardPage = () => {
             <div className={c.leaderboardWrapper}>
               <table className={c.leaderboardTable}>
                 <tbody>
-                  {flattenedLeaderboard.map((entry, index) => (
+                  {slicedLeaderboard.map((entry, index) => (
                     <LeaderboardTableRow
                       ref={
-                        index === flattenedLeaderboard.length - 1
+                        index === slicedLeaderboard.length - 1
                           ? lastRowRef
                           : undefined
                       }
@@ -229,8 +219,7 @@ export const ProfileLeaderboardPage = () => {
                   {isFetchingNextPage && (
                     <tr>
                       <td colSpan={4} className={c.loadingRow}>
-                        {/*  <LoadingSpinner size='small' /> */}
-                        <div className={c.loadingText}>Loading more...</div>
+                        <LoadingSpinner />
                       </td>
                     </tr>
                   )}

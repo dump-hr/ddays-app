@@ -270,12 +270,32 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 2rem;
 }
 
-.personalRankWrapper {
+div.personalRankWrapper {
   width: 100%;
-  border: 1px solid $black-10;
   background: $primary-beige;
+  position: relative;
+}
+
+div.personalRankWrapper:before {
+  width: 1rem;
+  height: 100%;
+  content: '';
+  position: absolute;
+  left: -1rem;
+  background-color: $primary-beige;
+}
+
+div.personalRankWrapper:after {
+  width: 1rem;
+  height: 100%;
+  content: '';
+  position: absolute;
+  right: -1rem;
+  top: 0;
+  background-color: $primary-beige;
 }
 
 .congratulationWrapper {
@@ -302,6 +322,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: center;
+  padding-left: 1rem !important;
 
   tr:not(:first-child) {
     @include dottedBreak($black-50, 1.5px);
@@ -311,7 +332,7 @@
     padding: 8px 4px;
 
     &:first-child {
-      width: 50px;
+      width: 30px;
     }
 
     &:nth-child(2) {
