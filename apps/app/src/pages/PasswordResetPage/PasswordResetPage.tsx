@@ -11,7 +11,6 @@ import {
   validations,
   validateRepeatedPassword,
 } from '../../helpers/validateInput';
-import { useSendEmail } from '../../api/email/useSendEmail';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useResetPassword } from '../../api/user/useResetPassword';
 import { sendVerificationEmail } from '../../helpers/handleVerificationSent';
@@ -25,7 +24,6 @@ export const PasswordResetPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isValidated, setIsValidated] = useState(false);
-  const { mutate: sendEmail } = useSendEmail();
   const { mutate: resetPassword } = useResetPassword();
   const location = useLocation();
   const navigate = useNavigate();
@@ -74,12 +72,7 @@ export const PasswordResetPage = () => {
   };
 
   const handleVerificationSent = async () => {
-    await sendVerificationEmail(
-      email,
-      setEmailError,
-      handleNextStep,
-      sendEmail,
-    );
+    await sendVerificationEmail(email, setEmailError, handleNextStep);
   };
 
   const clearErrors = (field: string) => {
