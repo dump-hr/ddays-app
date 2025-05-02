@@ -1,5 +1,5 @@
 import { UserWithAvatarDto } from '@ddays-app/types';
-import axios from 'axios';
+import axios from '../base';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -30,19 +30,19 @@ const uploadAvatar = async ({
   );
 };
 
-export const useUploadAvatar = (onSuccess?: () => void) => {
+export const useUploadAvatar = (
+  onSuccess?: (data: UserWithAvatarDto) => void,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(uploadAvatar, {
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data);
-
       queryClient.invalidateQueries(['user']);
-
       toast.success('Avatar uspješno spremljen!');
 
       if (onSuccess) {
-        onSuccess();
+        onSuccess(data);
       }
     },
     onError: (error: string) => {

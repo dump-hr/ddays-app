@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import sprite from '../../../assets/sprite.svg';
 import { FC, useState } from 'react';
 import { UserDataFields } from '@/types/enums';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteNames, routes } from '@/router/routes';
 import { DuckObject } from '@/types/avatar/avatar';
 
@@ -44,11 +44,16 @@ export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
 
 const PersonalizeAvatarIcon = () => {
   const navigate = useNavigate();
+  const currentPath = useLocation().pathname;
 
   return (
     <Button
       variant='beige'
-      onClick={() => navigate(routes[RouteNames.PROFILE_AVATARS].path)}>
+      onClick={() =>
+        navigate(routes[RouteNames.PROFILE_AVATARS].path, {
+          state: { returnUrl: currentPath },
+        })
+      }>
       <div className={c.buttonIcon}>
         <svg width={25} height={24}>
           <use href={`${sprite}#slavica-icon`} />

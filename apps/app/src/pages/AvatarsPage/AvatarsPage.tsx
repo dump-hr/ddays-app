@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ArrowLeftWhite from '@/assets/icons/arrow-left-white.svg';
 import c from './AvatarsPage.module.scss';
 import Button from '@/components/Button';
@@ -10,9 +10,12 @@ import { AvatarPreview } from '@/components/AvatarPreview';
 import { DUCK_OPTIONS } from '@/constants';
 import { AvatarPreviewRef } from '@/components/AvatarPreview/AvatarPreview';
 import { useUploadAvatar } from '@/api/avatar/useUploadAvatar';
+import { UserWithAvatarDto } from '@ddays-app/types';
 
 export const AvatarsPage: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnUrl = location.state?.returnUrl;
   const [navigationItem, setNavigationItem] = useState<DuckItems>(
     DuckItems.COLORS,
   );
@@ -28,9 +31,19 @@ export const AvatarsPage: FC = () => {
 
   const avatarPreviewRef = useRef<AvatarPreviewRef>(null);
 
-  const { mutate: uploadAvatar, isLoading: isSaving } = useUploadAvatar(() => {
-    navigate(-1);
-  });
+  const { mutate: uploadAvatar, isLoading: isSaving } = useUploadAvatar(
+    (data: UserWithAvatarDto) => {
+      if (returnUrl) {
+        navigate(returnUrl, {
+          state: {
+            profilePhotoUrl: data.profilePhotoUrl,
+          },
+        });
+      } else {
+        navigate(-1);
+      }
+    },
+  );
 
   useEffect(() => {
     setCurrentOptions(DUCK_OPTIONS[navigationItem]);

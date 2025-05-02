@@ -23,9 +23,9 @@ export class AvatarController {
   async uploadAvatar(
     @UploadedFile() file: Express.Multer.File,
     @Body() avatarUploadDto: AvatarUploadDto,
-    @Req() req,
+    @Req() { user },
   ) {
-    const userId = req.user.id;
+    const userId = user.id;
 
     const avatarUpdateDto: AvatarUpdateDto = {
       color: avatarUploadDto.colors || null,

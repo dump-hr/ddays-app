@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProgressBar } from '@/components/ProgressBar';
 import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
@@ -10,13 +10,14 @@ import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RegistrationDto } from '@/types/user/user';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
 
 export const GeneralRegistrationForm = () => {
+  const location = useLocation();
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
@@ -51,6 +52,15 @@ export const GeneralRegistrationForm = () => {
       ...newData,
     }));
   };
+
+  useEffect(() => {
+    if (location.state?.profilePhotoUrl) {
+      updateUserData({
+        profilePhotoUrl: location.state.profilePhotoUrl,
+      });
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.pathname, location.state, navigate]);
 
   const { isStepValid } = useRegistration();
 
