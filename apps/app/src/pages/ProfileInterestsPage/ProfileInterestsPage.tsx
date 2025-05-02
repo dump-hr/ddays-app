@@ -4,44 +4,35 @@ import Pencil from '@/assets/icons/pencil-icon.svg';
 import { InterestCardsSection } from '../../components/InterestCardsSection/InterestCardsSection';
 import { useDeviceType } from '../../hooks/UseDeviceType';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileHeader } from '../../components/ProfileHeader';
-import { InterestsForUpdatePopup } from './popups/InterestsForUpdatePopup';
 import { useUserSelectedInterests } from '@/api/interests/useUserSelectedInterests';
+import { InterestDto } from '@ddays-app/types';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 export const ProfileInterestsPage = () => {
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
-    [],
-  );
-  const [tempSelectedInterests, setTempSelectedInterests] = useState(
-    userSelectedInterests,
-  );
+  const [, setPopupIsOpen] = useState(false);
+  const { data: user } = useLoggedInUser();
+  const { data: interestsFromApi } = useUserSelectedInterests(user?.id || 0);
+
+  const [tempSelectedInterests, setTempSelectedInterests] = useState<
+    InterestDto[]
+  >(interestsFromApi || []);
+
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem('userData') || '');
-  const userId = user.id;
-
-  const { data: interestsFromApi, isLoading } =
-    useUserSelectedInterests(userId);
-  useEffect(() => {
-    if (interestsFromApi) {
-      setUserSelectedInterests(interestsFromApi.map((i) => i.name));
-    }
-    console.log(userSelectedInterests);
-  }, [interestsFromApi]);
-
   const handleEditYourInterestsClick = () => {
-    setTempSelectedInterests(userSelectedInterests);
+    setTempSelectedInterests(interestsFromApi || []);
     setPopupIsOpen(true);
   };
 
+  /*
   const handleSaveInterests = () => {
-    setUserSelectedInterests(tempSelectedInterests);
     setPopupIsOpen(false);
   };
+  */
 
   return (
     <div className={c.container}>
@@ -76,20 +67,13 @@ export const ProfileInterestsPage = () => {
 
           <section className={c.interests}>
             <InterestCardsSection
-              userSelectedInterests={userSelectedInterests}
-              setUserSelectedInterests={setUserSelectedInterests}
+              interests={interestsFromApi || []}
+              userSelectedInterests={tempSelectedInterests}
+              setUserSelectedInterests={() => {}}
             />
           </section>
         </div>
       </main>
-
-      <InterestsForUpdatePopup
-        isOpen={popupIsOpen}
-        setIsOpen={setPopupIsOpen}
-        tempSelectedInterests={tempSelectedInterests}
-        setTempSelectedInterests={setTempSelectedInterests}
-        handleSaveInterests={handleSaveInterests}
-      />
     </div>
   );
 };

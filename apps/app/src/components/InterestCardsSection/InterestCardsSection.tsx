@@ -1,15 +1,18 @@
 import RemoveIcon from '@/assets/icons/remove-icon.svg';
-import { interestsSections } from '../RegistrationForms/FourthStepRegistrationForm/temporaryMockData';
 import c from './InterestCardsSection.module.scss';
+import { InterestDto } from '@ddays-app/types';
+import { Theme } from '@ddays-app/types';
 
 type InterestCardsSectionProps = {
   forUpdate?: boolean;
-  userSelectedInterests: string[];
+  interests: InterestDto[];
+  userSelectedInterests: InterestDto[];
   setUserSelectedInterests: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const InterestCardsSection = ({
   forUpdate = false,
+  interests,
   userSelectedInterests,
   setUserSelectedInterests,
 }: InterestCardsSectionProps) => {
@@ -25,11 +28,47 @@ export const InterestCardsSection = ({
 
   return (
     <>
-      {interestsSections.map((section) => {
+      {Object.values(Theme).map((theme, i) => {
+        <div className={c.interestsSection} key={i}>
+          <h3>{theme}//</h3>
+          <div className={c.interestsCardsWrapper}>
+            {interests
+              .filter((interest) => forUpdate || interest.theme == theme)
+              .map((interest) => {
+                const isSelected = userSelectedInterests.includes(interest);
+                return (
+                  <div
+                    key={interest.id}
+                    className={`${c.interestsCard} ${
+                      isSelected ? c.selected : ''
+                    } ${forUpdate ? c.clickable : ''}`}
+                    onClick={
+                      forUpdate
+                        ? () => handleInterestClick(interest.name)
+                        : undefined
+                    }>
+                    {interest.name}
+                    {forUpdate && isSelected && (
+                      <img
+                        src={RemoveIcon}
+                        alt='remove icon'
+                        width={10}
+                        height={10}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+          </div>
+        </div>;
+      })}
+      {/**
+       *
+       *{interestsSections.map((section) => {
         const filteredInterests = forUpdate
           ? section.interests
           : section.interests.filter((interest) =>
-              userSelectedInterests.includes(interest.name),
+              userSelectedInterests.includes(interest),
             );
 
         if (filteredInterests.length === 0) return null;
@@ -71,6 +110,8 @@ export const InterestCardsSection = ({
           </div>
         );
       })}
+       *
+       */}
     </>
   );
 };

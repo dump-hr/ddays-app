@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import c from './FourthStepRegistrationForm.module.scss';
-import { interestsSections } from './temporaryMockData';
 import RemoveIcon from '@/assets/icons/remove-icon.svg';
+import { useInterestsGetAll } from '@/api/interests/useInterestsGetAll';
+import { Theme } from '@ddays-app/types';
 
 export const FourthStepRegistrationForm = () => {
-  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
-    [],
-  );
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+
+  const { data: interests } = useInterestsGetAll();
 
   const handleInterestClick = (interestName: string) => {
-    setUserSelectedInterests((prev) => {
+    setSelectedInterests((prev) => {
       if (prev.includes(interestName)) {
         return prev.filter((interest) => interest !== interestName);
       }
@@ -18,6 +19,8 @@ export const FourthStepRegistrationForm = () => {
     });
   };
 
+  const interestsSections = Object.values(Theme);
+
   return (
     <div className={c.interests}>
       <p>
@@ -25,30 +28,30 @@ export const FourthStepRegistrationForm = () => {
         i grupe za fly talk koje bi ti se mogle svidjeti.
       </p>
 
-      {interestsSections.map((section) => (
-        <div className={c.interestsSection} key={section.id}>
-          <h3>{section.group}//</h3>
+      {interestsSections.map((theme, i) => (
+        <div className={c.interestsSection} key={i}>
+          <h3>{theme}//</h3>
 
           <div className={c.interestsCardsWrapper}>
-            {section.interests.map((interest) => (
-              <div
-                className={`${c.interestsCard} ${
-                  userSelectedInterests.includes(interest.name)
-                    ? c.selected
-                    : ''
-                }`}
-                key={interest.id}
-                onClick={() => handleInterestClick(interest.name)}>
-                {interest.name}
-                {userSelectedInterests.includes(interest.name) && (
-                  <img
-                    src={RemoveIcon}
-                    alt='remove icon'
-                    width={10}
-                    height={10}></img>
-                )}
-              </div>
-            ))}
+            {interests
+              ?.filter((interest) => interest.theme == theme)
+              .map((interest) => (
+                <div
+                  className={`${c.interestsCard} ${
+                    selectedInterests.includes(interest.name) ? c.selected : ''
+                  }`}
+                  key={interest.id}
+                  onClick={() => handleInterestClick(interest.name)}>
+                  {interest.name}
+                  {selectedInterests.includes(interest.name) && (
+                    <img
+                      src={RemoveIcon}
+                      alt='remove icon'
+                      width={10}
+                      height={10}></img>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       ))}

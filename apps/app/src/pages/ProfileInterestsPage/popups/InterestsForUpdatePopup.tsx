@@ -2,12 +2,13 @@ import c from './index.module.scss';
 import Button from '@/components/Button';
 import { InterestCardsSection } from '@/components/InterestCardsSection/InterestCardsSection';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
+import { InterestDto } from '@ddays-app/types';
 import { Dispatch, SetStateAction } from 'react';
 
 type InterestsForUpdatePopupProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  tempSelectedInterests: string[];
+  tempSelectedInterests: InterestDto[];
   setTempSelectedInterests: Dispatch<SetStateAction<string[]>>;
   handleSaveInterests: () => void;
 };
@@ -33,6 +34,7 @@ export const InterestsForUpdatePopup = ({
 
         <InterestCardsSection
           forUpdate
+          interests={[]}
           userSelectedInterests={tempSelectedInterests}
           setUserSelectedInterests={setTempSelectedInterests}
         />

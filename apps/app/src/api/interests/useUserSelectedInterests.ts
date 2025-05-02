@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 const getUserSelectedInterests = async (
   userId: number,
 ): Promise<InterestDto[]> => {
-  const response = await axios.get(`/interest/user/${userId}`);
+  const response = await axios.get(`/api/interest/user/${userId}`);
   return response.data;
 };
 
