@@ -1,9 +1,6 @@
 import { FlyTalksRegistrationDataFields, UserDataFields } from '@/types/enums';
-import {
-  FlyTalksRegistrationDto,
-  ProfileSettingsDto,
-  RegistrationDto,
-} from '@/types/user/user';
+import { FlyTalksRegistrationDto, ProfileSettingsDto } from '@/types/user/user';
+import { RegistrationDto } from '@ddays-app/types';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,

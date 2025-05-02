@@ -11,9 +11,9 @@ import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '@/types/registration/registration.dto';
 import { useNavigate } from 'react-router-dom';
-import { RegistrationDto } from '@/types/user/user';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
+import { RegistrationDto } from '@ddays-app/types';
 
 export const GeneralRegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
@@ -38,6 +38,7 @@ export const GeneralRegistrationForm = () => {
     newsletterEnabled: false,
     companiesNewsEnabled: false,
     termsAndConditionsEnabled: false,
+    interests: [],
   });
 
   const { mutate } = useUserRegister(() => navigate(RouteNames.CONFIRM_EMAIL));
@@ -65,6 +66,7 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+
         mutate({
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -76,6 +78,7 @@ export const GeneralRegistrationForm = () => {
           occupation: userData.occupation,
           newsletterEnabled: userData.newsletterEnabled,
           companiesNewsEnabled: userData.companiesNewsEnabled,
+          interests: userData.interests,
         });
         break;
       default:
@@ -157,9 +160,15 @@ export const GeneralRegistrationForm = () => {
 
       {/* TODO: Postaviti treći korak */}
       {currentStep === RegistrationStep.THREE && <div>Treći korak</div>}
-      {currentStep === RegistrationStep.FOUR && <FourthStepRegistrationForm />}
+      {currentStep === RegistrationStep.FOUR && (
+        <FourthStepRegistrationForm
+          userData={userData}
+          updateUserData={updateUserData}
+        />
+      )}
 
       <div className={c.buttonsWrapper}>
+        <button onClick={() => console.log(userData)}>log user data</button>
         {currentStep === RegistrationStep.FOUR ? (
           <Button
             type='submit'
