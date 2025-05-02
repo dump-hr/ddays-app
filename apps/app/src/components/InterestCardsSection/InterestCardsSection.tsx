@@ -17,10 +17,18 @@ export const InterestCardsSection = ({
   setSelectedInterests,
 }: InterestCardsSectionProps) => {
   const handleInterestClick = (interest: InterestDto) => {
+    console.log('interest', interest);
     if (!allowSelection || !setSelectedInterests) return;
+
     setSelectedInterests((prev) => {
-      if (prev.includes(interest)) {
-        return prev.filter((i) => i !== interest);
+      console.log('prev', prev);
+      console.log(
+        'filter',
+        prev.filter((i) => i !== interest),
+      );
+
+      if (prev.some((i) => i.id === interest.id)) {
+        return prev.filter((i) => i.id !== interest.id);
       }
 
       return [...prev, interest];
