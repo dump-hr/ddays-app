@@ -4,114 +4,57 @@ import { InterestDto } from '@ddays-app/types';
 import { Theme } from '@ddays-app/types';
 
 type InterestCardsSectionProps = {
-  forUpdate?: boolean;
-  interests: InterestDto[];
-  userSelectedInterests: InterestDto[];
-  setUserSelectedInterests: React.Dispatch<React.SetStateAction<string[]>>;
+  interests?: InterestDto[];
+  selectedInterests: InterestDto[];
+  setSelectedInterests: React.Dispatch<React.SetStateAction<InterestDto[]>>;
 };
 
 export const InterestCardsSection = ({
-  forUpdate = false,
-  interests,
-  userSelectedInterests,
-  setUserSelectedInterests,
+  interests = [],
+  selectedInterests,
+  setSelectedInterests,
 }: InterestCardsSectionProps) => {
-  const handleInterestClick = (interestName: string) => {
-    if (!forUpdate || !setUserSelectedInterests) return;
+  const handleInterestClick = (interest: InterestDto) => {
+    setSelectedInterests((prev) => {
+      if (prev.includes(interest)) {
+        return prev.filter((i) => i !== interest);
+      }
 
-    setUserSelectedInterests((prev) =>
-      prev.includes(interestName)
-        ? prev.filter((interest) => interest !== interestName)
-        : [...prev, interestName],
-    );
+      return [...prev, interest];
+    });
   };
+
+  const interestsSections = Object.values(Theme);
 
   return (
     <>
-      {Object.values(Theme).map((theme, i) => {
+      {interestsSections.map((theme, i) => (
         <div className={c.interestsSection} key={i}>
           <h3>{theme}//</h3>
+
           <div className={c.interestsCardsWrapper}>
             {interests
-              .filter((interest) => forUpdate || interest.theme == theme)
-              .map((interest) => {
-                const isSelected = userSelectedInterests.includes(interest);
-                return (
-                  <div
-                    key={interest.id}
-                    className={`${c.interestsCard} ${
-                      isSelected ? c.selected : ''
-                    } ${forUpdate ? c.clickable : ''}`}
-                    onClick={
-                      forUpdate
-                        ? () => handleInterestClick(interest.name)
-                        : undefined
-                    }>
-                    {interest.name}
-                    {forUpdate && isSelected && (
-                      <img
-                        src={RemoveIcon}
-                        alt='remove icon'
-                        width={10}
-                        height={10}
-                      />
-                    )}
-                  </div>
-                );
-              })}
+              ?.filter((interest) => interest.theme == theme)
+              .map((interest) => (
+                <div
+                  className={`${c.interestsCard} ${
+                    selectedInterests.includes(interest) ? c.selected : ''
+                  }`}
+                  key={interest.id}
+                  onClick={() => handleInterestClick(interest)}>
+                  {interest.name}
+                  {selectedInterests.includes(interest) && (
+                    <img
+                      src={RemoveIcon}
+                      alt='remove icon'
+                      width={10}
+                      height={10}></img>
+                  )}
+                </div>
+              ))}
           </div>
-        </div>;
-      })}
-      {/**
-       *
-       *{interestsSections.map((section) => {
-        const filteredInterests = forUpdate
-          ? section.interests
-          : section.interests.filter((interest) =>
-              userSelectedInterests.includes(interest),
-            );
-
-        if (filteredInterests.length === 0) return null;
-
-        return (
-          <div className={c.interestsSection} key={section.id}>
-            <h3>{section.group}//</h3>
-
-            <div className={c.interestsCardsWrapper}>
-              {filteredInterests.map((interest) => {
-                const isSelected = userSelectedInterests.includes(
-                  interest.name,
-                );
-
-                return (
-                  <div
-                    key={interest.id}
-                    className={`${c.interestsCard} ${
-                      isSelected ? c.selected : ''
-                    } ${forUpdate ? c.clickable : ''}`}
-                    onClick={
-                      forUpdate
-                        ? () => handleInterestClick(interest.name)
-                        : undefined
-                    }>
-                    {interest.name}
-                    {forUpdate && isSelected && (
-                      <img
-                        src={RemoveIcon}
-                        alt='remove icon'
-                        width={10}
-                        height={10}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-       *
-       */}
+        </div>
+      ))}
     </>
   );
 };

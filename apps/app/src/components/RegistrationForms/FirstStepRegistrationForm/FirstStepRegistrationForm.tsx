@@ -70,6 +70,7 @@ export const FirstStepRegistrationForm = ({
     if (isSubmitted || allFieldsAreFilled(firstStepFields, userData)) {
       validateFirstStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, userData]);
 
   return (
