@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   userPoints: 'userPoints',
   events: 'events',
   applyFlyTalk: 'applyFlyTalk',
+  currentUser: 'currentUser',
 };

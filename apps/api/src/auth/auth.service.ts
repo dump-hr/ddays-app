@@ -1,5 +1,5 @@
 import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserDto, UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
@@ -49,9 +49,10 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<JwtResponseDto> {
-    const loginUser = await this.prisma.user.findUnique({
+    const loginUser = await this.prisma.user.findFirst({
       where: {
         email,
+        isDeleted: false,
       },
       select: {
         id: true,
@@ -59,6 +60,7 @@ export class AuthService {
         firstName: true,
         lastName: true,
         password: true,
+        isDeleted: true,
       },
     });
 
@@ -83,25 +85,27 @@ export class AuthService {
   }
 
   async userRegister(register: UserDto): Promise<JwtResponseDto> {
-    const existingPhoneNumber = await this.prisma.user.findUnique({
+    const existingActivePhoneUser = await this.prisma.user.findFirst({
       where: {
         phoneNumber: register.phoneNumber,
+        isDeleted: false,
       },
     });
 
-    if (existingPhoneNumber) {
+    if (existingActivePhoneUser) {
       throw new BadRequestException(
         'Korisnik sa ovim brojem telefona već postoji!',
       );
     }
 
-    const existingUser = await this.prisma.user.findUnique({
+    const existingActiveEmailUser = await this.prisma.user.findFirst({
       where: {
         email: register.email,
+        isDeleted: false,
       },
     });
 
-    if (existingUser) {
+    if (existingActiveEmailUser) {
       throw new BadRequestException('Korisnik sa ovim emailom već postoji!');
     }
 
@@ -111,6 +115,7 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: {
         ...register,
+        isDeleted: false,
         password: hashedPassword,
       },
     });
@@ -125,9 +130,23 @@ export class AuthService {
     return { accessToken };
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: number): Promise<UserPublicDto> {
     return this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phoneNumber: true,
+        birthYear: true,
+        educationDegree: true,
+        occupation: true,
+        newsletterEnabled: true,
+        companiesNewsEnabled: true,
+        isConfirmed: true,
+        isDeleted: true,
+      },
     });
   }
 }

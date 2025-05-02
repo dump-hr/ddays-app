@@ -14,6 +14,24 @@ export enum UserDataFields {
   TermsAndConditionsEnabled = 'termsAndConditionsEnabled',
 }
 
+export enum UserProfileFields {
+  FirstName = 'firstName',
+  LastName = 'lastName',
+  Email = 'email',
+  PhoneNumber = 'phoneNumber',
+  BirthYear = 'birthYear',
+  EducationDegree = 'educationDegree',
+  Occupation = 'occupation',
+  NewsletterEnabled = 'newsletterEnabled',
+  CompaniesNewsEnabled = 'companiesNewsEnabled',
+}
+
+export enum ChangePasswordFields {
+  Password = 'password',
+  RepeatedPassword = 'repeatedPassword',
+  NewPassword = 'newPassword',
+}
+
 export enum SettingsEdits {
   INFO,
   PASSWORD,

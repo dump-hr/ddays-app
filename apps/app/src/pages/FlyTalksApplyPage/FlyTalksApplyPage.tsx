@@ -151,7 +151,7 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23.5 // PETAK' : '24.5 // SUBOTA'}
+              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. //SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}
