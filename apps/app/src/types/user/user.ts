@@ -8,6 +8,7 @@ export type RegistrationDto = {
   newPassword?: string;
   repeatedPassword?: string;
   phoneNumber: string;
+  profilePhotoUrl: string;
   birthYear: number | null;
   educationDegree: string | null;
   occupation: string | null;

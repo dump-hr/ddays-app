@@ -19,6 +19,7 @@ import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
+import { AvatarModule } from './avatar/avatar.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { UserModule } from './user/user.module';
     BoothModule,
     ShopModule,
     UserModule,
+    AvatarModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

@@ -3,8 +3,10 @@ import { DuckList } from '.';
 import Button from '@/components/Button';
 import sprite from '../../../assets/sprite.svg';
 import { FC, useState } from 'react';
-import { DuckObject } from '@/constants';
 import { UserDataFields } from '@/types/enums';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames, routes } from '@/router/routes';
+import { DuckObject } from '@/types/avatar/avatar';
 
 type UserData = {
   profilePhotoUrl: string;
@@ -41,9 +43,12 @@ export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
 };
 
 const PersonalizeAvatarIcon = () => {
-  // TODO add redirect here
+  const navigate = useNavigate();
+
   return (
-    <Button variant='beige'>
+    <Button
+      variant='beige'
+      onClick={() => navigate(routes[RouteNames.PROFILE_AVATARS].path)}>
       <div className={c.buttonIcon}>
         <svg width={25} height={24}>
           <use href={`${sprite}#slavica-icon`} />

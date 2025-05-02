@@ -9,8 +9,7 @@ import { AvatarOptionsGrid } from '@/components/AvatarOptionsGrid';
 import { AvatarPreview } from '@/components/AvatarPreview';
 import { DUCK_OPTIONS } from '@/constants';
 import { AvatarPreviewRef } from '@/components/AvatarPreview/AvatarPreview';
-import toast from 'react-hot-toast';
-import { RouteNames } from '@/router/routes';
+import { useUploadAvatar } from '@/api/avatar/useUploadAvatar';
 
 export const AvatarsPage: FC = () => {
   const navigate = useNavigate();
@@ -26,9 +25,12 @@ export const AvatarsPage: FC = () => {
     [DuckItems.ACCESSORIES]: DUCK_OPTIONS[DuckItems.ACCESSORIES][7],
     [DuckItems.BODY]: DUCK_OPTIONS[DuckItems.BODY][7],
   });
-  const [isSaving, setIsSaving] = useState(false);
 
   const avatarPreviewRef = useRef<AvatarPreviewRef>(null);
+
+  const { mutate: uploadAvatar, isLoading: isSaving } = useUploadAvatar(() => {
+    navigate(-1);
+  });
 
   useEffect(() => {
     setCurrentOptions(DUCK_OPTIONS[navigationItem]);
@@ -42,17 +44,15 @@ export const AvatarsPage: FC = () => {
   };
 
   const handleSaveAvatar = async () => {
-    console.log('Saving avatar...');
     if (!avatarPreviewRef.current) return;
 
     try {
-      setIsSaving(true);
       const blob = await avatarPreviewRef.current.captureAvatar();
 
       if (!blob) {
-        toast.error('Greška prilikom generiranja avatara');
         return;
       }
+
       const options = {
         colors: selectedOptions[DuckItems.COLORS].value,
         face: selectedOptions[DuckItems.FACE].value,
@@ -60,17 +60,9 @@ export const AvatarsPage: FC = () => {
         body: selectedOptions[DuckItems.BODY].value,
       };
 
-      // TODO update avatar and save avatar maybe
-      //const imageUrl = await uploadAvatar(blob, options);
-
-      toast.success('Avatar saved successfully!');
-
-      navigate(RouteNames.PROFILE);
+      uploadAvatar({ blob, options });
     } catch (error) {
-      console.error('Error saving avatar:', error);
-      toast.error('Greška prilikom spremanja avatara. Pokušajte ponovno.');
-    } finally {
-      setIsSaving(false);
+      console.error('Error generating avatar:', error);
     }
   };
 
@@ -84,6 +76,7 @@ export const AvatarsPage: FC = () => {
       <AvatarPreview
         elements={selectedOptions}
         selectedOption={navigationItem}
+        ref={avatarPreviewRef}
       />
       <div className={c.bottomContainer}>
         <div className={c.bottomWrapper}>
