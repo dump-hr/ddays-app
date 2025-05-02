@@ -1,24 +1,34 @@
+import { useInterestsGetAll } from '@/api/interests/useInterestsGetAll';
 import c from './index.module.scss';
 import Button from '@/components/Button';
 import { InterestCardsSection } from '@/components/InterestCardsSection/InterestCardsSection';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { InterestDto } from '@ddays-app/types';
-import { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 
 type InterestsForUpdatePopupProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  tempSelectedInterests: InterestDto[];
-  setTempSelectedInterests: Dispatch<SetStateAction<string[]>>;
-  handleSaveInterests: () => void;
+  defaultInterests: InterestDto[];
 };
 export const InterestsForUpdatePopup = ({
   isOpen,
   setIsOpen,
-  tempSelectedInterests,
-  setTempSelectedInterests,
-  handleSaveInterests,
+  defaultInterests,
 }: InterestsForUpdatePopupProps) => {
+  const [selectedInterests, setSelectedInterests] =
+    useState<InterestDto[]>(defaultInterests);
+
+  useEffect(() => {
+    setSelectedInterests(defaultInterests);
+  }, [defaultInterests]);
+
+  const { data: interests } = useInterestsGetAll();
+
+  const handleSaveInterests = () => {
+    setIsOpen(false);
+  };
+
   return (
     <PopupLayout
       variant='light'
@@ -32,11 +42,13 @@ export const InterestsForUpdatePopup = ({
           predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
         </p>
 
+        <button onClick={() => console.log(selectedInterests)}>log</button>
+
         <InterestCardsSection
-          forUpdate
-          interests={[]}
-          userSelectedInterests={tempSelectedInterests}
-          setUserSelectedInterests={setTempSelectedInterests}
+          allowSelection={true}
+          interests={interests || []}
+          selectedInterests={selectedInterests}
+          setSelectedInterests={setSelectedInterests}
         />
       </div>
       <Button

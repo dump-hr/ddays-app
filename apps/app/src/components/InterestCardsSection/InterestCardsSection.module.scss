@@ -1,55 +1,21 @@
-    .interestsSection{
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
+.interestsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
 
-      h3{
-          color: $primary-black;
-          font-family: NeueMontrealMono;
-          font-weight: 500;
-          line-height: 18px;
-          text-transform: uppercase;
-      }
-
-      .interestsCardsWrapper{
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          gap: 8px;
-
-          .interestsCard{
-              display: flex;
-              height: 2.5rem;
-              padding-inline: 1rem;
-              justify-content: center;
-              align-items: center;
-              border-radius: 4px;
-              background-color: $black-5;
-              color: $primary-black;
-              font-family: Inter;
-              line-height: 20px;
-              gap: 0.5rem;
-
-              &:hover{
-                  background-color: $black-10;
-              }
-          }
-
-          .selected {
-              background-color: $primary-muted-orange;
-              color: $primary-white;
-
-              &:hover {
-                  background-color: $primary-muted-orange;
-              }
-
-          }
-
-          .clickable {
-            cursor: pointer;
-          }
-
-      }
+  h3 {
+    color: $primary-black;
+    font-family: NeueMontrealMono;
+    font-weight: 500;
+    line-height: 18px;
+    text-transform: uppercase;
   }
-  
+
+  .interestsCardsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+  }
+}

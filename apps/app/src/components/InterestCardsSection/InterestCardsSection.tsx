@@ -1,20 +1,23 @@
-import RemoveIcon from '@/assets/icons/remove-icon.svg';
 import c from './InterestCardsSection.module.scss';
 import { InterestDto } from '@ddays-app/types';
 import { Theme } from '@ddays-app/types';
+import InterestCard from './InterestCard/InterestCard';
 
 type InterestCardsSectionProps = {
-  interests?: InterestDto[];
+  allowSelection?: boolean;
+  interests: InterestDto[];
   selectedInterests: InterestDto[];
-  setSelectedInterests: React.Dispatch<React.SetStateAction<InterestDto[]>>;
+  setSelectedInterests?: React.Dispatch<React.SetStateAction<InterestDto[]>>;
 };
 
 export const InterestCardsSection = ({
+  allowSelection = false,
   interests = [],
   selectedInterests,
   setSelectedInterests,
 }: InterestCardsSectionProps) => {
   const handleInterestClick = (interest: InterestDto) => {
+    if (!allowSelection || !setSelectedInterests) return;
     setSelectedInterests((prev) => {
       if (prev.includes(interest)) {
         return prev.filter((i) => i !== interest);
@@ -36,21 +39,15 @@ export const InterestCardsSection = ({
             {interests
               ?.filter((interest) => interest.theme == theme)
               .map((interest) => (
-                <div
-                  className={`${c.interestsCard} ${
-                    selectedInterests.includes(interest) ? c.selected : ''
-                  }`}
+                <InterestCard
+                  interest={interest}
                   key={interest.id}
-                  onClick={() => handleInterestClick(interest)}>
-                  {interest.name}
-                  {selectedInterests.includes(interest) && (
-                    <img
-                      src={RemoveIcon}
-                      alt='remove icon'
-                      width={10}
-                      height={10}></img>
+                  isSelected={selectedInterests.some(
+                    (i) => i.id === interest.id,
                   )}
-                </div>
+                  allowSelection={allowSelection}
+                  handleInterestClick={handleInterestClick}
+                />
               ))}
           </div>
         </div>

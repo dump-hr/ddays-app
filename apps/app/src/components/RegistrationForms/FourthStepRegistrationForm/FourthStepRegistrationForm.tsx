@@ -32,7 +32,7 @@ export const FourthStepRegistrationForm: React.FC<Props> = ({
       </p>
 
       <InterestCardsSection
-        interests={interests}
+        interests={interests || []}
         selectedInterests={selectedInterests}
         setSelectedInterests={setSelectedInterests}
       />
