@@ -109,7 +109,6 @@ export class LeaderboardService {
 
     const rank = usersAbove + 1;
 
-
     const formatUser = (u, r): LeaderboardEntryDto => ({
       id: u.id,
       firstName: u.firstName,
