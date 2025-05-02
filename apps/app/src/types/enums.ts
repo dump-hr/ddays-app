@@ -36,3 +36,11 @@ export enum SettingsEdits {
   INFO,
   PASSWORD,
 }
+
+export enum FlyTalksRegistrationDataFields {
+  LinkedIn = 'linkedIn',
+  GitHub = 'github',
+  Portfolio = 'portfolio',
+  About = 'about',
+  File = 'file',
+}
