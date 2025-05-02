@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+
 import { EmailService } from './email.service';
 
 @Controller('email')
