@@ -1,19 +1,7 @@
-type SendEmailFn = (
-  params: {
-    email: string;
-    subject: string;
-    text: string;
-  },
-  callbacks: {
-    onSuccess: () => void;
-  },
-) => void;
-
 export const sendVerificationEmail = async (
   email: string,
   setEmailError: (error: string) => void,
   handleNextStep: () => void,
-  sendEmail: SendEmailFn,
 ) => {
   try {
     const response = await fetch('/api/email/generate-reset-token', {
@@ -26,32 +14,14 @@ export const sendVerificationEmail = async (
 
     const data = await response.json();
 
-    if (data.error) {
-      setEmailError('Korisnik s ovom email adresom ne postoji.');
+    if (!data.success) {
+      setEmailError(data.message || 'Došlo je do greške pri slanju emaila');
       return;
     }
 
-    if (data.token) {
-      const appUrl =
-        window.location.hostname === 'localhost'
-          ? 'http://localhost:3005'
-          : 'https://days.dump.hr';
-
-      sendEmail(
-        {
-          email,
-          subject: 'DDays 2025 - Resetiranje lozinke',
-          text: `Pozdrav, klikni na link ispod da resetiraš lozinku: ${appUrl}/app/password-reset/${data.token}`,
-        },
-        {
-          onSuccess: () => {
-            handleNextStep();
-          },
-        },
-      );
-    }
+    handleNextStep();
   } catch (error) {
     console.error('Greška pri generiranju tokena:', error);
-    alert('Došlo je do greške pri generiranju tokena');
+    setEmailError('Došlo je do greške pri slanju emaila');
   }
 };

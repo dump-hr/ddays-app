@@ -31,7 +31,62 @@ export class EmailService {
     return token;
   }
 
-  async sendEmail(email: string, subject: string, text: string) {
+  async sendPasswordResetEmail(
+    email: string,
+  ): Promise<{ success: boolean; message: string }> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email_isDeleted: {
+          email,
+          isDeleted: false,
+        },
+      },
+    });
+
+    if (!user) {
+      return { success: false, message: 'Korisnik nije pronađen' };
+    }
+
+    const token = await this.generatePasswordResetToken(user.id);
+    const appUrl = process.env.APP_URL || 'http://localhost:3005';
+    const resetLink = `${appUrl}/app/password-reset/${token}`;
+
+    try {
+      await this.sendEmail(
+        email,
+        'DDays 2025 - Resetiranje lozinke',
+        `Pozdrav, klikni na link ispod da resetiraš lozinku: ${resetLink}`,
+      );
+      return {
+        success: true,
+        message: 'Email za resetiranje lozinke je poslan',
+      };
+    } catch (error) {
+      console.error('Greška pri slanju emaila za resetiranje lozinke:', error);
+      return { success: false, message: 'Greška pri slanju emaila' };
+    }
+  }
+
+  async validatePasswordResetToken(
+    token: string,
+  ): Promise<{ valid: boolean; message?: string; userId?: number }> {
+    const resetToken = await this.prisma.passwordResetToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (!resetToken) {
+      return { valid: false, message: 'Nevažeći token' };
+    }
+
+    if (resetToken.expiresAt < new Date()) {
+      return { valid: false, message: 'Token je istekao' };
+    }
+
+    return { valid: true, userId: resetToken.userId };
+  }
+
+  private async sendEmail(email: string, subject: string, text: string) {
     try {
       console.log('Pokušaj slanja emaila:', { email, subject, text });
 
