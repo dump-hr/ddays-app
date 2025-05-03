@@ -239,6 +239,7 @@ model User {
   userToEvent          UserToEvent[]
   userToInterest       UserToInterest[]
   passwordResetTokens  PasswordResetToken[]
+  emailConfirmationTokens EmailConfirmationToken[]
 
   @@unique([email, isDeleted])
   @@unique([phoneNumber, isDeleted])
@@ -331,6 +332,16 @@ model PasswordResetToken {
   userId    Int
   expiresAt DateTime @db.Timestamp(6)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model EmailConfirmationToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  expiresAt DateTime
+
+  @@index([userId])
 }
 
 enum Accessory {

@@ -4,12 +4,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private readonly emailService: EmailService,
   ) {}
 
   async companyPasswordLogin(
@@ -117,8 +119,11 @@ export class AuthService {
         ...register,
         isDeleted: false,
         password: hashedPassword,
+        isConfirmed: false,
       },
     });
+
+    await this.emailService.sendEmailConfirmation(newUser.email);
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,

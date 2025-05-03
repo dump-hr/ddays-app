@@ -14,7 +14,7 @@ export const RegisterPage = () => {
         <h2>
           REGISTRACIJA
           {!isMobile && (
-            <img src={CloseIcon} onClick={() => navigate('/app')}></img>
+            <img src={CloseIcon} onClick={() => navigate('/app/login')}></img>
           )}
         </h2>
       </header>

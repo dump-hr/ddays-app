@@ -7,5 +7,6 @@ import { EmailService } from './email.service';
 @Module({
   controllers: [EmailController],
   providers: [EmailService, PrismaService],
+  exports: [EmailService],
 })
 export class EmailModule {}

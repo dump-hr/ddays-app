@@ -15,4 +15,14 @@ export class EmailController {
   async validateResetToken(@Query('token') token: string) {
     return this.emailService.validatePasswordResetToken(token);
   }
+
+  @Post('send-confirmation')
+  async sendConfirmationEmail(@Body() { email }: { email: string }) {
+    return this.emailService.sendEmailConfirmation(email);
+  }
+
+  @Get('validate-confirmation')
+  async validateConfirmationToken(@Query('token') token: string) {
+    return this.emailService.validateEmailConfirmationToken(token);
+  }
 }
