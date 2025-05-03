@@ -123,8 +123,6 @@ export class AuthService {
       },
     });
 
-    console.log('newUser', register.interests);
-
     await this.prisma.userToInterest.createMany({
       data: register.interests.map((interest) => ({
         userId: newUser.id,
