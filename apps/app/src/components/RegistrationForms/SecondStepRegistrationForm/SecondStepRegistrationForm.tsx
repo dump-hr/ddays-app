@@ -14,7 +14,6 @@ import { useRegistration } from '@/providers/RegistrationContext';
 import { RegistrationStep } from '@/types/registration/registration.dto';
 import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
-
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
@@ -64,11 +63,8 @@ export const SecondStepRegistrationForm = ({
   const validateSecondStep = () => {
     const newErrors: Partial<RegistrationFormErrors> = {};
 
-    const userDataWithoutInterests = { ...userData };
-    delete userDataWithoutInterests.interests;
-
     secondStepFields.forEach((key) => {
-      const error = validateField(key, userDataWithoutInterests[key]);
+      const error = validateField(key, userData[key]);
       newErrors[key] = error || '';
     });
 
@@ -83,6 +79,7 @@ export const SecondStepRegistrationForm = ({
     if (isSubmitted || allFieldsAreFilled(secondStepFields, userData)) {
       validateSecondStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, userData]);
 
   const educationDegreeOptions =

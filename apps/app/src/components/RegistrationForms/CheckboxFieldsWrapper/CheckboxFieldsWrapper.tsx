@@ -3,7 +3,7 @@ import c from './CheckboxFieldsWrapper.module.scss';
 import { Checkbox } from '@/components/Checkbox';
 import { UserDataFields } from '@/types/enums';
 import { RouteNames } from '@/router/routes';
-import { RegistrationDto } from '@/types/user/user';
+import { RegistrationDto } from '@ddays-app/types';
 
 type Props = {
   userData: Partial<RegistrationDto>;
