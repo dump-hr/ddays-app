@@ -65,10 +65,33 @@ const ScannerPage = () => {
 
   const navigate = useNavigate();
 
+  function stopCamera() {
+    const videoElement = document.querySelector('video');
+    if (videoElement && videoElement.srcObject) {
+      const stream = videoElement.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
+      videoElement.srcObject = null;
+
+      navigator.mediaDevices
+        .getUserMedia({ video: false })
+        .then(() => {
+          console.log('Camera permissions released');
+        })
+        .catch((err) => {
+          console.error('Error resetting permissions', err);
+        });
+    }
+  }
+
+  function handleArrowClick() {
+    navigate(-1);
+    stopCamera();
+  }
+
   return (
     <>
       <div className={c.page}>
-        <button className={c.backButton} onClick={() => navigate(-1)}>
+        <button className={c.backButton} onClick={handleArrowClick}>
           <img src={ArrowLeft} alt='' />
         </button>
         <h1 className={c.title}>Skeniraj QR kod!</h1>
