@@ -118,46 +118,46 @@ export class AchievementService {
       throw new HttpException('Achievement not found.', HttpStatus.BAD_REQUEST);
     }
 
-    const completedAchievementConnector =
-      await this.prisma.userToAchievement.create({
-        data: {
-          userId,
-          achievementId: achievement.id,
-          timeOfAchievement: new Date(),
-        },
-      });
+    return await this.prisma.$transaction(async (prisma) => {
+      const completedAchievementConnector =
+        await prisma.userToAchievement.create({
+          data: {
+            userId,
+            achievementId: achievement.id,
+            timeOfAchievement: new Date(),
+          },
+        });
 
-    const completedAchievementDetails =
-      await this.prisma.achievement.findUnique({
+      const completedAchievementDetails = await prisma.achievement.findUnique({
         where: {
           id: completedAchievementConnector.achievementId,
         },
       });
 
-    if (!completedAchievementDetails) {
-      throw new HttpException(
-        'Completed achievement details not found.',
-        HttpStatus.NOT_FOUND,
-      );
-    }
+      if (!completedAchievementDetails) {
+        throw new HttpException(
+          'Completed achievement details not found.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
 
-    const currentPoints = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        points: true,
-      },
-    });
-
-    if (currentPoints) {
-      await this.prisma.user.update({
+      const currentPoints = await prisma.user.findUnique({
         where: { id: userId },
-        data: {
-          points: { increment: completedAchievementDetails.points },
+        select: {
+          points: true,
         },
       });
-    }
 
-    return completedAchievementDetails;
+      if (currentPoints) {
+        await prisma.user.update({
+          where: { id: userId },
+          data: {
+            points: { increment: completedAchievementDetails.points },
+          },
+        });
+      }
+      return completedAchievementDetails;
+    });
   }
 
   async update(id: number, dto: AchievementModifyDto): Promise<AchievementDto> {
@@ -185,36 +185,38 @@ export class AchievementService {
       throw new HttpException('Achievement not found', HttpStatus.NOT_FOUND);
     }
 
-    const users = await this.prisma.userToAchievement.findMany({
-      where: { achievementId: id },
-      select: { user: true },
-    });
-
-    for (const user of users) {
-      await this.prisma.user.update({
-        where: { id: user.user.id },
-        data: {
-          points: { decrement: achievement.points },
-        },
+    return await this.prisma.$transaction(async (prisma) => {
+      const users = await prisma.userToAchievement.findMany({
+        where: { achievementId: id },
+        select: { user: true },
       });
-    }
 
-    await this.prisma.userToAchievement.deleteMany({
-      where: { achievementId: id },
+      for (const user of users) {
+        await prisma.user.update({
+          where: { id: user.user.id },
+          data: {
+            points: { decrement: achievement.points },
+          },
+        });
+      }
+
+      await prisma.userToAchievement.deleteMany({
+        where: { achievementId: id },
+      });
+
+      const deletedAchievement = await prisma.achievement.delete({
+        where: { id },
+      });
+
+      if (!deletedAchievement) {
+        throw new HttpException(
+          'Failed to delete achievement.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      return deletedAchievement;
     });
-
-    const deletedAchievement = await this.prisma.achievement.delete({
-      where: { id },
-    });
-
-    if (!deletedAchievement) {
-      throw new HttpException(
-        'Failed to delete achievement.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    return deletedAchievement;
   }
 
   async getOneWithUuid(id: number): Promise<AchievementWithUuidDto> {

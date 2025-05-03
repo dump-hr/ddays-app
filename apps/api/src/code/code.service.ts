@@ -1,4 +1,5 @@
 import {
+  AchievementDto,
   CodeDto,
   CodeModifyDto,
   CodeWithConnectedAchievementsDto,
@@ -131,7 +132,7 @@ export class CodeService {
       });
     });
 
-    const completedAchievements: any[] = [];
+    const completedAchievements: AchievementDto[] = [];
 
     for (const achievementId in achievementCountMap) {
       const achievement = await this.prisma.achievement.findUnique({

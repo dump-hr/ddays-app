@@ -15,7 +15,6 @@ export const useAchievementComplete = () => {
     (uuid: string) => achievementComplete(uuid),
     {
       onSuccess: () => {
-        toast.success('Postignuće je uspješno dodano!');
         queryClient.invalidateQueries([
           QUERY_KEYS.achievements,
           QUERY_KEYS.achievementCompleted,
@@ -23,7 +22,7 @@ export const useAchievementComplete = () => {
       },
       onError: () => {
         toast.error('Došlo je do greške prilikom dodavanja postignuća!', {
-          position: 'bottom-center',
+          position: 'top-center',
         });
       },
     },
