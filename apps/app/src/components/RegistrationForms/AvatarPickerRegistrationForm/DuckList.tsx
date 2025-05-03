@@ -1,7 +1,8 @@
 import { FC, useState, useRef, useEffect, useCallback } from 'react';
-import { DuckObject, ducks } from '@/constants';
+import { ducks } from '@/constants';
 import c from './AvatarPickerRegistrationForm.module.scss';
 import { ImageWrapper } from '@/components/ImageWrapper';
+import { DuckObject } from '@/types/avatar/avatar';
 
 type Props = {
   setSelectedDuck: (duck: DuckObject) => void;
