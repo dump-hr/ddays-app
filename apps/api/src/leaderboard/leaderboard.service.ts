@@ -1,12 +1,13 @@
 import {
-  LeaderboardEntryDto,
   LeaderboardQueryDto,
   LeaderboardResponseDto,
+  LeaderboardEntryDto,
   UserRankResponseDto,
 } from '@ddays-app/types/src/dto/leaderboard';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../prisma.service';
+import { getLevelFromPoints } from './leaderboard.helper';
 
 @Injectable()
 export class LeaderboardService {
@@ -35,17 +36,11 @@ export class LeaderboardService {
         lastName: true,
         points: true,
         profilePhotoUrl: true,
-        userToAchievement: {
-          orderBy: {
-            timeOfAchievement: 'desc',
-          },
-          take: 1,
-          select: {
-            timeOfAchievement: true,
-          },
-        },
       },
-      orderBy: [{ points: 'desc' }],
+      orderBy: [
+        { points: 'desc' },
+        { id: 'asc' }, // Add secondary sort by ID to match tie-breaking rule
+      ],
       skip,
       take: Number(pageSize),
     });
@@ -55,8 +50,8 @@ export class LeaderboardService {
 
       return {
         id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        name: `${user.firstName} ${user.lastName}`,
+        level: getLevelFromPoints(user.points || 0).level,
         points: user.points || 0,
         rank,
         profilePhotoUrl: user.profilePhotoUrl,
@@ -81,15 +76,6 @@ export class LeaderboardService {
         points: true,
         profilePhotoUrl: true,
         isDeleted: true,
-        userToAchievement: {
-          orderBy: {
-            timeOfAchievement: 'desc',
-          },
-          take: 1,
-          select: {
-            timeOfAchievement: true,
-          },
-        },
       },
     });
 
@@ -97,13 +83,18 @@ export class LeaderboardService {
       throw new Error('User not found');
     }
 
-    // Count users with more points to determine rank
     const usersAbove = await this.prisma.user.count({
       where: {
         isDeleted: false,
-        points: {
-          gt: user.points || 0,
-        },
+        OR: [
+          { points: { gt: user.points || 0 } },
+          {
+            AND: [
+              { points: user.points || 0 }, // Same points
+              { id: { lt: user.id } }, // But created earlier (lower ID)
+            ],
+          },
+        ],
       },
     });
 
@@ -111,10 +102,10 @@ export class LeaderboardService {
 
     const formatUser = (u, r): LeaderboardEntryDto => ({
       id: u.id,
-      firstName: u.firstName,
-      lastName: u.lastName,
+      name: `${u.firstName} ${u.lastName}`,
       points: u.points || 0,
       rank: r,
+      level: getLevelFromPoints(u.points || 0).level,
       profilePhotoUrl: u.profilePhotoUrl,
     });
 
@@ -129,7 +120,7 @@ export class LeaderboardService {
         isDeleted: false,
         points: { not: null },
       },
-      orderBy: [{ points: 'desc' }],
+      orderBy: [{ points: 'desc' }, { id: 'asc' }],
       take: count,
       select: {
         id: true,
@@ -137,22 +128,13 @@ export class LeaderboardService {
         lastName: true,
         points: true,
         profilePhotoUrl: true,
-        userToAchievement: {
-          orderBy: {
-            timeOfAchievement: 'desc',
-          },
-          take: 1,
-          select: {
-            timeOfAchievement: true,
-          },
-        },
       },
     });
 
     return topUsers.map((user, index) => ({
       id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: `${user.firstName} ${user.lastName}`,
+      level: getLevelFromPoints(user.points || 0).level,
       points: user.points || 0,
       rank: index + 1,
       profilePhotoUrl: user.profilePhotoUrl,

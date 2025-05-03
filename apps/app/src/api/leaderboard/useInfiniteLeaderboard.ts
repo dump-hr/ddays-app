@@ -39,9 +39,7 @@ export const useInfiniteLeaderboard = ({
 
       return undefined;
     },
-    // Keep previous data when fetching new pages
     keepPreviousData: true,
-    // Refetch when window is focused
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 };
