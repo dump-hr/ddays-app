@@ -13,10 +13,15 @@
 .duckList {
   &Container {
     position: relative;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    overflow: hidden;
+    width: 100%;
+    overflow: visible;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: 600px;
+      margin-left: -89px;
+    }
   }
+
   &Wrapper {
     display: flex;
     gap: 12px;
@@ -27,6 +32,12 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: 600px;
+      margin: 0 auto;
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -38,16 +49,19 @@
     transition: transform 0.3s ease;
     cursor: pointer;
     flex-shrink: 0;
+    width: 194px;
 
     &.selected {
       transform: scale(1);
       z-index: 1;
       opacity: 1;
     }
+
     &.unselected {
       transform: scale(0.8);
     }
   }
+
   &TextWrapper {
     display: flex;
     flex-direction: column;
@@ -62,10 +76,12 @@
       opacity: 0;
     }
   }
+
   &Title {
     @include heading-4;
     text-transform: uppercase;
   }
+
   &Description {
     @include paragraph-14;
   }

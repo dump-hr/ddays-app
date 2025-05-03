@@ -3,6 +3,7 @@ import { ducks } from '@/constants';
 import c from './AvatarPickerRegistrationForm.module.scss';
 import { ImageWrapper } from '@/components/ImageWrapper';
 import { DuckObject } from '@/types/avatar/avatar';
+import { useDeviceType } from '@/hooks/UseDeviceType';
 
 type Props = {
   setSelectedDuck: (duck: DuckObject) => void;
@@ -14,13 +15,14 @@ export const DuckList: FC<Props> = ({ setSelectedDuck }) => {
   const isDragging = useRef<boolean>(false);
   const startX = useRef<number>(0);
   const scrollLeft = useRef<number>(0);
+  const { isMobile } = useDeviceType({});
 
   const getModIndex = (index: number): number => {
     return ((index % ducks.length) + ducks.length) % ducks.length;
   };
 
   const getVisibleDucks = useCallback(() => {
-    const windowSize = 20;
+    const windowSize = isMobile ? 20 : 6;
     const halfWindow = Math.floor(windowSize / 2);
 
     return Array.from({ length: windowSize + 1 }, (_, i) => {
@@ -33,7 +35,7 @@ export const DuckList: FC<Props> = ({ setSelectedDuck }) => {
         realIndex,
       };
     });
-  }, [selectedDuckIndex]);
+  }, [selectedDuckIndex, isMobile]);
 
   const scrollToSelected = useCallback(() => {
     if (!listRef.current) return;
