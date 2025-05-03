@@ -38,7 +38,6 @@ export const ConfirmEmail = () => {
       const data = await response.json();
 
       if (data.success) {
-        toast.success('Email uspješno potvrđen');
         setShowPointsPopup(true);
       } else {
         toast.error(data.message || 'Greška pri potvrdi emaila');
