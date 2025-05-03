@@ -11,10 +11,10 @@ import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '@/types/registration/registration.dto';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RegistrationDto } from '@/types/user/user';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
+import { usePersistedRegistrationData } from '@/hooks/usePersistedRegistrationData';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
@@ -26,41 +26,24 @@ export const GeneralRegistrationForm = () => {
     fourthStepIsSubmitted: false,
   });
 
-  const [userData, setUserData] = useState<RegistrationDto>({
-    firstName: '',
-    lastName: '',
-    profilePhotoUrl: '',
-    email: '',
-    password: '',
-    repeatedPassword: '',
-    newPassword: '',
-    phoneNumber: '',
-    birthYear: null,
-    educationDegree: null,
-    occupation: null,
-    newsletterEnabled: false,
-    companiesNewsEnabled: false,
-    termsAndConditionsEnabled: false,
+  const { userData, updateUserData, clearUserData } =
+    usePersistedRegistrationData();
+
+  const { mutate } = useUserRegister(() => {
+    clearUserData();
+    navigate(RouteNames.CONFIRM_EMAIL);
   });
-
-  const { mutate } = useUserRegister(() => navigate(RouteNames.CONFIRM_EMAIL));
   const navigate = useNavigate();
-
-  const updateUserData = (newData: Partial<RegistrationDto>) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      ...newData,
-    }));
-  };
 
   useEffect(() => {
     if (location.state?.profilePhotoUrl) {
       updateUserData({
         profilePhotoUrl: location.state.profilePhotoUrl,
       });
+      setCurrentStep(RegistrationStep.FOUR);
       navigate(location.pathname, { replace: true });
     }
-  }, [location.pathname, location.state, navigate]);
+  }, [location.pathname, location.state, navigate, updateUserData]);
 
   const { isStepValid } = useRegistration();
 
@@ -88,6 +71,7 @@ export const GeneralRegistrationForm = () => {
           occupation: userData.occupation,
           newsletterEnabled: userData.newsletterEnabled,
           companiesNewsEnabled: userData.companiesNewsEnabled,
+          profilePhotoUrl: userData.profilePhotoUrl,
         });
         break;
       default:

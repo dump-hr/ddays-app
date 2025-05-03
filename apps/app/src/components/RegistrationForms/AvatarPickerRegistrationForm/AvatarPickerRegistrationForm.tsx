@@ -18,6 +18,7 @@ type Props = {
 
 export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
   const [selectedDuckUrl, setSelectedDuckUrl] = useState<string>('');
+  const navigate = useNavigate();
 
   const setSelectedDuck = (duck: DuckObject): void => {
     setSelectedDuckUrl(duck.imageSrc);
@@ -27,6 +28,13 @@ export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
     updateUserData({
       [UserDataFields.ProfilePhotoUrl]: selectedDuckUrl,
     });
+    goToNextStep();
+  };
+
+  const goToNextStep = () => {
+    navigate(location.pathname, {
+      state: { profilePhotoUrl: selectedDuckUrl },
+    });
   };
 
   return (
@@ -34,7 +42,10 @@ export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
       <DuckList setSelectedDuck={setSelectedDuck} />
       <div className={c.buttonGroup}>
         <PersonalizeAvatarIcon />
-        <Button variant='orange' onClick={handleAvatarSelected}>
+        <Button
+          variant='orange'
+          onClick={handleAvatarSelected}
+          disabled={!selectedDuckUrl}>
           Odaberi
         </Button>
       </div>
