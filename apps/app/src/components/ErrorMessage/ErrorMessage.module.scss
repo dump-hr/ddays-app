@@ -1,0 +1,22 @@
+.errorMessageContainer {
+  width: 100%;
+  height: 100vh;
+  background: $primary-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorMessage {
+  @include heading-2;
+  color: white;
+  margin: 0 2rem;
+  text-align: center;
+}
+
+.navigateBackIcon {
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  cursor: pointer;
+}
