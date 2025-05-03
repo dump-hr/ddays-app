@@ -17,7 +17,6 @@ export const InterestCardsSection = ({
   setSelectedInterests,
 }: InterestCardsSectionProps) => {
   const handleInterestClick = (interest: InterestDto) => {
-    console.log('interest', interest);
     if (!allowSelection || !setSelectedInterests) return;
 
     setSelectedInterests((prev) => {
@@ -33,14 +32,16 @@ export const InterestCardsSection = ({
 
   if (selectedInterests.length === 0 && !allowSelection) {
     return (
-      <div className={c.interestsSection}>
-        <p className={c.noInterestsText}>Nije odabran niti jedan interes.</p>
+      <div className={c.sectionWrapper}>
+        <div className={c.interestsSection}>
+          <p className={c.noInterestsText}>Nije odabran niti jedan interes.</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <>
+    <div className={c.sectionWrapper}>
       {interestsSections.map((theme, i) => {
         const isThemeSelected = selectedInterests.some(
           (interest) => interest.theme === theme,
@@ -70,6 +71,6 @@ export const InterestCardsSection = ({
           </div>
         );
       })}
-    </>
+    </div>
   );
 };

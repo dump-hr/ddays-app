@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import axios from 'axios';
 import { InterestDto } from '@ddays-app/types';
-import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const userInterestsUpdate = async (interests: InterestDto[]) => {
   const accessToken = localStorage.getItem('accessToken');
@@ -23,8 +22,7 @@ export const useUserInterestsUpdate = () => {
 
   return useMutation(userInterestsUpdate, {
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.interests]);
-      toast.success('User interests successfully updated!');
+      queryClient.invalidateQueries();
     },
     onError: (error: string) => {
       toast.error(error);

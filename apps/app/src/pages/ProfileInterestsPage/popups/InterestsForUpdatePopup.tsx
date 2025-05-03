@@ -1,5 +1,5 @@
 import { useInterestsGetAll } from '@/api/interests/useInterestsGetAll';
-import c from './index.module.scss';
+import c from './InterestsForUpdatePopup.module.scss';
 import Button from '@/components/Button';
 import { InterestCardsSection } from '@/components/InterestCardsSection/InterestCardsSection';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
@@ -31,8 +31,15 @@ export const InterestsForUpdatePopup = ({
 
   const handleSaveInterests = () => {
     updateUserInterests(selectedInterests, {
-      onError(error) {
-        toast.error('Error updating interests: ' + String(error));
+      onError() {
+        toast.error('Došlo je do pogreške prilikom spremanja interesa.', {
+          position: 'top-center',
+        });
+      },
+      onSuccess() {
+        toast.success('Interesi su uspješno spremljeni.', {
+          position: 'top-center',
+        });
       },
     });
     setIsOpen(false);
