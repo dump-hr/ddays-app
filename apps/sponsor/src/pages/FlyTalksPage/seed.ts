@@ -13,6 +13,7 @@ export const applicants1: UserDto[] = [
     newsletterEnabled: true,
     companiesNewsEnabled: true,
     termsAndConditionsEnabled: true,
+    profilePhotoUrl: 'https://example.com/photo1.jpg',
   },
   {
     email: 'ivanhorvat@gmail.com',
@@ -26,6 +27,7 @@ export const applicants1: UserDto[] = [
     newsletterEnabled: true,
     companiesNewsEnabled: true,
     termsAndConditionsEnabled: true,
+    profilePhotoUrl: 'https://example.com/photo2.jpg',
   },
 ];
 
@@ -42,6 +44,7 @@ export const applicants2: UserDto[] = [
     newsletterEnabled: true,
     companiesNewsEnabled: true,
     termsAndConditionsEnabled: true,
+    profilePhotoUrl: 'https://example.com/photo1.jpg',
   },
   {
     email: 'ivanhorvat@gmail.com',
@@ -55,5 +58,6 @@ export const applicants2: UserDto[] = [
     newsletterEnabled: true,
     companiesNewsEnabled: true,
     termsAndConditionsEnabled: true,
+    profilePhotoUrl: 'https://example.com/photo2.jpg',
   },
 ];
