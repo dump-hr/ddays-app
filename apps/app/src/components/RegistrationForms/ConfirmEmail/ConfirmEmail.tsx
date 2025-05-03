@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import PointModifierPopup from '@/pages/Home/popups/PointModifierPopup';
 import { useSendConfirmationEmail } from '@/api/email/useSendConfirmationEmail';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { RouteNames } from '@/router/routes';
 
 const COUNTDOWN_TIME = 60; // 60 seconds
 
@@ -89,7 +90,11 @@ export const ConfirmEmail = () => {
         <h2>
           Potvrdi svoj e-mail
           {isMobile && (
-            <img src={CloseIcon} onClick={() => navigate('/login')}></img>
+            <img
+              src={CloseIcon}
+              onClick={() => navigate(RouteNames.LOGIN)}
+              style={{ cursor: 'pointer' }}
+            />
           )}
         </h2>
         <p>
