@@ -152,7 +152,7 @@ export class AchievementService {
       await this.prisma.user.update({
         where: { id: userId },
         data: {
-          points: currentPoints.points + completedAchievementDetails.points,
+          points: { increment: completedAchievementDetails.points },
         },
       });
     }
@@ -191,11 +191,10 @@ export class AchievementService {
     });
 
     for (const user of users) {
-      const currentPoints = user.user.points;
       await this.prisma.user.update({
         where: { id: user.user.id },
         data: {
-          points: currentPoints - achievement.points,
+          points: { decrement: achievement.points },
         },
       });
     }

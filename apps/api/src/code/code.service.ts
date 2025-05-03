@@ -83,7 +83,7 @@ export class CodeService {
         await this.prisma.user.update({
           where: { id: userId },
           data: {
-            points: user.points - code.points,
+            points: { decrement: code.points },
           },
         });
       }
@@ -174,7 +174,7 @@ export class CodeService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        points: currentPoints.points + additionalPoints,
+        points: { increment: additionalPoints },
       },
     });
   }
@@ -247,7 +247,7 @@ export class CodeService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        points: currentPoints.points + foundCode.points,
+        points: { increment: foundCode.points },
       },
     });
 

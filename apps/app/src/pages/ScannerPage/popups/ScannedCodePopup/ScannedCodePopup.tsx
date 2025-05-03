@@ -2,6 +2,7 @@ import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import c from './ScannedCodePopup.module.scss';
 import Button from '@/components/Button';
 import { useCodeApply } from '@/api/code/useCodeApply';
+import toast from 'react-hot-toast';
 
 type ScannedCodePopupProps = {
   code: string;
@@ -19,7 +20,19 @@ const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
   const applyCode = useCodeApply();
 
   function handleCodeSubmit() {
-    applyCode.mutate(code);
+    applyCode.mutate(code, {
+      onSuccess: () => {
+        toast.success('Kod je uspješno unesen!', {
+          position: 'top-center',
+        });
+        closePopup();
+      },
+      onError: (error) => {
+        toast.error(String(error), {
+          position: 'top-center',
+        });
+      },
+    });
   }
 
   return (
