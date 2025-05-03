@@ -23,20 +23,16 @@ export const DuckList: FC<Props> = ({ setSelectedDuck }) => {
     const windowSize = 20;
     const halfWindow = Math.floor(windowSize / 2);
 
-    const result = [];
-
-    for (let i = -halfWindow; i <= halfWindow; i++) {
-      const virtualIndex = selectedDuckIndex + i;
+    return Array.from({ length: windowSize + 1 }, (_, i) => {
+      const virtualIndex = selectedDuckIndex + (i - halfWindow);
       const realIndex = getModIndex(virtualIndex);
 
-      result.push({
+      return {
         duck: ducks[realIndex],
         virtualIndex,
         realIndex,
-      });
-    }
-
-    return result;
+      };
+    });
   }, [selectedDuckIndex]);
 
   const scrollToSelected = useCallback(() => {
@@ -64,7 +60,9 @@ export const DuckList: FC<Props> = ({ setSelectedDuck }) => {
   }, []);
 
   const handleSelectDuck = (virtualIndex: number): void => {
+    const newIndex = getModIndex(virtualIndex);
     setSelectedDuckIndex(virtualIndex);
+    setSelectedDuck(ducks[newIndex]);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -89,7 +87,8 @@ export const DuckList: FC<Props> = ({ setSelectedDuck }) => {
 
   useEffect(() => {
     scrollToSelected();
-    setSelectedDuck(ducks[selectedDuckIndex]);
+    const wrappedIndex = getModIndex(selectedDuckIndex);
+    setSelectedDuck(ducks[wrappedIndex]);
   }, [selectedDuckIndex, scrollToSelected, setSelectedDuck]);
 
   const visibleDucks = getVisibleDucks();
