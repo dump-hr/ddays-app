@@ -75,7 +75,6 @@ export class LeaderboardService {
         lastName: true,
         points: true,
         profilePhotoUrl: true,
-        isDeleted: true,
       },
     });
 
