@@ -168,7 +168,6 @@ export const GeneralRegistrationForm = () => {
       )}
 
       <div className={c.buttonsWrapper}>
-        <button onClick={() => console.log(userData)}>log user data</button>
         {currentStep === RegistrationStep.FOUR ? (
           <Button
             type='submit'

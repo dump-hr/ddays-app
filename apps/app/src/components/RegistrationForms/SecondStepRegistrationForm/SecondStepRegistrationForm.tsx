@@ -12,8 +12,8 @@ import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { UserDataFields, UserProfileFields } from '@/types/enums';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { RegistrationDto } from '@/types/user/user';
 import { dropdownInputs } from '@/constants/sharedInputs';
+import { RegistrationDto } from '@ddays-app/types';
 
 type Props = {
   userData: Partial<RegistrationDto>;
@@ -64,8 +64,11 @@ export const SecondStepRegistrationForm = ({
   const validateSecondStep = () => {
     const newErrors: Partial<RegistrationFormErrors> = {};
 
+    const userDataWithoutInterests = { ...userData };
+    delete userDataWithoutInterests.interests;
+
     secondStepFields.forEach((key) => {
-      const error = validateField(key, userData[key]);
+      const error = validateField(key, userDataWithoutInterests[key]);
       newErrors[key] = error || '';
     });
 
