@@ -5,6 +5,8 @@
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease-out;
+  flex-direction: column-reverse;
+  margin-bottom: -260px;
 
   &.zoomedContainer {
     height: 100%;
@@ -16,9 +18,7 @@
 }
 
 .podium {
-  position: absolute;
   z-index: 1;
-  bottom: -35%;
   max-width: 768px;
 }
 
@@ -29,6 +29,7 @@
   width: 300px;
   height: 300px;
   transition: transform 0.3s ease-out;
+  margin-bottom: -90px;
 
   &.zoomedIn {
     transform: translateY(33%) scale(1.5);
