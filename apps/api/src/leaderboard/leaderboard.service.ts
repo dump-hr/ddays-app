@@ -1,7 +1,7 @@
 import {
+  LeaderboardEntryDto,
   LeaderboardQueryDto,
   LeaderboardResponseDto,
-  LeaderboardEntryDto,
   UserRankResponseDto,
 } from '@ddays-app/types/src/dto/leaderboard';
 import { Injectable } from '@nestjs/common';
