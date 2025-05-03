@@ -8,7 +8,7 @@ type ScannedCodePopupProps = {
   code: string;
   isAlreadyApplied: boolean;
   isOpen: boolean;
-  closePopup: () => void;
+  closePopup: (points?: number) => void;
 };
 
 const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
@@ -21,11 +21,8 @@ const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
 
   function handleCodeSubmit() {
     applyCode.mutate(code, {
-      onSuccess: () => {
-        toast.success('Kod je uspješno unesen!', {
-          position: 'top-center',
-        });
-        closePopup();
+      onSuccess: (code) => {
+        closePopup(code.points);
       },
       onError: (error) => {
         toast.error(String(error), {
@@ -41,7 +38,7 @@ const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
       desktopStyle='normal'
       headerTitleComponent='Kod skeniran!'
       isOpen={isOpen}
-      closePopup={closePopup}>
+      closePopup={() => closePopup()}>
       <div className={c.content}>
         <h3 className={c.code}>{code}</h3>
         {isAlreadyApplied && (

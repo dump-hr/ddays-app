@@ -4,7 +4,6 @@ import CodeInput from '@/components/CodeInput';
 import Button from '@/components/Button';
 import { useState } from 'react';
 import { useCodeApply } from '@/api/code/useCodeApply';
-import toast from 'react-hot-toast';
 
 type CodePopupProps = {
   isOpen: boolean;
@@ -24,7 +23,6 @@ const CodePopup: React.FC<CodePopupProps> = ({
   function handleCodeSubmit(code: string) {
     applyCode.mutate(code, {
       onSuccess: (submittedCode) => {
-        toast.success('Kod je uspješno unesen!');
         closePopup();
         onSuccess(submittedCode.points || 0);
       },

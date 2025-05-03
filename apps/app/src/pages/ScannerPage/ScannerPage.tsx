@@ -7,18 +7,27 @@ import { useAchievementGetByUuid } from '@/api/achievement/useAchievementGetByUu
 import ArrowLeft from '@/assets/icons/arrow-left-white.svg';
 import { useNavigate } from 'react-router-dom';
 import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
+
+import { useCodeGetApplied } from '@/api/code/useCodeGetApplied';
+import AppliedCodeAchievementPopup from '@/components/AppliedCodeAchievementPopup';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import ScannedAchievementPopup from './popups/ScannedAchievementPopup';
 import ScannedCodePopup from './popups/ScannedCodePopup';
-import { useCodeGetApplied } from '@/api/code/useCodeGetApplied';
 
 const ScannerPage = () => {
   const [scannedAchievement, setScannedAchievement] = useState('');
   const [scannedCode, setScannedCode] = useState('');
+  const [scannedPoints, setScannedPoints] = useState(0);
+  const [
+    isAppliedCodeAchievementPopupOpen,
+    setIsAppliedCodeAchievementPopupOpen,
+  ] = useState(false);
 
   const { data: achievement } = useAchievementGetByUuid(scannedAchievement);
   const { data: completedAchievements } = useAchievementGetCompleted();
 
   const { data: appliedCodes } = useCodeGetApplied();
+  const { data: user } = useLoggedInUser();
 
   const [isOpen, setIsOpen] = useState(false);
   const lastScanTimeRef = useRef<number>(0);
@@ -88,6 +97,19 @@ const ScannerPage = () => {
     stopCamera();
   }
 
+  function handleClosePopup(points?: number) {
+    setIsOpen(false);
+    setScannedAchievement('');
+    setScannedCode('');
+
+    if (!points || points === 0) {
+      return;
+    }
+
+    setScannedPoints(points);
+    setIsAppliedCodeAchievementPopupOpen(true);
+  }
+
   return (
     <>
       <div className={c.page}>
@@ -113,10 +135,7 @@ const ScannerPage = () => {
         <ScannedAchievementPopup
           uuid={scannedAchievement}
           isOpen={isOpen}
-          closePopup={() => {
-            setIsOpen(false);
-            setScannedAchievement('');
-          }}
+          closePopup={handleClosePopup}
           achievement={achievement}
           isCompleted={
             completedAchievements?.some((a) => a.id === achievement?.id) ||
@@ -128,15 +147,18 @@ const ScannerPage = () => {
         <ScannedCodePopup
           code={scannedCode}
           isOpen={isOpen}
-          closePopup={() => {
-            setIsOpen(false);
-            setScannedCode('');
-          }}
+          closePopup={handleClosePopup}
           isAlreadyApplied={
             appliedCodes?.some((code) => code.value === scannedCode) || false
           }
         />
       )}
+
+      <AppliedCodeAchievementPopup
+        user={user}
+        isOpen={isAppliedCodeAchievementPopupOpen}
+        points={scannedPoints}
+      />
     </>
   );
 };
