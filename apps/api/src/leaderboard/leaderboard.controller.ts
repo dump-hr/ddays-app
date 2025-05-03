@@ -22,6 +22,7 @@ export class LeaderboardController {
   constructor(private readonly leaderboardService: LeaderboardService) {}
 
   @Get()
+  @UseGuards(UserGuard)
   async getLeaderboard(
     @Query() query: LeaderboardQueryDto,
   ): Promise<LeaderboardResponseDto> {
@@ -29,6 +30,7 @@ export class LeaderboardController {
   }
 
   @Get('top')
+  @UseGuards(UserGuard)
   async getTopUsers(): Promise<LeaderboardEntryDto[]> {
     return this.leaderboardService.getTopUsers(3);
   }
