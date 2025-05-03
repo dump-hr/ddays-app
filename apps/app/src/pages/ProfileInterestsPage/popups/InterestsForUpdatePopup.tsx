@@ -51,16 +51,6 @@ export const InterestsForUpdatePopup = ({
           predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
         </p>
 
-        {selectedInterests.length > 0 && (
-          <div className={c.selectedInterestsWrapper}>
-            {selectedInterests.map((interest) => (
-              <div key={interest.id} className={c.selectedInterest}>
-                {interest.name} {interest.id}
-              </div>
-            ))}
-          </div>
-        )}
-
         <InterestCardsSection
           allowSelection={true}
           interests={interests || []}

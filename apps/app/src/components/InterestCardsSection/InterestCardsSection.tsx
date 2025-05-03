@@ -31,29 +31,45 @@ export const InterestCardsSection = ({
 
   const interestsSections = Object.values(Theme);
 
+  if (selectedInterests.length === 0 && !allowSelection) {
+    return (
+      <div className={c.interestsSection}>
+        <p className={c.noInterestsText}>Nije odabran niti jedan interes.</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      {interestsSections.map((theme, i) => (
-        <div className={c.interestsSection} key={i}>
-          <h3>{theme}//</h3>
+      {interestsSections.map((theme, i) => {
+        const isThemeSelected = selectedInterests.some(
+          (interest) => interest.theme === theme,
+        );
 
-          <div className={c.interestsCardsWrapper}>
-            {interests
-              ?.filter((interest) => interest.theme == theme)
-              .map((interest) => (
-                <InterestCard
-                  interest={interest}
-                  key={interest.id}
-                  isSelected={selectedInterests.some(
-                    (i) => i.id === interest.id,
-                  )}
-                  allowSelection={allowSelection}
-                  handleInterestClick={handleInterestClick}
-                />
-              ))}
+        if (!isThemeSelected && !allowSelection) return null;
+
+        return (
+          <div className={c.interestsSection} key={i}>
+            <h3>{theme}//</h3>
+
+            <div className={c.interestsCardsWrapper}>
+              {interests
+                ?.filter((interest) => interest.theme == theme)
+                .map((interest) => (
+                  <InterestCard
+                    interest={interest}
+                    key={interest.id}
+                    isSelected={selectedInterests.some(
+                      (i) => i.id === interest.id,
+                    )}
+                    allowSelection={allowSelection}
+                    handleInterestClick={handleInterestClick}
+                  />
+                ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 };

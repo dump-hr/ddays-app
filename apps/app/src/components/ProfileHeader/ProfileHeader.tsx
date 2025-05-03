@@ -19,6 +19,8 @@ export const ProfileHeader = ({ pageHeader }: ProfileHeaderProps) => {
   function getPercentage(theme: string) {
     if (interests === undefined || userInterests === undefined) return 0;
 
+    if (userInterests.length === 0) return 0;
+
     const userInterestsInTheme = userInterests.filter(
       (interest) => interest.theme === theme,
     ).length;
