@@ -21,12 +21,6 @@ export const InterestCardsSection = ({
     if (!allowSelection || !setSelectedInterests) return;
 
     setSelectedInterests((prev) => {
-      console.log('prev', prev);
-      console.log(
-        'filter',
-        prev.filter((i) => i !== interest),
-      );
-
       if (prev.some((i) => i.id === interest.id)) {
         return prev.filter((i) => i.id !== interest.id);
       }

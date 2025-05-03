@@ -16,8 +16,6 @@ export const ProfileInterestsPage = () => {
   const { data: user } = useLoggedInUser();
   const { data: userInterests } = useUserSelectedInterests(user?.id || 0);
 
-  const [allowEdit, setAllowEdit] = useState(false);
-
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
 
@@ -65,13 +63,7 @@ export const ProfileInterestsPage = () => {
                 Uredi svoje interese
               </Button>
             )}
-            <button onClick={() => setAllowEdit(!allowEdit)}>toggle</button>
-            <button
-              onClick={() => {
-                console.log(userInterests);
-              }}>
-              log everything
-            </button>
+
             <section className={c.interests}>
               <InterestCardsSection
                 interests={userInterests || []}

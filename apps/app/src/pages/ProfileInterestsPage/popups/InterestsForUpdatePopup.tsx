@@ -5,6 +5,8 @@ import { InterestCardsSection } from '@/components/InterestCardsSection/Interest
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { InterestDto } from '@ddays-app/types';
 import { useEffect, useState } from 'react';
+import { useUserInterestsUpdate } from '@/api/interests/useUserInterestsUpdate';
+import toast from 'react-hot-toast';
 
 type InterestsForUpdatePopupProps = {
   isOpen: boolean;
@@ -19,6 +21,8 @@ export const InterestsForUpdatePopup = ({
   const [selectedInterests, setSelectedInterests] =
     useState<InterestDto[]>(defaultInterests);
 
+  const { mutate: updateUserInterests } = useUserInterestsUpdate();
+
   useEffect(() => {
     setSelectedInterests(defaultInterests);
   }, [defaultInterests]);
@@ -26,6 +30,11 @@ export const InterestsForUpdatePopup = ({
   const { data: interests } = useInterestsGetAll();
 
   const handleSaveInterests = () => {
+    updateUserInterests(selectedInterests, {
+      onError(error) {
+        toast.error('Error updating interests: ' + String(error));
+      },
+    });
     setIsOpen(false);
   };
 
@@ -51,8 +60,6 @@ export const InterestsForUpdatePopup = ({
             ))}
           </div>
         )}
-
-        <button onClick={() => console.log(selectedInterests)}>log</button>
 
         <InterestCardsSection
           allowSelection={true}
