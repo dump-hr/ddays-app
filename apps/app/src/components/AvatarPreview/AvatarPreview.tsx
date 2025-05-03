@@ -39,7 +39,7 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
           await new Promise((resolve) => setTimeout(resolve, 50));
 
           const canvas = await html2canvas(avatarContainer, {
-            backgroundColor: null,
+            backgroundColor: '#2D2C2C',
             scale: 4,
             logging: false,
             useCORS: true,

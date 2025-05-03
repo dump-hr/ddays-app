@@ -40,6 +40,7 @@ export type UserPublicDto = {
   companiesNewsEnabled: boolean;
   isConfirmed: boolean;
   isDeleted: boolean;
+  profilePhotoUrl: string;
 };
 
 export type ChangeUserPasswordDto = {
