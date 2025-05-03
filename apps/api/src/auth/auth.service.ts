@@ -1,10 +1,12 @@
 import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto, UserPublicDto } from '@ddays-app/types/src/dto/user';
+import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
-import { PrismaService } from 'src/prisma.service';
+import { hash } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { EmailService } from 'src/email/email.service';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {

@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { PrismaService } from 'src/prisma.service';
 import { EmailModule } from 'src/email/email.module';
+import { PrismaService } from 'src/prisma.service';
 
 import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './sponsor.strategy';
-import { UserJwtStrategy } from './user.strategy';
 import { UserGuard } from './user.guard';
+import { UserJwtStrategy } from './user.strategy';
 
 @Module({
   imports: [

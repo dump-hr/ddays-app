@@ -11,7 +11,6 @@ export const ConfirmEmail = () => {
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [isValidating, setIsValidating] = useState(false);
   const [showPointsPopup, setShowPointsPopup] = useState(false);
 
   useEffect(() => {
@@ -23,7 +22,6 @@ export const ConfirmEmail = () => {
 
   const validateToken = async (token: string) => {
     try {
-      setIsValidating(true);
       const response = await fetch(
         `/api/email/validate-confirmation?token=${token}`,
       );
@@ -38,8 +36,6 @@ export const ConfirmEmail = () => {
     } catch (error) {
       console.error('Greška pri validaciji tokena:', error);
       toast.error('Došlo je do greške pri potvrdi emaila');
-    } finally {
-      setIsValidating(false);
     }
   };
 
