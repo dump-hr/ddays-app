@@ -10,6 +10,7 @@
 
   &.zoomedContainer {
     height: 100%;
+    margin-bottom: 0;
 
     .avatarContainer {
       transform-origin: center center;
@@ -40,6 +41,7 @@
 .avatar {
   position: absolute;
   transition: all 0.3s ease-out;
+  z-index: 20;
 
   &.colors {
     z-index: 1;
