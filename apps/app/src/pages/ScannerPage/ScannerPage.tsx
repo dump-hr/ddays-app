@@ -48,15 +48,9 @@ const ScannerPage = () => {
     try {
       parsedData = JSON.parse(data) as QrCodeData;
     } catch {
-      toast.error(
-        'Ovaj QR kod nije ispravan! ' +
-          currentTime +
-          ' ' +
-          lastScanTimeRef.current,
-        {
-          position: 'top-center',
-        },
-      );
+      toast.error('Ovaj QR kod nije ispravan!', {
+        position: 'top-center',
+      });
       return;
     }
 
@@ -102,7 +96,7 @@ const ScannerPage = () => {
     setScannedAchievement('');
     setScannedCode('');
 
-    if (!points || points === 0) {
+    if (typeof points !== 'number' || isNaN(points) || points === 0) {
       return;
     }
 
@@ -131,7 +125,7 @@ const ScannerPage = () => {
         </div>
       </div>
 
-      {achievement && (
+      {scannedAchievement && achievement && (
         <ScannedAchievementPopup
           uuid={scannedAchievement}
           isOpen={isOpen}

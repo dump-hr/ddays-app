@@ -24,8 +24,8 @@ const ScannedAchievementPopup: React.FC<ScannedAchievementPopupProps> = ({
 
   async function handleComplete() {
     completeAchievement.mutate(uuid, {
-      onSuccess: (achievement) => {
-        closePopup(achievement.points);
+      onSuccess: (completedAchievement) => {
+        closePopup(completedAchievement.points || 0);
       },
     });
   }
