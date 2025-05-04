@@ -36,7 +36,7 @@ export const ProfileHeader = ({ pageHeader }: ProfileHeaderProps) => {
           {user?.firstName} {user?.lastName}
         </p>
 
-        <AvatarPointsCircle points={900} avatar={TempAvatar} />
+        <AvatarPointsCircle avatar={TempAvatar} />
       </div>
 
       <div className={c.statsWrapper}>
