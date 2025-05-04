@@ -60,52 +60,53 @@ export class CodeService {
   }
 
   async remove(id: number): Promise<CodeDto> {
-    const code = await this.prisma.code.findUnique({
-      where: { id },
-      select: { points: true },
-    });
-
-    if (!code) {
-      throw new HttpException('Code not found.', HttpStatus.NOT_FOUND);
-    }
-
-    const userToCodeRelations = await this.prisma.userToCode.findMany({
-      where: { codeId: id },
-    });
-
-    const userIds = userToCodeRelations.map((relation) => relation.userId);
-    for (const userId of userIds) {
-      const user = await this.prisma.user.findUnique({
-        where: { id: userId },
+    return this.prisma.$transaction(async (tx) => {
+      const code = await tx.code.findUnique({
+        where: { id },
         select: { points: true },
       });
 
-      if (user) {
-        await this.prisma.user.update({
-          where: { id: userId },
+      if (!code) {
+        throw new HttpException('Code not found.', HttpStatus.NOT_FOUND);
+      }
+
+      const userToCodeRelations = await tx.userToCode.findMany({
+        where: { codeId: id },
+      });
+
+      // Bulk update user points in a single operation to avoid race conditions
+      const userIds = userToCodeRelations.map((relation) => relation.userId);
+      if (userIds.length > 0) {
+        await tx.user.updateMany({
+          where: { id: { in: userIds } },
           data: {
             points: { decrement: code.points },
           },
         });
       }
-    }
 
-    await this.prisma.userToCode.deleteMany({
-      where: { codeId: id },
+      await tx.userToCode.deleteMany({
+        where: { codeId: id },
+      });
+
+      const deletedCode = await tx.code.delete({
+        where: { id },
+      });
+
+      return deletedCode;
     });
-
-    const deletedCode = await this.prisma.code.delete({
-      where: { id },
-    });
-
-    if (!deletedCode) {
-      throw new HttpException('Failed to delete code.', HttpStatus.BAD_REQUEST);
-    }
-
-    return deletedCode;
   }
 
   async markCompletedAchievementsForNewCode(userId: number): Promise<void> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { points: true },
+    });
+
+    if (!user) {
+      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+    }
+
     const appliedCodesWithAchievements = await this.prisma.userToCode.findMany({
       where: { userId },
       include: {
@@ -148,14 +149,35 @@ export class CodeService {
       }
     }
 
-    await this.prisma.userToAchievement.createMany({
-      data: completedAchievements.map((achievement) => ({
-        userId,
-        achievementId: achievement.id,
-      })),
-      skipDuplicates: true,
-    });
+    const additionalPoints = completedAchievements.reduce(
+      (acc, achievement) => acc + achievement.points,
+      0,
+    );
 
+    // If we have achievements to add, use a transaction
+    if (completedAchievements.length > 0) {
+      await this.prisma.$transaction(async (tx) => {
+        await tx.userToAchievement.createMany({
+          data: completedAchievements.map((achievement) => ({
+            userId,
+            achievementId: achievement.id,
+          })),
+          skipDuplicates: true,
+        });
+        
+        if (additionalPoints > 0) {
+          await tx.user.update({
+            where: { id: userId },
+            data: {
+              points: { increment: additionalPoints },
+            },
+          });
+        }
+      });
+    }
+  }
+
+  async apply(code: string, userId: number): Promise<CodeDto> {
     const currentPoints = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -167,20 +189,6 @@ export class CodeService {
       throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
     }
 
-    const additionalPoints = completedAchievements.reduce(
-      (acc, achievement) => acc + achievement.points,
-      0,
-    );
-
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        points: { increment: additionalPoints },
-      },
-    });
-  }
-
-  async apply(code: string, userId: number): Promise<CodeDto> {
     const foundCode = await this.prisma.code.findUnique({
       where: { value: code, isActive: true },
     });
@@ -225,68 +233,57 @@ export class CodeService {
       );
     }
 
-    await this.prisma.userToCode.create({
-      data: {
-        codeId: foundCode.id,
-        userId,
-      },
+    await this.prisma.$transaction(async (tx) => {
+      await tx.userToCode.create({
+        data: {
+          codeId: foundCode.id,
+          userId,
+        },
+      });
+
+      await tx.user.update({
+        where: { id: userId },
+        data: {
+          points: { increment: foundCode.points },
+        },
+      });
     });
 
-    this.markCompletedAchievementsForNewCode(userId);
-
-    const currentPoints = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        points: true,
-      },
-    });
-
-    if (!currentPoints) {
-      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
-    }
-
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        points: { increment: foundCode.points },
-      },
-    });
+    await this.markCompletedAchievementsForNewCode(userId);
 
     return foundCode;
   }
 
   async updateAchievementsForCode(codeId: number, achievementIds: number[]) {
-    if (!achievementIds || achievementIds.length === 0) {
-      await this.prisma.achievementToCode.deleteMany({
-        where: {
-          codeId: codeId,
-        },
-      });
-      return { message: 'All achievements removed successfully' };
-    }
+    return this.prisma.$transaction(async (tx) => {
+      if (!achievementIds || achievementIds.length === 0) {
+        await tx.achievementToCode.deleteMany({
+          where: { codeId },
+        });
+        return { message: 'All achievements removed successfully' };
+      }
 
-    await this.prisma.achievementToCode.deleteMany({
-      where: {
-        codeId: codeId,
-        NOT: {
-          achievementId: {
-            in: achievementIds,
+      await tx.achievementToCode.deleteMany({
+        where: {
+          codeId,
+          NOT: {
+            achievementId: { in: achievementIds },
           },
         },
-      },
+      });
+
+      if (achievementIds.length > 0) {
+        await tx.achievementToCode.createMany({
+          data: achievementIds.map((achievementId) => ({
+            codeId,
+            achievementId,
+          })),
+          skipDuplicates: true,
+        });
+      }
+
+      return { message: 'Achievements updated successfully' };
     });
-
-    const newAchievements = achievementIds.map((achievementId) => ({
-      codeId: codeId,
-      achievementId: achievementId,
-    }));
-
-    await this.prisma.achievementToCode.createMany({
-      data: newAchievements,
-      skipDuplicates: true,
-    });
-
-    return { message: 'Achievements updated successfully' };
   }
 
   async getAllWithConnectedAchievements(): Promise<
