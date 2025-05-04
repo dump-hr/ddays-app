@@ -164,7 +164,7 @@ export const GeneralRegistrationForm = () => {
             children='Spremi'
             onClick={handleRegistrationClick}
           />
-        ) : (
+        ) : currentStep !== RegistrationStep.THREE ? (
           <>
             <Button
               type='submit'
@@ -179,7 +179,7 @@ export const GeneralRegistrationForm = () => {
               icon={GoogleIcon}
             />
           </>
-        )}
+        ) : null}
       </div>
 
       <AuthFooter leftMessage='Već imaš račun?' rightMessage='Prijavi se' />
