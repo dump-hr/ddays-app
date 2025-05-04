@@ -12,10 +12,10 @@ const COUNTDOWN_TIME = 60; // 60 seconds
 
 interface EmailSentStepProps {
   email: string;
-  onNext: () => void;
+  //onNext: () => void;
 }
 
-export const EmailSentStep = ({ email, onNext }: EmailSentStepProps) => {
+export const EmailSentStep = ({ email }: EmailSentStepProps) => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [lastSentTime, setLastSentTime] = useState<number | null>(null);
 
@@ -71,9 +71,12 @@ export const EmailSentStep = ({ email, onNext }: EmailSentStepProps) => {
           </p>
         </div>
         <div className={c.buttonContainer}>
+          {/*
           <Button variant='orange' onClick={onNext}>
             Resetiraj lozinku
           </Button>
+          */}
+
           <Button
             children={
               timeLeft > 0
