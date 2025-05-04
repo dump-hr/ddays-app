@@ -8,11 +8,13 @@
 }
 
 .backButton {
+  cursor: pointer;
   border: none;
   background: none;
   position: absolute;
   top: 64px;
   left: 24px;
+  z-index: 100;
 }
 
 .bottomContainer {
