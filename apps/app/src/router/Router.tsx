@@ -20,6 +20,7 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
 import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
@@ -29,6 +30,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
+import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 import { RegistrationLayout } from '@/layout/RegistrationLayout';
 
 const router = createBrowserRouter(
@@ -45,13 +47,22 @@ const router = createBrowserRouter(
       </Route>
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
+      <Route
+        path={RouteNames.PASSWORD_RESET_WITH_TOKEN}
+        element={<PasswordResetPage />}
+      />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
+      <Route path={RouteNames.SCANNER} element={<ScannerPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
+
         <Route path={RouteNames.PROFILE}>
           <Route index element={<ProfilePage />} />
-          <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_INTERESTS}
+            element={<ProfileInterestsPage />}
+          />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
             path={RouteNames.PROFILE_RECOMMENDATIONS}

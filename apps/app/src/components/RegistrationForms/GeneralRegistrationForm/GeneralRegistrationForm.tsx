@@ -15,6 +15,7 @@ import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
 import { useRegistrationData } from '@/providers/RegistrationDataProvider';
+import { RegistrationDto } from '@ddays-app/types';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
@@ -59,6 +60,7 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+
         mutate({
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -70,6 +72,7 @@ export const GeneralRegistrationForm = () => {
           occupation: userData.occupation,
           newsletterEnabled: userData.newsletterEnabled,
           companiesNewsEnabled: userData.companiesNewsEnabled,
+          interests: userData.interests,
           profilePhotoUrl: userData.profilePhotoUrl,
         });
         break;
@@ -153,7 +156,12 @@ export const GeneralRegistrationForm = () => {
       {currentStep === RegistrationStep.THREE && (
         <AvatarPickerRegistrationForm updateUserData={updateUserData} />
       )}
-      {currentStep === RegistrationStep.FOUR && <FourthStepRegistrationForm />}
+      {currentStep === RegistrationStep.FOUR && (
+        <FourthStepRegistrationForm
+          userData={userData}
+          updateUserData={updateUserData}
+        />
+      )}
 
       <div className={c.buttonsWrapper}>
         {currentStep === RegistrationStep.FOUR ? (

@@ -140,7 +140,7 @@ export const SchedulePage = () => {
 
           <section className={clsx(c.eventsWrapper, c.contentWidth)}>
             {activeTab === TabId.MY_SCHEDULE && (
-              <Button variant='orange' onClick={() => setPopupIsOpen(true)}>
+              <Button variant='beige' onClick={() => setPopupIsOpen(true)}>
                 Poveži s mojim kalendarom
               </Button>
             )}

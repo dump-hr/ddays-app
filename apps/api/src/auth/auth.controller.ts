@@ -1,5 +1,8 @@
-import { CompanyPasswordLoginDto, JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import {
+  CompanyPasswordLoginDto,
+  JwtResponseDto,
+  RegistrationDto,
+} from '@ddays-app/types';
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 
 import { UserLoginDto } from './auth.dto';
@@ -28,7 +31,9 @@ export class AuthController {
   }
 
   @Post('user/register')
-  async userRegister(@Body() register: UserDto): Promise<JwtResponseDto> {
+  async userRegister(
+    @Body() register: RegistrationDto,
+  ): Promise<JwtResponseDto> {
     return await this.authService.userRegister(register);
   }
 
