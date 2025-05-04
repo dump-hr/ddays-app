@@ -43,6 +43,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
+      <Route path={RouteNames.PROFILE_AVATARS} element={<AvatarsPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>
@@ -61,7 +62,6 @@ const router = createBrowserRouter(
             path={RouteNames.PROFILE_ACHIEVEMENTS}
             element={<ProfileAchievementsPage />}
           />
-          <Route path={RouteNames.PROFILE_AVATARS} element={<AvatarsPage />} />
           <Route
             path={RouteNames.PROFILE_LEADERBOARD}
             element={<ProfileLeaderboardPage />}

@@ -41,4 +41,10 @@ export class AvatarController {
       avatarUpdateDto,
     );
   }
+
+  @Post('create-temporary')
+  @UseInterceptors(FileInterceptor('avatar'))
+  async createTemporaryAvatar(@UploadedFile() file: Express.Multer.File) {
+    return this.avatarService.createTemporaryAvatar(file.buffer, file.mimetype);
+  }
 }

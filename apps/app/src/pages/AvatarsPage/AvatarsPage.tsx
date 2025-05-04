@@ -9,13 +9,17 @@ import { AvatarOptionsGrid } from '@/components/AvatarOptionsGrid';
 import { AvatarPreview } from '@/components/AvatarPreview';
 import { DUCK_OPTIONS } from '@/constants';
 import { AvatarPreviewRef } from '@/components/AvatarPreview/AvatarPreview';
-import { useUploadAvatar } from '@/api/avatar/useUploadAvatar';
+import {
+  useCreateTemporaryAvatar,
+  useUploadAvatar,
+} from '@/api/avatar/useUploadAvatar';
 import { UserWithAvatarDto } from '@ddays-app/types';
 
 export const AvatarsPage: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const returnUrl = location.state?.returnUrl;
+  const isRegistrationFlow = returnUrl?.includes('/register');
   const [navigationItem, setNavigationItem] = useState<DuckItems>(
     DuckItems.COLORS,
   );
@@ -31,19 +35,29 @@ export const AvatarsPage: FC = () => {
 
   const avatarPreviewRef = useRef<AvatarPreviewRef>(null);
 
+  const handleSuccess = (profilePhotoUrl: string | undefined) => {
+    if (!profilePhotoUrl) {
+      console.error('No profile photo URL received');
+      return;
+    }
+
+    if (returnUrl) {
+      navigate(returnUrl, {
+        state: { profilePhotoUrl },
+      });
+    } else {
+      navigate(-1);
+    }
+  };
+
   const { mutate: uploadAvatar, isLoading: isSaving } = useUploadAvatar(
-    (data: UserWithAvatarDto) => {
-      if (returnUrl) {
-        navigate(returnUrl, {
-          state: {
-            profilePhotoUrl: data.profilePhotoUrl,
-          },
-        });
-      } else {
-        navigate(-1);
-      }
-    },
+    (data: UserWithAvatarDto) => handleSuccess(data.profilePhotoUrl),
   );
+
+  const { mutate: createTempAvatar, isLoading: isCreatingTemp } =
+    useCreateTemporaryAvatar((data: { profilePhotoUrl: string }) =>
+      handleSuccess(data.profilePhotoUrl),
+    );
 
   useEffect(() => {
     setCurrentOptions(DUCK_OPTIONS[navigationItem]);
@@ -66,14 +80,17 @@ export const AvatarsPage: FC = () => {
         return;
       }
 
-      const options = {
-        colors: selectedOptions[DuckItems.COLORS].value,
-        face: selectedOptions[DuckItems.FACE].value,
-        accessories: selectedOptions[DuckItems.ACCESSORIES].value,
-        body: selectedOptions[DuckItems.BODY].value,
-      };
-
-      uploadAvatar({ blob, options });
+      if (isRegistrationFlow) {
+        createTempAvatar(blob);
+      } else {
+        const options = {
+          colors: selectedOptions[DuckItems.COLORS].value,
+          face: selectedOptions[DuckItems.FACE].value,
+          accessories: selectedOptions[DuckItems.ACCESSORIES].value,
+          body: selectedOptions[DuckItems.BODY].value,
+        };
+        uploadAvatar({ blob, options });
+      }
     } catch (error) {
       console.error('Error generating avatar:', error);
     }
@@ -105,7 +122,7 @@ export const AvatarsPage: FC = () => {
           <Button
             variant='orange'
             onClick={handleSaveAvatar}
-            disabled={isSaving}>
+            disabled={isSaving || isCreatingTemp}>
             Spremi
           </Button>
         </div>

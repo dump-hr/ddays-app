@@ -53,4 +53,14 @@ export class AvatarService {
       data: { profilePhotoUrl },
     });
   }
+
+  async createTemporaryAvatar(imageBuffer: Buffer, mimeType: string) {
+    const profilePhotoUrl = await this.blobService.upload(
+      'avatars',
+      imageBuffer,
+      mimeType,
+    );
+
+    return { profilePhotoUrl };
+  }
 }
