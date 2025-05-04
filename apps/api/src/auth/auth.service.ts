@@ -2,7 +2,9 @@ import { JwtResponseDto, RegistrationDto } from '@ddays-app/types';
 import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
+import { hash } from 'bcrypt';
+import { compare } from 'bcrypt';
+import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -10,6 +12,7 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private readonly emailService: EmailService,
   ) {}
 
   async companyPasswordLogin(
@@ -120,6 +123,7 @@ export class AuthService {
         ...registerWithoutInterests,
         isDeleted: false,
         password: hashedPassword,
+        isConfirmed: false,
       },
     });
 
@@ -129,6 +133,8 @@ export class AuthService {
         interestId: interest.id,
       })),
     });
+
+    await this.emailService.sendEmailConfirmation(newUser.email);
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,

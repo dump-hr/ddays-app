@@ -1,9 +1,10 @@
 import { InterestDto } from '@ddays-app/types';
 import {
   ChangeUserPasswordDto,
+  ResetUserPasswordDto,
   UserModifyDto,
 } from '@ddays-app/types/src/dto/user';
-import { Body, Controller, Patch, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { UserGuard } from 'src/auth/user.guard';
 
@@ -46,5 +47,12 @@ export class UserController {
     @Body() interests: InterestDto[],
   ) {
     return this.userService.updateUserInterests(user.id, interests);
+  }
+
+  @Post('reset-password')
+  resetUserPassword(
+    @Body() { newPassword, token }: ResetUserPasswordDto & { token: string },
+  ) {
+    return this.userService.resetUserPassword(newPassword, token);
   }
 }

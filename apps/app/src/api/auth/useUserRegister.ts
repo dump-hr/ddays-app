@@ -15,7 +15,7 @@ export const useUserRegister = (navigate: () => void) => {
   return useMutation([QUERY_KEYS.register], registerUser, {
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data.accessToken);
-      toast.success('Registracija je uspješna!');
+      //toast.success('Registracija je uspješna!');
       navigate();
     },
     onError: (error: string) => {
