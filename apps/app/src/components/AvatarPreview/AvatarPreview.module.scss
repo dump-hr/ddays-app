@@ -14,6 +14,11 @@
 
     .avatarContainer {
       transform-origin: center center;
+      .colors {
+        @media (max-width: $breakpoint-tablet) {
+          top: 65px;
+        }
+      }
     }
   }
 }
@@ -55,9 +60,9 @@
   position: absolute;
   transition: all 0.3s ease-out;
   z-index: 30;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  //-webkit-user-select: none; /* Safari */
+  //-ms-user-select: none; /* IE 10 and IE 11 */
+  //user-select: none; /* Standard syntax */
 
   &.colors {
     z-index: 1;
