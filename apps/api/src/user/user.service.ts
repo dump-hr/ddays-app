@@ -69,51 +69,55 @@ export class UserService {
   }
 
   async updateUserInterests(userId: number, interests: InterestDto[]) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-    });
-
-    if (!user) {
-      throw new BadRequestException('Korisnik nije pronađen');
-    }
-
-    // First, remove interests that are no longer selected
-    await this.prisma.userToInterest.deleteMany({
-      where: {
-        userId,
-        interestId: {
-          notIn: interests.map((interest) => interest.id),
-        },
-      },
-    });
-
-    // Find existing user-to-interest associations
-    const existingAssociations = await this.prisma.userToInterest.findMany({
-      where: { userId },
-    });
-
-    const existingInterestIds = existingAssociations.map(
-      (association) => association.interestId,
-    );
-
-    // Filter out the interests that already exist for this user
-    const newInterests = interests.filter(
-      (interest) => !existingInterestIds.includes(interest.id),
-    );
-
-    // Insert only the new interests that aren't already associated
-    if (newInterests.length > 0) {
-      await this.prisma.userToInterest.createMany({
-        data: newInterests.map((interest) => ({
-          userId,
-          interestId: interest.id,
-        })),
+    const result = await this.prisma.$transaction(async (prisma) => {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
       });
-    }
 
-    return this.prisma.userToInterest.findMany({
-      where: { userId },
+      if (!user) {
+        throw new BadRequestException('Korisnik nije pronađen');
+      }
+
+      // First, remove interests that are no longer selected
+      await prisma.userToInterest.deleteMany({
+        where: {
+          userId,
+          interestId: {
+            notIn: interests.map((interest) => interest.id),
+          },
+        },
+      });
+
+      // Find existing user-to-interest associations
+      const existingAssociations = await prisma.userToInterest.findMany({
+        where: { userId },
+      });
+
+      const existingInterestIds = existingAssociations.map(
+        (association) => association.interestId,
+      );
+
+      // Filter out the interests that already exist for this user
+      const newInterests = interests.filter(
+        (interest) => !existingInterestIds.includes(interest.id),
+      );
+
+      // Insert only the new interests that aren't already associated
+      if (newInterests.length > 0) {
+        await prisma.userToInterest.createMany({
+          data: newInterests.map((interest) => ({
+            userId,
+            interestId: interest.id,
+          })),
+        });
+      }
+
+      return prisma.userToInterest.findMany({
+        where: { userId },
+      });
     });
+
+    return result;
   }
 
   async resetUserPassword(newPassword: string, token: string) {
