@@ -12,7 +12,6 @@ const COUNTDOWN_TIME = 60; // 60 seconds
 
 interface EmailSentStepProps {
   email: string;
-  //onNext: () => void;
 }
 
 export const EmailSentStep = ({ email }: EmailSentStepProps) => {
@@ -71,12 +70,6 @@ export const EmailSentStep = ({ email }: EmailSentStepProps) => {
           </p>
         </div>
         <div className={c.buttonContainer}>
-          {/*
-          <Button variant='orange' onClick={onNext}>
-            Resetiraj lozinku
-          </Button>
-          */}
-
           <Button
             children={
               timeLeft > 0

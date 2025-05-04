@@ -32,6 +32,7 @@ export const PasswordResetPage = () => {
     if (token) {
       validateToken(token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const validateToken = async (token: string) => {
@@ -134,23 +135,7 @@ export const PasswordResetPage = () => {
             }}
           />
         )}
-        {step === 3 && (
-          <EmailSentStep
-            email={email}
-            /*
-            onNext={async () => {
-              const tokenFromUrl = new URLSearchParams(location.search).get(
-                'token',
-              );
-              if (tokenFromUrl) {
-                await validateToken(tokenFromUrl);
-              } else {
-                setStep(4);
-              }
-                
-            }}*/
-          />
-        )}
+        {step === 3 && <EmailSentStep email={email} />}
         {step === 4 && !isValidated && (
           <ValidationRequiredStep
             onNext={() => {
