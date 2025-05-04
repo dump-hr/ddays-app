@@ -66,4 +66,32 @@ export class UserService {
       data: { isDeleted: true },
     });
   }
+
+  async resetUserPassword(newPassword: string, token: string) {
+    const resetToken = await this.prisma.passwordResetToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (!resetToken) {
+      throw new BadRequestException('Nevažeći token za resetiranje lozinke');
+    }
+
+    if (resetToken.expiresAt < new Date()) {
+      throw new BadRequestException('Token za resetiranje lozinke je istekao');
+    }
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+    await this.prisma.user.update({
+      where: { id: resetToken.userId },
+      data: { password: newPasswordHash },
+    });
+
+    await this.prisma.passwordResetToken.delete({
+      where: { id: resetToken.id },
+    });
+
+    return { success: true };
+  }
 }

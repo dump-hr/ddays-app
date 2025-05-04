@@ -1,8 +1,9 @@
 import {
   ChangeUserPasswordDto,
+  ResetUserPasswordDto,
   UserModifyDto,
 } from '@ddays-app/types/src/dto/user';
-import { Body, Controller, Patch, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { UserService } from './user.service';
@@ -35,5 +36,12 @@ export class UserController {
       currentPassword,
       newPassword,
     );
+  }
+
+  @Post('reset-password')
+  resetUserPassword(
+    @Body() { newPassword, token }: ResetUserPasswordDto & { token: string },
+  ) {
+    return this.userService.resetUserPassword(newPassword, token);
   }
 }
