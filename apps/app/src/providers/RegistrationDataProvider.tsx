@@ -16,6 +16,7 @@ const defaultRegistrationData: RegistrationDto = {
   newsletterEnabled: false,
   companiesNewsEnabled: false,
   termsAndConditionsEnabled: false,
+  interests: [],
 };
 
 type RegistrationDataContextType = {

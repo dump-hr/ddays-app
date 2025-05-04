@@ -1,3 +1,4 @@
+import { InterestDto } from '@ddays-app/types';
 import { UserDto } from '@ddays-app/types/src/dto/user';
 
 export type RegistrationDto = {
@@ -15,6 +16,7 @@ export type RegistrationDto = {
   newsletterEnabled: boolean;
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled?: boolean;
+  interests: InterestDto[];
 };
 
 export type ProfileSettingsDto = {

@@ -15,7 +15,6 @@ import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
 import { useRegistrationData } from '@/providers/RegistrationDataProvider';
-import { RegistrationDto } from '@ddays-app/types';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
