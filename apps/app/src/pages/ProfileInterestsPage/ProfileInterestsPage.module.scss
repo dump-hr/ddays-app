@@ -2,6 +2,10 @@
   background-color: $primary-black;
   padding-bottom: 24px;
 
+  @media (min-width: $breakpoint-tablet) {
+    min-height: 100vh;
+  }
+
   @media (max-width: $breakpoint-tablet) {
     padding: 0;
   }
