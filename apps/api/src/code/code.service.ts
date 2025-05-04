@@ -164,7 +164,7 @@ export class CodeService {
           })),
           skipDuplicates: true,
         });
-        
+
         if (additionalPoints > 0) {
           await tx.user.update({
             where: { id: userId },
