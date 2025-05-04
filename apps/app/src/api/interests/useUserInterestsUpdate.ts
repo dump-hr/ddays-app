@@ -1,19 +1,13 @@
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
-import axios from 'axios';
+import axios from '../base';
 import { InterestDto } from '@ddays-app/types';
 
-const userInterestsUpdate = async (interests: InterestDto[]) => {
-  const accessToken = localStorage.getItem('accessToken');
-  return await axios.patch<InterestDto[], InterestDto[]>(
-    `/api/user/interests`,
+const userInterestsUpdate = (interests: InterestDto[]) => {
+  return axios.patch<InterestDto[], InterestDto[]>(
+    `/user/interests`,
     interests,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
   );
 };
 

@@ -67,6 +67,7 @@ export class UserService {
       data: { isDeleted: true },
     });
   }
+  
   async updateUserInterests(userId: number, interests: InterestDto[]) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },

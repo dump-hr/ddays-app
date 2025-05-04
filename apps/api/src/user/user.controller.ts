@@ -5,7 +5,6 @@ import {
   UserModifyDto,
 } from '@ddays-app/types/src/dto/user';
 import { Body, Controller, Patch, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { UserService } from './user.service';
@@ -42,10 +41,7 @@ export class UserController {
 
   @Patch('interests')
   @UseGuards(UserGuard)
-  updateUserInterests(
-    @Req() { user }: AuthenticatedRequest,
-    @Body() interests: InterestDto[],
-  ) {
+  updateUserInterests(@Req() { user }, @Body() interests: InterestDto[]) {
     return this.userService.updateUserInterests(user.id, interests);
   }
 
