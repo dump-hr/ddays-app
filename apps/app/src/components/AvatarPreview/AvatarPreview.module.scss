@@ -21,6 +21,9 @@
 .podium {
   z-index: 1;
   max-width: 768px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .avatarContainer {
@@ -41,7 +44,10 @@
 .avatar {
   position: absolute;
   transition: all 0.3s ease-out;
-  z-index: 20;
+  z-index: 30;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   &.colors {
     z-index: 1;

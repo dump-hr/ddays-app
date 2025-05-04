@@ -94,7 +94,9 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
 
     return (
       <div className={`${c.container} ${isZoomed ? c.zoomedContainer : ''}`}>
-        {!isZoomed && <img src={podium} alt='' className={c.podium} />}
+        {!isZoomed && (
+          <img src={podium} alt='' className={c.podium} draggable={false} />
+        )}
 
         <div
           className={`${c.avatarContainer} ${isZoomed ? c.zoomedIn : ''}`}
@@ -107,6 +109,7 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
                 key={key}
                 src={value.imagePreviewSrc}
                 alt={value.name}
+                draggable={false}
                 className={`
                   ${c.avatar} 
                   ${c[itemType]} 
