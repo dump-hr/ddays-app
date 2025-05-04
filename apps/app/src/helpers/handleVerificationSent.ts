@@ -1,18 +1,14 @@
+import axios from 'axios';
+
 export const sendVerificationEmail = async (
   email: string,
   setEmailError: (error: string) => void,
   handleNextStep: () => void,
 ) => {
   try {
-    const response = await fetch('/api/email/generate-reset-token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
+    const { data } = await axios.post('/api/email/generate-reset-token', {
+      email,
     });
-
-    const data = await response.json();
 
     if (!data.success) {
       setEmailError(data.message || 'Došlo je do greške pri slanju emaila');

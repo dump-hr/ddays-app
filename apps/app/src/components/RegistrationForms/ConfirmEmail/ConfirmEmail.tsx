@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import PointModifierPopup from '@/pages/Home/popups/PointModifierPopup';
+import axios from 'axios';
 
 export const ConfirmEmail = () => {
   const { isMobile } = useDeviceType({});
@@ -22,10 +23,9 @@ export const ConfirmEmail = () => {
 
   const validateToken = async (token: string) => {
     try {
-      const response = await fetch(
+      const { data } = await axios.get(
         `/api/email/validate-confirmation?token=${token}`,
       );
-      const data = await response.json();
 
       if (data.success) {
         toast.success('Email uspješno potvrđen');

@@ -55,7 +55,7 @@ export class EmailService {
       await this.sendEmail(
         email,
         'DDays 2025 - Resetiranje lozinke',
-        `Pozdrav, klikni na link ispod da resetiraš lozinku: ${resetLink}`,
+        `Pozdrav, klikni na link ispod da resetiraš lozinku: ${resetLink}\n\nLink za resetiranje lozinke traje 15 minuta.`,
       );
       return {
         success: true,
