@@ -191,14 +191,16 @@ export class AchievementService {
         select: { user: true },
       });
 
-      for (const user of users) {
-        await prisma.user.update({
-          where: { id: user.user.id },
-          data: {
-            points: { decrement: achievement.points },
-          },
-        });
-      }
+      const userIds = users.map((user) => user.user.id);
+
+      await prisma.user.updateMany({
+        where: {
+          id: { in: userIds },
+        },
+        data: {
+          points: { decrement: achievement.points },
+        },
+      });
 
       await prisma.userToAchievement.deleteMany({
         where: { achievementId: id },
