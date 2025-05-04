@@ -44,15 +44,22 @@ export const useUploadAvatar = (
 ) => {
   const queryClient = useQueryClient();
   return useMutation(uploadAvatar, {
-    onSuccess: (data) => {
+    onMutate: () => {
+      return toast.loading('Spremanje avatara...');
+    },
+    onSuccess: (data, _, toastId) => {
+      toast.dismiss(toastId);
+      toast.success('Avatar uspješno spremljen!');
+
       queryClient.setQueryData(['user'], data);
       queryClient.invalidateQueries(['user']);
-      toast.success('Avatar uspješno spremljen!');
+
       if (onSuccess) {
         onSuccess(data);
       }
     },
-    onError: (error: string) => {
+    onError: (error: string, _, toastId) => {
+      toast.dismiss(toastId);
       toast.error(error || 'Greška prilikom spremanja avatara');
     },
   });
@@ -62,13 +69,19 @@ export const useCreateTemporaryAvatar = (
   onSuccess?: (data: { profilePhotoUrl: string }) => void,
 ) => {
   return useMutation(createTemporaryAvatar, {
-    onSuccess: (data) => {
+    onMutate: () => {
+      return toast.loading('Spremanje avatara...');
+    },
+    onSuccess: (data, _, toastId) => {
+      toast.dismiss(toastId);
       toast.success('Avatar uspješno spremljen!');
+
       if (onSuccess) {
         onSuccess(data);
       }
     },
-    onError: (error: string) => {
+    onError: (error: string, _, toastId) => {
+      toast.dismiss(toastId);
       toast.error(error || 'Greška prilikom spremanja avatara');
     },
   });
