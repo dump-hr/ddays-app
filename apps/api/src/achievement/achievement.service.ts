@@ -161,10 +161,65 @@ export class AchievementService {
   }
 
   async update(id: number, dto: AchievementModifyDto): Promise<AchievementDto> {
+    const existingAchievement = await this.prisma.achievement.findUnique({
+      where: { id },
+    });
+
+    if (!existingAchievement) {
+      throw new HttpException('Achievement not found.', HttpStatus.NOT_FOUND);
+    }
+
     const updatedAchievement = await this.prisma.achievement.update({
       where: { id },
       data: dto,
     });
+
+    if (existingAchievement.isHidden && !dto.isHidden) {
+      await this.prisma.user.updateMany({
+        where: {
+          userToAchievement: {
+            some: {
+              achievementId: id,
+            },
+          },
+        },
+        data: {
+          points: { increment: dto.points },
+        },
+      });
+    }
+
+    if (dto.isHidden && !existingAchievement.isHidden) {
+      await this.prisma.user.updateMany({
+        where: {
+          userToAchievement: {
+            some: {
+              achievementId: id,
+            },
+          },
+        },
+        data: {
+          points: { decrement: dto.points },
+        },
+      });
+    }
+
+    if (dto.points !== existingAchievement.points) {
+      await this.prisma.user.updateMany({
+        where: {
+          userToAchievement: {
+            some: {
+              achievementId: id,
+            },
+          },
+        },
+        data: {
+          points: {
+            increment: dto.points - existingAchievement.points,
+          },
+        },
+      });
+    }
 
     if (!updatedAchievement) {
       throw new HttpException(

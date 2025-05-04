@@ -44,6 +44,14 @@ export class CodeService {
   }
 
   async update(id: number, dto: CodeModifyDto): Promise<CodeDto> {
+    const existingCode = await this.prisma.code.findUnique({
+      where: { id },
+    });
+
+    if (!existingCode) {
+      throw new HttpException('Code not found.', HttpStatus.NOT_FOUND);
+    }
+
     const updatedCode = await this.prisma.code.update({
       where: { id },
       data: {
@@ -51,6 +59,27 @@ export class CodeService {
         expirationDate: Helper.formatISO8601DateTime(dto.expirationDate),
       },
     });
+
+    if (
+      dto.points &&
+      existingCode.points &&
+      dto.points !== existingCode.points
+    ) {
+      await this.prisma.user.updateMany({
+        where: {
+          UserToCode: {
+            some: {
+              codeId: id,
+            },
+          },
+        },
+        data: {
+          points: {
+            increment: dto.points - existingCode.points,
+          },
+        },
+      });
+    }
 
     if (!updatedCode) {
       throw new HttpException('Failed to update code.', HttpStatus.BAD_REQUEST);
