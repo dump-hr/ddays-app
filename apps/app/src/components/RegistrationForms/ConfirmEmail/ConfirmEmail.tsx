@@ -5,13 +5,13 @@ import CloseIcon from '@/assets/icons/remove-icon-black.svg';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import PointModifierPopup from '@/pages/Home/popups/PointModifierPopup';
 import { useSendConfirmationEmail } from '@/api/email/useSendConfirmationEmail';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { RouteNames } from '@/router/routes';
 
 const COUNTDOWN_TIME = 60; // 60 seconds
 import axios from 'axios';
+import PointModifierPopup from '@/components/PointModifierPopup';
 
 export const ConfirmEmail = () => {
   const { isMobile } = useDeviceType({});

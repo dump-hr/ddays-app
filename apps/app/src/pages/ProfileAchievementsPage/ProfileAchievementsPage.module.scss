@@ -64,6 +64,7 @@
   min-height: 100vh; // Ako je mali broj postignuca da ne bude prenizak page
   background-color: white;
   border-radius: $border-radius-page-mobile;
+  @include mobileNavigationPadding(24px);
 
   box-sizing: border-box;
   padding: 24px;

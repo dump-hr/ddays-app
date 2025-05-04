@@ -29,6 +29,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
+import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
+      <Route path={RouteNames.SCANNER} element={<ScannerPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
 

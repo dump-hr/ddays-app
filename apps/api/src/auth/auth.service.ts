@@ -162,6 +162,7 @@ export class AuthService {
         companiesNewsEnabled: true,
         isConfirmed: true,
         isDeleted: true,
+        points: true,
       },
     });
   }

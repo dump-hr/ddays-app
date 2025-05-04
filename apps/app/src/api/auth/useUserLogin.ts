@@ -16,7 +16,7 @@ export const useUserLogin = (navigate: () => void) => {
   return useMutation([QUERY_KEYS.login], loginUser, {
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data.accessToken);
-      toast.success('Prjava je uspješna!');
+      toast.success('Prijava je uspješna!');
       navigate();
     },
     onError: (error: string) => {

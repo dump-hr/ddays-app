@@ -29,6 +29,7 @@ export enum RouteNames {
   PROFILE_REWARDS = '/app/profile/rewards',
   PROFILE_SETTINGS = '/app/profile/settings',
   PROFILE_ACHIEVEMENTS = '/app/profile/achievements',
+  SCANNER = '/app/scanner',
   PROFILE_AVATARS = '/app/profile/avatars',
   PROFILE_LEADERBOARD = '/app/profile/leaderboard',
   PROFILE_RECOMMENDATIONS = '/app/profile/recommendations',
