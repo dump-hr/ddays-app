@@ -38,6 +38,16 @@
   &.zoomedIn {
     transform: translateY(33%) scale(1.5);
     transform-origin: center center;
+
+    @media (min-width: $breakpoint-tablet) {
+      transform: translateY(50%) scale(2);
+    }
+
+    .avatar.colors {
+      @media (max-width: $breakpoint-tablet) {
+        bottom: unset;
+      }
+    }
   }
 }
 

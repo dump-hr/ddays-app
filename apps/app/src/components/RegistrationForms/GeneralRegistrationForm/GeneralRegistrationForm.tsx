@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
-import { usePersistedRegistrationData } from '@/hooks/usePersistedRegistrationData';
+import { useRegistrationData } from '@/providers/RegistrationDataProvider';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
@@ -26,8 +26,7 @@ export const GeneralRegistrationForm = () => {
     fourthStepIsSubmitted: false,
   });
 
-  const { userData, updateUserData, clearUserData } =
-    usePersistedRegistrationData();
+  const { userData, updateUserData, clearUserData } = useRegistrationData();
 
   const { mutate } = useUserRegister(() => {
     clearUserData();

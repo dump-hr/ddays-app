@@ -29,6 +29,7 @@ import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
+import { RegistrationLayout } from '@/layout/RegistrationLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,12 +39,14 @@ const router = createBrowserRouter(
         element={<TermsAndConditionsPage />}
       />
       <Route path={RouteNames.LOGIN} element={<LoginPage />} />
-      <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+      <Route element={<RegistrationLayout />}>
+        <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+        <Route path={RouteNames.PROFILE_AVATARS} element={<AvatarsPage />} />
+      </Route>
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
-      <Route path={RouteNames.PROFILE_AVATARS} element={<AvatarsPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.PROFILE}>
