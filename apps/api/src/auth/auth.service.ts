@@ -1,5 +1,4 @@
-import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { JwtResponseDto, RegistrationDto } from '@ddays-app/types';
 import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -88,7 +87,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async userRegister(register: UserDto): Promise<JwtResponseDto> {
+  async userRegister(register: RegistrationDto): Promise<JwtResponseDto> {
     const existingActivePhoneUser = await this.prisma.user.findFirst({
       where: {
         phoneNumber: register.phoneNumber,
@@ -116,13 +115,23 @@ export class AuthService {
     const saltRounds = 10;
     const hashedPassword = await hash(register.password, saltRounds);
 
+    const registerWithoutInterests = { ...register };
+    delete registerWithoutInterests.interests;
+
     const newUser = await this.prisma.user.create({
       data: {
-        ...register,
+        ...registerWithoutInterests,
         isDeleted: false,
         password: hashedPassword,
         isConfirmed: false,
       },
+    });
+
+    await this.prisma.userToInterest.createMany({
+      data: register.interests.map((interest) => ({
+        userId: newUser.id,
+        interestId: interest.id,
+      })),
     });
 
     await this.emailService.sendEmailConfirmation(newUser.email);

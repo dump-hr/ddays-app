@@ -20,6 +20,7 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
 import TestPage from '../pages/TestPage/TestPage';
+import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
 import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
@@ -48,9 +49,13 @@ const router = createBrowserRouter(
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
+
         <Route path={RouteNames.PROFILE}>
           <Route index element={<ProfilePage />} />
-          <Route path={RouteNames.PROFILE_INTERESTS} element={<></>} />
+          <Route
+            path={RouteNames.PROFILE_INTERESTS}
+            element={<ProfileInterestsPage />}
+          />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
             path={RouteNames.PROFILE_RECOMMENDATIONS}

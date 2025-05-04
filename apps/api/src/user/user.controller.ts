@@ -1,3 +1,4 @@
+import { InterestDto } from '@ddays-app/types';
 import {
   ChangeUserPasswordDto,
   ResetUserPasswordDto,
@@ -36,6 +37,12 @@ export class UserController {
       currentPassword,
       newPassword,
     );
+  }
+
+  @Patch('interests')
+  @UseGuards(UserGuard)
+  updateUserInterests(@Req() { user }, @Body() interests: InterestDto[]) {
+    return this.userService.updateUserInterests(user.id, interests);
   }
 
   @Post('reset-password')

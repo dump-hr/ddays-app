@@ -12,4 +12,5 @@ export type RegistrationFormErrors = {
   termsAndConditionsEnabled?: string;
   newsletterEnabled: string;
   companiesNewsEnabled: string;
+  interests?: string;
 };
