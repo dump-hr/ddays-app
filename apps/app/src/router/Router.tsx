@@ -41,6 +41,10 @@ const router = createBrowserRouter(
       <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
+      <Route
+        path={RouteNames.PASSWORD_RESET_WITH_TOKEN}
+        element={<PasswordResetPage />}
+      />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route path={RouteNames.SCANNER} element={<ScannerPage />} />

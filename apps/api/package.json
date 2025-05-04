@@ -16,6 +16,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@aws-crypto/util": "^5.2.0",
     "@aws-sdk/client-s3": "^3.485.0",
     "@ddays-app/types": "*",
     "@nestjs/common": "^10.0.0",
@@ -30,6 +31,7 @@
     "@nestjs/websockets": "^10.3.8",
     "@prisma/client": "^6.2.1",
     "@types/multer": "^1.4.11",
+    "@types/postmark": "^2.0.3",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -43,6 +45,7 @@
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.3",
     "postgres": "^3.4.3",
+    "postmark": "^4.0.5",
     "react-dropzone": "^14.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",

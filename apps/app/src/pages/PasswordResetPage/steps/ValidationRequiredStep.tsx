@@ -5,6 +5,11 @@ import closeIcon from '../../../assets/icons/close-icon.svg';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../../router/routes';
 
+/*
+  Ova se komponenta ne koristi iako je u dizajnu zbog drukcijeg flowa resetiranja lozinke.
+  Cuvamo u slucaju da bude potrebna.
+*/
+
 interface ValidationRequiredStepProps {
   onNext: () => void;
 }
