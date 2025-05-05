@@ -1,48 +1,44 @@
 .confirmEmail {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 24px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
     width: 422px;
+    padding: 0;
+  }
 
+  .confirmEmailUpper {
+    margin-bottom: 48px;
 
-    button {
-        margin-inline: 24px;
+    h2 {
+      color: $primary-black;
+      text-align: center;
+      font-family: NeueMachina;
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 30px;
+      margin-top: 40px;
+      margin-bottom: 18px;
+
+      @media (max-width: $breakpoint-tablet) {
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+        line-height: 28px;
+      }
     }
 
-    .confirmEmailUpper {
+    p {
+      color: $primary-black;
+      text-align: center;
+      font-family: Inter;
+      line-height: 22px;
 
-        margin-bottom: 48px;
-
-        
-
-        h2{
-            color: $primary-black;
-            text-align: center;
-            font-family: NeueMachina;
-            font-size: 30px;
-            font-weight: 500;
-            line-height: 30px; 
-            margin-top: 40px;
-            margin-bottom: 18px;
-
-            @media (max-width: $breakpoint-tablet) {
-                display: flex;
-                justify-content: space-between;
-                font-size: 24px;
-                line-height: 28px;
-                margin-inline: 24px;
-            }
-        }
-
-        p{
-            color: $primary-black;
-            text-align: center;
-            font-family: Inter;
-            line-height: 22px; /* 137.5% */
-
-            @media (max-width: $breakpoint-tablet)  {
-                margin-inline: 24px;
-                text-align: start;
-            }
-        }
+      @media (max-width: $breakpoint-tablet) {
+        text-align: start;
+      }
     }
+  }
 }

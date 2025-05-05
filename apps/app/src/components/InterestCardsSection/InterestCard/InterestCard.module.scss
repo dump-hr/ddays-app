@@ -1,0 +1,30 @@
+.interestsCard {
+  display: flex;
+  height: 2.5rem;
+  padding-inline: 1rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: $black-5;
+  color: $primary-black;
+  font-family: Inter;
+  line-height: 20px;
+  gap: 0.5rem;
+
+  &.clickable {
+    cursor: pointer;
+
+    &.selected {
+      background-color: $primary-muted-orange;
+      color: $primary-white;
+
+      &:hover {
+        background-color: $primary-muted-orange;
+      }
+    }
+
+    &:hover {
+      background-color: $black-10;
+    }
+  }
+}

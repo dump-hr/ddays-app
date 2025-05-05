@@ -5,30 +5,27 @@ import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
 import { useState } from 'react';
-import PointModifierPopup from './popups/PointModifierPopup';
-import NewLevelPopup from './popups/NewLevelPopup';
+
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+
+import AppliedCodeAchievementPopup from '@/components/AppliedCodeAchievementPopup';
 
 const HomePage = () => {
-  function handleSuccessfulCodeSubmit() {
-    setIsCodePopupOpen(false);
-    const isNewLevel = true;
-
-    if (isNewLevel) {
-      setLevel(3);
-      setIsNewLevelPopupOpen(true);
-      return;
-    }
-
-    setPoints(-10);
-    setIsPointModifierPopupOpen(true);
-  }
+  const { data: user } = useLoggedInUser();
+  const [points, setPoints] = useState(0);
 
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [level, setLevel] = useState(1);
-  const [isPointModifierPopupOpen, setIsPointModifierPopupOpen] =
-    useState(false);
-  const [isNewLevelPopupOpen, setIsNewLevelPopupOpen] = useState(false);
+
+  const [
+    isAppliedCodeAchievementPopupOpen,
+    setIsAppliedCodeAchievementPopupOpen,
+  ] = useState(false);
+
+  function handleSuccessfulCodeSubmit(points: number) {
+    setPoints(points);
+    setIsCodePopupOpen(false);
+    setIsAppliedCodeAchievementPopupOpen(true);
+  }
 
   return (
     <div className={c.page}>
@@ -43,19 +40,13 @@ const HomePage = () => {
         <CodePopup
           isOpen={isCodePopupOpen}
           closePopup={() => setIsCodePopupOpen(false)}
-          onSuccess={handleSuccessfulCodeSubmit}
+          onSuccess={(points: number) => handleSuccessfulCodeSubmit(points)}
         />
 
-        <PointModifierPopup
+        <AppliedCodeAchievementPopup
+          isOpen={isAppliedCodeAchievementPopupOpen}
+          user={user}
           points={points}
-          isOpen={isPointModifierPopupOpen}
-          closePopup={() => setIsPointModifierPopupOpen(false)}
-        />
-
-        <NewLevelPopup
-          level={level}
-          isOpen={isNewLevelPopupOpen}
-          closePopup={() => setIsNewLevelPopupOpen(false)}
         />
       </main>
     </div>

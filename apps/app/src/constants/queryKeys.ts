@@ -1,6 +1,8 @@
 export const QUERY_KEYS = {
   login: 'userLogin',
   register: 'userRegister',
+  interests: 'interests',
+  userSelectedInterests: 'userSelectedInterests',
   shopItems: 'shopItems',
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
@@ -9,4 +11,9 @@ export const QUERY_KEYS = {
   leaderboard: 'leaderboard',
   leaderboardTop: 'leaderboard-top',
   leaderboardUserRank: 'leaderboard-user-rank',
+  reward: 'reward',
+  achievements: 'achievements',
+  achievementCompleted: 'achievementGetCompleted',
+  codes: 'codes',
+  codeApplied: 'codeApplied',
 };

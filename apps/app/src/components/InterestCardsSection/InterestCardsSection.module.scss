@@ -1,0 +1,32 @@
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  .interestsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    h3 {
+      color: $primary-black;
+      font-family: NeueMontrealMono;
+      font-weight: 500;
+      line-height: 18px;
+      text-transform: uppercase;
+    }
+
+    .interestsCardsWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .noInterestsText {
+      @include paragraph-16;
+      text-align: center;
+    }
+  }
+}

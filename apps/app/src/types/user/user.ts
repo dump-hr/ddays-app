@@ -1,3 +1,4 @@
+import { InterestDto } from '@ddays-app/types';
 import { UserDto } from '@ddays-app/types/src/dto/user';
 
 export type RegistrationDto = {
@@ -8,12 +9,14 @@ export type RegistrationDto = {
   newPassword?: string;
   repeatedPassword?: string;
   phoneNumber: string;
+  profilePhotoUrl: string;
   birthYear: number | null;
   educationDegree: string | null;
   occupation: string | null;
   newsletterEnabled: boolean;
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled?: boolean;
+  interests: InterestDto[];
 };
 
 export type ProfileSettingsDto = {
