@@ -163,6 +163,7 @@ export class AuthService {
         isConfirmed: true,
         isDeleted: true,
         points: true,
+        profilePhotoUrl: true,
       },
     });
   }

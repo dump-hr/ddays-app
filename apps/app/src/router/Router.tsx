@@ -25,11 +25,13 @@ import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
 import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { AvatarsPage } from '@/pages/AvatarsPage';
 import { RateCompanyPage } from '../pages/RateCompanyPage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
 import ScannerPage from '@/pages/ScannerPage/ScannerPage';
+import { RegistrationLayout } from '@/layout/RegistrationLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +41,10 @@ const router = createBrowserRouter(
         element={<TermsAndConditionsPage />}
       />
       <Route path={RouteNames.LOGIN} element={<LoginPage />} />
-      <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+      <Route element={<RegistrationLayout />}>
+        <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+        <Route path={RouteNames.PROFILE_AVATARS} element={<AvatarsPage />} />
+      </Route>
       <Route path={RouteNames.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
       <Route path={RouteNames.PASSWORD_RESET} element={<PasswordResetPage />} />
       <Route
@@ -71,7 +76,6 @@ const router = createBrowserRouter(
             path={RouteNames.PROFILE_ACHIEVEMENTS}
             element={<ProfileAchievementsPage />}
           />
-          <Route path={RouteNames.PROFILE_AVATARS} element={<></>} />
           <Route
             path={RouteNames.PROFILE_LEADERBOARD}
             element={<ProfileLeaderboardPage />}

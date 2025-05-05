@@ -86,7 +86,7 @@ export const ProfileAchievementsPage = () => {
             {user?.firstName} {user?.lastName}
           </p>
 
-          <AvatarPointsCircle avatar={TempAvatar} />
+          <AvatarPointsCircle avatar={user?.profilePhotoUrl || TempAvatar} />
         </div>
 
         <div className={c.stats}>

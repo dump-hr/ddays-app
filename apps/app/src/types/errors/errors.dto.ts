@@ -13,4 +13,5 @@ export type RegistrationFormErrors = {
   newsletterEnabled: string;
   companiesNewsEnabled: string;
   interests?: string;
+  profilePhotoUrl?: string;
 };

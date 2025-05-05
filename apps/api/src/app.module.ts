@@ -6,6 +6,7 @@ import { AchievementModule } from './achievement/achievement.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AvatarModule } from './avatar/avatar.module';
 import { BlobModule } from './blob/blob.module';
 import { BoothModule } from './booth/booth.module';
 import { CodeModule } from './code/code.module';
@@ -37,6 +38,7 @@ import { UserModule } from './user/user.module';
     SpeakerModule,
     CodeModule,
     EmailModule,
+    AvatarModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
@@ -62,6 +64,7 @@ import { UserModule } from './user/user.module';
     BoothModule,
     ShopModule,
     UserModule,
+    AvatarModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

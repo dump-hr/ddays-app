@@ -1,6 +1,7 @@
 export type UserDto = {
   email: string;
   firstName: string;
+  profilePhotoUrl: string;
   lastName: string;
   password: string;
   phoneNumber: string;
@@ -40,6 +41,7 @@ export type UserPublicDto = {
   isConfirmed: boolean;
   isDeleted: boolean;
   points: number;
+  profilePhotoUrl: string;
 };
 
 export type ChangeUserPasswordDto = {

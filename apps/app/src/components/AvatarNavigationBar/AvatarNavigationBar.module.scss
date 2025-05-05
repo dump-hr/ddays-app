@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 400px) {
+    gap: 0px;
+  }
+
+  @media screen and (max-height: 670px) {
+    gap: 0px;
+  }
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+  padding-right: 0;
+  transition:
+    max-width 0.4s ease-out,
+    background-color 0.3s ease-in-out;
+  overflow: hidden;
+  max-width: 44px;
+  position: relative;
+
+  @media screen and (max-width: 400px) {
+    scale: 0.9;
+  }
+
+  @media screen and (max-height: 670px) {
+    scale: 0.9;
+  }
+
+  &Selected {
+    background-color: $primary-muted-orange;
+    padding-right: 10px;
+    max-width: 200px;
+  }
+}
+
+.iconWrapper {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background-color: $black-5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
+  position: relative;
+  z-index: 2;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &Selected {
+    background-color: $primary-muted-orange;
+  }
+}
+
+.iconSvg {
+  transition: transform 0.3s ease-in-out;
+
+  .iconWrapper:hover & {
+    transform: scale(1.1);
+  }
+}
+
+.iconText {
+  @include tag-14;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: $primary-white;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out 0.2s;
+  margin-left: 5px;
+
+  &Selected {
+    opacity: 1;
+  }
+}
