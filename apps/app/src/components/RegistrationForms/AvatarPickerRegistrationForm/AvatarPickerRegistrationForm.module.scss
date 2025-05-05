@@ -1,0 +1,93 @@
+.button {
+  &Group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  &Icon {
+    display: flex;
+    gap: 16px;
+  }
+}
+
+.duckList {
+  &Container {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    overflow-x: hidden;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: 600px;
+      margin-left: -89px;
+    }
+  }
+
+  &Wrapper {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: 600px;
+      margin: 0 auto;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.duckItem {
+  &Wrapper {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 194px;
+
+    &.selected {
+      transform: scale(1);
+      z-index: 1;
+      opacity: 1;
+    }
+
+    &.unselected {
+      transform: scale(0.8);
+    }
+  }
+
+  &TextWrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+    margin-bottom: 40px;
+    margin-top: 16px;
+    transition: opacity 0.3s ease;
+    width: 194px;
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+
+  &Title {
+    @include heading-4;
+    text-transform: uppercase;
+  }
+
+  &Description {
+    @include paragraph-14;
+  }
+}

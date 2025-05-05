@@ -11,3 +11,4 @@ export * from './job';
 export * from './speaker';
 export * from './booth';
 export * from './reward';
+export * from './avatar';

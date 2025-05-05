@@ -57,6 +57,13 @@ export class InterestController {
     return await this.interestService.getForCompany(id);
   }
 
+  @Get('user/:id')
+  async getForUser(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<InterestDto[]> {
+    return await this.interestService.getForUser(id);
+  }
+
   @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<InterestDto> {

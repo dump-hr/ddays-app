@@ -62,12 +62,12 @@ export const ProfilePage = () => {
             {user?.firstName} {user?.lastName}
           </p>
 
-          <AvatarPointsCircle points={900} avatar={TempAvatar} />
+          <AvatarPointsCircle avatar={user?.profilePhotoUrl || TempAvatar} />
         </div>
 
         <div className={c.stats}>
-          <ProfileStat label='Bodovi' value='145' />
-          <ProfileStat label='Postignuća' value='3/25' />
+          <ProfileStat dataType='points' />
+          <ProfileStat dataType='achievements' />
         </div>
       </header>
       <main className={c.main}>

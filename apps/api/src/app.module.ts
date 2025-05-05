@@ -6,9 +6,12 @@ import { AchievementModule } from './achievement/achievement.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AvatarModule } from './avatar/avatar.module';
 import { BlobModule } from './blob/blob.module';
 import { BoothModule } from './booth/booth.module';
+import { CodeModule } from './code/code.module';
 import { CompanyModule } from './company/company.module';
+import { EmailModule } from './email/email.module';
 import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
 import { InterestModule } from './interest/interest.module';
@@ -34,6 +37,9 @@ import { UserModule } from './user/user.module';
     NotificationModule,
     JobModule,
     SpeakerModule,
+    CodeModule,
+    EmailModule,
+    AvatarModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
@@ -60,6 +66,7 @@ import { UserModule } from './user/user.module';
     ShopModule,
     UserModule,
     RewardModule,
+    AvatarModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
