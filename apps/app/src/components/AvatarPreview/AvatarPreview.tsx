@@ -114,7 +114,6 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
                   ${c.avatar} 
                   ${c[itemType]} 
                   ${c[value.value]} 
-                  
                 `}
                 data-type={itemType}
                 data-value={value.value}

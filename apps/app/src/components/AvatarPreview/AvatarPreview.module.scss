@@ -43,6 +43,11 @@
   &.zoomedIn {
     transform: translateY(33%) scale(1.5);
     transform-origin: center center;
+    margin-bottom: 0px;
+
+    @media (max-width: $breakpoint-tablet) {
+      margin-top: 20vh;
+    }
 
     @media (min-width: $breakpoint-tablet) {
       transform: translateY(50%) scale(2);
@@ -60,9 +65,9 @@
   position: absolute;
   transition: all 0.3s ease-out;
   z-index: 30;
-  //-webkit-user-select: none; /* Safari */
-  //-ms-user-select: none; /* IE 10 and IE 11 */
-  //user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   &.colors {
     z-index: 1;
