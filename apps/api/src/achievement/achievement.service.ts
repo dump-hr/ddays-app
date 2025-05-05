@@ -307,4 +307,19 @@ export class AchievementService {
 
     return achievements;
   }
+
+  async completeAchievementByName(
+    userId: number,
+    name: string,
+  ): Promise<AchievementDto> {
+    const achievement = await this.prisma.achievement.findFirst({
+      where: { name },
+    });
+
+    if (!achievement) {
+      throw new HttpException('Achievement not found.', HttpStatus.BAD_REQUEST);
+    }
+
+    return await this.completeAchievement(userId, achievement.uuid);
+  }
 }

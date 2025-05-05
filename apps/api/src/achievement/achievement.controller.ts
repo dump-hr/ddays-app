@@ -94,4 +94,16 @@ export class AchievementController {
   ): Promise<AchievementDto> {
     return await this.achievementService.completeAchievement(user.id, uuid);
   }
+
+  @UseGuards(UserGuard)
+  @Post('complete-by-name/:name')
+  async completeAchievementByName(
+    @Req() { user }: AuthenticatedRequest,
+    @Param('name') name: string,
+  ): Promise<AchievementDto> {
+    return await this.achievementService.completeAchievementByName(
+      user.id,
+      name,
+    );
+  }
 }
