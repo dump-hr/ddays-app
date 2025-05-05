@@ -11,9 +11,11 @@
   &.zoomedContainer {
     height: 100%;
     margin-bottom: 0;
+    justify-content: flex-start;
 
     .avatarContainer {
       transform-origin: center center;
+      margin-bottom: 50px;
       .colors {
         @media (max-width: $breakpoint-tablet) {
           top: 65px;
@@ -43,14 +45,14 @@
   &.zoomedIn {
     transform: translateY(33%) scale(1.5);
     transform-origin: center center;
-    margin-bottom: 0px;
+    //bottom: 424px;
 
     @media (max-width: $breakpoint-tablet) {
-      margin-top: 20vh;
+      //margin-top: 20vh;
     }
 
     @media (min-width: $breakpoint-tablet) {
-      transform: translateY(50%) scale(2);
+      //transform: translateY(50%) scale(2);
     }
 
     .avatar.colors {
