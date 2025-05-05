@@ -14,6 +14,7 @@ import { CompanyPage } from './pages/CompanyPage';
 import EventPage from './pages/EventPage';
 import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
+import RewardPage from './pages/RewardPage';
 import SpeakerPage from './pages/SpeakerPage';
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
           <Route path={Path.Event} component={EventPage} />
           <Route path={Path.Speaker} component={SpeakerPage} />
           <Route path={Path.Booth} component={BoothPage} />
+          <Route path={Path.Reward} component={RewardPage} />
           <Route path={Path.Achievement} component={AchievementPage} />
           <Route path={Path.Code} component={CodePage} />
         </Switch>

@@ -338,6 +338,13 @@ model SurveyQuestion {
   type        SurveyQuestionType
 }
 
+model Reward {
+  id          Int     @id @default(autoincrement())
+  name        String?
+  imageUrl    String?
+  description String?
+}
+
 model PasswordResetToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique
