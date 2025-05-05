@@ -40,11 +40,13 @@ export class EventController {
   }
 
   @Post('apply-to-flytalk')
+  @UseGuards(UserGuard)
   async applyToFlyTalk(@Body() dto: UserToEventDto): Promise<UserToEventDto> {
     return await this.eventService.applyToFlyTalk(dto);
   }
 
   @Post('upload-cv')
+  @UseGuards(UserGuard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadCV(@UploadedFile() file: Express.Multer.File): Promise<string> {
     if (!file) {
@@ -54,11 +56,13 @@ export class EventController {
   }
 
   @Get('with-speaker')
+  @UseGuards(UserGuard)
   async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
   }
 
   @Get('with-company')
+  @UseGuards(UserGuard)
   async GetAllWithCompany(): Promise<EventWithCompanyDto[]> {
     return await this.eventService.getAllWithCompany();
   }
@@ -72,11 +76,13 @@ export class EventController {
   }
 
   @Get(':id')
+  @UseGuards(UserGuard)
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.getOne(id);
   }
 
   @Get('schedule-ical/:userId.ics')
+  @UseGuards(UserGuard)
   async generateIcal(
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,
@@ -91,6 +97,7 @@ export class EventController {
   }
 
   @Get()
+  @UseGuards(UserGuard)
   async getAll(): Promise<EventDto[]> {
     return await this.eventService.getAll();
   }
@@ -120,6 +127,7 @@ export class EventController {
   }
 
   @Post(':id/join')
+  @UseGuards(UserGuard)
   async joinEvent(
     @Param('id', ParseIntPipe) eventId: number,
     @Body() dto: UserToEventDto,
@@ -128,6 +136,7 @@ export class EventController {
   }
 
   @Delete(':id/leave')
+  @UseGuards(UserGuard)
   async leaveEvent(
     @Param('id', ParseIntPipe) eventId: number,
     @Body() dto: UserToEventDto,
