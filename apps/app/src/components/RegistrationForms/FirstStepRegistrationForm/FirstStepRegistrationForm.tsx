@@ -11,7 +11,7 @@ import { UserDataFields } from '@/types/enums';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { RegistrationDto } from '@/types/user/user';
+import { RegistrationDto } from '@ddays-app/types';
 
 type Props = {
   userData: Partial<RegistrationDto>;
@@ -46,7 +46,7 @@ export const FirstStepRegistrationForm = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     firstStepFields.forEach((key) => {
-      const error = validateField(key, userData[key]);
+      const error = validateField(key, userData[key] as string);
       newErrors[key] = error || '';
     });
 
@@ -70,6 +70,7 @@ export const FirstStepRegistrationForm = ({
     if (isSubmitted || allFieldsAreFilled(firstStepFields, userData)) {
       validateFirstStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, userData]);
 
   return (

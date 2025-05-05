@@ -12,9 +12,8 @@ import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { UserDataFields, UserProfileFields } from '@/types/enums';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { RegistrationDto } from '@/types/user/user';
 import { dropdownInputs } from '@/constants/sharedInputs';
-
+import { RegistrationDto } from '@ddays-app/types';
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
@@ -80,6 +79,7 @@ export const SecondStepRegistrationForm = ({
     if (isSubmitted || allFieldsAreFilled(secondStepFields, userData)) {
       validateSecondStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, userData]);
 
   const educationDegreeOptions =

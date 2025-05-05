@@ -1,8 +1,8 @@
 import c from './Reward.module.scss';
 
 type RewardProps = {
-  name: string;
-  image: string;
+  name?: string;
+  image?: string;
 };
 export const Reward = ({ name, image }: RewardProps) => {
   return (

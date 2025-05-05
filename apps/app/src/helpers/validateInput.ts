@@ -1,9 +1,6 @@
 import { FlyTalksRegistrationDataFields, UserDataFields } from '@/types/enums';
-import {
-  FlyTalksRegistrationDto,
-  ProfileSettingsDto,
-  RegistrationDto,
-} from '@/types/user/user';
+import { FlyTalksRegistrationDto, ProfileSettingsDto } from '@/types/user/user';
+import { InterestDto, RegistrationDto } from '@ddays-app/types';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -82,7 +79,7 @@ export const validateRepeatedPassword = (
 
 export const validateField = (
   name: keyof RegistrationDto | keyof ProfileSettingsDto,
-  value: string | number | boolean | null | undefined,
+  value: string | number | boolean | null | undefined | InterestDto[],
 ): string | undefined => {
   switch (name) {
     case UserDataFields.FirstName:
