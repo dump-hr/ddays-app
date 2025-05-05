@@ -36,6 +36,7 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    overflow-x: hidden;
 
     @media (min-width: $breakpoint-tablet) {
       width: 600px;

@@ -15,7 +15,8 @@
 
     .avatarContainer {
       transform-origin: center center;
-      margin-bottom: 50px;
+      //margin-bottom: 50px;
+      bottom: 120px;
       .colors {
         @media (max-width: $breakpoint-tablet) {
           top: 65px;

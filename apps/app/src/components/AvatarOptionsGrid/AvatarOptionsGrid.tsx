@@ -1,5 +1,5 @@
 import { Option } from '@/types/avatar/avatar';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import c from './AvatarOptionsGrid.module.scss';
 import { ImageWrapper } from '../ImageWrapper';
 import { Accessory, Body, Colors, Face } from '@ddays-app/types';
@@ -21,6 +21,30 @@ export const AvatarOptionsGrid: FC<AvatarOptionsGridProps> = ({
   onSelectOptions,
   selectedOption,
 }) => {
+  function useViewportSize() {
+    const [size, setSize] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+
+    useEffect(() => {
+      const handleResize = () => {
+        setSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return size;
+  }
+
+  const { width, height } = useViewportSize();
+  const isSmallScreen = width < 400 || height < 670;
+
   return (
     <div className={c.container}>
       <div className={c.selectedText}>
@@ -38,10 +62,10 @@ export const AvatarOptionsGrid: FC<AvatarOptionsGridProps> = ({
             altText={''}
             isSelected={selectedOption === option}
             onClick={() => onSelectOptions(option)}
-            width={74}
-            height={74}
+            width={isSmallScreen ? 60 : 74}
+            height={isSmallScreen ? 60 : 74}
             showBackground={false}
-            borderRadius={16}
+            borderRadius={isSmallScreen ? 12 : 16}
             borderWidth={1.5}
             imagePadding={8}
             alwaysShowBorder={true}

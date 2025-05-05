@@ -3,6 +3,14 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 24px;
+
+  @media screen and (max-width: 400px) {
+    gap: 0px;
+  }
+
+  @media screen and (max-height: 670px) {
+    gap: 0px;
+  }
 }
 
 .iconContainer {
@@ -16,6 +24,14 @@
   overflow: hidden;
   max-width: 44px;
   position: relative;
+
+  @media screen and (max-width: 400px) {
+    scale: 0.9;
+  }
+
+  @media screen and (max-height: 670px) {
+    scale: 0.9;
+  }
 
   &Selected {
     background-color: $primary-muted-orange;
