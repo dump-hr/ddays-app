@@ -4,6 +4,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import {
   Body,
   Controller,
@@ -28,7 +29,6 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorGuard } from '../auth/sponsor.guard';
 import { CompanyService } from './company.service';
-import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 
 @Controller('company')
 export class CompanyController {
