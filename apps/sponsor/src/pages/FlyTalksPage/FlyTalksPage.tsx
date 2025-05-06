@@ -1,7 +1,6 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import WhiteButton from '../../components/WhiteButton';
@@ -9,6 +8,7 @@ import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
 import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
+import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
 
 const FlyTalksPage = () => {
   const tabs = ['Grupa 1', 'Grupa 2'];
@@ -17,14 +17,12 @@ const FlyTalksPage = () => {
 
   const [modalUser, setModalUser] = useState<UserToCompanyDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalButtonText, setModalButtonText] = useState('');
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [timeLeft, setTimeLeft] = useState<Date>(calculateTimeLeft(targetTime));
 
-  function handleOpenModal(user: UserToCompanyDto, modalButtonText?: string) {
+  function handleOpenModal(user: UserToCompanyDto) {
     setModalUser(user);
     setIsModalOpen(true);
-    setModalButtonText(modalButtonText || 'Odaberi');
   }
 
   const { data: applicants = [] } = useGetApplicants();
@@ -52,7 +50,7 @@ const FlyTalksPage = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           user={modalUser}
-          modalButtonText={modalButtonText}
+          setModalUser={setModalUser}
         />
       )}
 
@@ -113,7 +111,7 @@ const FlyTalksPage = () => {
                       applicant={applicant}
                       key={i}
                       handleOpenModal={() =>
-                        handleOpenModal(applicant, 'Ukloni odabir')
+                        handleOpenModal(applicant)
                       }
                       status='accepted'
                       timeLeft={timeLeft}

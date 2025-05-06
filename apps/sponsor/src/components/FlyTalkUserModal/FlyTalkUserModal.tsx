@@ -1,5 +1,5 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
-import { useEffect } from 'react';
+import { useEffect} from 'react';
 
 import { usePatchSelectedApplicant } from '../../api/flyTalks/usePatchSelectedApplicant';
 import CloseSvg from '../../assets/icons/close.svg';
@@ -10,14 +10,14 @@ type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   user: UserToCompanyDto | null;
-  modalButtonText: string;
+  setModalUser: (user: UserToCompanyDto) => void;
 };
 
 const FlyTalkUserModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   user,
-  modalButtonText,
+  setModalUser
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -53,20 +53,22 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
 
   if (!user) return null;
 
-  const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
-    console.log(status);
-    patchApplicant.mutate(
-      {
-        user: applicant,
-        selected: status === 'Ukloni odabir' ? false : true,
-      },
-      {
-        onSuccess: () => {
-          onClose();
-        },
-      },
-    );
-  };
+  const handleSelectClick = (applicant: UserToCompanyDto) => {
+    console.log(user?.selected)
+  patchApplicant.mutate(
+  {
+    user: applicant,
+    selected: !applicant.selected,
+  },
+  {
+    onSuccess: () => {
+      setModalUser({ ...applicant, selected: !applicant.selected });
+    },
+  }
+);
+
+};
+
 
   return (
     <div className={c.background} onClick={onClose}>
@@ -96,9 +98,12 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
           </WhiteButton>
           <WhiteButton
             variant='primary'
-            onClick={() => handleSelectClick(user, modalButtonText)}>
-            {' '}
-            {modalButtonText}
+            onClick={() => {
+  console.log('Klik na botun detektiran');
+  handleSelectClick(user);
+}}
+>
+            {user.selected ? 'Ukloni odabir' : 'Odaberi'}
           </WhiteButton>
         </div>
       </div>
