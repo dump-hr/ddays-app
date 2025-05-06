@@ -4,7 +4,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
-import { UserPublicDto, UserToCompanyDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
@@ -140,7 +140,10 @@ export class CompanyService {
     return users;
   }
 
-  async selectApplicant(user: UserToCompanyDto, selected: boolean): Promise<void> {
+  async selectApplicant(
+    user: UserToCompanyDto,
+    selected: boolean,
+  ): Promise<void> {
     await this.prisma.userToEvent.update({
       where: {
         userId_eventId: {
@@ -148,7 +151,7 @@ export class CompanyService {
           eventId: user.eventId,
         },
       },
-      data: { selected: selected},
+      data: { selected: selected },
     });
   }
 
