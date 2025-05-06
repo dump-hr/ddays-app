@@ -1,6 +1,6 @@
 .notification {
   &Wrapper {
-    display: none;
+    display: none; // TEMP
 
     position: relative;
     padding: 4px 6px;
@@ -10,6 +10,10 @@
     transition: 0.3s ease-in-out;
     &:hover {
       background-color: $black-90;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      display: none;
     }
   }
 
