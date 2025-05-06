@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import CloseSvg from '../../assets/icons/close.svg';
 import WhiteButton from '../WhiteButton';
 import c from './FlyTalkUserModal.module.scss';
+import { usePatchSelectedApplicant } from '../../api/flyTalks/usePatchSelectedApplicant';
 
 type ModalProps = {
   isOpen: boolean;
@@ -50,6 +51,24 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
 
   if (!user) return null;
 
+  const patchApplicant = usePatchSelectedApplicant();
+
+  const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
+  console.log(status)
+  patchApplicant.mutate(
+    {
+      user: applicant,
+      selected: status === 'Ukloni odabir' ? false : true,
+    },
+    {
+      onSuccess: () => {
+        onClose();
+      },
+    }
+  );
+};
+
+
   return (
     <div className={c.background} onClick={onClose}>
       <div className={c.container} onClick={(e) => e.stopPropagation()}>
@@ -73,8 +92,8 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
           Portfolio: <a href={ user.portfolioProfile}>{ user.portfolioProfile}</a>
         </p>
         <div className={c.buttons}>
-          <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>
-          <WhiteButton variant='primary'>{modalButtonText}</WhiteButton>
+          <WhiteButton variant='secondary' onClick={() => window.open(user.cv, '_blank')}>Pregledaj CV </WhiteButton>
+          <WhiteButton variant='primary' onClick={()=>handleSelectClick(user, modalButtonText)}> {modalButtonText}</WhiteButton>
         </div>
       </div>
     </div>
