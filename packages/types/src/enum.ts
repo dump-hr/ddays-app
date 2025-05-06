@@ -95,3 +95,11 @@ export enum Theme {
   MARKETING = 'MARKETING',
   TECH = 'TECH',
 }
+
+export enum AchievementNames {
+  FirstSteps = 'First steps',
+  NewFitWhoThis = 'New fit who this?',
+  Ding = 'Ding!',
+  EarlyBird = 'Early bird',
+  BraveMove = 'Brave move',
+}

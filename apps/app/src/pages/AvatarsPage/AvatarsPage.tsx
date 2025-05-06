@@ -13,7 +13,8 @@ import {
   useCreateTemporaryAvatar,
   useUploadAvatar,
 } from '@/api/avatar/useUploadAvatar';
-import { UserWithAvatarDto } from '@ddays-app/types';
+import { AchievementNames, UserWithAvatarDto } from '@ddays-app/types';
+import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 
 export const AvatarsPage: FC = () => {
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ export const AvatarsPage: FC = () => {
     (data: UserWithAvatarDto) => handleSuccess(data.profilePhotoUrl),
   );
 
+  const completeAchievementByName = useAchievementCompleteByName();
+
   const { mutate: createTempAvatar, isLoading: isCreatingTemp } =
     useCreateTemporaryAvatar((data: { profilePhotoUrl: string }) =>
       handleSuccess(data.profilePhotoUrl),
@@ -89,7 +92,16 @@ export const AvatarsPage: FC = () => {
           accessories: selectedOptions[DuckItems.ACCESSORIES].value,
           body: selectedOptions[DuckItems.BODY].value,
         };
-        uploadAvatar({ blob, options });
+        uploadAvatar(
+          { blob, options },
+          {
+            onSuccess: () => {
+              completeAchievementByName.mutate({
+                name: AchievementNames.NewFitWhoThis,
+              });
+            },
+          },
+        );
       }
     } catch (error) {
       console.error('Error generating avatar:', error);
