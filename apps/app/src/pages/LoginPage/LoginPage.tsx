@@ -23,6 +23,7 @@ export const LoginPage = () => {
     if (accessToken && !isTokenExpired(accessToken)) {
       navigate(RouteNames.HOME);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearErrors = (field: string) => {

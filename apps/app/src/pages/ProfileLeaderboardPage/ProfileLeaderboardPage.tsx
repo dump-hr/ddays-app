@@ -6,6 +6,8 @@ import SecondPlaceDuck from '../../assets/images/second-place.png';
 import ThirdPlaceDuck from '../../assets/images/third-place.png';
 import star from '../../assets/icons/star-red.svg';
 import LeaderboardTableRow from '@/components/LeaderboardTableRow';
+import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
+import { AchievementNames } from '@ddays-app/types';
 
 export const ProfileLeaderboardPage = () => {
   const personalRank = {
@@ -31,6 +33,9 @@ export const ProfileLeaderboardPage = () => {
   ];
 
   const navigate = useNavigate();
+
+  const { mutate: completeAchievementByName } = useAchievementCompleteByName();
+  completeAchievementByName(AchievementNames.BraveMove);
 
   return (
     <div className={c.page}>

@@ -101,4 +101,5 @@ export enum AchievementNames {
   NewFitWhoThis = 'New fit who this?',
   Ding = 'Ding!',
   EarlyBird = 'Early bird',
+  BraveMove = 'Brave move',
 }
