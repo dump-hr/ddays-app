@@ -23,10 +23,7 @@ export class AlreadyJoinedEventException extends HttpException {
 
 @Injectable()
 export class EventService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly achievementService: AchievementService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: EventModifyDto): Promise<EventDto> {
     const createdEvent = await this.prisma.event.create({
