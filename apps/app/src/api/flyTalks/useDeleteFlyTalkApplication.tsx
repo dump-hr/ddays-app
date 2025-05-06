@@ -1,30 +1,31 @@
-import { QueryClient, useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import axios from '../base';
-import { QUERY_KEYS } from '@/constants/queryKeys';
 import toast from 'react-hot-toast';
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
-const queryClient = new QueryClient();
-
-const deleteFlyTalkApplication = async (
-  { eventId }: { eventId: number },
-): Promise<{ eventId: number }> => {
+const deleteFlyTalkApplication = async ({
+  eventId,
+}: {
+  eventId: number;
+}): Promise<{ eventId: number }> => {
   return axios.delete('/event/delete-flytalk-application', {
     data: { eventId },
   });
 };
 
 export const useDeleteFlyTalkApplication = () => {
+  const queryClient = useQueryClient();
   return useMutation(deleteFlyTalkApplication, {
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.applyFlyTalk]);
-      toast.success('Successfully deleted the application.');
+      queryClient.refetchQueries([QUERY_KEYS.flyTalkGroups]);
+      toast.success('Termin je uspješno odjavljen.');
     },
     onError: (error: import('axios').AxiosError<{ message?: string }>) => {
-      console.error('Error deleting FlyTalk application:', error);
+      console.error('Došlo je do greške: ', error);
       const errorMessage =
         error?.response?.data?.message ||
         error?.message ||
-        'An unexpected error occurred.';
+        'Došlo je do greške.';
       toast.error(errorMessage);
     },
   });

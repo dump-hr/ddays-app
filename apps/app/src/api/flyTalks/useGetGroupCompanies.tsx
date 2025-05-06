@@ -9,7 +9,7 @@ const getAllFlyTalkGroups = async (): Promise<EventWithCompanyDto[]> => {
 
 export const useGetAllFlyTalkGroups = () => {
   return useQuery<EventWithCompanyDto[]>(
-    [QUERY_KEYS.events],
+    [QUERY_KEYS.flyTalkGroups],
     getAllFlyTalkGroups,
   );
 };

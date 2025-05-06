@@ -20,11 +20,13 @@ interface FlyTalksGroupProps {
     hasUserApplied: boolean;
   };
   hasUserAlreadyAppliedOnDay?: boolean;
+  refetch?: () => void;
 }
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   group,
   hasUserAlreadyAppliedOnDay,
+  refetch,
 }) => {
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
@@ -34,7 +36,9 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
       navigate(`/app/fly-talks-apply?id=${group.id}`);
     } else {
       deleteFlyTalkApplication.mutate({ eventId: group.id });
-      window.location.reload();
+      if (refetch) {
+        refetch();
+      }
     }
   };
 

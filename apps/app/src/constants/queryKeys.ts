@@ -8,6 +8,7 @@ export const QUERY_KEYS = {
   userPoints: 'userPoints',
   events: 'events',
   applyFlyTalk: 'applyFlyTalk',
+  flyTalkGroups: 'flyTalkGroups',
   currentUser: 'currentUser',
   reward: 'reward',
   achievements: 'achievements',

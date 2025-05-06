@@ -17,7 +17,7 @@ const FlyTalksList = () => {
     setSelectedTab(Number(tab));
   };
 
-  const { data: event } = useGetAllFlyTalkGroups();
+  const { data: event, refetch } = useGetAllFlyTalkGroups();
   const { data: currentUser } = useLoggedInUser();
   const groups =
     event?.map((event) => ({
@@ -67,6 +67,7 @@ const FlyTalksList = () => {
                   key={i}
                   group={group}
                   hasUserAlreadyAppliedOnDay={hasUserAlreadyAppliedOnDay}
+                  refetch={refetch}
                 />
               ))}
           {selectedTab === Tabs.second_day &&
@@ -77,6 +78,7 @@ const FlyTalksList = () => {
                   key={i}
                   group={group}
                   hasUserAlreadyAppliedOnDay={hasUserAlreadyAppliedOnDay}
+                  refetch={refetch}
                 />
               ))}
         </div>
