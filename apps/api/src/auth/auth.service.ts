@@ -159,8 +159,6 @@ export class AuthService {
 
     const isEarlyBird = currentTime < EARLY_BIRD_CUTOFF;
 
-    console.log('isEarlyBird', isEarlyBird, currentTime, EARLY_BIRD_CUTOFF);
-
     if (isEarlyBird) {
       await this.achievementService.completeAchievementByName(
         newUser.id,
