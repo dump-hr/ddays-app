@@ -97,7 +97,6 @@ export class EventController {
   }
 
   @Get()
-  @UseGuards(UserGuard)
   async getAll(): Promise<EventDto[]> {
     return await this.eventService.getAll();
   }
