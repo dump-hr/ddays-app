@@ -9,8 +9,8 @@ const LocationSection = () => {
         <h1 className={c.title}>IZLOžBENI PROSTOR</h1>
 
         <p className={c.description}>
-          Nudimo ti interaktivni tlocrt konferencije kako bi se lakše mogao
-          snalaziti. Zoomiraj na štandove i vidi gdje se koja tvrtka nalazi.
+          Za lakše snalaženje zaviri u interaktivan tlocrt konferencije. Vidi
+          gdje se koja tvrtka nalazi.
         </p>
 
         <Button className={c.button} variant='black' disabled>

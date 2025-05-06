@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ openCodePopup }) => {
     <div className={styles.header}>
       <div className={styles.headerGreeting}>
         <h1>
-          Hello, {isMobile && <br />} {user?.firstName || 'guest'}!👋🏻
+          Hej, {isMobile && <br />} {user?.firstName || 'guest'}!👋🏻
         </h1>
         {isMobile && <NotificationBell />}
       </div>
