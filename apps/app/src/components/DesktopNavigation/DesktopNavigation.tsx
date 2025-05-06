@@ -12,7 +12,7 @@ export const DesktopNavigation = (): ReactElement => {
   const { pathname } = useLocation();
 
   const handleTabChange = (tab: NAVIGATION_TAB_ID) => {
-    navigate(navigationTabs[tab].route);
+    navigate(navigationTabs.find((t) => t.id === tab)?.route || '');
   };
 
   return (

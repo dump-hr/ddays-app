@@ -13,8 +13,8 @@ const LocationSection = () => {
           snalaziti. Zoomiraj na štandove i vidi gdje se koja tvrtka nalazi.
         </p>
 
-        <Button className={c.button} variant='black'>
-          ZAVIRI U NAŠ PROSTOR
+        <Button className={c.button} variant='black' disabled>
+          Uskoro dostupno
         </Button>
       </div>
 
