@@ -110,9 +110,7 @@ const FlyTalksPage = () => {
                     <TableRow
                       applicant={applicant}
                       key={i}
-                      handleOpenModal={() =>
-                        handleOpenModal(applicant)
-                      }
+                      handleOpenModal={() => handleOpenModal(applicant)}
                       status='accepted'
                       timeLeft={timeLeft}
                     />
