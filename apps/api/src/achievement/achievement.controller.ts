@@ -59,12 +59,6 @@ export class AchievementController {
     return await this.achievementService.getOneWithUuid(id);
   }
 
-  @UseGuards(UserGuard)
-  @Get(':uuid')
-  async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
-    return await this.achievementService.getOne(uuid);
-  }
-
   @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
@@ -80,12 +74,6 @@ export class AchievementController {
     return await this.achievementService.remove(id);
   }
 
-  @UseGuards(AdminGuard)
-  @Get()
-  async getAll(): Promise<AchievementDto[]> {
-    return await this.achievementService.getAll();
-  }
-
   @UseGuards(UserGuard)
   @Post('complete/:uuid')
   async completeAchievement(
@@ -93,5 +81,31 @@ export class AchievementController {
     @Param('uuid') uuid: string,
   ): Promise<AchievementDto> {
     return await this.achievementService.completeAchievement(user.id, uuid);
+  }
+
+  @UseGuards(UserGuard)
+  @Post('complete-by-name/:name')
+  async completeAchievementByName(
+    @Req() { user }: AuthenticatedRequest,
+    @Param('name') name: string,
+  ): Promise<AchievementDto> {
+    const suppressDuplicate = false;
+    return await this.achievementService.completeAchievementByName(
+      user.id,
+      name,
+      suppressDuplicate,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Get(':uuid')
+  async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
+    return await this.achievementService.getOne(uuid);
+  }
+
+  @UseGuards(AdminGuard)
+  @Get()
+  async getAll(): Promise<AchievementDto[]> {
+    return await this.achievementService.getAll();
   }
 }

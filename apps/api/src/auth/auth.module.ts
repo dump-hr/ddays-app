@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailModule } from 'src/email/email.module';
 import { PrismaService } from 'src/prisma.service';
 
@@ -28,6 +29,7 @@ import { UserJwtStrategy } from './user.strategy';
     UserJwtStrategy,
     PrismaService,
     UserGuard,
+    AchievementService,
   ],
   exports: [AuthService, UserGuard],
 })

@@ -18,6 +18,7 @@ export const ConfirmEmail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [showPointsPopup, setShowPointsPopup] = useState(false);
+  const [processedToken, setProcessedToken] = useState<string | null>(null);
 
   const { mutate: sendConfirmationEmail } = useSendConfirmationEmail();
   const { data: user } = useLoggedInUser();
@@ -27,12 +28,19 @@ export const ConfirmEmail = () => {
 
   useEffect(() => {
     const token = searchParams.get('token');
-    if (token) {
-      validateToken(token);
+    if (token && !processedToken) {
+      setProcessedToken(token);
     }
-  }, [searchParams]);
+  }, [searchParams, processedToken]);
+
+  useEffect(() => {
+    if (processedToken) {
+      validateToken(processedToken);
+    }
+  }, [processedToken]);
 
   const validateToken = async (token: string) => {
+    alert('Token: ' + token);
     try {
       const { data } = await axios.get(
         `/api/email/validate-confirmation?token=${token}`,
@@ -115,7 +123,7 @@ export const ConfirmEmail = () => {
 
       <PointModifierPopup
         isOpen={showPointsPopup}
-        points={10}
+        points={20}
         closePopup={handleClosePointsPopup}
       />
     </div>

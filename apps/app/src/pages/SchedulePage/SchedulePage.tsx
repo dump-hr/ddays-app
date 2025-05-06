@@ -5,7 +5,7 @@ import c from './SchedulePage.module.scss';
 import ClickableTagGroup from '../../components/ClickableTagGroup';
 import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { AchievementNames, EventWithSpeakerDto } from '@ddays-app/types';
 import ScheduleCard from '../../components/ScheduleCard';
 import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
@@ -16,6 +16,7 @@ import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFr
 import Button from '@/components/Button';
 import CalendarLinkPopup from './popups/CalendarLinkPopup';
 import { useEventGetAllWithSpeakers } from '@/api/event/useEventGetAllWithSpeakers';
+import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -44,6 +45,7 @@ export const SchedulePage = () => {
     useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
   const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
+  const completeAchievementByName = useAchievementCompleteByName();
 
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
@@ -57,7 +59,16 @@ export const SchedulePage = () => {
       userId: user.id,
     };
 
-    eventAddToPersonalSchedule.mutate({ eventId, data });
+    eventAddToPersonalSchedule.mutate(
+      { eventId, data },
+      {
+        onSuccess: () => {
+          completeAchievementByName.mutate({
+            name: AchievementNames.Ding,
+          });
+        },
+      },
+    );
   }
 
   function handleRemoveFromPersonalSchedule(eventId: number) {
