@@ -5,6 +5,7 @@ import QuestionIcon from '../../../assets/icons/question.svg';
 import XIcon from '../../../assets/icons/x.svg';
 import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
+import { usePatchSelectedApplicant } from '../../../api/flyTalks/usePatchSelectedApplicant';
 
 type TableRowProps = {
   applicant: UserToCompanyDto;
@@ -24,7 +25,7 @@ const TableRow: React.FC<TableRowProps> = ({
   function getStatusIcon(): string {
     if (!timeLeft) return QuestionIcon;
 
-    const isAccepted = true; // iz baze
+    const isAccepted = applicant.selected;
     if (timeLeft.getTime() !== 0) {
       return QuestionIcon;
     } else if (isAccepted) {
@@ -33,6 +34,17 @@ const TableRow: React.FC<TableRowProps> = ({
       return XIcon;
     }
   }
+
+  const patchApplicant = usePatchSelectedApplicant();
+
+  const handleSelectClick = (applicant: UserToCompanyDto) => {
+    console.log(applicant)
+  patchApplicant.mutate({
+    user: applicant,
+    selected: status === 'accepted' ? false : true,
+  });
+  };
+
   return (
     <tr>
       <td className={c.cell}>
@@ -53,7 +65,7 @@ const TableRow: React.FC<TableRowProps> = ({
         <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
       </td>
       <td className={c.cell}>
-        <WhiteButton variant='primary' disabled={timeLeft?.getTime() === 0}>
+        <WhiteButton variant='primary' disabled={timeLeft?.getTime() === 0} onClick={()=>handleSelectClick(applicant)}>
           {status === 'accepted' ? 'Ukloni odabir' : 'Odaberi'}
         </WhiteButton>
       </td>

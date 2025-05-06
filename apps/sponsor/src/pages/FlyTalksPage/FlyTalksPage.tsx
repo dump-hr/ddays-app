@@ -1,4 +1,4 @@
-import { UserDto, UserToCompanyDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';

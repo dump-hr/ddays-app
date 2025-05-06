@@ -64,6 +64,7 @@ export type UserToEventDto = {
 
 export type UserToCompanyDto = {
   id: number;
+  eventId: number;
   firstName: string;
   lastName: string;
   email: string;

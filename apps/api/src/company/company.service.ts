@@ -125,6 +125,7 @@ export class CompanyService {
 
         return {
           ...rel.user,
+          eventId: rel.eventId,
           date: day,
           linkedinProfile: rel.linkedinProfile,
           githubProfile: rel.githubProfile,
@@ -137,6 +138,18 @@ export class CompanyService {
     );
 
     return users;
+  }
+
+  async selectApplicant(user: UserToCompanyDto, selected: boolean): Promise<void> {
+    await this.prisma.userToEvent.update({
+      where: {
+        userId_eventId: {
+          userId: user.id,
+          eventId: user.eventId,
+        },
+      },
+      data: { selected: selected},
+    });
   }
 
   async remove(id: number): Promise<CompanyDto> {

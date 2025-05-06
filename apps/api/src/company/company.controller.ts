@@ -61,6 +61,14 @@ export class CompanyController {
     return await this.companyService.getApplicantsForCompany(user.id);
   }
 
+  @UseGuards(SponsorGuard)
+  @Patch('select-applicant')
+  async selectApplicant(
+    @Body() body: { user: UserToCompanyDto; selected: boolean },
+  ): Promise<any> {
+    return await this.companyService.selectApplicant(body.user, body.selected);
+  }
+
   @UseGuards(AdminGuard)
   @Get('include-sensitive-info/:id')
   async getOne(@Param('id', ParseIntPipe) id: number): Promise<CompanyDto> {

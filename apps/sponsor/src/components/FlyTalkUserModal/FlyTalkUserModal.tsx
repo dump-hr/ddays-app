@@ -64,13 +64,13 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
         </p>
         <label className={c.label}>Poveznice</label>
         <p className={c.link}>
-          LinkedIn: <a href='https://www.google.com'>{ user.linkedinProfile}</a>
+          LinkedIn: <a href={user.linkedinProfile}>{ user.linkedinProfile}</a>
         </p>
         <p className={c.link}>
-          Github: <a href='https://www.google.com'>{ user.githubProfile}</a>
+          Github: <a href={ user.githubProfile}>{ user.githubProfile}</a>
         </p>
         <p className={c.link}>
-          Portfolio: <a href='https://www.google.com'>{ user.portfolioProfile}</a>
+          Portfolio: <a href={ user.portfolioProfile}>{ user.portfolioProfile}</a>
         </p>
         <div className={c.buttons}>
           <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>
