@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import c from './FileInput.module.scss';
 import addSvg from '../../assets/icons/add.svg';
 import binSvg from '../../assets/icons/bin.svg';
@@ -12,6 +12,7 @@ interface FileInputProps {
 
 const FileInput: React.FC<FileInputProps> = ({ file, setFile, error, title }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [fileSizeError, setFileSizeError] = useState<string | undefined>();
 
   const handleFileUpload = () => {
     if (fileInputRef.current && !file) {
@@ -29,6 +30,11 @@ const FileInput: React.FC<FileInputProps> = ({ file, setFile, error, title }) =>
     const uploadedFile = event.target.files?.[0];
     if (uploadedFile && uploadedFile.size < 5 * 1024 * 1024) {
       setFile(uploadedFile);
+      setFileSizeError(undefined);
+    }
+    else{
+      setFile(undefined);
+      setFileSizeError('Datoteka je iznad 5MB');
     }
   };
 
@@ -46,7 +52,8 @@ const FileInput: React.FC<FileInputProps> = ({ file, setFile, error, title }) =>
           onChange={handleFileChange}
         />
       </div>
-      {error && <p className={c.errorMessage}>{error}</p>}
+      {(error) && <p className={c.errorMessage}>{error}</p>}
+      {fileSizeError && <p className={c.errorMessage}>{fileSizeError}</p>}
     </>
   );
 };

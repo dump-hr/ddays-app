@@ -61,3 +61,7 @@ export type UserToEventDto = {
   cv?: string;
   description?: string;
 };
+
+export type UserWithFlyTalkDto = {
+  id: number;
+};

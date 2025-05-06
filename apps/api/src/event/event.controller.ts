@@ -1,10 +1,12 @@
 import {
   EventDto,
   EventModifyDto,
+  EventWithCompanyDto,
   EventWithSpeakerDto,
+  UserToEventDto,
 } from '@ddays-app/types';
-import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -15,8 +17,11 @@ import {
   Post,
   Req,
   Res,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UserToEvent } from '@prisma/client';
 import { Response } from 'express';
 import { AdminGuard } from 'src/auth/admin.guard';
@@ -34,9 +39,32 @@ export class EventController {
     return await this.eventService.create(dto);
   }
 
+  @Post('apply-to-flytalk')
+  @UseGuards(UserGuard)
+  async applyToFlyTalk(@Body() dto: UserToEventDto): Promise<UserToEventDto> {
+    return await this.eventService.applyToFlyTalk(dto);
+  }
+
+  @Post('upload-cv')
+  @UseGuards(UserGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadCV(@UploadedFile() file: Express.Multer.File): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+    return await this.eventService.uploadCV(file);
+  }
+
   @Get('with-speaker')
-  async getAllWithSpeakerAnd(): Promise<EventWithSpeakerDto[]> {
+  @UseGuards(UserGuard)
+  async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
+  }
+
+  @Get('fly-talks-with-company')
+  @UseGuards(UserGuard)
+  async GetFlyTalksWithCompany(): Promise<EventWithCompanyDto[]> {
+    return await this.eventService.getFlyTalksWithCompany();
   }
 
   @UseGuards(UserGuard)
@@ -53,6 +81,7 @@ export class EventController {
   }
 
   @Get('schedule-ical/:userId.ics')
+  @UseGuards(UserGuard)
   async generateIcal(
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,
@@ -71,6 +100,15 @@ export class EventController {
     return await this.eventService.getAll();
   }
 
+  @UseGuards(UserGuard)
+  @Delete('delete-flytalk-application')
+  async deleteFlyTalkApplication(
+    @Body() { eventId: eventId }: { eventId: number },
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<UserToEventDto> {
+    return await this.eventService.deleteFlyTalkApplication(user.id, eventId);
+  }
+
   @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
@@ -87,6 +125,7 @@ export class EventController {
   }
 
   @Post(':id/join')
+  @UseGuards(UserGuard)
   async joinEvent(
     @Param('id', ParseIntPipe) eventId: number,
     @Body() dto: UserToEventDto,
@@ -95,6 +134,7 @@ export class EventController {
   }
 
   @Delete(':id/leave')
+  @UseGuards(UserGuard)
   async leaveEvent(
     @Param('id', ParseIntPipe) eventId: number,
     @Body() dto: UserToEventDto,
