@@ -76,7 +76,6 @@ export class EventController {
   }
 
   @Get(':id')
-  @UseGuards(UserGuard)
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
     return await this.eventService.getOne(id);
   }

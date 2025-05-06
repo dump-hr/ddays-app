@@ -12,7 +12,7 @@
     p {
       color: $primary-white;
       @include heading-2;
-      margin: 64px 0 24px 24px;
+      margin: 64px 24px 24px 24px;
       text-transform: uppercase;
     }
   }
@@ -45,7 +45,6 @@
       display: grid;
       width: 100%;
       gap: 24px;
-
     }
   }
 
