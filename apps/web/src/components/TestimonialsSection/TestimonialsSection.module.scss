@@ -7,7 +7,6 @@
   overflow-x: clip;
   position: relative;
 
-
   .sectionBreaker {
     z-index: 5;
     position: absolute;
@@ -19,17 +18,17 @@
 
     mask-image: url('../../assets/images/section-breaker.webp');
     background: black;
-      &:before {
-        content: '';
-        background-image: url(../../assets/images/noise.webp);
-        opacity: 0.15;
-        top: 0;
-        left: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
+    &:before {
+      content: '';
+      background-image: url(../../assets/images/noise.webp);
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
   }
 
   @media screen and (min-width: 768px) {

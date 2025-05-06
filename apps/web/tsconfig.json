@@ -1,16 +1,15 @@
 {
   "extends": "@ddays-app/tsconfig/react.json",
   "include": ["src", "vite.config.ts"],
-  "compilerOptions": { 
+  "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": "./src",
     "paths": {
-      "assets/*" : ["./assets/*"],
-      "components/*" : ["./components/*"],
+      "assets/*": ["./assets/*"],
+      "components/*": ["./components/*"],
       "styles/*": ["./styles/*"],
-      "helpers/*": ["./helpers/*"],
+      "helpers/*": ["./helpers/*"]
     }
   }
 }
- 
