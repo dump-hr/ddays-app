@@ -111,7 +111,7 @@ export class AchievementService {
   async completeAchievement(
     userId: number,
     uuid: string,
-    options: { surpressDuplicate?: boolean } = {},
+    suppressDuplicate?: boolean,
   ): Promise<AchievementDto> {
     const achievement = await this.getOne(uuid);
 
@@ -120,7 +120,7 @@ export class AchievementService {
     }
 
     return await this.prisma.$transaction(async (prisma) => {
-      if (!options.surpressDuplicate) {
+      if (!suppressDuplicate) {
         const existing = await prisma.userToAchievement.findFirst({
           where: {
             userId,
@@ -335,6 +335,7 @@ export class AchievementService {
   async completeAchievementByName(
     userId: number,
     name: string,
+    suppressDuplicate?: boolean,
   ): Promise<AchievementDto> {
     const achievement = await this.prisma.achievement.findFirst({
       where: { name },
@@ -344,8 +345,10 @@ export class AchievementService {
       throw new HttpException('Achievement not found.', HttpStatus.BAD_REQUEST);
     }
 
-    return await this.completeAchievement(userId, achievement.uuid, {
-      surpressDuplicate: true,
-    });
+    return await this.completeAchievement(
+      userId,
+      achievement.uuid,
+      suppressDuplicate,
+    );
   }
 }

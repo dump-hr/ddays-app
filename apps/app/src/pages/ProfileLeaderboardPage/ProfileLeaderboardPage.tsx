@@ -35,7 +35,7 @@ export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
 
   const { mutate: completeAchievementByName } = useAchievementCompleteByName();
-  completeAchievementByName(AchievementNames.BraveMove);
+  completeAchievementByName({ name: AchievementNames.BraveMove });
 
   return (
     <div className={c.page}>

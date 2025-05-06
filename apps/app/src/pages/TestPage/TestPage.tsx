@@ -16,7 +16,7 @@ const TestPage = () => {
       />
       <button
         onClick={() => {
-          completeAchievementByName(text);
+          completeAchievementByName({ name: text });
         }}>
         Unesi
       </button>

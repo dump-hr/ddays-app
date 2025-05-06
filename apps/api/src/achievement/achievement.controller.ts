@@ -9,9 +9,11 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -88,10 +90,12 @@ export class AchievementController {
   async completeAchievementByName(
     @Req() { user }: AuthenticatedRequest,
     @Param('name') name: string,
+    @Query('suppressDuplicate', ParseBoolPipe) suppressDuplicate: boolean,
   ): Promise<AchievementDto> {
     return await this.achievementService.completeAchievementByName(
       user.id,
       name,
+      suppressDuplicate,
     );
   }
 

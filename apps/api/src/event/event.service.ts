@@ -165,11 +165,6 @@ export class EventService {
       throw new AlreadyJoinedEventException();
     }
 
-    this.achievementService.completeAchievementByName(
-      dto.userId,
-      AchievementNames.Ding,
-    );
-
     return await this.prisma.userToEvent.create({
       data: {
         userId: dto.userId,
