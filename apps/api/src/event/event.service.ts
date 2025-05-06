@@ -1,5 +1,4 @@
 import {
-  AchievementNames,
   EventDto,
   EventModifyDto,
   EventWithSpeakerDto,
