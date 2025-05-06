@@ -5,6 +5,7 @@
   align-items: center;
   min-width: 100%;
   min-height: 100%;
+  @include mobileNavigationPadding(8px);
 
   .header {
     width: 100%;
