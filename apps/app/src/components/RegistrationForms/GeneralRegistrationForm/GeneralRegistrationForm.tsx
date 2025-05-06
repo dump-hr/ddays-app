@@ -90,12 +90,13 @@ export const GeneralRegistrationForm = () => {
       currentStep === RegistrationStep.FOUR
     ) {
       const nextStep = currentStep + 1;
-      setCurrentStep(nextStep);
-      scrollToTopOfTheScreen();
+      setCurrentStep(nextStep > 4 ? 4 : nextStep);
+
+      if (nextStep <= 4) scrollToTopOfTheScreen();
     } else if (isStepValid(currentStep)) {
       const nextStep = currentStep + 1;
-      setCurrentStep(nextStep);
-      scrollToTopOfTheScreen();
+      setCurrentStep(nextStep > 4 ? 4 : nextStep);
+      if (nextStep <= 4) scrollToTopOfTheScreen();
     }
   };
 
