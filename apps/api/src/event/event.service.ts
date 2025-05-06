@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { EventType, UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
-import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 export class AlreadyJoinedEventException extends HttpException {

@@ -9,11 +9,9 @@ import {
   Delete,
   Get,
   Param,
-  ParseBoolPipe,
   ParseIntPipe,
   Patch,
   Post,
-  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
