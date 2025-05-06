@@ -37,6 +37,7 @@ export const useAchievementCompleteByName = () => {
             maxWidth: '90vw',
             whiteSpace: 'nowrap',
           },
+          duration: 3000,
         });
       },
       onError: (error) => {
