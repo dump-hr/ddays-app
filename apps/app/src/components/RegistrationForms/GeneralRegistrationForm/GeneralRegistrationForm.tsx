@@ -5,7 +5,7 @@ import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '@/components//AuthFooter';
 import Button from '@/components/Button/Button';
-import GoogleIcon from '@/assets/icons/google-icon.svg';
+//import GoogleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
@@ -180,17 +180,23 @@ export const GeneralRegistrationForm = () => {
               children='Dalje'
               onClick={handleRegistrationClick}
             />
+            {/*
             <Button
               type='submit'
               variant='black'
               children='Nastavi s Google'
               icon={GoogleIcon}
             />
+            */}
           </>
         ) : null}
       </div>
 
-      <AuthFooter leftMessage='Već imaš račun?' rightMessage='Prijavi se' />
+      <AuthFooter
+        leftMessage='Već imaš račun?'
+        rightMessage='Prijavi se'
+        rightMessageOnClick={() => navigate(RouteNames.LOGIN)}
+      />
     </div>
   );
 };
