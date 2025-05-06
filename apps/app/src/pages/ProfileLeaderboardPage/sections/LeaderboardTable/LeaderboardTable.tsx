@@ -36,7 +36,7 @@ const LeaderboardTable = () => {
           if (entries[0].isIntersecting && hasNextPage) {
             setTimeout(() => {
               fetchNextPage();
-            }, 300);
+            }, 500);
           }
         },
         {
@@ -74,18 +74,14 @@ const LeaderboardTable = () => {
               <tbody>
                 <LeaderboardTableRow
                   key={personalRankData.id}
-                  rank={personalRankData.rank}
-                  name={personalRankData.name}
-                  level={personalRankData.level}
-                  points={personalRankData.points}
+                  userRank={personalRankData}
                 />
               </tbody>
             </table>
           </div>
         )}
       </>
-
-      <div className={styles.leaderboardWrapper}>
+      <div className={styles.tableWrapper}>
         <table className={styles.leaderboardTable}>
           <tbody>
             {slicedLeaderboard.map((entry, index) => (
@@ -96,22 +92,16 @@ const LeaderboardTable = () => {
                     : undefined
                 }
                 key={`${entry.id}-${entry.rank}`}
-                rank={entry.rank}
-                name={entry.name}
-                level={entry.level}
-                points={entry.points}
+                userRank={entry}
               />
             ))}
-
-            {isFetchingNextPage && (
-              <tr>
-                <td colSpan={4} className={styles.loadingRow}>
-                  <LoadingSpinner />
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
+        {isFetchingNextPage && (
+          <div className={styles.loadingRow}>
+            <LoadingSpinner />
+          </div>
+        )}
       </div>
     </div>
   );

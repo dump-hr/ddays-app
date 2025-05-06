@@ -2,18 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
   width: 100%;
   box-sizing: border-box;
   position: relative;
   margin-left: auto;
-  padding: 43px 0 40px;
+  padding: 43px 0 0px;
   overflow: visible;
 
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 0 auto;
     padding: 60px 0 48px;
-    gap: 60px;
+    gap: 65px;
   }
 }
 
@@ -28,7 +28,6 @@
   position: relative;
   box-sizing: border-box;
   flex-shrink: 0;
-  margin-bottom: 50px;
 
   &::before {
     content: '';
@@ -40,7 +39,7 @@
     height: 58.044px;
     flex-shrink: 0;
     display: block;
-    background-image: url('../../assets/images/gold-medal.png');
+    background-image: url('../../../../assets/images/gold-medal.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -57,7 +56,7 @@
       width: 72.391px;
       height: 54.293px;
       display: block;
-      background-image: url('../../assets/images/silver-medal.png');
+      background-image: url('../../../../assets/images/silver-medal.png');
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
@@ -75,7 +74,7 @@
       width: 72.391px;
       height: 54.293px;
       display: block;
-      background-image: url('../../assets/images/bronze-medal.png');
+      background-image: url('../../../../assets/images/bronze-medal.png');
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
@@ -137,7 +136,8 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-
+  position: relative;
+  top: 8px;
   @media screen and (min-width: $breakpoint-tablet) {
     .duckWrapper:nth-child(2) & {
       bottom: -60px;
@@ -173,4 +173,39 @@
 .loadingSpinner {
   position: relative;
   top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.firstPlaceContainer {
+  border-radius: 17px;
+  background-color: $primary-black;
+  z-index: 2;
+}
+
+.firstPlacePoints {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.firstPlaceName {
+  font-size: 16px;
+}
+
+@mixin beigeContainer {
+  border-radius: 8px;
+  background-color: $primary-beige;
+  border: 1px solid $black-10;
+}
+
+.secondPlaceContainer {
+  @include beigeContainer;
+  rotate: -6deg;
+}
+
+.thirdPlaceContainer {
+  @include beigeContainer;
+  rotate: 6deg;
 }
