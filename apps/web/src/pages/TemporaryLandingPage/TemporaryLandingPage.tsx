@@ -11,7 +11,8 @@ import { temporaryLandingNavigation } from '../../constants/temporary-landing-na
 export const TemporaryLandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const RegisterButton = (
-    <Button onClick={() => (window.location.href = 'https://days.dump.hr/app')}>
+    <Button
+      onClick={() => (window.location.href = 'https://days.dump.hr/app/login')}>
       Prijavi se
     </Button>
   );
