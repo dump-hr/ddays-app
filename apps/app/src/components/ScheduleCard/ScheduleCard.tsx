@@ -72,6 +72,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   }
 
   function handleClick() {
+    if (!isOpen) return;
+
     if (isAddedToSchedule) {
       handleRemoveFromPersonalSchedule(event.id);
     } else {

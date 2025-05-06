@@ -266,6 +266,7 @@
   .button {
     &.collapsed {
       margin-top: -48px;
+      cursor: default;
     }
   }
 }

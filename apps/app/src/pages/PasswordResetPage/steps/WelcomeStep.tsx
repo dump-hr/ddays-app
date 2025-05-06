@@ -22,8 +22,8 @@ export const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
         </div>
         <div className={c.textContainer}>
           <p className={c.text}>
-            Opet si zaboravio lozinku? Nema problema, uz moju pomoć odmah ću ti
-            na mail poslati upute za stvaranje nove.
+            Ne možeš se sitit lozinke? Bez brige, stižu ti upute na mail.
+            Resetiraj lozinku i vidimo se na istom mistu.
           </p>
         </div>
         <div className={c.buttonContainer}>

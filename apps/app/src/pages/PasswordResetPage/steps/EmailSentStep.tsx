@@ -64,9 +64,9 @@ export const EmailSentStep = ({ email }: EmailSentStepProps) => {
         </div>
         <div className={c.textContainer}>
           <p className={c.text}>
-            Poslala sam ti link za resetiranje lozinke na{' '}
-            {email || 'tvoj email'}. Molim te da prije nastavljanja radnje
-            pratiš upute u mailu i autoriziraš promjenu lozinke.
+            Pozdrav! Poslan ti je link za resetiranje lozinke na mail:{' '}
+            <b>{email}</b>. <br /> <br /> Prati upute i u par klikova ponovno si
+            u igri.
           </p>
         </div>
         <div className={c.buttonContainer}>
