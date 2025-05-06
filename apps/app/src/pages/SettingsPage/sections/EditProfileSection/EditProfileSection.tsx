@@ -16,12 +16,17 @@ import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { usePatchCurrentUser } from '@/api/user/usePatchCurrentUser';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 import { dropdownInputs } from '@/constants/sharedInputs';
+import RedStarIcon from '@/components/RedStarIcon';
+import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
+import { AchievementNames } from '@ddays-app/types';
 
 export const EditProfileSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const updateUserMutation = usePatchCurrentUser();
   const { userSettingsData, updateUserSettingsData, isEditing, setIsEditing } =
     useUserContext();
+  const { data: userAchievements } = useAchievementGetCompleted();
+  const [achievementCompleted, setAchievementCompleted] = useState(false);
 
   const {
     handleDropdownChange,
@@ -69,11 +74,25 @@ export const EditProfileSection: React.FC = () => {
     }
 
     const userDataToSend = { ...userSettingsData };
+
     updateUserMutation.mutate(userDataToSend as UserModifyDto, {
       onSuccess: () => {
         setIsEditing(false);
       },
     });
+
+    if (
+      userDataToSend.newsletterEnabled &&
+      !userAchievements?.filter((a) => a.name === AchievementNames.WhatsNew)
+        .length &&
+      !achievementCompleted
+    ) {
+      setAchievementCompleted(true);
+      toast.success("Dodano postignuće - What's new?", {
+        icon: <RedStarIcon />,
+        duration: 3000,
+      });
+    }
   };
 
   return (

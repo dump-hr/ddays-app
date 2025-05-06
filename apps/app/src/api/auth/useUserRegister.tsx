@@ -30,6 +30,7 @@ export const useUserRegister = (navigate: () => void) => {
           duration: 3000,
         });
       }
+
       navigate();
     },
     onError: (error: string) => {

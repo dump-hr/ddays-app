@@ -166,6 +166,13 @@ export class AuthService {
       );
     }
 
+    if (register.newsletterEnabled) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.WhatsNew,
+      );
+    }
+
     return { accessToken };
   }
 

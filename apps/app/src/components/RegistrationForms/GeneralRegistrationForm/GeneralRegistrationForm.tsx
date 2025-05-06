@@ -15,6 +15,8 @@ import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
 import { useRegistrationData } from '@/providers/RegistrationDataProvider';
+import toast from 'react-hot-toast';
+import RedStarIcon from '@/components/RedStarIcon';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
@@ -60,6 +62,13 @@ export const GeneralRegistrationForm = () => {
         break;
       case RegistrationStep.FOUR:
         setIsSubmitted({ ...isSubmitted, fourthStepIsSubmitted: true });
+
+        if (userData.newsletterEnabled) {
+          toast.success("Dodano postignuće - What's new?", {
+            icon: <RedStarIcon />,
+            duration: 3000,
+          });
+        }
 
         mutate({
           firstName: userData.firstName,
