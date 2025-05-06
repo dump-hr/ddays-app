@@ -32,6 +32,7 @@ export const GeneralRegistrationForm = () => {
     clearUserData();
     navigate(RouteNames.CONFIRM_EMAIL);
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,6 +75,7 @@ export const GeneralRegistrationForm = () => {
           interests: userData.interests,
           profilePhotoUrl: userData.profilePhotoUrl,
         });
+
         break;
       default:
         break;

@@ -1,13 +1,18 @@
+import { AchievementNames } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { ServerClient } from 'postmark';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class EmailService {
   private readonly client: ServerClient;
 
-  constructor(private readonly prisma: PrismaService) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly achievementService: AchievementService,
+  ) {
     const postmarkToken = process.env.POSTMARK_API_TOKEN;
     if (!postmarkToken) {
       throw new Error('POSTMARK_API_TOKEN nije postavljen');
@@ -156,6 +161,11 @@ export class EmailService {
       where: { id: confirmationToken.userId },
       data: { isConfirmed: true },
     });
+
+    await this.achievementService.completeAchievementByName(
+      confirmationToken.userId,
+      AchievementNames.FirstSteps,
+    );
 
     return { success: true, message: 'Email uspješno potvrđen' };
   }

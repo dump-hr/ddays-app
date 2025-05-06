@@ -59,12 +59,6 @@ export class AchievementController {
     return await this.achievementService.getOneWithUuid(id);
   }
 
-  @UseGuards(UserGuard)
-  @Get(':uuid')
-  async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
-    return await this.achievementService.getOne(uuid);
-  }
-
   @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
@@ -78,12 +72,6 @@ export class AchievementController {
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<AchievementDto> {
     return await this.achievementService.remove(id);
-  }
-
-  @UseGuards(AdminGuard)
-  @Get()
-  async getAll(): Promise<AchievementDto[]> {
-    return await this.achievementService.getAll();
   }
 
   @UseGuards(UserGuard)
@@ -105,5 +93,17 @@ export class AchievementController {
       user.id,
       name,
     );
+  }
+
+  @UseGuards(UserGuard)
+  @Get(':uuid')
+  async getOne(@Param('uuid') uuid: string): Promise<AchievementDto> {
+    return await this.achievementService.getOne(uuid);
+  }
+
+  @UseGuards(AdminGuard)
+  @Get()
+  async getAll(): Promise<AchievementDto[]> {
+    return await this.achievementService.getAll();
   }
 }

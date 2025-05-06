@@ -95,3 +95,7 @@ export enum Theme {
   MARKETING = 'MARKETING',
   TECH = 'TECH',
 }
+
+export enum AchievementNames {
+  FirstSteps = 'First steps',
+}
