@@ -1,5 +1,6 @@
-import { AvatarUpdateDto } from '@ddays-app/types';
+import { AchievementNames, AvatarUpdateDto } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
@@ -8,6 +9,7 @@ export class AvatarService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly blobService: BlobService,
+    private readonly achievementService: AchievementService,
   ) {}
 
   async updateAvatar(
@@ -36,6 +38,10 @@ export class AvatarService {
           body: avatarData.body,
         },
       });
+      await this.achievementService.completeAchievementByName(
+        userId,
+        AchievementNames.NewFitWhoThis,
+      );
     } else {
       await this.prisma.avatar.create({
         data: {

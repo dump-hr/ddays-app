@@ -1,4 +1,5 @@
 import {
+  AchievementNames,
   EventDto,
   EventModifyDto,
   EventWithSpeakerDto,
@@ -12,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { EventType, UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 export class AlreadyJoinedEventException extends HttpException {
@@ -22,7 +24,10 @@ export class AlreadyJoinedEventException extends HttpException {
 
 @Injectable()
 export class EventService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly achievementService: AchievementService,
+  ) {}
 
   async create(dto: EventModifyDto): Promise<EventDto> {
     const createdEvent = await this.prisma.event.create({
@@ -159,6 +164,11 @@ export class EventService {
     if (existingEntry) {
       throw new AlreadyJoinedEventException();
     }
+
+    this.achievementService.completeAchievementByName(
+      dto.userId,
+      AchievementNames.Ding,
+    );
 
     return await this.prisma.userToEvent.create({
       data: {

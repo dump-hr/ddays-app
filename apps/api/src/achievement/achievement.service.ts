@@ -320,6 +320,17 @@ export class AchievementService {
       throw new HttpException('Achievement not found.', HttpStatus.BAD_REQUEST);
     }
 
+    const alreadyCompleted = await this.prisma.userToAchievement.findFirst({
+      where: {
+        userId,
+        achievementId: achievement.id,
+      },
+    });
+
+    if (alreadyCompleted) {
+      return undefined;
+    }
+
     return await this.completeAchievement(userId, achievement.uuid);
   }
 }
