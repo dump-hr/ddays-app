@@ -149,6 +149,11 @@ export class AuthService {
       lastName: newUser.lastName,
     });
 
+    await this.achievementService.completeAchievementByName(
+      newUser.id,
+      AchievementNames.FirstSteps,
+    );
+
     const EARLY_BIRD_CUTOFF = new Date('2025-05-09T22:00:00.000Z'); // 10.5.2024 00:00 CEST
     const currentTime = new Date();
 

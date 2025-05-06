@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 import { EmailController } from './email.controller';
@@ -7,7 +6,7 @@ import { EmailService } from './email.service';
 
 @Module({
   controllers: [EmailController],
-  providers: [EmailService, PrismaService, AchievementService],
+  providers: [EmailService, PrismaService],
   exports: [EmailService],
 })
 export class EmailModule {}
