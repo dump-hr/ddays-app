@@ -14,7 +14,7 @@ const CalendarLinkPopup: React.FC<CalendarLinkPopupProps> = ({
 }) => {
   const { data: user } = useLoggedInUser();
 
-  const calendarLink = `webcal://localhost:3004/api/event/schedule-ical/${user?.id}.ics`;
+  const calendarLink = `webcal://days.dump.hr/api/event/schedule-ical/${user?.id}.ics`;
 
   return (
     <PopupLayout
