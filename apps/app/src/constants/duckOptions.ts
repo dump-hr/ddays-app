@@ -77,37 +77,37 @@ export const ducks: DuckObject[] = [
   {
     imageSrc: programerka,
     name: 'Programerka',
-    description: 'Kamenjarka, ne voli izlazit, prodat ce te za koru kruva',
+    description: 'Zna sve prečace na tipkovnici i obožava dark mode.',
   },
   {
     imageSrc: designerica,
     name: 'Design(erica)',
-    description: 'Profinjenog ukusa, imposter syndrom na max, voli layout',
+    description: 'Ima bar 20 otvorenih tabova dok traži savršeni font.',
   },
   {
     imageSrc: marketing,
-    name: 'Marketing expert',
-    description: 'Triba copy od marketinga max. ovoliko dug, 2 reda',
+    name: 'Marketingašica',
+    description: 'Ekstrovertirana i iskače iz paštete. Uvik ima FOMO.',
   },
   {
     imageSrc: multimedijasica,
     name: 'Multimedijašica',
-    description: 'Triba copy od marketinga max. ovoliko dug, 2 reda',
+    description: 'Najdraže pitanje joj je: “Kad će slike?”',
   },
   {
     imageSrc: gamerica,
     name: 'Gamerica',
-    description: 'Triba copy od marketinga max. ovoliko dug, 2 reda',
+    description: '60% kalorija joj dolazi iz  energetskih pića.',
   },
   {
     imageSrc: poduzetnica,
     name: 'Poduzetnica',
-    description: 'Triba copy od marketinga max. ovoliko dug, 2 reda',
+    description: 'Pokreće svoj startup pa spava max 4 sata dnevno.',
   },
   {
     imageSrc: nft,
-    name: 'NFT Slavica',
-    description: 'Triba copy od marketinga max. ovoliko dug, 2 reda',
+    name: 'NFT patkica',
+    description: 'U pekari pita "Jel primate Solanu?"',
   },
 ];
 
@@ -120,43 +120,43 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
       imagePreviewSrc: yellowPreview,
     },
     {
-      name: 'Narančasta',
+      name: 'Nakon solarija',
       imageSrc: orange,
       value: Colors.ORANGE,
       imagePreviewSrc: orangePreview,
     },
     {
-      name: 'Kakasta',
+      name: 'Ružno pače',
       imageSrc: brown,
       value: Colors.BROWN,
       imagePreviewSrc: brownPreview,
     },
     {
-      name: 'Dreamstar',
+      name: 'Thanos',
       imageSrc: purple,
       value: Colors.PURPLE,
       imagePreviewSrc: purplePreview,
     },
     {
-      name: 'Mountain Dew',
+      name: 'Shrek',
       imageSrc: green,
       value: Colors.GREEN,
       imagePreviewSrc: greenPreview,
     },
     {
-      name: 'Teška priča',
+      name: 'Štrumpfeta',
       imageSrc: blue,
       value: Colors.BLUE,
       imagePreviewSrc: bluePreview,
     },
     {
-      name: 'Dama sa Balkana',
+      name: 'Flamingo',
       imageSrc: red,
       value: Colors.RED,
       imagePreviewSrc: redPreview,
     },
     {
-      name: 'Pepel od duvana',
+      name: 'Tovar',
       imageSrc: gray,
       value: Colors.GRAY,
       imagePreviewSrc: grayPreview,
@@ -182,13 +182,13 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
       imagePreviewSrc: cryingPreview,
     },
     {
-      name: 'Dama iz Pariza',
+      name: 'Madež',
       imageSrc: mole,
       value: Face.MOLE,
       imagePreviewSrc: molePreview,
     },
     {
-      name: 'Dr. Pringles',
+      name: 'Brkovi',
       imageSrc: mustache,
       value: Face.MUSTACHE,
       imagePreviewSrc: mustachePreview,
@@ -214,7 +214,7 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
   ],
   [DuckItems.ACCESSORIES]: [
     {
-      name: 'Brze cvike',
+      name: 'Brze cvaje',
       imageSrc: sunglasses,
       value: Accessory.SUNGLASSES,
       imagePreviewSrc: sunglassesPreview,
@@ -226,7 +226,7 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
       imagePreviewSrc: crownPreview,
     },
     {
-      name: 'Holy Moly',
+      name: 'Angel',
       imageSrc: angel,
       value: Accessory.ANGEL,
       imagePreviewSrc: angelPreview,
@@ -244,7 +244,7 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
       imagePreviewSrc: ninjaPreview,
     },
     {
-      name: 'Slušalice',
+      name: 'Sluše',
       imageSrc: headphones,
       value: Accessory.HEADPHONES,
       imagePreviewSrc: headphonesPreview,
@@ -264,7 +264,7 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
   ],
   [DuckItems.BODY]: [
     {
-      name: 'Šal(iš) se',
+      name: 'HŽV',
       imageSrc: scarf,
       value: Body.SCARF,
       imagePreviewSrc: scarfPreview,
@@ -276,7 +276,7 @@ export const DUCK_OPTIONS: Record<DuckItems, Option[]> = {
       imagePreviewSrc: chainPreview,
     },
     {
-      name: 'Ko šar ka',
+      name: 'Ko-šar-ka',
       imageSrc: basketball,
       value: Body.BASKETBALL,
       imagePreviewSrc: basketballPreview,
