@@ -1,6 +1,7 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
+import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import WhiteButton from '../../components/WhiteButton';
@@ -8,7 +9,6 @@ import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
 import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
-import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
 
 const FlyTalksPage = () => {
   const tabs = ['Grupa 1', 'Grupa 2'];

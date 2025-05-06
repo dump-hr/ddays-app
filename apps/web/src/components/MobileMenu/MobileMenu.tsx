@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import HamburgerButton from 'components/HamburgerButton';
+
 import c from './MobileMenu.module.scss';
 
 type MobileMenuProps = {

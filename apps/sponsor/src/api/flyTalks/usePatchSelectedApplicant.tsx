@@ -1,6 +1,7 @@
-import { useQueryClient, useMutation } from 'react-query';
-import { api } from '..';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '..';
 
 export const usePatchSelectedApplicant = () => {
   const queryClient = useQueryClient();
@@ -15,6 +16,6 @@ export const usePatchSelectedApplicant = () => {
       onError: (error) => {
         console.error('Greška prilikom odabira kandidata', error);
       },
-    }
+    },
   );
 };

@@ -1,10 +1,10 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect } from 'react';
 
+import { usePatchSelectedApplicant } from '../../api/flyTalks/usePatchSelectedApplicant';
 import CloseSvg from '../../assets/icons/close.svg';
 import WhiteButton from '../WhiteButton';
 import c from './FlyTalkUserModal.module.scss';
-import { usePatchSelectedApplicant } from '../../api/flyTalks/usePatchSelectedApplicant';
 
 type ModalProps = {
   isOpen: boolean;
@@ -35,6 +35,8 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
     };
   }, [isOpen]);
 
+  const patchApplicant = usePatchSelectedApplicant();
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -51,23 +53,20 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
 
   if (!user) return null;
 
-  const patchApplicant = usePatchSelectedApplicant();
-
   const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
-  console.log(status)
-  patchApplicant.mutate(
-    {
-      user: applicant,
-      selected: status === 'Ukloni odabir' ? false : true,
-    },
-    {
-      onSuccess: () => {
-        onClose();
+    console.log(status);
+    patchApplicant.mutate(
+      {
+        user: applicant,
+        selected: status === 'Ukloni odabir' ? false : true,
       },
-    }
-  );
-};
-
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      },
+    );
+  };
 
   return (
     <div className={c.background} onClick={onClose}>
@@ -78,22 +77,29 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
           {user.firstName} {user.lastName}
         </h3>
         <h4 className={c.email}>{user.email}</h4>
-        <p className={c.about}>
-          {user.description}
-        </p>
+        <p className={c.about}>{user.description}</p>
         <label className={c.label}>Poveznice</label>
         <p className={c.link}>
-          LinkedIn: <a href={user.linkedinProfile}>{ user.linkedinProfile}</a>
+          LinkedIn: <a href={user.linkedinProfile}>{user.linkedinProfile}</a>
         </p>
         <p className={c.link}>
-          Github: <a href={ user.githubProfile}>{ user.githubProfile}</a>
+          Github: <a href={user.githubProfile}>{user.githubProfile}</a>
         </p>
         <p className={c.link}>
-          Portfolio: <a href={ user.portfolioProfile}>{ user.portfolioProfile}</a>
+          Portfolio: <a href={user.portfolioProfile}>{user.portfolioProfile}</a>
         </p>
         <div className={c.buttons}>
-          <WhiteButton variant='secondary' onClick={() => window.open(user.cv, '_blank')}>Pregledaj CV </WhiteButton>
-          <WhiteButton variant='primary' onClick={()=>handleSelectClick(user, modalButtonText)}> {modalButtonText}</WhiteButton>
+          <WhiteButton
+            variant='secondary'
+            onClick={() => window.open(user.cv, '_blank')}>
+            Pregledaj CV{' '}
+          </WhiteButton>
+          <WhiteButton
+            variant='primary'
+            onClick={() => handleSelectClick(user, modalButtonText)}>
+            {' '}
+            {modalButtonText}
+          </WhiteButton>
         </div>
       </div>
     </div>

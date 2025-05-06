@@ -1,10 +1,11 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
+
+import { usePatchSelectedApplicant } from '../../../api/flyTalks/usePatchSelectedApplicant';
 import CheckIcon from '../../../assets/icons/check.svg';
 import QuestionIcon from '../../../assets/icons/question.svg';
 import XIcon from '../../../assets/icons/x.svg';
 import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
-import { usePatchSelectedApplicant } from '../../../api/flyTalks/usePatchSelectedApplicant';
 
 type TableRowProps = {
   applicant: UserToCompanyDto;
@@ -36,12 +37,12 @@ const TableRow: React.FC<TableRowProps> = ({
 
   const patchApplicant = usePatchSelectedApplicant();
   const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
-      console.log(applicant)
+    console.log(applicant);
     patchApplicant.mutate({
       user: applicant,
       selected: status === 'accepted' ? false : true,
     });
-    };
+  };
 
   return (
     <tr>
@@ -59,11 +60,16 @@ const TableRow: React.FC<TableRowProps> = ({
           Pregledaj detalje
         </p>
       </td>
-      <td className={c.cell}  onClick={() => window.open(applicant.cv, '_blank')}>
+      <td
+        className={c.cell}
+        onClick={() => window.open(applicant.cv, '_blank')}>
         <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
       </td>
       <td className={c.cell}>
-        <WhiteButton variant='primary' disabled={timeLeft?.getTime() === 0} onClick={()=>handleSelectClick(applicant, status)}>
+        <WhiteButton
+          variant='primary'
+          disabled={timeLeft?.getTime() === 0}
+          onClick={() => handleSelectClick(applicant, status)}>
           {status === 'accepted' ? 'Ukloni odabir' : 'Odaberi'}
         </WhiteButton>
       </td>
