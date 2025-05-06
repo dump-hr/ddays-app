@@ -111,7 +111,7 @@ export class AchievementService {
   async completeAchievement(
     userId: number,
     uuid: string,
-    suppressDuplicate?: boolean,
+    suppressDuplicate: boolean = false,
   ): Promise<AchievementDto> {
     const achievement = await this.getOne(uuid);
 
@@ -335,7 +335,7 @@ export class AchievementService {
   async completeAchievementByName(
     userId: number,
     name: string,
-    suppressDuplicate?: boolean,
+    suppressDuplicate: boolean = false,
   ): Promise<AchievementDto> {
     const achievement = await this.prisma.achievement.findFirst({
       where: { name },

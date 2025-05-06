@@ -90,8 +90,8 @@ export class AchievementController {
   async completeAchievementByName(
     @Req() { user }: AuthenticatedRequest,
     @Param('name') name: string,
-    @Query('suppressDuplicate', ParseBoolPipe) suppressDuplicate: boolean,
   ): Promise<AchievementDto> {
+    const suppressDuplicate = false;
     return await this.achievementService.completeAchievementByName(
       user.id,
       name,

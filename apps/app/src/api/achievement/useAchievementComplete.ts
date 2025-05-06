@@ -1,6 +1,6 @@
 import axios from '../base';
 import toast from 'react-hot-toast';
-import { QueryClient, useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { AchievementDto } from '@ddays-app/types';
 
@@ -9,7 +9,7 @@ const achievementComplete = (uuid: string) => {
 };
 
 export const useAchievementComplete = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   return useMutation<AchievementDto, Error, string>(
     [QUERY_KEYS.achievements, QUERY_KEYS.achievementCompleted],
     (uuid: string) => achievementComplete(uuid),

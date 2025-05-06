@@ -5,15 +5,10 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 import { AchievementDto } from '@ddays-app/types';
 import RedStarIcon from '@/components/RedStarIcon';
 
-const achievementCompleteByName = (
-  name: string,
-  suppressDuplicate: boolean = false,
-) => {
+const achievementCompleteByName = (name: string) => {
   const url = `/achievement/complete-by-name/${encodeURIComponent(name)}`;
 
-  const finalUrl = `${url}?suppressDuplicate=${suppressDuplicate}`;
-
-  return axios.post<string, AchievementDto>(finalUrl);
+  return axios.post<string, AchievementDto>(url);
 };
 
 export const useAchievementCompleteByName = () => {
@@ -25,8 +20,8 @@ export const useAchievementCompleteByName = () => {
     { name: string; suppressDuplicate?: boolean }
   >(
     [QUERY_KEYS.achievements, QUERY_KEYS.achievementCompleted],
-    ({ name, suppressDuplicate = false }) => {
-      return achievementCompleteByName(name, suppressDuplicate);
+    ({ name }) => {
+      return achievementCompleteByName(name);
     },
     {
       onSuccess: (_, { name }) => {
