@@ -4,7 +4,7 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 import { EventWithCompanyDto } from '@ddays-app/types';
 
 const getAllFlyTalkGroups = async (): Promise<EventWithCompanyDto[]> => {
-  return axios.get('/event/with-company');
+  return axios.get('/event/fly-talks-with-company');
 };
 
 export const useGetAllFlyTalkGroups = () => {

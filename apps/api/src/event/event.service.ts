@@ -162,7 +162,7 @@ export class EventService {
     }));
   }
 
-  async getAllWithCompany(): Promise<EventWithCompanyDto[]> {
+  async getFlyTalksWithCompany(): Promise<EventWithCompanyDto[]> {
     const events = await this.prisma.event.findMany({
       where: { type: EventType.FLY_TALK },
       include: {

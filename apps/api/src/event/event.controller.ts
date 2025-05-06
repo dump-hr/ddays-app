@@ -61,10 +61,10 @@ export class EventController {
     return await this.eventService.getAllWithSpeaker();
   }
 
-  @Get('with-company')
+  @Get('fly-talks-with-company')
   @UseGuards(UserGuard)
-  async GetAllWithCompany(): Promise<EventWithCompanyDto[]> {
-    return await this.eventService.getAllWithCompany();
+  async GetFlyTalksWithCompany(): Promise<EventWithCompanyDto[]> {
+    return await this.eventService.getFlyTalksWithCompany();
   }
 
   @UseGuards(UserGuard)
