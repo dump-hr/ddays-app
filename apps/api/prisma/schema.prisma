@@ -287,8 +287,9 @@ model UserToEvent {
   portfolioProfile String?
   cv               String?
   description      String?
-  event            Event   @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user             User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  selected         Boolean? @default(false)
+  event            Event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user             User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([userId, eventId])
 }

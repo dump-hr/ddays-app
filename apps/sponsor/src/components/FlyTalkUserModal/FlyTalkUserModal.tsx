@@ -1,4 +1,4 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect } from 'react';
 
 import CloseSvg from '../../assets/icons/close.svg';
@@ -8,7 +8,7 @@ import c from './FlyTalkUserModal.module.scss';
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  user: UserDto | null;
+  user: UserToCompanyDto | null;
   modalButtonText: string;
 };
 
@@ -60,20 +60,17 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
         </h3>
         <h4 className={c.email}>{user.email}</h4>
         <p className={c.about}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
-          commodi totam voluptatibus maiores placeat voluptatem? Sequi officia
-          dignissimos est quaerat aut eveniet hic quisquam possimus eaque
-          maiores? Reiciendis, porro corporis.
+          {user.description}
         </p>
         <label className={c.label}>Poveznice</label>
         <p className={c.link}>
-          LinkedIn: <a href='https://www.google.com'>https://www.google.com</a>
+          LinkedIn: <a href='https://www.google.com'>{ user.linkedinProfile}</a>
         </p>
         <p className={c.link}>
-          Github: <a href='https://www.google.com'>https://www.google.com</a>
+          Github: <a href='https://www.google.com'>{ user.githubProfile}</a>
         </p>
         <p className={c.link}>
-          Portfolio: <a href='https://www.google.com'>https://www.google.com</a>
+          Portfolio: <a href='https://www.google.com'>{ user.portfolioProfile}</a>
         </p>
         <div className={c.buttons}>
           <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>

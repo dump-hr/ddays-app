@@ -61,3 +61,17 @@ export type UserToEventDto = {
   cv?: string;
   description?: string;
 };
+
+export type UserToCompanyDto = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  date: string;
+  selected: boolean;
+  linkedinProfile: string;
+  githubProfile: string;
+  portfolioProfile: string;
+  cv: string;
+  description: string;
+};

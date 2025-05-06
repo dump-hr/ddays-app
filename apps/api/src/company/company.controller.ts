@@ -28,6 +28,7 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 
 import { SponsorGuard } from '../auth/sponsor.guard';
 import { CompanyService } from './company.service';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 
 @Controller('company')
 export class CompanyController {
@@ -50,6 +51,14 @@ export class CompanyController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.getOnePublic(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('applicants')
+  async getApplicants(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<UserToCompanyDto[]> {
+    return await this.companyService.getApplicantsForCompany(user.id);
   }
 
   @UseGuards(AdminGuard)

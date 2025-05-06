@@ -4,6 +4,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
+import { UserPublicDto, UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
@@ -84,6 +85,58 @@ export class CompanyService {
       booth: foundCompany.booth?.name || null,
       interests,
     };
+  }
+
+  async getApplicantsForCompany(id: number): Promise<UserToCompanyDto[]> {
+    const applicants = await this.prisma.company.findUnique({
+      where: { id },
+      include: {
+        companyToFlyTalk: {
+          include: {
+            event: {
+              include: {
+                userToEvent: {
+                  include: {
+                    user: {
+                      select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!applicants) {
+      throw new NotFoundException('CApplicants not found');
+    }
+
+    const users = applicants.companyToFlyTalk.flatMap((flyTalk) =>
+      flyTalk.event.userToEvent.map((rel) => {
+        const eventDate = new Date(flyTalk.event.startsAt);
+        const day = eventDate.getDate().toString();
+
+        return {
+          ...rel.user,
+          date: day,
+          linkedinProfile: rel.linkedinProfile,
+          githubProfile: rel.githubProfile,
+          portfolioProfile: rel.portfolioProfile,
+          cv: rel.cv,
+          description: rel.description,
+          selected: rel.selected,
+        };
+      }),
+    );
+
+    return users;
   }
 
   async remove(id: number): Promise<CompanyDto> {

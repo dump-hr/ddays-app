@@ -1,4 +1,4 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 
 import CheckIcon from '../../../assets/icons/check.svg';
 import QuestionIcon from '../../../assets/icons/question.svg';
@@ -7,8 +7,8 @@ import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
 
 type TableRowProps = {
-  applicant: UserDto;
-  handleOpenModal: (user: UserDto) => void;
+  applicant: UserToCompanyDto;
+  handleOpenModal: (user: UserToCompanyDto) => void;
   status: 'accepted' | 'rejected';
   timeLeft?: Date;
   //cvHref: string;
