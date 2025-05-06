@@ -3,6 +3,7 @@ import styles from './ProfileLeaderboardPage.module.scss';
 import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import TopRanking from './sections/TopRanking';
 import LeaderboardTable from './sections/LeaderboardTable';
+import WhiteArrowLeft from '@/assets/icons/arrow-left-white.svg';
 
 export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export const ProfileLeaderboardPage = () => {
     <div className={styles.page}>
       <header className={styles.header}>
         <img
-          src={ArrowLeft}
+          src={WhiteArrowLeft}
           alt='Back'
           className={styles.headerArrowLeft}
           onClick={() => navigate(-1)}
