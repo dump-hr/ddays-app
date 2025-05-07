@@ -35,7 +35,7 @@ export const AvatarNavigationBar: FC<AvatarNavigationBarProps> = ({
         width={24}
         height={22}
         selected={menuOption === DuckItems.ACCESSORIES}
-        optionText='Glava'
+        optionText='Dodaci za glavu'
         onClick={() => setMenuOption(DuckItems.ACCESSORIES)}
       />
       <NavIcon
@@ -43,7 +43,7 @@ export const AvatarNavigationBar: FC<AvatarNavigationBarProps> = ({
         width={18}
         height={25}
         selected={menuOption === DuckItems.BODY}
-        optionText='Tijelo'
+        optionText='Dodaci za tijelo'
         onClick={() => setMenuOption(DuckItems.BODY)}
       />
     </div>

@@ -1,9 +1,14 @@
-import { JwtResponseDto, RegistrationDto } from '@ddays-app/types';
+import {
+  AchievementNames,
+  JwtResponseDto,
+  RegistrationDto,
+} from '@ddays-app/types';
 import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { hash } from 'bcrypt';
 import { compare } from 'bcrypt';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
 
@@ -13,6 +18,7 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly emailService: EmailService,
+    private readonly achievementService: AchievementService,
   ) {}
 
   async companyPasswordLogin(
@@ -142,6 +148,30 @@ export class AuthService {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
     });
+
+    await this.achievementService.completeAchievementByName(
+      newUser.id,
+      AchievementNames.FirstSteps,
+    );
+
+    const EARLY_BIRD_CUTOFF = new Date('2025-05-09T22:00:00.000Z'); // 10.5.2024 00:00 CEST
+    const currentTime = new Date();
+
+    const isEarlyBird = currentTime < EARLY_BIRD_CUTOFF;
+
+    if (isEarlyBird) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.EarlyBird,
+      );
+    }
+
+    if (register.newsletterEnabled) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.WhatsNew,
+      );
+    }
 
     return { accessToken };
   }

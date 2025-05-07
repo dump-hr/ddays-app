@@ -4,9 +4,14 @@ import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import TopRanking from './sections/TopRanking';
 import LeaderboardTable from './sections/LeaderboardTable';
 import WhiteArrowLeft from '@/assets/icons/arrow-left-white.svg';
+import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
+import { AchievementNames } from '@ddays-app/types';
 
 export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
+
+  const { mutate: completeAchievementByName } = useAchievementCompleteByName();
+  completeAchievementByName({ name: AchievementNames.BraveMove });
 
   return (
     <div className={styles.page}>

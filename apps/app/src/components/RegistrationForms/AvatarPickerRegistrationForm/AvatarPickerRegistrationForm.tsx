@@ -69,7 +69,7 @@ const PersonalizeAvatarIcon = () => {
         <svg width={25} height={24}>
           <use href={`${sprite}#slavica-icon`} />
         </svg>
-        Personaliziraj svoju
+        Personaliziraj
       </div>
     </Button>
   );

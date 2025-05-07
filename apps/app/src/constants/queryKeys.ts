@@ -7,6 +7,8 @@ export const QUERY_KEYS = {
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
   events: 'events',
+  applyFlyTalk: 'applyFlyTalk',
+  flyTalkGroups: 'flyTalkGroups',
   currentUser: 'currentUser',
   leaderboard: 'leaderboard',
   leaderboardTop: 'leaderboard-top',
