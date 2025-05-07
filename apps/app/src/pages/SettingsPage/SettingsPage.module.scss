@@ -5,6 +5,7 @@
   background: $primary-black;
   padding-top: 166px;
   min-height: 100vh;
+  @include mobileNavigationPadding();
 
   @media screen and (max-width: $breakpoint-tablet) {
     padding-top: 4rem;

@@ -2,10 +2,10 @@ import { RouteNames } from './routes';
 
 export enum NAVIGATION_TAB_ID {
   HOME,
+  PROFILE,
   SCHEDULE,
   FLY_TALKS,
   COMPANIES,
-  PROFILE,
 }
 
 export type NavigationTabInfo = {
@@ -27,6 +27,15 @@ export const navigationTabs: NavigationTabInfo[] = [
     route: RouteNames.HOME,
   },
   {
+    id: NAVIGATION_TAB_ID.PROFILE,
+    name: 'Profil',
+    icon: 'profile-icon',
+    width: 22,
+    height: 22,
+    route: RouteNames.PROFILE,
+  },
+  /*
+    {
     id: NAVIGATION_TAB_ID.SCHEDULE,
     name: 'Raspored',
     icon: 'schedule-icon',
@@ -42,6 +51,7 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 24,
     route: RouteNames.FLY_TALKS,
   },
+  
   {
     id: NAVIGATION_TAB_ID.COMPANIES,
     name: 'Tvrtke',
@@ -50,12 +60,5 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 24,
     route: RouteNames.COMPANIES,
   },
-  {
-    id: NAVIGATION_TAB_ID.PROFILE,
-    name: 'Profil',
-    icon: 'profile-icon',
-    width: 22,
-    height: 22,
-    route: RouteNames.PROFILE,
-  },
+  */
 ];

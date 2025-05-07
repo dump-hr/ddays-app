@@ -1,12 +1,16 @@
-import { InterestDto } from '@ddays-app/types';
+import { AchievementNames, InterestDto } from '@ddays-app/types';
 import { UserModifyDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly achievementService: AchievementService,
+  ) {}
 
   async updateUserProfile(userId: number, data: UserModifyDto) {
     const existingUser = await this.prisma.user.findFirst({
@@ -24,6 +28,15 @@ export class UserService {
         'Korisnik sa tim mail-om ili brojem mobitela već postoji',
       );
     }
+
+    try {
+      if (data.newsletterEnabled) {
+        await this.achievementService.completeAchievementByName(
+          userId,
+          AchievementNames.WhatsNew,
+        );
+      }
+    } catch (error) {}
 
     return this.prisma.user.update({
       where: { id: userId },
