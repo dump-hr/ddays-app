@@ -40,7 +40,6 @@ export const ConfirmEmail = () => {
   }, [processedToken]);
 
   const validateToken = async (token: string) => {
-    alert('Token: ' + token);
     try {
       const { data } = await axios.get(
         `/api/email/validate-confirmation?token=${token}`,
