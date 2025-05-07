@@ -60,8 +60,8 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
                 if (blob) resolve(blob);
                 else reject(new Error('Failed to generate image'));
               },
-              'image/png',
-              1.0,
+              'image/webp',
+              0.85,
             );
           });
         } else {
@@ -79,8 +79,8 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
                 if (blob) resolve(blob);
                 else reject(new Error('Failed to generate image'));
               },
-              'image/png',
-              1.0,
+              'image/webp',
+              0.85,
             );
           });
         }
