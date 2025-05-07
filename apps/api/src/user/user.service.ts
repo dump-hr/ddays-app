@@ -1,9 +1,10 @@
 import { AchievementNames, InterestDto } from '@ddays-app/types';
-import { UserModifyDto } from './user.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
+
+import { UserModifyDto } from './user.dto';
 
 @Injectable()
 export class UserService {

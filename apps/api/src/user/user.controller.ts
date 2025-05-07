@@ -3,10 +3,10 @@ import {
   ChangeUserPasswordDto,
   ResetUserPasswordDto,
 } from '@ddays-app/types/src/dto/user';
-import { UserModifyDto } from './user.dto';
 import { Body, Controller, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { UserGuard } from 'src/auth/user.guard';
 
+import { UserModifyDto } from './user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')

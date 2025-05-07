@@ -1,14 +1,14 @@
 import { Transform } from 'class-transformer';
 import {
-  IsString,
+  IsBoolean,
   IsEmail,
   IsNumber,
-  IsBoolean,
   IsOptional,
-  MinLength,
+  IsString,
+  Max,
   MaxLength,
   Min,
-  Max,
+  MinLength,
 } from 'class-validator';
 
 export class UserModifyDto {
