@@ -1,5 +1,5 @@
 import { AchievementNames, InterestDto } from '@ddays-app/types';
-import { UserModifyDto } from '@ddays-app/types/src/dto/user';
+import { UserModifyDto } from './user.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AchievementService } from 'src/achievement/achievement.service';

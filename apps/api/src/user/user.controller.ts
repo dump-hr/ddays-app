@@ -2,8 +2,8 @@ import { InterestDto } from '@ddays-app/types';
 import {
   ChangeUserPasswordDto,
   ResetUserPasswordDto,
-  UserModifyDto,
 } from '@ddays-app/types/src/dto/user';
+import { UserModifyDto } from './user.dto';
 import { Body, Controller, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { UserGuard } from 'src/auth/user.guard';
 
