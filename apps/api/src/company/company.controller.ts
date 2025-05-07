@@ -62,6 +62,12 @@ export class CompanyController {
   }
 
   @UseGuards(SponsorGuard)
+  @Get('flytalks')
+  async getFlyTalks(@Req() { user }: AuthenticatedRequest): Promise<string[]> {
+    return await this.companyService.getFlyTalks(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
   @Patch('select-applicant')
   async selectApplicant(
     @Body() body: { user: UserToCompanyDto; selected: boolean },

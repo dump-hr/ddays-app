@@ -9,15 +9,13 @@ import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
 import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
+import { formatDatetime } from '../../helpers/date';
+import { useGetFlyTalks } from '../../api/flyTalks/useGetFlyTaks';
 
 const FlyTalksPage = () => {
-  const tabs = ['Grupa 1', 'Grupa 2'];
-  const hasOnlyOneGroup = false; // Stavit uvjet npr. je li zlatni. Druga opcija napunit array sa koliko ima grupa u bazi.
   const targetTime = useMemo(() => SPONSOR_FLY_TALK_DEADLINE, []);
-
   const [modalUser, setModalUser] = useState<UserToCompanyDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [timeLeft, setTimeLeft] = useState<Date>(calculateTimeLeft(targetTime));
 
   function handleOpenModal(user: UserToCompanyDto) {
@@ -26,14 +24,20 @@ const FlyTalksPage = () => {
   }
 
   const { data: applicants = [] } = useGetApplicants();
+  const { data: tabs = [] } = useGetFlyTalks();
+
+  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+
+  useEffect(() => {
+    if (tabs.length > 0 && !selectedTab) {
+      setSelectedTab(tabs[0]);
+    }
+  }, [tabs, selectedTab]);
 
   const filteredApplicants = useMemo(() => {
-    if (selectedTab === 'Grupa 1')
-      return applicants.filter((applicant) => applicant.date === '23');
-    if (selectedTab === 'Grupa 2')
-      return applicants.filter((applicant) => applicant.date === '24');
-    return [];
-  }, [selectedTab, applicants]);
+    const datetime = selectedTab;
+    return applicants.filter((a) => a.date === datetime);
+  }, [applicants, selectedTab, tabs]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -65,18 +69,18 @@ const FlyTalksPage = () => {
             }
             /{filteredApplicants.length}
           </p>
-          {!hasOnlyOneGroup && (
+          {
             <div className={c.buttons}>
               {tabs.map((value) => (
                 <WhiteButton
                   variant={selectedTab === value ? 'primary' : 'secondary'}
                   key={value}
                   onClick={() => setSelectedTab(value)}>
-                  {value}
+                  {formatDatetime(value)}
                 </WhiteButton>
               ))}
             </div>
-          )}
+          }
         </section>
         {timeLeft.getTime() === 0 ? (
           <InfoMessage message='Odabir sudionika zatvoren.' />

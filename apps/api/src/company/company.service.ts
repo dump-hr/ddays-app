@@ -87,6 +87,27 @@ export class CompanyService {
     };
   }
 
+  async getFlyTalks(id: number): Promise<string[]> {
+    const flyTalks = await this.prisma.company.findUnique({
+      where: { id },
+      include: {
+        companyToFlyTalk: {
+          include: {
+            event: {
+              select: {
+                startsAt: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return flyTalks.companyToFlyTalk
+      .map((rel) => rel.event.startsAt)
+      .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  }
+
   async getApplicantsForCompany(id: number): Promise<UserToCompanyDto[]> {
     const applicants = await this.prisma.company.findUnique({
       where: { id },
@@ -115,18 +136,15 @@ export class CompanyService {
     });
 
     if (!applicants) {
-      throw new NotFoundException('CApplicants not found');
+      throw new NotFoundException('Applicants not found');
     }
 
     const users = applicants.companyToFlyTalk.flatMap((flyTalk) =>
       flyTalk.event.userToEvent.map((rel) => {
-        const eventDate = new Date(flyTalk.event.startsAt);
-        const day = eventDate.getDate().toString();
-
         return {
           ...rel.user,
           eventId: rel.eventId,
-          date: day,
+          date: flyTalk.event.startsAt,
           linkedinProfile: rel.linkedinProfile,
           githubProfile: rel.githubProfile,
           portfolioProfile: rel.portfolioProfile,
