@@ -2,15 +2,15 @@ import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
+import { useGetFlyTalks } from '../../api/flyTalks/useGetFlyTaks';
 import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
 import WhiteButton from '../../components/WhiteButton';
 import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
+import { formatDatetime } from '../../helpers/date';
 import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
-import { formatDatetime } from '../../helpers/date';
-import { useGetFlyTalks } from '../../api/flyTalks/useGetFlyTaks';
 
 const FlyTalksPage = () => {
   const targetTime = useMemo(() => SPONSOR_FLY_TALK_DEADLINE, []);
@@ -26,7 +26,7 @@ const FlyTalksPage = () => {
   const { data: applicants = [] } = useGetApplicants();
   const { data: tabs = [] } = useGetFlyTalks();
 
-  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+  const [selectedTab, setSelectedTab] = useState<string>('');
 
   useEffect(() => {
     if (tabs.length > 0 && !selectedTab) {
@@ -37,7 +37,7 @@ const FlyTalksPage = () => {
   const filteredApplicants = useMemo(() => {
     const datetime = selectedTab;
     return applicants.filter((a) => a.date === datetime);
-  }, [applicants, selectedTab, tabs]);
+  }, [applicants, selectedTab]);
 
   useEffect(() => {
     const interval = setInterval(() => {
