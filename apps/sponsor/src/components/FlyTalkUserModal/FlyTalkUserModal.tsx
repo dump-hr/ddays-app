@@ -95,10 +95,7 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
           </WhiteButton>
           <WhiteButton
             variant='primary'
-            onClick={() => {
-              console.log('Klik na botun detektiran');
-              handleSelectClick(user);
-            }}>
+            onClick={() => handleSelectClick(user)}>
             {user.selected ? 'Ukloni odabir' : 'Odaberi'}
           </WhiteButton>
         </div>

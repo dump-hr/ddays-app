@@ -39,7 +39,7 @@ const TableRow: React.FC<TableRowProps> = ({
   const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
     patchApplicant.mutate({
       user: applicant,
-      selected: status === 'accepted' ? false : true,
+      selected: status !== 'accepted',
     });
   };
 

@@ -110,10 +110,10 @@ const FlyTalksPage = () => {
               <tbody>
                 {filteredApplicants
                   .filter((a) => a.selected)
-                  .map((applicant, i) => (
+                  .map((applicant) => (
                     <TableRow
                       applicant={applicant}
-                      key={i}
+                      key={applicant.id}
                       handleOpenModal={() => handleOpenModal(applicant)}
                       status='accepted'
                       timeLeft={timeLeft}
@@ -129,10 +129,10 @@ const FlyTalksPage = () => {
               <tbody>
                 {filteredApplicants
                   .filter((applicant) => !applicant.selected)
-                  .map((applicant, i) => (
+                  .map((applicant) => (
                     <TableRow
                       applicant={applicant}
-                      key={i}
+                      key={applicant.id}
                       handleOpenModal={handleOpenModal}
                       status='rejected'
                       timeLeft={timeLeft}
