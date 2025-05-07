@@ -1,9 +1,9 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import Button from 'components/Button';
 import Header from 'components/Header';
+import Hero from 'components/Hero';
 import MobileMenu from 'components/MobileMenu';
 import TemporaryFooterSection from 'components/TemporaryFooterSection';
-import TemporaryHero from 'components/TemporaryHero';
 import { useState } from 'react';
 
 import { temporaryLandingNavigation } from '../../constants/temporary-landing-navigation';
@@ -32,7 +32,7 @@ export const TemporaryLandingPage: React.FC = () => {
           items={temporaryLandingNavigation}
         />
       )}
-      <TemporaryHero />
+      <Hero Button={RegisterButton} items={temporaryLandingNavigation} />
       <TemporaryFooterSection />
     </ReactLenis>
   );
