@@ -26,8 +26,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   setOpenCardId,
   lastClickedCardId,
 }) => {
-  console.log(event);
-
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(1);
   const [isImageShown, setIsImageShown] = useState<boolean>(false);
 
