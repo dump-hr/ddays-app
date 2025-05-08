@@ -6,12 +6,16 @@ import LeaderboardTable from './sections/LeaderboardTable';
 import WhiteArrowLeft from '@/assets/icons/arrow-left-white.svg';
 import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 import { AchievementNames } from '@ddays-app/types';
+import { useEffect } from 'react';
 
 export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
 
   const { mutate: completeAchievementByName } = useAchievementCompleteByName();
-  completeAchievementByName({ name: AchievementNames.BraveMove });
+
+  useEffect(() => {
+    completeAchievementByName({ name: AchievementNames.BraveMove });
+  }, []);
 
   return (
     <div className={styles.page}>
