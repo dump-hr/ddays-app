@@ -3,6 +3,7 @@ import { forwardRef, useImperativeHandle, useRef } from 'react';
 import c from './AvatarPreview.module.scss';
 import podium from '../../assets/images/avatars/podium.png';
 import html2canvas from 'html2canvas';
+import { canvasToBlob } from '@/helpers/canvasToBlob';
 
 export interface AvatarPreviewRef {
   captureAvatar: () => Promise<Blob | null>;
@@ -54,16 +55,7 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
             avatarContainer.style.transform = originalTransform;
           }
 
-          return new Promise((resolve, reject) => {
-            canvas.toBlob(
-              (blob) => {
-                if (blob) resolve(blob);
-                else reject(new Error('Failed to generate image'));
-              },
-              'image/webp',
-              0.85,
-            );
-          });
+          return canvasToBlob(canvas);
         } else {
           const canvas = await html2canvas(avatarContainer, {
             backgroundColor: null,
@@ -73,16 +65,7 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
             allowTaint: true,
           });
 
-          return new Promise((resolve, reject) => {
-            canvas.toBlob(
-              (blob) => {
-                if (blob) resolve(blob);
-                else reject(new Error('Failed to generate image'));
-              },
-              'image/webp',
-              0.85,
-            );
-          });
+          return canvasToBlob(canvas);
         }
       } catch (error) {
         console.error('Failed to capture avatar:', error);
