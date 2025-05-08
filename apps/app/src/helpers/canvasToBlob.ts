@@ -38,7 +38,7 @@ export const canvasToBlob = async (
   }
 
   const resizedCanvas = resizeCanvas(canvas, 330);
-  const pngBlob = await toBlobPromise(resizedCanvas, 'image/png', 0.6);
+  const pngBlob = await toBlobPromise(resizedCanvas, 'image/png', 1);
 
   if (!pngBlob) {
     throw new Error('Failed to generate image');
