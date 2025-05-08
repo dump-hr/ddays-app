@@ -126,6 +126,12 @@ export class CompanyService {
                         email: true,
                       },
                     },
+                    CompanyToFlyTalkUser: {
+                      select: {
+                        selected: true,
+                        companyId: true,
+                      },
+                    },
                   },
                 },
               },
@@ -141,6 +147,10 @@ export class CompanyService {
 
     const users = applicants.companyToFlyTalk.flatMap((flyTalk) =>
       flyTalk.event.userToEvent.map((rel) => {
+        const matchingCompany = rel.CompanyToFlyTalkUser.find(
+          (entry) => entry.companyId === id,
+        );
+
         return {
           ...rel.user,
           eventId: rel.eventId,
@@ -150,7 +160,7 @@ export class CompanyService {
           portfolioProfile: rel.portfolioProfile,
           cv: rel.cv,
           description: rel.description,
-          selected: rel.selected,
+          selected: matchingCompany?.selected ?? false,
         };
       }),
     );
@@ -161,15 +171,25 @@ export class CompanyService {
   async selectApplicant(
     user: UserToCompanyDto,
     selected: boolean,
+    companyId: number,
   ): Promise<void> {
-    await this.prisma.userToEvent.update({
+    await this.prisma.companyToFlyTalkUser.upsert({
       where: {
-        userId_eventId: {
+        userId_eventId_companyId: {
           userId: user.id,
           eventId: user.eventId,
+          companyId: companyId,
         },
       },
-      data: { selected: selected },
+      update: {
+        selected: selected,
+      },
+      create: {
+        userId: user.id,
+        eventId: user.eventId,
+        companyId: companyId,
+        selected: selected,
+      },
     });
   }
 

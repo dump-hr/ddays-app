@@ -74,11 +74,11 @@ model UserToCode {
 }
 
 model Company {
-  id                         Int                 @id @default(autoincrement())
+  id                         Int                    @id @default(autoincrement())
   password                   String?
   category                   CompanyCategory?
   name                       String
-  username                   String              @unique
+  username                   String                 @unique
   description                String?
   opportunitiesDescription   String?
   websiteUrl                 String?
@@ -91,11 +91,12 @@ model Company {
   video                      String?
   codeId                     Int?
   booth                      Booth?
-  code                       Code?               @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  code                       Code?                  @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   companyToFlyTalk           CompanyToFlyTalk[]
   companyToInterest          CompanyToInterest[]
   job                        Job[]
   speaker                    Speaker[]
+  CompanyToFlyTalkUser       CompanyToFlyTalkUser[]
 }
 
 model CompanyToFlyTalk {
@@ -280,16 +281,16 @@ model UserToAchievement {
 }
 
 model UserToEvent {
-  userId           Int
-  eventId          Int
-  linkedinProfile  String?
-  githubProfile    String?
-  portfolioProfile String?
-  cv               String?
-  description      String?
-  selected         Boolean? @default(false)
-  event            Event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user             User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId               Int
+  eventId              Int
+  linkedinProfile      String?
+  githubProfile        String?
+  portfolioProfile     String?
+  cv                   String?
+  description          String?
+  event                Event                  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                 User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CompanyToFlyTalkUser CompanyToFlyTalkUser[]
 
   @@id([userId, eventId])
 }
@@ -301,6 +302,17 @@ model UserToInterest {
   user       User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([userId, interestId])
+}
+
+model CompanyToFlyTalkUser {
+  userId      Int
+  eventId     Int
+  companyId   Int
+  selected    Boolean?    @default(false)
+  userToEvent UserToEvent @relation(fields: [userId, eventId], references: [userId, eventId])
+  company     Company     @relation(fields: [companyId], references: [id])
+
+  @@id([userId, eventId, companyId])
 }
 
 model FrequentlyAskedQuestion {

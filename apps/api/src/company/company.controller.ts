@@ -70,9 +70,19 @@ export class CompanyController {
   @UseGuards(SponsorGuard)
   @Patch('select-applicant')
   async selectApplicant(
-    @Body() body: { user: UserToCompanyDto; selected: boolean },
+    @Req() { user }: AuthenticatedRequest,
+    @Body()
+    body: {
+      user: UserToCompanyDto;
+      selected: boolean;
+      companyId: number;
+    },
   ): Promise<any> {
-    return await this.companyService.selectApplicant(body.user, body.selected);
+    return await this.companyService.selectApplicant(
+      body.user,
+      body.selected,
+      user.id,
+    );
   }
 
   @UseGuards(AdminGuard)

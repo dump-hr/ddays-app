@@ -28,11 +28,11 @@ const TableRow: React.FC<TableRowProps> = ({
     const isAccepted = applicant.selected;
     if (timeLeft.getTime() !== 0) {
       return QuestionIcon;
-    } else if (isAccepted) {
-      return CheckIcon;
-    } else {
-      return XIcon;
     }
+    if (isAccepted) {
+      return CheckIcon;
+    }
+    return XIcon;
   }
 
   const patchApplicant = usePatchSelectedApplicant();
