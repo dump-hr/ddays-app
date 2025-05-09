@@ -15,7 +15,7 @@ interface PopupProps {
 }
 
 const CartPopup = ({ closePopup, isOpen }: PopupProps) => {
-  const { cartItems, totalCost} = useShoppingContext();
+  const { cartItems, totalCost } = useShoppingContext();
   const [isBuyClicked, setIsBuyClicked] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
