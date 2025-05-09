@@ -91,6 +91,7 @@ export const EditProfileSection: React.FC = () => {
       toast.success("Dodano postignuće - What's new?", {
         icon: <RedStarIcon />,
         duration: 3000,
+        position: 'top-center',
       });
     }
   };

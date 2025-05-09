@@ -18,7 +18,7 @@ const uploadAvatar = async ({
   options: AvatarOptions;
 }): Promise<UserWithAvatarDto> => {
   const formData = new FormData();
-  formData.append('avatar', blob, 'avatar.png');
+  formData.append('avatar', blob, 'avatar.webp');
   Object.entries(options).forEach(([key, value]) => {
     formData.append(key, value);
   });
@@ -32,7 +32,7 @@ const createTemporaryAvatar = async (
   blob: Blob,
 ): Promise<{ profilePhotoUrl: string }> => {
   const formData = new FormData();
-  formData.append('avatar', blob, 'avatar.png');
+  formData.append('avatar', blob, 'avatar.webp');
   return await axios.postForm<FormData, { profilePhotoUrl: string }>(
     '/avatar/create-temporary',
     formData,

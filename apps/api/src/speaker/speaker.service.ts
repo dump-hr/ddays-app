@@ -144,7 +144,14 @@ export class SpeakerService {
   async removePhoto(id: number): Promise<void> {
     await this.prisma.speaker.update({
       where: { id },
-      data: { photo: null },
+      data: { photoUrl: null },
+    });
+  }
+
+  async removeSmallPhoto(id: number): Promise<void> {
+    await this.prisma.speaker.update({
+      where: { id },
+      data: { smallPhotoUrl: null },
     });
   }
 }

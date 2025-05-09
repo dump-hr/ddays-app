@@ -35,13 +35,13 @@ export const getEventTypeTranslation = (type: string) => {
 
 export const getThemeShort = (theme: string) => {
   switch (theme) {
-    case 'dev':
+    case 'DEV':
       return 'DEV';
-    case 'design':
+    case 'DESIGN':
       return 'DIZ';
-    case 'marketing':
+    case 'MARKETING':
       return 'MARK';
-    case 'tech':
+    case 'TECH':
       return 'TECH';
   }
 };

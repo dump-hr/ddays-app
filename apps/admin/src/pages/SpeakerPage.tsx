@@ -74,7 +74,7 @@ const SpeakerPage = () => {
             <FileUpload
               src={
                 speakers.data?.find((speaker) => speaker.id === speakerToEditId)
-                  ?.photoUrl
+                  ?.smallPhotoUrl
               }
               handleUpload={handleSmallPhotoUpload}
               handleRemove={handleSmallPhotoRemove}
