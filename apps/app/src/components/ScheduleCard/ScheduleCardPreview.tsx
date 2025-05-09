@@ -37,9 +37,9 @@ const ScheduleCardPreview: React.FC<ScheduleCardPreviewProps> = ({ event }) => {
               <>
                 <div className={c.speaker} key={index}>
                   <div className={c.speakerInfoWrapper}>
-                    <p className={c.fullName}>
-                      {speaker.firstName} {speaker.lastName}//{speaker.title}{' '}
-                      {speaker?.company?.name}
+                    <p className={c.fullNamePreview}>
+                      {speaker.firstName} {speaker.lastName} // {speaker.title}{' '}
+                      @ {speaker?.company?.name || ''}
                     </p>
                   </div>
                 </div>

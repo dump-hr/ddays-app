@@ -44,7 +44,8 @@ const WorkshopConfirmPopup = ({
         headerTitleComponent={<>Uspješno prijavljena!</>}
         variant='light'
         isOpen={isOpen}
-        closePopup={closePopup}>
+        closePopup={closePopup}
+        justifyContent='end'>
         <div className={styles.contentDiv}>
           <p className={styles.note}>
             Radionica je uspješno prijavljena. Ne zaboravi na zahtjeve, vidimo
@@ -67,7 +68,8 @@ const WorkshopConfirmPopup = ({
       headerTitleComponent={<>Zahtjev za radionicu</>}
       variant='light'
       isOpen={isOpen}
-      closePopup={closePopup}>
+      closePopup={closePopup}
+      justifyContent='end'>
       <div className={styles.contentDiv}>
         <p className={styles.note}>
           Za uspješnu prijavu potrebno je potvrditi da ćeš ispuniti sve zahtjeve
