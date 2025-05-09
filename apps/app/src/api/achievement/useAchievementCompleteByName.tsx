@@ -38,10 +38,8 @@ export const useAchievementCompleteByName = () => {
             whiteSpace: 'nowrap',
           },
           duration: 3000,
+          position: 'top-center',
         });
-      },
-      onError: (error) => {
-        console.error('Achievement error:', error);
       },
     },
   );

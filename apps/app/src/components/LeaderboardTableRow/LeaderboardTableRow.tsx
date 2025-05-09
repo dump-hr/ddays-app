@@ -1,27 +1,35 @@
-import { FC } from 'react';
+import { forwardRef } from 'react';
 import c from './LeaderboardTableRow.module.scss';
-import RegularDuck from '../../assets/images/leaderboard-duck.png';
-import star from '../../assets/icons/star-red.svg';
+import RegularDuck from '@/assets/images/leaderboard-duck.png';
+import star from '@/assets/icons/star-red.svg';
+import { LeaderboardEntryDto } from '@ddays-app/types/src/dto/leaderboard';
 
 interface LeaderboardTableRowProps {
-  rank: number;
-  name: string;
-  level: number;
-  points: number;
+  userRank: LeaderboardEntryDto;
 }
 
-const LeaderboardTableRow: FC<LeaderboardTableRowProps> = ({
-  rank,
-  name,
-  level,
-  points,
-}) => {
+const LeaderboardTableRow = forwardRef<
+  HTMLTableRowElement,
+  LeaderboardTableRowProps
+>(({ userRank }, ref) => {
+  const { rank, name, level, points, profilePhotoUrl } = userRank;
+  const scaleImg = profilePhotoUrl
+    ? {
+        scale: '1.4',
+      }
+    : {};
+    
   return (
-    <tr className={c.row}>
+    <tr className={c.row} ref={ref}>
       <td className={c.rankCell}>{rank}.</td>
       <td className={c.playerCell}>
         <div className={c.playerContent}>
-          <img src={RegularDuck} alt='Duck' className={c.duckIcon} />
+          <img
+            src={profilePhotoUrl || RegularDuck}
+            alt='Duck'
+            className={c.duckIcon}
+            style={scaleImg}
+          />
           <div className={c.playerInfo}>
             <span className={c.playerName}>{name}</span>
             <span className={c.playerLevel}>Level {level}</span>
@@ -33,6 +41,8 @@ const LeaderboardTableRow: FC<LeaderboardTableRowProps> = ({
       </td>
     </tr>
   );
-};
+});
+
+LeaderboardTableRow.displayName = 'LeaderboardTableRow';
 
 export default LeaderboardTableRow;
