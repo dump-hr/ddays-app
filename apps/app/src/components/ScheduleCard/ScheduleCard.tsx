@@ -1,11 +1,19 @@
-import c from './ScheduleCard.module.scss';
-import RatingStar from '../../assets/icons/rating-star-1.svg';
-import ArrowDown from '../../assets/icons/arrow-down-1.svg';
-import Check from '../../assets/icons/check-mark-icon.svg';
-import Button from '../Button';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import c from './ScheduleCard.module.scss';
 import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
+
+import RatingStar from '@/assets/icons/rating-star-1.svg';
+import ArrowDown from '@/assets/icons/arrow-down-1.svg';
+import Check from '@/assets/icons/check-mark-icon.svg';
+import WorkshopConfirmPopup from '@/pages/SchedulePage/popups/WorkshopConfirmPopup/WorkshopConfirmPopup';
+import Button from '../Button';
+import {
+  getThemeLabel,
+  getTypeLabel,
+  getTimeFromDate,
+} from './schedule.helpers';
+import { useEventGetParticipantsCount } from '@/api/event/useEventGetParticipantsCount';
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
@@ -21,6 +29,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   handleRemoveFromPersonalSchedule,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: eventParticipantsCount } = useEventGetParticipantsCount(
+    event.id,
+  );
+  const [isWorkshopConfirmPopupOpen, setIsWorkshopConfirmPopupOpen] =
+    useState(false);
 
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
@@ -30,55 +43,26 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     return now >= start && now <= end;
   });
 
-  function getThemeLabel(eventTheme: Theme) {
-    switch (eventTheme) {
-      case Theme.DEV:
-        return 'DEV';
-      case Theme.DESIGN:
-        return 'DIZ';
-      case Theme.MARKETING:
-        return 'MARK';
-      case Theme.TECH:
-        return 'TECH';
-    }
-  }
-
-  function getTypeLabel(eventType: EventType) {
-    switch (eventType) {
-      case EventType.LECTURE:
-        return 'PREDAVANJE';
-      case EventType.WORKSHOP:
-        return 'RADIONICA';
-      case EventType.FLY_TALK:
-        return 'FLY TALK';
-      case EventType.CAMPFIRE_TALK:
-        return 'CAMPFIRE TALK';
-      case EventType.PANEL:
-        return 'PANEL';
-      case EventType.OTHER:
-        return 'OSTALO';
-    }
-  }
-
-  function getTimeFromDate(date: string): string {
-    const dateObj = new Date(date);
-    const hours = String(dateObj.getHours()).padStart(2, '0');
-    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-
-  function getRequirements(eventRequirements: string) {
-    return eventRequirements.split('//') as string[];
-  }
-
   function handleClick() {
     if (!isOpen) return;
 
     if (isAddedToSchedule) {
       handleRemoveFromPersonalSchedule(event.id);
     } else {
+      if (event.type === EventType.WORKSHOP) {
+        setIsWorkshopConfirmPopupOpen(true);
+        return;
+      }
       handleAddToPersonalSchedule(event.id);
     }
+  }
+
+  function getButtonText() {
+    if (isAddedToSchedule) return 'Izbriši iz rasporeda';
+    if (eventParticipantsCount?.count === event.maxParticipants)
+      return 'Popunjeno';
+
+    return 'Dodaj u svoj raspored';
   }
 
   useEffect(() => {
@@ -147,17 +131,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         {event.requirements && (
           <>
             <div className={c.divider} />
-            <div className={c.eventRequirements}>
-              <p className={c.mainLabel}>ZAHTJEVI:</p>
-              {getRequirements(event.requirements).map((requirement, index) => (
-                <div key={index} className={c.requirement}>
-                  <div className={c.checkContainer}>
-                    <img className={c.check} src={Check} alt='Check' />
-                  </div>
-                  <p className={c.label}>{requirement}</p>
-                </div>
-              ))}
-            </div>
+            <Requirements requirements={event.requirements} />
           </>
         )}
       </section>
@@ -208,9 +182,42 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.collapsed]: !isOpen,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
-        onClick={handleClick}>
-        {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
+        onClick={handleClick}
+        disabled={eventParticipantsCount?.count === event.maxParticipants}>
+        {getButtonText()}
       </Button>
+
+      {event.type === EventType.WORKSHOP && isWorkshopConfirmPopupOpen && (
+        <WorkshopConfirmPopup
+          isOpen={isWorkshopConfirmPopupOpen}
+          closePopup={() => setIsWorkshopConfirmPopupOpen(false)}
+          event={event}
+          handleAddToPersonalSchedule={() =>
+            handleAddToPersonalSchedule(event.id)
+          }>
+          <Requirements requirements={event.requirements || ''} />
+        </WorkshopConfirmPopup>
+      )}
+    </div>
+  );
+};
+
+const Requirements = ({ requirements }: { requirements: string }) => {
+  function getRequirements(eventRequirements: string) {
+    return eventRequirements.split('//') as string[];
+  }
+
+  return (
+    <div className={c.eventRequirements}>
+      <p className={c.mainLabel}>ZAHTJEVI:</p>
+      {getRequirements(requirements).map((requirement, index) => (
+        <div key={index} className={c.requirement}>
+          <div className={c.checkContainer}>
+            <img className={c.check} src={Check} alt='Check' />
+          </div>
+          <p className={c.label}>{requirement}</p>
+        </div>
+      ))}
     </div>
   );
 };
