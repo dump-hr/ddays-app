@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import styles from './WorkshopConfirmPopup.module.scss';
 import { PropsWithChildren, useState } from 'react';
-import ScheduleCardPreview from '@/components/ScheduleCard/scheduleCardPreview';
+import { ScheduleCardPreview } from '@/components/ScheduleCard';
 import { EventWithSpeakerDto } from '@ddays-app/types';
 import { useEventGetParticipantsCount } from '@/api/event/useEventGetParticipantsCount';
 

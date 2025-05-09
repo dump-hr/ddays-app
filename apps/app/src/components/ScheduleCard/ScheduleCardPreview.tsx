@@ -10,7 +10,7 @@ interface ScheduleCardPreviewProps {
   event: EventWithSpeakerDto;
 }
 
-const ScheduleCardPreview = ({ event }: ScheduleCardPreviewProps) => {
+const ScheduleCardPreview: React.FC<ScheduleCardPreviewProps> = ({ event }) => {
   return (
     <div className={c.scheduleCard}>
       <div className={c.timeAndArrow}>
