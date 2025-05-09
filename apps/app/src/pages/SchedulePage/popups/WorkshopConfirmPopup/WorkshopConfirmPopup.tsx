@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Button from '@/components/Button';
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import styles from './WorkshopConfirmPopup.module.scss';
@@ -25,7 +26,7 @@ const WorkshopConfirmPopup = ({
     event.id,
   );
 
-  console.log('eventParticipantsCount', eventParticipantsCount);
+  const isEventFull = eventParticipantsCount?.count === event.maxParticipants;
 
   const handleConfirmClick = () => {
     handleAddToPersonalSchedule();
@@ -75,12 +76,12 @@ const WorkshopConfirmPopup = ({
         {children}
         <Button
           variant='orange'
-          className={styles.button}
+          className={clsx(styles.button, {
+            [styles.disabled]: isEventFull,
+          })}
           onClick={handleConfirmClick}
-          disabled={eventParticipantsCount?.count === event.maxParticipants}>
-          {eventParticipantsCount?.count === event.maxParticipants
-            ? 'POPUNJENO'
-            : 'POTVRDI'}
+          disabled={isEventFull}>
+          {isEventFull ? 'POPUNJENO' : 'POTVRDI'}
         </Button>
       </div>
     </PopupLayout>

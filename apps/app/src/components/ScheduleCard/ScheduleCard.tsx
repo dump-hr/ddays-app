@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import c from './ScheduleCard.module.scss';
 import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
@@ -8,12 +8,13 @@ import ArrowDown from '@/assets/icons/arrow-down-1.svg';
 import Check from '@/assets/icons/check-mark-icon.svg';
 import WorkshopConfirmPopup from '@/pages/SchedulePage/popups/WorkshopConfirmPopup/WorkshopConfirmPopup';
 import Button from '../Button';
+
+import { useEventGetParticipantsCount } from '@/api/event/useEventGetParticipantsCount';
 import {
   getThemeLabel,
   getTypeLabel,
   getTimeFromDate,
 } from './schedule.helpers';
-import { useEventGetParticipantsCount } from '@/api/event/useEventGetParticipantsCount';
 
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
@@ -34,6 +35,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   );
   const [isWorkshopConfirmPopupOpen, setIsWorkshopConfirmPopupOpen] =
     useState(false);
+
+  const isEventFull = useMemo(
+    () => eventParticipantsCount?.count === event.maxParticipants,
+    [eventParticipantsCount, event.maxParticipants],
+  );
 
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
@@ -59,8 +65,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   function getButtonText() {
     if (isAddedToSchedule) return 'Izbriši iz rasporeda';
-    if (eventParticipantsCount?.count === event.maxParticipants)
-      return 'Popunjeno';
+    if (isEventFull) return 'Popunjeno';
 
     return 'Dodaj u svoj raspored';
   }
@@ -180,10 +185,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.button]: true,
           [c.collapsibleContent]: true,
           [c.collapsed]: !isOpen,
+          [c.disabled]: isEventFull && !isAddedToSchedule,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={handleClick}
-        disabled={eventParticipantsCount?.count === event.maxParticipants}>
+        disabled={isEventFull && !isAddedToSchedule}>
         {getButtonText()}
       </Button>
 

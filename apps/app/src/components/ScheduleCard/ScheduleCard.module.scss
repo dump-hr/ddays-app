@@ -268,5 +268,10 @@
       margin-top: -48px;
       cursor: default;
     }
+
+    &.disabled {
+      background-color: $black-30;
+      color: $black-10;
+    }
   }
 }
