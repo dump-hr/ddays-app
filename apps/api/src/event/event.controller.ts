@@ -56,7 +56,6 @@ export class EventController {
   }
 
   @Get('with-speaker')
-  @UseGuards(UserGuard)
   async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
   }
