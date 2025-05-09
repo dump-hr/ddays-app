@@ -1,25 +1,15 @@
 .errorMessageContainer {
-  width: 100%;
-  height: 100vh;
-  background: $primary-black;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 5;
-  position: absolute;
-  inset: 0;
+
 }
 
 .errorMessage {
   @include heading-2;
-  color: white;
+  color: $primary-black;
   margin: 0 2rem;
   text-align: center;
 }
 
-.navigateBackIcon {
-  position: absolute;
-  left: 2rem;
-  top: 2rem;
-  cursor: pointer;
-}

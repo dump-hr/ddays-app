@@ -24,7 +24,7 @@ const TopRanking = () => {
 
   if (topUsersStatus === 'error') {
     return (
-      <ErrorMessage message='Dogodila se greška sa učitavanjem ljestvice' />
+      <ErrorMessage message='Dogodila se greška sa učitavanjem top 3' />
     );
   }
 
