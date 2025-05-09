@@ -18,7 +18,8 @@ export const useUserRegister = (navigate: () => void) => {
       localStorage.setItem('accessToken', data.accessToken);
       toast.success('Dodano postignuće - First Steps!', {
         icon: <RedStarIcon />,
-        duration: 2000,
+        duration: 3000,
+        position: 'top-center',
       });
 
       const EARLY_BIRD_CUTOFF = new Date('2025-05-09T22:00:00.000Z'); // 10.5.2024 00:00 CEST
@@ -28,6 +29,7 @@ export const useUserRegister = (navigate: () => void) => {
         toast.success('Dodano postignuće - Early Bird!', {
           icon: <RedStarIcon />,
           duration: 3000,
+          position: 'top-center',
         });
       }
 
