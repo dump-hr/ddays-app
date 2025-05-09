@@ -71,14 +71,16 @@ const FlyTalksPage = () => {
           </p>
           {
             <div className={c.buttons}>
-              {tabs.map((value) => (
-                <WhiteButton
-                  variant={selectedTab === value ? 'primary' : 'secondary'}
-                  key={value}
-                  onClick={() => setSelectedTab(value)}>
-                  {formatDatetime(value)}
-                </WhiteButton>
-              ))}
+              {tabs
+                .sort((b, a) => new Date(a).getTime() - new Date(b).getTime())
+                .map((value) => (
+                  <WhiteButton
+                    variant={selectedTab === value ? 'primary' : 'secondary'}
+                    key={value}
+                    onClick={() => setSelectedTab(value)}>
+                    {formatDatetime(value)}
+                  </WhiteButton>
+                ))}
             </div>
           }
         </section>
