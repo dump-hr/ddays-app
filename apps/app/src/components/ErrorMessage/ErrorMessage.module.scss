@@ -5,6 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
+  position: absolute;
+  inset: 0;
 }
 
 .errorMessage {
