@@ -24,6 +24,7 @@ export class LeaderboardService {
     const where = {
       ...(includeDeleted ? {} : { isDeleted: false }),
       points: { not: null },
+      isConfirmed: true,
     };
 
     const totalEntries = await this.prisma.user.count({ where });
@@ -85,6 +86,7 @@ export class LeaderboardService {
     const usersAbove = await this.prisma.user.count({
       where: {
         isDeleted: false,
+        isConfirmed: true,
         OR: [
           { points: { gt: user.points || 0 } },
           {
@@ -117,6 +119,7 @@ export class LeaderboardService {
     const topUsers = await this.prisma.user.findMany({
       where: {
         isDeleted: false,
+        isConfirmed: true,
         points: { not: null },
       },
       orderBy: [{ points: 'desc' }, { id: 'asc' }],

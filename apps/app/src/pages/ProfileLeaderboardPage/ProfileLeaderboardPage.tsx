@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfileLeaderboardPage.module.scss';
-import ArrowLeft from '@/assets/icons/arrow-left.svg';
+//import ArrowLeft from '@/assets/icons/arrow-left.svg';
 import TopRanking from './sections/TopRanking';
 import LeaderboardTable from './sections/LeaderboardTable';
 import WhiteArrowLeft from '@/assets/icons/arrow-left-white.svg';
@@ -29,12 +29,6 @@ export const ProfileLeaderboardPage = () => {
       </header>
       <main className={styles.main}>
         <header className={styles.mainHeader}>
-          <img
-            src={ArrowLeft}
-            alt='Back'
-            className={styles.arrowLeft}
-            onClick={() => navigate(-1)}
-          />
           <h3 className={styles.title}>Leaderboard</h3>
         </header>
         <div className={styles.flexWrapper}>

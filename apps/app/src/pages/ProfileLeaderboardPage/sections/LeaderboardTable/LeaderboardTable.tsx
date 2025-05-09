@@ -5,6 +5,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { useCallback, useRef } from 'react';
 import { useGetUserRank } from '@/api/leaderboard/useGetUserRank';
 import { useInfiniteLeaderboard } from '@/api/leaderboard/useInfiniteLeaderboard';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 const LeaderboardTable = () => {
   const {
@@ -15,6 +16,7 @@ const LeaderboardTable = () => {
     status: leaderboardStatus,
   } = useInfiniteLeaderboard({ pageSize: 10 });
 
+  const { data: user } = useLoggedInUser();
   const { data: userRank, status: userRankStatus } = useGetUserRank();
 
   const flattenedLeaderboard =
@@ -60,10 +62,18 @@ const LeaderboardTable = () => {
   return (
     <div className={styles.leaderboardWrapper}>
       <>
-        {(personalRankData?.rank ?? Infinity) <= 3 && (
+        {(personalRankData?.rank ?? Infinity) <= 3 && user?.isConfirmed && (
           <div className={styles.congratulationWrapper}>
             <h3 className={styles.congratulationText}>
               🏆 Bravo, čestitamo na {userRank?.user.rank}. mjestu!
+            </h3>
+          </div>
+        )}
+
+        {!user?.isConfirmed && (
+          <div className={styles.congratulationWrapper}>
+            <h3 className={styles.congratulationText}>
+              Potvrdi svoj račun kako bi sudjelovao u nagradnoj igri.
             </h3>
           </div>
         )}
