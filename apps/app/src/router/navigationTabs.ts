@@ -34,14 +34,6 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 22,
     route: RouteNames.PROFILE,
   },
-  {
-    id: NAVIGATION_TAB_ID.FLY_TALKS,
-    name: 'Fly Talks',
-    icon: 'fly-talks-icon',
-    width: 22,
-    height: 24,
-    route: RouteNames.FLY_TALKS,
-  },
   /*
     {
     id: NAVIGATION_TAB_ID.SCHEDULE,
