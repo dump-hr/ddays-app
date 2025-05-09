@@ -382,4 +382,14 @@ export class EventService {
       );
     }
   }
+
+  async getEventParticipantsCount(eventId: number): Promise<{ count: number }> {
+    const count = await this.prisma.userToEvent.count({
+      where: {
+        eventId,
+      },
+    });
+
+    return { count };
+  }
 }
