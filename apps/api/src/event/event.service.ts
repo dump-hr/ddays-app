@@ -158,11 +158,11 @@ export class EventService {
         eventId: eventId,
       },
     });
-  
+
     if (existingEntry) {
       throw new AlreadyJoinedEventException();
     }
-  
+
     // Get the event details to use for notification
     const event = await this.prisma.event.findUnique({
       where: { id: eventId },
@@ -173,11 +173,11 @@ export class EventService {
         startsAt: true,
       },
     });
-  
+
     if (!event) {
       throw new NotFoundException('Event not found');
     }
-  
+
     // Create the user-event registration
     const userToEvent = await this.prisma.userToEvent.create({
       data: {
@@ -190,22 +190,25 @@ export class EventService {
         description: dto.description,
       },
     });
-  
+
     // Calculate notification timing
     const eventStartTime = new Date(event.startsAt);
     const notificationTime = new Date(eventStartTime);
     notificationTime.setMinutes(eventStartTime.getMinutes() - 15); // 15 minutes before event starts
-  
+
     // Current time to determine if notification should be active
     const now = new Date();
     const isActive = notificationTime <= now; // Only active if event starts in less than 15 min
-  
+
     // Calculate minutes until event for the notification message
-    const minutesUntilEvent = isActive 
-      ? Math.max(1, Math.floor((eventStartTime.getTime() - now.getTime()) / (1000 * 60))) 
+    const minutesUntilEvent = isActive
+      ? Math.max(
+          1,
+          Math.floor((eventStartTime.getTime() - now.getTime()) / (1000 * 60)),
+        )
       : 15; // Default to 15 minutes if notification will be shown later
-  
-    // Check if a notification already exists for this event 
+
+    // Check if a notification already exists for this event
     // We only want to reuse notifications that are not yet active or were recently activated
     let notification = await this.prisma.notification.findFirst({
       where: {
@@ -218,7 +221,7 @@ export class EventService {
         userNotification: true,
       },
     });
-  
+
     // If no suitable notification exists, create a new one
     if (!notification) {
       notification = await this.prisma.notification.create({
@@ -226,10 +229,12 @@ export class EventService {
           title: `Raspored`,
           content: `${getEventTypeText(
             event.theme as EventType,
-          )} koje ste zabilježeli "${event.name}" počinje za ${minutesUntilEvent} minuta!`,
-          activatedAt: isActive ? now : notificationTime,
+          )} koje ste zabilježeli "${
+            event.name
+          }" počinje za ${minutesUntilEvent} minuta!`,
+          activatedAt: now,
           expiresAt: new Date(eventStartTime.getTime() + 30 * 60 * 1000), // Expires 30 min after event starts
-          isActive: isActive,
+          isActive: true,
           eventId: event.id,
         },
         include: {
@@ -237,17 +242,17 @@ export class EventService {
         },
       });
     }
-  
+
     // Create a userNotification record linking the user to the notification
     await this.prisma.userNotification.create({
       data: {
         userId: dto.userId,
         notificationId: notification.id,
-        status: isActive ? NotificationStatus.DELIVERED : NotificationStatus.PENDING,
-        deliveredAt: isActive ? now : null,
+        status: NotificationStatus.DELIVERED,
+        deliveredAt: now,
       },
     });
-  
+    
     return userToEvent;
   }
 

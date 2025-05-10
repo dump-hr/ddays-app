@@ -17,65 +17,6 @@ export class NotificationService {
 
   constructor(private prisma: PrismaService) {}
 
-  // Check for upcoming events every minute
-  // Simplified CRON job - only activates pending notifications
-@Cron(CronExpression.EVERY_MINUTE)
-async activatePendingNotifications() {
-  this.logger.debug('Activating pending notifications...');
-
-  try {
-    const now = new Date();
-    
-    // Find notifications that should be activated now
-    const pendingNotifications = await this.prisma.notification.findMany({
-      where: {
-        activatedAt: {
-          lte: now,
-        },
-        isActive: false,
-      },
-      include: {
-        userNotification: true,
-      },
-    });
-
-    if (pendingNotifications.length === 0) {
-      return;
-    }
-
-    this.logger.debug(`Found ${pendingNotifications.length} pending notifications to activate`);
-
-    // Activate each notification
-    for (const notification of pendingNotifications) {
-      await this.prisma.notification.update({
-        where: { id: notification.id },
-        data: { isActive: true },
-      });
-
-      // Update status of user notifications
-      await this.prisma.userNotification.updateMany({
-        where: { notificationId: notification.id },
-        data: { 
-          status: NotificationStatus.DELIVERED,
-          deliveredAt: now 
-        },
-      });
-
-      this.logger.log(
-        `Activated notification "${notification.title}" for ${notification.userNotification.length} users`
-      );
-    }
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      this.logger.error('Error activating pending notifications', error.stack);
-    } else {
-      this.logger.error('Error activating pending notifications', String(error));
-    }
-  }
-}
-
-// Remove the old createEventNotifications method since it's no longer needed
-// async createEventNotifications(event: EventDto) { ... }
 
   async createEventNotifications(event: EventDto) {
     const existingNotification = await this.prisma.notification.findFirst({
@@ -131,25 +72,38 @@ async activatePendingNotifications() {
     );
   }
 
-  async getUserNotifications(userId: number) {
-    return this.prisma.userNotification.findMany({
-      where: {
-        userId,
-      },
-      include: {
-        notification: {
-          include: {
-            event: true,
-          },
+async getUserNotifications(userId: number) {
+  const now = new Date();
+  const fifteenMinutesFromNow = new Date(now.getTime() + 15 * 60 * 1000);
+  
+  return this.prisma.userNotification.findMany({
+    where: {
+      userId,
+      status: NotificationStatus.DELIVERED,
+      notification: {
+        isActive: true,
+        event: {
+          startsAt: {
+            gte: now.toISOString(),
+            lte: fifteenMinutesFromNow.toISOString()
+          }
+        }
+      }
+    },
+    include: {
+      notification: {
+        include: {
+          event: true,
         },
       },
-      orderBy: {
-        notification: {
-          createdAt: 'desc',
-        },
+    },
+    orderBy: {
+      notification: {
+        createdAt: 'desc',
       },
-    });
-  }
+    },
+  });
+}
 
   async markNotificationsAsRead(userId: number, notificationIds: number[]) {
     return this.prisma.userNotification.updateMany({
