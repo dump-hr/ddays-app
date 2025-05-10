@@ -16,7 +16,6 @@ export class NotificationService {
 
   constructor(private prisma: PrismaService) {}
 
-
   async createEventNotifications(event: EventDto) {
     const existingNotification = await this.prisma.notification.findFirst({
       where: {
@@ -71,38 +70,38 @@ export class NotificationService {
     );
   }
 
-async getUserNotifications(userId: number) {
-  const now = new Date();
-  const fifteenMinutesFromNow = new Date(now.getTime() + 15 * 60 * 1000);
-  
-  return this.prisma.userNotification.findMany({
-    where: {
-      userId,
-      status: NotificationStatus.DELIVERED,
-      notification: {
-        isActive: true,
-        event: {
-          startsAt: {
-            gte: now.toISOString(),
-            lte: fifteenMinutesFromNow.toISOString()
-          }
-        }
-      }
-    },
-    include: {
-      notification: {
-        include: {
-          event: true,
+  async getUserNotifications(userId: number) {
+    const now = new Date();
+    const fifteenMinutesFromNow = new Date(now.getTime() + 15 * 60 * 1000);
+
+    return this.prisma.userNotification.findMany({
+      where: {
+        userId,
+        status: NotificationStatus.DELIVERED,
+        notification: {
+          isActive: true,
+          event: {
+            startsAt: {
+              gte: now.toISOString(),
+              lte: fifteenMinutesFromNow.toISOString(),
+            },
+          },
         },
       },
-    },
-    orderBy: {
-      notification: {
-        createdAt: 'desc',
+      include: {
+        notification: {
+          include: {
+            event: true,
+          },
+        },
       },
-    },
-  });
-}
+      orderBy: {
+        notification: {
+          createdAt: 'desc',
+        },
+      },
+    });
+  }
 
   async markNotificationsAsRead(userId: number, notificationIds: number[]) {
     return this.prisma.userNotification.updateMany({

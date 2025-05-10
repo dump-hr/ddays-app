@@ -1,9 +1,9 @@
 import {
   EventDto,
   EventModifyDto,
+  EventType,
   EventWithSpeakerDto,
   NotificationStatus,
-  EventType,
 } from '@ddays-app/types';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import {
@@ -15,6 +15,7 @@ import {
 import { UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
 import { PrismaService } from 'src/prisma.service';
+
 import { getEventTypeText } from './event.helper';
 
 export class AlreadyJoinedEventException extends HttpException {
@@ -252,7 +253,7 @@ export class EventService {
         deliveredAt: now,
       },
     });
-    
+
     return userToEvent;
   }
 
