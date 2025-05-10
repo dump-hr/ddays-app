@@ -8,7 +8,6 @@ import ScheduleImageCard from './ScheduleImageCard';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
-  getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
   getThemeShort,
 } from './utils';
@@ -130,9 +129,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             <p className={c.timeText}>
               {getEventTime(event.startsAt)} - {getEventTime(event.endsAt)}
             </p>
-            <p className={c.eventTypeText}>
-              {getEventTypeTranslation(event.type)}
-            </p>
+            <p className={c.eventTypeText}>{event.type}</p>
           </div>
           <div className={c.scheduleCardCenterWrapper}>
             <div className={c.scheduleCardCenter}>
