@@ -8,9 +8,9 @@ import ScheduleImageCard from './ScheduleImageCard';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
-  getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
   getThemeShort,
+  getEventTypeTranslation,
 } from './utils';
 
 type ScheduleCardProps = {

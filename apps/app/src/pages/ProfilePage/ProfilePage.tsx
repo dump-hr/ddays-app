@@ -3,8 +3,8 @@ import TempAvatar from '@/assets/images/temp-avatar.png';
 import Like from '@/assets/icons/like.svg';
 import Award from '@/assets/icons/award.svg';
 import Bag from '@/assets/icons/bag.svg';
-import Trophy from '@/assets/icons/trophy.svg';
-import Gift from '@/assets/icons/gift.svg';
+//import Trophy from '@/assets/icons/trophy.svg';
+//import Gift from '@/assets/icons/gift.svg';
 import UserEdit from '@/assets/icons/user-edit.svg';
 
 import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
@@ -33,6 +33,7 @@ const navigationItems = [
     label: 'Avatari',
     href: RouteNames.PROFILE_AVATARS,
   },
+  /*
   {
     icon: Trophy,
     label: 'Leaderboard',
@@ -43,6 +44,7 @@ const navigationItems = [
     label: 'Nagrade',
     href: RouteNames.PROFILE_REWARDS,
   },
+  */
   {
     icon: UserEdit,
     label: 'Postavke profila',
@@ -62,12 +64,12 @@ export const ProfilePage = () => {
             {user?.firstName} {user?.lastName}
           </p>
 
-          <AvatarPointsCircle points={900} avatar={TempAvatar} />
+          <AvatarPointsCircle avatar={user?.profilePhotoUrl || TempAvatar} />
         </div>
 
         <div className={c.stats}>
-          <ProfileStat label='Bodovi' value='145' />
-          <ProfileStat label='Postignuća' value='3/25' />
+          <ProfileStat dataType='points' />
+          <ProfileStat dataType='achievements' />
         </div>
       </header>
       <main className={c.main}>

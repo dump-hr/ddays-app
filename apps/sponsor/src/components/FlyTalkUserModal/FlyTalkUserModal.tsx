@@ -1,6 +1,7 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect } from 'react';
 
+import { usePatchSelectedApplicant } from '../../api/flyTalks/usePatchSelectedApplicant';
 import CloseSvg from '../../assets/icons/close.svg';
 import WhiteButton from '../WhiteButton';
 import c from './FlyTalkUserModal.module.scss';
@@ -8,15 +9,15 @@ import c from './FlyTalkUserModal.module.scss';
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  user: UserDto | null;
-  modalButtonText: string;
+  user: UserToCompanyDto | null;
+  setModalUser: (user: UserToCompanyDto) => void;
 };
 
 const FlyTalkUserModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   user,
-  modalButtonText,
+  setModalUser,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -34,6 +35,8 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
     };
   }, [isOpen]);
 
+  const patchApplicant = usePatchSelectedApplicant();
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -50,6 +53,20 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
 
   if (!user) return null;
 
+  const handleSelectClick = (applicant: UserToCompanyDto) => {
+    patchApplicant.mutate(
+      {
+        user: applicant,
+        selected: !applicant.selected,
+      },
+      {
+        onSuccess: () => {
+          setModalUser({ ...applicant, selected: !applicant.selected });
+        },
+      },
+    );
+  };
+
   return (
     <div className={c.background} onClick={onClose}>
       <div className={c.container} onClick={(e) => e.stopPropagation()}>
@@ -59,25 +76,28 @@ const FlyTalkUserModal: React.FC<ModalProps> = ({
           {user.firstName} {user.lastName}
         </h3>
         <h4 className={c.email}>{user.email}</h4>
-        <p className={c.about}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
-          commodi totam voluptatibus maiores placeat voluptatem? Sequi officia
-          dignissimos est quaerat aut eveniet hic quisquam possimus eaque
-          maiores? Reiciendis, porro corporis.
-        </p>
+        <p className={c.about}>{user.description}</p>
         <label className={c.label}>Poveznice</label>
         <p className={c.link}>
-          LinkedIn: <a href='https://www.google.com'>https://www.google.com</a>
+          LinkedIn: <a href={user.linkedinProfile}>{user.linkedinProfile}</a>
         </p>
         <p className={c.link}>
-          Github: <a href='https://www.google.com'>https://www.google.com</a>
+          Github: <a href={user.githubProfile}>{user.githubProfile}</a>
         </p>
         <p className={c.link}>
-          Portfolio: <a href='https://www.google.com'>https://www.google.com</a>
+          Portfolio: <a href={user.portfolioProfile}>{user.portfolioProfile}</a>
         </p>
         <div className={c.buttons}>
-          <WhiteButton variant='secondary'>Pregledaj CV </WhiteButton>
-          <WhiteButton variant='primary'>{modalButtonText}</WhiteButton>
+          <WhiteButton
+            variant='secondary'
+            onClick={() => window.open(user.cv, '_blank')}>
+            Pregledaj CV{' '}
+          </WhiteButton>
+          <WhiteButton
+            variant='primary'
+            onClick={() => handleSelectClick(user)}>
+            {user.selected ? 'Ukloni odabir' : 'Odaberi'}
+          </WhiteButton>
         </div>
       </div>
     </div>

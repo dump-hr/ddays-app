@@ -2,10 +2,11 @@ import {
   EventDto,
   EventModifyDto,
   EventType,
+  EventWithCompanyDto,
   EventWithSpeakerDto,
+  UserToEventDto,
   NotificationStatus,
 } from '@ddays-app/types';
-import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import {
   HttpException,
   HttpStatus,
@@ -14,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
+import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
 import { getEventTypeText } from './event.helper';
@@ -26,7 +28,10 @@ export class AlreadyJoinedEventException extends HttpException {
 
 @Injectable()
 export class EventService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blobService: BlobService,
+  ) {}
 
   async create(dto: EventModifyDto): Promise<EventDto> {
     const createdEvent = await this.prisma.event.create({
@@ -34,6 +39,32 @@ export class EventService {
     });
 
     return createdEvent;
+  }
+
+  async applyToFlyTalk(dto: UserToEventDto): Promise<UserToEventDto> {
+    const appliedFlyTalk = await this.prisma.userToEvent.create({
+      data: {
+        userId: dto.userId,
+        eventId: dto.eventId,
+        linkedinProfile: dto.linkedinProfile,
+        githubProfile: dto.githubProfile,
+        portfolioProfile: dto.portfolioProfile,
+        cv: dto.cv,
+        description: dto.description,
+      },
+    });
+
+    return appliedFlyTalk;
+  }
+
+  async uploadCV(file: Express.Multer.File): Promise<string> {
+    const cv = await this.blobService.upload(
+      'user-cv',
+      file.buffer,
+      file.mimetype,
+    );
+    console.log(cv);
+    return cv;
   }
 
   async getAll(): Promise<EventDto[]> {
@@ -135,12 +166,86 @@ export class EventService {
     }));
   }
 
+  async getFlyTalksWithCompany(): Promise<EventWithCompanyDto[]> {
+    const events = await this.prisma.event.findMany({
+      where: { type: EventType.FLY_TALK },
+      include: {
+        companyToFlyTalk: {
+          include: {
+            company: {
+              select: {
+                id: true,
+                name: true,
+                logoImage: true,
+              },
+            },
+          },
+        },
+        userToEvent: {
+          include: {
+            user: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return events.map((event) => ({
+      id: event.id,
+      name: event.name,
+      description: event.description,
+      startsAt: event.startsAt,
+      endsAt: event.endsAt,
+      maxParticipants: event.maxParticipants,
+      requirements: event.requirements,
+      footageLink: event.footageLink,
+      type: event.type,
+      theme: event.theme,
+      codeId: event.codeId,
+      isOnEnglish: event.isOnEnglish,
+      companies: event.companyToFlyTalk.map((relation) => ({
+        id: relation.company.id,
+        name: relation.company.name,
+        logoImage: relation.company.logoImage,
+      })),
+      users: event.userToEvent.map((relation) => ({
+        id: relation.user.id,
+      })),
+    }));
+  }
+
   async remove(id: number): Promise<EventDto> {
     const deletedEvent = await this.prisma.event.delete({
       where: { id },
     });
 
     return deletedEvent;
+  }
+
+  async deleteFlyTalkApplication(
+    userId: number,
+    eventId: number,
+  ): Promise<UserToEventDto> {
+    await this.prisma.companyToFlyTalkUser.deleteMany({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+
+    const deletedApplication = await this.prisma.userToEvent.delete({
+      where: {
+        userId_eventId: {
+          userId,
+          eventId,
+        },
+      },
+    });
+
+    return deletedApplication;
   }
 
   async update(id: number, dto: EventModifyDto): Promise<EventDto> {

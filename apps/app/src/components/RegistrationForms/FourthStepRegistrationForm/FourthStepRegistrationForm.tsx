@@ -1,22 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import c from './FourthStepRegistrationForm.module.scss';
-import { interestsSections } from './temporaryMockData';
-import RemoveIcon from '@/assets/icons/remove-icon.svg';
+import { useInterestsGetAll } from '@/api/interests/useInterestsGetAll';
+import { InterestDto, RegistrationDto } from '@ddays-app/types';
+import { InterestCardsSection } from '@/components/InterestCardsSection/InterestCardsSection';
 
-export const FourthStepRegistrationForm = () => {
-  const [userSelectedInterests, setUserSelectedInterests] = useState<string[]>(
-    [],
+type Props = {
+  userData: Partial<RegistrationDto>;
+  updateUserData: (newData: Partial<RegistrationDto>) => void;
+};
+
+export const FourthStepRegistrationForm: React.FC<Props> = ({
+  userData,
+  updateUserData,
+}) => {
+  const [selectedInterests, setSelectedInterests] = useState<InterestDto[]>(
+    userData.interests || [],
   );
 
-  const handleInterestClick = (interestName: string) => {
-    setUserSelectedInterests((prev) => {
-      if (prev.includes(interestName)) {
-        return prev.filter((interest) => interest !== interestName);
-      }
+  const { data: interests } = useInterestsGetAll();
 
-      return [...prev, interestName];
-    });
-  };
+  useEffect(() => {
+    updateUserData({ interests: selectedInterests });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedInterests]);
 
   return (
     <div className={c.interests}>
@@ -25,33 +31,12 @@ export const FourthStepRegistrationForm = () => {
         i grupe za fly talk koje bi ti se mogle svidjeti.
       </p>
 
-      {interestsSections.map((section) => (
-        <div className={c.interestsSection} key={section.id}>
-          <h3>{section.group}//</h3>
-
-          <div className={c.interestsCardsWrapper}>
-            {section.interests.map((interest) => (
-              <div
-                className={`${c.interestsCard} ${
-                  userSelectedInterests.includes(interest.name)
-                    ? c.selected
-                    : ''
-                }`}
-                key={interest.id}
-                onClick={() => handleInterestClick(interest.name)}>
-                {interest.name}
-                {userSelectedInterests.includes(interest.name) && (
-                  <img
-                    src={RemoveIcon}
-                    alt='remove icon'
-                    width={10}
-                    height={10}></img>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+      <InterestCardsSection
+        allowSelection
+        interests={interests || []}
+        selectedInterests={selectedInterests}
+        setSelectedInterests={setSelectedInterests}
+      />
     </div>
   );
 };

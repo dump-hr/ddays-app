@@ -1,16 +1,12 @@
 import { AchievementDto } from '@ddays-app/types';
 
-export type Achievement = AchievementDto & { goal: number; progress: number };
-
-const achievements: Achievement[] = [
+const achievements: AchievementDto[] = [
   {
     id: 1,
     name: 'First achievement',
     description: 'This is the first achievement',
     points: 20,
     createdAt: new Date(),
-    goal: 5,
-    progress: 5,
   },
   {
     id: 2,
@@ -18,8 +14,6 @@ const achievements: Achievement[] = [
     description: 'This is the second achievement',
     points: 20,
     createdAt: new Date(),
-    goal: 5,
-    progress: 3,
   },
   {
     id: 3,
@@ -27,8 +21,6 @@ const achievements: Achievement[] = [
     description: 'This is the third achievement',
     points: 30,
     createdAt: new Date(),
-    goal: 5,
-    progress: 1,
   },
   {
     id: 4,
@@ -36,8 +28,6 @@ const achievements: Achievement[] = [
     description: 'This is the fourth achievement',
     points: 40,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 5,
@@ -45,8 +35,6 @@ const achievements: Achievement[] = [
     description: 'This is the fifth achievement',
     points: 50,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 6,
@@ -54,8 +42,6 @@ const achievements: Achievement[] = [
     description: 'This is the sixth achievement',
     points: 60,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 7,
@@ -63,8 +49,6 @@ const achievements: Achievement[] = [
     description: 'This is the seventh achievement',
     points: 70,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 8,
@@ -72,8 +56,6 @@ const achievements: Achievement[] = [
     description: 'This is the eighth achievement',
     points: 80,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 9,
@@ -81,8 +63,6 @@ const achievements: Achievement[] = [
     description: 'This is the ninth achievement',
     points: 90,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 10,
@@ -90,8 +70,6 @@ const achievements: Achievement[] = [
     description: 'This is the tenth achievement',
     points: 100,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 11,
@@ -99,8 +77,6 @@ const achievements: Achievement[] = [
     description: 'This is the eleventh achievement',
     points: 210,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
   {
     id: 12,
@@ -108,8 +84,6 @@ const achievements: Achievement[] = [
     description: 'This is the twelfth achievement',
     points: 20000,
     createdAt: new Date(),
-    goal: 5,
-    progress: 0,
   },
 ];
 

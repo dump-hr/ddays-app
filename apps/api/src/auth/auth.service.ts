@@ -1,15 +1,21 @@
-import { JwtResponseDto } from '@ddays-app/types';
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { AchievementNames, JwtResponseDto } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
+import { hash } from 'bcrypt';
+import { compare } from 'bcrypt';
+import { AchievementService } from 'src/achievement/achievement.service';
+import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
+
+import { RegistrationDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private readonly emailService: EmailService,
+    private readonly achievementService: AchievementService,
   ) {}
 
   async companyPasswordLogin(
@@ -84,7 +90,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async userRegister(register: UserDto): Promise<JwtResponseDto> {
+  async userRegister(register: RegistrationDto): Promise<JwtResponseDto> {
     const existingActivePhoneUser = await this.prisma.user.findFirst({
       where: {
         phoneNumber: register.phoneNumber,
@@ -112,12 +118,26 @@ export class AuthService {
     const saltRounds = 10;
     const hashedPassword = await hash(register.password, saltRounds);
 
+    const registerWithoutInterests = { ...register };
+    delete registerWithoutInterests.interests;
+
     const newUser = await this.prisma.user.create({
       data: {
-        ...register,
+        ...registerWithoutInterests,
+        isDeleted: false,
         password: hashedPassword,
+        isConfirmed: false,
       },
     });
+
+    await this.prisma.userToInterest.createMany({
+      data: register.interests.map((interest) => ({
+        userId: newUser.id,
+        interestId: interest.id,
+      })),
+    });
+
+    await this.emailService.sendEmailConfirmation(newUser.email);
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,
@@ -125,6 +145,30 @@ export class AuthService {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
     });
+
+    await this.achievementService.completeAchievementByName(
+      newUser.id,
+      AchievementNames.FirstSteps,
+    );
+
+    const EARLY_BIRD_CUTOFF = new Date('2025-05-10T22:00:00.000Z'); // 10.5.2024 00:00 CEST
+    const currentTime = new Date();
+
+    const isEarlyBird = currentTime < EARLY_BIRD_CUTOFF;
+
+    if (isEarlyBird) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.EarlyBird,
+      );
+    }
+
+    if (register.newsletterEnabled) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.WhatsNew,
+      );
+    }
 
     return { accessToken };
   }
@@ -144,6 +188,9 @@ export class AuthService {
         newsletterEnabled: true,
         companiesNewsEnabled: true,
         isConfirmed: true,
+        isDeleted: true,
+        points: true,
+        profilePhotoUrl: true,
       },
     });
   }

@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
         <div className={c.content}>
           {children}
           <img className={c.star} src={starIcon} alt='' />
-          {points}
+          {typeof points === 'number' ? points : -9999}
         </div>
       </button>
     );

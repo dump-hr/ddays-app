@@ -1,92 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import c from './FlyTalksApplyPage.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import Button from '../../components/Button';
-import placeholderLogo from '../../assets/images/profico-logo.png';
 import FileInput from '../../components/FileInput';
 import { validateFlyTalksInput } from '@/helpers/validateInput';
 import ConfirmationPopup from './ConfirmationPopup';
-
-const groupsMock = [
-  {
-    id: 1,
-    start: '10:30',
-    end: '11:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: true,
-  },
-  {
-    id: 2,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 3,
-    start: '11:30',
-    end: '12:30',
-    day: 1,
-    participantsNumber: 25,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 4,
-    start: '10:30',
-    end: '11:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-  {
-    id: 5,
-    start: '11:30',
-    end: '12:30',
-    day: 2,
-    participantsNumber: 10,
-    companies: [
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-      placeholderLogo,
-    ],
-    hasUserApplied: false,
-  },
-];
+import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
+import { usePostApplyToFlyTalks } from '@/api/flyTalks/usePostApplyToFlyTalks';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { useUploadCV } from '@/api/flyTalks/usePostUploadCV';
+import { formatTime } from '@/helpers/formatFlyTalksTime';
 
 const FlyTalksApplyPage = () => {
   const location = useLocation();
-  const [group, setGroup] = useState<(typeof groupsMock)[0] | undefined>(
+  const { data: event } = useGetAllFlyTalkGroups();
+  const { data: currentUser } = useLoggedInUser();
+  const postApplyToFlyTalks = usePostApplyToFlyTalks();
+  const uploadCV = useUploadCV();
+
+  const groups = useMemo(() => {
+    return (
+      event?.map((event) => ({
+        id: event.id,
+        start: formatTime(event.startsAt),
+        end: formatTime(event.endsAt),
+        day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+        participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
+        hasUserApplied: Array.isArray(event.users)
+          ? event.users.some((user) => user.id === 1)
+          : false,
+        companies: Array.isArray(event.companies)
+          ? event.companies.map((company) => ({
+              ...company,
+              logoImage: company.logoImage || '',
+            }))
+          : [],
+      })) || []
+    );
+  }, [event]);
+
+  const [group, setGroup] = useState<(typeof groups)[0] | undefined>(undefined);
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+  const [uploadedCVUrl, setUploadedCVUrl] = useState<string | undefined>(
     undefined,
   );
-  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
 
   const [userData, setUserData] = useState<{
     linkedIn: string;
@@ -111,12 +69,10 @@ const FlyTalksApplyPage = () => {
     const groupId = queryParams.get('id');
 
     if (groupId) {
-      const foundGroup = groupsMock.find(
-        (group) => group.id === Number(groupId),
-      );
+      const foundGroup = groups.find((group) => group.id === Number(groupId));
       setGroup(foundGroup);
     }
-  }, [location.search]);
+  }, [location.search, groups]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -134,16 +90,46 @@ const FlyTalksApplyPage = () => {
     }
   };
 
-  const handleApply = () => {
-    if (
-      Object.values(userData).some(
-        (value) => value === '' || value === undefined,
-      )
-    ) {
+  const handleApply = async () => {
+    if (userData.about.trim() === '' || userData.file === undefined) {
       setIsFormValid(false);
-    } else {
-      setIsConfirmationPopupOpen(true);
+      return;
     }
+    postApplyToFlyTalks.mutate(
+      {
+        userId: currentUser?.id ?? 0,
+        eventId: group?.id ?? 0,
+        linkedinProfile: userData.linkedIn,
+        githubProfile: userData.github,
+        portfolioProfile: userData.portfolio,
+        cv: uploadedCVUrl,
+        description: userData.about,
+      },
+      {
+        onSuccess: () => {
+          setIsConfirmationPopupOpen(true);
+        },
+      },
+    );
+  };
+
+  const handleApplyCV = async (file: File) => {
+    if (file) {
+      await uploadCV.mutateAsync(file, {
+        onSuccess: (cvUrl) => {
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            file: file,
+          }));
+          setUploadedCVUrl(cvUrl);
+        },
+      });
+      return;
+    }
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      file: undefined,
+    }));
   };
 
   const handleError = (field: keyof typeof userData) => {
@@ -162,15 +148,15 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. //SUBOTA'}
+              {group?.day === 1 ? '23.05. // PETAK' : '24.05. // SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}
             </p>
           </div>
           <p className={c.infoParagraph}>
-            Predobro bi bilo da odgovoriš na dva pitanja koja će bit obavezna
-            kako bi firme mogle bolje te prosudit i odbit te na temelju toga.
+            Istakni se i kvalitetno popuni prijavu jer će tvrtke vršiti
+            selekciju na temelju informacija koje ovdje priložiš.
           </p>
           <p className={c.applyStepsParagraph}>
             <span>01</span> LINKOVI
@@ -204,7 +190,7 @@ const FlyTalksApplyPage = () => {
           </p>
           <FileInput
             file={userData.file}
-            setFile={(file) => setUserData((prev) => ({ ...prev, file }))}
+            setFile={(file) => handleApplyCV(file as File)}
             error={isFormValid === false ? handleError('file') : undefined}
             title='priloži životopis'
           />

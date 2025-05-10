@@ -1,0 +1,78 @@
+.container {
+  background-color: $primary-black;
+  padding-bottom: 24px;
+
+  @media (min-width: $breakpoint-tablet) {
+    min-height: 100vh;
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 0;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 24px;
+    margin-inline: 24px;
+    @include mobileNavigationPadding(8px);
+
+    @media (max-width: $breakpoint-tablet) {
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      margin: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 422px;
+      padding: 32px 0;
+
+      @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+        padding-inline: 24px;
+      }
+
+      .wrapperHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          cursor: pointer;
+        }
+
+        h2 {
+          @include heading-2;
+          font-weight: 500;
+        }
+
+        .returnIcon {
+          margin-right: 21px;
+        }
+
+        .editIcon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 32px;
+          height: 32px;
+          background-color: $black-10;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+
+      .interests {
+        margin-top: 35px;
+
+        @media (max-width: $breakpoint-tablet) {
+          @include tag-14;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { SpeakerWithCompanyDto } from '@ddays-app/types';
+import { EventType, SpeakerWithCompanyDto } from '@ddays-app/types';
 
 export const getEventTime = (dateTimeString: string) => {
   const date = new Date(dateTimeString);
@@ -18,30 +18,30 @@ export const getEventTime = (dateTimeString: string) => {
 
 export const getEventTypeTranslation = (type: string) => {
   switch (type) {
-    case 'lecture':
+    case EventType.LECTURE:
       return 'PREDAVANJE';
-    case 'workshop':
+    case EventType.WORKSHOP:
       return 'RADIONICA';
-    case 'flyTalk':
+    case EventType.FLY_TALK:
       return 'FLY TALK';
-    case 'campfireTalk':
+    case EventType.CAMPFIRE_TALK:
       return 'CAMPFIRE TALK';
-    case 'panel':
+    case EventType.PANEL:
       return 'PANEL';
-    case 'other':
+    case EventType.OTHER:
       return null;
   }
 };
 
 export const getThemeShort = (theme: string) => {
   switch (theme) {
-    case 'dev':
+    case 'DEV':
       return 'DEV';
-    case 'design':
+    case 'DESIGN':
       return 'DIZ';
-    case 'marketing':
+    case 'MARKETING':
       return 'MARK';
-    case 'tech':
+    case 'TECH':
       return 'TECH';
   }
 };

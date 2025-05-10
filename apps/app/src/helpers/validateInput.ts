@@ -1,9 +1,6 @@
 import { FlyTalksRegistrationDataFields, UserDataFields } from '@/types/enums';
-import {
-  FlyTalksRegistrationDto,
-  ProfileSettingsDto,
-  RegistrationDto,
-} from '@/types/user/user';
+import { FlyTalksRegistrationDto, ProfileSettingsDto } from '@/types/user/user';
+import { InterestDto, RegistrationDto } from '@ddays-app/types';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
@@ -82,7 +79,7 @@ export const validateRepeatedPassword = (
 
 export const validateField = (
   name: keyof RegistrationDto | keyof ProfileSettingsDto,
-  value: string | number | boolean | null | undefined,
+  value: string | number | boolean | null | undefined | InterestDto[],
 ): string | undefined => {
   switch (name) {
     case UserDataFields.FirstName:
@@ -169,23 +166,26 @@ export const validateFlyTalksInput = (
   for (const field of fields) {
     switch (field) {
       case FlyTalksRegistrationDataFields.LinkedIn:
-        if (!validations.isNotEmpty(userData.linkedIn as string))
-          return 'Hej, ovo polje je obavezno';
-        if (!validations.isValidURL(userData.linkedIn as string))
+        if (
+          !validations.isValidURL(userData.linkedIn as string) &&
+          userData.linkedIn !== ''
+        )
           return 'Hej, moraš unijeti ispravan LinkedIn link';
         break;
 
       case FlyTalksRegistrationDataFields.GitHub:
-        if (!validations.isNotEmpty(userData.github as string))
-          return 'Hej, ovo polje je obavezno';
-        if (!validations.isValidURL(userData.github as string))
+        if (
+          !validations.isValidURL(userData.github as string) &&
+          userData.github !== ''
+        )
           return 'Hej, moraš unijeti ispravan GitHub link';
         break;
 
       case FlyTalksRegistrationDataFields.Portfolio:
-        if (!validations.isNotEmpty(userData.portfolio as string))
-          return 'Hej, ovo polje je obavezno';
-        if (!validations.isValidURL(userData.portfolio as string))
+        if (
+          !validations.isValidURL(userData.portfolio as string) &&
+          userData.portfolio !== ''
+        )
           return 'Hej, moraš unijeti ispravan portfolio link';
         break;
 

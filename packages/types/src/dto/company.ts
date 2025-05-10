@@ -50,6 +50,12 @@ export type CompanyDto = {
   interests?: InterestDto[];
 };
 
+export type CompanyWithFlyTalkDto = {
+  id: number;
+  name: string;
+  logoImage?: string;
+}
+
 export class CompanyModifyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;

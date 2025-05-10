@@ -1,16 +1,16 @@
 import { getLevelFromPoints } from '../../helpers/getLevelFromPoints';
 import c from './AvatarPointsCircle.module.scss';
 import { levelPoints } from '../../helpers/getLevelFromPoints';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 type AvatarPointsCircleProps = {
-  points: number;
   avatar: string;
 };
 
-const AvatarPointsCircle: React.FC<AvatarPointsCircleProps> = ({
-  points,
-  avatar,
-}) => {
+const AvatarPointsCircle: React.FC<AvatarPointsCircleProps> = ({ avatar }) => {
+  const { data: user } = useLoggedInUser();
+  const points = user?.points || 0;
+
   const levelStats = getLevelFromPoints(points);
 
   const swapKeyValue = (

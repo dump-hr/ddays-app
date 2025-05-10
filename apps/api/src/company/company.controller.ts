@@ -4,6 +4,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import {
   Body,
   Controller,
@@ -50,6 +51,38 @@ export class CompanyController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.getOnePublic(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('applicants')
+  async getApplicants(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<UserToCompanyDto[]> {
+    return await this.companyService.getApplicantsForCompany(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('flytalks')
+  async getFlyTalks(@Req() { user }: AuthenticatedRequest): Promise<string[]> {
+    return await this.companyService.getFlyTalks(user.id);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Patch('select-applicant')
+  async selectApplicant(
+    @Req() { user }: AuthenticatedRequest,
+    @Body()
+    body: {
+      user: UserToCompanyDto;
+      selected: boolean;
+      companyId: number;
+    },
+  ): Promise<any> {
+    return await this.companyService.selectApplicant(
+      body.user,
+      body.selected,
+      user.id,
+    );
   }
 
   @UseGuards(AdminGuard)
