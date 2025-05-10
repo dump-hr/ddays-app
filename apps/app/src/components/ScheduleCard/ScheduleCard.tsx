@@ -162,10 +162,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         )}
       </section>
 
-      <div className={c.divider} />
-      {event.type === EventType.PANEL && (
+      {event.speakers?.length !== 0 && <div className={c.divider} />}
+
+      {event.type === EventType.PANEL && event.speakers?.length !== 0 && (
         <p className={c.moderatorLabel}>Voditelj panela:</p>
       )}
+
       <div className={c.speakers}>
         {event.speakers &&
           event.speakers.map(
