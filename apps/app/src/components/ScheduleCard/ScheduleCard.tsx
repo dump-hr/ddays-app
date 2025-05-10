@@ -99,7 +99,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   return (
     <div className={c.scheduleCard}>
-      <button onClick={() => console.log(event)}>console log event</button>
       {isAddedToSchedule && (
         <div className={c.addedToSchedule}>
           <img className={c.ratingStar} src={RatingStar} alt='Rating star' />
