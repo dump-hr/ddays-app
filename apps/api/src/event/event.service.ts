@@ -1,8 +1,10 @@
 import {
   EventDto,
   EventModifyDto,
+  EventType,
   EventWithCompanyDto,
   EventWithSpeakerDto,
+  NotificationStatus,
   UserToEventDto,
 } from '@ddays-app/types';
 import {
@@ -11,10 +13,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { EventType, UserToEvent } from '@prisma/client';
+import { UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
 import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
+
+import { getEventTypeText } from './event.helper';
 
 export class AlreadyJoinedEventException extends HttpException {
   constructor() {
@@ -265,7 +269,23 @@ export class EventService {
       throw new AlreadyJoinedEventException();
     }
 
-    return await this.prisma.userToEvent.create({
+    // Get the event details to use for notification
+    const event = await this.prisma.event.findUnique({
+      where: { id: eventId },
+      select: {
+        id: true,
+        name: true,
+        theme: true,
+        startsAt: true,
+      },
+    });
+
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    // Create the user-event registration
+    const userToEvent = await this.prisma.userToEvent.create({
       data: {
         userId: dto.userId,
         eventId: eventId,
@@ -276,6 +296,70 @@ export class EventService {
         description: dto.description,
       },
     });
+
+    // Calculate notification timing
+    const eventStartTime = new Date(event.startsAt);
+    const notificationTime = new Date(eventStartTime);
+    notificationTime.setMinutes(eventStartTime.getMinutes() - 15); // 15 minutes before event starts
+
+    // Current time to determine if notification should be active
+    const now = new Date();
+    const isActive = notificationTime <= now; // Only active if event starts in less than 15 min
+
+    // Calculate minutes until event for the notification message
+    const minutesUntilEvent = isActive
+      ? Math.max(
+          1,
+          Math.floor((eventStartTime.getTime() - now.getTime()) / (1000 * 60)),
+        )
+      : 15; // Default to 15 minutes if notification will be shown later
+
+    // Check if a notification already exists for this event
+    // We only want to reuse notifications that are not yet active or were recently activated
+    let notification = await this.prisma.notification.findFirst({
+      where: {
+        eventId: event.id,
+        activatedAt: {
+          gte: new Date(now.getTime() - 30 * 60 * 1000), // Look for notifications created/activated within the last 30 minutes
+        },
+      },
+      include: {
+        userNotification: true,
+      },
+    });
+
+    // If no suitable notification exists, create a new one
+    if (!notification) {
+      notification = await this.prisma.notification.create({
+        data: {
+          title: `Raspored`,
+          content: `${getEventTypeText(
+            event.theme as EventType,
+          )} koje ste zabilježeli "${
+            event.name
+          }" počinje za ${minutesUntilEvent} minuta!`,
+          activatedAt: now,
+          expiresAt: new Date(eventStartTime.getTime() + 30 * 60 * 1000), // Expires 30 min after event starts
+          isActive: true,
+          eventId: event.id,
+        },
+        include: {
+          userNotification: true,
+        },
+      });
+    }
+
+    // Create a userNotification record linking the user to the notification
+    await this.prisma.userNotification.create({
+      data: {
+        userId: dto.userId,
+        notificationId: notification.id,
+        status: NotificationStatus.DELIVERED,
+        deliveredAt: now,
+      },
+    });
+
+    return userToEvent;
   }
 
   async leaveEvent(eventId: number, dto: UserToEventDto): Promise<void> {
@@ -290,13 +374,40 @@ export class EventService {
       throw new NotFoundException('You are not currently joined to this event');
     }
 
-    await this.prisma.userToEvent.delete({
-      where: {
-        userId_eventId: {
-          userId: dto.userId,
+    await this.prisma.$transaction(async (tx) => {
+      // 1. Find notifications associated with this event
+      const notifications = await tx.notification.findMany({
+        where: {
           eventId: eventId,
         },
-      },
+        select: {
+          id: true,
+        },
+      });
+
+      const notificationIds = notifications.map((n) => n.id);
+
+      // 2. Delete user notification relationships if any exist
+      if (notificationIds.length > 0) {
+        await tx.userNotification.deleteMany({
+          where: {
+            userId: dto.userId,
+            notificationId: {
+              in: notificationIds,
+            },
+          },
+        });
+      }
+
+      // 3. Delete the user-event relationship
+      await tx.userToEvent.delete({
+        where: {
+          userId_eventId: {
+            userId: dto.userId,
+            eventId: eventId,
+          },
+        },
+      });
     });
   }
 

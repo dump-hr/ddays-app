@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '@/router/routes';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { Dispatch, SetStateAction } from 'react';
-import { notifications } from '@/pages/NotificationsPage/notifications.const';
+import { useGetNumOfUnreadNotifications } from '@/api/notification/useGetNumOfUnreadNotifications';
 
 interface NotificationBellProps {
   setIsOpenPopup?: Dispatch<SetStateAction<boolean>>;
@@ -15,6 +15,8 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
 }) => {
   const navigate = useNavigate();
   const { isMobile } = useDeviceType({ breakpoint: 768 });
+  const { data: numOfUnreadNotifications } =
+    useGetNumOfUnreadNotifications();
 
   const handleClick = () => {
     if (isMobile) {
@@ -29,8 +31,8 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
       <svg className={styles.notificationIcon} width={26} height={26}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
-      {notifications.length > 0 && (
-        <div className={styles.notificationBadge}>{notifications.length}</div>
+      {numOfUnreadNotifications && numOfUnreadNotifications.count > 0 && (
+        <div className={styles.notificationBadge}>{numOfUnreadNotifications.count}</div>
       )}
     </div>
   );

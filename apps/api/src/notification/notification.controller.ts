@@ -9,51 +9,105 @@ import {
   Patch,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 
+import { UserGuard } from '../auth/user.guard';
 import { NotificationService } from './notification.service';
 
-@Controller('notification')
+@Controller('notifications')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @UseGuards(AdminGuard)
+  @Get('user')
+  @UseGuards(UserGuard)
+  async getUserNotifications(@Req() { user }) {
+    return this.notificationService.getUserNotifications(user.id);
+  }
+
+  @Get('unread-count')
+  @UseGuards(UserGuard)
+  async getUnreadCount(@Req() { user }) {
+    return {
+      count: await this.notificationService.getUnreadNotificationsCount(
+        user.id,
+      ),
+    };
+  }
+
+  @Patch('read')
+  @UseGuards(UserGuard)
+  async markNotificationsAsRead(
+    @Req() { user },
+    @Body() notificationIds: number[],
+  ) {
+    return this.notificationService.markNotificationsAsRead(
+      user.id,
+      notificationIds,
+    );
+  }
+
+  @Patch(':id/read')
+  @UseGuards(UserGuard)
+  async markAsRead(@Req() { user }, @Param('id', ParseIntPipe) id: number) {
+    return this.notificationService.markNotificationAsRead(user.id, id);
+  }
+
+  @Patch(':id/delivered')
+  @UseGuards(UserGuard)
+  async markAsDelivered(
+    @Req() { user },
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.notificationService.markNotificationAsDelivered(user.id, id);
+  }
+
   @Patch('activate/:id')
+  @UseGuards(AdminGuard)
   async activate(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<NotificationDto> {
     return await this.notificationService.activate(id);
   }
 
-  @UseGuards(AdminGuard)
   @Post()
+  @UseGuards(AdminGuard)
   async create(@Body() dto: NotificationModifyDto): Promise<NotificationDto> {
     return await this.notificationService.create(dto);
   }
 
+  @Post('all-users')
+  @UseGuards(AdminGuard)
+  async createForAllUsers(
+    @Body() dto: NotificationModifyDto,
+  ): Promise<NotificationDto[]> {
+    return await this.notificationService.createForAllUsers(dto);
+  }
+
   @Get('active')
+  @UseGuards(AdminGuard)
   async getActive(): Promise<NotificationDto[]> {
     return await this.notificationService.getActive();
   }
 
-  @UseGuards(AdminGuard)
   @Get()
+  @UseGuards(AdminGuard)
   async getAll(): Promise<NotificationDto[]> {
     return await this.notificationService.getAll();
   }
 
-  @UseGuards(AdminGuard)
   @Delete(':id')
+  @UseGuards(AdminGuard)
   async remove(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<NotificationDto> {
     return await this.notificationService.remove(id);
   }
 
-  @UseGuards(AdminGuard)
   @Put(':id')
+  @UseGuards(AdminGuard)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: NotificationModifyDto,
