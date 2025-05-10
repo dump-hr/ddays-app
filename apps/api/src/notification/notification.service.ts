@@ -5,7 +5,6 @@ import {
   NotificationModifyDto,
 } from '@ddays-app/types';
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
 import { NotificationStatus } from '@prisma/client';
 
 import { PrismaService } from '../prisma.service';
