@@ -56,7 +56,7 @@
     }
 
     main {
-      border-radius: 12px;
+      border-radius: $border-radius-page-desktop;
 
       .listInfoText {
         display: none;
