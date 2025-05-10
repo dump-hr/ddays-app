@@ -269,13 +269,40 @@ export class EventService {
       throw new NotFoundException('You are not currently joined to this event');
     }
 
-    await this.prisma.userToEvent.delete({
-      where: {
-        userId_eventId: {
-          userId: dto.userId,
+    await this.prisma.$transaction(async (tx) => {
+      // 1. Find notifications associated with this event
+      const notifications = await tx.notification.findMany({
+        where: {
           eventId: eventId,
         },
-      },
+        select: {
+          id: true,
+        },
+      });
+
+      const notificationIds = notifications.map((n) => n.id);
+
+      // 2. Delete user notification relationships if any exist
+      if (notificationIds.length > 0) {
+        await tx.userNotification.deleteMany({
+          where: {
+            userId: dto.userId,
+            notificationId: {
+              in: notificationIds,
+            },
+          },
+        });
+      }
+
+      // 3. Delete the user-event relationship
+      await tx.userToEvent.delete({
+        where: {
+          userId_eventId: {
+            userId: dto.userId,
+            eventId: eventId,
+          },
+        },
+      });
     });
   }
 

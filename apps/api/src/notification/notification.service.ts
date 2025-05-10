@@ -72,9 +72,12 @@ export class NotificationService {
 
   async getUserNotifications(userId: number) {
     const now = new Date();
-    const fifteenMinutesFromNow = new Date(now.getTime() + 15 * 60 * 1000);
+    now.setHours(now.getHours() + 2); // Add 2 hours for UTC+2
 
-    return this.prisma.userNotification.findMany({
+    const fifteenMinutesFromNow = new Date(now);
+    fifteenMinutesFromNow.setMinutes(now.getMinutes() + 15);
+
+    const notifications = await this.prisma.userNotification.findMany({
       where: {
         userId,
         status: NotificationStatus.DELIVERED,
@@ -101,6 +104,8 @@ export class NotificationService {
         },
       },
     });
+
+    return notifications;
   }
 
   async markNotificationsAsRead(userId: number, notificationIds: number[]) {

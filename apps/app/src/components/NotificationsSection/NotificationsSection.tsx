@@ -22,6 +22,8 @@ const NotificationsSection = () => {
 
   const { data: notifications } = useGetUserNotifications();
 
+  console.log('notifications', notifications);
+
   const handleTabChange = (tab: string | number) => {
     setNotificationsTab(tab);
   };
@@ -50,11 +52,7 @@ const NotificationsSection = () => {
         JSON.stringify(unreadNotifications),
       );
     }
-  }, [
-    notificationsTab,
-    unreadNotifications,
-    notifications,
-  ]);
+  }, [notificationsTab, unreadNotifications, notifications]);
 
   const [displayedNotifications, setDisplayedNotifications] = useState<
     NotificationResponseDto[]
