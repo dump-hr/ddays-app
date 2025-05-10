@@ -68,7 +68,7 @@
         @include dottedBreak;
       }
 
-      p{
+      p {
         @include tag-14;
         color: var(--Black-30, #b8b8b8);
         font-size: 14px;
@@ -108,7 +108,7 @@
     border-radius: 0px 0px 8px 8px;
     padding: 12px 24px;
 
-    img{
+    img {
       height: 24px;
     }
 
@@ -154,6 +154,13 @@
     display: flex;
     align-items: start;
     gap: 10px;
+
+    p {
+      span {
+        font-weight: bold;
+        color: $primary-muted-orange;
+      }
+    }
   }
 }
 

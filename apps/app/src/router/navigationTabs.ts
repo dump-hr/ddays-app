@@ -51,7 +51,7 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 24,
     route: RouteNames.FLY_TALKS,
   },
-  
+
   {
     id: NAVIGATION_TAB_ID.COMPANIES,
     name: 'Tvrtke',

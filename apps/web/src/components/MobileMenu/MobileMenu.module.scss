@@ -60,8 +60,8 @@
     border-spacing: 50px;
   }
 
-  .dots{
-    @include mixins.dottedBreak(rgba(255, 255, 255, 0.30));
+  .dots {
+    @include mixins.dottedBreak(rgba(255, 255, 255, 0.3));
     margin: 55px 0px;
   }
 

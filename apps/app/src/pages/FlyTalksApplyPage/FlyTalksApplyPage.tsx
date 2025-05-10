@@ -91,30 +91,26 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = async () => {
-    if (
-      Object.values(userData).some(
-        (value) => value === '' || value === undefined,
-      )
-    ) {
+    if (userData.about.trim() === '' || userData.file === undefined) {
       setIsFormValid(false);
-    } else {
-      postApplyToFlyTalks.mutate(
-        {
-          userId: currentUser?.id ?? 0,
-          eventId: group?.id ?? 0,
-          linkedinProfile: userData.linkedIn,
-          githubProfile: userData.github,
-          portfolioProfile: userData.portfolio,
-          cv: uploadedCVUrl,
-          description: userData.about,
-        },
-        {
-          onSuccess: () => {
-            setIsConfirmationPopupOpen(true);
-          },
-        },
-      );
+      return;
     }
+    postApplyToFlyTalks.mutate(
+      {
+        userId: currentUser?.id ?? 0,
+        eventId: group?.id ?? 0,
+        linkedinProfile: userData.linkedIn,
+        githubProfile: userData.github,
+        portfolioProfile: userData.portfolio,
+        cv: uploadedCVUrl,
+        description: userData.about,
+      },
+      {
+        onSuccess: () => {
+          setIsConfirmationPopupOpen(true);
+        },
+      },
+    );
   };
 
   const handleApplyCV = async (file: File) => {

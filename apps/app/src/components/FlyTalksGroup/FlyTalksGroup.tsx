@@ -84,7 +84,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
         <img src={warning} alt='' />
         <p>
           Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
-          talk.
+          talk. Status termina: <span>u obradi</span>.
         </p>
       </div>
       <div className={c.fullGroupMessage}>

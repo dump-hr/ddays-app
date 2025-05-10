@@ -26,17 +26,19 @@ export const pages: Page[] = [
   },
   /*
   {
-    path: Path.Stand,
-    icon: standSvg,
-    name: 'Štand',
-    Component: MaterialsPage,
-  },
-  {
     path: Path.FlyTalks,
     icon: flyTalksSvg,
     name: 'Fly Talks',
     Component: FlyTalksPage,
   },
+  
+  {
+    path: Path.Stand,
+    icon: standSvg,
+    name: 'Štand',
+    Component: MaterialsPage,
+  },
+
   {
     path: Path.Stand,
     icon: standSvg,

@@ -225,6 +225,13 @@ export class EventService {
     userId: number,
     eventId: number,
   ): Promise<UserToEventDto> {
+    await this.prisma.companyToFlyTalkUser.deleteMany({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+
     const deletedApplication = await this.prisma.userToEvent.delete({
       where: {
         userId_eventId: {

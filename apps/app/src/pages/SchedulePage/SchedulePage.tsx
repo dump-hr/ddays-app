@@ -5,7 +5,11 @@ import c from './SchedulePage.module.scss';
 import ClickableTagGroup from '../../components/ClickableTagGroup';
 import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
-import { AchievementNames, EventWithSpeakerDto } from '@ddays-app/types';
+import {
+  AchievementNames,
+  EventType,
+  EventWithSpeakerDto,
+} from '@ddays-app/types';
 import ScheduleCard from '../../components/ScheduleCard';
 import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
@@ -94,8 +98,9 @@ export const SchedulePage = () => {
       const filteredEvents = mySchedule
         ?.filter((event) => {
           return (
-            activeTag === TagId.ALL ||
-            event.theme.toUpperCase() === activeTag.toUpperCase()
+            (activeTag === TagId.ALL ||
+              event.theme.toUpperCase() === activeTag.toUpperCase()) &&
+            event.type !== EventType.FLY_TALK
           );
         })
         .sort((a, b) => {
@@ -117,6 +122,7 @@ export const SchedulePage = () => {
         const eventDate = new Date(event.startsAt).toDateString();
         return (
           eventDate === dateFilter &&
+          event.type !== EventType.FLY_TALK &&
           (activeTag === TagId.ALL ||
             event.theme.toUpperCase() === activeTag.toUpperCase())
         );
