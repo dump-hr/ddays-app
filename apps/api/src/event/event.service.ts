@@ -4,8 +4,8 @@ import {
   EventType,
   EventWithCompanyDto,
   EventWithSpeakerDto,
-  UserToEventDto,
   NotificationStatus,
+  UserToEventDto,
 } from '@ddays-app/types';
 import {
   HttpException,
