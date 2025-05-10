@@ -68,7 +68,9 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
           <div key={i} className={c.company}>
             <p>0{i + 1}</p>
             <img src={company.logoImage} alt='' />
-            {i !== 3 && <div className={c.divider}></div>}
+            {i !== group.companies.length - 1 && (
+              <div className={c.divider}></div>
+            )}
           </div>
         ))}
         {(!hasUserAlreadyAppliedOnDay || group.hasUserApplied) && (
