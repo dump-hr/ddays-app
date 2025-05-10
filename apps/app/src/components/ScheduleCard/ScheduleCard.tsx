@@ -181,7 +181,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               index, // Pod pretpostavkom da je moderator prvi u listi (ako je panel).
             ) => (
               <>
-                <div className={c.speaker} key={index}>
+                <div className={c.speaker} key={speaker.id}>
                   <img
                     className={c.image}
                     src={speaker.smallPhotoUrl}
