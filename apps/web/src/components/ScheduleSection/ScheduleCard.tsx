@@ -8,9 +8,9 @@ import ScheduleImageCard from './ScheduleImageCard';
 import c from './ScheduleSection.module.scss';
 import {
   getEventTime,
+  getEventTypeTranslation,
   getSpeakerCompanyStringForEvent,
   getThemeShort,
-  getEventTypeTranslation,
 } from './utils';
 
 type ScheduleCardProps = {
@@ -48,6 +48,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     }, 2000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line
   }, []);
 
   const handleCardClick = () => {

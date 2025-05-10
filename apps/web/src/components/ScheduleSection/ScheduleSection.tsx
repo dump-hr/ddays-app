@@ -105,7 +105,7 @@ const ScheduleSection = () => {
                 (event) =>
                   (theme === null || event.theme === theme) &&
                   getEventDay(event.startsAt) === date &&
-                  event.type !== EventType.FLY_TALK
+                  event.type !== EventType.FLY_TALK,
               )
               ?.map((event) => (
                 <ScheduleCard
