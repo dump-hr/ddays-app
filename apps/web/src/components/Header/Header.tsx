@@ -74,7 +74,7 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
       </p>
       <p className={c.text}>
         BESPLATNA KONFERENCIJA <br />
-        ZA NOVU GENERACIJU
+        NOVE GENERACIJE
       </p>
       {Button}
       <HamburgerButton className={c.hamburger} onClick={toggleMobileMenu} />
