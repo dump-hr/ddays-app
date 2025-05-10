@@ -1,8 +1,4 @@
-import {
-  AchievementNames,
-  JwtResponseDto,
-  RegistrationDto,
-} from '@ddays-app/types';
+import { AchievementNames, JwtResponseDto } from '@ddays-app/types';
 import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -11,6 +7,8 @@ import { compare } from 'bcrypt';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
+
+import { RegistrationDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {

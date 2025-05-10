@@ -67,6 +67,7 @@ export const GeneralRegistrationForm = () => {
           toast.success("Dodano postignuće - What's new?", {
             icon: <RedStarIcon />,
             duration: 3000,
+            position: 'top-center',
           });
         }
 
