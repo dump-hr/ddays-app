@@ -99,6 +99,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   return (
     <div className={c.scheduleCard}>
+      <button onClick={() => console.log(event)}>console log event</button>
       {isAddedToSchedule && (
         <div className={c.addedToSchedule}>
           <img className={c.ratingStar} src={RatingStar} alt='Rating star' />
@@ -119,20 +120,25 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </p>
         </div>
 
-        <img
-          className={clsx({
-            [c.arrowDown]: true,
-            [c.collapsed]: !isOpen,
-          })}
-          src={ArrowDown}
-          alt='Arrow pointing down'
-          onClick={() => setIsOpen((prev) => !prev)}
-        />
+        {event.type !== EventType.OTHER && (
+          <img
+            className={clsx({
+              [c.arrowDown]: true,
+              [c.collapsed]: !isOpen,
+            })}
+            src={ArrowDown}
+            alt='Arrow pointing down'
+            onClick={() => setIsOpen((prev) => !prev)}
+          />
+        )}
       </div>
-      <div className={c.tag}>
-        <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
-        <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
-      </div>
+      {event.type !== EventType.OTHER && (
+        <div className={c.tag}>
+          <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
+          <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
+        </div>
+      )}
+
       <h3 className={c.eventName}>{event.name}</h3>
 
       <section
