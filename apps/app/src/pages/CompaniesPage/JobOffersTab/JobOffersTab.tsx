@@ -46,7 +46,11 @@ const JobOffersTab = () => {
                   .includes(query.toUpperCase()),
             )
             .map((job) => (
-              <JobOfferButton job={job} onClick={() => handleModalOpen(job)} />
+              <JobOfferButton
+                key={job.id}
+                job={job}
+                onClick={() => handleModalOpen(job)}
+              />
             ))}
       </div>
 
