@@ -28,6 +28,11 @@ export class JobController {
     return await this.jobService.create(dto);
   }
 
+  @Get()
+  async getAll(): Promise<JobDto[]> {
+    return await this.jobService.getAll();
+  }
+
   @Get('company/:id')
   async getForCompany(
     @Param('id', ParseIntPipe) id: number,
