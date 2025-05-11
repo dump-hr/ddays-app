@@ -33,6 +33,11 @@ export class JobController {
     return await this.jobService.getAll();
   }
 
+  @Get(':id')
+  async getById(@Param('id', ParseIntPipe) id: number): Promise<JobDto> {
+    return await this.jobService.getById(id);
+  }
+
   @Get('company/:id')
   async getForCompany(
     @Param('id', ParseIntPipe) id: number,
