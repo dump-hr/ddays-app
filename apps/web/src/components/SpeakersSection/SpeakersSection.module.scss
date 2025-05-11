@@ -129,17 +129,24 @@
   &InfoWrapper {
     text-align: center;
     margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   &Name {
     color: #fff;
     font-family: 'PP Neue Machina', sans-serif;
     font-size: 24px;
-    line-height: 32px;
+    line-height: 22px;
     text-transform: uppercase;
     margin: 0;
     margin-bottom: 8px;
     font-weight: 500;
+
+    @media screen and (min-width: 768px) {
+      line-height: 32px;
+    }
   }
 
   &Title {
