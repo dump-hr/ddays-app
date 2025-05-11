@@ -4,7 +4,7 @@ import Like from '@/assets/icons/like.svg';
 import Award from '@/assets/icons/award.svg';
 import Bag from '@/assets/icons/bag.svg';
 //import Trophy from '@/assets/icons/trophy.svg';
-//import Gift from '@/assets/icons/gift.svg';
+import Gift from '@/assets/icons/gift.svg';
 import UserEdit from '@/assets/icons/user-edit.svg';
 
 import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
@@ -39,12 +39,12 @@ const navigationItems = [
     label: 'Leaderboard',
     href: RouteNames.PROFILE_LEADERBOARD,
   },
+  */
   {
     icon: Gift,
     label: 'Nagrade',
     href: RouteNames.PROFILE_REWARDS,
   },
-  */
   {
     icon: UserEdit,
     label: 'Postavke profila',
