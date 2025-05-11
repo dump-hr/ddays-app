@@ -53,7 +53,7 @@ export const DuckieSection = () => (
           <span className={classes.label}>posjetitelja</span>
         </div>
         <div className={classes.stat}>
-          <span className={classes.number}>87</span>
+          <span className={classes.number}>96</span>
           <span className={classes.label}>partnera</span>
         </div>
         <div className={classes.stat}>
