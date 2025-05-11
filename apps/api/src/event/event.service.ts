@@ -120,6 +120,7 @@ export class EventService {
                     websiteUrl: true,
                     instagramUrl: true,
                     linkedinUrl: true,
+                    logoImage: true,
                   },
                 },
               },
@@ -150,7 +151,8 @@ export class EventService {
           lastName: speaker.lastName,
           title: speaker.title,
           companyId: speaker.companyId,
-          photo: speaker.photo,
+          photoUrl: speaker.photoUrl,
+          smallPhotoUrl: speaker.smallPhotoUrl,
           instagram: speaker.instagramUrl,
           linkedin: speaker.linkedinUrl,
           description: speaker.description,
@@ -225,6 +227,13 @@ export class EventService {
     userId: number,
     eventId: number,
   ): Promise<UserToEventDto> {
+    await this.prisma.companyToFlyTalkUser.deleteMany({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+
     const deletedApplication = await this.prisma.userToEvent.delete({
       where: {
         userId_eventId: {

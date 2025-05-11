@@ -22,8 +22,8 @@ const FlyTalksList = () => {
   const groups =
     event?.map((event) => ({
       id: event.id,
-      start: event.startsAt.split('T')[1].slice(0, 5),
-      end: event.endsAt.split('T')[1].slice(0, 5),
+      start: event.startsAt.split('T')[1]?.slice(0, 5),
+      end: event.endsAt.split('T')[1]?.slice(0, 5),
       day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
       participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
       hasUserApplied: Array.isArray(event.users)
@@ -49,14 +49,14 @@ const FlyTalksList = () => {
       <main>
         <div className={c.tabGroup}>
           <TabGroup setter={handleTabChange}>
-            <Tab id={Tabs.first_day}>23. 5.</Tab>
-            <Tab id={Tabs.second_day}>24. 5.</Tab>
+            <Tab id={Tabs.first_day}>23.05.</Tab>
+            <Tab id={Tabs.second_day}>24.05.</Tab>
           </TabGroup>
         </div>
         <p className={c.listInfoText}>
-          Nakon prijave obavezno ostavi link na GitHub ili LinkedIn, te
-          predstavi se u kratkim crtama što bolje možeš. Na temelju tog opisa i
-          projekata na GitHubu firme ce odabrati kandidate za razgovor.
+          Nakon odabira skupine kratko se predstavi u najboljim crtama i ostavi
+          link na svoj GitHub i/ili LinkedIn. Na temelju tih informacija tvrtke
+          će odabrati kandidate za razgovor.
         </p>
         <div className={c.groupsList}>
           {selectedTab === Tabs.first_day &&

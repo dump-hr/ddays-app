@@ -1,6 +1,5 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
-import EventsSection from 'components/EventsSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import GallerySection from 'components/GallerySection';
@@ -23,7 +22,7 @@ export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const RegisterButton = (
     <Button
-      onClick={() => (window.location.href = 'https://days-app.dump.hr/login')}>
+      onClick={() => (window.location.href = 'https://days.dump.hr/app/login')}>
       Prijavi se
     </Button>
   );
@@ -45,7 +44,7 @@ export const LandingPage: React.FC = () => {
       )}
       <Hero Button={RegisterButton} items={landingNavigation} />
       <DuckieSection />
-      <EventsSection />
+      {/*<EventsSection /> */}
       <ScheduleSection />
       <SectionBreaker fg='orange' bg='light' />
       <SpeakersSection />
