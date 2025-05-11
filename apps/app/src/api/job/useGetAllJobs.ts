@@ -9,5 +9,5 @@ const getAllJobs = async (): Promise<JobDto[]> => {
 };
 
 export const useGetAllJobs = () => {
-  return useQuery([QUERY_KEYS.jobsForCompany], () => getAllJobs());
+  return useQuery([QUERY_KEYS.jobs], () => getAllJobs());
 };
