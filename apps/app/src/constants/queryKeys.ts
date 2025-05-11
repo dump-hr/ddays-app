@@ -15,4 +15,5 @@ export const QUERY_KEYS = {
   achievementCompleted: 'achievementGetCompleted',
   codes: 'codes',
   codeApplied: 'codeApplied',
+  jobs: 'jobs',
 };
