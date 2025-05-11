@@ -160,6 +160,9 @@ export class NotificationService {
         status: {
           not: NotificationStatus.READ,
         },
+        notification: {
+          isActive: true,
+        },
       },
     });
   }
