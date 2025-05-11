@@ -11,7 +11,7 @@ const JobOffersTab = () => {
   const [query, setQuery] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalJobOffer, setModalJobOffer] = useState<JobDto | null>(null);
-  const { data: jobs = [] } = useGetAllJobs();
+  const { data: jobs } = useGetAllJobs();
 
   function handleModalOpen(job: JobDto) {
     setModalJobOffer(job);
@@ -36,17 +36,18 @@ const JobOffersTab = () => {
         onChange={(e) => setQuery(e.currentTarget.value)}
       />
       <div className={c.jobOffersWrapper}>
-        {jobs
-          .filter(
-            (job) =>
-              job.position.toUpperCase().includes(query.toUpperCase()) ||
-              getCompanyName(job.companyId)
-                .toUpperCase()
-                .includes(query.toUpperCase()),
-          )
-          .map((job) => (
-            <JobOfferButton job={job} onClick={() => handleModalOpen(job)} />
-          ))}
+        {jobs &&
+          jobs
+            .filter(
+              (job) =>
+                job.position.toUpperCase().includes(query.toUpperCase()) ||
+                getCompanyName(job.companyId)
+                  .toUpperCase()
+                  .includes(query.toUpperCase()),
+            )
+            .map((job) => (
+              <JobOfferButton job={job} onClick={() => handleModalOpen(job)} />
+            ))}
       </div>
 
       <JobOfferPopup
