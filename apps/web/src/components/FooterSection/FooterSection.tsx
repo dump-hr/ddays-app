@@ -21,7 +21,7 @@ const FooterSection = () => {
             <button
               className={clsx(c.button, c.grainyButton)}
               onClick={() =>
-                (window.location.href = 'https://days-app.dump.hr/registration')
+                (window.location.href = 'https://days-app.dump.hr/app/login')
               }>
               {`[ `}
               REGISTRIRAJ SVOJ DOLAZAK
