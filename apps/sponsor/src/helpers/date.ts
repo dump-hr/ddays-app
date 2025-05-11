@@ -8,3 +8,10 @@ export const durationToTimeString = (duration: Duration) =>
   }${duration.minutes ? duration.minutes + 'm ' : ''}${
     duration.seconds ? duration.seconds + 's ' : ''
   }`;
+
+export const formatDatetime = (iso: string) => {
+  const date = new Date(iso);
+  return `${date.getDate()}.${
+    date.getMonth() + 1
+  }. u ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+};

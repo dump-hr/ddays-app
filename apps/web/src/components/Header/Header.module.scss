@@ -69,7 +69,7 @@
 
   button {
     margin-left: auto;
-  pointer-events: auto;
+    pointer-events: auto;
   }
 
   .hamburger {
@@ -85,7 +85,6 @@
     left: 0;
     width: 100%;
     pointer-events: none;
-
 
     .text:nth-of-type(2),
     .button {

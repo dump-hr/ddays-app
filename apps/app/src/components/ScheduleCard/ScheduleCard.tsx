@@ -108,20 +108,25 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </p>
         </div>
 
-        <img
-          className={clsx({
-            [c.arrowDown]: true,
-            [c.collapsed]: !isOpen,
-          })}
-          src={ArrowDown}
-          alt='Arrow pointing down'
-          onClick={() => setIsOpen((prev) => !prev)}
-        />
+        {event.type !== EventType.OTHER && (
+          <img
+            className={clsx({
+              [c.arrowDown]: true,
+              [c.collapsed]: !isOpen,
+            })}
+            src={ArrowDown}
+            alt='Arrow pointing down'
+            onClick={() => setIsOpen((prev) => !prev)}
+          />
+        )}
       </div>
-      <div className={c.tag}>
-        <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
-        <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
-      </div>
+      {event.type !== EventType.OTHER && (
+        <div className={c.tag}>
+          <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
+          <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
+        </div>
+      )}
+
       <h3 className={c.eventName}>{event.name}</h3>
 
       <section
@@ -141,10 +146,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         )}
       </section>
 
-      <div className={c.divider} />
-      {event.type === EventType.PANEL && (
+      {event.speakers?.length !== 0 && <div className={c.divider} />}
+
+      {event.type === EventType.PANEL && event.speakers?.length !== 0 && (
         <p className={c.moderatorLabel}>Voditelj panela:</p>
       )}
+
       <div className={c.speakers}>
         {event.speakers &&
           event.speakers.map(
@@ -153,7 +160,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               index, // Pod pretpostavkom da je moderator prvi u listi (ako je panel).
             ) => (
               <>
-                <div className={c.speaker} key={index}>
+                <div className={c.speaker} key={speaker.id}>
                   <img
                     className={c.image}
                     src={speaker.smallPhotoUrl}

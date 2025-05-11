@@ -91,30 +91,26 @@ const FlyTalksApplyPage = () => {
   };
 
   const handleApply = async () => {
-    if (
-      Object.values(userData).some(
-        (value) => value === '' || value === undefined,
-      )
-    ) {
+    if (userData.about.trim() === '' || userData.file === undefined) {
       setIsFormValid(false);
-    } else {
-      postApplyToFlyTalks.mutate(
-        {
-          userId: currentUser?.id ?? 0,
-          eventId: group?.id ?? 0,
-          linkedinProfile: userData.linkedIn,
-          githubProfile: userData.github,
-          portfolioProfile: userData.portfolio,
-          cv: uploadedCVUrl,
-          description: userData.about,
-        },
-        {
-          onSuccess: () => {
-            setIsConfirmationPopupOpen(true);
-          },
-        },
-      );
+      return;
     }
+    postApplyToFlyTalks.mutate(
+      {
+        userId: currentUser?.id ?? 0,
+        eventId: group?.id ?? 0,
+        linkedinProfile: userData.linkedIn,
+        githubProfile: userData.github,
+        portfolioProfile: userData.portfolio,
+        cv: uploadedCVUrl,
+        description: userData.about,
+      },
+      {
+        onSuccess: () => {
+          setIsConfirmationPopupOpen(true);
+        },
+      },
+    );
   };
 
   const handleApplyCV = async (file: File) => {
@@ -152,15 +148,15 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23. 5. // PETAK' : '24. 5. // SUBOTA'}
+              {group?.day === 1 ? '23.05. // PETAK' : '24.05. // SUBOTA'}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}
             </p>
           </div>
           <p className={c.infoParagraph}>
-            Predobro bi bilo da odgovoriš na dva pitanja koja će bit obavezna
-            kako bi firme mogle bolje te prosudit i odbit te na temelju toga.
+            Istakni se i kvalitetno popuni prijavu jer će tvrtke vršiti
+            selekciju na temelju informacija koje ovdje priložiš.
           </p>
           <p className={c.applyStepsParagraph}>
             <span>01</span> LINKOVI

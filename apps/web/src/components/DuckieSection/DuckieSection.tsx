@@ -18,7 +18,14 @@ export const DuckieSection = () => (
           </div>
           <div className={classes.vinyl}>
             <div className={classes.vinylWrapper}>
-              <div className={classes.ellipse}>
+              <div
+                className={classes.ellipse}
+                onClick={() =>
+                  window.open(
+                    'https://www.youtube.com/watch?v=SE8sij3schc',
+                    '_blank',
+                  )
+                }>
                 <img className={classes.play} src={play} alt='' />
               </div>
               <img className={classes.vinylImage} src={vinyl} alt='vinyl' />

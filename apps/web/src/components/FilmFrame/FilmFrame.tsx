@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import FilmFrameImage from '../../assets/film-frame.webp';
 import c from './FilmFrame.module.scss';
 
