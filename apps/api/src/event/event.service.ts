@@ -352,7 +352,7 @@ export class EventService {
           lastName: speaker.lastName,
           title: speaker.title,
           companyId: speaker.companyId,
-          smallPhotoUrl: speaker.photoUrl,
+          smallPhotoUrl: speaker.smallPhotoUrl,
           instagramUrl: speaker.instagramUrl,
           linkedinUrl: speaker.linkedinUrl,
           description: speaker.description,
