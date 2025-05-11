@@ -16,6 +16,7 @@ import { EventModule } from './event/event.module';
 import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequently-asked-question.module';
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaService } from './prisma.service';
 import { RewardModule } from './reward/reward.module';
@@ -65,6 +66,7 @@ import { UserModule } from './user/user.module';
     BoothModule,
     ShopModule,
     UserModule,
+    LeaderboardModule,
     RewardModule,
     AvatarModule,
   ],
