@@ -125,13 +125,13 @@
       justify-content: center;
       align-items: center;
     }
-
-    .label {
-      @include tag-14;
-      margin: 0;
-    }
   }
 
+  .label {
+    @include tag-14;
+    margin: 0;
+  }
+  
   .eventName {
     color: $primary-black;
     @include paragraph-16;
@@ -239,7 +239,7 @@
       text-transform: uppercase;
       letter-spacing: 0px;
     }
-    
+
     .speakerInfoWrapper {
       display: flex;
       flex-direction: column;

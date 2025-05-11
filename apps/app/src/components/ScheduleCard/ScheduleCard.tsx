@@ -192,24 +192,31 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.button]: true,
           [c.collapsibleContent]: true,
           [c.collapsed]: !isOpen,
-          [c.disabled]: isEventFull && !isAddedToSchedule,
+          [c.disabled]:
+            isEventFull &&
+            !isAddedToSchedule &&
+            event.type === EventType.WORKSHOP,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={handleClick}
-        disabled={isEventFull && !isAddedToSchedule}>
+        disabled={
+          isEventFull && !isAddedToSchedule && event.type === EventType.WORKSHOP
+        }>
         {getButtonText()}
       </Button>
 
       {event.type === EventType.WORKSHOP && isWorkshopConfirmPopupOpen && (
-        <WorkshopConfirmPopup
-          isOpen={isWorkshopConfirmPopupOpen}
-          closePopup={() => setIsWorkshopConfirmPopupOpen(false)}
-          event={event}
-          handleAddToPersonalSchedule={() =>
-            handleAddToPersonalSchedule(event.id)
-          }>
-          <Requirements requirements={event.requirements || ''} />
-        </WorkshopConfirmPopup>
+        <>
+          <WorkshopConfirmPopup
+            isOpen={isWorkshopConfirmPopupOpen}
+            closePopup={() => setIsWorkshopConfirmPopupOpen(false)}
+            event={event}
+            handleAddToPersonalSchedule={() =>
+              handleAddToPersonalSchedule(event.id)
+            }>
+            <Requirements requirements={event.requirements || ''} />
+          </WorkshopConfirmPopup>
+        </>
       )}
     </div>
   );
@@ -219,18 +226,23 @@ const Requirements = ({ requirements }: { requirements: string }) => {
   function getRequirements(eventRequirements: string) {
     return eventRequirements.split('//') as string[];
   }
+  const requirementsArray = getRequirements(requirements || '');
 
   return (
     <div className={c.eventRequirements}>
       <p className={c.mainLabel}>ZAHTJEVI:</p>
-      {getRequirements(requirements).map((requirement, index) => (
-        <div key={index} className={c.requirement}>
-          <div className={c.checkContainer}>
-            <img className={c.check} src={Check} alt='Check' />
+      {requirementsArray.length === 0 ? (
+        requirementsArray?.map((requirement, index) => (
+          <div key={index} className={c.requirement}>
+            <div className={c.checkContainer}>
+              <img className={c.check} src={Check} alt='Check' />
+            </div>
+            <p className={c.label}>{requirement}</p>
           </div>
-          <p className={c.label}>{requirement}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className={c.label}>Nema zahtjeva</p>
+      )}
     </div>
   );
 };
