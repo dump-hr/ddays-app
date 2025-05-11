@@ -1,16 +1,17 @@
 import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
-import { jobOffers } from './jobOffers';
 import JobOfferButton from '@/components/JobOfferButton';
 import { useState } from 'react';
 import { getCompanyName } from '@/helpers/getCompanyInfo';
 import JobOfferPopup from '../popups/JobOfferPopup';
 import { JobDto } from '@ddays-app/types';
+import { useGetAllJobs } from '@/api/job/useGetAllJobs';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalJobOffer, setModalJobOffer] = useState<JobDto | null>(null);
+  const { data: jobs = [] } = useGetAllJobs();
 
   function handleModalOpen(job: JobDto) {
     setModalJobOffer(job);
@@ -35,7 +36,7 @@ const JobOffersTab = () => {
         onChange={(e) => setQuery(e.currentTarget.value)}
       />
       <div className={c.jobOffersWrapper}>
-        {jobOffers
+        {jobs
           .filter(
             (job) =>
               job.position.toUpperCase().includes(query.toUpperCase()) ||
