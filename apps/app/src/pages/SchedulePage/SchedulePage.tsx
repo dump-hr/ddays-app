@@ -139,8 +139,8 @@ export const SchedulePage = () => {
             setter={(id) => setActiveTab(id as TabId)}
             defaultTab={TabId.FIRST_DAY}
             className={c.contentWidth}>
-            <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
-            <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
+            <Tab id={TabId.FIRST_DAY}>23.05.</Tab>
+            <Tab id={TabId.SECOND_DAY}>24.05.</Tab>
             <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
           </TabGroup>
 
