@@ -1,0 +1,211 @@
+.duckContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  margin-left: auto;
+  padding: 43px 0 0px;
+  overflow: visible;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+    padding: 60px 0 48px;
+    gap: 65px;
+  }
+}
+
+.duckWrapper {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 77.392px;
+    height: 58.044px;
+    flex-shrink: 0;
+    display: block;
+    background-image: url('../../../../assets/images/gold-medal.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 5;
+  }
+
+  &:nth-child(1) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72.391px;
+      height: 54.293px;
+      display: block;
+      background-image: url('../../../../assets/images/silver-medal.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      z-index: 5;
+    }
+  }
+
+  &:nth-child(3) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72.391px;
+      height: 54.293px;
+      display: block;
+      background-image: url('../../../../assets/images/bronze-medal.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      z-index: 5;
+    }
+  }
+}
+
+.duck {
+  position: relative;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.firstPlace {
+  width: 150px;
+  height: 150px;
+  z-index: 3;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 194px;
+    height: 194px;
+  }
+}
+
+.secondPlace {
+  width: 96px;
+  height: 96px;
+  z-index: 1;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.thirdPlace {
+  width: 96px;
+  height: 96px;
+  z-index: 1;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.duckInfo {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  top: 8px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    .duckWrapper:nth-child(2) & {
+      bottom: -60px;
+    }
+  }
+}
+
+.duckPointsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-direction: row;
+}
+
+.duckPoints {
+  @include label-medium;
+  display: inline-block;
+  margin-top: 5px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    font-size: 16px;
+
+    .duckWrapper:nth-child(2) & {
+      font-size: 20px;
+    }
+  }
+}
+
+.duckName {
+  @include paragraph-14;
+}
+
+.loadingSpinner {
+  position: relative;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.firstPlaceContainer {
+  border-radius: 17px;
+  background-color: $primary-black;
+  z-index: 2;
+}
+
+.firstPlacePoints {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.firstPlaceName {
+  font-size: 16px;
+}
+
+@mixin beigeContainer {
+  border-radius: 8px;
+  background-color: $primary-beige;
+  border: 1px solid $black-10;
+}
+
+.secondPlaceContainer {
+  @include beigeContainer;
+  rotate: -6deg;
+}
+
+.thirdPlaceContainer {
+  @include beigeContainer;
+  rotate: 6deg;
+}
