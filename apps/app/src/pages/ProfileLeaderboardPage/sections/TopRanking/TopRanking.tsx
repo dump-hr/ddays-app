@@ -3,31 +3,17 @@ import clsx from 'clsx';
 import { LeaderboardEntryDto } from '@ddays-app/types/src/dto/leaderboard';
 import star from '@/assets/icons/star-red.svg';
 import RegularDuck from '@/assets/images/leaderboard-duck.png';
-import ErrorMessage from '@/components/ErrorMessage';
-import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface TopRankingProps {
   topThree: LeaderboardEntryDto[];
   isLoading?: boolean;
-  isError?: boolean;
 }
 
-const TopRanking = ({ topThree, isLoading, isError }: TopRankingProps) => {
+const TopRanking = ({ topThree }: TopRankingProps) => {
   const firstPlace = topThree?.[0];
   const secondPlace = topThree?.[1];
   const thirdPlace = topThree?.[2];
 
-  if (isLoading) {
-    return (
-      <div className={styles.loadingSpinner}>
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return <ErrorMessage message='Dogodila se greška sa učitavanjem top 3' />;
-  }
 
   return (
     <div className={styles.duckContainer}>
