@@ -10,6 +10,21 @@
   justify-content: center;
   gap: 2px;
 
+  border-radius: 3.5px;
+  border: none;
+  background: #585858;
+  color: white;
+
+  transition: 200ms;
+
+  &:hover {
+    background: #6b6b6b;
+  }
+
+  &:active {
+    scale: 0.95;
+  }
+
   img {
     width: 17px;
     height: 17px;
@@ -27,11 +42,6 @@
     font-weight: 500;
     line-height: normal;
   }
-
-  border-radius: 3.5px;
-  border: none;
-  background: #585858;
-  color: white;
 
   &.gold {
     height: 58px;
