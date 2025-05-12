@@ -12,8 +12,8 @@ export const useGetUserRank = () => {
     QUERY_KEYS.leaderboardUserRank,
     getUserRank,
     {
-      refetchOnWindowFocus: true,
-      staleTime: 60000, // 1 minute
+      refetchOnWindowFocus: false,
+      refetchOnMount: 'always', // Force refetch on every mount, even if data is in cache
     },
   );
 };
