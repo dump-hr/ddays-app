@@ -11,7 +11,6 @@ import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPoints
 import ProfileStat from '../../components/ProfileStat';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
 import RecommendationsButton from '../../components/RecommendationsButton';
-import FeedbackButton from '../../components/FeedbackButton';
 import LogoutButton from '../../components/LogoutButton';
 import { RouteNames } from '../../router/routes';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
@@ -85,7 +84,8 @@ export const ProfilePage = () => {
         </div>
         <div className={c.buttonsWrapper}>
           <RecommendationsButton />
-          <FeedbackButton />
+          {/*<FeedbackButton /> */}
+
           <LogoutButton onClick={logout} />
         </div>
       </main>

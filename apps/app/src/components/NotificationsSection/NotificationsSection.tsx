@@ -30,6 +30,7 @@ const NotificationsSection = () => {
       [...notifications].sort((a, b) => {
         return b.activatedAt!.getTime() - a.activatedAt!.getTime();
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [notifications],
   );
 

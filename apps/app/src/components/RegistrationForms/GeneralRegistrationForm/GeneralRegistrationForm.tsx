@@ -113,10 +113,11 @@ export const GeneralRegistrationForm = () => {
   const displayStepTitle = (currentStep: RegistrationStep) => {
     switch (currentStep) {
       case RegistrationStep.ONE:
+        return 'Obavezni podatci';
       case RegistrationStep.TWO:
         return 'Dovrši svoj profil';
       case RegistrationStep.THREE:
-        return 'A tvoja Slavica je... ';
+        return 'A tvoja patkica je... ';
       case RegistrationStep.FOUR:
         return 'Odaberi svoje interese';
       default:

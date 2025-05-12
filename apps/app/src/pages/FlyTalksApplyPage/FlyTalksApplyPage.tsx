@@ -186,7 +186,7 @@ const FlyTalksApplyPage = () => {
             error={isFormValid === false ? handleError('portfolio') : undefined}
           />
           <p className={c.applyStepsParagraph}>
-            <span>02</span> UPLOADAJ CV
+            <span>02</span> PRILOŽI ŽIVOTOPIS
           </p>
           <FileInput
             file={userData.file}
@@ -201,7 +201,7 @@ const FlyTalksApplyPage = () => {
             value={userData.about}
             type='text'
             name='about'
-            placeholder='Napiši nešto o sebi...'
+            placeholder='Imaš 70 riječi da zadiviš poslodavca...'
             onChange={handleInputChange}
             error={isFormValid === false ? handleError('about') : undefined}
           />

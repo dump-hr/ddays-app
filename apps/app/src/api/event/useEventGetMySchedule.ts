@@ -9,5 +9,5 @@ const eventGetMySchedule = async (): Promise<EventWithSpeakerDto[]> => {
 };
 
 export const useEventGetMySchedule = () => {
-  return useQuery([QUERY_KEYS.events, 'my-schedule'], eventGetMySchedule);
+  return useQuery([QUERY_KEYS.eventsMySchedule], eventGetMySchedule);
 };
