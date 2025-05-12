@@ -93,7 +93,7 @@ const FloorPlan = () => {
           position={booth.position}
         />
       ))}
-      <img src={FloorPlanBase} alt='' />;
+      <img src={FloorPlanBase} alt='' />
     </div>
   );
 };
