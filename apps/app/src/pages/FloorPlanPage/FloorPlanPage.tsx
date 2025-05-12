@@ -3,11 +3,15 @@ import c from './FloorPlanPage.module.scss';
 import ArrowsMinimize from '@/assets/icons/arrows-minimize.svg';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import useViewport from '@/hooks/useViewport';
 
 const FloorPlanPage = () => {
   const navigate = useNavigate();
   const floorPlanContainerRef = useRef<HTMLDivElement>(null);
   const [upperShadowTop, setUpperShadowTop] = useState<number>(0);
+
+  const { width } = useViewport();
+  const DESKTOP_BREAKPOINT = 769;
 
   useEffect(() => {
     const updateUpperShadowPosition = () => {
@@ -48,9 +52,19 @@ const FloorPlanPage = () => {
 
       <div className={c.upperShadow} style={{ top: `${upperShadowTop}px` }} />
 
-      <div className={c.floorPlanContainer} ref={floorPlanContainerRef}>
-        <FloorPlan />
-      </div>
+      {width < DESKTOP_BREAKPOINT && (
+        <div className={c.floorPlanContainer} ref={floorPlanContainerRef}>
+          <FloorPlan />
+        </div>
+      )}
+
+      {width >= DESKTOP_BREAKPOINT && (
+        <div className={c.floorPlanContainerDesktop}>
+          <FloorPlan />
+        </div>
+      )}
+
+      {/* This div is used to create a shadow effect at the bottom of the page */}
 
       <div className={c.lowerShadow} />
     </div>
