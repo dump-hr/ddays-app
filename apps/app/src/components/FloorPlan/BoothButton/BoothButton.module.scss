@@ -1,0 +1,40 @@
+.boothButton {
+  position: absolute;
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  img {
+    width: 17px;
+    height: 17px;
+    margin: 0 auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  border-radius: 3.5px;
+  border: none;
+  background: #585858;
+  color: white;
+
+  &.gold {
+    height: 58px;
+    width: 58px;
+  }
+}
