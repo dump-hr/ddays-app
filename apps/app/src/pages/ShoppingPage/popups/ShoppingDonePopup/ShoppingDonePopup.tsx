@@ -23,12 +23,11 @@ const ShoppingDonePopup = ({ isOpen, closePopup }: PopupProps) => {
       <div className={styles.contentDiv}>
         <div className={styles.textContainer}>
           <h2>SHOPPING OBAVLJEN!</h2>
-          <p>Slavica je ponosna i zahvalna što podržavaš njen novi biznis.</p>
+          <p>Slavica je zahvalna što podržavaš njen novi biznis. </p>
         </div>
         <div className={styles.buttonContainer}>
           <AlertSection>
-            Tvoje stvari zadržavamo samo sat vremena, stoga brzo na štand po
-            stvari.
+            Tvoje stvari zadržavamo samo 30 minuta, stoga požuri na DUMP štand.
           </AlertSection>
           <Button
             variant='black'
