@@ -19,7 +19,7 @@ const DeleteAccountPopup = ({ isOpen, setIsOpen }: PopupProps) => {
   return (
     <PopupLayout
       variant='dark'
-      headerTitleComponent={<>Obriši račun</>}
+      headerTitleComponent={<>BRISANJE PROFILA</>}
       closePopup={() => setIsOpen(false)}
       isOpen={isOpen}
       imgSrc={DuckGoodbyeImg}>
@@ -27,15 +27,15 @@ const DeleteAccountPopup = ({ isOpen, setIsOpen }: PopupProps) => {
         <div className={styles.textDiv}>
           <h2>Jesi li siguran da želiš obrisati račun?</h2>
           <p>
-            Ukoliko ga obrišeš, nećeš nikad više moći pristupiti ovom računu i
-            svi tvoji bodovi i postignuća bit će izgubljeni.
+            Ukoliko obrišes ovaj profil, više mu nikada nećeš moći pristupiti.
+            Svi bodovi i postignuća će biti izbrisani.
           </p>
         </div>
         <Button
           variant='orange'
           style={{ width: '100%' }}
           onClick={handleDelete}>
-          Svejedno obriši
+          Svejedno obriši, molim te
         </Button>
       </div>
     </PopupLayout>

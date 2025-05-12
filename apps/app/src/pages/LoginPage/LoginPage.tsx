@@ -39,17 +39,17 @@ export const LoginPage = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email) {
-      setEmailError('Hej, trebaš ispuniti sva polja.');
+      setEmailError('Ispuni sva polja.');
       isValid = false;
     } else if (!emailRegex.test(email)) {
-      setEmailError('Hej, unesi ispravnu email adresu.');
+      setEmailError('Unesi ispravnu e-mail adresu.');
       isValid = false;
     } else {
       setEmailError('');
     }
 
     if (!password) {
-      setPasswordError('Hej, trebaš ispuniti sva polja.');
+      setPasswordError('Ispuni sva polja.');
       isValid = false;
     } else {
       setPasswordError('');
@@ -75,7 +75,7 @@ export const LoginPage = () => {
         </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
-            <h1 className={c.title}>Dobro došli natrag!</h1>
+            <h1 className={c.title}>Dobro došli!</h1>
             <a href='https://days.dump.hr'>
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </a>
@@ -84,7 +84,7 @@ export const LoginPage = () => {
             <Input
               label='Email'
               type='text'
-              placeholder='Email'
+              placeholder='E-mail'
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -104,7 +104,7 @@ export const LoginPage = () => {
               error={passwordError}
             />
             <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
-              Zaboravili ste lozinku?
+              Zaboravljena lozinka?
             </a>
           </div>
           <div className={c.buttonContainer}>
