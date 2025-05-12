@@ -1,3 +1,5 @@
+import router from '@/router/Router';
+
 export function isTokenExpired(token: string | undefined) {
   if (!token) return true;
 
@@ -17,5 +19,5 @@ export function parseJwt(token: string) {
 export const logout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('userData');
-  window.location.href = '/app/login';
+  router.navigate('/app/login');
 };

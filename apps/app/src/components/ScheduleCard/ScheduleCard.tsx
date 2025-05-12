@@ -21,7 +21,6 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   handleRemoveFromPersonalSchedule,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
     const start = new Date(event.startsAt).getTime();
