@@ -70,7 +70,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
         className={`${styles.productSupply} ${
           disabled ? styles.productSupplyDisabled : ''
         }`}>
-        Na zalihama: {product.quantity}
+        Dostupno: {product.quantity}
       </p>
       <div
         aria-disabled={disabled}

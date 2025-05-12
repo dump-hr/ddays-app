@@ -13,7 +13,7 @@ const ShoppingItems: React.FC = () => {
     <div className={styles.shoppingItemsWrapper}>
       <div className={styles.shoppingItemsContainer}>
         <div className={styles.shoppingItemsUserPoints}>
-          <p>Tvoje stanje s bodovima</p>
+          <p>Tvoje broj bodova</p>
           <div className={styles.points}>
             <img src={StarIcon} alt='' />
             <span>{data?.points}</span>
