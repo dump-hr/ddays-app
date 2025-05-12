@@ -114,5 +114,4 @@ export class LeaderboardService {
       user: formatUser(user, rank),
     };
   }
-
 }

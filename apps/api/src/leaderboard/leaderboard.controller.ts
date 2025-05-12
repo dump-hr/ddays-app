@@ -1,5 +1,4 @@
 import {
-  LeaderboardEntryDto,
   LeaderboardQueryDto,
   LeaderboardResponseDto,
   UserRankResponseDto,
