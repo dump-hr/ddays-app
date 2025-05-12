@@ -65,7 +65,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   function getButtonText() {
     if (isAddedToSchedule) return 'Izbriši iz rasporeda';
-    if (isEventFull) return 'Popunjeno';
+    if (isEventFull && event.type === EventType.WORKSHOP) return 'Popunjeno';
 
     return 'Dodaj u svoj raspored';
   }
@@ -231,7 +231,7 @@ const Requirements = ({ requirements }: { requirements: string }) => {
   return (
     <div className={c.eventRequirements}>
       <p className={c.mainLabel}>ZAHTJEVI:</p>
-      {requirementsArray.length === 0 ? (
+      {requirementsArray.length !== 0 ? (
         requirementsArray?.map((requirement, index) => (
           <div key={index} className={c.requirement}>
             <div className={c.checkContainer}>
