@@ -1,0 +1,81 @@
+.page {
+  background-color: $primary-black;
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  @include mobileNavigationPadding(8px);
+
+  header {
+    width: 100%;
+
+    p {
+      color: $primary-white;
+      @include heading-2;
+      margin: 64px 24px 24px 24px;
+      text-transform: uppercase;
+    }
+  }
+
+  main {
+    width: 100%;
+    background-color: $primary-background;
+    border-radius: 12px 12px 0px 0px;
+    padding: 16px 24px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+
+    .tabGroup {
+      width: 100%;
+    }
+
+    .listInfoText {
+      margin-top: 24px;
+      color: var(--Primary-Black, #171615);
+      @include paragraph-16;
+      line-height: 22px;
+      letter-spacing: -0.16px;
+    }
+
+    .groupsList {
+      margin-top: 24px;
+      display: grid;
+      width: 100%;
+      gap: 24px;
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 24px;
+
+    header {
+      text-align: center;
+    }
+
+    main {
+      border-radius: $border-radius-page-desktop;
+
+      .listInfoText {
+        display: none;
+      }
+
+      .tabGroup {
+        width: 100%;
+        max-width: 422px;
+      }
+
+      .listInfoText {
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .groupsList {
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+        max-width: 624px;
+      }
+    }
+  }
+}

@@ -1,11 +1,12 @@
-import { UserDataFields } from '@/types/enums';
-import { RegistrationDto } from '@/types/user/user';
+import { FlyTalksRegistrationDataFields, UserDataFields } from '@/types/enums';
+import { FlyTalksRegistrationDto, ProfileSettingsDto } from '@/types/user/user';
+import { InterestDto, RegistrationDto } from '@ddays-app/types';
 
 export const validations = {
   isNotEmpty: (value: string) => value.trim().length > 0,
 
   isValidName: (value: string) => {
-    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s]{2,}$/;
+    const nameRegex = /^[a-zA-ZčćđšžČĆĐŠŽ\s-]{2,}$/;
     return nameRegex.test(value.trim());
   },
 
@@ -16,6 +17,14 @@ export const validations = {
 
   isValidPassword: (value: string) => {
     return value.length >= 8 && /\d/.test(value);
+  },
+
+  isWordCountValid: (value: string, maxWords: number) => {
+    const wordCount = value
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
+    return wordCount >= maxWords;
   },
 
   isValidPhoneNumber: (value: string): boolean => {
@@ -53,18 +62,25 @@ export const validations = {
       }
     }
   },
+
+  isValidURL: (value: string) => {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(value.trim());
+  },
+};
+
+export const validateRepeatedPassword = (
+  password: string | undefined,
+  repeatedPassword: string | undefined,
+) => {
+  if (password !== repeatedPassword) return 'Hej, lozinke se ne poklapaju!';
+  return undefined;
 };
 
 export const validateField = (
-  name: keyof RegistrationDto,
-  value: string | number | boolean | null | undefined,
-  userData: Partial<RegistrationDto>,
+  name: keyof RegistrationDto | keyof ProfileSettingsDto,
+  value: string | number | boolean | null | undefined | InterestDto[],
 ): string | undefined => {
-  const isNotEmptyNewPass = validations.isNotEmpty(
-    userData.newPassword as string,
-  );
-  const passField = isNotEmptyNewPass ? 'newPassword' : 'password';
-
   switch (name) {
     case UserDataFields.FirstName:
       if (!validations.isNotEmpty(value as string))
@@ -104,7 +120,6 @@ export const validateField = (
     case UserDataFields.RepeatedPassword:
       if (!validations.isNotEmpty(value as string))
         return 'Hej, potvrda lozinke je obavezna';
-      if (value !== userData[passField]) return 'Hej, lozinke se ne podudaraju';
       break;
 
     case UserDataFields.PhoneNumber:
@@ -142,4 +157,52 @@ export const allFieldsAreFilled = (
   userData: Partial<RegistrationDto>,
 ) => {
   return fields.every((key) => userData[key] !== null && userData[key] !== '');
+};
+
+export const validateFlyTalksInput = (
+  fields: (keyof FlyTalksRegistrationDto)[],
+  userData: Partial<FlyTalksRegistrationDto>,
+): string | undefined => {
+  for (const field of fields) {
+    switch (field) {
+      case FlyTalksRegistrationDataFields.LinkedIn:
+        if (
+          !validations.isValidURL(userData.linkedIn as string) &&
+          userData.linkedIn !== ''
+        )
+          return 'Hej, moraš unijeti ispravan LinkedIn link';
+        break;
+
+      case FlyTalksRegistrationDataFields.GitHub:
+        if (
+          !validations.isValidURL(userData.github as string) &&
+          userData.github !== ''
+        )
+          return 'Hej, moraš unijeti ispravan GitHub link';
+        break;
+
+      case FlyTalksRegistrationDataFields.Portfolio:
+        if (
+          !validations.isValidURL(userData.portfolio as string) &&
+          userData.portfolio !== ''
+        )
+          return 'Hej, moraš unijeti ispravan portfolio link';
+        break;
+
+      case FlyTalksRegistrationDataFields.About:
+        if (!validations.isNotEmpty(userData.about as string))
+          return 'Hej, ovo polje je obavezno';
+        if (!validations.isWordCountValid(userData.about as string, 70))
+          return 'Hej, moraš unijeti više od 70 riječi';
+        break;
+
+      case FlyTalksRegistrationDataFields.File:
+        if (!userData.file) return 'Hej, ovo polje je obavezno';
+        break;
+
+      default:
+        return undefined;
+    }
+  }
+  return undefined;
 };

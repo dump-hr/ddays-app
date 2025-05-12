@@ -3,6 +3,7 @@
 @import 'styles/variables';
 
 .stickySection {
+  overflow-y: hidden;
   padding-bottom: 29px;
 
   @media (max-width: 768px) {
@@ -14,9 +15,7 @@
   }
 
   .quote {
-    position: sticky;
-    top: 0;
-    padding-top: 120px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,23 +55,11 @@
 }
 
 .logosWrapper {
-  width: vw-calc(1425.4);
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
-  @media(max-width: 1080px){
-    width: vw-calc(1415);
-  }
-
-  @media(max-width: 1440px){
-    width: vw-calc(1420);
-  }
-
-  @media (max-width: 768px) {
-    left: 0;
-  }
 }
 
 .container {
@@ -379,7 +366,7 @@
     .logos {
       display: flex;
       width: auto;
-      max-width:92.4%;
+      max-width: 93%;
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
@@ -388,19 +375,18 @@
       margin-top: vw-calc(32);
       padding: 0 vw-calc(32);
 
-      @media (max-width: 915px){
+      @media (max-width: 915px) {
         max-width: 91.5%;
       }
 
-      @media ((min-width: 916px) and (max-width: 1180px)){
-          max-width: 92%;
+      @media ((min-width: 916px) and (max-width: 1180px)) {
+        max-width: 92%;
       }
-
 
       @media (max-width: 768px) {
         width: vw-mobile-calc(343);
         flex-direction: row;
-        max-width:100%;
+        max-width: 100%;
         margin-top: vw-mobile-calc(54);
         overflow: hidden;
         align-items: center;
@@ -410,7 +396,7 @@
       }
 
       .logo {
-        margin: 0px -4px ;
+        margin: 0px -4px;
         width: vw-calc(320);
         height: vw-calc(140);
         display: flex;
@@ -421,7 +407,7 @@
 
         .verticalDots {
           margin-bottom: 8px;
-          margin-right:13px;
+          margin-right: 13px;
         }
 
         &:nth-child(4n) {
@@ -430,7 +416,6 @@
           }
         }
 
-
         @media (max-width: 768px) {
           margin: 0px;
           width: vw-mobile-calc(160);
@@ -438,7 +423,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-
 
           &:nth-child(2n) {
             .verticalDots {
@@ -481,10 +465,10 @@
 
           @media (max-width: 768px) {
             right: -7.19%;
-            margin-right:20px;
+            margin-right: 20px;
           }
 
-          @media (max-width: 380px){
+          @media (max-width: 380px) {
             margin-right: 15px;
           }
         }

@@ -1,7 +1,14 @@
+.background {
+  background-color: $primary-black;
+  padding: 64px 0 0 0;
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 166px 24px 24px 24px;
+  }
+}
+
 .wrapper {
-  margin-top: 64px;
   background-color: $primary-white;
-  border-radius: 12px 12px 0px 0px;
+  border-radius: $border-radius-page-mobile;
   height: fit content;
   position: relative;
   padding: 28px 24px 0px 24px;
@@ -10,9 +17,8 @@
   align-items: center;
 
   @media screen and (min-width: $breakpoint-tablet) {
-    margin-top: 166px;
     padding-top: 48px;
-    border-radius: 12px;
+    border-radius: $border-radius-page-desktop;
   }
 }
 

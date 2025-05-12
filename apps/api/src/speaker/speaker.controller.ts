@@ -96,8 +96,44 @@ export class SpeakerController {
   }
 
   @UseGuards(AdminGuard)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @Patch('/small-photo/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateSmallSpeakerPhoto(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ): Promise<SpeakerDto> {
+    return await this.speakerService.updateSmallPhoto(id, file);
+  }
+
+  @UseGuards(AdminGuard)
   @Delete('/photo/:id')
   async removePhoto(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return await this.speakerService.removePhoto(id);
+  }
+
+  @UseGuards(AdminGuard)
+  @Delete('/small-photo/:id')
+  async removeSmallPhoto(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return await this.speakerService.removeSmallPhoto(id);
   }
 }

@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 16px;
+}
+
+.selectedText {
+  @include tag-16;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+
+  &Default {
+    color: $black-100;
+    display: inline;
+  }
+  &Option {
+    color: $black-50;
+    display: inline;
+  }
+}

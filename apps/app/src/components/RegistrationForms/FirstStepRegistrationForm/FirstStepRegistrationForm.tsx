@@ -1,30 +1,21 @@
 import { ChangeEvent, useEffect } from 'react';
-import { Input } from '../../Input';
+import { Input } from '@/components/Input';
 import c from './FirstStepRegistrationForm.module.scss';
-import { RegistrationFormErrors } from '../../../types/errors/errors.dto';
+import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import {
   allFieldsAreFilled,
   validateField,
-} from '../../../helpers/validateInput';
-import { UserDataFields } from '../../../types/enums';
-import { useRegistration } from '../../../providers/RegistrationContext';
+  validateRepeatedPassword,
+} from '@/helpers/validateInput';
+import { UserDataFields } from '@/types/enums';
+import { useRegistration } from '@/providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
-import { RegistrationStep } from '../../../types/registration/registration.dto';
-
-type UserData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  repeatedPassword: string;
-  newsletterEnabled: boolean;
-  companiesNewsEnabled: boolean;
-  termsAndConditionsEnabled: boolean;
-};
+import { RegistrationStep } from '@/types/registration/registration.dto';
+import { RegistrationDto } from '@ddays-app/types';
 
 type Props = {
-  userData: UserData;
-  updateUserData: (newData: Partial<UserData>) => void;
+  userData: Partial<RegistrationDto>;
+  updateUserData: (newData: Partial<RegistrationDto>) => void;
   isSubmitted: boolean;
 };
 
@@ -35,7 +26,7 @@ export const FirstStepRegistrationForm = ({
 }: Props) => {
   const { errors, clearStepErrors, setStepErrors } = useRegistration();
 
-  const firstStepFields: (keyof UserData)[] = [
+  const firstStepFields: (keyof RegistrationDto)[] = [
     UserDataFields.FirstName,
     UserDataFields.LastName,
     UserDataFields.Email,
@@ -55,9 +46,18 @@ export const FirstStepRegistrationForm = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     firstStepFields.forEach((key) => {
-      const error = validateField(key, userData[key], userData);
+      const error = validateField(key, userData[key] as string);
       newErrors[key] = error || '';
     });
+
+    const passwordsMatchError = validateRepeatedPassword(
+      userData.password,
+      userData.repeatedPassword,
+    );
+
+    if (passwordsMatchError) {
+      newErrors.repeatedPassword = passwordsMatchError;
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setStepErrors(RegistrationStep.ONE, newErrors);
@@ -70,6 +70,7 @@ export const FirstStepRegistrationForm = ({
     if (isSubmitted || allFieldsAreFilled(firstStepFields, userData)) {
       validateFirstStep();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, userData]);
 
   return (

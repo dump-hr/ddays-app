@@ -4,6 +4,7 @@ import {
   CompanyModifyDto,
   CompanyPublicDto,
 } from '@ddays-app/types';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
@@ -84,6 +85,112 @@ export class CompanyService {
       booth: foundCompany.booth?.name || null,
       interests,
     };
+  }
+
+  async getFlyTalks(id: number): Promise<string[]> {
+    const flyTalks = await this.prisma.company.findUnique({
+      where: { id },
+      include: {
+        companyToFlyTalk: {
+          include: {
+            event: {
+              select: {
+                startsAt: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return flyTalks.companyToFlyTalk
+      .map((rel) => rel.event.startsAt)
+      .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  }
+
+  async getApplicantsForCompany(id: number): Promise<UserToCompanyDto[]> {
+    const applicants = await this.prisma.company.findUnique({
+      where: { id },
+      include: {
+        companyToFlyTalk: {
+          include: {
+            event: {
+              include: {
+                userToEvent: {
+                  include: {
+                    user: {
+                      select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                      },
+                    },
+                    CompanyToFlyTalkUser: {
+                      select: {
+                        selected: true,
+                        companyId: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!applicants) {
+      throw new NotFoundException('Applicants not found');
+    }
+
+    const users = applicants.companyToFlyTalk.flatMap((flyTalk) =>
+      flyTalk.event.userToEvent.map((rel) => {
+        const matchingCompany = rel.CompanyToFlyTalkUser.find(
+          (entry) => entry.companyId === id,
+        );
+
+        return {
+          ...rel.user,
+          eventId: rel.eventId,
+          date: flyTalk.event.startsAt,
+          linkedinProfile: rel.linkedinProfile,
+          githubProfile: rel.githubProfile,
+          portfolioProfile: rel.portfolioProfile,
+          cv: rel.cv,
+          description: rel.description,
+          selected: matchingCompany?.selected ?? false,
+        };
+      }),
+    );
+
+    return users;
+  }
+
+  async selectApplicant(
+    user: UserToCompanyDto,
+    selected: boolean,
+    companyId: number,
+  ): Promise<void> {
+    await this.prisma.companyToFlyTalkUser.upsert({
+      where: {
+        userId_eventId_companyId: {
+          userId: user.id,
+          eventId: user.eventId,
+          companyId: companyId,
+        },
+      },
+      update: {
+        selected: selected,
+      },
+      create: {
+        userId: user.id,
+        eventId: user.eventId,
+        companyId: companyId,
+        selected: selected,
+      },
+    });
   }
 
   async remove(id: number): Promise<CompanyDto> {

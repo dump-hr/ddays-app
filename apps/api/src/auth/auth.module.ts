@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { AchievementService } from 'src/achievement/achievement.service';
+import { EmailModule } from 'src/email/email.module';
 import { PrismaService } from 'src/prisma.service';
 
 import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './sponsor.strategy';
+import { UserGuard } from './user.guard';
 import { UserJwtStrategy } from './user.strategy';
 
 @Module({
@@ -16,6 +19,7 @@ import { UserJwtStrategy } from './user.strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '14d' },
     }),
+    EmailModule,
   ],
   controllers: [AuthController],
   providers: [
@@ -24,6 +28,9 @@ import { UserJwtStrategy } from './user.strategy';
     JwtStrategy,
     UserJwtStrategy,
     PrismaService,
+    UserGuard,
+    AchievementService,
   ],
+  exports: [AuthService, UserGuard],
 })
 export class AuthModule {}

@@ -1,0 +1,130 @@
+.page {
+  background-color: $primary-black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100%;
+  min-height: 100%;
+  @include mobileNavigationPadding(8px);
+
+  .header {
+    width: 100%;
+
+    p {
+      @include heading-2;
+      color: $primary-white;
+      margin: 64px 0 24px 24px;
+    }
+  }
+
+  .main {
+    width: 100%;
+    background-color: $primary-background;
+    border-radius: 12px 12px 0px 0px;
+    padding: 20px;
+    z-index: 1;
+    flex-grow: 1;
+
+    .mainContent {
+      max-width: 422px;
+      margin: auto;
+
+      .timeContainer {
+        display: flex;
+        padding: 16px 10px;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        border-radius: 12px;
+        background: var(--Primary-Beige, #f5ede1);
+
+        .dateParagraph {
+          color: var(--Black-50, #868685);
+          text-align: center;
+          @include heading-3;
+          text-transform: uppercase;
+        }
+
+        .timeParagraph {
+          color: var(--Black-90, #2d2c2c);
+          text-align: center;
+
+          @include tag-16;
+        }
+      }
+
+      .infoParagraph {
+        margin-top: 24px;
+        color: var(--Primary-Black, #171615);
+        @include paragraph-16;
+      }
+
+      .applyStepsParagraph {
+        color: var(--Primary-Black, #171615);
+        font-feature-settings: 'ss12' on;
+        margin-top: 35px;
+        @include heading-3;
+
+        span {
+          color: var(--Black-50, #868685);
+          font-feature-settings: 'ss12' on;
+        }
+      }
+
+      input {
+        margin-top: 32px;
+      }
+
+      .aboutLettersCounter {
+        color: var(--Primary-Black, #171615);
+        text-align: right;
+        @include tag-16;
+        font-size: 14px;
+        justify-self: end;
+        margin-top: 16px;
+      }
+
+      .fileUploadContainer {
+        margin-top: 20px;
+        border-radius: 6px;
+        border: 1px solid var(--Black-10, #e0e0df);
+        background: var(--Black-5, #ebebeb);
+        display: flex;
+        padding: 12px 16px;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+        cursor: pointer;
+
+        p {
+          color: var(--Primary-Black, #171615);
+          @include paragraph-16;
+          text-transform: uppercase;
+        }
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+      }
+      .nextButton {
+        margin-top: 32px;
+        width: 100%;
+      }
+    }
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 24px;
+
+    .main {
+      border-radius: 12px;
+    }
+    .header {
+      p {
+        text-align: center;
+        margin-left: 0;
+      }
+    }
+  }
+}

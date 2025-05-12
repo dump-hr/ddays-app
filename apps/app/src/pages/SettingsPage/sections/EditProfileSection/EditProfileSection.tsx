@@ -3,12 +3,7 @@ import styles from './EditProfileSection.module.scss';
 import { useEffect, useState } from 'react';
 import { useUserContext } from '@/context/UserContext';
 import { useInputHandlers } from '@/hooks/useInputHandlers';
-import {
-  checkboxInputs,
-  dropdownInputs,
-  editProfileFields,
-  textInputs,
-} from '../inputs';
+import { checkboxInputs, editProfileFields, textInputs } from '../inputs';
 
 import Dropdown from '@/components/Dropdown';
 import Button from '@/components/Button';
@@ -16,24 +11,22 @@ import { Checkbox } from '@/components/Checkbox';
 import { Input } from '@/components/Input';
 import { useRegistration } from '@/context/RegistrationContext';
 import { SettingsEdits, UserDataFields } from '@/types/enums';
-import {
-  allFieldsAreFilled,
-  validateField,
-} from '@/helpers/validateInput';
+import { allFieldsAreFilled, validateField } from '@/helpers/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
+import { usePatchCurrentUser } from '@/api/user/usePatchCurrentUser';
+import { UserModifyDto } from '@ddays-app/types/src/dto/user';
+import { dropdownInputs } from '@/constants/sharedInputs';
+import RedStarIcon from '@/components/RedStarIcon';
+import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
+import { AchievementNames } from '@ddays-app/types';
 
-interface EditProfileSectionProps {
-  isEditing: boolean;
-  setIsEditing: (value: boolean) => void;
-}
-
-export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
-  isEditing,
-  setIsEditing,
-}) => {
+export const EditProfileSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { userSettingsData, updateUserSettingsData, updateUserData } =
+  const updateUserMutation = usePatchCurrentUser();
+  const { userSettingsData, updateUserSettingsData, isEditing, setIsEditing } =
     useUserContext();
+  const { data: userAchievements } = useAchievementGetCompleted();
+  const [achievementCompleted, setAchievementCompleted] = useState(false);
 
   const {
     handleDropdownChange,
@@ -49,7 +42,7 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     const newErrors: Partial<RegistrationFormErrors> = {};
 
     editProfileFields.forEach((key) => {
-      const error = validateField(key, userSettingsData[key], userSettingsData);
+      const error = validateField(key, userSettingsData[key]);
       newErrors[key] = error || '';
     });
 
@@ -79,10 +72,28 @@ export const EditProfileSection: React.FC<EditProfileSectionProps> = ({
       toast.error('Podaci nisu ispravno uneseni!');
       return;
     }
-    setIsEditing(false);
-    updateUserData(userSettingsData);
-    // TODO: api poziv za izmjenu podataka user-a
-    toast.success('Podaci uspješno izmjenjeni!');
+
+    const userDataToSend = { ...userSettingsData };
+
+    updateUserMutation.mutate(userDataToSend as UserModifyDto, {
+      onSuccess: () => {
+        setIsEditing(false);
+      },
+    });
+
+    if (
+      userDataToSend.newsletterEnabled &&
+      !userAchievements?.filter((a) => a.name === AchievementNames.WhatsNew)
+        .length &&
+      !achievementCompleted
+    ) {
+      setAchievementCompleted(true);
+      toast.success("Dodano postignuće - What's new?", {
+        icon: <RedStarIcon />,
+        duration: 3000,
+        position: 'top-center',
+      });
+    }
   };
 
   return (

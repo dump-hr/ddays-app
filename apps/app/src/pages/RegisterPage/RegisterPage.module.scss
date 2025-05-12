@@ -1,65 +1,63 @@
 .page {
-    background-color: $primary-black;
+  background-color: $primary-black;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px 24px 24px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 0;
+  }
+
+  .header {
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 0 24px 24px 24px;
+    position: relative;
 
-      @media (max-width: $breakpoint-tablet) {
-        padding: 0;
-      }
-  
-    .header {
-      width: 100%;
-      position: relative;
-
-      h2 {
-        display: flex;
-        justify-content: center;
-        color: $primary-white;
-        font-family: NeueMachina;
-        font-weight: 500;
-        line-height: 28px; 
-        letter-spacing: -0.24px;
-        margin-block: 96px 40px;
-        position: relative;
-
-        @media (max-width: $breakpoint-tablet) {
-           margin-block: 64px 24px;
-           display: flex;
-           justify-content: start;
-           padding-left: 24px;
-        }
-
-        @media (max-width: $breakpoint-mobile-lg) {
-          padding-left: 12px;
-        }
-      }
-
-      img {
-        position: absolute;
-        bottom: 30px;
-        right: 48px;
-        height: 20px;
-        cursor: pointer;
-      }
-    }
-  
-    .main {
-      width: 100%;
-      height: 100%;
-      background-color: $primary-background;
-      border-radius: 12px;
+    h2 {
       display: flex;
       justify-content: center;
-      padding-block: 48px 76px;
+      color: $primary-white;
+      font-family: NeueMachina;
+      font-weight: 500;
+      line-height: 28px;
+      letter-spacing: -0.24px;
+      margin-block: 96px 40px;
+      position: relative;
 
       @media (max-width: $breakpoint-tablet) {
-        padding-block: 24px 48px;
-        border-radius: 12px 12px 0 0 ;
+        margin-block: 64px 24px;
+        display: flex;
+        justify-content: start;
+        padding-left: 24px;
       }
 
+      @media (max-width: $breakpoint-mobile-lg) {
+        padding-left: 12px;
+      }
+    }
+
+    img {
+      position: absolute;
+      bottom: 30px;
+      right: 48px;
+      height: 20px;
+      cursor: pointer;
     }
   }
-  
+
+  .main {
+    width: 100%;
+    height: 100%;
+    background-color: $primary-background;
+    border-radius: $border-radius-page-desktop;
+    display: flex;
+    justify-content: center;
+    padding-block: 48px 76px;
+
+    @media (max-width: $breakpoint-tablet) {
+      padding-block: 24px 48px;
+      border-radius: $border-radius-page-mobile;
+    }
+  }
+}

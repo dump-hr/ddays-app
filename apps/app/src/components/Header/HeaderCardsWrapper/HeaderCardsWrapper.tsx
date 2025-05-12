@@ -1,10 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { HeaderCard } from '../HeaderCard/HeaderCard';
-import accreditationImage from './../../../assets/images/accreditationIcon.png';
+//import accreditationImage from './../../../assets/images/accreditationIcon.png';
 import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
-import tShirtImage from './../../../assets/images/tShirtIcon.png';
+//import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
-import { RouteNames } from '../../../router/routes';
+//import { RouteNames } from '../../../router/routes';
+import { useState } from 'react';
+import Accreditation from '@/components/Accreditation';
 
 enum HeaderCards {
   ENTER_CODE,
@@ -29,7 +31,8 @@ type HeaderCardsWrapperProps = {
 export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
   openCodePopup,
 }) => {
-  const navigate = useNavigate();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  //const navigate = useNavigate();
   const headerCards: HeaderCardsInfo[] = [
     {
       id: HeaderCards.ENTER_CODE,
@@ -39,13 +42,16 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       height: 34,
       onClick: () => openCodePopup && openCodePopup(),
     },
+    /*
     {
       id: HeaderCards.ACCREDITATION,
       img: `${accreditationImage}`,
       text: 'Akreditacija',
       width: 60,
       height: 39,
-      onClick: () => {},
+      onClick: () => {
+        setIsPopupOpen(true);
+      },
     },
     {
       id: HeaderCards.SHOPPING,
@@ -55,20 +61,27 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       height: 36,
       onClick: () => navigate(RouteNames.SHOPPING),
     },
+    */
   ];
 
   return (
-    <div className={styles.headerCardsWrapper}>
-      {headerCards.map((card) => (
-        <HeaderCard
-          key={card.id}
-          img={card.img}
-          text={card.text}
-          imgWidth={card.width}
-          imgHeight={card.height}
-          onClick={card.onClick}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.headerCardsWrapper}>
+        {headerCards.map((card) => (
+          <HeaderCard
+            key={card.id}
+            img={card.img}
+            text={card.text}
+            imgWidth={card.width}
+            imgHeight={card.height}
+            onClick={card.onClick}
+          />
+        ))}
+      </div>
+      <Accreditation
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
+    </>
   );
 };

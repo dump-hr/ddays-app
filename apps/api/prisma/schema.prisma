@@ -9,6 +9,7 @@ datasource db {
 
 model Achievement {
   id                   Int                 @id @default(autoincrement())
+  uuid                 String?             @unique @default(uuid()) @db.Uuid
   name                 String
   description          String?
   points               Int?                @default(0)
@@ -49,7 +50,7 @@ model Booth {
 
 model Code {
   id                Int                 @id @default(autoincrement())
-  value             String
+  value             String              @unique
   description       String?
   points            Int?                @default(0)
   isActive          Boolean?            @default(true)
@@ -60,14 +61,24 @@ model Code {
   achievementToCode AchievementToCode[]
   company           Company[]
   event             Event[]
+  UserToCode        UserToCode[]
+}
+
+model UserToCode {
+  userId Int
+  codeId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  code   Code @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([userId, codeId])
 }
 
 model Company {
-  id                         Int                 @id @default(autoincrement())
+  id                         Int                    @id @default(autoincrement())
   password                   String?
   category                   CompanyCategory?
   name                       String
-  username                   String              @unique
+  username                   String                 @unique
   description                String?
   opportunitiesDescription   String?
   websiteUrl                 String?
@@ -80,11 +91,12 @@ model Company {
   video                      String?
   codeId                     Int?
   booth                      Booth?
-  code                       Code?               @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  code                       Code?                  @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   companyToFlyTalk           CompanyToFlyTalk[]
   companyToInterest          CompanyToInterest[]
   job                        Job[]
   speaker                    Speaker[]
+  CompanyToFlyTalkUser       CompanyToFlyTalkUser[]
 }
 
 model CompanyToFlyTalk {
@@ -197,6 +209,7 @@ model Speaker {
   title          String
   companyId      Int?
   photoUrl       String?
+  smallPhotoUrl  String?
   photo          Json?
   instagramUrl   String?
   linkedinUrl    String?
@@ -215,28 +228,34 @@ model SpeakerToEvent {
 }
 
 model User {
-  id                         Int                 @id @default(autoincrement())
-  firstName                  String
-  lastName                   String
-  email                      String              @unique
-  phoneNumber                String              @unique
-  birthYear                  Int
-  occupation                 String?
-  educationDegree            String?
-  password                   String?
-  points                     Int?
-  newsletterEnabled          Boolean?
-  companiesNewsEnabled       Boolean?
-  isDeleted                  Boolean?
-  isConfirmed                Boolean?            @default(false)
-  profilePhotoUrl            String?
-  avatar                     Avatar[]
-  notification               Notification[]
-  transactionItems           TransactionItem[]
-  userNotification           UserNotification[]
-  userToAchievement          UserToAchievement[]
-  userToEvent                UserToEvent[]
-  userToInterest             UserToInterest[]
+  id                      Int                      @id @default(autoincrement())
+  firstName               String
+  lastName                String
+  email                   String
+  phoneNumber             String
+  birthYear               Int
+  occupation              String?
+  educationDegree         String?
+  password                String?
+  points                  Int?                     @default(0)
+  newsletterEnabled       Boolean?
+  companiesNewsEnabled    Boolean?
+  isDeleted               Boolean?                 @default(false)
+  isConfirmed             Boolean?                 @default(false)
+  profilePhotoUrl         String?
+  avatar                  Avatar[]
+  notification            Notification[]
+  transactionItems        TransactionItem[]
+  userNotification        UserNotification[]
+  userToAchievement       UserToAchievement[]
+  userToEvent             UserToEvent[]
+  userToInterest          UserToInterest[]
+  UserToCode              UserToCode[]
+  passwordResetTokens     PasswordResetToken[]
+  emailConfirmationTokens EmailConfirmationToken[]
+
+  @@unique([email, isDeleted])
+  @@unique([phoneNumber, isDeleted])
 }
 
 model UserNotification {
@@ -262,15 +281,16 @@ model UserToAchievement {
 }
 
 model UserToEvent {
-  userId           Int
-  eventId          Int
-  linkedinProfile  String?
-  githubProfile    String?
-  portfolioProfile String?
-  cv               String?
-  description      String?
-  event            Event   @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user             User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId               Int
+  eventId              Int
+  linkedinProfile      String?
+  githubProfile        String?
+  portfolioProfile     String?
+  cv                   String?
+  description          String?
+  event                Event                  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                 User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CompanyToFlyTalkUser CompanyToFlyTalkUser[]
 
   @@id([userId, eventId])
 }
@@ -284,6 +304,17 @@ model UserToInterest {
   @@id([userId, interestId])
 }
 
+model CompanyToFlyTalkUser {
+  userId      Int
+  eventId     Int
+  companyId   Int
+  selected    Boolean?    @default(false)
+  userToEvent UserToEvent @relation(fields: [userId, eventId], references: [userId, eventId])
+  company     Company     @relation(fields: [companyId], references: [id])
+
+  @@id([userId, eventId, companyId])
+}
+
 model FrequentlyAskedQuestion {
   id       Int    @id @default(autoincrement())
   question String
@@ -291,7 +322,7 @@ model FrequentlyAskedQuestion {
 }
 
 model ShopItem {
-  id              Int            @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   type            ShopItemType?
   itemName        String?
   quantity        Int?
@@ -318,6 +349,31 @@ model SurveyQuestion {
   inputLabel  String?
   inputType   SurveyQuestionInputType
   type        SurveyQuestionType
+}
+
+model Reward {
+  id          Int     @id @default(autoincrement())
+  name        String?
+  imageUrl    String?
+  description String?
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime @db.Timestamp(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model EmailConfirmationToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  expiresAt DateTime
+
+  @@index([userId])
 }
 
 enum Accessory {
@@ -348,7 +404,7 @@ enum Colors {
   BROWN
   PURPLE
   GREEN
-  WHITE
+  BLUE
   RED
   GRAY
 }

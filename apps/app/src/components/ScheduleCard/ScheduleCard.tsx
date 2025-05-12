@@ -10,16 +10,17 @@ import { EventWithSpeakerDto, Theme, EventType } from '@ddays-app/types';
 type ScheduleCardProps = {
   event: EventWithSpeakerDto;
   isAddedToSchedule?: boolean;
-  clickHandler: () => void;
+  handleAddToPersonalSchedule: (eventId: number) => void;
+  handleRemoveFromPersonalSchedule: (eventId: number) => void;
 };
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
   event,
-  isAddedToSchedule, // BE: Provjerite implementaciju ovoga (ide li kroz event ili treba posebno queryjat)
-  clickHandler,
+  isAddedToSchedule,
+  handleAddToPersonalSchedule,
+  handleRemoveFromPersonalSchedule,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [isLive, setIsLive] = useState(() => {
     const now = new Date().getTime();
     const start = new Date(event.startsAt).getTime();
@@ -66,9 +67,17 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   }
 
   function getRequirements(eventRequirements: string) {
-    return eventRequirements.split(
-      '/',
-    ) as string[]; /* TODO: Prominit kada se sazna na koji je nacin ovaj podatak zapisan u bazi. Stilovi su spremni. */
+    return eventRequirements.split('//') as string[];
+  }
+
+  function handleClick() {
+    if (!isOpen) return;
+
+    if (isAddedToSchedule) {
+      handleRemoveFromPersonalSchedule(event.id);
+    } else {
+      handleAddToPersonalSchedule(event.id);
+    }
   }
 
   useEffect(() => {
@@ -109,20 +118,25 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           </p>
         </div>
 
-        <img
-          className={clsx({
-            [c.arrowDown]: true,
-            [c.collapsed]: !isOpen,
-          })}
-          src={ArrowDown}
-          alt='Arrow pointing down'
-          onClick={() => setIsOpen((prev) => !prev)}
-        />
+        {event.type !== EventType.OTHER && (
+          <img
+            className={clsx({
+              [c.arrowDown]: true,
+              [c.collapsed]: !isOpen,
+            })}
+            src={ArrowDown}
+            alt='Arrow pointing down'
+            onClick={() => setIsOpen((prev) => !prev)}
+          />
+        )}
       </div>
-      <div className={c.tag}>
-        <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
-        <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
-      </div>
+      {event.type !== EventType.OTHER && (
+        <div className={c.tag}>
+          <div className={c.theme}>{getThemeLabel(event.theme as Theme)}</div>
+          <p className={c.label}>{getTypeLabel(event.type as EventType)}</p>
+        </div>
+      )}
+
       <h3 className={c.eventName}>{event.name}</h3>
 
       <section
@@ -152,10 +166,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         )}
       </section>
 
-      <div className={c.divider} />
-      {event.type === EventType.PANEL && (
+      {event.speakers?.length !== 0 && <div className={c.divider} />}
+
+      {event.type === EventType.PANEL && event.speakers?.length !== 0 && (
         <p className={c.moderatorLabel}>Voditelj panela:</p>
       )}
+
       <div className={c.speakers}>
         {event.speakers &&
           event.speakers.map(
@@ -164,11 +180,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               index, // Pod pretpostavkom da je moderator prvi u listi (ako je panel).
             ) => (
               <>
-                <div className={c.speaker} key={index}>
+                <div className={c.speaker} key={speaker.id}>
                   <img
                     className={c.image}
-                    src={speaker.photoUrl} // BE TODO: treba bi photourl imat 2 podfielda: jedan za veliku sliku sta je na webu i jedan za malu sta je tu
-                    alt={speaker.firstName} // tj. mainPhotoUrl i thumbnailUrl, pogledaj seed za primjer
+                    src={speaker.smallPhotoUrl}
+                    alt={speaker.firstName}
                   />
                   <div className={c.speakerInfoWrapper}>
                     <p className={c.fullName}>
@@ -198,9 +214,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.collapsed]: !isOpen,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
-        onClick={clickHandler}>
-        {' '}
-        {/* BE: ako vam je lakse, mozda je bolje ovo implementirat unutar ove komponente, ne izvan nje. */}
+        onClick={handleClick}>
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
     </div>

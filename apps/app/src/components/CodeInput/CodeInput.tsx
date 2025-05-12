@@ -7,7 +7,7 @@ type CodeInputProps = {
   isError?: boolean;
   className?: string;
   setCode: (code: string[]) => void;
-  setIsError: (isError: boolean) => void;
+  removeError: () => void;
   shouldFocus?: boolean;
 };
 
@@ -15,7 +15,7 @@ const CodeInput: React.FC<CodeInputProps> = ({
   code,
   setCode,
   isError,
-  setIsError,
+  removeError,
   className,
   shouldFocus,
 }) => {
@@ -54,7 +54,7 @@ const CodeInput: React.FC<CodeInputProps> = ({
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) {
-    setIsError(false);
+    removeError();
     const { value } = e.target;
     editChar(index, value);
 
@@ -84,7 +84,7 @@ const CodeInput: React.FC<CodeInputProps> = ({
           })}
           ref={(el) => (inputRefs.current[i] = el)}
           onChange={(e) => handleOnChange(e, i)}
-          onFocus={() => setIsError(false)}
+          onFocus={removeError}
         />
       ))}
     </div>

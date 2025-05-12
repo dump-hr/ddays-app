@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    height: 100%;
+    justify-content: center;
+  }
+
+  .achievementCardWrapper {
+    width: 100%;
+    max-width: 180px;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 350px;
+  }
+}

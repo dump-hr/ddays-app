@@ -23,15 +23,18 @@
     background-color: $black-90;
 
     .avatar {
-      height: 70%;
+      height: 100%;
       user-select: none;
       -webkit-user-drag: none;
+      position: relative;
+      bottom:10px;
+      left:5px;
     }
 
     .levelWrapper {
       position: absolute;
-      bottom: 27px;
-      right: 41px;
+      bottom: 24px;
+      right: 27px;
       height: 30px;
       width: 30px;
 

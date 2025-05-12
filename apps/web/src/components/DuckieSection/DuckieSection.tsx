@@ -18,7 +18,14 @@ export const DuckieSection = () => (
           </div>
           <div className={classes.vinyl}>
             <div className={classes.vinylWrapper}>
-              <div className={classes.ellipse}>
+              <div
+                className={classes.ellipse}
+                onClick={() =>
+                  window.open(
+                    'https://www.youtube.com/watch?v=SE8sij3schc',
+                    '_blank',
+                  )
+                }>
                 <img className={classes.play} src={play} alt='' />
               </div>
               <img className={classes.vinylImage} src={vinyl} alt='vinyl' />
@@ -42,15 +49,15 @@ export const DuckieSection = () => (
       </p>
       <div className={classes.stats}>
         <div className={classes.stat}>
-          <span className={classes.number}>8272</span>
+          <span className={classes.number}>10k+</span>
           <span className={classes.label}>posjetitelja</span>
         </div>
         <div className={classes.stat}>
-          <span className={classes.number}>87</span>
+          <span className={classes.number}>96</span>
           <span className={classes.label}>partnera</span>
         </div>
         <div className={classes.stat}>
-          <span className={classes.number}>105</span>
+          <span className={classes.number}>127</span>
           <span className={classes.label}>predavanja</span>
         </div>
       </div>

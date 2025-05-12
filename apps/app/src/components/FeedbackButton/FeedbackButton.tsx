@@ -3,13 +3,16 @@ import ArrowRight from '../../assets/icons/arrow-right-white.svg';
 
 import c from './FeedbackButton.module.scss';
 
-type FeedbackButtonProps = {
-  onClick?: () => void;
-};
+const FeedbackButton = () => {
+  const handleClick = () => {
+    const recipient = 'info@dump.hr';
+    const subject = encodeURIComponent('Prijava greške u aplikaciji');
+    const body = encodeURIComponent('');
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+  };
 
-const FeedbackButton: React.FC<FeedbackButtonProps> = ({ onClick }) => {
   return (
-    <button onClick={onClick} className={c.button}>
+    <button onClick={handleClick} className={c.button}>
       <img src={Sheet} className={c.icon} />
       Give us app feedback
       <img src={ArrowRight} className={c.arrow} />

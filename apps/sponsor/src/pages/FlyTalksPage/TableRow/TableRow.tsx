@@ -1,5 +1,6 @@
-import { UserDto } from '@ddays-app/types/src/dto/user';
+import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 
+import { usePatchSelectedApplicant } from '../../../api/flyTalks/usePatchSelectedApplicant';
 import CheckIcon from '../../../assets/icons/check.svg';
 import QuestionIcon from '../../../assets/icons/question.svg';
 import XIcon from '../../../assets/icons/x.svg';
@@ -7,8 +8,8 @@ import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
 
 type TableRowProps = {
-  applicant: UserDto;
-  handleOpenModal: (user: UserDto) => void;
+  applicant: UserToCompanyDto;
+  handleOpenModal: (user: UserToCompanyDto) => void;
   status: 'accepted' | 'rejected';
   timeLeft?: Date;
   //cvHref: string;
@@ -24,15 +25,24 @@ const TableRow: React.FC<TableRowProps> = ({
   function getStatusIcon(): string {
     if (!timeLeft) return QuestionIcon;
 
-    const isAccepted = true; // iz baze
+    const isAccepted = applicant.selected;
     if (timeLeft.getTime() !== 0) {
       return QuestionIcon;
-    } else if (isAccepted) {
-      return CheckIcon;
-    } else {
-      return XIcon;
     }
+    if (isAccepted) {
+      return CheckIcon;
+    }
+    return XIcon;
   }
+
+  const patchApplicant = usePatchSelectedApplicant();
+  const handleSelectClick = (applicant: UserToCompanyDto, status: string) => {
+    patchApplicant.mutate({
+      user: applicant,
+      selected: status !== 'accepted',
+    });
+  };
+
   return (
     <tr>
       <td className={c.cell}>
@@ -49,11 +59,16 @@ const TableRow: React.FC<TableRowProps> = ({
           Pregledaj detalje
         </p>
       </td>
-      <td className={c.cell}>
+      <td
+        className={c.cell}
+        onClick={() => window.open(applicant.cv, '_blank')}>
         <WhiteButton variant='secondary'>Pregledaj CV</WhiteButton>
       </td>
       <td className={c.cell}>
-        <WhiteButton variant='primary' disabled={timeLeft?.getTime() === 0}>
+        <WhiteButton
+          variant='primary'
+          disabled={timeLeft?.getTime() === 0}
+          onClick={() => handleSelectClick(applicant, status)}>
           {status === 'accepted' ? 'Ukloni odabir' : 'Odaberi'}
         </WhiteButton>
       </td>

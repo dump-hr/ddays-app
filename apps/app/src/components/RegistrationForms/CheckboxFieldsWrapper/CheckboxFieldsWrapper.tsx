@@ -1,19 +1,16 @@
 import { ChangeEvent } from 'react';
 import c from './CheckboxFieldsWrapper.module.scss';
-import { Checkbox } from '../../Checkbox';
-import { UserDataFields } from '../../../types/enums';
-import { RouteNames } from '../../../router/routes';
+import { Checkbox } from '@/components/Checkbox';
+import { UserDataFields } from '@/types/enums';
+import { RouteNames } from '@/router/routes';
+import { RegistrationDto } from '@ddays-app/types';
 
-type UserData = {
-  newsletterEnabled: boolean;
-  companiesNewsEnabled: boolean;
-  termsAndConditionsEnabled: boolean;
-};
 type Props = {
-  userData: UserData;
-  updateUserData: (newData: Partial<UserData>) => void;
+  userData: Partial<RegistrationDto>;
+  updateUserData: (newData: Partial<RegistrationDto>) => void;
   errorMessage: string | undefined;
 };
+
 export const CheckboxFieldsWrapper = ({
   userData,
   updateUserData,
@@ -28,21 +25,21 @@ export const CheckboxFieldsWrapper = ({
     <div className={c.checkboxFieldsWrapper}>
       <Checkbox
         label='Želim primati novosti o DUMP Days konferenciji.'
-        checked={userData.newsletterEnabled}
+        checked={userData.newsletterEnabled as boolean}
         name={UserDataFields.NewsletterEnabled}
         onChange={handleCheckboxChange}
         key={1}
       />
       <Checkbox
         label='Želim primati novosti o tvrtkama i otvorenim radnim pozicijama.'
-        checked={userData.companiesNewsEnabled}
+        checked={userData.companiesNewsEnabled as boolean}
         name={UserDataFields.CompaniesNewsEnabled}
         onChange={handleCheckboxChange}
         key={2}
       />
       <Checkbox
         label='Slažem se s uvjetima i odredbama.'
-        checked={userData.termsAndConditionsEnabled}
+        checked={userData.termsAndConditionsEnabled as boolean}
         name={UserDataFields.TermsAndConditionsEnabled}
         onChange={handleCheckboxChange}
         key={3}

@@ -115,10 +115,43 @@ export class SpeakerService {
     return updatedSpeaker;
   }
 
+  async updateSmallPhoto(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<SpeakerDto> {
+    const uploadedPhoto = await this.blobService.upload(
+      'speaker-small-photo',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const updatedSpeaker = await this.prisma.speaker.update({
+      where: { id },
+      data: { smallPhotoUrl: uploadedPhoto },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        title: true,
+        companyId: true,
+        photo: true,
+      },
+    });
+
+    return updatedSpeaker;
+  }
+
   async removePhoto(id: number): Promise<void> {
     await this.prisma.speaker.update({
       where: { id },
-      data: { photo: null },
+      data: { photoUrl: null },
+    });
+  }
+
+  async removeSmallPhoto(id: number): Promise<void> {
+    await this.prisma.speaker.update({
+      where: { id },
+      data: { smallPhotoUrl: null },
     });
   }
 }
