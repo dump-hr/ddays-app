@@ -49,7 +49,7 @@ export const DuckieSection = () => (
       </p>
       <div className={classes.stats}>
         <div className={classes.stat}>
-          <span className={classes.number}>10 034</span>
+          <span className={classes.number}>10k+</span>
           <span className={classes.label}>posjetitelja</span>
         </div>
         <div className={classes.stat}>
