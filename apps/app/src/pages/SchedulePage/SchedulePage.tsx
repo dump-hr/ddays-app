@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
-import Tab from '../../components/Tab';
-import TabGroup from '../../components/TabGroup';
+import toast from 'react-hot-toast';
 import c from './SchedulePage.module.scss';
-import ClickableTagGroup from '../../components/ClickableTagGroup';
-import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import {
   AchievementNames,
   EventType,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
-import ScheduleCard from '../../components/ScheduleCard';
-import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
+
+import Tab from '@/components/Tab';
+import TabGroup from '@/components/TabGroup';
+import ClickableTagGroup from '@/components/ClickableTagGroup';
+import ClickableTag from '@/components/ClickableTag';
+import Button from '@/components/Button';
+import { ScheduleCard } from '@/components/ScheduleCard';
+import CalendarLinkPopup from './popups/CalendarLinkPopup';
+
+import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
-import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
-import Button from '@/components/Button';
-import CalendarLinkPopup from './popups/CalendarLinkPopup';
 import { useEventGetAllWithSpeakers } from '@/api/event/useEventGetAllWithSpeakers';
 import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 
@@ -139,8 +141,8 @@ export const SchedulePage = () => {
             setter={(id) => setActiveTab(id as TabId)}
             defaultTab={TabId.FIRST_DAY}
             className={c.contentWidth}>
-            <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
-            <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
+            <Tab id={TabId.FIRST_DAY}>23.05.</Tab>
+            <Tab id={TabId.SECOND_DAY}>24.05.</Tab>
             <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
           </TabGroup>
 

@@ -125,11 +125,11 @@
       justify-content: center;
       align-items: center;
     }
+  }
 
-    .label {
-      @include tag-14;
-      margin: 0;
-    }
+  .label {
+    @include tag-14;
+    margin: 0;
   }
 
   .eventName {
@@ -203,6 +203,11 @@
       .label {
         margin: 0;
         @include paragraph-16;
+        display: flex;
+
+        .link {
+          color: $primary-muted-orange;
+        }
       }
     }
   }
@@ -232,6 +237,14 @@
       height: 67px;
     }
 
+    .fullNamePreview {
+      @include paragraph-14;
+      font-weight: 500;
+      color: $black-50;
+      text-transform: uppercase;
+      letter-spacing: 0px;
+    }
+
     .speakerInfoWrapper {
       display: flex;
       flex-direction: column;
@@ -252,7 +265,7 @@
       }
 
       .logoContainer {
-        max-height: 38px;
+        max-height: 18px;
         max-width: 80px;
         .logo {
           width: 100%;
@@ -267,6 +280,11 @@
     &.collapsed {
       margin-top: -48px;
       cursor: default;
+    }
+
+    &.disabled {
+      background-color: $black-30;
+      color: $black-10;
     }
   }
 }

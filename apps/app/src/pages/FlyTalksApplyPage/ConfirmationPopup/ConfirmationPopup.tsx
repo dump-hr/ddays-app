@@ -34,7 +34,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   };
   return (
     <PopupLayout
-      headerTitleComponent={'Uspješna prijava!'}
+      headerTitleComponent={'USPJEŠNA PRIJAVA!'}
       desktopStyle='normal'
       variant={'dark'}
       closePopup={onClose}
