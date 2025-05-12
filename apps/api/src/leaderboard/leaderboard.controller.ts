@@ -29,12 +29,6 @@ export class LeaderboardController {
     return this.leaderboardService.getLeaderboard(query);
   }
 
-  @Get('top')
-  @UseGuards(UserGuard)
-  async getTopUsers(): Promise<LeaderboardEntryDto[]> {
-    return this.leaderboardService.getTopUsers(3);
-  }
-
   @Get('user/:id')
   @UseGuards(UserGuard)
   async getUserRank(
