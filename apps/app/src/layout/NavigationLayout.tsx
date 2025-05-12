@@ -11,7 +11,7 @@ export const NavigationLayout = () => {
   const location = useLocation();
 
   const shouldShowNavbar = navbarRoutes.some(
-    (route) => route === location.pathname,
+    (route) => route === location.pathname || route + '/' === location.pathname,
   );
 
   return (
