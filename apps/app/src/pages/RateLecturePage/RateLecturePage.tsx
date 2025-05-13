@@ -6,8 +6,8 @@ import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
-import PointModifierPopup from '../Home/popups/PointModifierPopup';
 import { useNavigate } from 'react-router-dom';
+import PointModifierPopup from '@/components/PointModifierPopup';
 
 enum RatingType {
   THEME = 'general',
