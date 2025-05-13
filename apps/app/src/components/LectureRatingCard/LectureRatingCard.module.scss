@@ -1,0 +1,64 @@
+.compactScheduleCard {
+  display: flex;
+  background-color: $black-5;
+  box-sizing: border-box;
+  padding: 24px;
+  flex-direction: column;
+  height: fit-content;
+  border-radius: 16px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+  .headerRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .infoWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .tag {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .theme {
+          background-color: $primary-muted-orange;
+          @include tag-14;
+          margin: 0;
+          color: $primary-white;
+          height: 24px;
+          width: 46px;
+          border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .label {
+          @include tag-14;
+          margin: 0;
+        }
+      }
+    }
+
+    margin-bottom: 12px;
+  }
+
+  .nameSpeakers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .name {
+      @include paragraph-16;
+    }
+    .speakers {
+      @include paragraph-14;
+      text-transform: uppercase;
+      color: $black-70;
+    }
+  }
+}
