@@ -84,13 +84,18 @@ const boothPositions: BoothWithPosition[] = [
   },
 ];
 
-const FloorPlan = () => {
+type FloorPlanProps = {
+  onBoothClick: (boothString: string) => void;
+};
+
+const FloorPlan: React.FC<FloorPlanProps> = ({ onBoothClick }) => {
   return (
     <div className={c.floorPlanWrapper}>
       {boothPositions.map((booth) => (
         <BoothButton
           boothString={booth.boothString}
           position={booth.position}
+          onBoothClick={onBoothClick}
         />
       ))}
       <img src={FloorPlanBase} alt='' />

@@ -9,6 +9,7 @@ type BoothButtonProps = {
     x: number;
     y: number;
   };
+  onBoothClick?: (boothString: string) => void;
 };
 
 enum BoothType {
@@ -16,7 +17,11 @@ enum BoothType {
   SILVER,
 }
 
-const BoothButton = ({ boothString, position }: BoothButtonProps) => {
+const BoothButton = ({
+  boothString,
+  position,
+  onBoothClick,
+}: BoothButtonProps) => {
   const boothType =
     boothString.charAt(0) === 'Z' ? BoothType.GOLD : BoothType.SILVER;
 
@@ -31,7 +36,10 @@ const BoothButton = ({ boothString, position }: BoothButtonProps) => {
   };
 
   return (
-    <button className={classes} style={positionStyle}>
+    <button
+      className={classes}
+      style={positionStyle}
+      onClick={() => onBoothClick?.(boothString)}>
       <img src={boothType === BoothType.GOLD ? GoldBadge : SilverBadge} />
       <p>{boothString}</p>
     </button>
