@@ -233,7 +233,6 @@ const Requirements = ({ requirements }: { requirements: string }) => {
 
     const processedText = text.split(urlPattern).map((part, index) => {
       if (urlPattern.test(part)) {
-        if (part.length > 30) part = `${part.slice(0, 30)}...`;
         return (
           <a
             key={index}
@@ -241,7 +240,7 @@ const Requirements = ({ requirements }: { requirements: string }) => {
             target='_blank'
             rel='noopener noreferrer'
             className={c.link}>
-            {part}
+            poveznica
           </a>
         );
       }
