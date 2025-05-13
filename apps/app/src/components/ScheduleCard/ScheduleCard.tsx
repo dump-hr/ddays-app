@@ -224,9 +224,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
 const Requirements = ({ requirements }: { requirements: string }) => {
   function getRequirements(eventRequirements: string) {
+    if (eventRequirements === '') return [];
     return eventRequirements.split('\n') as string[];
   }
-  const requirementsArray = getRequirements(requirements || '');
+  const requirementsArray = getRequirements(requirements?.trim() || '');
 
   const linkifyText = (text: string) => {
     const urlPattern = /(https?:\/\/[^\s]+)/g;
@@ -254,7 +255,7 @@ const Requirements = ({ requirements }: { requirements: string }) => {
     <div className={c.eventRequirements}>
       <p className={c.mainLabel}>ZAHTJEVI:</p>
 
-      {requirementsArray.length !== 0 ? (
+      {requirementsArray?.length !== 0 ? (
         requirementsArray?.map((requirement, index) => {
           return (
             <div key={index} className={c.requirement}>
