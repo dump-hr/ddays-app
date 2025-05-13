@@ -81,6 +81,15 @@
   }
 }
 
+.loadingSpinner {
+  position: relative;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .flexWrapper {
   display: flex;
   flex-direction: column;
