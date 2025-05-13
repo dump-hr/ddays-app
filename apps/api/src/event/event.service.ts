@@ -298,6 +298,7 @@ export class EventService {
       let notification = await tx.notification.findFirst({
         where: {
           eventId: event.id,
+          isActive: true,
           activatedAt: {
             gte: new Date(now.getTime() - 30 * 60 * 1000), // Look for notifications created/activated within the last 30 minutes
           },
