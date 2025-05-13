@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { getCompanyName } from '@/helpers/getCompanyInfo';
 import JobOfferPopup from '../popups/JobOfferPopup';
 import { JobDto } from '@ddays-app/types';
+import { useGetAllJobs } from '@/api/job/useGetAllJobs';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
