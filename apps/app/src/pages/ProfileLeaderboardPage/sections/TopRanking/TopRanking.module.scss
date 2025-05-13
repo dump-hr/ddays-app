@@ -170,15 +170,6 @@
   @include paragraph-14;
 }
 
-.loadingSpinner {
-  position: relative;
-  top: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .firstPlaceContainer {
   border-radius: 17px;
   background-color: $primary-black;
