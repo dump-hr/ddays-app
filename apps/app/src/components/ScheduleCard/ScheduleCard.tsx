@@ -224,22 +224,47 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
 const Requirements = ({ requirements }: { requirements: string }) => {
   function getRequirements(eventRequirements: string) {
-    return eventRequirements.split('//') as string[];
+    return eventRequirements.split('\n') as string[];
   }
   const requirementsArray = getRequirements(requirements || '');
+
+  const linkifyText = (text: string) => {
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+
+    const processedText = text.split(urlPattern).map((part, index) => {
+      if (urlPattern.test(part)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={c.link}>
+            poveznica
+          </a>
+        );
+      }
+      return part;
+    });
+
+    return <p>{processedText}</p>;
+  };
 
   return (
     <div className={c.eventRequirements}>
       <p className={c.mainLabel}>ZAHTJEVI:</p>
+
       {requirementsArray.length !== 0 ? (
-        requirementsArray?.map((requirement, index) => (
-          <div key={index} className={c.requirement}>
-            <div className={c.checkContainer}>
-              <img className={c.check} src={Check} alt='Check' />
+        requirementsArray?.map((requirement, index) => {
+          return (
+            <div key={index} className={c.requirement}>
+              <div className={c.checkContainer}>
+                <img className={c.check} src={Check} alt='Check' />
+              </div>
+              <p className={c.label}>{linkifyText(requirement)}</p>
             </div>
-            <p className={c.label}>{requirement}</p>
-          </div>
-        ))
+          );
+        })
       ) : (
         <p className={c.label}>Nema zahtjeva</p>
       )}

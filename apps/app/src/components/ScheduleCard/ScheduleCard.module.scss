@@ -131,7 +131,7 @@
     @include tag-14;
     margin: 0;
   }
-  
+
   .eventName {
     color: $primary-black;
     @include paragraph-16;
@@ -146,7 +146,7 @@
       max-height 0.5s ease-in-out,
       opacity 0.5s ease-in-out,
       margin-top 0.5s ease-in-out;
-    max-height: 500px;
+    max-height: 999px;
     opacity: 1;
     margin-top: 0;
 
@@ -186,6 +186,8 @@
       gap: 16px;
 
       .checkContainer {
+        min-height: 20px;
+        min-width: 20px;
         height: 20px;
         width: 20px;
         background-color: $primary-muted-orange;
@@ -203,6 +205,11 @@
       .label {
         margin: 0;
         @include paragraph-16;
+        display: flex;
+
+        .link {
+          color: $primary-muted-orange;
+        }
       }
     }
   }
