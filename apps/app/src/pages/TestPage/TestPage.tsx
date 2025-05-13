@@ -1,11 +1,5 @@
-import FloorPlan from '@/components/FloorPlan';
-
 const TestPage = () => {
-  return (
-    <>
-      <FloorPlan />
-    </>
-  );
+  return <></>;
 };
 
 export default TestPage;

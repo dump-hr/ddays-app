@@ -25,10 +25,13 @@ export const useAchievementCompleteByName = () => {
     },
     {
       onSuccess: (_, { name }) => {
-        queryClient.invalidateQueries([
+        void queryClient.invalidateQueries([
           QUERY_KEYS.achievements,
           QUERY_KEYS.achievementCompleted,
         ]);
+
+        void queryClient.invalidateQueries([QUERY_KEYS.leaderboard]);
+        void queryClient.invalidateQueries([QUERY_KEYS.leaderboardUserRank]);
 
         toast.success(`Dodano postignuće - ${name}`, {
           icon: <RedStarIcon />,

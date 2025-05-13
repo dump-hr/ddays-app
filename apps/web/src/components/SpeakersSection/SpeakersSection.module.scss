@@ -147,6 +147,7 @@
     @media screen and (min-width: 768px) {
       line-height: 32px;
     }
+
   }
 
   &Title {
@@ -265,6 +266,10 @@
   letter-spacing: -2px;
   text-transform: uppercase;
   margin-bottom: 16px;
+
+  @media screen and (max-width: 400px) {
+    font-size: 32px;
+  }
 }
 
 .modalTitle {

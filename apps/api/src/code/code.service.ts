@@ -224,7 +224,7 @@ export class CodeService {
 
     if (!foundCode) {
       throw new HttpException(
-        'Ne izmišljaj kodove, unesi pravi.',
+        'Uneseni kod je neispravan.',
         HttpStatus.BAD_REQUEST,
       );
     }
