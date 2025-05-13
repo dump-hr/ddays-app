@@ -27,6 +27,7 @@ import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
 import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
 import { AvatarsPage } from '@/pages/AvatarsPage';
 import { RateCompanyPage } from '../pages/RateCompanyPage';
+import { RateLecturePage } from '../pages/RateLecturePage';
 import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
 import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
       />
       <Route path={RouteNames.NOTIFICATIONS} element={<NotificationsPage />} />
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
+      <Route path={RouteNames.RATE_LECTURE} element={<RateLecturePage />} />
       <Route path={RouteNames.SCANNER} element={<ScannerPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />

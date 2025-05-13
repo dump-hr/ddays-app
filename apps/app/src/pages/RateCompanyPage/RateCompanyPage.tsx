@@ -90,7 +90,7 @@ export const RateCompanyPage = () => {
 
           <div className={c.buttonContainer}>
             <Button
-              variant='orange'
+              variant='black'
               onClick={() => console.log('Button clicked')}
               disabled={!allQuestionsAnswered}>
               Spremi
