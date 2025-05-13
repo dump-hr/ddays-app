@@ -233,10 +233,6 @@ const Requirements = ({ requirements }: { requirements: string }) => {
 
     const processedText = text.split(urlPattern).map((part, index) => {
       if (urlPattern.test(part)) {
-        part = part.replace(/(^\w+:|^)\/\//, '');
-        part = part.replace(/(www\.)/, '');
-
-        if (part.length > 15) part = `${part.slice(0, 15)}...`;
         return (
           <a
             key={index}
