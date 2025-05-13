@@ -14,14 +14,19 @@ export const useEventAddToPersonalSchedule = () => {
     (params: { eventId: number; data: UserToEventDto }) =>
       eventAddToPersonalSchedule(params.eventId, params.data),
     {
-      onSuccess: () => {
+      onSuccess: (_, params) => {
         toast.success('Događaj je dodan u tvoj raspored.');
         void queryClient.invalidateQueries([QUERY_KEYS.events]);
+        void queryClient.invalidateQueries([QUERY_KEYS.eventsMySchedule]);
+        void queryClient.invalidateQueries([
+          QUERY_KEYS.eventParticipantsCount,
+          params.eventId,
+        ]);
       },
-      onError: (error: string) => {
-        toast(error, {
-          icon: '⚠️',
-        });
+      onError: () => {
+        toast.error(
+          'Došlo je do pogreške prilikom dodavanja događaja u raspored.',
+        );
       },
     },
   );

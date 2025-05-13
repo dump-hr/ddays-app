@@ -51,7 +51,7 @@ const SponsorModal: React.FC<SponsorModalProps> = ({ sponsor, close }) => {
                 <p className={c.themeBadgeText}>DIZ</p>
               </div>
               <div className={c.themeBadge}>
-                <p className={c.themeBadgeText}>DIV</p>
+                <p className={c.themeBadgeText}>DEV</p>
               </div>
             </div>
           </div>

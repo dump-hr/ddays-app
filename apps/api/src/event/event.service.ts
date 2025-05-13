@@ -320,6 +320,7 @@ export class EventService {
                         websiteUrl: true,
                         instagramUrl: true,
                         linkedinUrl: true,
+                        logoImage: true,
                       },
                     },
                   },
@@ -351,7 +352,7 @@ export class EventService {
           lastName: speaker.lastName,
           title: speaker.title,
           companyId: speaker.companyId,
-          photo: speaker.photo,
+          smallPhotoUrl: speaker.smallPhotoUrl,
           instagramUrl: speaker.instagramUrl,
           linkedinUrl: speaker.linkedinUrl,
           description: speaker.description,
@@ -390,5 +391,15 @@ export class EventService {
         HttpStatus.NOT_FOUND,
       );
     }
+  }
+
+  async getEventParticipantsCount(eventId: number): Promise<{ count: number }> {
+    const count = await this.prisma.userToEvent.count({
+      where: {
+        eventId,
+      },
+    });
+
+    return { count };
   }
 }

@@ -14,16 +14,6 @@ export class JobService {
     return addedJob;
   }
 
-  async getAll(): Promise<JobDto[]> {
-    return await this.prisma.job.findMany();
-  }
-
-  async getById(jobId: number): Promise<JobDto> {
-    return await this.prisma.job.findUnique({
-      where: { id: jobId },
-    });
-  }
-
   async getForCompany(companyId: number): Promise<JobDto[]> {
     const jobs = await this.prisma.job.findMany({
       where: { companyId },
