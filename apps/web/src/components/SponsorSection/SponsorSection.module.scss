@@ -3,7 +3,6 @@
 @import 'styles/variables';
 
 .stickySection {
-  overflow-y: hidden;
   padding-bottom: 29px;
 
   @media (max-width: 768px) {
@@ -15,7 +14,9 @@
   }
 
   .quote {
-    padding-top: 50px;
+    position: sticky;
+    top: 0;
+    padding-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,11 +56,23 @@
 }
 
 .logosWrapper {
-  width: 100%;
+  width: vw-calc(1425.4);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media (max-width: 1080px) {
+    width: vw-calc(1415);
+  }
+
+  @media (max-width: 1440px) {
+    width: vw-calc(1420);
+  }
+
+  @media (max-width: 768px) {
+    left: 0;
+  }
 }
 
 .container {
@@ -87,7 +100,6 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    overflow-x: hidden;
     box-sizing: border-box;
     position: relative;
     height: vw-calc(705);

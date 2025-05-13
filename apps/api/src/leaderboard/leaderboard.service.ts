@@ -16,13 +16,13 @@ export class LeaderboardService {
   async getLeaderboard(
     query: LeaderboardQueryDto,
   ): Promise<LeaderboardResponseDto> {
-    const { page, pageSize = 10 } = query;
+    const { page, pageSize = 5, includeDeleted = false } = query;
 
     const pageNum = Number(page) || 1;
     const skip = (pageNum - 1) * pageSize;
 
     const where = {
-      isDeleted: false,
+      ...(includeDeleted ? {} : { isDeleted: false }),
       points: { not: null },
       isConfirmed: true,
     };
@@ -113,5 +113,33 @@ export class LeaderboardService {
     return {
       user: formatUser(user, rank),
     };
+  }
+
+  async getTopUsers(count = 3): Promise<LeaderboardEntryDto[]> {
+    const topUsers = await this.prisma.user.findMany({
+      where: {
+        isDeleted: false,
+        isConfirmed: true,
+        points: { not: null },
+      },
+      orderBy: [{ points: 'desc' }, { id: 'asc' }],
+      take: count,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        points: true,
+        profilePhotoUrl: true,
+      },
+    });
+
+    return topUsers.map((user, index) => ({
+      id: user.id,
+      name: `${user.firstName} ${user.lastName}`,
+      level: getLevelFromPoints(user.points || 0).level,
+      points: user.points || 0,
+      rank: index + 1,
+      profilePhotoUrl: user.profilePhotoUrl,
+    }));
   }
 }

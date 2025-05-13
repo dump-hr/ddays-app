@@ -81,7 +81,7 @@ const SpeakerModal: React.FC<SpeakerModalProps> = ({
               )}
             </div>
             <section className={c.modalDescription}>
-              <p>{speaker.description}</p>
+              {speaker.description}
             </section>
           </div>
         </div>

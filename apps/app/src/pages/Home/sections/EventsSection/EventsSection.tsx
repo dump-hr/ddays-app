@@ -10,13 +10,13 @@ import { events } from '../../events';
 import clsx from 'clsx';
 
 enum Tabs {
-  Trenutno,
-  Uskoro,
+  U_Tijeku,
+  Nadolazece,
 }
 
 const EventsSection = () => {
   const [lecturesTab, setLecturesTab] = useState<string | number>(
-    Tabs.Trenutno,
+    Tabs.U_Tijeku,
   );
 
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
@@ -43,9 +43,9 @@ const EventsSection = () => {
   const container = containerRef.current;
 
   useEffect(() => {
-    if (lecturesTab === Tabs.Trenutno) {
+    if (lecturesTab === Tabs.U_Tijeku) {
       setDisplayedEvents(liveEvents);
-    } else if (lecturesTab === Tabs.Uskoro) {
+    } else if (lecturesTab === Tabs.Nadolazece) {
       setDisplayedEvents(nextEvents);
     }
   }, [lecturesTab, liveEvents, nextEvents]);
@@ -81,9 +81,9 @@ const EventsSection = () => {
 
     let targetCard: HTMLElement | null = null;
 
-    if (lecturesTab === Tabs.Trenutno) {
+    if (lecturesTab === Tabs.U_Tijeku) {
       targetCard = currentEventRefs.current[index];
-    } else if (lecturesTab === Tabs.Uskoro) {
+    } else if (lecturesTab === Tabs.Nadolazece) {
       targetCard = nextEventRefs.current[index];
     }
 
@@ -102,8 +102,8 @@ const EventsSection = () => {
   return (
     <section className={c.lectures}>
       <TabGroup setter={handleTabChange}>
-        <Tab id={Tabs.Trenutno}>Trenutno</Tab>
-        <Tab id={Tabs.Uskoro}>Uskoro</Tab>
+        <Tab id={Tabs.U_Tijeku}>U tijeku</Tab>
+        <Tab id={Tabs.Nadolazece}>Nadolazeće</Tab>
       </TabGroup>
 
       <div className={c.scrollingCards}>

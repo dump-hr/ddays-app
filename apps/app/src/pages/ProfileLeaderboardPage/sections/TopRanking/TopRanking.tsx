@@ -1,19 +1,32 @@
 import styles from './TopRanking.module.scss';
 import clsx from 'clsx';
+import { useGetTopUsers } from '@/api/leaderboard/useGetTopUsers';
 import { LeaderboardEntryDto } from '@ddays-app/types/src/dto/leaderboard';
 import star from '@/assets/icons/star-red.svg';
 import RegularDuck from '@/assets/images/leaderboard-duck.png';
+import ErrorMessage from '@/components/ErrorMessage';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
-interface TopRankingProps {
-  topThree: LeaderboardEntryDto[];
-  isLoading?: boolean;
-}
+const TopRanking = () => {
+  const { data: topUsers, status: topUsersStatus } = useGetTopUsers();
 
-const TopRanking = ({ topThree }: TopRankingProps) => {
-  const firstPlace = topThree?.[0];
-  const secondPlace = topThree?.[1];
-  const thirdPlace = topThree?.[2];
+  const firstPlace = topUsers?.[0];
+  const secondPlace = topUsers?.[1];
+  const thirdPlace = topUsers?.[2];
 
+  if (topUsersStatus === 'loading') {
+    return (
+      <div className={styles.loadingSpinner}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (topUsersStatus === 'error') {
+    return (
+      <ErrorMessage message='Dogodila se greška sa učitavanjem top 3' />
+    );
+  }
 
   return (
     <div className={styles.duckContainer}>

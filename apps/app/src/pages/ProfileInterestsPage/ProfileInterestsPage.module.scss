@@ -20,7 +20,7 @@
     @include mobileNavigationPadding(8px);
 
     @media (max-width: $breakpoint-tablet) {
-      border-radius: $border-radius-page-mobile;
+      border-radius: 24px 24px 0 0;
       width: 100%;
       margin: 0;
     }

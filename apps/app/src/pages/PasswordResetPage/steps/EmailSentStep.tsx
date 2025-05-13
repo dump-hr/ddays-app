@@ -57,17 +57,16 @@ export const EmailSentStep = ({ email }: EmailSentStepProps) => {
       <Header showDuck={true} />
       <div className={c.container}>
         <div className={c.titleContainer}>
-          <h1 className={c.title}>Baci oko na mail!</h1>
+          <h1 className={c.title}>Poslan mail!</h1>
           <Link to={RouteNames.LOGIN}>
             <img src={closeIcon} alt='Close login' className={c.closeIcon} />
           </Link>
         </div>
         <div className={c.textContainer}>
           <p className={c.text}>
-            Poslan ti je link za resetiranje lozinke na mail: <b>{email}</b>.
-            <br />
-            <br />
-            Prati upute i u par klikova ponovno si u igri.
+            Pozdrav! Poslan ti je link za resetiranje lozinke na mail:{' '}
+            <b>{email}</b>. <br /> <br /> Prati upute i u par klikova ponovno si
+            u igri.
           </p>
         </div>
         <div className={c.buttonContainer}>

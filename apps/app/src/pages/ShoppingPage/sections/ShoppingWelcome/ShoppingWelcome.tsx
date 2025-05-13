@@ -31,18 +31,19 @@ const ShoppingWelcome: React.FC<ShoppingWelcomeProps> = ({
             <NavigateHomeButton />
           </div>
           <div className={styles.content}>
-            <p className={styles.welcomeText}>Tražili ste - dobili ste!</p>
             <p className={styles.welcomeText}>
-              Ove godine dijelimo nagrade baš svima! Skupljaj bodove, pronađi
-              proizvod koji ti se sviđa i kupi ga svojim bodovima. Svakog
-              proizvoda ima u ograničenim količinama pa požuri po svoj! Nakon
-              što kupis proizvod, imaš 30 min da ga preuzmeš, inače ga vraćamo u
-              ponudu, a tebi ne vraćamo bodove.
+              Ove godine imamo takav i takav sistem, ovdje možete kupit svojim
+              bodovima to i to ali pazite jer će to potrošit vaše bodove.
+            </p>
+            <p className={styles.welcomeText}>
+              Možete svoje stvari preuzet na štandu tako da pokažete svoj račun
+              ili nešto gdje će se također voditi evidencija o vašim preuzetim
+              stvarima.
             </p>
             <div className={styles.welcomeText}>
               Pravila:
-              <p>isti proizvod možeš kupiti samo jednom</p>
-              <p>na štandu pokaži račun za preuzimanje</p>
+              <p>Pravilo 1:</p>
+              <p>Pravilo 2:</p>
             </div>
           </div>
         </div>

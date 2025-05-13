@@ -8,8 +8,6 @@ import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCo
 import { AchievementNames } from '@ddays-app/types';
 import { useEffect } from 'react';
 import { useDeviceType } from '@/hooks/UseDeviceType';
-import { useInfiniteLeaderboard } from '@/api/leaderboard/useInfiniteLeaderboard';
-import LoadingSpinner from '@/components/LoadingSpinner';
 
 export const ProfileLeaderboardPage = () => {
   const navigate = useNavigate();
@@ -20,25 +18,6 @@ export const ProfileLeaderboardPage = () => {
   useEffect(() => {
     completeAchievementByName({ name: AchievementNames.BraveMove });
   }, []);
-
-  const {
-    data: leaderboardData,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status: leaderboardStatus,
-    isLoading: isLeaderboardLoading,
-  } = useInfiniteLeaderboard({ pageSize: 10 });
-
-  const topThreeUsers = leaderboardData?.pages[0]?.entries.slice(0, 3) || [];
-
-  const flattenedLeaderboard =
-    leaderboardData?.pages.flatMap((page) => page.entries) || [];
-
-  const slicedLeaderboard = flattenedLeaderboard.slice(
-    3,
-    flattenedLeaderboard.length,
-  );
 
   return (
     <div className={styles.page}>
@@ -62,28 +41,10 @@ export const ProfileLeaderboardPage = () => {
           )}
           <h3 className={styles.title}>Leaderboard</h3>
         </header>
-
-        {isLeaderboardLoading ? (
-          <div className={styles.loadingSpinner}>
-            <LoadingSpinner />
-          </div>
-        ) : (
-          <div className={styles.flexWrapper}>
-            <TopRanking
-              topThree={topThreeUsers}
-              isLoading={isLeaderboardLoading}
-            />
-            <LeaderboardTable
-              fetchNextPage={fetchNextPage}
-              hasNextPage={hasNextPage}
-              isFetchingNextPage={isFetchingNextPage}
-              leaderboardStatus={
-                leaderboardStatus === 'idle' ? 'loading' : leaderboardStatus
-              }
-              slicedLeaderboard={slicedLeaderboard}
-            />
-          </div>
-        )}
+        <div className={styles.flexWrapper}>
+          <TopRanking />
+          <LeaderboardTable />
+        </div>
       </main>
     </div>
   );

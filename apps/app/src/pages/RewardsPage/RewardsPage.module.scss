@@ -1,6 +1,4 @@
 .page {
-  @include mobileNavigationPadding(8px);
-
   background-color: $primary-black;
   padding: 24px;
   min-height: 100vh;

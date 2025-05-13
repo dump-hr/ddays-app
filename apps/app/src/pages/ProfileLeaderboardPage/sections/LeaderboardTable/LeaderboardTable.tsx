@@ -4,26 +4,28 @@ import LeaderboardTableRow from '@/components/LeaderboardTableRow';
 import ErrorMessage from '@/components/ErrorMessage';
 import { useCallback, useRef } from 'react';
 import { useGetUserRank } from '@/api/leaderboard/useGetUserRank';
+import { useInfiniteLeaderboard } from '@/api/leaderboard/useInfiniteLeaderboard';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
-import { LeaderboardEntryDto } from '@ddays-app/types/src/dto/leaderboard';
 
-interface LeaderboardTableProps {
-  fetchNextPage: () => void;
-  hasNextPage?: boolean;
-  isFetchingNextPage: boolean;
-  leaderboardStatus: 'loading' | 'error' | 'success';
-  slicedLeaderboard: LeaderboardEntryDto[];
-}
+const LeaderboardTable = () => {
+  const {
+    data: leaderboardData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status: leaderboardStatus,
+  } = useInfiniteLeaderboard({ pageSize: 10 });
 
-const LeaderboardTable = ({
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  leaderboardStatus,
-  slicedLeaderboard,
-}: LeaderboardTableProps) => {
   const { data: user } = useLoggedInUser();
   const { data: userRank, status: userRankStatus } = useGetUserRank();
+
+  const flattenedLeaderboard =
+    leaderboardData?.pages.flatMap((page) => page.entries) || [];
+
+  const slicedLeaderboard = flattenedLeaderboard.slice(
+    3,
+    flattenedLeaderboard.length,
+  );
 
   const observer = useRef<IntersectionObserver>();
   const lastRowRef = useCallback(

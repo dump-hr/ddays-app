@@ -18,8 +18,8 @@ const paragraphText = {
 };
 
 const buttonText = {
-  positive: 'Uzmi',
-  negative: 'Oduzimanje',
+  positive: 'Dajemo ti',
+  negative: 'Oduzimamo ti',
 };
 
 const PointModifierPopup: React.FC<PointModifierPopupProps> = ({

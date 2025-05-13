@@ -1,4 +1,5 @@
 import {
+  LeaderboardEntryDto,
   LeaderboardQueryDto,
   LeaderboardResponseDto,
   UserRankResponseDto,
@@ -26,6 +27,12 @@ export class LeaderboardController {
     @Query() query: LeaderboardQueryDto,
   ): Promise<LeaderboardResponseDto> {
     return this.leaderboardService.getLeaderboard(query);
+  }
+
+  @Get('top')
+  @UseGuards(UserGuard)
+  async getTopUsers(): Promise<LeaderboardEntryDto[]> {
+    return this.leaderboardService.getTopUsers(3);
   }
 
   @Get('user/:id')

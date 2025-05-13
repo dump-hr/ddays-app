@@ -31,8 +31,6 @@ export const useBuyShopItem = () => {
       void queryClient.invalidateQueries([QUERY_KEYS.shopItems]);
       void queryClient.invalidateQueries([QUERY_KEYS.userTransactions]);
       void queryClient.invalidateQueries([QUERY_KEYS.userPoints]);
-      void queryClient.invalidateQueries([QUERY_KEYS.leaderboard]);
-      void queryClient.invalidateQueries([QUERY_KEYS.leaderboardUserRank]);
     },
     onError: (error: string) => {
       toast.error(error);

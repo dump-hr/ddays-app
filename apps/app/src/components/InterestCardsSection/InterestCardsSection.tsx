@@ -30,12 +30,6 @@ export const InterestCardsSection = ({
 
   const interestsSections = Object.values(Theme);
 
-  function adjustThemeName(theme: string) {
-    if (theme === 'DEV') return 'PROGRAMIRANJE';
-    if (theme === 'DESIGN') return 'DIZAJN';
-    return theme;
-  }
-
   if (selectedInterests.length === 0 && !allowSelection) {
     return (
       <div className={c.sectionWrapper}>
@@ -57,7 +51,7 @@ export const InterestCardsSection = ({
 
         return (
           <div className={c.interestsSection} key={i}>
-            <h3>{adjustThemeName(theme)}//</h3>
+            <h3>{theme}//</h3>
 
             <div className={c.interestsCardsWrapper}>
               {interests

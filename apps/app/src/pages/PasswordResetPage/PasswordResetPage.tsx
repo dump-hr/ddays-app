@@ -101,10 +101,10 @@ export const PasswordResetPage = () => {
     let isValid = true;
 
     if (!validations.isNotEmpty(email)) {
-      setEmailError('Ispuni sva polja.');
+      setEmailError('Hej, trebaš ispuniti sva polja.');
       isValid = false;
     } else if (!validations.isValidEmail(email)) {
-      setEmailError('Unesi ispravnu e-mail adresu.');
+      setEmailError('Hej, unesi ispravnu email adresu.');
       isValid = false;
     } else {
       setEmailError('');

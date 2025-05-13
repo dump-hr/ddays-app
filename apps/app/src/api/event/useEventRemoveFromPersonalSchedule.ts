@@ -17,16 +17,15 @@ export const useEventRemoveFromPersonalSchedule = () => {
     (params: { eventId: number; data: UserToEventDto }) =>
       eventRemoveFromPersonalSchedule(params.eventId, params.data),
     {
-      onSuccess: (_, params) => {
+      onSuccess: () => {
         toast.success('Događaj je uklonjen iz tvog rasporeda.');
         void queryClient.invalidateQueries([QUERY_KEYS.events]);
-        void queryClient.invalidateQueries([QUERY_KEYS.eventsMySchedule]);
-        void queryClient.invalidateQueries([
-          QUERY_KEYS.eventParticipantsCount,
-          params.eventId,
-        ]);
       },
-      onError: () => {
+      onError: (error: string) => {
+        toast(error, {
+          icon: '⚠️',
+        });
+
         toast.error(
           'Došlo je do pogreške prilikom uklanjanja događaja iz rasporeda.',
         );

@@ -29,7 +29,7 @@ const NewLevelPopup: React.FC<NewLevelPopupProps> = ({
           Bravo, majstore! Sljedeća razina te čeka! Jesi li spreman?
         </p>
         <Button className={c.button} variant='orange' onClick={closePopup}>
-          IDEMO DALJE!
+          HVALA
         </Button>
       </div>
     </PopupLayout>

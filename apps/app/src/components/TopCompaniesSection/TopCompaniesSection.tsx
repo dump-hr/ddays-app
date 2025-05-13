@@ -10,9 +10,10 @@ const TopCompaniesSection = () => {
   return (
     <section className={c.topCompanies}>
       <div className={c.mainContent}>
-        <h2 className={c.title}>Trenutnih top 5</h2>
+        <h2 className={c.title}>Top 5 firma</h2>
         <p className={c.description}>
-          Najbolji sponzorski štandovi po ocjenama posjetitelja:
+          Otkrij najbolje sponzorske štandove prema ocjenama posjetitelja
+          konferencije.
         </p>
         {companies.map((company, index) => (
           <React.Fragment key={index}>

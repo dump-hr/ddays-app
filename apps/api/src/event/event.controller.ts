@@ -99,14 +99,6 @@ export class EventController {
     return await this.eventService.getAll();
   }
 
-  @Get(':id/count')
-  @UseGuards(UserGuard)
-  async getEventParticipantsCount(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<{ count: number }> {
-    return await this.eventService.getEventParticipantsCount(id);
-  }
-
   @UseGuards(UserGuard)
   @Delete('delete-flytalk-application')
   async deleteFlyTalkApplication(

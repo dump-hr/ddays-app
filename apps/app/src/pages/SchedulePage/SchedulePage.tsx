@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import Tab from '../../components/Tab';
+import TabGroup from '../../components/TabGroup';
 import c from './SchedulePage.module.scss';
+import ClickableTagGroup from '../../components/ClickableTagGroup';
+import ClickableTag from '../../components/ClickableTag';
 import clsx from 'clsx';
 import {
   AchievementNames,
   EventType,
   EventWithSpeakerDto,
 } from '@ddays-app/types';
-import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-
-import Tab from '@/components/Tab';
-import TabGroup from '@/components/TabGroup';
-import ClickableTagGroup from '@/components/ClickableTagGroup';
-import ClickableTag from '@/components/ClickableTag';
-import Button from '@/components/Button';
-import { ScheduleCard } from '@/components/ScheduleCard';
-import CalendarLinkPopup from './popups/CalendarLinkPopup';
-
+import ScheduleCard from '../../components/ScheduleCard';
 import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
+import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import toast from 'react-hot-toast';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
+import Button from '@/components/Button';
+import CalendarLinkPopup from './popups/CalendarLinkPopup';
 import { useEventGetAllWithSpeakers } from '@/api/event/useEventGetAllWithSpeakers';
 import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 

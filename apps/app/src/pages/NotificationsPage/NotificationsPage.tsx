@@ -20,9 +20,9 @@ export const NotificationsPage: React.FC = () => {
               onClick={() => navigate(RouteNames.HOME)}>
               <img src={ArrowLeft} alt='back' />
             </div>
-            <h2 className={styles.title}>OBAVIJESTI</h2>
+            <h2 className={styles.title}>NOTIFIKACIJE</h2>
           </div>
-          <div style={{ height: '100%' }}>
+          <div style={{ height: '100%'}}>
             <NotificationsSection />
           </div>
         </div>

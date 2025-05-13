@@ -3,14 +3,15 @@ import TempAvatar from '@/assets/images/temp-avatar.png';
 import Like from '@/assets/icons/like.svg';
 import Award from '@/assets/icons/award.svg';
 import Bag from '@/assets/icons/bag.svg';
-import Trophy from '@/assets/icons/trophy.svg';
-import Gift from '@/assets/icons/gift.svg';
+//import Trophy from '@/assets/icons/trophy.svg';
+//import Gift from '@/assets/icons/gift.svg';
 import UserEdit from '@/assets/icons/user-edit.svg';
 
 import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import ProfileStat from '../../components/ProfileStat';
 import ProfileNavigationButton from '../../components/ProfileNavigationButton';
 import RecommendationsButton from '../../components/RecommendationsButton';
+import FeedbackButton from '../../components/FeedbackButton';
 import LogoutButton from '../../components/LogoutButton';
 import { RouteNames } from '../../router/routes';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
@@ -32,6 +33,7 @@ const navigationItems = [
     label: 'Avatari',
     href: RouteNames.PROFILE_AVATARS,
   },
+  /*
   {
     icon: Trophy,
     label: 'Leaderboard',
@@ -42,6 +44,7 @@ const navigationItems = [
     label: 'Nagrade',
     href: RouteNames.PROFILE_REWARDS,
   },
+  */
   {
     icon: UserEdit,
     label: 'Postavke profila',
@@ -82,8 +85,7 @@ export const ProfilePage = () => {
         </div>
         <div className={c.buttonsWrapper}>
           <RecommendationsButton />
-          {/*<FeedbackButton /> */}
-
+          <FeedbackButton />
           <LogoutButton onClick={logout} />
         </div>
       </main>

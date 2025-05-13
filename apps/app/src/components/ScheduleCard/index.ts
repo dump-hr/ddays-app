@@ -1,4 +1,3 @@
 import ScheduleCard from './ScheduleCard';
-import ScheduleCardPreview from './ScheduleCardPreview';
 
-export { ScheduleCard, ScheduleCardPreview };
+export default ScheduleCard;

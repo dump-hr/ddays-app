@@ -112,12 +112,12 @@ export const SponsorSection: React.FC = () => {
           />
           <img
             className={clsx(c.image, c.fourth)}
-            src='https://ddays-app-uploads.dump.hr/company-logo/jqOWtC7RxwzVIVL7KpWR4.svg'
+            src='https://ddays-app-uploads.dump.hr/company-logo/_BPp8z1akpLYDKfGLshIK.svg'
             alt=''
           />
           <img
             className={clsx(c.image, c.fifth)}
-            src='https://ddays-app-uploads.dump.hr/company-logo/AKXx3q-EiwTyKY20rpTOR.svg'
+            src='https://ddays-app-uploads.dump.hr/company-logo/o6A-Blvc31bctYHkLEg1A.svg'
             alt=''
           />
           <img
