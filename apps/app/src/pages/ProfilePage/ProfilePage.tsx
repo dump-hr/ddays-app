@@ -3,7 +3,7 @@ import TempAvatar from '@/assets/images/temp-avatar.png';
 import Like from '@/assets/icons/like.svg';
 import Award from '@/assets/icons/award.svg';
 import Bag from '@/assets/icons/bag.svg';
-//import Trophy from '@/assets/icons/trophy.svg';
+import Trophy from '@/assets/icons/trophy.svg';
 import Gift from '@/assets/icons/gift.svg';
 import UserEdit from '@/assets/icons/user-edit.svg';
 
@@ -32,13 +32,11 @@ const navigationItems = [
     label: 'Avatari',
     href: RouteNames.PROFILE_AVATARS,
   },
-  /*
   {
     icon: Trophy,
     label: 'Leaderboard',
     href: RouteNames.PROFILE_LEADERBOARD,
   },
-  */
   {
     icon: Gift,
     label: 'Nagrade',
