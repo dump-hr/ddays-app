@@ -28,13 +28,31 @@ const BoothPopup = ({
 
   return (
     <div className={clsx(styles.wrapper, { [styles.closed]: !isOpen })}>
-      <div onClick={closePopup} className={styles.closeOverlay} />
       <div className={styles.container}>
         <div className={styles.logoHeader}>
           <img src={ProficoLogo} className={styles.logo} />
         </div>
-        <button onClick={closePopup}>close</button>
-        {children} {isRated && 'rated'}
+        <div className={styles.content}>
+          <div className={styles.ratingRow}>
+            <p className={styles.companyName}>{companyInfo.name}</p>
+            <p className={styles.rating}>
+              {isRated ? `${companyInfo.rating}/10` : 'Nema ocjene!'}
+            </p>
+          </div>
+          <div className={styles.interestsTitleRow}>
+            <p className={styles.interestsTitle}>Interesi</p>
+            <div className={styles.dottedBreak} />
+          </div>
+          <div className={styles.interestsContainer}>
+            {companyInfo.interests.map((interest) => (
+              <div key={interest.id} className={styles.interest}>
+                {interest.name}
+              </div>
+            ))}
+          </div>
+          <button onClick={closePopup}>close</button>
+          {children} {isRated && 'rated'}
+        </div>
       </div>
     </div>
   );

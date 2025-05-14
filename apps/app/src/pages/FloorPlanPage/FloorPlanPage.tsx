@@ -44,10 +44,20 @@ const FloorPlanPage = () => {
           isOpen={isBoothPopupOpen}
           closePopup={() => setIsBoothPopupOpen(false)}
           companyInfo={{
-            name: 'Company Name',
+            name: 'Profico',
             logoUrl: 'https://example.com/logo.png',
-            rating: 4.5,
-            interests: [{ id: 1, name: 'Interest 1', theme: Theme.DEV }],
+            interests: [
+              { id: 1, name: 'Interest 1', theme: Theme.DEV },
+              { id: 2, name: 'Interest 2', theme: Theme.DEV },
+              { id: 3, name: 'Interest 3', theme: Theme.DEV },
+              { id: 4, name: 'Interest 4', theme: Theme.DEV },
+              { id: 5, name: 'Interest 5', theme: Theme.DEV },
+              { id: 6, name: 'Interest 6', theme: Theme.DEV },
+              { id: 7, name: 'Interest 7', theme: Theme.DEV },
+              { id: 8, name: 'Interest 8', theme: Theme.DEV },
+              { id: 9, name: 'Interest 9', theme: Theme.DEV },
+              { id: 10, name: 'Interest 10', theme: Theme.DEV },
+            ],
           }}
         />
       )}

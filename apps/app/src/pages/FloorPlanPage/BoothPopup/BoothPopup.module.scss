@@ -11,23 +11,19 @@
   background-color: rgba(#171615, 0.5);
   z-index: 99;
 
-  .closeOverlay {
-    width: 100%;
-    height: 100%;
-  }
-
   .container {
     width: 100%;
-    min-height: 200px;
     background-color: white;
     border-radius: 24px 24px 0 0;
     overflow: hidden;
 
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
 
     .logoHeader {
       width: 100%;
+      min-height: 76px;
       height: 76px;
       background-color: $black-70;
       display: flex;
@@ -36,6 +32,71 @@
 
       .logo {
         height: 22px;
+      }
+    }
+
+    .content {
+      width: 100%;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .ratingRow {
+        display: flex;
+        justify-content: space-between;
+
+        .companyName {
+          @include tag-14;
+          text-transform: uppercase;
+        }
+
+        .rating {
+          color: $black-50;
+          font-family: NeueMontrealMono;
+          font-size: 12px;
+          line-height: 12px;
+          font-weight: 500;
+          letter-spacing: 0.24px;
+          text-transform: uppercase;
+        }
+      }
+
+      .interestsTitleRow {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        .interestsTitle {
+          @include tag-14;
+          color: rgba(23, 22, 21, 0.5);
+          text-transform: uppercase;
+        }
+
+        .dottedBreak {
+          @include dottedBreak(rgba(#171615, 0.5), 2px);
+        }
+      }
+
+      .interestsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .interest {
+          color: rgba(23, 22, 21, 0.5);
+          font-family: NeueMontrealMono;
+          font-size: 14px;
+          line-height: 14px;
+          font-weight: 500;
+          letter-spacing: 0.14px;
+          text-transform: uppercase;
+
+          padding: 16px;
+          border-radius: 4px;
+          background: $black-5;
+          display: flex;
+        }
       }
     }
   }
