@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 import styles from './BoothPopup.module.scss';
 import { InterestDto } from '@ddays-app/types';
 import ProficoLogo from '@/assets/images/Profico.svg';
+import InfoLightIcon from '@/assets/icons/info-light.svg';
 
 type CompanyInfo = {
   name: string;
@@ -18,7 +19,6 @@ type BoothPopupProps = {
 };
 
 const BoothPopup = ({
-  children,
   closePopup,
   isOpen,
   companyInfo,
@@ -28,6 +28,7 @@ const BoothPopup = ({
 
   return (
     <div className={clsx(styles.wrapper, { [styles.closed]: !isOpen })}>
+      <div className={styles.closePopup} onClick={closePopup} />
       <div className={styles.container}>
         <div
           className={clsx({
@@ -63,8 +64,15 @@ const BoothPopup = ({
               </div>
             ))}
           </div>
-          <button onClick={closePopup}>close</button>
-          {children} {isRated && 'rated'}
+          {!isRated && (
+            <div className={styles.infoMessage}>
+              <img className={styles.icon} src={InfoLightIcon} />
+              <p className={styles.message}>
+                Nakon što posjetiš štand, možeš ga ocijeniti i osvojiti dodatne
+                bodove!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
