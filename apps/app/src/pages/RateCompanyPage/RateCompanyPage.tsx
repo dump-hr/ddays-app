@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
+import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
 
 enum RatingType {
   GENERAL_IMPRESSION = 'generalImpression',
@@ -18,24 +19,6 @@ interface RatingAnswers {
   [RatingType.STAND_CONTENT]: number | null;
   [RatingType.EXHIBITORS]: number | null;
 }
-
-const RATING_QUESTIONS = [
-  {
-    type: RatingType.GENERAL_IMPRESSION,
-    title: 'Generalni dojam štanda',
-    text: 'Kakav je dojam štand ostavio na tebe?',
-  },
-  {
-    type: RatingType.STAND_CONTENT,
-    title: 'Sadržaj štanda',
-    text: 'Što se sve nudi? Je li ti bilo zabavno?',
-  },
-  {
-    type: RatingType.EXHIBITORS,
-    title: 'Izlagači',
-    text: 'Ocijeni svoj dojam o izlagačima.',
-  },
-];
 
 export const RateCompanyPage = () => {
   const [answers, setAnswers] = useState<RatingAnswers>({
@@ -55,8 +38,11 @@ export const RateCompanyPage = () => {
     }));
   };
 
+  const { data: questions } = useRatingQuestionsGetAll();
+
   return (
     <div>
+      <button onClick={() => console.log(questions)}>log questions</button>
       <div className={c.wrapper}>
         <div className={c.page}>
           <Link to={RouteNames.HOME}>
@@ -76,13 +62,13 @@ export const RateCompanyPage = () => {
           </div>
           <div className={c.breakline}></div>
           <div className={c.ratingContainer}>
-            {RATING_QUESTIONS.map((question) => (
+            {questions?.map((question) => (
               <RatingQuestion
-                key={question.type}
-                title={question.title}
-                text={question.text}
+                key={question.id}
+                title={question.question}
+                text={question.type}
                 onRatingChange={(value) =>
-                  handleAnswerChange(question.type, value)
+                  handleAnswerChange(question.type as RatingType, value)
                 }
               />
             ))}

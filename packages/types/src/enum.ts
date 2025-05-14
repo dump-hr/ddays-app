@@ -48,6 +48,11 @@ export enum EventType {
   OTHER = 'OTHER',
 }
 
+export enum RatingQuestionType {
+  BOOTH = 'BOOTH',
+  EVENT = 'EVENT',
+}
+
 export enum Face {
   DEFAULT = 'DEFAULT',
   EYELASHES = 'EYELASHES',
