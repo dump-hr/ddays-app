@@ -4,6 +4,7 @@ import styles from './BoothPopup.module.scss';
 import { InterestDto } from '@ddays-app/types';
 import ProficoLogo from '@/assets/images/Profico.svg';
 import InfoLightIcon from '@/assets/icons/info-light.svg';
+import CloseIcon from '@/assets/icons/remove-icon.svg';
 
 type CompanyInfo = {
   name: string;
@@ -36,6 +37,11 @@ const BoothPopup = ({
             [styles.rated]: isRated,
           })}>
           <img src={ProficoLogo} className={styles.logo} />
+          <img
+            src={CloseIcon}
+            className={styles.closeIcon}
+            onClick={closePopup}
+          />
         </div>
         <div className={styles.content}>
           <div className={styles.ratingRow}>
