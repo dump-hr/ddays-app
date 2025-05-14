@@ -7,7 +7,13 @@ const getCompanyPublic = (companyId: number): Promise<CompanyDto> => {
   return axios.get(`/company/${companyId}`);
 };
 
-export const useGetCompanyLogo = (companyId: number): string | undefined => {
+export const useGetCompanyLogo = (
+  companyId: number | undefined,
+): string | undefined => {
+  if (!companyId) {
+    return undefined;
+  }
+
   const company = useQuery(
     [QUERY_KEYS.company],
     () => getCompanyPublic(companyId),

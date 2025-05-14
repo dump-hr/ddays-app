@@ -17,11 +17,11 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
   isOpen,
   job,
 }) => {
+  const companyName = useGetCompanyName(job?.companyId);
+  const companyLogo = useGetCompanyLogo(job?.companyId);
   if (!job) {
     return null;
   }
-  const companyName = useGetCompanyName(job?.companyId);
-
   return (
     <PopupLayout
       headerTitleComponent={job.position}
@@ -31,7 +31,7 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
       <div className={c.headerWrapper}>
         <div className={c.contentWrapper}>
           <img
-            src={companyName}
+            src={companyLogo}
             className={c.companyLogo}
             alt={`${companyName} Logo`}
           />
