@@ -21,7 +21,6 @@ export const useAssignPrinter = () => {
   return useMutation(assignPrinter, {
     onSuccess: (_, { printerId }) => {
       queryClient.invalidateQueries(['print-data', printerId]);
-      toast.success('Akreditacija uspješno skenirana!');
     },
     onError: () => {
       toast.error('Neuspješno skeniranje akreditacije!');

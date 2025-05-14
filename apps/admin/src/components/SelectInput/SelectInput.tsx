@@ -18,9 +18,13 @@ export const SelectInput: React.FC<SelectInputProps> = ({
 }) => {
   return (
     <>
-      <select ref={innerRef} className={c.selectInput} {...handlers}>
+      <select
+        ref={innerRef}
+        className={c.selectInput}
+        defaultValue={defaultValue || ''}
+        {...handlers}>
         <option value='' disabled={!isAllowedEmpty} hidden={!isAllowedEmpty}>
-          {defaultValue || '-'}
+          {'-'}
         </option>
         {options.map((option) => (
           <option key={option} className={c.selectOption} value={option}>

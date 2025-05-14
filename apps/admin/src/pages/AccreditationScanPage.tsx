@@ -3,39 +3,55 @@ import { SelectInput } from '../components/SelectInput';
 import { QrReader } from 'react-qr-reader';
 import { Button } from '../components/Button';
 import { useAssignPrinter } from '../api/printer/useAssignPrinter';
+import { toast } from 'react-hot-toast';
 
 const AccreditationScanPage = () => {
-  const [printerSelected, setPrinterSelected] = useState(
-    Number(localStorage.getItem('printerIdForScan') || '1'),
-  );
+  const [printerSelected, setPrinterSelected] = useState(() => {
+    return localStorage.getItem('printerIdForScan') || '1';
+  });
+
+  const currentPrinterRef = useRef(printerSelected);
+
   const [isOpenQRCode, setIsOpenQRCode] = useState(false);
   const [isCooldown, setIsCooldown] = useState(false);
   const [lastScanMessage, setLastScanMessage] = useState('');
   const assignPrinterMutation = useAssignPrinter();
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
+    currentPrinterRef.current = printerSelected;
+  }, [printerSelected]);
+
   const handleScan = (data: string) => {
     if (!data || isCooldown) return;
 
     try {
       const parsedData = JSON.parse(data);
-      console.log('Parsed QR Code Data:', parsedData.userId);
 
-      // Set cooldown flag to prevent new scans
       setIsCooldown(true);
       setLastScanMessage(`Processing scan for user ID: ${parsedData.userId}`);
 
-      // Call API
-      assignPrinterMutation.mutate({
-        printerId: printerSelected,
-        userId: parsedData.userId,
-      });
+      const currentPrinter = currentPrinterRef.current;
 
-      // Start cooldown timer
+      assignPrinterMutation.mutate(
+        {
+          printerId: Number(currentPrinter),
+          userId: Number(parsedData.userId),
+        },
+        {
+          onSuccess: () => {
+            toast.success('Akreditacija uspješno skenirana!');
+          },
+          onError: () => {
+            toast.error('Neuspješno skeniranje akreditacije!');
+          },
+        },
+      );
+
       cooldownTimerRef.current = setTimeout(() => {
         setIsCooldown(false);
         setLastScanMessage('Ready to scan next badge');
-      }, 5000);
+      }, 4000);
     } catch (error) {
       console.error('Error parsing QR code data:', error);
       setLastScanMessage('Invalid QR code format');
@@ -43,8 +59,10 @@ const AccreditationScanPage = () => {
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPrinterSelected(Number(e.target.value));
-    localStorage.setItem('printerIdForScan', e.target.value);
+    const newValue = e.target.value;
+    setPrinterSelected(newValue);
+    currentPrinterRef.current = newValue;
+    localStorage.setItem('printerIdForScan', newValue);
   };
 
   // Clean up timer on unmount
@@ -58,24 +76,25 @@ const AccreditationScanPage = () => {
 
   return (
     <div>
-      <h1>Accreditation</h1>
-      <p>Printer selected:</p>
+      <p>Printer selected: {printerSelected}</p>
       <SelectInput
         options={['1', '2']}
         onChange={handleSelectChange}
-        isAllowedEmpty={true}
-        defaultValue={String(printerSelected)}
+        defaultValue={printerSelected}
       />
-
-      <Button
-        onClick={() => {
-          setIsOpenQRCode(!isOpenQRCode);
-        }}
-        variant='primary'>
-        {isOpenQRCode ? 'Close QR Code' : 'Open QR Code'}
-      </Button>
-
-      {/* Status message */}
+      <div className='flex'>
+        <Button
+          onClick={() => {
+            if (!currentPrinterRef.current) {
+              toast.error('Please select a printer first!');
+              return;
+            }
+            setIsOpenQRCode(!isOpenQRCode);
+          }}
+          variant='primary'>
+          {isOpenQRCode ? 'Close QR Code' : 'Open QR Code'}
+        </Button>
+      </div>
       {lastScanMessage && (
         <div
           style={{
