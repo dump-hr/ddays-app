@@ -45,7 +45,7 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
       <div className={c.main}>
         <h2 className={c.position}>{job.position}</h2>
         <p className={c.details}>
-          {job.details.split(/(?=[\-*•])/).map((line, index) => (
+          {job.details.split(/(?=[*•])/).map((line, index) => (
             <div key={index}>{line.trim()}</div>
           ))}
         </p>
