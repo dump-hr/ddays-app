@@ -9,12 +9,11 @@ const getCompanyPublic = (companyId: number): Promise<CompanyDto> => {
 
 export const useGetCompanyLogo = (companyId: number): string | undefined => {
   const company = useQuery(
-    [QUERY_KEYS.company],
+    [QUERY_KEYS.company, companyId],
     () => getCompanyPublic(companyId),
     {
       enabled: !!companyId,
     },
   );
-  console.log(company.data?.logoImage);
   return company.data?.logoImage;
 };
