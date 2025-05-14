@@ -136,8 +136,12 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        max-height: 20vh;
         overflow-y: scroll;
+        max-height: 40vh;
+
+        @media screen and (min-width: $breakpoint-tablet) {
+          max-height: 20vh;
+        }
 
         .interest {
           color: rgba(23, 22, 21, 0.5);
