@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import useViewport from '@/hooks/useViewport';
 import BoothPopup from './BoothPopup/BoothPopup';
+import { Theme } from '@ddays-app/types';
 
 const FloorPlanPage = () => {
   const navigate = useNavigate();
@@ -42,6 +43,12 @@ const FloorPlanPage = () => {
         <BoothPopup
           isOpen={isBoothPopupOpen}
           closePopup={() => setIsBoothPopupOpen(false)}
+          companyInfo={{
+            name: 'Company Name',
+            logoUrl: 'https://example.com/logo.png',
+            rating: 4.5,
+            interests: [{ id: 1, name: 'Interest 1', theme: Theme.DEV }],
+          }}
         />
       )}
       <div className={c.page}>
