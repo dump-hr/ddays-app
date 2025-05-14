@@ -23,10 +23,9 @@ export const userPrintStyle = `
     
     .name-container {
       position: absolute;
-      bottom: 12px;
-      left: 39px;
-      width: 223.5px;
-      overflow: hidden;
+      bottom: 25px;
+      left: 48.5px;
+      width: 215px;
     }
   }
 
@@ -56,9 +55,9 @@ export const printUser = async (user: UserPublicDto | undefined) => {
 
   let fontSize = 30; // Default size
 
-  if (longerNameLength >= 12) {
+  if (longerNameLength >= 11) {
     // Reduce font size gradually as name gets longer
-    fontSize = fontSize - (longerNameLength - 10) * 1.7;
+    fontSize = fontSize - (longerNameLength - 9) * 1.7;
   }
 
   const dynamicStyle = `
