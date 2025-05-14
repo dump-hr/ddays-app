@@ -7,34 +7,19 @@ import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
-
-enum RatingType {
-  GENERAL_IMPRESSION = 'generalImpression',
-  STAND_CONTENT = 'standContent',
-  EXHIBITORS = 'exhibitors',
-}
-
-interface RatingAnswers {
-  [RatingType.GENERAL_IMPRESSION]: number | null;
-  [RatingType.STAND_CONTENT]: number | null;
-  [RatingType.EXHIBITORS]: number | null;
-}
+import { RatingQuestionType } from '@ddays-app/types';
 
 export const RateCompanyPage = () => {
-  const [answers, setAnswers] = useState<RatingAnswers>({
-    [RatingType.GENERAL_IMPRESSION]: null,
-    [RatingType.STAND_CONTENT]: null,
-    [RatingType.EXHIBITORS]: null,
-  });
+  const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
   );
 
-  const handleAnswerChange = (type: RatingType, value: number) => {
+  const handleAnswerChange = (key: number, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [type]: value,
+      [key]: value,
     }));
   };
 
@@ -42,7 +27,6 @@ export const RateCompanyPage = () => {
 
   return (
     <div>
-      <button onClick={() => console.log(questions)}>log questions</button>
       <div className={c.wrapper}>
         <div className={c.page}>
           <Link to={RouteNames.HOME}>
@@ -62,16 +46,18 @@ export const RateCompanyPage = () => {
           </div>
           <div className={c.breakline}></div>
           <div className={c.ratingContainer}>
-            {questions?.map((question) => (
-              <RatingQuestion
-                key={question.id}
-                title={question.question}
-                text={question.type}
-                onRatingChange={(value) =>
-                  handleAnswerChange(question.type as RatingType, value)
-                }
-              />
-            ))}
+            {questions
+              ?.filter((question) => question.type === RatingQuestionType.BOOTH)
+              .map((question) => (
+                <RatingQuestion
+                  key={question.id}
+                  title={question.subtitle}
+                  text={question.question}
+                  onRatingChange={(value) =>
+                    handleAnswerChange(question.id, value)
+                  }
+                />
+              ))}
           </div>
 
           <div className={c.buttonContainer}>

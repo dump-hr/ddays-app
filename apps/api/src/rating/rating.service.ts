@@ -11,6 +11,7 @@ export class RatingService {
       select: {
         id: true,
         question: true,
+        subtitle: true,
         type: true,
       },
       orderBy: {
@@ -21,6 +22,7 @@ export class RatingService {
     return ratingQuestions.map((question) => ({
       id: question.id,
       question: question.question,
+      subtitle: question.subtitle,
       type: question.type,
     }));
   }
