@@ -12,6 +12,8 @@ type JobOfferButtonProps = {
 
 const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job, onClick }) => {
   const companyName = useGetCompanyName(job.companyId);
+  const companyLogo = useGetCompanyLogo(job.companyId);
+
   /**
    * Ideja je da se samo salje JobDto. Po volji ekstrahirat propove posebno.
    */
@@ -20,7 +22,8 @@ const JobOfferButton: React.FC<JobOfferButtonProps> = ({ job, onClick }) => {
     <div className={c.jobOfferButton} onClick={onClick}>
       <div className={c.logoWrapper}>
         <img
-          src={useGetCompanyLogo(job.companyId)}
+          key={job.companyId}
+          src={companyLogo}
           alt=''
           width={28}
           height={28}
