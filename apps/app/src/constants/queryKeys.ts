@@ -16,4 +16,5 @@ export const QUERY_KEYS = {
   codes: 'codes',
   codeApplied: 'codeApplied',
   jobs: 'jobs',
+  company: 'company',
 };

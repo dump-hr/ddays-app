@@ -2,10 +2,10 @@ import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
 import JobOfferButton from '@/components/JobOfferButton';
 import { useState } from 'react';
-import { getCompanyName } from '@/helpers/getCompanyInfo';
 import JobOfferPopup from '../popups/JobOfferPopup';
 import { JobDto } from '@ddays-app/types';
 import { useGetAllJobs } from '@/api/job/useGetAllJobs';
+import { useGetCompanyName } from '@/api/company/useGetCompanyName';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
@@ -41,9 +41,8 @@ const JobOffersTab = () => {
             .filter(
               (job) =>
                 job.position.toUpperCase().includes(query.toUpperCase()) ||
-                getCompanyName(job.companyId)
-                  .toUpperCase()
-                  .includes(query.toUpperCase()),
+                useGetCompanyName(job.companyId) ||
+                ''.toUpperCase().includes(query.toUpperCase()),
             )
             .map((job) => (
               <JobOfferButton

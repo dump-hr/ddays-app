@@ -1,9 +1,10 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { JobDto } from '@ddays-app/types';
 import c from './JobOfferPopup.module.scss';
-import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 import LocationPin from '@/assets/icons/location-pin.svg';
 import Button from '@/components/Button';
+import { useGetCompanyLogo } from '@/api/company/useGetCompanyLogo';
+import { useGetCompanyName } from '@/api/company/useGetCompanyName';
 
 type JobOfferPopupProps = {
   closePopup: () => void;
@@ -28,9 +29,9 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
       <div className={c.headerWrapper}>
         <div className={c.contentWrapper}>
           <img
-            src={getCompanyLogo(job.companyId)}
+            src={useGetCompanyLogo(job.companyId)}
             className={c.companyLogo}
-            alt={`${getCompanyName(job.companyId)} Logo`}
+            alt={`${useGetCompanyName(job.companyId)} Logo`}
           />
           <div className={c.locationWrapper}>
             <img className={c.pinIcon} src={LocationPin} />
