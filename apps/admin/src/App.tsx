@@ -16,6 +16,8 @@ import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
 import SpeakerPage from './pages/SpeakerPage';
+import AccreditationPage from './pages/AccreditationPage';
+import AccreditationScanPage from './pages/AccreditationScanPage';
 
 export const App = () => {
   useMsalAuthentication(InteractionType.Redirect);
@@ -33,6 +35,8 @@ export const App = () => {
           <Route path={Path.Reward} component={RewardPage} />
           <Route path={Path.Achievement} component={AchievementPage} />
           <Route path={Path.Code} component={CodePage} />
+          <Route path={Path.Accreditation} component={AccreditationPage} />
+          <Route path={Path.AccreditationScan} component={AccreditationScanPage} />
         </Switch>
       </Layout>
       <Toaster />

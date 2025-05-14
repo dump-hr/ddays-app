@@ -7306,6 +7306,11 @@ pretty-format@^29.7.0:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
+printd@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/printd/-/printd-1.6.0.tgz#0abc44583740ca106b51b3b1f38589d6f152882e"
+  integrity sha512-/w99P870SbE4MjVXJbWBvrK/HtVOcTEcmzUXcPYzfIaxgyPUGw8lmbhM3JHYbiZ18BCj+qwVEVshf2MLRoAh0Q==
+
 prisma@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/prisma/-/prisma-6.2.1.tgz#457b210326d66d0e6f583cc6f9cd2819b984408f"

@@ -256,6 +256,7 @@ model User {
 
   @@unique([email, isDeleted])
   @@unique([phoneNumber, isDeleted])
+  UserToPrinter UserToPrinter[]
 }
 
 model UserNotification {
@@ -374,6 +375,14 @@ model EmailConfirmationToken {
   expiresAt DateTime
 
   @@index([userId])
+}
+
+model UserToPrinter {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  printerId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+ 
 }
 
 enum Accessory {

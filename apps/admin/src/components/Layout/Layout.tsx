@@ -19,6 +19,8 @@ const navLinks = [
   { href: Path.Reward, text: 'Reward' },
   { href: Path.Achievement, text: 'Achievement' },
   { href: Path.Code, text: 'Code' },
+  { href: Path.Accreditation, text: 'Accreditation' },
+  { href: Path.AccreditationScan, text: 'Accreditation Scan' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

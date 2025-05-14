@@ -5,9 +5,10 @@ import Logo from '@/assets/icons/logo.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 import styles from './Accreditation.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import RecieptText from '../RecieptText';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface AccreditationProps {
   isOpen: boolean;
@@ -20,6 +21,17 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   const [openAnimationEnd, setOpenAnimationEnd] = useState(false);
   const [closingAnimationSecondVisit, setClosingAnimationSecondVisit] =
     useState(false);
+
+  const { data: user } = useLoggedInUser();
+
+  const QRCodeData = useMemo(
+    () =>
+      JSON.stringify({
+        id: user?.id,
+        name: user?.email,
+      }),
+    [user],
+  );
 
   const handleClose = () => {
     setClosingAnimation(true);
@@ -110,15 +122,16 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
               <img src={CloseIcon} alt='close' />
             </button>
           </div>
-              <RecieptText item={{
-                id: '123456789',
-                userId: 'user123', 
-                orderedAt: new Date(),
-                shopItem: {
-                  itemName: 'Akreditacija',
-                },
-                quantity: 1,
-                }}></RecieptText>
+          <RecieptText
+            item={{
+              id: '123456789',
+              userId: 'user36',
+              orderedAt: new Date(),
+              shopItem: {
+                itemName: 'Akreditacija',
+              },
+              quantity: 1,
+            }}></RecieptText>
           <img
             src={AccreditationRippedPaper}
             alt='accreditation-ripped-paper'
@@ -130,10 +143,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             className={styles.accreditationPaperTextureImage}
           />
           <div className={styles.qrCodeContainer}>
-            <QRCodeSVG
-              value={'https://days.dump.hr'}
-              size={140}
-            />
+            <QRCodeSVG value={JSON.stringify({ userId: 50 })} size={140} />
           </div>
         </div>
         <div
