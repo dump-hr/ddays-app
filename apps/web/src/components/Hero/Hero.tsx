@@ -23,7 +23,7 @@ const Hero = ({ Button, items }: HeroProps) => {
       <p className={c.text}>
         Besplatna konferencija
         <br />
-        za novu generaciju
+        nove generacije
       </p>
     </section>
   );

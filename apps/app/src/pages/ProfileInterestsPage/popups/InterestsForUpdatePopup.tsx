@@ -54,8 +54,8 @@ export const InterestsForUpdatePopup = ({
       desktopStyle={'normal'}>
       <div className={c.interestsForUpdate}>
         <p>
-          Odaberi svoje interese, a mi ćemo ti preporučiti poslodavce,
-          predavanja i grupe za fly talk koje bi ti se mogle svidjeti.
+          Odaberi svoje interese, a mi ćemo ti prema njima preporučiti
+          predavanja, panele, tvrtke i grupe za fly talks.
         </p>
 
         <InterestCardsSection

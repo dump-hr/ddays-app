@@ -2,9 +2,9 @@ import { RouteNames } from './routes';
 
 export enum NAVIGATION_TAB_ID {
   HOME,
+  SCHEDULE,
   FLY_TALKS,
   PROFILE,
-  SCHEDULE,
   COMPANIES,
 }
 
@@ -27,6 +27,14 @@ export const navigationTabs: NavigationTabInfo[] = [
     route: RouteNames.HOME,
   },
   {
+    id: NAVIGATION_TAB_ID.SCHEDULE,
+    name: 'Raspored',
+    icon: 'schedule-icon',
+    width: 25,
+    height: 24,
+    route: RouteNames.SCHEDULE,
+  },
+  {
     id: NAVIGATION_TAB_ID.FLY_TALKS,
     name: 'Fly Talks',
     icon: 'fly-talks-icon',
@@ -43,14 +51,7 @@ export const navigationTabs: NavigationTabInfo[] = [
     route: RouteNames.PROFILE,
   },
   /*
-    {
-    id: NAVIGATION_TAB_ID.SCHEDULE,
-    name: 'Raspored',
-    icon: 'schedule-icon',
-    width: 25,
-    height: 24,
-    route: RouteNames.SCHEDULE,
-  },
+    
   
 
   {

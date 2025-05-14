@@ -5,12 +5,10 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 
 interface LeaderboardParams {
   pageSize?: number;
-  includeDeleted?: boolean;
 }
 
 export const useInfiniteLeaderboard = ({
   pageSize,
-  includeDeleted = false,
 }: LeaderboardParams = {}) => {
   const getLeaderboard = async ({
     pageParam = 1,
@@ -19,7 +17,6 @@ export const useInfiniteLeaderboard = ({
       params: {
         page: pageParam,
         pageSize,
-        includeDeleted,
       },
     });
   };
@@ -28,7 +25,7 @@ export const useInfiniteLeaderboard = ({
     LeaderboardResponseDto,
     Error,
     LeaderboardResponseDto
-  >([QUERY_KEYS.leaderboard, pageSize, includeDeleted], getLeaderboard, {
+  >([QUERY_KEYS.leaderboard, pageSize], getLeaderboard, {
     getNextPageParam: (lastPage) => {
       const currentPage = Number(lastPage.page);
       const totalPages = Math.ceil(lastPage.totalEntries / lastPage.pageSize);
@@ -40,6 +37,8 @@ export const useInfiniteLeaderboard = ({
       return undefined;
     },
     keepPreviousData: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    refetchOnMount: 'always', // Force refetch on every mount, even if data is in cache
   });
 };
