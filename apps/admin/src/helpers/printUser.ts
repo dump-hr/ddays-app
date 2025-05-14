@@ -11,14 +11,13 @@ export const userPrintStyle = `
     @page {
       size: 105mm 148mm;
       margin: 0;
-      padding: 0;
     }
     
     body {
       position: relative;
       height: 148mm; /* Match paper height */
       width: 105mm;  /* Match paper width */
-      margin: 0 100px 0 0;
+      margin: 0;
       padding: 0;
     }
     
@@ -26,6 +25,8 @@ export const userPrintStyle = `
       position: absolute;
       bottom: 12px;
       left: 39px;
+      width: 223.5px;
+      overflow: hidden;
     }
   }
 
@@ -46,13 +47,33 @@ export const printUser = async (user: UserPublicDto | undefined) => {
 
   const { Printd } = await import('printd');
   const printer = new Printd();
-  const content = window.document.createElement('div');
 
+  const firstName = user?.firstName || '';
+  const lastName = user?.lastName || '';
+
+  // Find the longer name for font size calculation
+  const longerNameLength = Math.max(firstName.length, lastName.length);
+
+  let fontSize = 30; // Default size
+
+  if (longerNameLength >= 12) {
+    // Reduce font size gradually as name gets longer
+    fontSize = fontSize - (longerNameLength - 10) * 1.7;
+  }
+
+  const dynamicStyle = `
+    ${userPrintStyle}
+    h1.name {
+      font-size: ${Math.floor(fontSize)}px;
+    }
+  `;
+
+  const content = window.document.createElement('div');
   content.innerHTML = `
     <div class="name-container">
-      <h1>${user.firstName}<br>${user.lastName}</h1>
+      <h1 class="name">${user.firstName}<br>${user.lastName}</h1>
     </div>
   `;
 
-  printer.print(content, [userPrintStyle]);
+  printer.print(content, [dynamicStyle]);
 };
