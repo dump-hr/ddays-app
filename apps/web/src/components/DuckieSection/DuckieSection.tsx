@@ -49,15 +49,15 @@ export const DuckieSection = () => (
       </p>
       <div className={classes.stats}>
         <div className={classes.stat}>
-          <span className={classes.number}>8272</span>
+          <span className={classes.number}>10 034</span>
           <span className={classes.label}>posjetitelja</span>
         </div>
         <div className={classes.stat}>
-          <span className={classes.number}>87</span>
+          <span className={classes.number}>96</span>
           <span className={classes.label}>partnera</span>
         </div>
         <div className={classes.stat}>
-          <span className={classes.number}>105</span>
+          <span className={classes.number}>127</span>
           <span className={classes.label}>predavanja</span>
         </div>
       </div>
