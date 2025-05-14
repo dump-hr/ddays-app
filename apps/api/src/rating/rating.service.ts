@@ -1,4 +1,8 @@
-import { RatingQuestionDto } from '@ddays-app/types';
+import {
+  RatingDto,
+  RatingModifyDto,
+  RatingQuestionDto,
+} from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
@@ -25,5 +29,23 @@ export class RatingService {
       subtitle: question.subtitle,
       type: question.type,
     }));
+  }
+
+  async addRatings(
+    dtos: RatingModifyDto[],
+    userId: number,
+  ): Promise<RatingDto[]> {
+    const newRatings = await Promise.all(
+      dtos.map(async (dto) => {
+        return await this.prisma.rating.create({
+          data: {
+            ...dto,
+            userId: userId,
+          },
+        });
+      }),
+    );
+
+    return newRatings;
   }
 }

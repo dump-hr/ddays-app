@@ -7,10 +7,11 @@ import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
 import { useState } from 'react';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
-import { RatingQuestionType } from '@ddays-app/types';
+import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
+import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 
 export const RateCompanyPage = () => {
-  const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
+  const [answers, setAnswers] = useState<Record<number, number | null>>({});
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
@@ -24,6 +25,23 @@ export const RateCompanyPage = () => {
   };
 
   const { data: questions } = useRatingQuestionsGetAll();
+  const { mutate: addRatings } = useRatingAddMultiple();
+
+  function handleButtonClick() {
+    const questionIds = Object.keys(answers).map((id) => Number(id));
+
+    const dtos: RatingModifyDto[] = questionIds
+      .filter((id) => answers[id] !== null)
+      .map((id) => ({
+        boothId: 1,
+        ratingQuestionId: id,
+        value: answers[id]!, // ! jer smo filtrirali nullove
+        eventId: undefined,
+        comment: undefined,
+      }));
+
+    addRatings(dtos);
+  }
 
   return (
     <div>
@@ -63,7 +81,7 @@ export const RateCompanyPage = () => {
           <div className={c.buttonContainer}>
             <Button
               variant='black'
-              onClick={() => console.log('Button clicked')}
+              onClick={handleButtonClick}
               disabled={!allQuestionsAnswered}>
               Spremi
             </Button>
