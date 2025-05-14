@@ -46,6 +46,7 @@ const FloorPlanPage = () => {
           companyInfo={{
             name: 'Profico',
             logoUrl: 'https://example.com/logo.png',
+            rating: 8,
             interests: [
               { id: 1, name: 'Interest 1', theme: Theme.DEV },
               { id: 2, name: 'Interest 2', theme: Theme.DEV },
