@@ -1,4 +1,4 @@
-import { IsNumber, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class PrinterAssignmentDto {
   @IsNumber()
@@ -15,4 +15,3 @@ export class UserToPrinterDto {
   userId: number;
   printerId: number;
 }
-

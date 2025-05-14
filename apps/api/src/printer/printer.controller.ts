@@ -7,9 +7,10 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { PrinterService } from './printer.service';
-import { PrinterAssignmentDto, UserToPrinterDto } from './printer.dto';
 import { AdminGuard } from 'src/auth/admin.guard';
+
+import { PrinterAssignmentDto, UserToPrinterDto } from './printer.dto';
+import { PrinterService } from './printer.service';
 
 @Controller('printers')
 export class PrinterController {

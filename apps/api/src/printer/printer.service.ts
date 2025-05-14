@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../prisma.service';
 import { PrinterAssignmentDto, UserToPrinterDto } from './printer.dto';
 

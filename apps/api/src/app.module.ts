@@ -18,13 +18,13 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
+import { PrinterModule } from './printer/printer.module';
 import { PrismaService } from './prisma.service';
 import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { PrinterModule } from './printer/printer.module';
 
 @Module({
   imports: [
