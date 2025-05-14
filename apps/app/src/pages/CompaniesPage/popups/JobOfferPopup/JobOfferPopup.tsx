@@ -17,8 +17,8 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
   isOpen,
   job,
 }) => {
-  const companyName = useGetCompanyName(job?.companyId);
-  const companyLogo = useGetCompanyLogo(job?.companyId);
+  const companyName = useGetCompanyName(job?.companyId || 0);
+  const companyLogo = useGetCompanyLogo(job?.companyId || 0);
   if (!job) {
     return null;
   }

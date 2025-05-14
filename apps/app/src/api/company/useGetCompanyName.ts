@@ -7,10 +7,7 @@ const getCompanyPublic = (companyId: number): Promise<CompanyDto> => {
   return axios.get(`/company/${companyId}`);
 };
 
-export const useGetCompanyName = (companyId: number | undefined) => {
-  if (!companyId) {
-    return undefined;
-  }
+export const useGetCompanyName = (companyId: number) => {
   const company = useQuery(
     [QUERY_KEYS.company, companyId],
     () => getCompanyPublic(companyId),
