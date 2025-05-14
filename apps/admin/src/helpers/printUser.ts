@@ -2,41 +2,57 @@ import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 
 export const userPrintStyle = `
   @font-face {
+    font-family: NeueMachina;
     font-style: normal;
-    font-weight: 400;
+    src: url('${window.location.origin}/admin/src/assets/fonts/PPNeueMachina-PlainMedium.woff2') format('woff2');
   }
 
   @media print {
     @page {
+      size: 105mm 148mm;
       margin: 0;
+      padding: 0;
     }
+    
     body {
-      margin-top: 412px;
-      margin-left: 44px;
-      margin-right: 44px;
+      position: relative;
+      height: 148mm; /* Match paper height */
+      width: 105mm;  /* Match paper width */
+      margin: 0 100px 0 0;
+      padding: 0;
+    }
+    
+    .name-container {
+      position: absolute;
+      bottom: 12px;
+      left: 39px;
     }
   }
 
   h1 {
-    font-family: 'PP', sans-serif;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 1.2;
-    letter-spacing: -0.5%;
-    color: black;
-    text-transform: uppercase;
+   font-family: NeueMachina;
+   font-weight: 200;
+   font-size: 30px;
+   line-height: 100%;
+   letter-spacing: -4%;
+   vertical-align: middle;
+   text-transform: uppercase;
+   color: #171615;
   }
 `;
 
 export const printUser = async (user: UserPublicDto | undefined) => {
-  if (!user) {
-    return;
-  }
+  if (!user) return;
+
   const { Printd } = await import('printd');
   const printer = new Printd();
   const content = window.document.createElement('div');
 
-  content.innerHTML = `<h1>${user.firstName}<br>${user.lastName}</h1>`;
+  content.innerHTML = `
+    <div class="name-container">
+      <h1>${user.firstName}<br>${user.lastName}</h1>
+    </div>
+  `;
 
   printer.print(content, [userPrintStyle]);
 };

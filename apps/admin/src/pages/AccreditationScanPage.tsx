@@ -35,7 +35,7 @@ const AccreditationScanPage = () => {
       cooldownTimerRef.current = setTimeout(() => {
         setIsCooldown(false);
         setLastScanMessage('Ready to scan next badge');
-      }, 4000);
+      }, 5000);
     } catch (error) {
       console.error('Error parsing QR code data:', error);
       setLastScanMessage('Invalid QR code format');
