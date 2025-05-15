@@ -23,6 +23,12 @@
     }
   }
 
+  .notificationBellContainer {
+    @media screen and (min-width: $breakpoint-tablet) {
+      display: none;
+    }
+  }
+
   @media (max-width: $breakpoint-tablet) {
     margin-inline: 20px;
 

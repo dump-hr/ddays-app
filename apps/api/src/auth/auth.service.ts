@@ -1,5 +1,4 @@
 import { AchievementNames, JwtResponseDto } from '@ddays-app/types';
-import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { hash } from 'bcrypt';
@@ -174,7 +173,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async getUserById(id: number): Promise<UserPublicDto> {
+  async getUserById(id: number) {
     return this.prisma.user.findUnique({
       where: { id },
       select: {

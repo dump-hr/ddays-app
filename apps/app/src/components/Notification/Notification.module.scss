@@ -64,3 +64,38 @@
 .dottedBreak {
   @include dottedBreak;
 }
+
+// Add to Notification.module.scss
+.notificationWrapper {
+  position: relative;
+  touch-action: pan-y;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  background-color: white;
+  overflow: hidden;
+}
+
+.swipeContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.deleteAction {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $error-dark;
+  color: white;
+}
+
+.dismissing {
+  transform: translateX(-100%);
+  opacity: 0;
+}

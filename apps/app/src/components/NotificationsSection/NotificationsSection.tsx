@@ -1,10 +1,11 @@
 import styles from './NotificationsSection.module.scss';
-import { notifications } from '@/pages/NotificationsPage/notifications.const';
 import Notification from '@/components/Notification';
 import TabGroup from '../TabGroup';
 import Tab from '../Tab';
 import IconBell from '@/assets/icons/icon-bell.svg';
 import { useState, useEffect, useMemo } from 'react';
+import { useGetUserNotifications } from '@/api/notification/useGetUserNotifications';
+import { NotificationResponseDto, NotificationStatus } from '@ddays-app/types';
 
 enum Tabs {
   Sve,
@@ -18,37 +19,48 @@ const NotificationsSection = () => {
   const [notificationsTab, setNotificationsTab] = useState<string | number>(
     Tabs.Sve,
   );
-  const [displayedNotifications, setDisplayedNotifications] =
-    useState(notifications);
+
+  const { data: notifications } = useGetUserNotifications();
+
+  console.log('notifications', notifications);
 
   const handleTabChange = (tab: string | number) => {
     setNotificationsTab(tab);
   };
 
-  const allNotifications = useMemo(
+  const unreadNotifications = useMemo(
     () =>
-      [...notifications].sort((a, b) => {
-        return b.activatedAt!.getTime() - a.activatedAt!.getTime();
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      notifications?.filter(
+        (notification) => notification.status !== NotificationStatus.READ,
+      ),
     [notifications],
   );
 
-  const unreadNotifications = useMemo(
-    () => allNotifications.filter((notification) => notification.isActive),
-    [allNotifications],
-  );
-
   useEffect(() => {
-    if (notificationsTab === Tabs.Sve) {
-      setDisplayedNotifications(allNotifications);
-    } else if (notificationsTab === Tabs.Nepročitano) {
-      setDisplayedNotifications(unreadNotifications);
+    if (unreadNotifications?.length === 0) {
+      setDisplayedNotifications([]);
+      return;
     }
-  }, [notificationsTab, allNotifications, unreadNotifications]);
+    setDisplayedNotifications(notifications || []);
+
+    if (notificationsTab === Tabs.Sve) {
+      setDisplayedNotifications(notifications || []);
+    } else if (notificationsTab === Tabs.Nepročitano) {
+      setDisplayedNotifications(unreadNotifications || []);
+      localStorage.setItem(
+        'readNotifications',
+        JSON.stringify(unreadNotifications),
+      );
+    }
+  }, [notificationsTab, unreadNotifications, notifications]);
+
+  const [displayedNotifications, setDisplayedNotifications] = useState<
+    NotificationResponseDto[]
+  >([]);
+
   return (
     <>
-      {notifications.length !== 0 ? (
+      {displayedNotifications.length !== 0 ? (
         <>
           <TabGroup setter={handleTabChange}>
             <Tab id={Tabs.Sve}>Sve</Tab>
@@ -56,11 +68,11 @@ const NotificationsSection = () => {
           </TabGroup>
 
           <div className={styles.notificationsContainer}>
-            {displayedNotifications.map((notification, index) => (
+            {displayedNotifications?.map((notification, index) => (
               <Notification
-                key={notification.id}
+                key={notification.notificationId}
                 index={index}
-                notification={notification}
+                notification={notification.notification}
                 expandedNotificationId={expandedNotificationId}
                 setExpandedNotificationId={setExpandedNotificationId}
                 notificationsLength={displayedNotifications.length}
