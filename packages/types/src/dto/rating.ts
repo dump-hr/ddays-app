@@ -1,11 +1,4 @@
-import {
-  isNumber,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { RatingQuestionType } from 'src/enum';
 
 export type RatingQuestionDto = {
