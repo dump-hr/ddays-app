@@ -1,9 +1,10 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { JobDto } from '@ddays-app/types';
 import c from './JobOfferPopup.module.scss';
-import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 import LocationPin from '@/assets/icons/location-pin.svg';
 import Button from '@/components/Button';
+import { useGetCompanyName } from '@/api/company/useGetCompanyName';
+import { useGetCompanyLogo } from '@/api/company/useGetCompanyLogo';
 
 type JobOfferPopupProps = {
   closePopup: () => void;
@@ -16,6 +17,9 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
   isOpen,
   job,
 }) => {
+  const companyName = useGetCompanyName(job?.companyId || 0);
+  const companyLogo = useGetCompanyLogo(job?.companyId || 0);
+
   if (!job) {
     return null;
   }
@@ -28,9 +32,9 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
       <div className={c.headerWrapper}>
         <div className={c.contentWrapper}>
           <img
-            src={getCompanyLogo(job.companyId)}
+            src={companyLogo}
             className={c.companyLogo}
-            alt={`${getCompanyName(job.companyId)} Logo`}
+            alt={`${companyName} Logo`}
           />
           <div className={c.locationWrapper}>
             <img className={c.pinIcon} src={LocationPin} />
@@ -41,28 +45,12 @@ const JobOfferPopup: React.FC<JobOfferPopupProps> = ({
       </div>
       <div className={c.main}>
         <h2 className={c.position}>{job.position}</h2>
-        <p className={c.details}>{job.details}</p>
+        <p className={c.details}>
+          {job.details.split(/(?=[*•])/).map((line, index) => (
+            <div key={index}>{line.trim()}</div>
+          ))}
+        </p>
 
-        <div className={c.listSection}>
-          <h3 className={c.listTitle}>Što očekujemo od tebe?</h3>
-          <ul className={c.list}>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-          </ul>
-        </div>
-        <div className={c.listSection}>
-          <h3 className={c.listTitle}>Što možeš očekivati od nas?</h3>
-          <ul className={c.list}>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-            <li className={c.item}>Prethodno radno iskustvo kao QA tester</li>
-          </ul>
-        </div>
         <Button
           className={c.button}
           variant='orange'
