@@ -15,15 +15,19 @@ export const useRatingAddMultiple = () => {
       const typedData = data as RatingDto[];
 
       if (typedData[0].boothId) {
-        toast.success('Štand uspješno ocijenjen.');
+        toast.success('Štand uspješno ocijenjen.', { position: 'top-center' });
       } else if (typedData[0].eventId) {
-        toast.success('Događaj uspješno ocijenjen.');
+        toast.success('Događaj uspješno ocijenjen.', {
+          position: 'top-center',
+        });
       } else {
-        toast.success('Ocjena uspješno dodana.');
+        toast.success('Ocjena uspješno dodana.', { position: 'top-center' });
       }
     },
     onError: () => {
-      toast.error('Greška prilikom dodavanja ocjene.');
+      toast.error('Greška prilikom dodavanja ocjene.', {
+        position: 'top-center',
+      });
     },
   });
 };
