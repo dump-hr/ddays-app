@@ -1,16 +1,34 @@
 import SearchBar from '@/components/SearchBar';
 import c from './JobOffersTab.module.scss';
-import { jobOffers } from './jobOffers';
 import JobOfferButton from '@/components/JobOfferButton';
-import { useState } from 'react';
-import { getCompanyName } from '@/helpers/getCompanyInfo';
+import { useMemo, useState } from 'react';
 import JobOfferPopup from '../popups/JobOfferPopup';
 import { JobDto } from '@ddays-app/types';
+import { useGetAllCompanies } from '@/api/company/useGetAllCompanies';
+import { useGetAllJobs } from '@/api/job/useGetAllJobs';
 
 const JobOffersTab = () => {
   const [query, setQuery] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalJobOffer, setModalJobOffer] = useState<JobDto | null>(null);
+  const { data: jobs } = useGetAllJobs();
+  const { data: companies } = useGetAllCompanies();
+
+  const companyNameMap = useMemo(() => {
+    const map: Record<number, string> = {};
+    companies?.forEach((company) => {
+      map[company.id] = company.name;
+    });
+    return map;
+  }, [companies]);
+
+  const filteredJobs = jobs?.filter((job) => {
+    const companyName = companyNameMap[job.companyId] || '';
+    return (
+      job.position.toUpperCase().includes(query.toUpperCase()) ||
+      companyName.toUpperCase().includes(query.toUpperCase())
+    );
+  });
 
   function handleModalOpen(job: JobDto) {
     setModalJobOffer(job);
@@ -35,17 +53,13 @@ const JobOffersTab = () => {
         onChange={(e) => setQuery(e.currentTarget.value)}
       />
       <div className={c.jobOffersWrapper}>
-        {jobOffers
-          .filter(
-            (job) =>
-              job.position.toUpperCase().includes(query.toUpperCase()) ||
-              getCompanyName(job.companyId)
-                .toUpperCase()
-                .includes(query.toUpperCase()),
-          )
-          .map((job) => (
-            <JobOfferButton job={job} onClick={() => handleModalOpen(job)} />
-          ))}
+        {filteredJobs?.map((job) => (
+          <JobOfferButton
+            key={job.id}
+            job={job}
+            onClick={() => handleModalOpen(job)}
+          />
+        ))}
       </div>
 
       <JobOfferPopup
