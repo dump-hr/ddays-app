@@ -47,4 +47,17 @@
     height: 58px;
     width: 58px;
   }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+
+    &:active {
+      scale: unset;
+    }
+
+    &:hover {
+      background: #585858;
+    }
+  }
 }

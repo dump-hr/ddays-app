@@ -78,13 +78,19 @@ const FloorPlanPage = () => {
 
         {width < DESKTOP_BREAKPOINT && (
           <div className={c.floorPlanContainer} ref={floorPlanContainerRef}>
-            <FloorPlan onBoothClick={handleBoothClick} />
+            <FloorPlan
+              onBoothClick={handleBoothClick}
+              availableBooths={floorPlanCompanies}
+            />
           </div>
         )}
 
         {width >= DESKTOP_BREAKPOINT && (
           <div className={c.floorPlanContainerDesktop}>
-            <FloorPlan onBoothClick={handleBoothClick} />
+            <FloorPlan
+              onBoothClick={handleBoothClick}
+              availableBooths={floorPlanCompanies}
+            />
           </div>
         )}
 

@@ -10,6 +10,7 @@ type BoothButtonProps = {
     y: number;
   };
   onBoothClick?: (boothString: string) => void;
+  disabled: boolean;
 };
 
 enum BoothType {
@@ -21,6 +22,7 @@ const BoothButton = ({
   boothString,
   position,
   onBoothClick,
+  disabled,
 }: BoothButtonProps) => {
   const boothType =
     boothString.charAt(0) === 'Z' ? BoothType.GOLD : BoothType.SILVER;
@@ -28,6 +30,7 @@ const BoothButton = ({
   const classes = clsx({
     [c.boothButton]: true,
     [c.gold]: boothType === BoothType.GOLD,
+    [c.disabled]: disabled,
   });
 
   const positionStyle = {
@@ -39,7 +42,8 @@ const BoothButton = ({
     <button
       className={classes}
       style={positionStyle}
-      onClick={() => onBoothClick?.(boothString)}>
+      onClick={() => onBoothClick?.(boothString)}
+      disabled={disabled}>
       <img src={boothType === BoothType.GOLD ? GoldBadge : SilverBadge} />
       <p>{boothString}</p>
     </button>

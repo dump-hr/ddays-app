@@ -2,6 +2,7 @@ import FloorPlanBase from '@/assets/images/floor-plan-base.svg';
 import BoothButton from './BoothButton';
 
 import c from './FloorPlan.module.scss';
+import { FloorPlanCompanyDto } from '@ddays-app/types';
 
 type Position = {
   x: number;
@@ -86,9 +87,13 @@ const boothPositions: BoothWithPosition[] = [
 
 type FloorPlanProps = {
   onBoothClick: (boothString: string) => void;
+  availableBooths?: FloorPlanCompanyDto[];
 };
 
-const FloorPlan: React.FC<FloorPlanProps> = ({ onBoothClick }) => {
+const FloorPlan: React.FC<FloorPlanProps> = ({
+  onBoothClick,
+  availableBooths,
+}) => {
   return (
     <div className={c.floorPlanWrapper}>
       {boothPositions.map((booth) => (
@@ -96,6 +101,10 @@ const FloorPlan: React.FC<FloorPlanProps> = ({ onBoothClick }) => {
           boothString={booth.boothString}
           position={booth.position}
           onBoothClick={onBoothClick}
+          disabled={
+            !availableBooths?.some((ab) => ab.booth === booth.boothString) ||
+            false
+          }
         />
       ))}
       <img src={FloorPlanBase} alt='' />
