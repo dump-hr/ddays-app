@@ -2,7 +2,6 @@ import c from './JobOfferButton.module.scss';
 
 import { JobDto } from '@ddays-app/types';
 import ArrowRight from '@/assets/icons/arrow-right-sm-squared.svg';
-import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 import { useGetCompanyLogo } from '@/api/company/useGetCompanyLogo';
 import { useGetCompanyName } from '@/api/company/useGetCompanyName';
 
