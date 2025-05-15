@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import { SelectInput } from '../components/SelectInput';
-import { QrReader } from 'react-qr-reader';
-import { Button } from '../components/Button';
-import { useAssignPrinter } from '../api/printer/useAssignPrinter';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { QrReader } from 'react-qr-reader';
+
+import { useAssignPrinter } from '../api/printer/useAssignPrinter';
+import { Button } from '../components/Button';
+import { SelectInput } from '../components/SelectInput';
 
 const AccreditationScanPage = () => {
   const [printerSelected, setPrinterSelected] = useState(() => {

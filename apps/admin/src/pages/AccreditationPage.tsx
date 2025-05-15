@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
 import { useGetPrintData } from '../api/printer/useGetPrintData';
 import { Button } from '../components/Button';
 import { SelectInput } from '../components/SelectInput';
-import { useEffect, useState } from 'react';
 import { printUser } from '../helpers/printUser';
-import toast from 'react-hot-toast';
 
 const AccreditationPage = () => {
   const [printerSelected, setPrinterSelected] = useState(
