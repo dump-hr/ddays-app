@@ -3,11 +3,27 @@ import { useMutation } from 'react-query';
 import { RatingModifyDto } from '@ddays-app/types/src/dto/rating';
 import axios from '../base';
 import { RatingDto } from '@ddays-app/types';
+import toast from 'react-hot-toast';
 
 const ratingAddMultiple = async (dtos: RatingModifyDto[]) => {
   return axios.post<RatingModifyDto[], RatingDto[]>('/rating', dtos);
 };
 
 export const useRatingAddMultiple = () => {
-  return useMutation(ratingAddMultiple);
+  return useMutation(ratingAddMultiple, {
+    onSuccess: (data) => {
+      const typedData = data as RatingDto[];
+
+      if (typedData[0].boothId) {
+        toast.success('Štand uspješno ocijenjen.');
+      } else if (typedData[0].eventId) {
+        toast.success('Događaj uspješno ocijenjen.');
+      } else {
+        toast.success('Ocjena uspješno dodana.');
+      }
+    },
+    onError: () => {
+      toast.error('Greška prilikom dodavanja ocjene.');
+    },
+  });
 };

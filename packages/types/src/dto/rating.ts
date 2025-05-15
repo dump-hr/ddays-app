@@ -15,21 +15,6 @@ export type RatingQuestionDto = {
   type: `${RatingQuestionType}`;
 };
 
-/*
-model Rating {
-  id               Int            @id @default(autoincrement())
-  userId           Int
-  boothId          Int?
-  eventId          Int?
-  value            Int
-  ratingQuestionId Int
-  comment          String?
-  ratingQuestion   RatingQuestion @relation(fields: [ratingQuestionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  booth            Booth?         @relation(fields: [boothId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  event            Event?         @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-  */
-
 export type RatingDto = {
   id: number;
   userId: number;

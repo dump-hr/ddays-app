@@ -5,13 +5,27 @@ import HRCloudLogo from '../../assets/images/HRCloud.svg';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
 import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
 import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 
 export const RateCompanyPage = () => {
+  const { data: questions } = useRatingQuestionsGetAll();
+  const { mutate: addRatings } = useRatingAddMultiple();
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
+
+  useEffect(() => {
+    if (!questions) return;
+
+    const initialAnswers: Record<number, number | null> = {};
+    questions
+      .filter((q) => q.type === RatingQuestionType.BOOTH)
+      .forEach((question) => {
+        initialAnswers[question.id] = null;
+      });
+    setAnswers(initialAnswers);
+  }, [questions]);
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
@@ -23,9 +37,6 @@ export const RateCompanyPage = () => {
       [key]: value,
     }));
   };
-
-  const { data: questions } = useRatingQuestionsGetAll();
-  const { mutate: addRatings } = useRatingAddMultiple();
 
   function handleButtonClick() {
     const questionIds = Object.keys(answers).map((id) => Number(id));
