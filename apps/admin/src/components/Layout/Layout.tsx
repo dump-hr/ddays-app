@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import useLocation from 'wouter/use-location';
-import { useState, useEffect } from 'react';
 
 import { Path } from '../../constants/paths';
 import { useAccount } from '../../hooks/useAccount';
@@ -42,7 +42,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <span className={sidebarOpen ? c.active : ''}></span>
         <span className={sidebarOpen ? c.active : ''}></span>
       </div>
-      
+
       {/* Mobile sidebar */}
       <div className={`${c.sidebar} ${sidebarOpen ? c.open : ''}`}>
         <div className={c.mobilePages}>
@@ -60,7 +60,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </Button>
           ))}
         </div>
-        
+
         <div className={c.mobileAccount}>
           <div className={c.user}>
             <p>{user.name}</p>
@@ -71,12 +71,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Button>
         </div>
       </div>
-      
+
       {/* Overlay for when sidebar is open */}
       {sidebarOpen && (
         <div className={c.overlay} onClick={() => setSidebarOpen(false)} />
       )}
-      
+
       {/* Desktop navigation */}
       <nav className={c.nav}>
         <div className={c.pages}>
