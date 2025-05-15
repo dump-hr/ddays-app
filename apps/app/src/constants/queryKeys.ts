@@ -20,4 +20,5 @@ export const QUERY_KEYS = {
   codes: 'codes',
   codeApplied: 'codeApplied',
   eventParticipantsCount: 'eventParticipantsCount',
+  companies: 'companies',
 };
