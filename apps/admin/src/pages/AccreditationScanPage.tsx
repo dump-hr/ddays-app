@@ -111,15 +111,17 @@ const AccreditationScanPage = () => {
       )}
 
       {isOpenQRCode && (
-        <QrReader
-          onResult={(result) => {
-            if (!result) return;
-            handleScan(result?.getText());
-          }}
-          constraints={{
-            facingMode: 'environment',
-          }}
-        />
+        <div className='scannerContainer'>
+          <QrReader
+            onResult={(result) => {
+              if (!result) return;
+              handleScan(result?.getText());
+            }}
+            constraints={{
+              facingMode: 'environment',
+            }}
+          />
+        </div>
       )}
     </div>
   );
