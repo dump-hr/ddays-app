@@ -3,7 +3,7 @@ import {
   RatingModifyDto,
   RatingQuestionDto,
 } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -31,10 +31,53 @@ export class RatingService {
     }));
   }
 
+  async getRatings(userId: number): Promise<RatingDto[]> {
+    const ratings = await this.prisma.rating.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        id: true,
+        userId: true,
+        boothId: true,
+        eventId: true,
+        value: true,
+        ratingQuestionId: true,
+        comment: true,
+      },
+    });
+
+    return ratings.map((rating) => ({
+      userId: rating.userId,
+      id: rating.id,
+      ratingQuestionId: rating.ratingQuestionId,
+      value: rating.value,
+      boothId: rating.boothId,
+      comment: rating.comment,
+      eventId: rating.eventId,
+    }));
+  }
+
   async addRatings(
     dtos: RatingModifyDto[],
     userId: number,
   ): Promise<RatingDto[]> {
+    const existingRatings = await this.prisma.rating.findMany({
+      where: {
+        userId: userId,
+        ratingQuestionId: {
+          in: dtos.map((dto) => dto.ratingQuestionId),
+        },
+      },
+    });
+
+    if (existingRatings.length > 0) {
+      throw new HttpException(
+        'You have already submitted ratings for these questions.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const newRatings = await Promise.all(
       dtos.map(async (dto) => {
         return await this.prisma.rating.create({

@@ -11,6 +11,7 @@ import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
 import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 import { useCompanyGetById } from '@/api/company/getCompanyById';
 import toast from 'react-hot-toast';
+import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
 
 export const RateCompanyPage = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export const RateCompanyPage = () => {
   const { data: questions } = useRatingQuestionsGetAll();
   const { mutate: addRatings } = useRatingAddMultiple();
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const { data: userRatings } = useGetUserRatings();
 
   useEffect(() => {
     if (!questions) return;
@@ -56,6 +58,21 @@ export const RateCompanyPage = () => {
         });
         navigate(RouteNames.HOME);
       }
+
+      if (company?.booth === undefined || company?.booth === null) {
+        toast.error('Greška prilikom učitavanja štanda.', {
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+
+      if (userRatings?.some((rating) => rating.boothId === company?.boothId)) {
+        toast('Ovaj je štand već ocijenjen', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
     }
 
     return () => {
@@ -63,7 +80,7 @@ export const RateCompanyPage = () => {
         toast.dismiss(toastId);
       }
     };
-  }, [isCompanyLoading, isCompanyError, navigate]);
+  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings]);
 
   if (!companyId) {
     return <div>ID kompanije nije dobrog formata.</div>;
@@ -86,7 +103,7 @@ export const RateCompanyPage = () => {
     const dtos: RatingModifyDto[] = questionIds
       .filter((id) => answers[id] !== null)
       .map((id) => ({
-        boothId: 1,
+        boothId: company?.boothId,
         ratingQuestionId: id,
         value: answers[id]!, // ! jer smo filtrirali nullove
         eventId: undefined,
@@ -100,6 +117,7 @@ export const RateCompanyPage = () => {
 
   return (
     <div>
+      <button onClick={() => console.log(userRatings)}>log ratings</button>
       <div className={c.wrapper}>
         <div className={c.page}>
           <Link to={RouteNames.HOME}>

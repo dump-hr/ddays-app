@@ -70,7 +70,7 @@ export class CompanyService {
     const foundCompany = await this.prisma.company.findUnique({
       where: { id },
       include: {
-        booth: { select: { name: true } },
+        booth: { select: { name: true, id: true } },
       },
     });
 
@@ -83,6 +83,7 @@ export class CompanyService {
     return {
       ...foundCompany,
       booth: foundCompany.booth?.name || null,
+      boothId: foundCompany.booth?.id || null,
       interests,
     };
   }

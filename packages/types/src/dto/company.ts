@@ -22,6 +22,7 @@ export type CompanyPublicDto = {
   instagramUrl?: string;
   linkedinUrl?: string;
   booth?: string;
+  boothId?: number;
   logoImage?: string;
   landingImage?: string;
   landingImageCompanyCulture?: string;
@@ -54,7 +55,7 @@ export type CompanyWithFlyTalkDto = {
   id: number;
   name: string;
   logoImage?: string;
-}
+};
 
 export class CompanyModifyDto {
   @IsEnum(CompanyCategory)

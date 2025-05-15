@@ -26,4 +26,12 @@ export class RatingController {
   ): Promise<RatingDto[]> {
     return await this.ratingService.addRatings(dtos, user.id);
   }
+
+  @UseGuards(UserGuard)
+  @Get('my-ratings')
+  async getMyRatings(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<RatingDto[]> {
+    return await this.ratingService.getRatings(user.id);
+  }
 }

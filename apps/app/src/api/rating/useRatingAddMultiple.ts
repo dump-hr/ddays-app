@@ -4,6 +4,7 @@ import { RatingModifyDto } from '@ddays-app/types/src/dto/rating';
 import axios from '../base';
 import { RatingDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
+import { RouteNames } from '@/router/routes';
 
 const ratingAddMultiple = async (dtos: RatingModifyDto[]) => {
   return axios.post<RatingModifyDto[], RatingDto[]>('/rating', dtos);
@@ -23,6 +24,8 @@ export const useRatingAddMultiple = () => {
       } else {
         toast.success('Ocjena uspješno dodana.', { position: 'top-center' });
       }
+
+      window.location.replace('days.dump.hr' + RouteNames.HOME);
     },
     onError: () => {
       toast.error('Greška prilikom dodavanja ocjene.', {
