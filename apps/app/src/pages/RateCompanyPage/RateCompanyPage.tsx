@@ -9,9 +9,9 @@ import { useEffect, useState } from 'react';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
 import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
 import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
-import { useCompanyGetById } from '@/api/company/getCompanyById';
 import toast from 'react-hot-toast';
 import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
+import { useCompanyGetById } from '@/api/company/useGetCompanyById';
 
 export const RateCompanyPage = () => {
   const navigate = useNavigate();

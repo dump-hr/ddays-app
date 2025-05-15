@@ -91,4 +91,26 @@ export class RatingService {
 
     return newRatings;
   }
+
+  async getCompanyRating(companyId: number): Promise<number | null> {
+    const company = await this.prisma.company.findUnique({
+      where: { id: companyId },
+      select: { booth: { select: { id: true } } },
+    });
+
+    if (!company?.booth) {
+      return null;
+    }
+
+    const result = await this.prisma.rating.aggregate({
+      _avg: {
+        value: true,
+      },
+      where: {
+        boothId: company.booth.id,
+      },
+    });
+
+    return result._avg.value ?? null;
+  }
 }

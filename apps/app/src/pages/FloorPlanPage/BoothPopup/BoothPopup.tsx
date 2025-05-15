@@ -1,22 +1,13 @@
 import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
 import styles from './BoothPopup.module.scss';
-import { InterestDto } from '@ddays-app/types';
-import ProficoLogo from '@/assets/images/Profico.svg';
+import { FloorPlanCompanyDto } from '@ddays-app/types';
 import InfoLightIcon from '@/assets/icons/info-light.svg';
 import CloseIcon from '@/assets/icons/remove-icon.svg';
-
-type CompanyInfo = {
-  name: string;
-  logoUrl: string;
-  rating?: number;
-  interests: InterestDto[];
-};
-
 type BoothPopupProps = {
   closePopup: () => void;
   isOpen: boolean;
-  companyInfo: CompanyInfo;
+  companyInfo: FloorPlanCompanyDto;
 };
 
 const BoothPopup = ({
@@ -25,7 +16,7 @@ const BoothPopup = ({
   companyInfo,
 }: PropsWithChildren<BoothPopupProps>) => {
   const isRated =
-    companyInfo.rating !== undefined && companyInfo.rating !== null;
+    companyInfo.boothRating !== undefined && companyInfo.boothRating !== null;
 
   return (
     <div className={clsx(styles.wrapper, { [styles.closed]: !isOpen })}>
@@ -36,7 +27,7 @@ const BoothPopup = ({
             [styles.logoHeader]: true,
             [styles.rated]: isRated,
           })}>
-          <img src={ProficoLogo} className={styles.logo} />
+          <img src={companyInfo.logoImage} className={styles.logo} />
           <img
             src={CloseIcon}
             className={styles.closeIcon}
@@ -48,7 +39,8 @@ const BoothPopup = ({
             <p className={styles.companyName}>{companyInfo.name}</p>
             {isRated ? (
               <p className={clsx(styles.rating, styles.rated)}>
-                Ocjena: <span>{companyInfo.rating}/10</span>
+                Ocjena:{' '}
+                <span>{Math.round(companyInfo.boothRating * 10) / 10}/10</span>
               </p>
             ) : (
               <p className={styles.rating}>Nema ocjene!</p>
@@ -58,18 +50,21 @@ const BoothPopup = ({
             <p className={styles.interestsTitle}>Interesi</p>
             <div className={styles.dottedBreak} />
           </div>
-          <div className={styles.interestsContainer}>
-            {companyInfo.interests.map((interest) => (
-              <div
-                key={interest.id}
-                className={clsx({
-                  [styles.interest]: true,
-                  [styles.rated]: isRated,
-                })}>
-                {interest.name}
-              </div>
-            ))}
-          </div>
+          {companyInfo.interests && (
+            <div className={styles.interestsContainer}>
+              {companyInfo.interests.map((interest) => (
+                <div
+                  key={interest.id}
+                  className={clsx({
+                    [styles.interest]: true,
+                    [styles.rated]: isRated,
+                  })}>
+                  {interest.name}
+                </div>
+              ))}
+            </div>
+          )}
+
           {!isRated && (
             <div className={styles.infoMessage}>
               <img className={styles.icon} src={InfoLightIcon} />

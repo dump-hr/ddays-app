@@ -5,19 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import useViewport from '@/hooks/useViewport';
 import BoothPopup from './BoothPopup/BoothPopup';
-import { Theme } from '@ddays-app/types';
+import { FloorPlanCompanyDto } from '@ddays-app/types';
+import { useGetFloorPlanCompanies } from '@/api/company/useGetFloorPlanCompanies';
 
 const FloorPlanPage = () => {
   const navigate = useNavigate();
   const floorPlanContainerRef = useRef<HTMLDivElement>(null);
   const [upperShadowTop, setUpperShadowTop] = useState<number>(0);
   const [isBoothPopupOpen, setIsBoothPopupOpen] = useState(false);
+  const [currentCompany, setCurrentCompany] =
+    useState<FloorPlanCompanyDto | null>();
+  const { data: floorPlanCompanies } = useGetFloorPlanCompanies();
 
   const { width } = useViewport();
   const DESKTOP_BREAKPOINT = 769;
 
   function handleBoothClick(boothString: string) {
     console.log(`Booth clicked: ${boothString}`);
+    setCurrentCompany(
+      floorPlanCompanies?.find((company) => company.booth === boothString) ||
+        null,
+    );
     setIsBoothPopupOpen(true);
   }
 
@@ -39,27 +47,11 @@ const FloorPlanPage = () => {
 
   return (
     <>
-      {isBoothPopupOpen && (
+      {isBoothPopupOpen && currentCompany && (
         <BoothPopup
           isOpen={isBoothPopupOpen}
           closePopup={() => setIsBoothPopupOpen(false)}
-          companyInfo={{
-            name: 'Profico',
-            logoUrl: 'https://example.com/logo.png',
-            rating: 8,
-            interests: [
-              { id: 1, name: 'Interest 1', theme: Theme.DEV },
-              { id: 2, name: 'Interest 2', theme: Theme.DEV },
-              { id: 3, name: 'Interest 3', theme: Theme.DEV },
-              { id: 4, name: 'Interest 4', theme: Theme.DEV },
-              { id: 5, name: 'Interest 5', theme: Theme.DEV },
-              { id: 6, name: 'Interest 6', theme: Theme.DEV },
-              { id: 7, name: 'Interest 7', theme: Theme.DEV },
-              { id: 8, name: 'Interest 8', theme: Theme.DEV },
-              { id: 9, name: 'Interest 9', theme: Theme.DEV },
-              { id: 10, name: 'Interest 10', theme: Theme.DEV },
-            ],
-          }}
+          companyInfo={currentCompany}
         />
       )}
       <div className={c.page}>

@@ -3,12 +3,14 @@ import {
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
+  FloorPlanCompanyDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
 import { PrismaService } from 'src/prisma.service';
+import { RatingService } from 'src/rating/rating.service';
 
 @Injectable()
 export class CompanyService {
@@ -16,6 +18,7 @@ export class CompanyService {
     private readonly prisma: PrismaService,
     private readonly blobService: BlobService,
     private readonly interestService: InterestService,
+    private readonly ratingService: RatingService,
   ) {}
 
   async create(dto: CompanyModifyDto): Promise<CompanyDto> {
@@ -366,5 +369,54 @@ export class CompanyService {
     });
 
     return updatedCompany;
+  }
+
+  async getFloorPlan(): Promise<FloorPlanCompanyDto[]> {
+    const companies = await this.prisma.company.findMany({
+      where: {
+        booth: {
+          isNot: null,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        logoImage: true,
+        booth: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        companyToInterest: {
+          select: {
+            interest: {
+              select: {
+                id: true,
+                name: true,
+                theme: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const companiesWithRatings = await Promise.all(
+      companies.map(async (company) => ({
+        name: company.name,
+        booth: company.booth?.name ?? '',
+        boothId: company.booth?.id,
+        logoImage: company.logoImage ?? undefined,
+        interests: company.companyToInterest.map((cti) => ({
+          id: cti.interest.id,
+          name: cti.interest.name,
+          theme: cti.interest.theme,
+        })),
+        boothRating: await this.ratingService.getCompanyRating(company.id),
+      })),
+    );
+
+    return companiesWithRatings;
   }
 }

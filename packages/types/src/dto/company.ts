@@ -129,3 +129,12 @@ export class CompanyModifyDescriptionDto {
   @IsUrl()
   linkedinUrl: string;
 }
+
+export type FloorPlanCompanyDto = {
+  name: string;
+  booth: string;
+  logoImage?: string;
+  boothId?: number;
+  interests?: InterestDto[];
+  boothRating: number;
+};
