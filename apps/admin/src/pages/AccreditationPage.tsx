@@ -8,9 +8,11 @@ import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
   const [printerSelected, setPrinterSelected] = useState(
-    localStorage.getItem('printerIdForAccreditation') || ''
+    localStorage.getItem('printerIdForAccreditation') || '',
   );
-  const { data: accreditationData, refetch } = useGetPrintData(Number(printerSelected));
+  const { data: accreditationData, refetch } = useGetPrintData(
+    Number(printerSelected),
+  );
   const [hasRefreshed, setHasRefreshed] = useState(false);
 
   useEffect(() => {
