@@ -8,7 +8,7 @@ import { SelectInput } from '../components/SelectInput';
 
 const AccreditationScanPage = () => {
   const [printerSelected, setPrinterSelected] = useState(() => {
-    return localStorage.getItem('printerIdForScan') || '1';
+    return localStorage.getItem('printerIdForScan') || '';
   });
 
   const currentPrinterRef = useRef(printerSelected);
@@ -80,6 +80,7 @@ const AccreditationScanPage = () => {
       <p>Printer selected: {printerSelected}</p>
       <SelectInput
         options={['1', '2']}
+        isAllowedEmpty={true}
         onChange={handleSelectChange}
         defaultValue={printerSelected}
       />

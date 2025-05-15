@@ -8,9 +8,9 @@ import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
   const [printerSelected, setPrinterSelected] = useState(
-    Number(localStorage.getItem('printerIdForAccreditation') || ''),
+    localStorage.getItem('printerIdForAccreditation') || ''
   );
-  const { data: accreditationData, refetch } = useGetPrintData(printerSelected);
+  const { data: accreditationData, refetch } = useGetPrintData(Number(printerSelected));
   const [hasRefreshed, setHasRefreshed] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const AccreditationPage = () => {
   }, [printerSelected, refetch]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPrinterSelected(Number(e.target.value));
+    setPrinterSelected(e.target.value);
     localStorage.setItem('printerIdForAccreditation', e.target.value);
   };
 
@@ -31,7 +31,7 @@ const AccreditationPage = () => {
         options={['1', '2']}
         onChange={handleSelectChange}
         isAllowedEmpty={true}
-        defaultValue={String(printerSelected)}
+        defaultValue={printerSelected}
       />
       <h1>
         <strong>Accreditation: </strong>
