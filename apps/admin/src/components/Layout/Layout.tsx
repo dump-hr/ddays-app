@@ -1,4 +1,5 @@
 import useLocation from 'wouter/use-location';
+import { useState, useEffect } from 'react';
 
 import { Path } from '../../constants/paths';
 import { useAccount } from '../../hooks/useAccount';
@@ -26,9 +27,57 @@ const navLinks = [
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, navigate] = useLocation();
   const { user, logout } = useAccount();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Close sidebar when navigation occurs
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location]);
 
   return (
     <div className={c.layout}>
+      {/* Hamburger button for mobile */}
+      <div className={c.hamburger} onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <span className={sidebarOpen ? c.active : ''}></span>
+        <span className={sidebarOpen ? c.active : ''}></span>
+        <span className={sidebarOpen ? c.active : ''}></span>
+      </div>
+      
+      {/* Mobile sidebar */}
+      <div className={`${c.sidebar} ${sidebarOpen ? c.open : ''}`}>
+        <div className={c.mobilePages}>
+          <h3>Navigation</h3>
+          {navLinks.map(({ href, text }) => (
+            <Button
+              key={href}
+              variant={location === href ? 'primary' : 'secondary'}
+              onClick={() => {
+                navigate(href);
+                setSidebarOpen(false);
+              }}
+              className={c.mobileNavButton}>
+              {text}
+            </Button>
+          ))}
+        </div>
+        
+        <div className={c.mobileAccount}>
+          <div className={c.user}>
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+          </div>
+          <Button onClick={() => logout()} variant='secondary'>
+            Logout
+          </Button>
+        </div>
+      </div>
+      
+      {/* Overlay for when sidebar is open */}
+      {sidebarOpen && (
+        <div className={c.overlay} onClick={() => setSidebarOpen(false)} />
+      )}
+      
+      {/* Desktop navigation */}
       <nav className={c.nav}>
         <div className={c.pages}>
           {navLinks.map(({ href, text }) => (
