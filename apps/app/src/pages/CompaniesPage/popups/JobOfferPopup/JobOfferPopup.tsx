@@ -1,7 +1,6 @@
 import PopupLayout from '@/layout/PopupLayout/PopupLayout';
 import { JobDto } from '@ddays-app/types';
 import c from './JobOfferPopup.module.scss';
-import { getCompanyLogo, getCompanyName } from '@/helpers/getCompanyInfo';
 import LocationPin from '@/assets/icons/location-pin.svg';
 import Button from '@/components/Button';
 import { useGetCompanyName } from '@/api/company/useGetCompanyName';
