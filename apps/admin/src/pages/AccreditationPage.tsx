@@ -17,7 +17,7 @@ const AccreditationPage = () => {
     if (printerSelected) {
       refetch();
     }
-  }, [printerSelected]);
+  }, [printerSelected, refetch]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPrinterSelected(Number(e.target.value));
