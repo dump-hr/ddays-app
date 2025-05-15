@@ -1,0 +1,158 @@
+.page {
+  height: 100dvh;
+  background-color: $primary-black;
+  padding: 64px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    flex-direction: row;
+
+    .floorPlanContainer {
+      overflow: hidden;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      div {
+        scale: 0.7;
+      }
+    }
+  }
+
+  .titleAndLegend {
+    color: white;
+    position: relative;
+    padding: 0 24px 0 24px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      width: 590px;
+      padding: 0;
+      padding-left: 72px;
+
+      .minimize {
+        display: none;
+      }
+    }
+
+    .minimize {
+      position: absolute;
+      right: 24px;
+      cursor: pointer;
+    }
+
+    .title {
+      @include heading-2;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-right: 32px;
+    }
+
+    .legendContainer {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .legendItem {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &:nth-of-type(1) {
+          .legendMarker {
+            background-color: #585858;
+          }
+        }
+
+        &:nth-of-type(2) {
+          .legendMarker {
+            background-color: #1a5c57;
+          }
+        }
+
+        .legendMarker {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+        }
+
+        .legendText {
+          @include tag-14;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .upperShadow,
+  .lowerShadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 10;
+    background-image: linear-gradient($primary-black, rgba($primary-black, 0));
+  }
+
+  .lowerShadow {
+    bottom: 0;
+    rotate: 180deg;
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    .lowerShadow,
+    .upperShadow {
+      display: none;
+    }
+  }
+
+  .floorPlanContainer {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    padding: 48px 24px;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .floorPlanContainerDesktop {
+    width: 100%;
+
+    div {
+      position: absolute;
+      right: 72px;
+      top: 50%;
+      transform: scale(1.2);
+      translate: 0 -50%;
+      transform-origin: right;
+
+      @media screen and (max-width: 1800px) {
+        transform: scale(0.9);
+      }
+      @media screen and (max-width: 1300px) {
+        transform: scale(0.8);
+      }
+      @media screen and (max-width: 1200px) {
+        transform: scale(0.75);
+      }
+      @media screen and (max-width: 1150px) {
+        transform: scale(0.65);
+      }
+      @media screen and (max-width: 1050px) {
+        transform: scale(0.55);
+      }
+      @media screen and (max-width: 1000px) {
+        transform: scale(0.5);
+      }
+      @media screen and (max-width: 900px) {
+        transform: scale(0.4);
+      }
+    }
+  }
+}

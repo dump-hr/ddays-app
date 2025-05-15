@@ -8,57 +8,27 @@ import { useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 import { useNavigate } from 'react-router-dom';
 import PointModifierPopup from '@/components/PointModifierPopup';
-
-enum RatingType {
-  THEME = 'general',
-  PRESENTATION_SKILLS = 'presentation',
-  RELEVANCE = 'isUseful',
-}
-
-interface RatingAnswers {
-  [RatingType.THEME]: number | null;
-  [RatingType.PRESENTATION_SKILLS]: number | null;
-  [RatingType.RELEVANCE]: number | null;
-}
-
-const RATING_QUESTIONS = [
-  {
-    type: RatingType.THEME,
-    title: 'Poznavanje teme?',
-    text: 'Imaš li predznanje o ovoj temi?',
-  },
-  {
-    type: RatingType.PRESENTATION_SKILLS,
-    title: 'prezentacijske vještine',
-    text: 'Ocijeni prezentacijske vještine predavača.',
-  },
-  {
-    type: RatingType.RELEVANCE,
-    title: 'Relevantnost',
-    text: 'Koliko će ti ovo predavanje koristiti u budućnosti?',
-  },
-];
+import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
+import { RatingQuestionType } from '@ddays-app/types';
 
 export const RateLecturePage = () => {
   const navigate = useNavigate();
   const [isPointModifierOpen, setIsPointModifierOpen] = useState(false);
   const [points, setPoints] = useState(0);
-  const [answers, setAnswers] = useState<RatingAnswers>({
-    [RatingType.THEME]: null,
-    [RatingType.PRESENTATION_SKILLS]: null,
-    [RatingType.RELEVANCE]: null,
-  });
+  const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
   );
 
-  const handleAnswerChange = (type: RatingType, value: number) => {
+  const handleAnswerChange = (key: number, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [type]: value,
+      [key]: value,
     }));
   };
+
+  const { data: questions } = useRatingQuestionsGetAll();
 
   return (
     <div>
@@ -91,16 +61,18 @@ export const RateLecturePage = () => {
             ]}
           />
           <div className={c.ratingContainer}>
-            {RATING_QUESTIONS.map((question) => (
-              <RatingQuestion
-                key={question.type}
-                title={question.title}
-                text={question.text}
-                onRatingChange={(value) =>
-                  handleAnswerChange(question.type, value)
-                }
-              />
-            ))}
+            {questions
+              ?.filter((q) => q.type === RatingQuestionType.EVENT)
+              .map((question) => (
+                <RatingQuestion
+                  key={question.id}
+                  title={question.subtitle}
+                  text={question.question}
+                  onRatingChange={(value) =>
+                    handleAnswerChange(question.id, value)
+                  }
+                />
+              ))}
           </div>
 
           <div className={c.buttonContainer}>

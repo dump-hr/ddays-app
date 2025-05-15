@@ -4,13 +4,20 @@ import { BlobService } from 'src/blob/blob.service';
 import { InterestModule } from 'src/interest/interest.module';
 import { InterestService } from 'src/interest/interest.service';
 import { PrismaService } from 'src/prisma.service';
+import { RatingService } from 'src/rating/rating.service';
 
 import { CompanyController } from './company.controller';
 import { CompanyService } from './company.service';
 
 @Module({
   controllers: [CompanyController],
-  providers: [CompanyService, BlobService, InterestService, PrismaService],
+  providers: [
+    CompanyService,
+    BlobService,
+    InterestService,
+    PrismaService,
+    RatingService,
+  ],
   imports: [BlobModule, InterestModule],
 })
 export class CompanyModule {}
