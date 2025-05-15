@@ -22,4 +22,5 @@ export const QUERY_KEYS = {
   eventParticipantsCount: 'eventParticipantsCount',
   company: 'company',
   companies: 'companies',
+  jobs: 'jobs',
 };
