@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-import { QrReader } from 'react-qr-reader';
-import { useVerifyTransactionItem } from '../api/shop/useVerifyTransactionItem';
 import toast from 'react-hot-toast';
+import { QrReader } from 'react-qr-reader';
+
+import { useVerifyTransactionItem } from '../api/shop/useVerifyTransactionItem';
 
 const TransactionScanPage = () => {
   const [isCooldown, setIsCooldown] = useState(false);
