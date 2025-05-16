@@ -3,6 +3,7 @@ import {
   EventModifyDto,
   EventWithCompanyDto,
   EventWithSpeakerDto,
+  EventWithUsersDto,
   UserToEventDto,
 } from '@ddays-app/types';
 import {
@@ -401,5 +402,35 @@ export class EventService {
     });
 
     return { count };
+  }
+
+  async getWorkshopsWithUsers(): Promise<EventWithUsersDto[]> {
+    const workshops = await this.prisma.event.findMany({
+      where: {
+        type: EventType.WORKSHOP,
+      },
+      include: {
+        userToEvent: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+
+    return workshops.map((workshop) => ({
+      id: workshop.id,
+      name: workshop.name,
+      description: workshop.description,
+      startsAt: workshop.startsAt,
+      endsAt: workshop.endsAt,
+      maxParticipants: workshop.maxParticipants,
+      requirements: workshop.requirements,
+      footageLink: workshop.footageLink,
+      type: workshop.type,
+      theme: workshop.theme,
+      codeId: workshop.codeId,
+      users: workshop.userToEvent.map((ue) => ue.user),
+    }));
   }
 }
