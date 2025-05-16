@@ -11,4 +11,5 @@ export enum Path {
   Code = '/admin/code',
   Accreditation = '/admin/accreditation',
   AccreditationScan = '/admin/accreditation-scan',
+  TransactionScan = '/admin/transaction-scan',
 }
