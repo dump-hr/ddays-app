@@ -5,10 +5,10 @@ import Logo from '@/assets/icons/logo.svg';
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import clsx from 'clsx';
 import styles from './Accreditation.module.scss';
-import { useState, useEffect /* , useMemo  */ } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import RecieptText from '../RecieptText';
-/* import { useLoggedInUser } from '@/api/auth/useLoggedInUser'; */
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 interface AccreditationProps {
   isOpen: boolean;
@@ -22,16 +22,16 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   const [closingAnimationSecondVisit, setClosingAnimationSecondVisit] =
     useState(false);
 
-  /*const { data: user } = useLoggedInUser();
+  const { data: user } = useLoggedInUser();
 
-   const QRCodeData = useMemo(
+  const QRCodeData = useMemo(
     () =>
       JSON.stringify({
         id: user?.id,
         name: user?.email,
       }),
     [user],
-  ); */
+  );
 
   const handleClose = () => {
     setClosingAnimation(true);
@@ -124,8 +124,8 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
           </div>
           <RecieptText
             item={{
-              id: '123456789',
-              userId: 'user36',
+              id: 'dumpdays2025',
+              userId: String(user?.email),
               orderedAt: new Date(),
               shopItem: {
                 itemName: 'Akreditacija',
@@ -143,10 +143,10 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             className={styles.accreditationPaperTextureImage}
           />
           <div className={styles.qrCodeContainer}>
-            {/* testing data for more users */}
-            <QRCodeSVG value={JSON.stringify({ userId: 50 })} size={140} />{' '}
-            {/* uncomment below after testing */}
-            {/* <QRCodeSVG value={QRCodeData} size={140} /> */}
+            {/* testing data for different users */}
+            {/*  <QRCodeSVG value={JSON.stringify({ userId: 50 })} size={220} />{' '} */}
+
+            <QRCodeSVG value={QRCodeData} size={140} />
           </div>
         </div>
         <div
