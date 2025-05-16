@@ -18,6 +18,7 @@ import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
 import SpeakerPage from './pages/SpeakerPage';
+import TransactionScanPage from './pages/TransactionScanPage';
 
 export const App = () => {
   useMsalAuthentication(InteractionType.Redirect);
@@ -40,6 +41,7 @@ export const App = () => {
             path={Path.AccreditationScan}
             component={AccreditationScanPage}
           />
+          <Route path={Path.TransactionScan} component={TransactionScanPage} />
         </Switch>
       </Layout>
       <Toaster />

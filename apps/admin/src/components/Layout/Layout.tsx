@@ -22,6 +22,7 @@ const navLinks = [
   { href: Path.Code, text: 'Code' },
   { href: Path.Accreditation, text: 'Accreditation' },
   { href: Path.AccreditationScan, text: 'Accreditation Scan' },
+  { href: Path.TransactionScan, text: 'Transaction Scan' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
