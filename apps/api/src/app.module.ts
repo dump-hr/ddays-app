@@ -18,6 +18,7 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
+import { PrinterModule } from './printer/printer.module';
 import { PrismaService } from './prisma.service';
 import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
@@ -69,6 +70,7 @@ import { UserModule } from './user/user.module';
     LeaderboardModule,
     RewardModule,
     AvatarModule,
+    PrinterModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

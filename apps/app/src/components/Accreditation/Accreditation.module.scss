@@ -69,19 +69,19 @@
   }
 
   .accreditationPaperContainer {
-    width: 85%;
+    width: 100vw;
     position: absolute;
     bottom: 50px;
     height: 100vh;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 320px;
+    max-width: 400px;
     overflow-y: hidden;
     animation: opacityIn 1s ease-out;
     transform-origin: bottom;
 
     .accreditationPaper {
-      width: 100%;
+      width: 95%;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -124,7 +124,7 @@
       }
 
       .qrCodeContainer {
-        width: 160px;
+        width: 100%;
         height: auto;
         align-self: center;
         margin-top: 20px;
@@ -142,7 +142,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 325px;
+      max-width: 400px;
       height: fit-content;
     }
 

@@ -6,6 +6,8 @@ import DumpDaysIcon from '@/assets/icons/dump-days-logo.svg';
 import { getCurrentDate } from '@/helpers/getCurrentDate';
 import { TransactionItemResponseDto } from '@ddays-app/types/src/dto/shop';
 import { useDeviceType } from '@/hooks/UseDeviceType';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { useMemo } from 'react';
 
 interface PopupProps {
   isOpen: boolean;
@@ -15,6 +17,17 @@ interface PopupProps {
 
 const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
   const { isMobile: isSmallMobile } = useDeviceType({ breakpoint: 390 });
+  const { data: user } = useLoggedInUser();
+
+  const QRCodeData = useMemo(
+    () =>
+      JSON.stringify({
+        itemId: item.id,
+        userId: user?.id,
+      }),
+    [user, item],
+  );
+
   return (
     <div className={clsx(styles.wrapper, { [styles.open]: isOpen })}>
       <div className={styles.container}>
@@ -90,10 +103,7 @@ const TransactionPopup = ({ isOpen, closePopup, item }: PopupProps) => {
             <p>Raspored dostupan na days.dump.hr!</p>
           </div>
           <div className={styles.qrCodeContainer}>
-            <QRCodeSVG
-              value={'https://days.dump.hr'}
-              size={!isSmallMobile ? 160 : 140}
-            />
+            <QRCodeSVG value={QRCodeData} size={!isSmallMobile ? 160 : 140} />
           </div>
         </div>
       </div>

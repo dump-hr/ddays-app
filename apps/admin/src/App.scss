@@ -9,4 +9,14 @@
   display: flex;
   gap: 8px;
   margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.scannerContainer {
+  width: 90vw;
+  max-width: 400px;
 }
