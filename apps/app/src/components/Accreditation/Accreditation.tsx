@@ -27,8 +27,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
   const QRCodeData = useMemo(
     () =>
       JSON.stringify({
-        id: user?.id,
-        name: user?.email,
+        userId: user?.id,
       }),
     [user],
   );
@@ -146,7 +145,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
             {/* testing data for different users */}
             {/*  <QRCodeSVG value={JSON.stringify({ userId: 50 })} size={220} />{' '} */}
 
-            <QRCodeSVG value={QRCodeData} size={140} />
+            <QRCodeSVG value={QRCodeData} size={220} />
           </div>
         </div>
         <div
