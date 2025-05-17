@@ -14,7 +14,7 @@ const AccreditationScanPage = () => {
   const currentPrinterRef = useRef(printerSelected);
 
   const [isOpenQRCode, setIsOpenQRCode] = useState(false);
-  const [isCooldown, setIsCooldown] = useState(false);
+  const isCooldownRef = useRef(false);
   const [lastScanMessage, setLastScanMessage] = useState('');
   const assignPrinterMutation = useAssignPrinter();
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -24,12 +24,12 @@ const AccreditationScanPage = () => {
   }, [printerSelected]);
 
   const handleScan = (data: string) => {
-    if (!data || isCooldown) return;
+    if (!data || isCooldownRef.current) return;
 
     try {
       const parsedData = JSON.parse(data);
 
-      setIsCooldown(true);
+      isCooldownRef.current = true;
       setLastScanMessage(`Processing scan for user ID: ${parsedData.userId}`);
 
       const currentPrinter = currentPrinterRef.current;
@@ -50,7 +50,7 @@ const AccreditationScanPage = () => {
       );
 
       cooldownTimerRef.current = setTimeout(() => {
-        setIsCooldown(false);
+        isCooldownRef.current = false;
         setLastScanMessage('Ready to scan next badge');
       }, 4000);
     } catch (error) {
@@ -102,11 +102,11 @@ const AccreditationScanPage = () => {
           style={{
             margin: '12px 0',
             padding: '8px',
-            backgroundColor: isCooldown ? '#ffeeba' : '#d4edda',
+            backgroundColor: isCooldownRef.current ? '#ffeeba' : '#d4edda',
             borderRadius: '4px',
           }}>
           {lastScanMessage}
-          {isCooldown && <span> (Waiting cooldown...)</span>}
+          {isCooldownRef.current && <span> (Waiting cooldown...)</span>}
         </div>
       )}
 

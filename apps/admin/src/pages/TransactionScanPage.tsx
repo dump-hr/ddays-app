@@ -1,45 +1,34 @@
 import { useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { QrReader } from 'react-qr-reader';
 
 import { useVerifyTransactionItem } from '../api/shop/useVerifyTransactionItem';
 
 const TransactionScanPage = () => {
-  const [isCooldown, setIsCooldown] = useState(false);
+  const isCooldownRef = useRef(false);
   const [lastScanMessage, setLastScanMessage] = useState('');
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const verifyTransactionMutation = useVerifyTransactionItem();
 
   const handleScan = (data: string) => {
-    if (!data || isCooldown) return;
+    if (!data || isCooldownRef.current) return;
 
     try {
       const parsedData = JSON.parse(data);
 
       const { itemId, userId } = parsedData;
 
-      setIsCooldown(true);
+      isCooldownRef.current = true;
       setLastScanMessage(`Processing scan for user ID: ${parsedData.userId}`);
 
-      verifyTransactionMutation.mutate(
-        {
-          itemId,
-          userId,
-        },
-        {
-          onSuccess: () => {
-            toast.success('Transaction verified successfully!');
-          },
-          onError: (error) => {
-            toast.error(`Error verifying transaction: ${error}`);
-          },
-        },
-      );
+      verifyTransactionMutation.mutate({
+        itemId,
+        userId,
+      });
 
       cooldownTimerRef.current = setTimeout(() => {
-        setIsCooldown(false);
-        setLastScanMessage('Ready to scan next badge');
+        isCooldownRef.current = false;
+        setLastScanMessage('Ready to scan next transaction');
       }, 4000);
     } catch (error) {
       console.error('Error parsing QR code data:', error);
@@ -55,11 +44,11 @@ const TransactionScanPage = () => {
           style={{
             margin: '12px 0',
             padding: '8px',
-            backgroundColor: isCooldown ? '#ffeeba' : '#d4edda',
+            backgroundColor: isCooldownRef.current ? '#ffeeba' : '#d4edda',
             borderRadius: '4px',
           }}>
           {lastScanMessage}
-          {isCooldown && <span> (Waiting cooldown...)</span>}
+          {isCooldownRef.current && <span> (Waiting cooldown...)</span>}
         </div>
       )}
       <div>
@@ -73,7 +62,6 @@ const TransactionScanPage = () => {
           }}
         />
       </div>
-
       <p>Scan a QR code to verify a transaction.</p>
     </div>
   );
