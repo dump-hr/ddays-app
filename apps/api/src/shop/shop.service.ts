@@ -151,6 +151,20 @@ export class ShopService {
     });
   }
 
+  async getShopItemById(id: number) {
+    const shopItem = await this.prisma.shopItem.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!shopItem) {
+      throw new BadRequestException('Artikl nije pronađen');
+    }
+
+    return shopItem;
+  }
+
   async updateShopItem(id: number, updateShopDto: ShopItemDto) {
     return await this.prisma.shopItem.update({
       where: {

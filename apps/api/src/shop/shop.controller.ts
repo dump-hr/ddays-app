@@ -36,9 +36,14 @@ export class ShopController {
   }
 
   @Get('items')
-  @UseGuards(UserGuard)
   getAllShopItems() {
     return this.shopService.getAllShopItems();
+  }
+
+  @Get('items/:id')
+  @UseGuards(AdminGuard)
+  getShopItem(@Param('id', ParseIntPipe) id: number) {
+    return this.shopService.getShopItemById(id);
   }
 
   @Get('points')
