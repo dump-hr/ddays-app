@@ -1,6 +1,7 @@
-import { useQuery } from 'react-query';
-import { api } from '../index';
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { useQuery } from 'react-query';
+
+import { api } from '../index';
 
 const getSingleShopItem = async (
   id: number | undefined,

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Button } from '../components/Button';
-import { Table } from '../components/Table';
-import { Modal } from '../components/Modal';
-import { ShoppingForm } from '../forms/ShoppingForm';
-import { useGetAllShopItems } from '../api/shop/useGetAllShopItems';
+
 import { useDeleteShopItem } from '../api/shop/useDeleteShopItem';
+import { useGetAllShopItems } from '../api/shop/useGetAllShopItems';
+import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
+import { Table } from '../components/Table';
+import { ShoppingForm } from '../forms/ShoppingForm';
 
 const ShoppingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -15,8 +15,8 @@ import EventPage from './pages/EventPage';
 import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
-import SpeakerPage from './pages/SpeakerPage';
 import ShoppingPage from './pages/ShoppingPage';
+import SpeakerPage from './pages/SpeakerPage';
 
 export const App = () => {
   useMsalAuthentication(InteractionType.Redirect);
