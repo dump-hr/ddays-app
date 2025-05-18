@@ -1,9 +1,11 @@
-import { ShoppingCartItemStage } from '@ddays-app/types';
 import {
-  ShopItemDto,
+  ShopItemCreateDto,
+  ShopItemModifyDto,
   TransactionCreateDto,
   TransactionItemDto,
-} from '@ddays-app/types/src/dto/shop';
+  ShoppingCartItemStage,
+  ShopItemDto,
+} from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
@@ -11,7 +13,7 @@ import { PrismaService } from 'src/prisma.service';
 export class ShopService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createShopItem(createShopItemDto: ShopItemDto) {
+  async createShopItem(createShopItemDto: ShopItemCreateDto) {
     await this.prisma.shopItem.create({
       data: createShopItemDto,
     });
@@ -165,7 +167,7 @@ export class ShopService {
     return shopItem;
   }
 
-  async updateShopItem(id: number, updateShopDto: ShopItemDto) {
+  async updateShopItem(id: number, updateShopDto: ShopItemModifyDto) {
     return await this.prisma.shopItem.update({
       where: {
         id,
@@ -192,7 +194,9 @@ export class ShopService {
       },
     });
 
-    const shopItemMap = new Map(shopItems.map((item) => [item.id, item]));
+    const shopItemMap = new Map(
+      (shopItems as ShopItemDto[]).map((item) => [item.id, item]),
+    );
     let totalPrice = 0;
 
     const purchaseItems = transactionCreateDtos.map((item) => {

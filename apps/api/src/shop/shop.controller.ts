@@ -1,7 +1,6 @@
-import {
-  ShopItemDto,
-  TransactionCreateDto,
-} from '@ddays-app/types/src/dto/shop';
+import { ShopItemCreateDto, ShopItemModifyDto } from '@ddays-app/types';
+
+import { TransactionCreateDto } from '@ddays-app/types/src/dto/shop';
 import {
   Body,
   Controller,
@@ -29,9 +28,9 @@ export class ShopController {
     return this.shopService.buyItems(transactionItemDtos);
   }
 
-  @Post('items')
+  @Post('shopItem')
   @UseGuards(AdminGuard)
-  createShopItem(@Body() shopItemDto: ShopItemDto) {
+  createShopItem(@Body() shopItemDto: ShopItemCreateDto) {
     return this.shopService.createShopItem(shopItemDto);
   }
 
@@ -68,7 +67,7 @@ export class ShopController {
   @UseGuards(AdminGuard)
   updateShopItem(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateShopDto: ShopItemDto,
+    @Body() updateShopDto: ShopItemModifyDto,
   ) {
     return this.shopService.updateShopItem(id, updateShopDto);
   }
