@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
 
 const getAllShopItems = async (): Promise<ShopItemDto[]> => {
-  return api.get('/shop/items');
+  return api.get<never, ShopItemDto[]>('/shop/items');
 };
 
 export const useGetAllShopItems = () => {

@@ -1,4 +1,4 @@
-import { ShopItemType } from '@ddays-app/types';
+import { ShopItemType, ShopItemModifyDto } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
@@ -6,7 +6,8 @@ import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 import { useGetSingleShopItem } from '../api/shop/useGetSingleShopItem';
-import { ShopItemDto } from '@ddays-app/types/src/dto/shop';
+import { useUpdateShopItem } from '../api/shop/useUpdateShopItem';
+import { useCreateShopItem } from '../api/shop/useCreateShopItem';
 
 type EventFormProps = {
   id?: number;
@@ -16,9 +17,12 @@ type EventFormProps = {
 export const ShoppingForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
   const { data: shopItem, isLoading } = useGetSingleShopItem(id);
 
+  const updateShopItem = useUpdateShopItem();
+  const createShopItem = useCreateShopItem();
+
   const questions: Question[] = [
     {
-      id: 'name',
+      id: 'itemName',
       type: QuestionType.Field,
       title: 'Naziv',
       defaultValue: shopItem?.itemName ?? undefined,
@@ -38,14 +42,15 @@ export const ShoppingForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
     },
     {
       id: 'price',
-      type: QuestionType.Field,
+      type: QuestionType.Number,
       title: 'Cijena',
       defaultValue: shopItem?.price ?? undefined,
     },
-
   ];
 
-  const form = useForm<ShopItemDto>({});
+  const form = useForm<ShopItemModifyDto>({
+    resolver: classValidatorResolver(ShopItemModifyDto),
+  });
 
   if (id && isLoading) {
     return <div>Loading...</div>;
@@ -59,6 +64,11 @@ export const ShoppingForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
 
       <Button
         onClick={form.handleSubmit(async (formData) => {
+          if (id) {
+            await updateShopItem.mutateAsync({ dto: { ...formData }, id });
+          } else {
+            await createShopItem.mutateAsync(formData);
+          }
           onSuccess();
         })}>
         Submit

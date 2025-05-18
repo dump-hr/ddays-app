@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Button } from '../components/Button';
 import { Table } from '../components/Table';
-import { useGetAllShopItems } from '../api/shop/useGetAllShopItems';
 import { Modal } from '../components/Modal';
 import { ShoppingForm } from '../forms/ShoppingForm';
+import { useGetAllShopItems } from '../api/shop/useGetAllShopItems';
+import { useDeleteShopItem } from '../api/shop/useDeleteShopItem';
 
 const ShoppingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shoppingItemIdToEdit, setShoppingItemIdToEdit] = useState<number>();
 
   const shopItems = useGetAllShopItems();
+  const deleteShopItem = useDeleteShopItem();
 
   if (shopItems.isLoading) {
     return <div>Loading...</div>;
@@ -44,12 +46,14 @@ const ShoppingPage = () => {
             label: 'Uredi',
             action: (event) => {
               setIsModalOpen(true);
+              setShoppingItemIdToEdit(event.id);
             },
           },
           {
             label: 'Obriši',
             action: (event) => {
               if (confirm('Jesi li siguran?')) {
+                deleteShopItem.mutate({ id: event.id });
               }
             },
           },
