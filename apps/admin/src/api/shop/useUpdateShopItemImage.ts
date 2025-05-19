@@ -17,12 +17,17 @@ export const useUpdateShopItemImage = () => {
   const queryClient = useQueryClient();
 
   return useMutation(shopItemUpdateImage, {
-    onSuccess: (_, { id }) => {
+    onMutate: () => {
+      return toast.loading('Uploadanje slike...');
+    },
+    onSuccess: (_, { id }, toastId) => {
       queryClient.invalidateQueries(['shopItem', id]);
       queryClient.invalidateQueries(['shopItems']);
+      toast.dismiss(toastId);
       toast.success('Slika uspiješno uploadana');
     },
-    onError: (error: string) => {
+    onError: (error: string, _, toastId) => {
+      toast.dismiss(toastId);
       toast.error(error);
     },
   });
