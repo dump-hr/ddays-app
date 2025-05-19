@@ -46,6 +46,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
         quantity: 1,
         price: product.price ?? 0,
         type: product.type as ShopItemType,
+        imageUrl: product.imageUrl,
         itemName: product.itemName,
       },
     ]);
@@ -62,7 +63,10 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
       {isInCart && <span className={styles.inCart}>U košarici</span>}
       <img
         className={styles.productImage}
-        src={getShopItemImgFromType(product.type as ShopItemType)}
+        src={
+          product.imageUrl ||
+          getShopItemImgFromType((product.type as ShopItemType) ?? null)
+        }
         alt='shop-item'
       />
       <h3>{product.itemName}</h3>

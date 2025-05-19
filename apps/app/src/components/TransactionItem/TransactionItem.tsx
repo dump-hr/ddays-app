@@ -40,7 +40,10 @@ const TransactionItem = ({ item, index }: TransactionItemProps) => {
       <div className={styles.imageContainer}>
         <img
           className={styles.image}
-          src={getShopItemImgFromType(item.shopItem.type as ShopItemType)}
+          src={
+            item.shopItem.imageUrl ||
+            getShopItemImgFromType(item.shopItem.type as ShopItemType)
+          }
         />
       </div>
       <div className={styles.itemDetails}>
