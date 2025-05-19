@@ -79,6 +79,7 @@ export class EventService {
         type: true,
         theme: true,
         codeId: true,
+        isApplicationOpen: true,
       },
     });
 
@@ -100,6 +101,7 @@ export class EventService {
         type: true,
         theme: true,
         codeId: true,
+        isApplicationOpen: true,
       },
     });
 
@@ -144,6 +146,7 @@ export class EventService {
       type: event.type,
       theme: event.theme,
       codeId: event.codeId,
+      isApplicationOpen: event.isApplicationOpen,
       speakers: event.speakerToEvent.map((speakerRelation) => {
         const speaker = speakerRelation.speaker;
         return {
@@ -205,6 +208,7 @@ export class EventService {
       theme: event.theme,
       codeId: event.codeId,
       isOnEnglish: event.isOnEnglish,
+      isApplicationOpen: event.isApplicationOpen,
       companies: event.companyToFlyTalk.map((relation) => ({
         id: relation.company.id,
         name: relation.company.name,
@@ -345,6 +349,7 @@ export class EventService {
       type: entry.event.type,
       theme: entry.event.theme,
       codeId: entry.event.codeId,
+      isApplicationOpen: entry.event.isApplicationOpen,
       speakers: entry.event.speakerToEvent.map((speakerRelation) => {
         const speaker = speakerRelation.speaker;
         return {
@@ -431,6 +436,7 @@ export class EventService {
       theme: workshop.theme,
       codeId: workshop.codeId,
       users: workshop.userToEvent.map((ue) => ue.user),
+      isApplicationOpen: workshop.isApplicationOpen,
     }));
   }
 }
