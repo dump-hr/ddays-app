@@ -1,6 +1,7 @@
-import { api } from '..';
-import { useMutation, useQueryClient } from 'react-query';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { api } from '..';
 
 const shopItemRemoveImage = async (rewardFile: { id: number | undefined }) => {
   return await api.delete(`/shop/photo/${rewardFile.id}`);

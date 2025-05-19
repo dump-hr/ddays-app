@@ -21,12 +21,12 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { ShopService } from './shop.service';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('shop')
 export class ShopController {

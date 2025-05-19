@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { useDeleteShopItem } from '../api/shop/useDeleteShopItem';
 import { useGetAllShopItems } from '../api/shop/useGetAllShopItems';
+import { useRemoveShopItemImage } from '../api/shop/useRemoveShopItemImage';
+import { useUpdateShopItemImage } from '../api/shop/useUpdateShopItemImage';
 import { Button } from '../components/Button';
+import { FileUpload } from '../components/FileUpload';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
 import { ShoppingForm } from '../forms/ShoppingForm';
-import { useUpdateShopItemImage } from '../api/shop/useUpdateShopItemImage';
-import { useRemoveShopItemImage } from '../api/shop/useRemoveShopItemImage';
-import { FileUpload } from '../components/FileUpload';
 
 const ShoppingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
