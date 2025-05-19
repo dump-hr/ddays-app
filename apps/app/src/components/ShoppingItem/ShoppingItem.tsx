@@ -9,6 +9,7 @@ import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { useShoppingContext } from '@/context/ShoppingContext';
 import { useGetUserPoints } from '@/api/shop/useGetUserPoints';
+import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
 
 interface ShoppingItemProps {
   product: ShopItem;
@@ -16,6 +17,7 @@ interface ShoppingItemProps {
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const { setCartItems, totalCost, cartItems } = useShoppingContext();
+  const { data: transactionItems } = useGetAllUserTransactions();
   const { data, isLoading } = useGetUserPoints();
 
   const [isInCart, setIsInCart] = useState(false);
@@ -31,6 +33,15 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
     const isProductInCart = cartItems.some((item) => item.id === product.id);
     setIsInCart(isProductInCart);
   }, [cartItems, product]);
+
+  useEffect(() => {
+    const isProductInTransaction = transactionItems?.some(
+      (item) => item.shopItemId === product.id,
+    );
+    if (isProductInTransaction) {
+      setDisabled(true);
+    }
+  }, [transactionItems, product]);
 
   useEffect(() => {
     setDisabled(isInCart || outOfStock || notEnoughPoints);
