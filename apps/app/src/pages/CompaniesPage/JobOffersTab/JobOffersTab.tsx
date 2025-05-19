@@ -24,6 +24,9 @@ const JobOffersTab = () => {
 
   const filteredJobs = jobs?.filter((job) => {
     const companyName = companyNameMap[job.companyId] || '';
+
+    if (companyName.startsWith('#')) return false;
+
     return (
       job.position.toUpperCase().includes(query.toUpperCase()) ||
       companyName.toUpperCase().includes(query.toUpperCase())
