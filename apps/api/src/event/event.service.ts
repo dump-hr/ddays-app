@@ -4,8 +4,8 @@ import {
   EventType,
   EventWithCompanyDto,
   EventWithSpeakerDto,
-  NotificationStatus,
   EventWithUsersDto,
+  NotificationStatus,
   UserToEventDto,
 } from '@ddays-app/types';
 import {
