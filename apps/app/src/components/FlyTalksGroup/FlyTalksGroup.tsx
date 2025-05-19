@@ -36,10 +36,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
 
-  const isButtonDisabled =
-    !group.isApplicationOpen &&
-    group.participantsNumber >= 6 &&
-    !group.hasUserApplied;
+  const isButtonDisabled = !group.isApplicationOpen && !group.hasUserApplied;
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
