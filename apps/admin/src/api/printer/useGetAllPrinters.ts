@@ -1,5 +1,5 @@
-import { useQuery } from 'react-query';
 import { PrinterDto } from '@ddays-app/types';
+import { useQuery } from 'react-query';
 
 import { api } from '..';
 

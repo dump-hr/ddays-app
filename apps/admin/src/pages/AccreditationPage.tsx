@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { useGetPrintData } from '../api/printer/useGetPrintData';
 import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
-import { printUser } from '../helpers/printUser';
+import { useGetPrintData } from '../api/printer/useGetPrintData';
 import { Button } from '../components/Button';
 import { SelectInput } from '../components/SelectInput';
+import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
   const [hasRefreshed, setHasRefreshed] = useState(false);

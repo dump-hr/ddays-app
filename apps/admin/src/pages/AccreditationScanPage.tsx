@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { QrReader } from 'react-qr-reader';
 
 import { useAssignPrinter } from '../api/printer/useAssignPrinter';
+import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
 import { Button } from '../components/Button';
 import { SelectInput } from '../components/SelectInput';
-import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
 
 const AccreditationScanPage = () => {
   const assignPrinterMutation = useAssignPrinter();

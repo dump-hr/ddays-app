@@ -1,4 +1,9 @@
 import {
+  PrinterAssignmentDto,
+  PrinterDto,
+  UserToPrinterDto,
+} from '@ddays-app/types';
+import {
   Body,
   Controller,
   Get,
@@ -9,11 +14,6 @@ import {
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 
-import {
-  PrinterAssignmentDto,
-  UserToPrinterDto,
-  PrinterDto,
-} from '@ddays-app/types';
 import { PrinterService } from './printer.service';
 
 @Controller('printers')
