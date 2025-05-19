@@ -7,11 +7,15 @@ import {
   TransactionItemDto,
 } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ShopService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blobService: BlobService,
+  ) {}
 
   async createShopItem(createShopItemDto: ShopItemCreateDto) {
     await this.prisma.shopItem.create({
@@ -223,5 +227,27 @@ export class ShopService {
     });
 
     return { purchaseItems, totalPrice };
+  }
+
+  async updateShopItemPhoto(id: number, file: Express.Multer.File) {
+    const uploadedImage = await this.blobService.upload(
+      'shop-item-image',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const updatedShopItem = (await this.prisma.shopItem.update({
+      where: { id },
+      data: { imageUrl: uploadedImage },
+    })) as ShopItemDto;
+
+    return updatedShopItem;
+  }
+
+  async deleteShopItemPhoto(id: number): Promise<void> {
+    await this.prisma.shopItem.update({
+      where: { id },
+      data: { imageUrl: null },
+    });
   }
 }

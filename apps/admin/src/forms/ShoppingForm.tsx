@@ -9,12 +9,15 @@ import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
-type EventFormProps = {
+type ShoppingFormProps = {
   id?: number;
   onSuccess: () => void;
 };
 
-export const ShoppingForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
+export const ShoppingForm: React.FC<ShoppingFormProps> = ({
+  id,
+  onSuccess,
+}) => {
   const { data: shopItem, isLoading } = useGetSingleShopItem(id);
 
   const updateShopItem = useUpdateShopItem();

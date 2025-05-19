@@ -4,6 +4,7 @@ import { ShoppingCartItemStage, ShopItemType } from '../enum';
 export type ShopItemDto = {
   id: number;
   type: ShopItemType | null;
+  imageUrl: string | null;
   itemName: string | null;
   quantity: number | null;
   price: number | null;
@@ -13,6 +14,10 @@ export class ShopItemModifyDto {
   @IsEnum(ShopItemType)
   @IsOptional()
   type?: ShopItemType;
+
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
 
   @IsOptional()
   @IsString()
@@ -29,7 +34,12 @@ export class ShopItemModifyDto {
 
 export class ShopItemCreateDto {
   @IsEnum(ShopItemType)
-  type: ShopItemType;
+  @IsOptional()
+  type?: ShopItemType;
+
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
 
   @IsString()
   itemName: string;

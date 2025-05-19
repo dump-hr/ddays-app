@@ -323,6 +323,7 @@ model FrequentlyAskedQuestion {
 
 model ShopItem {
   id              Int               @id @default(autoincrement())
+  imageUrl        String?
   type            ShopItemType?
   itemName        String?
   quantity        Int?

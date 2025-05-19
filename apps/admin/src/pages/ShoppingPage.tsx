@@ -6,6 +6,9 @@ import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { Table } from '../components/Table';
 import { ShoppingForm } from '../forms/ShoppingForm';
+import { useUpdateShopItemImage } from '../api/shop/useUpdateShopItemImage';
+import { useRemoveShopItemImage } from '../api/shop/useRemoveShopItemImage';
+import { FileUpload } from '../components/FileUpload';
 
 const ShoppingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,9 +17,20 @@ const ShoppingPage = () => {
   const shopItems = useGetAllShopItems();
   const deleteShopItem = useDeleteShopItem();
 
+  const updateImage = useUpdateShopItemImage();
+  const removeImage = useRemoveShopItemImage();
+
   if (shopItems.isLoading) {
     return <div>Loading...</div>;
   }
+
+  const handleImageUpload = async (files: File[]): Promise<void> => {
+    await updateImage.mutateAsync({ id: shoppingItemIdToEdit, file: files[0] });
+  };
+
+  const handleImageRemove = async (): Promise<void> => {
+    await removeImage.mutateAsync({ id: shoppingItemIdToEdit });
+  };
 
   return (
     <>
@@ -33,6 +47,21 @@ const ShoppingPage = () => {
             setShoppingItemIdToEdit(undefined);
           }}
         />
+
+        {shoppingItemIdToEdit && (
+          <>
+            <p>Slika:</p>
+            <FileUpload
+              src={
+                shopItems.data?.find(
+                  (shopItem) => shopItem.id === shoppingItemIdToEdit,
+                )?.imageUrl
+              }
+              handleUpload={handleImageUpload}
+              handleRemove={handleImageRemove}
+            />
+          </>
+        )}
       </Modal>
       <div className='flex'>
         <Button variant='primary' onClick={() => setIsModalOpen(true)}>
@@ -45,16 +74,20 @@ const ShoppingPage = () => {
         actions={[
           {
             label: 'Uredi',
-            action: (event) => {
+            action: (shopItem) => {
               setIsModalOpen(true);
-              setShoppingItemIdToEdit(event.id);
+              setShoppingItemIdToEdit(shopItem.id);
             },
           },
           {
             label: 'Obriši',
-            action: (event) => {
-              if (confirm('Jesi li siguran?')) {
-                deleteShopItem.mutate({ id: event.id });
+            action: (shopItem) => {
+              if (
+                confirm(
+                  'Jesi li siguran? Ova akcija će izbrisati i sve transakcije vezane za ovaj proizvod!',
+                )
+              ) {
+                deleteShopItem.mutate({ id: shopItem.id });
               }
             },
           },
