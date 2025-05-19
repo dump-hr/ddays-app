@@ -1,4 +1,4 @@
-import { ShopItemModifyDto, ShopItemType } from '@ddays-app/types';
+import { ShopItemModifyDto } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
 
@@ -35,13 +35,6 @@ export const ShoppingForm: React.FC<ShoppingFormProps> = ({
       type: QuestionType.Number,
       title: 'Količina',
       defaultValue: shopItem?.quantity ?? undefined,
-    },
-    {
-      id: 'type',
-      type: QuestionType.Select,
-      title: 'Tip',
-      options: Object.values(ShopItemType),
-      defaultValue: shopItem?.type ?? undefined,
     },
     {
       id: 'price',
