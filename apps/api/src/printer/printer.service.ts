@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../prisma.service';
-import { PrinterAssignmentDto, UserToPrinterDto } from './printer.dto';
+import {
+  PrinterAssignmentDto,
+  PrinterDto,
+  UserToPrinterDto,
+} from '@ddays-app/types';
 
 @Injectable()
 export class PrinterService {
   constructor(private prisma: PrismaService) {}
+
+  async getAllPrinters(): Promise<PrinterDto[]> {
+    return this.prisma.printer.findMany({});
+  }
 
   async assignUserToPrinter(
     dto: PrinterAssignmentDto,

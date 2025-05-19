@@ -1,23 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 import { QrReader } from 'react-qr-reader';
 
 import { useAssignPrinter } from '../api/printer/useAssignPrinter';
 import { Button } from '../components/Button';
 import { SelectInput } from '../components/SelectInput';
+import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
 
 const AccreditationScanPage = () => {
-  const [printerSelected, setPrinterSelected] = useState(() => {
-    return localStorage.getItem('printerIdForScan') || '';
-  });
+  const assignPrinterMutation = useAssignPrinter();
+  const { data: printers } = useGetAllPrinters();
 
+  const [printerSelected, setPrinterSelected] = useState('');
+  const [lastScanMessage, setLastScanMessage] = useState('');
+  const [isOpenQRCode, setIsOpenQRCode] = useState(false);
+
+  const isCooldownRef = useRef(false);
+  const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
   const currentPrinterRef = useRef(printerSelected);
 
-  const [isOpenQRCode, setIsOpenQRCode] = useState(false);
-  const isCooldownRef = useRef(false);
-  const [lastScanMessage, setLastScanMessage] = useState('');
-  const assignPrinterMutation = useAssignPrinter();
-  const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const printersDropdownData = useMemo(
+    () => printers?.map((printer) => `${printer.id} - ${printer.name}`),
+    [printers],
+  );
 
   useEffect(() => {
     currentPrinterRef.current = printerSelected;
@@ -60,10 +65,9 @@ const AccreditationScanPage = () => {
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value.split(' - ')[0];
     setPrinterSelected(newValue);
     currentPrinterRef.current = newValue;
-    localStorage.setItem('printerIdForScan', newValue);
   };
 
   // Clean up timer on unmount
@@ -79,7 +83,7 @@ const AccreditationScanPage = () => {
     <div>
       <p>Printer selected: {printerSelected}</p>
       <SelectInput
-        options={['1', '2']}
+        options={printersDropdownData || []}
         isAllowedEmpty={true}
         onChange={handleSelectChange}
         defaultValue={printerSelected}

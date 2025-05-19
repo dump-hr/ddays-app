@@ -9,12 +9,22 @@ import {
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
 
-import { PrinterAssignmentDto, UserToPrinterDto } from './printer.dto';
+import {
+  PrinterAssignmentDto,
+  UserToPrinterDto,
+  PrinterDto,
+} from '@ddays-app/types';
 import { PrinterService } from './printer.service';
 
 @Controller('printers')
 export class PrinterController {
   constructor(private readonly printerService: PrinterService) {}
+
+  @Get('all')
+  @UseGuards(AdminGuard)
+  async getAllPrinters(): Promise<PrinterDto[]> {
+    return this.printerService.getAllPrinters();
+  }
 
   @Post('assign')
   @UseGuards(AdminGuard)

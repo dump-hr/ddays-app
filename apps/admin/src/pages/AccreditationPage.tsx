@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useGetPrintData } from '../api/printer/useGetPrintData';
+import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
+import { printUser } from '../helpers/printUser';
 import { Button } from '../components/Button';
 import { SelectInput } from '../components/SelectInput';
-import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
-  const [printerSelected, setPrinterSelected] = useState(
-    localStorage.getItem('printerIdForAccreditation') || '',
-  );
+  const [hasRefreshed, setHasRefreshed] = useState(false);
+  const [printerSelected, setPrinterSelected] = useState('');
+
+  const { data: printers } = useGetAllPrinters();
   const { data: accreditationData, refetch } = useGetPrintData(
     Number(printerSelected),
   );
-  const [hasRefreshed, setHasRefreshed] = useState(false);
+
+  const printersDropdownData = useMemo(
+    () => printers?.map((printer) => `${printer.id} - ${printer.name}`),
+    [printers],
+  );
 
   useEffect(() => {
     if (printerSelected) {
@@ -22,15 +28,14 @@ const AccreditationPage = () => {
   }, [printerSelected, refetch]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPrinterSelected(e.target.value);
-    localStorage.setItem('printerIdForAccreditation', e.target.value);
+    setPrinterSelected(e.target.value.split(' - ')[0]);
   };
 
   return (
     <div>
-      <p>Printer selected:</p>
+      <p>Printer selected: {printerSelected}</p>
       <SelectInput
-        options={['1', '2']}
+        options={printersDropdownData || []}
         onChange={handleSelectChange}
         isAllowedEmpty={true}
         defaultValue={printerSelected}
