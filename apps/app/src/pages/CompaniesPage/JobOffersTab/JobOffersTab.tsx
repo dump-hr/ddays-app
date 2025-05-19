@@ -56,13 +56,19 @@ const JobOffersTab = () => {
         onChange={(e) => setQuery(e.currentTarget.value)}
       />
       <div className={c.jobOffersWrapper}>
-        {filteredJobs?.map((job) => (
-          <JobOfferButton
-            key={job.id}
-            job={job}
-            onClick={() => handleModalOpen(job)}
-          />
-        ))}
+        {filteredJobs?.length ? (
+          filteredJobs?.map((job) => (
+            <JobOfferButton
+              key={job.id}
+              job={job}
+              onClick={() => handleModalOpen(job)}
+            />
+          ))
+        ) : (
+          <p className={c.noJobs}>
+            Nažalost nema otvorenih pozicija sa tim naslovom ili imenom tvrtke
+          </p>
+        )}
       </div>
 
       <JobOfferPopup
