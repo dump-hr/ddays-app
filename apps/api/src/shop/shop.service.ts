@@ -29,9 +29,7 @@ export class ShopService {
 
     await this.prisma.$transaction(async (prisma) => {
       const now = new Date();
-      const takeByTime = new Date(now);
-      takeByTime.setHours(21, 0, 0, 0);
-      if (now.getHours() >= 21) takeByTime.setDate(takeByTime.getDate() + 1);
+      const takeByTime = new Date(now.getTime() + 30 * 60 * 1000);
 
       await prisma.transactionItem.createMany({
         data: transactionCreateDtos.map((item) => {
