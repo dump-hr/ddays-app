@@ -12,13 +12,13 @@
 
   border-radius: 3.5px;
   border: none;
-  background: #585858;
+  background-color: #585858;
   color: white;
 
   transition: 200ms;
 
   &:hover {
-    background: #6b6b6b;
+    background-color: #6b6b6b;
   }
 
   &:active {
@@ -57,7 +57,11 @@
     }
 
     &:hover {
-      background: #585858;
+      background-color: #585858;
     }
+  }
+
+  &.rated {
+    background-color: #1a5c57;
   }
 }

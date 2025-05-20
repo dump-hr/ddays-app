@@ -11,6 +11,7 @@ type BoothButtonProps = {
   };
   onBoothClick?: (boothString: string) => void;
   disabled: boolean;
+  isRated?: boolean;
 };
 
 enum BoothType {
@@ -23,6 +24,7 @@ const BoothButton = ({
   position,
   onBoothClick,
   disabled,
+  isRated,
 }: BoothButtonProps) => {
   const boothType =
     boothString.charAt(0) === 'Z' ? BoothType.GOLD : BoothType.SILVER;
@@ -31,6 +33,7 @@ const BoothButton = ({
     [c.boothButton]: true,
     [c.gold]: boothType === BoothType.GOLD,
     [c.disabled]: disabled,
+    [c.rated]: isRated,
   });
 
   const positionStyle = {

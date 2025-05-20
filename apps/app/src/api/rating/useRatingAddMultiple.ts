@@ -25,7 +25,9 @@ export const useRatingAddMultiple = () => {
         toast.success('Ocjena uspješno dodana.', { position: 'top-center' });
       }
 
-      window.location.replace('days.dump.hr' + RouteNames.HOME);
+      setTimeout(() => {
+        window.location.href = RouteNames.HOME;
+      }, 1000);
     },
     onError: () => {
       toast.error('Greška prilikom dodavanja ocjene.', {

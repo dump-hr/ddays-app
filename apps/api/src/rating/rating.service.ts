@@ -65,8 +65,8 @@ export class RatingService {
     const existingRatings = await this.prisma.rating.findMany({
       where: {
         userId: userId,
-        ratingQuestionId: {
-          in: dtos.map((dto) => dto.ratingQuestionId),
+        boothId: {
+          in: dtos.map((dto) => dto.boothId),
         },
       },
     });

@@ -7,6 +7,7 @@ import useViewport from '@/hooks/useViewport';
 import BoothPopup from './BoothPopup/BoothPopup';
 import { FloorPlanCompanyDto } from '@ddays-app/types';
 import { useGetFloorPlanCompanies } from '@/api/company/useGetFloorPlanCompanies';
+import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
 
 const FloorPlanPage = () => {
   const navigate = useNavigate();
@@ -16,12 +17,12 @@ const FloorPlanPage = () => {
   const [currentCompany, setCurrentCompany] =
     useState<FloorPlanCompanyDto | null>();
   const { data: floorPlanCompanies } = useGetFloorPlanCompanies();
+  const { data: userRatings } = useGetUserRatings();
 
   const { width } = useViewport();
   const DESKTOP_BREAKPOINT = 769;
 
   function handleBoothClick(boothString: string) {
-    console.log(`Booth clicked: ${boothString}`);
     setCurrentCompany(
       floorPlanCompanies?.find((company) => company.booth === boothString) ||
         null,
@@ -52,8 +53,11 @@ const FloorPlanPage = () => {
           isOpen={isBoothPopupOpen}
           closePopup={() => setIsBoothPopupOpen(false)}
           companyInfo={currentCompany}
+          availableBooths={floorPlanCompanies}
+          userRatings={userRatings}
         />
       )}
+
       <div className={c.page}>
         <div className={c.titleAndLegend}>
           <img
@@ -81,6 +85,7 @@ const FloorPlanPage = () => {
             <FloorPlan
               onBoothClick={handleBoothClick}
               availableBooths={floorPlanCompanies}
+              userRatings={userRatings}
             />
           </div>
         )}
@@ -90,6 +95,7 @@ const FloorPlanPage = () => {
             <FloorPlan
               onBoothClick={handleBoothClick}
               availableBooths={floorPlanCompanies}
+              userRatings={userRatings}
             />
           </div>
         )}

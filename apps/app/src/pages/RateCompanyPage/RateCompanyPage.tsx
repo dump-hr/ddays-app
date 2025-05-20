@@ -117,7 +117,6 @@ export const RateCompanyPage = () => {
 
   return (
     <div>
-      <button onClick={() => console.log(userRatings)}>log ratings</button>
       <div className={c.wrapper}>
         <div className={c.page}>
           <Link to={RouteNames.HOME}>

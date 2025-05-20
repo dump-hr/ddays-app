@@ -2,7 +2,8 @@ import FloorPlanBase from '@/assets/images/floor-plan-base.svg';
 import BoothButton from './BoothButton';
 
 import c from './FloorPlan.module.scss';
-import { FloorPlanCompanyDto } from '@ddays-app/types';
+import { FloorPlanCompanyDto, RatingDto } from '@ddays-app/types';
+import { isBoothRated } from '@/helpers/isBoothRated';
 
 type Position = {
   x: number;
@@ -88,11 +89,13 @@ const boothPositions: BoothWithPosition[] = [
 type FloorPlanProps = {
   onBoothClick: (boothString: string) => void;
   availableBooths?: FloorPlanCompanyDto[];
+  userRatings?: RatingDto[];
 };
 
 const FloorPlan: React.FC<FloorPlanProps> = ({
   onBoothClick,
   availableBooths,
+  userRatings,
 }) => {
   return (
     <div className={c.floorPlanWrapper}>
@@ -105,6 +108,11 @@ const FloorPlan: React.FC<FloorPlanProps> = ({
             !availableBooths?.some((ab) => ab.booth === booth.boothString) ||
             false
           }
+          isRated={
+            isBoothRated(booth.boothString, availableBooths, userRatings) ||
+            false
+          }
+          key={booth.boothString}
         />
       ))}
       <img src={FloorPlanBase} alt='' />
