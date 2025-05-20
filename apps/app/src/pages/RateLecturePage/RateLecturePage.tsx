@@ -74,7 +74,7 @@ export const RateLecturePage = () => {
         toast.dismiss(toastId);
       }
     };
-  }, [isEventError, isEventLoading, navigate]);
+  }, [isEventError, isEventLoading, navigate, event?.id, userRatings]);
 
   function handleButtonClick() {
     const questionIds = Object.keys(answers).map((id) => Number(id));
