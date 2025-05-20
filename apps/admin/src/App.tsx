@@ -17,6 +17,7 @@ import EventPage from './pages/EventPage';
 import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
+import ShoppingPage from './pages/ShoppingPage';
 import SpeakerPage from './pages/SpeakerPage';
 import TransactionScanPage from './pages/TransactionScanPage';
 
@@ -42,6 +43,7 @@ export const App = () => {
             component={AccreditationScanPage}
           />
           <Route path={Path.TransactionScan} component={TransactionScanPage} />
+          <Route path={Path.Shopping} component={ShoppingPage} />
         </Switch>
       </Layout>
       <Toaster />

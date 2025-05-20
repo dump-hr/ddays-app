@@ -4,7 +4,7 @@ import accreditationImage from './../../../assets/images/accreditationIcon.png';
 import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
 //import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
-//import { RouteNames } from '../../../router/routes';
+//import { RouteNames } from '@/router/routes';
 import { useState } from 'react';
 import Accreditation from '@/components/Accreditation';
 
@@ -60,8 +60,7 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       width: 80,
       height: 36,
       onClick: () => navigate(RouteNames.SHOPPING),
-    },
-    */
+    },*/
   ];
 
   return (
