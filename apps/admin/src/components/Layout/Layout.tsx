@@ -19,6 +19,7 @@ const navLinks = [
   { href: Path.Reward, text: 'Reward' },
   { href: Path.Achievement, text: 'Achievement' },
   { href: Path.Code, text: 'Code' },
+  { href: Path.Shopping, text: 'Shopping' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
