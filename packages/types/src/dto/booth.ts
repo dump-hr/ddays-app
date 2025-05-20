@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-import { CompanyCategory } from 'src/enum';
+import { CompanyCategory } from '../enum';
 
 export class BoothAvailabilityUpdateDto {
   id: number;

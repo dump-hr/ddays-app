@@ -323,6 +323,7 @@ model FrequentlyAskedQuestion {
 
 model ShopItem {
   id              Int               @id @default(autoincrement())
+  imageUrl        String?
   type            ShopItemType?
   itemName        String?
   quantity        Int?
@@ -338,8 +339,8 @@ model TransactionItem {
   stage      ShoppingCartItemStage?
   orderedAt  DateTime?              @db.Timestamp(6)
   takeByTime DateTime?              @db.Timestamp(6)
-  shopItem   ShopItem               @relation(fields: [shopItemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user       User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  shopItem   ShopItem               @relation(fields: [shopItemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user       User                   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model SurveyQuestion {

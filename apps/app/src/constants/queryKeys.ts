@@ -7,6 +7,7 @@ export const QUERY_KEYS = {
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
   userNotifications: 'userNotifications',
+  topRatedCompanies: 'topRatedCompanies',
   events: 'events',
   eventsMySchedule: 'eventsMySchedule',
   applyFlyTalk: 'applyFlyTalk',
@@ -22,4 +23,7 @@ export const QUERY_KEYS = {
   codes: 'codes',
   codeApplied: 'codeApplied',
   eventParticipantsCount: 'eventParticipantsCount',
+  company: 'company',
+  companies: 'companies',
+  jobs: 'jobs',
 };
