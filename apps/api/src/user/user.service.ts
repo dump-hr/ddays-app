@@ -3,13 +3,13 @@ import {
   InterestDto,
   UserCreateForAccreditationDto,
 } from '@ddays-app/types';
+import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { PrismaService } from 'src/prisma.service';
 
 import { UserModifyDto } from './user.dto';
-import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 
 @Injectable()
 export class UserService {

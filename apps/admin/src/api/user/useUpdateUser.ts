@@ -1,6 +1,6 @@
+import { UserCreateForAccreditationDto } from '@ddays-app/types';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { UserCreateForAccreditationDto } from '@ddays-app/types';
 
 import { api } from '..';
 

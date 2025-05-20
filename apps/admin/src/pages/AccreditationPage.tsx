@@ -4,13 +4,12 @@ import toast from 'react-hot-toast';
 import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
 import { useGetPrintData } from '../api/printer/useGetPrintData';
 import { useGetAllUsers } from '../api/user/useGetAllUsers';
-
 import { Button } from '../components/Button';
-import { SelectInput } from '../components/SelectInput';
-import { printUser } from '../helpers/printUser';
-import { Table } from '../components/Table';
 import { Modal } from '../components/Modal';
+import { SelectInput } from '../components/SelectInput';
+import { Table } from '../components/Table';
 import { UserForm } from '../forms/UserForm';
+import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
   const [printerSelected, setPrinterSelected] = useState('');

@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from 'react-query';
 import { UserCreateForAccreditationDto } from '@ddays-app/types';
+import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '..';
-import toast from 'react-hot-toast';
 
 const createUser = (data: UserCreateForAccreditationDto) => {
   return api.post<never, UserCreateForAccreditationDto>('/user', data);
