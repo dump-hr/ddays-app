@@ -4,11 +4,18 @@ import {
   RatingQuestionDto,
 } from '@ddays-app/types';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CompanyCategory } from '@prisma/client';
+import { AchievementService } from 'src/achievement/achievement.service';
+import { BoothService } from 'src/booth/booth.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class RatingService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly achievementService: AchievementService,
+    private readonly boothService: BoothService,
+  ) {}
 
   async getQuestions(): Promise<RatingQuestionDto[]> {
     const ratingQuestions = await this.prisma.ratingQuestion.findMany({
@@ -88,6 +95,135 @@ export class RatingService {
         });
       }),
     );
+
+    const completedAchievements =
+      await this.achievementService.getCompletedAchievements(userId);
+
+    const ratedBooths = await this.prisma.rating.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        boothId: true,
+      },
+      distinct: ['boothId'],
+    });
+
+    const allSilverBooths = await this.prisma.booth.findMany({
+      where: {
+        company: {
+          category: {
+            equals: CompanyCategory.SILVER,
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    const allGoldBooths = await this.prisma.booth.findMany({
+      where: {
+        company: {
+          category: {
+            equals: CompanyCategory.GOLD,
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    const numberOfRatedSilverBooths = ratedBooths.filter((ratedBooth) =>
+      allSilverBooths.some((booth) => booth.id === ratedBooth.boothId),
+    ).length;
+
+    const numberOfRatedGoldBooths = ratedBooths.filter((ratedBooth) =>
+      allGoldBooths.some((booth) => booth.id === ratedBooth.boothId),
+    ).length;
+
+    const allBooths = await this.boothService.getAll();
+
+    if (
+      existingRatings.length >= 0 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Quality Assurance',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Quality Assurance',
+        true,
+      );
+    }
+
+    if (
+      ratedBooths.length >= 1 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Curious cat',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Curious cat',
+        true,
+      );
+    }
+
+    if (
+      ratedBooths.length >= allBooths.length &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Lead extrovert',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Lead extrovert',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedSilverBooths >= 7 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Magnificent Seven',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Magnificent Seven',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedSilverBooths === allSilverBooths.length &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Silver shine',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Silver shine',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedGoldBooths === allGoldBooths.length &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Golden rush',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Golden rush',
+        true,
+      );
+    }
 
     return newRatings;
   }
