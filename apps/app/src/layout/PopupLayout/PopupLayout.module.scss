@@ -50,6 +50,9 @@ div.blackFullscreen {
   background-color: $primary-black;
   height: 100vh;
   border-radius: 0;
+  max-height: unset;
+  @include mobileNavigationPadding(32px);
+  z-index: 99999;
 
   @media screen and (min-width: $breakpoint-tablet) {
     @include roundedContainer();
