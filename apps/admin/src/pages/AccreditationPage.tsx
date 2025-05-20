@@ -8,7 +8,6 @@ import { SelectInput } from '../components/SelectInput';
 import { printUser } from '../helpers/printUser';
 
 const AccreditationPage = () => {
-  const [hasRefreshed, setHasRefreshed] = useState(false);
   const [printerSelected, setPrinterSelected] = useState('');
 
   const { data: printers } = useGetAllPrinters();
@@ -66,7 +65,6 @@ const AccreditationPage = () => {
             }
             refetch();
             toast.success('Accreditation data refreshed');
-            setHasRefreshed(true);
           }}
           variant='primary'>
           Refresh current accreditation
@@ -82,12 +80,6 @@ const AccreditationPage = () => {
               toast.error('No accreditation data available');
               return;
             }
-
-            if (!hasRefreshed) {
-              toast.error('Please refresh the accreditation data first');
-              return;
-            }
-            setHasRefreshed(false);
             printUser(accreditationData?.user);
           }}
           variant='primary'>
