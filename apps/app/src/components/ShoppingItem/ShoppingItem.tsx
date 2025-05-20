@@ -9,6 +9,7 @@ import { ShopItemType } from '@ddays-app/types/src/enum';
 import { getShopItemImgFromType } from '@/helpers/getShopItemImgFromType';
 import { useShoppingContext } from '@/context/ShoppingContext';
 import { useGetUserPoints } from '@/api/shop/useGetUserPoints';
+import { useGetAllUserTransactions } from '@/api/shop/useGetAllUserTransactions';
 
 interface ShoppingItemProps {
   product: ShopItem;
@@ -16,6 +17,7 @@ interface ShoppingItemProps {
 
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const { setCartItems, totalCost, cartItems } = useShoppingContext();
+  const { data: transactionItems } = useGetAllUserTransactions();
   const { data, isLoading } = useGetUserPoints();
 
   const [isInCart, setIsInCart] = useState(false);
@@ -33,6 +35,15 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   }, [cartItems, product]);
 
   useEffect(() => {
+    const isProductInTransaction = transactionItems?.some(
+      (item) => item.shopItemId === product.id,
+    );
+    if (isProductInTransaction) {
+      setDisabled(true);
+    }
+  }, [transactionItems, product]);
+
+  useEffect(() => {
     setDisabled(isInCart || outOfStock || notEnoughPoints);
   }, [isInCart, outOfStock, notEnoughPoints]);
 
@@ -46,6 +57,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
         quantity: 1,
         price: product.price ?? 0,
         type: product.type as ShopItemType,
+        imageUrl: product.imageUrl,
         itemName: product.itemName,
       },
     ]);
@@ -62,7 +74,10 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
       {isInCart && <span className={styles.inCart}>U košarici</span>}
       <img
         className={styles.productImage}
-        src={getShopItemImgFromType(product.type as ShopItemType)}
+        src={
+          product.imageUrl ||
+          getShopItemImgFromType((product.type as ShopItemType) ?? null)
+        }
         alt='shop-item'
       />
       <h3>{product.itemName}</h3>
@@ -70,7 +85,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
         className={`${styles.productSupply} ${
           disabled ? styles.productSupplyDisabled : ''
         }`}>
-        Na zalihama: {product.quantity}
+        Dostupno: {product.quantity}
       </p>
       <div
         aria-disabled={disabled}

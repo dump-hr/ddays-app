@@ -1,11 +1,11 @@
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-import axios from 'axios';
+import axios from '../base';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
 const eventAddToPersonalSchedule = (eventId: number, data: UserToEventDto) => {
-  return axios.post(`/api/event/${eventId}/join`, data);
+  return axios.post(`event/${eventId}/join`, data);
 };
 
 export const useEventAddToPersonalSchedule = () => {
@@ -14,20 +14,19 @@ export const useEventAddToPersonalSchedule = () => {
     (params: { eventId: number; data: UserToEventDto }) =>
       eventAddToPersonalSchedule(params.eventId, params.data),
     {
-      onSuccess: () => {
+      onSuccess: (_, params) => {
         toast.success('Događaj je dodan u tvoj raspored.');
         void queryClient.invalidateQueries([QUERY_KEYS.events]);
+        void queryClient.invalidateQueries([QUERY_KEYS.eventsMySchedule]);
+        void queryClient.invalidateQueries([
+          QUERY_KEYS.eventParticipantsCount,
+          params.eventId,
+        ]);
       },
-      onError: (error) => {
-        if (axios.isAxiosError(error)) {
-          toast(error.response?.data.message, {
-            icon: '⚠️',
-          });
-        } else {
-          toast.error(
-            'Došlo je do pogreške prilikom dodavanja događaja u raspored.',
-          );
-        }
+      onError: () => {
+        toast.error(
+          'Došlo je do pogreške prilikom dodavanja događaja u raspored.',
+        );
       },
     },
   );

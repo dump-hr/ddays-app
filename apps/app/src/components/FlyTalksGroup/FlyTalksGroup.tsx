@@ -1,9 +1,12 @@
 import Button from '../Button';
 import star from '../../assets/icons/star.svg';
 import warning from '../../assets/images/warning.png';
+import greenCheck from '../../assets/images/green-check.svg';
+import redX from '../../assets/images/red-x.svg';
 import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
+import { useDeleteFlyTalkApplication } from '@/api/flyTalks/useDeleteFlyTalkApplication';
 
 interface FlyTalksGroupProps {
   group: {
@@ -11,17 +14,35 @@ interface FlyTalksGroupProps {
     start: string;
     end: string;
     participantsNumber: number;
-    companies: string[];
+    companies: {
+      id: number;
+      logoImage: string;
+      name: string;
+    }[];
     hasUserApplied: boolean;
   };
+  hasUserAlreadyAppliedOnDay?: boolean;
+  wasUserAccepted?: boolean;
+  refetch?: () => void;
 }
 
-const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
+const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
+  group,
+  hasUserAlreadyAppliedOnDay,
+  wasUserAccepted,
+  refetch,
+}) => {
   const navigate = useNavigate();
+  const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
       navigate(`/app/fly-talks-apply?id=${group.id}`);
+    } else {
+      deleteFlyTalkApplication.mutate({ eventId: group.id });
+      if (refetch) {
+        refetch();
+      }
     }
   };
 
@@ -29,7 +50,11 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
     <div
       className={
         group.hasUserApplied
-          ? `${c.group} ${c.groupApplied}`
+          ? wasUserAccepted
+            ? `${c.group} ${c.groupAccepted}`
+            : wasUserAccepted === false
+              ? `${c.group} ${c.groupRejected}`
+              : `${c.group} ${c.groupApplied}`
           : group.participantsNumber < 25
             ? c.group
             : `${c.group} ${c.groupFull}`
@@ -50,22 +75,41 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({ group }) => {
         {group.companies.map((company, i) => (
           <div key={i} className={c.company}>
             <p>0{i + 1}</p>
-            <img src={company} alt='' />
-            {i !== 3 && <div className={c.divider}></div>}
+            <img src={company.logoImage} alt='' />
+            {i !== group.companies.length - 1 && (
+              <div className={c.divider}></div>
+            )}
           </div>
         ))}
-        <Button
-          variant='orange'
-          className={c.applyButton}
-          onClick={handleApplyClick}>
-          {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
-        </Button>
+        {(!hasUserAlreadyAppliedOnDay || group.hasUserApplied) && (
+          <Button
+            variant='orange'
+            className={c.applyButton}
+            onClick={handleApplyClick}>
+            {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
+          </Button>
+        )}
       </div>
       <div className={c.applianceDisclaimer}>
         <img src={warning} alt='' />
         <p>
           Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
-          talk.
+          talk. Status termina: <span>u obradi</span>.
+        </p>
+      </div>
+      <div className={c.applianceAccepted}>
+        <img src={greenCheck} alt='' />
+        <p>
+          Status termina: <span> Prihvaćen si!</span> <br />
+          Ako se predomisliš, slobodno se odjavi u bilo kojem trenutku.
+        </p>
+      </div>
+      <div className={c.applianceRejected}>
+        <img src={redX} alt='' />
+        <p>
+          Status termina: <span>Odbijen si.</span>
+          <br />
+          Nažalost ovog puta nisi među odabranima.
         </p>
       </div>
       <div className={c.fullGroupMessage}>

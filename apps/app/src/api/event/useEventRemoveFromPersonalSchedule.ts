@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-import axios from 'axios';
+import axios from '../base';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -8,7 +8,7 @@ const eventRemoveFromPersonalSchedule = (
   eventId: number,
   data: UserToEventDto,
 ) => {
-  return axios.delete(`/api/event/${eventId}/leave`, { data });
+  return axios.delete(`event/${eventId}/leave`, { data });
 };
 
 export const useEventRemoveFromPersonalSchedule = () => {
@@ -17,20 +17,19 @@ export const useEventRemoveFromPersonalSchedule = () => {
     (params: { eventId: number; data: UserToEventDto }) =>
       eventRemoveFromPersonalSchedule(params.eventId, params.data),
     {
-      onSuccess: () => {
+      onSuccess: (_, params) => {
         toast.success('Događaj je uklonjen iz tvog rasporeda.');
         void queryClient.invalidateQueries([QUERY_KEYS.events]);
+        void queryClient.invalidateQueries([QUERY_KEYS.eventsMySchedule]);
+        void queryClient.invalidateQueries([
+          QUERY_KEYS.eventParticipantsCount,
+          params.eventId,
+        ]);
       },
-      onError: (error) => {
-        if (axios.isAxiosError(error)) {
-          toast(error.response?.data.message, {
-            icon: '⚠️',
-          });
-        } else {
-          toast.error(
-            'Došlo je do pogreške prilikom uklanjanja događaja iz rasporeda.',
-          );
-        }
+      onError: () => {
+        toast.error(
+          'Došlo je do pogreške prilikom uklanjanja događaja iz rasporeda.',
+        );
       },
     },
   );

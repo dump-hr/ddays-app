@@ -8,6 +8,7 @@ const MessageToast = () => {
       gutter={8}
       containerStyle={{
         zIndex: 10,
+        width: 'auto',
       }}>
       {(t) => (
         <ToastBar

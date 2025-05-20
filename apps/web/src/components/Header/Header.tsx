@@ -70,11 +70,11 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
     <header className={classes}>
       <p className={c.text}>
         SPLIT <span className={c.separator}>//</span> FESB <br /> 23.{' '}
-        <span className={c.separator}>—</span> 24. 05. 2024.
+        <span className={c.separator}>—</span> 24. 05. 2025.
       </p>
       <p className={c.text}>
         BESPLATNA KONFERENCIJA <br />
-        ZA NOVU GENERACIJU
+        NOVE GENERACIJE
       </p>
       {Button}
       <HamburgerButton className={c.hamburger} onClick={toggleMobileMenu} />

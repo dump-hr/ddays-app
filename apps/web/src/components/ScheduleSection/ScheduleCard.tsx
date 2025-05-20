@@ -48,6 +48,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     }, 2000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line
   }, []);
 
   const handleCardClick = () => {

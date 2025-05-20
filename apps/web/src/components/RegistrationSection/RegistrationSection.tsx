@@ -13,7 +13,7 @@ const RegistrationSection = () => {
         <Button
           className={c.loginButton}
           onClick={() =>
-            (window.location.href = 'https://days-app.dump.hr/registration')
+            (window.location.href = 'https://days.dump.hr/app/login')
           }>
           [ prijavi se u aplikaciju ]
         </Button>

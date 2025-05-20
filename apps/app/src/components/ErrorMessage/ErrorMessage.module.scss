@@ -1,0 +1,15 @@
+.errorMessageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+
+}
+
+.errorMessage {
+  @include heading-2;
+  color: $primary-black;
+  margin: 0 2rem;
+  text-align: center;
+}
+

@@ -26,7 +26,7 @@ export enum Colors {
   BROWN = 'BROWN',
   PURPLE = 'PURPLE',
   GREEN = 'GREEN',
-  WHITE = 'WHITE',
+  BLUE = 'BLUE',
   RED = 'RED',
   GRAY = 'GRAY',
 }
@@ -94,4 +94,13 @@ export enum Theme {
   DESIGN = 'DESIGN',
   MARKETING = 'MARKETING',
   TECH = 'TECH',
+}
+
+export enum AchievementNames {
+  FirstSteps = 'First steps',
+  NewFitWhoThis = 'New fit who this?',
+  Ding = 'Ding!',
+  EarlyBird = 'Early bird',
+  BraveMove = 'Brave move',
+  WhatsNew = "What's new?",
 }

@@ -1,5 +1,5 @@
 import c from './PasswordResetPage.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RouteNames } from '../../router/routes';
 import { WelcomeStep } from './steps/WelcomeStep';
 import { EmailInputStep } from './steps/EmailInputStep';
@@ -11,6 +11,9 @@ import {
   validations,
   validateRepeatedPassword,
 } from '../../helpers/validateInput';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useResetPassword } from '../../api/user/useResetPassword';
+import { sendVerificationEmail } from '../../helpers/handleVerificationSent';
 
 export const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
@@ -20,10 +23,56 @@ export const PasswordResetPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [isValidated, setIsValidated] = useState(false); // ValidationRequiredStep/NewPasswordStep - ovisno o tome je li korisnik validirao link
+  const [isValidated, setIsValidated] = useState(false);
+  const { mutate: resetPassword } = useResetPassword();
+  const navigate = useNavigate();
+  const { token } = useParams();
+
+  useEffect(() => {
+    if (token) {
+      validateToken(token);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const validateToken = async (token: string) => {
+    try {
+      const response = await fetch(
+        `/api/email/validate-reset-token?token=${token}`,
+      );
+      const data = await response.json();
+
+      if (data.valid) {
+        setIsValidated(true);
+        setStep(4);
+      } else {
+        alert(data.message);
+        navigate(RouteNames.LOGIN);
+      }
+    } catch (error) {
+      console.error('Greška pri validaciji tokena:', error);
+      alert('Došlo je do greške pri validaciji tokena');
+      navigate(RouteNames.LOGIN);
+    }
+  };
 
   const handleNextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+    if (step === 4 && isValidated) {
+      resetPassword(
+        { newPassword, token: token || '' },
+        {
+          onSuccess: () => {
+            setStep(5);
+          },
+        },
+      );
+    } else {
+      setStep((prevStep) => prevStep + 1);
+    }
+  };
+
+  const handleVerificationSent = async () => {
+    await sendVerificationEmail(email, setEmailError, handleNextStep);
   };
 
   const clearErrors = (field: string) => {
@@ -52,10 +101,10 @@ export const PasswordResetPage = () => {
     let isValid = true;
 
     if (!validations.isNotEmpty(email)) {
-      setEmailError('Hej, trebaš ispuniti sva polja.');
+      setEmailError('Ispuni sva polja.');
       isValid = false;
     } else if (!validations.isValidEmail(email)) {
-      setEmailError('Hej, unesi ispravnu email adresu.');
+      setEmailError('Unesi ispravnu e-mail adresu.');
       isValid = false;
     } else {
       setEmailError('');
@@ -79,17 +128,18 @@ export const PasswordResetPage = () => {
             onEmailChange={setEmail}
             onClearError={clearErrors}
             onNext={() => {
-              if (validateInputs()) {
-                handleNextStep();
+              if (!validateInputs()) {
+                return;
               }
+              handleVerificationSent();
             }}
           />
         )}
-        {step === 3 && <EmailSentStep email={email} onNext={handleNextStep} />}
+        {step === 3 && <EmailSentStep email={email} />}
         {step === 4 && !isValidated && (
           <ValidationRequiredStep
             onNext={() => {
-              setIsValidated(true);
+              setStep(3);
             }}
           />
         )}

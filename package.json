@@ -19,5 +19,10 @@
     "db:studio": "yarn workspace api run db:studio",
     "prisma": "yarn workspace api run prisma"
   },
-  "name": "ddays-app"
+  "name": "ddays-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:dump-hr/ddays-app.git",
+  "author": "Lucija Fradelić <52828220+lucijs@users.noreply.github.com>",
+  "license": "MIT"
 }

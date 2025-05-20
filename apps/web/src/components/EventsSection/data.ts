@@ -7,11 +7,11 @@ import workshop from 'assets/images/events/section/workshop.webp';
 
 export const events = [
   {
-    title: 'predavanja (16)',
+    title: 'predavanja (14)',
     image: '',
   },
   {
-    title: 'radionice (8)',
+    title: 'radionice (6)',
     image: workshop,
   },
   {
@@ -19,15 +19,15 @@ export const events = [
     image: panelTalk,
   },
   {
-    title: 'campfire talks (4)',
+    title: 'campfire talks (7)',
     image: campfire,
   },
   {
-    title: 'flytalks (300)',
+    title: 'flytalks (210)',
     image: flytalk,
   },
   {
-    title: 'štandovi (24)',
+    title: 'štandovi (17)',
     image: booth,
   },
   {

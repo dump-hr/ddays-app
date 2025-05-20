@@ -4,7 +4,7 @@ import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-import googleIcon from '../../assets/icons/google.svg';
+//import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
 import { useNavigate } from 'react-router-dom';
 import { isTokenExpired } from '@/helpers/auth';
@@ -23,6 +23,7 @@ export const LoginPage = () => {
     if (accessToken && !isTokenExpired(accessToken)) {
       navigate(RouteNames.HOME);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearErrors = (field: string) => {
@@ -38,17 +39,17 @@ export const LoginPage = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email) {
-      setEmailError('Hej, trebaš ispuniti sva polja.');
+      setEmailError('Ispuni sva polja.');
       isValid = false;
     } else if (!emailRegex.test(email)) {
-      setEmailError('Hej, unesi ispravnu email adresu.');
+      setEmailError('Unesi ispravnu e-mail adresu.');
       isValid = false;
     } else {
       setEmailError('');
     }
 
     if (!password) {
-      setPasswordError('Hej, trebaš ispuniti sva polja.');
+      setPasswordError('Ispuni sva polja.');
       isValid = false;
     } else {
       setPasswordError('');
@@ -74,7 +75,7 @@ export const LoginPage = () => {
         </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
-            <h1 className={c.title}>Dobro došli natrag!</h1>
+            <h1 className={c.title}>Dobro došli!</h1>
             <a href='https://days.dump.hr'>
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </a>
@@ -83,7 +84,7 @@ export const LoginPage = () => {
             <Input
               label='Email'
               type='text'
-              placeholder='Email'
+              placeholder='E-mail'
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -103,19 +104,21 @@ export const LoginPage = () => {
               error={passwordError}
             />
             <a href={RouteNames.PASSWORD_RESET} className={c.forgotPassword}>
-              Zaboravili ste lozinku?
+              Zaboravljena lozinka?
             </a>
           </div>
           <div className={c.buttonContainer}>
             <Button variant='orange' onClick={handleLogin}>
               Prijavi se
             </Button>
+            {/*
             <Button variant='black' onClick={() => {}}>
               <div className={c.buttonContent}>
                 <img src={googleIcon} alt='icon' className={c.googleIcon} />
                 Nastavi s Googleom
               </div>
             </Button>
+            */}
           </div>
           <div className={c.registerContainer}>
             <a className={c.noAccount}>Nemaš račun?</a>

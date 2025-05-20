@@ -112,12 +112,12 @@ export const SponsorSection: React.FC = () => {
           />
           <img
             className={clsx(c.image, c.fourth)}
-            src='https://ddays-app-uploads.dump.hr/company-logo/_BPp8z1akpLYDKfGLshIK.svg'
+            src='https://ddays-app-uploads.dump.hr/company-logo/jqOWtC7RxwzVIVL7KpWR4.svg'
             alt=''
           />
           <img
             className={clsx(c.image, c.fifth)}
-            src='https://ddays-app-uploads.dump.hr/company-logo/o6A-Blvc31bctYHkLEg1A.svg'
+            src='https://ddays-app-uploads.dump.hr/company-logo/AKXx3q-EiwTyKY20rpTOR.svg'
             alt=''
           />
           <img
@@ -147,39 +147,42 @@ export const SponsorSection: React.FC = () => {
         <img src={goldSponsor} alt='zlatni sponzori' />
         <span className={c.sponsorTier}>Zlatni sponzori</span>
         <section className={c.goldenRow}>
-          {goldSponsors.map((sponsor) => (
-            <article
-              onClick={() => setSponsorForModal(sponsor)}
-              className={c.sponsor}
-              key={sponsor.id}>
-              <figure className={c.picture}>
-                <img
-                  className={c.landing}
-                  src={sponsor.landingImage?.replace(
-                    /\.[^/.]+$/,
-                    '_optimized.webp',
-                  )}
-                  alt={sponsor.name}
-                />
-                <img className={c.kodak} src={kodak} alt={sponsor.name} />
-                <img
-                  className={c.logo}
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                />
-              </figure>
-              <span className={c.name}>{sponsor.name}</span>
-              <div className={c.dots}></div>
-              <div className={c.openPositions}>
-                <span className={c.label}>Otvorene pozicije</span>
-                <div className={c.ellipse}>
-                  <span className={c.number}>
-                    <SponsorJobCount sponsorId={sponsor.id} />
-                  </span>
+          {goldSponsors.map((sponsor) => {
+            if (sponsor.name.toLowerCase() === '4. zlatni sponzor') return null;
+            return (
+              <article
+                onClick={() => setSponsorForModal(sponsor)}
+                className={c.sponsor}
+                key={sponsor.id}>
+                <figure className={c.picture}>
+                  <img
+                    className={c.landing}
+                    src={sponsor.landingImage?.replace(
+                      /\.[^/.]+$/,
+                      '_optimized.webp',
+                    )}
+                    alt={sponsor.name}
+                  />
+                  <img className={c.kodak} src={kodak} alt={sponsor.name} />
+                  <img
+                    className={c.logo}
+                    src={sponsor.logoImage}
+                    alt={sponsor.name}
+                  />
+                </figure>
+                <span className={c.name}>{sponsor.name}</span>
+                <div className={c.dots}></div>
+                <div className={c.openPositions}>
+                  <span className={c.label}>Otvorene pozicije</span>
+                  <div className={c.ellipse}>
+                    <span className={c.number}>
+                      <SponsorJobCount sponsorId={sponsor.id} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </section>
       </article>
       <article className={c.sponsorSection}>

@@ -21,6 +21,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
+    "react-qr-code": "^2.0.15",
     "react-query": "^3.39.3",
     "wouter": "^2.12.1"
   },

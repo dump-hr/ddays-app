@@ -3,11 +3,12 @@ import c from './CodePopup.module.scss';
 import CodeInput from '@/components/CodeInput';
 import Button from '@/components/Button';
 import { useState } from 'react';
+import { useCodeApply } from '@/api/code/useCodeApply';
 
 type CodePopupProps = {
   isOpen: boolean;
   closePopup: () => void;
-  onSuccess: () => void;
+  onSuccess: (points: number) => void;
 };
 
 const CodePopup: React.FC<CodePopupProps> = ({
@@ -16,24 +17,26 @@ const CodePopup: React.FC<CodePopupProps> = ({
   onSuccess,
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const applyCode = useCodeApply();
 
   function handleCodeSubmit(code: string) {
-    const isValid = code === '123456';
-
-    if (isValid) {
-      closePopup();
-      setCode(Array(6).fill(''));
-      onSuccess();
-    } else {
-      setIsError(true);
-    }
+    applyCode.mutate(code, {
+      onSuccess: (submittedCode) => {
+        closePopup();
+        setCode(Array(6).fill(''));
+        onSuccess(submittedCode.points || 0);
+      },
+      onError: (error) => {
+        setErrorMessage(String(error));
+      },
+    });
   }
 
   function handleClosePopup() {
     closePopup();
     setCode(Array(6).fill(''));
-    setIsError(false);
+    setErrorMessage('');
   }
 
   return (
@@ -46,13 +49,13 @@ const CodePopup: React.FC<CodePopupProps> = ({
       <CodeInput
         code={code}
         setCode={setCode}
-        isError={isError}
-        setIsError={setIsError}
+        isError={errorMessage !== ''}
+        removeError={() => setErrorMessage('')}
         className={c.codeInput}
         shouldFocus={isOpen}
       />
-      {isError ? (
-        <p className={c.error}>Ne izmišljaj kodove, unesi pravi.</p>
+      {errorMessage ? (
+        <p className={c.error}>{errorMessage}</p>
       ) : (
         <p className={c.message}>Imaš kod za bodove? Unesi ga.</p>
       )}
@@ -60,7 +63,7 @@ const CodePopup: React.FC<CodePopupProps> = ({
       <Button
         className={c.button}
         variant='orange'
-        disabled={code.includes('') || isError}
+        disabled={code.includes('') || errorMessage !== ''}
         onClick={() => handleCodeSubmit(code.join(''))}>
         Unesi
       </Button>

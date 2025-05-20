@@ -1,18 +1,17 @@
 import c from './AchievementCard.module.scss';
 import sprite from '../../assets/sprite.svg';
 import clsx from 'clsx';
-import { Achievement } from '../../pages/ProfileAchievementsPage/achievements';
+import { AchievementDto } from '@ddays-app/types';
 
 type AchievementCardProps = {
-  achievement: Achievement;
+  achievement: AchievementDto;
+  isCompleted?: boolean;
 };
 
-const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
-  const percentage = Math.round(
-    (achievement.progress / achievement.goal) * 100,
-  );
-  const isCompleted = percentage >= 99;
-
+const AchievementCard: React.FC<AchievementCardProps> = ({
+  achievement,
+  isCompleted = false,
+}) => {
   return (
     <div
       className={clsx({

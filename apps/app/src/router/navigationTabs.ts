@@ -4,8 +4,8 @@ export enum NAVIGATION_TAB_ID {
   HOME,
   SCHEDULE,
   FLY_TALKS,
-  COMPANIES,
   PROFILE,
+  COMPANIES,
 }
 
 export type NavigationTabInfo = {
@@ -43,14 +43,6 @@ export const navigationTabs: NavigationTabInfo[] = [
     route: RouteNames.FLY_TALKS,
   },
   {
-    id: NAVIGATION_TAB_ID.COMPANIES,
-    name: 'Tvrtke',
-    icon: 'companies-icon',
-    width: 23,
-    height: 24,
-    route: RouteNames.COMPANIES,
-  },
-  {
     id: NAVIGATION_TAB_ID.PROFILE,
     name: 'Profil',
     icon: 'profile-icon',
@@ -58,4 +50,17 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 22,
     route: RouteNames.PROFILE,
   },
+  /*
+    
+  
+
+  {
+    id: NAVIGATION_TAB_ID.COMPANIES,
+    name: 'Tvrtke',
+    icon: 'companies-icon',
+    width: 23,
+    height: 24,
+    route: RouteNames.COMPANIES,
+  },
+  */
 ];

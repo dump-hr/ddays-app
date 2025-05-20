@@ -23,11 +23,13 @@ export enum RouteNames {
   LOGIN = '/app/login',
   REGISTER = '/app/register',
   PASSWORD_RESET = '/app/password-reset',
+  PASSWORD_RESET_WITH_TOKEN = '/app/password-reset/:token',
   PROFILE = '/app/profile',
   PROFILE_INTERESTS = '/app/profile/interests',
   PROFILE_REWARDS = '/app/profile/rewards',
   PROFILE_SETTINGS = '/app/profile/settings',
   PROFILE_ACHIEVEMENTS = '/app/profile/achievements',
+  SCANNER = '/app/scanner',
   PROFILE_AVATARS = '/app/profile/avatars',
   PROFILE_LEADERBOARD = '/app/profile/leaderboard',
   PROFILE_RECOMMENDATIONS = '/app/profile/recommendations',
@@ -40,6 +42,7 @@ export enum RouteNames {
   NOTIFICATIONS = '/app/notifications',
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
   RATE_COMPANY = '/app/rate-company',
+  RATE_LECTURE = '/app/rate-lecture',
 }
 
 export const navbarRoutes = [

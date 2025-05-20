@@ -68,7 +68,7 @@
         @include dottedBreak;
       }
 
-      p{
+      p {
         @include tag-14;
         color: var(--Black-30, #b8b8b8);
         font-size: 14px;
@@ -101,6 +101,16 @@
     }
   }
 
+  .applianceAccepted {
+    @extend .applianceDisclaimer;
+    background-color: #f1ffe9;
+  }
+
+  .applianceRejected {
+    @extend .applianceDisclaimer;
+    background-color: #ffe3e3;
+  }
+
   .fullGroupMessage {
     display: none;
     border-radius: 0px 0px 16px 16px;
@@ -108,7 +118,7 @@
     border-radius: 0px 0px 8px 8px;
     padding: 12px 24px;
 
-    img{
+    img {
       height: 24px;
     }
 
@@ -154,6 +164,13 @@
     display: flex;
     align-items: start;
     gap: 10px;
+
+    p {
+      span {
+        font-weight: bold;
+        color: $primary-muted-orange;
+      }
+    }
   }
 }
 
@@ -169,6 +186,147 @@
       color: var(--White, #ffffff);
     }
   }
+
+  .groupDuration {
+    background: var(--Black-5, #ebebeb);
+  }
+
+  .applyButton {
+    display: none;
+  }
+
+  .fullGroupMessage {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+}
+
+.groupAccepted {
+  .groupHeader {
+    background: var(--Primary-Muted-orange, #e0553f);
+
+    .starIcon {
+      display: block;
+    }
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+
+  .companiesList {
+    border-radius: 0;
+
+    .applyButton {
+      background: #171615;
+      color: #ffffff;
+    }
+  }
+
+  .applianceAccepted {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+
+    p {
+      span {
+        font-weight: bold;
+        color: var(--Succes-Green, #5FB728);
+      }
+    }
+  }
+}
+
+.groupFull {
+  .groupHeader {
+    background: #171615;
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+
+  .groupDuration {
+    background: var(--Black-5, #ebebeb);
+  }
+
+  .applyButton {
+    display: none;
+  }
+
+  .fullGroupMessage {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+}
+
+.groupRejected {
+  .groupHeader {
+    background: var(--Primary-Muted-orange, #e0553f);
+
+    .starIcon {
+      display: block;
+    }
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+
+  .companiesList {
+    border-radius: 0;
+
+    .applyButton {
+      background: #171615;
+      color: #ffffff;
+    }
+  }
+
+  .applyButton:disabled{
+    display: none;
+  }
+
+  .applianceRejected {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+
+    p {
+      span {
+        font-weight: bold;
+        color: #cd0000;
+      }
+    }
+  }
+}
+
+.groupFull {
+  .groupHeader {
+    background: #171615;
+
+    div {
+      width: 0;
+    }
+
+    p {
+      color: var(--White, #ffffff);
+    }
+  }
+
   .groupDuration {
     background: var(--Black-5, #ebebeb);
   }

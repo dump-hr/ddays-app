@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
-import Tab from '../../components/Tab';
-import TabGroup from '../../components/TabGroup';
-import c from './SchedulePage.module.scss';
-import ClickableTagGroup from '../../components/ClickableTagGroup';
-import ClickableTag from '../../components/ClickableTag';
-import clsx from 'clsx';
-import { EventWithSpeakerDto } from '@ddays-app/types';
-import ScheduleCard from '../../components/ScheduleCard';
-import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
-import { UserToEventDto } from '@ddays-app/types/src/dto/user';
-import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import toast from 'react-hot-toast';
+import c from './SchedulePage.module.scss';
+import clsx from 'clsx';
+import {
+  AchievementNames,
+  EventType,
+  EventWithSpeakerDto,
+} from '@ddays-app/types';
+import { UserToEventDto } from '@ddays-app/types/src/dto/user';
+
+import Tab from '@/components/Tab';
+import TabGroup from '@/components/TabGroup';
+import ClickableTagGroup from '@/components/ClickableTagGroup';
+import ClickableTag from '@/components/ClickableTag';
+import Button from '@/components/Button';
+import { ScheduleCard } from '@/components/ScheduleCard';
+import CalendarLinkPopup from './popups/CalendarLinkPopup';
+
+import { useEventAddToPersonalSchedule } from '@/api/event/useEventAddToPersonalSchedule';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { useEventGetMySchedule } from '@/api/event/useEventGetMySchedule';
 import { useEventRemoveFromPersonalSchedule } from '@/api/event/useEventRemoveFromPersonalSchedule';
-import Button from '@/components/Button';
-import CalendarLinkPopup from './popups/CalendarLinkPopup';
 import { useEventGetAllWithSpeakers } from '@/api/event/useEventGetAllWithSpeakers';
+import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
 
 enum TabId {
   FIRST_DAY = 'first-day',
@@ -44,6 +51,7 @@ export const SchedulePage = () => {
     useEventGetMySchedule();
   const eventAddToPersonalSchedule = useEventAddToPersonalSchedule();
   const eventRemoveFromPersonalSchedule = useEventRemoveFromPersonalSchedule();
+  const completeAchievementByName = useAchievementCompleteByName();
 
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
@@ -57,7 +65,16 @@ export const SchedulePage = () => {
       userId: user.id,
     };
 
-    eventAddToPersonalSchedule.mutate({ eventId, data });
+    eventAddToPersonalSchedule.mutate(
+      { eventId, data },
+      {
+        onSuccess: () => {
+          completeAchievementByName.mutate({
+            name: AchievementNames.Ding,
+          });
+        },
+      },
+    );
   }
 
   function handleRemoveFromPersonalSchedule(eventId: number) {
@@ -83,8 +100,9 @@ export const SchedulePage = () => {
       const filteredEvents = mySchedule
         ?.filter((event) => {
           return (
-            activeTag === TagId.ALL ||
-            event.theme.toUpperCase() === activeTag.toUpperCase()
+            (activeTag === TagId.ALL ||
+              event.theme.toUpperCase() === activeTag.toUpperCase()) &&
+            event.type !== EventType.FLY_TALK
           );
         })
         .sort((a, b) => {
@@ -106,6 +124,7 @@ export const SchedulePage = () => {
         const eventDate = new Date(event.startsAt).toDateString();
         return (
           eventDate === dateFilter &&
+          event.type !== EventType.FLY_TALK &&
           (activeTag === TagId.ALL ||
             event.theme.toUpperCase() === activeTag.toUpperCase())
         );
@@ -122,8 +141,8 @@ export const SchedulePage = () => {
             setter={(id) => setActiveTab(id as TabId)}
             defaultTab={TabId.FIRST_DAY}
             className={c.contentWidth}>
-            <Tab id={TabId.FIRST_DAY}>23.5.</Tab>
-            <Tab id={TabId.SECOND_DAY}>24.5.</Tab>
+            <Tab id={TabId.FIRST_DAY}>23.05.</Tab>
+            <Tab id={TabId.SECOND_DAY}>24.05.</Tab>
             <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
           </TabGroup>
 
@@ -140,7 +159,7 @@ export const SchedulePage = () => {
 
           <section className={clsx(c.eventsWrapper, c.contentWidth)}>
             {activeTab === TabId.MY_SCHEDULE && (
-              <Button variant='orange' onClick={() => setPopupIsOpen(true)}>
+              <Button variant='beige' onClick={() => setPopupIsOpen(true)}>
                 Poveži s mojim kalendarom
               </Button>
             )}

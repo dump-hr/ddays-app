@@ -108,7 +108,7 @@
       z-index: 0;
       transition: 300ms;
     }
- 
+
     &:hover {
       overflow: hidden;
 
@@ -132,7 +132,7 @@
   .sticker {
     position: absolute;
     top: -122px;
-    left: 80%;
+    left: 75%;
     z-index: 3;
     width: 225px;
     height: 248px;
@@ -288,7 +288,7 @@
 }
 
 .dottedRuler {
-  @include mixins.dottedBreak(rgba(255, 255, 255, 0.20));
+  @include mixins.dottedBreak(rgba(255, 255, 255, 0.2));
   margin-top: 10px;
 }
 

@@ -4,17 +4,14 @@ import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
 import TopCompany from '../TopCompany';
 import RecommendationsButton from '../RecommendationsButton';
 
-
 const TopCompaniesSection: React.FC = () => {
-
-  const { data: topCompanies= [] } = useGetTopRatedCompanies();
+  const { data: topCompanies = [] } = useGetTopRatedCompanies();
   return (
     <section className={c.topCompanies}>
       <div className={c.mainContent}>
-        <h2 className={c.title}>Top 5 firmi</h2>
+        <h2 className={c.title}>Trenutnih top 5</h2>
         <p className={c.description}>
-          Otkrij najbolje sponzorske štandove prema ocjenama posjetitelja
-          konferencije.
+          Najbolji sponzorski štandovi po ocjenama posjetitelja:
         </p>
         {topCompanies.map((company, index) => (
           <React.Fragment key={company.id}>

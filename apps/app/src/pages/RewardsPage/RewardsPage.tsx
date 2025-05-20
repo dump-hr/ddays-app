@@ -4,11 +4,14 @@ import CloseIcon from '@/assets/icons/close-icon.svg';
 import { Reward } from '@/components/Reward';
 import { useDeviceType } from '@/hooks/UseDeviceType';
 import { useNavigate } from 'react-router-dom';
-import { rewards } from './RewardsSeed';
+import { useGetAllRewards } from '@/api/reward/useGetAllRewards';
+import { RewardDto } from '@ddays-app/types';
 
 export const RewardsPage = () => {
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
+
+  const { data: rewards = [] as RewardDto[] } = useGetAllRewards();
 
   return (
     <div className={c.page}>
@@ -34,15 +37,19 @@ export const RewardsPage = () => {
           <h2>Nagrade</h2>
         )}
         <p>
-          Osvoji negrade hihi Osvoji negrade hihiOsvoji negrade hihiOsvoji
-          negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade
-          hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji
-          negrade hihiOsvoji negrade hihiOsvoji negrade hihiOsvoji negrade hihi
+          Ove nagrade dijelimo na zatvaranju konferencije. Zato se potrudi da
+          skupiš i sačuvaš što više bodova!
         </p>
 
         <section className={c.rewardsSection}>
           {rewards.map((reward) => {
-            return <Reward name={reward.name} image={reward.image} />;
+            return (
+              <Reward
+                key={reward.id}
+                name={reward.name}
+                image={reward.imageUrl}
+              />
+            );
           })}
         </section>
       </main>

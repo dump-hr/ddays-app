@@ -13,17 +13,24 @@ const ShoppingItems: React.FC = () => {
     <div className={styles.shoppingItemsWrapper}>
       <div className={styles.shoppingItemsContainer}>
         <div className={styles.shoppingItemsUserPoints}>
-          <p>Tvoje stanje s bodovima</p>
+          <p>Tvoje broj bodova</p>
           <div className={styles.points}>
             <img src={StarIcon} alt='' />
             <span>{data?.points}</span>
           </div>
         </div>
-        <div className={styles.products}>
-          {productsList?.map((product) => (
-            <ShoppingItem key={product.id} product={product} />
-          ))}
-        </div>
+
+        {productsList?.length > 0 ? (
+          <div className={styles.products}>
+            {productsList?.map((product) => (
+              <ShoppingItem key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.noProducts}>
+            <p>Trenutno nema proizvoda u ponudi</p>
+          </div>
+        )}
       </div>
     </div>
   );
