@@ -1,6 +1,6 @@
 import { UserPublicDto } from '@ddays-app/types/src/dto/user';
 
-export const printUser = async (user: UserPublicDto | undefined) => {
+export const printUser = async (user: Partial<UserPublicDto> | undefined) => {
   if (!user) return;
 
   const firstName = user.firstName || '';

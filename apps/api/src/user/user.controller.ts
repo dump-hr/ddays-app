@@ -1,12 +1,16 @@
-import { InterestDto } from '@ddays-app/types';
+import { InterestDto, UserCreateForAccreditationDto } from '@ddays-app/types';
 import {
   ChangeUserPasswordDto,
   ResetUserPasswordDto,
+  UserPublicDto,
 } from '@ddays-app/types/src/dto/user';
+
 import {
   Body,
   Controller,
   Get,
+  Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -65,5 +69,36 @@ export class UserController {
   @Get('count')
   async getUserCount(): Promise<number> {
     return await this.userService.getUserCount();
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('all')
+  async getAllUsers(): Promise<Partial<UserPublicDto>[]> {
+    return await this.userService.getAllUsers();
+  }
+
+  @UseGuards(AdminGuard)
+  @Get(':id')
+  async getOneUser(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Partial<UserPublicDto>> {
+    return await this.userService.getOneUser(id);
+  }
+
+  @UseGuards(AdminGuard)
+  @Post()
+  async createUserForAccreditation(
+    @Body() dto: UserCreateForAccreditationDto,
+  ): Promise<Partial<UserPublicDto>> {
+    return await this.userService.createUserForAccreditation(dto);
+  }
+
+  @UseGuards(AdminGuard)
+  @Patch(':id')
+  async updateUserForAccreditation(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() userModifyDto: UserCreateForAccreditationDto,
+  ): Promise<Partial<UserPublicDto>> {
+    return await this.userService.updateUserForAccreditation(id, userModifyDto);
   }
 }

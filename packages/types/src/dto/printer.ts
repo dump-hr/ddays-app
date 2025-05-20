@@ -33,3 +33,13 @@ export class UserToPrinterDto {
   @IsNotEmpty()
   printerId: number;
 }
+
+export class UserCreateForAccreditationDto {
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+}
