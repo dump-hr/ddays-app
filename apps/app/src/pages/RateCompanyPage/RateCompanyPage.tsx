@@ -104,7 +104,7 @@ export const RateCompanyPage = () => {
       .map((id) => ({
         boothId: company?.boothId,
         ratingQuestionId: id,
-        value: answers[id]!, // ! jer smo filtrirali nullove
+        value: answers[id]!,
         eventId: undefined,
         comment: undefined,
       }));

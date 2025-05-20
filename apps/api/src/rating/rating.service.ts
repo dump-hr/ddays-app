@@ -69,12 +69,13 @@ export class RatingService {
     dtos: RatingModifyDto[],
     userId: number,
   ): Promise<RatingDto[]> {
+    const boothIds = dtos.map((dto) => dto.boothId).filter((id) => id != null);
+    const eventIds = dtos.map((dto) => dto.eventId).filter((id) => id != null);
+
     const existingRatings = await this.prisma.rating.findMany({
       where: {
         userId: userId,
-        boothId: {
-          in: dtos.map((dto) => dto.boothId),
-        },
+        OR: [{ boothId: { in: boothIds } }, { eventId: { in: eventIds } }],
       },
     });
 

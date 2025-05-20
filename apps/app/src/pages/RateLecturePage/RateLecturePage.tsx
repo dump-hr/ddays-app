@@ -7,11 +7,12 @@ import RatingQuestion from '../../components/RatingQuestion';
 import { useEffect, useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 import { useNavigate } from 'react-router-dom';
-import PointModifierPopup from '@/components/PointModifierPopup';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
-import { RatingQuestionType } from '@ddays-app/types';
+import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
 import { useEventGetById } from '@/api/event/useEventGetById';
 import toast from 'react-hot-toast';
+import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
+import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 
 export const RateLecturePage = () => {
   const navigate = useNavigate();
@@ -22,10 +23,10 @@ export const RateLecturePage = () => {
     isLoading: isEventLoading,
     isError: isEventError,
   } = useEventGetById(lectureId);
+  const { data: userRatings } = useGetUserRatings();
 
-  const [isPointModifierOpen, setIsPointModifierOpen] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
+  const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const { mutate: addRatings } = useRatingAddMultiple();
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
@@ -58,6 +59,14 @@ export const RateLecturePage = () => {
         });
         navigate(RouteNames.HOME);
       }
+
+      if (userRatings?.some((rating) => rating.eventId === event?.id)) {
+        toast('Ovaj je događaj već ocijenjen', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
     }
 
     return () => {
@@ -66,6 +75,26 @@ export const RateLecturePage = () => {
       }
     };
   }, [isEventError, isEventLoading, navigate]);
+
+  function handleButtonClick() {
+    const questionIds = Object.keys(answers).map((id) => Number(id));
+
+    const dtos: RatingModifyDto[] = questionIds
+      .filter((id) => answers[id] !== null)
+      .map((id) => ({
+        eventId: event?.id,
+        ratingQuestionId: id,
+        value: answers[id]!,
+        boothId: undefined,
+        comment: undefined,
+      }));
+
+    console.log('Dtos', dtos);
+
+    addRatings(dtos);
+  }
+
+  if (isEventLoading) return null;
 
   return (
     <div>
@@ -113,23 +142,11 @@ export const RateLecturePage = () => {
           <div className={c.buttonContainer}>
             <Button
               variant='black'
-              onClick={() => {
-                setPoints(50);
-                setIsPointModifierOpen(true);
-              }}
+              onClick={handleButtonClick}
               disabled={!allQuestionsAnswered}>
               Spremi
             </Button>
           </div>
-
-          <PointModifierPopup
-            isOpen={isPointModifierOpen}
-            points={points}
-            closePopup={() => {
-              setIsPointModifierOpen(false);
-              navigate('/app');
-            }}
-          />
         </div>
       </div>
     </div>
