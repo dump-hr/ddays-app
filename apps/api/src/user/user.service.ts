@@ -161,4 +161,12 @@ export class UserService {
 
     return { success: true };
   }
+
+  async getUserCount(): Promise<number> {
+    return this.prisma.user.count({
+      where: {
+        isDeleted: false,
+      },
+    });
+  }
 }

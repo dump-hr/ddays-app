@@ -52,6 +52,44 @@ export class CompanyService {
     }));
   }
 
+  async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
+    const companies = await this.prisma.company.findMany({
+      include: {
+        booth: {
+          include: {
+            rating: true,
+          },
+        },
+      },
+    });
+
+    const companiesWithAvgRating = companies.map((company) => {
+      const ratings = company.booth?.rating ?? [];
+
+      const averageRating =
+        ratings.length > 0
+          ? ratings.reduce((acc, rating) => {
+              const value = Number(
+                (rating.grades as { value: number })?.value || 0,
+              );
+              return acc + value;
+            }, 0) / ratings.length
+          : 0;
+
+      return {
+        ...company,
+        booth: company.booth?.name,
+        averageRating,
+      };
+    });
+
+    const topRated = companiesWithAvgRating
+      .sort((a, b) => b.averageRating - a.averageRating)
+      .slice(0, 5);
+
+    return topRated;
+  }
+
   async getOne(id: number): Promise<CompanyDto> {
     const foundCompany = await this.prisma.company.findUnique({
       where: { id },

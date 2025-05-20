@@ -24,6 +24,7 @@ const CodePopup: React.FC<CodePopupProps> = ({
     applyCode.mutate(code, {
       onSuccess: (submittedCode) => {
         closePopup();
+        setCode(Array(6).fill(''));
         onSuccess(submittedCode.points || 0);
       },
       onError: (error) => {

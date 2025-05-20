@@ -152,6 +152,7 @@ const ScannerPage = () => {
         user={user}
         isOpen={isAppliedCodeAchievementPopupOpen}
         points={scannedPoints}
+        resetPoints={() => setScannedPoints(0)}
       />
     </>
   );

@@ -1,6 +1,8 @@
 import Button from '../Button';
 import star from '../../assets/icons/star.svg';
 import warning from '../../assets/images/warning.png';
+import greenCheck from '../../assets/images/green-check.svg';
+import redX from '../../assets/images/red-x.svg';
 import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
@@ -20,12 +22,14 @@ interface FlyTalksGroupProps {
     hasUserApplied: boolean;
   };
   hasUserAlreadyAppliedOnDay?: boolean;
+  wasUserAccepted?: boolean;
   refetch?: () => void;
 }
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   group,
   hasUserAlreadyAppliedOnDay,
+  wasUserAccepted,
   refetch,
 }) => {
   const navigate = useNavigate();
@@ -46,7 +50,11 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
     <div
       className={
         group.hasUserApplied
-          ? `${c.group} ${c.groupApplied}`
+          ? wasUserAccepted
+            ? `${c.group} ${c.groupAccepted}`
+            : wasUserAccepted === false
+              ? `${c.group} ${c.groupRejected}`
+              : `${c.group} ${c.groupApplied}`
           : group.participantsNumber < 25
             ? c.group
             : `${c.group} ${c.groupFull}`
@@ -87,6 +95,21 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
         <p>
           Nakon prijave sačekaj potvrdu firme. Možeš prijaviti samo jedan fly
           talk. Status termina: <span>u obradi</span>.
+        </p>
+      </div>
+      <div className={c.applianceAccepted}>
+        <img src={greenCheck} alt='' />
+        <p>
+          Status termina: <span> Prihvaćen si!</span> <br />
+          Ako se predomisliš, slobodno se odjavi u bilo kojem trenutku.
+        </p>
+      </div>
+      <div className={c.applianceRejected}>
+        <img src={redX} alt='' />
+        <p>
+          Status termina: <span>Odbijen si.</span>
+          <br />
+          Nažalost ovog puta nisi među odabranima.
         </p>
       </div>
       <div className={c.fullGroupMessage}>

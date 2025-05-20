@@ -14,7 +14,7 @@ interface CartItemProps {
 }
 const CartItem = ({ item, index }: CartItemProps) => {
   const { cartItems, setCartItems } = useShoppingContext();
-  const { data: productsList=[]} = useGetAllShopItems();
+  const { data: productsList = [] } = useGetAllShopItems();
 
   const product = useMemo(
     () => productsList.find((product) => product.id === item.id),
@@ -33,7 +33,9 @@ const CartItem = ({ item, index }: CartItemProps) => {
       <div className={styles.imageContainer}>
         <img
           className={styles.image}
-          src={getShopItemImgFromType(item.type as ShopItemType)}
+          src={
+            item.imageUrl || getShopItemImgFromType(item.type as ShopItemType)
+          }
         />
       </div>
       <div className={styles.itemDetails}>

@@ -49,6 +49,7 @@ const HomePage = () => {
           isOpen={isAppliedCodeAchievementPopupOpen}
           user={user}
           points={points}
+          resetPoints={() => setPoints(0)}
         />
       </main>
     </div>

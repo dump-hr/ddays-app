@@ -8,32 +8,31 @@ type AppliedCodeAchievementPopupProps = {
   isOpen: boolean;
   user: UserPublicDto | undefined;
   points: number;
+  resetPoints: () => void;
 };
 
 const AppliedCodeAchievementPopup = ({
   isOpen,
   user,
   points,
+  resetPoints,
 }: AppliedCodeAchievementPopupProps) => {
   const [isPointModifierPopupOpen, setIsPointModifierPopupOpen] =
     useState(false);
   const [isNewLevelPopupOpen, setIsNewLevelPopupOpen] = useState(false);
 
   useEffect(() => {
-    // Ensure user is defined and the popup is open
     if (!user || !isOpen) return;
 
     const oldLevel = getLevelFromPoints(user.points).level;
     const newLevel = getLevelFromPoints(user.points + points).level;
 
-    // Open the corresponding popup based on level change or points
     if (oldLevel !== newLevel) {
       setIsNewLevelPopupOpen(true);
     } else if (points > 0) {
       setIsPointModifierPopupOpen(true);
     }
-  }, [isOpen, user, points]); // Re-run this effect when these values change
-
+  }, [isOpen, user, points]);
   if (!user || !isOpen) return;
 
   return (
@@ -41,7 +40,10 @@ const AppliedCodeAchievementPopup = ({
       <PointModifierPopup
         points={points}
         isOpen={isPointModifierPopupOpen}
-        closePopup={() => setIsPointModifierPopupOpen(false)}
+        closePopup={() => {
+          setIsPointModifierPopupOpen(false);
+          resetPoints();
+        }}
       />
 
       <NewLevelPopup

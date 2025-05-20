@@ -162,6 +162,15 @@ export class CodeService {
       });
     });
 
+    const existingAchievements = await this.prisma.userToAchievement.findMany({
+      where: { userId },
+      select: { achievementId: true },
+    });
+
+    const alreadyCompleted = new Set(
+      existingAchievements.map((a) => a.achievementId),
+    );
+
     const completedAchievements: AchievementDto[] = [];
 
     for (const achievementId in achievementCountMap) {
@@ -169,12 +178,14 @@ export class CodeService {
         where: { id: parseInt(achievementId) },
       });
 
-      if (achievement) {
-        const count = achievementCountMap[achievementId];
+      const count = achievementCountMap[achievementId];
 
-        if (count >= achievement.fulfillmentCodeCount) {
-          completedAchievements.push(achievement);
-        }
+      if (
+        achievement &&
+        count >= achievement.fulfillmentCodeCount &&
+        !alreadyCompleted.has(achievement.id)
+      ) {
+        completedAchievements.push(achievement);
       }
     }
 

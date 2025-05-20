@@ -1,17 +1,23 @@
-import { ShoppingCartItemStage } from '@ddays-app/types';
 import {
+  ShopItemCreateDto,
   ShopItemDto,
+  ShopItemModifyDto,
+  ShoppingCartItemStage,
   TransactionCreateDto,
   TransactionItemDto,
-} from '@ddays-app/types/src/dto/shop';
+} from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ShopService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blobService: BlobService,
+  ) {}
 
-  async createShopItem(createShopItemDto: ShopItemDto) {
+  async createShopItem(createShopItemDto: ShopItemCreateDto) {
     await this.prisma.shopItem.create({
       data: createShopItemDto,
     });
@@ -23,9 +29,7 @@ export class ShopService {
 
     await this.prisma.$transaction(async (prisma) => {
       const now = new Date();
-      const takeByTime = new Date(now);
-      takeByTime.setHours(21, 0, 0, 0);
-      if (now.getHours() >= 21) takeByTime.setDate(takeByTime.getDate() + 1);
+      const takeByTime = new Date(now.getTime() + 30 * 60 * 1000);
 
       await prisma.transactionItem.createMany({
         data: transactionCreateDtos.map((item) => {
@@ -151,7 +155,21 @@ export class ShopService {
     });
   }
 
-  async updateShopItem(id: number, updateShopDto: ShopItemDto) {
+  async getShopItemById(id: number) {
+    const shopItem = await this.prisma.shopItem.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!shopItem) {
+      throw new BadRequestException('Artikl nije pronađen');
+    }
+
+    return shopItem;
+  }
+
+  async updateShopItem(id: number, updateShopDto: ShopItemModifyDto) {
     return await this.prisma.shopItem.update({
       where: {
         id,
@@ -178,7 +196,9 @@ export class ShopService {
       },
     });
 
-    const shopItemMap = new Map(shopItems.map((item) => [item.id, item]));
+    const shopItemMap = new Map(
+      (shopItems as ShopItemDto[]).map((item) => [item.id, item]),
+    );
     let totalPrice = 0;
 
     const purchaseItems = transactionCreateDtos.map((item) => {
@@ -205,5 +225,27 @@ export class ShopService {
     });
 
     return { purchaseItems, totalPrice };
+  }
+
+  async updateShopItemPhoto(id: number, file: Express.Multer.File) {
+    const uploadedImage = await this.blobService.upload(
+      'shop-item-image',
+      file.buffer,
+      file.mimetype,
+    );
+
+    const updatedShopItem = (await this.prisma.shopItem.update({
+      where: { id },
+      data: { imageUrl: uploadedImage },
+    })) as ShopItemDto;
+
+    return updatedShopItem;
+  }
+
+  async deleteShopItemPhoto(id: number): Promise<void> {
+    await this.prisma.shopItem.update({
+      where: { id },
+      data: { imageUrl: null },
+    });
   }
 }

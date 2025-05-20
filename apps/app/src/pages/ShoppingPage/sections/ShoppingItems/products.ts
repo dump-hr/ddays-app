@@ -10,6 +10,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.SHIRT,
+    imageUrl: '',
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.HOODIE,
+    imageUrl: '',
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.MUG,
+    imageUrl: '',
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.STICKER,
+    imageUrl: '',
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.SHIRT,
+    imageUrl: '',
   },
   {
     id: 6,
@@ -45,6 +50,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.HOODIE,
+    imageUrl: '',
   },
   {
     id: 7,
@@ -52,6 +58,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.MUG,
+    imageUrl: '',
   },
   {
     id: 8,
@@ -59,6 +66,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.STICKER,
+    imageUrl: '',
   },
   {
     id: 9,
@@ -66,6 +74,7 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 0,
     type: ShopItemType.SHIRT,
+    imageUrl: '',
   },
   {
     id: 10,
@@ -73,5 +82,6 @@ export const products: ShopItemDto[] = [
     price: 299,
     quantity: 4,
     type: ShopItemType.HOODIE,
+    imageUrl: '',
   },
 ];

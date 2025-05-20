@@ -19,11 +19,18 @@ const ShoppingItems: React.FC = () => {
             <span>{data?.points}</span>
           </div>
         </div>
-        <div className={styles.products}>
-          {productsList?.map((product) => (
-            <ShoppingItem key={product.id} product={product} />
-          ))}
-        </div>
+
+        {productsList?.length > 0 ? (
+          <div className={styles.products}>
+            {productsList?.map((product) => (
+              <ShoppingItem key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.noProducts}>
+            <p>Trenutno nema proizvoda u ponudi</p>
+          </div>
+        )}
       </div>
     </div>
   );

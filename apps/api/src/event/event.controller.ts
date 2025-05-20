@@ -3,6 +3,7 @@ import {
   EventModifyDto,
   EventWithCompanyDto,
   EventWithSpeakerDto,
+  EventWithUsersDto,
   UserToEventDto,
 } from '@ddays-app/types';
 import {
@@ -64,6 +65,12 @@ export class EventController {
   @UseGuards(UserGuard)
   async GetFlyTalksWithCompany(): Promise<EventWithCompanyDto[]> {
     return await this.eventService.getFlyTalksWithCompany();
+  }
+
+  @Get('workshops-with-users')
+  @UseGuards(AdminGuard)
+  async getWorkshopsWithUsers(): Promise<EventWithUsersDto[]> {
+    return await this.eventService.getWorkshopsWithUsers();
   }
 
   @UseGuards(UserGuard)

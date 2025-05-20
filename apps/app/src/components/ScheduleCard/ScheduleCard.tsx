@@ -218,6 +218,71 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         onClick={handleClick}>
         {isAddedToSchedule ? 'Izbriši iz rasporeda' : 'Dodaj u svoj raspored'}
       </Button>
+
+      {event.type === EventType.WORKSHOP && isWorkshopConfirmPopupOpen && (
+        <>
+          <WorkshopConfirmPopup
+            isOpen={isWorkshopConfirmPopupOpen}
+            closePopup={() => setIsWorkshopConfirmPopupOpen(false)}
+            event={event}
+            handleAddToPersonalSchedule={() =>
+              handleAddToPersonalSchedule(event.id)
+            }>
+            <Requirements requirements={event.requirements || ''} />
+          </WorkshopConfirmPopup>
+        </>
+      )}
+    </div>
+  );
+};
+
+const Requirements = ({ requirements }: { requirements: string }) => {
+  function getRequirements(eventRequirements: string) {
+    if (eventRequirements === '') return [];
+    return eventRequirements.split('\n') as string[];
+  }
+  const requirementsArray = getRequirements(requirements?.trim() || '');
+
+  const linkifyText = (text: string) => {
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+
+    const processedText = text.split(urlPattern).map((part, index) => {
+      if (urlPattern.test(part)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={c.link}>
+            poveznica
+          </a>
+        );
+      }
+      return part;
+    });
+
+    return <p>{processedText}</p>;
+  };
+
+  return (
+    <div className={c.eventRequirements}>
+      <p className={c.mainLabel}>ZAHTJEVI:</p>
+
+      {requirementsArray?.length !== 0 ? (
+        requirementsArray?.map((requirement, index) => {
+          return (
+            <div key={index} className={c.requirement}>
+              <div className={c.checkContainer}>
+                <img className={c.check} src={Check} alt='Check' />
+              </div>
+              <p className={c.label}>{linkifyText(requirement)}</p>
+            </div>
+          );
+        })
+      ) : (
+        <p className={c.label}>Nema zahtjeva</p>
+      )}
     </div>
   );
 };
