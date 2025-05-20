@@ -1,7 +1,6 @@
 import c from './RateCompanyPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-//import HRCloudLogo from '../../assets/images/HRCloud.svg';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';

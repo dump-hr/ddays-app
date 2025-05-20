@@ -1,18 +1,28 @@
 import c from './RateLecturePage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 import { useNavigate } from 'react-router-dom';
 import PointModifierPopup from '@/components/PointModifierPopup';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
 import { RatingQuestionType } from '@ddays-app/types';
+import { useEventGetById } from '@/api/event/useEventGetById';
+import toast from 'react-hot-toast';
 
 export const RateLecturePage = () => {
   const navigate = useNavigate();
+  const { lectureId: lectureIdString } = useParams();
+  const lectureId = Number(lectureIdString);
+  const {
+    data: event,
+    isLoading: isEventLoading,
+    isError: isEventError,
+  } = useEventGetById(lectureId);
+
   const [isPointModifierOpen, setIsPointModifierOpen] = useState(false);
   const [points, setPoints] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
@@ -29,6 +39,33 @@ export const RateLecturePage = () => {
   };
 
   const { data: questions } = useRatingQuestionsGetAll();
+
+  useEffect(() => {
+    let toastId: React.ReactText | null = null;
+
+    if (isEventLoading) {
+      toastId = toast.loading('Učitavanje događaja...', {
+        position: 'top-center',
+      });
+    } else {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+
+      if (isEventError) {
+        toast.error('Greška prilikom učitavanja događaja.', {
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+    }
+
+    return () => {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [isEventError, isEventLoading, navigate]);
 
   return (
     <div>
@@ -48,17 +85,15 @@ export const RateLecturePage = () => {
           <LectureRatingCard
             id='lecture-card'
             className={c.customLectureCard}
-            name='Od CV-a do tehničkog intervjua: Kako impresionirati potencijalnog poslodavca'
-            theme='DEV'
-            type='LECTURE'
-            speakers={[
-              {
-                firstName: 'DAVOR',
-                lastName: 'BRUKETA',
-                title: 'FOUNDER & CREATIVE DIRECTOR',
-                companyName: 'BRUKETA&ŽINIĆ',
-              },
-            ]}
+            name={event?.name || ''}
+            theme={event?.theme || 'DEV'}
+            type={event?.type || 'LECTURE'}
+            speakers={event?.speakers?.map((speaker) => ({
+              firstName: speaker.firstName,
+              lastName: speaker.lastName,
+              title: speaker.title,
+              companyName: speaker.company?.name,
+            }))}
           />
           <div className={c.ratingContainer}>
             {questions

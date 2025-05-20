@@ -82,7 +82,9 @@ export class EventController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<EventWithSpeakerDto> {
     return await this.eventService.getOne(id);
   }
 
