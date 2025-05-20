@@ -64,8 +64,8 @@ export type UserToEventDto = {
   portfolioProfile?: string;
   cv?: string;
   description?: string;
-  event?: EventDto; 
-  user?: UserDto; 
+  event?: EventDto;
+  user?: UserDto;
 };
 
 export class EventModifyDto {
@@ -104,3 +104,18 @@ export class EventModifyDto {
   @IsNumber()
   codeId?: number;
 }
+
+export type EventWithUsersDto = {
+  id: number;
+  name: string;
+  description?: string;
+  startsAt: string;
+  endsAt: string;
+  maxParticipants?: number;
+  requirements?: string;
+  footageLink?: string;
+  type: `${EventType}`;
+  theme: `${Theme}`;
+  codeId?: number;
+  users?: UserDto[];
+};

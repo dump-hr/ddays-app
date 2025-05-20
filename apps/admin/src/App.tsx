@@ -15,6 +15,7 @@ import EventPage from './pages/EventPage';
 import { HomePage } from './pages/HomePage';
 import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
+import ShoppingPage from './pages/ShoppingPage';
 import SpeakerPage from './pages/SpeakerPage';
 
 export const App = () => {
@@ -33,6 +34,7 @@ export const App = () => {
           <Route path={Path.Reward} component={RewardPage} />
           <Route path={Path.Achievement} component={AchievementPage} />
           <Route path={Path.Code} component={CodePage} />
+          <Route path={Path.Shopping} component={ShoppingPage} />
         </Switch>
       </Layout>
       <Toaster />

@@ -45,6 +45,10 @@ export class CompanyController {
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
   }
+  @Get('top-rated')
+  async getTopRated(): Promise<CompanyPublicDto[]> {
+    return await this.companyService.getTopRatedCompanies();
+  }
 
   @UseGuards(SponsorGuard)
   @Get('current')

@@ -1,12 +1,11 @@
 import c from './TopCompaniesSection.module.scss';
-
 import React from 'react';
-
+import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
 import TopCompany from '../TopCompany';
-import { companies } from '../../pages/Home/companies';
 import RecommendationsButton from '../RecommendationsButton';
 
-const TopCompaniesSection = () => {
+const TopCompaniesSection: React.FC = () => {
+  const { data: topCompanies = [] } = useGetTopRatedCompanies();
   return (
     <section className={c.topCompanies}>
       <div className={c.mainContent}>
@@ -14,8 +13,8 @@ const TopCompaniesSection = () => {
         <p className={c.description}>
           Najbolji sponzorski štandovi po ocjenama posjetitelja:
         </p>
-        {companies.map((company, index) => (
-          <React.Fragment key={index}>
+        {topCompanies.map((company, index) => (
+          <React.Fragment key={company.id}>
             {index !== 0 && <div className={c.divider} />}
             <TopCompany company={company} number={index + 1} />
           </React.Fragment>
