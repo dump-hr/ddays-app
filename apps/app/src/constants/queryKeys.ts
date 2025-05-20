@@ -6,6 +6,7 @@ export const QUERY_KEYS = {
   shopItems: 'shopItems',
   userTransactions: 'userTransactions',
   userPoints: 'userPoints',
+  topRatedCompanies: 'topRatedCompanies',
   events: 'events',
   eventsMySchedule: 'eventsMySchedule',
   applyFlyTalk: 'applyFlyTalk',
