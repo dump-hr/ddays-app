@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDate,
   IsDateString,
   IsEnum,
@@ -23,6 +24,7 @@ export type EventDto = {
   type: `${EventType}`;
   theme: `${Theme}`;
   codeId?: number;
+  isApplicationOpen?: boolean;
 };
 
 export type EventWithSpeakerDto = {
@@ -38,6 +40,7 @@ export type EventWithSpeakerDto = {
   theme: `${Theme}`;
   codeId?: number;
   speakers?: SpeakerWithCompanyDto[];
+  isApplicationOpen?: boolean;
 };
 
 export type EventWithCompanyDto = {
@@ -54,6 +57,7 @@ export type EventWithCompanyDto = {
   codeId?: number;
   companies?: CompanyWithFlyTalkDto[];
   users?: UserWithFlyTalkDto[];
+  isApplicationOpen?: boolean;
 };
 
 export type UserToEventDto = {
@@ -66,6 +70,7 @@ export type UserToEventDto = {
   description?: string;
   event?: EventDto;
   user?: UserDto;
+  isApplicationOpen?: boolean;
 };
 
 export class EventModifyDto {
@@ -103,6 +108,10 @@ export class EventModifyDto {
   @IsOptional()
   @IsNumber()
   codeId?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isApplicationOpen?: boolean;
 }
 
 export type EventWithUsersDto = {
@@ -118,4 +127,5 @@ export type EventWithUsersDto = {
   theme: `${Theme}`;
   codeId?: number;
   users?: UserDto[];
+  isApplicationOpen?: boolean;
 };

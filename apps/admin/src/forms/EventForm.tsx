@@ -74,7 +74,14 @@ export const EventForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
     {
       id: 'maxParticipants',
       type: QuestionType.Number,
+      title: 'Maksimalan broj sudionika',
       defaultValue: event?.maxParticipants,
+    },
+    {
+      id: 'isApplicationOpen',
+      type: QuestionType.Checkbox,
+      title: 'Prijave otvorene',
+      defaultValue: event?.isApplicationOpen,
     },
   ];
 
