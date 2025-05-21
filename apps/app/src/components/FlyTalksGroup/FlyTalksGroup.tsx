@@ -20,6 +20,7 @@ interface FlyTalksGroupProps {
       name: string;
     }[];
     hasUserApplied: boolean;
+    isApplicationOpen?: boolean;
   };
   hasUserAlreadyAppliedOnDay?: boolean;
   wasUserAccepted?: boolean;
@@ -35,6 +36,8 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
 
+  const isButtonDisabled = !group.isApplicationOpen && !group.hasUserApplied;
+
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
       navigate(`/app/fly-talks-apply?id=${group.id}`);
@@ -45,6 +48,16 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
       }
     }
   };
+
+  function getButtonText() {
+    if (group.hasUserApplied) {
+      return 'Odjavi termin';
+    }
+    if (isButtonDisabled) {
+      return 'Prijave su zatvorene';
+    }
+    return 'Prijavi termin';
+  }
 
   return (
     <div
@@ -85,8 +98,9 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
           <Button
             variant='orange'
             className={c.applyButton}
-            onClick={handleApplyClick}>
-            {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
+            onClick={handleApplyClick}
+            disabled={isButtonDisabled}>
+            {getButtonText()}
           </Button>
         )}
       </div>

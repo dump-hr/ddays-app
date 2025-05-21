@@ -1,0 +1,67 @@
+.boothButton {
+  position: absolute;
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  border-radius: 3.5px;
+  border: none;
+  background-color: #585858;
+  color: white;
+
+  transition: 200ms;
+
+  &:hover {
+    background-color: #6b6b6b;
+  }
+
+  &:active {
+    scale: 0.95;
+  }
+
+  img {
+    width: 17px;
+    height: 17px;
+    margin: 0 auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &.gold {
+    height: 58px;
+    width: 58px;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+
+    &:active {
+      scale: unset;
+    }
+
+    &:hover {
+      background-color: #585858;
+    }
+  }
+
+  &.rated {
+    background-color: #1a5c57;
+  }
+}

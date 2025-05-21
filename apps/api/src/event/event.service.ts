@@ -79,31 +79,74 @@ export class EventService {
         type: true,
         theme: true,
         codeId: true,
+        isApplicationOpen: true,
       },
     });
 
     return events;
   }
 
-  async getOne(id: number): Promise<EventDto> {
-    const foundEvent = await this.prisma.event.findUnique({
+  async getOne(id: number): Promise<EventWithSpeakerDto> {
+    const event = await this.prisma.event.findUnique({
       where: { id },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        startsAt: true,
-        endsAt: true,
-        maxParticipants: true,
-        requirements: true,
-        footageLink: true,
-        type: true,
-        theme: true,
-        codeId: true,
+      include: {
+        speakerToEvent: {
+          include: {
+            speaker: {
+              include: {
+                company: {
+                  select: {
+                    id: true,
+                    name: true,
+                    category: true,
+                    websiteUrl: true,
+                    instagramUrl: true,
+                    linkedinUrl: true,
+                    logoImage: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 
-    return foundEvent;
+    if (!event) {
+      throw new NotFoundException(`Event with id ${id} not found`);
+    }
+
+    return {
+      id: event.id,
+      name: event.name,
+      description: event.description,
+      startsAt: event.startsAt,
+      endsAt: event.endsAt,
+      maxParticipants: event.maxParticipants,
+      requirements: event.requirements,
+      footageLink: event.footageLink,
+      type: event.type,
+      theme: event.theme,
+      codeId: event.codeId,
+      speakers: event.speakerToEvent.map((speakerRelation) => {
+        const speaker = speakerRelation.speaker;
+        return {
+          id: speaker.id,
+          firstName: speaker.firstName,
+          lastName: speaker.lastName,
+          title: speaker.title,
+          companyId: speaker.companyId,
+          photoUrl: speaker.photoUrl,
+          smallPhotoUrl: speaker.smallPhotoUrl,
+          instagram: speaker.instagramUrl,
+          linkedin: speaker.linkedinUrl,
+          description: speaker.description,
+          company: speaker.company
+            ? { ...speaker.company, password: undefined }
+            : null,
+        };
+      }),
+    };
   }
 
   async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
@@ -144,6 +187,7 @@ export class EventService {
       type: event.type,
       theme: event.theme,
       codeId: event.codeId,
+      isApplicationOpen: event.isApplicationOpen,
       speakers: event.speakerToEvent.map((speakerRelation) => {
         const speaker = speakerRelation.speaker;
         return {
@@ -205,6 +249,7 @@ export class EventService {
       theme: event.theme,
       codeId: event.codeId,
       isOnEnglish: event.isOnEnglish,
+      isApplicationOpen: event.isApplicationOpen,
       companies: event.companyToFlyTalk.map((relation) => ({
         id: relation.company.id,
         name: relation.company.name,
@@ -345,6 +390,7 @@ export class EventService {
       type: entry.event.type,
       theme: entry.event.theme,
       codeId: entry.event.codeId,
+      isApplicationOpen: entry.event.isApplicationOpen,
       speakers: entry.event.speakerToEvent.map((speakerRelation) => {
         const speaker = speakerRelation.speaker;
         return {
@@ -431,6 +477,7 @@ export class EventService {
       theme: workshop.theme,
       codeId: workshop.codeId,
       users: workshop.userToEvent.map((ue) => ue.user),
+      isApplicationOpen: workshop.isApplicationOpen,
     }));
   }
 }
