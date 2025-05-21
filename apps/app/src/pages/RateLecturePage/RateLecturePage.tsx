@@ -1,64 +1,100 @@
 import c from './RateLecturePage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 import { useNavigate } from 'react-router-dom';
-import PointModifierPopup from '@/components/PointModifierPopup';
-
-enum RatingType {
-  THEME = 'general',
-  PRESENTATION_SKILLS = 'presentation',
-  RELEVANCE = 'isUseful',
-}
-
-interface RatingAnswers {
-  [RatingType.THEME]: number | null;
-  [RatingType.PRESENTATION_SKILLS]: number | null;
-  [RatingType.RELEVANCE]: number | null;
-}
-
-const RATING_QUESTIONS = [
-  {
-    type: RatingType.THEME,
-    title: 'Poznavanje teme?',
-    text: 'Imaš li predznanje o ovoj temi?',
-  },
-  {
-    type: RatingType.PRESENTATION_SKILLS,
-    title: 'prezentacijske vještine',
-    text: 'Ocijeni prezentacijske vještine predavača.',
-  },
-  {
-    type: RatingType.RELEVANCE,
-    title: 'Relevantnost',
-    text: 'Koliko će ti ovo predavanje koristiti u budućnosti?',
-  },
-];
+import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
+import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
+import { useEventGetById } from '@/api/event/useEventGetById';
+import toast from 'react-hot-toast';
+import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
+import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 
 export const RateLecturePage = () => {
   const navigate = useNavigate();
-  const [isPointModifierOpen, setIsPointModifierOpen] = useState(false);
-  const [points, setPoints] = useState(0);
-  const [answers, setAnswers] = useState<RatingAnswers>({
-    [RatingType.THEME]: null,
-    [RatingType.PRESENTATION_SKILLS]: null,
-    [RatingType.RELEVANCE]: null,
-  });
+  const { lectureId: lectureIdString } = useParams();
+  const lectureId = Number(lectureIdString);
+  const {
+    data: event,
+    isLoading: isEventLoading,
+    isError: isEventError,
+  } = useEventGetById(lectureId);
+  const { data: userRatings } = useGetUserRatings();
+
+  const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const { mutate: addRatings } = useRatingAddMultiple();
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
   );
 
-  const handleAnswerChange = (type: RatingType, value: number) => {
+  const handleAnswerChange = (key: number, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [type]: value,
+      [key]: value,
     }));
   };
+
+  const { data: questions } = useRatingQuestionsGetAll();
+
+  useEffect(() => {
+    let toastId: React.ReactText | null = null;
+
+    if (isEventLoading) {
+      toastId = toast.loading('Učitavanje događaja...', {
+        position: 'top-center',
+      });
+    } else {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+
+      if (isEventError) {
+        toast.error('Greška prilikom učitavanja događaja.', {
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+
+      if (userRatings?.some((rating) => rating.eventId === event?.id)) {
+        toast('Ovaj je događaj već ocijenjen', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+    }
+
+    return () => {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [isEventError, isEventLoading, navigate, event?.id, userRatings]);
+
+  function handleButtonClick() {
+    const questionIds = Object.keys(answers).map((id) => Number(id));
+
+    const dtos: RatingModifyDto[] = questionIds
+      .filter((id) => answers[id] !== null)
+      .map((id) => ({
+        eventId: event?.id,
+        ratingQuestionId: id,
+        value: answers[id]!,
+        boothId: undefined,
+        comment: undefined,
+      }));
+
+    console.log('Dtos', dtos);
+
+    addRatings(dtos);
+  }
+
+  if (isEventLoading) return null;
 
   return (
     <div>
@@ -78,51 +114,39 @@ export const RateLecturePage = () => {
           <LectureRatingCard
             id='lecture-card'
             className={c.customLectureCard}
-            name='Od CV-a do tehničkog intervjua: Kako impresionirati potencijalnog poslodavca'
-            theme='DEV'
-            type='LECTURE'
-            speakers={[
-              {
-                firstName: 'DAVOR',
-                lastName: 'BRUKETA',
-                title: 'FOUNDER & CREATIVE DIRECTOR',
-                companyName: 'BRUKETA&ŽINIĆ',
-              },
-            ]}
+            name={event?.name || ''}
+            theme={event?.theme || 'DEV'}
+            type={event?.type || 'LECTURE'}
+            speakers={event?.speakers?.map((speaker) => ({
+              firstName: speaker.firstName,
+              lastName: speaker.lastName,
+              title: speaker.title,
+              companyName: speaker.company?.name,
+            }))}
           />
           <div className={c.ratingContainer}>
-            {RATING_QUESTIONS.map((question) => (
-              <RatingQuestion
-                key={question.type}
-                title={question.title}
-                text={question.text}
-                onRatingChange={(value) =>
-                  handleAnswerChange(question.type, value)
-                }
-              />
-            ))}
+            {questions
+              ?.filter((q) => q.type === RatingQuestionType.EVENT)
+              .map((question) => (
+                <RatingQuestion
+                  key={question.id}
+                  title={question.subtitle}
+                  text={question.question}
+                  onRatingChange={(value) =>
+                    handleAnswerChange(question.id, value)
+                  }
+                />
+              ))}
           </div>
 
           <div className={c.buttonContainer}>
             <Button
               variant='black'
-              onClick={() => {
-                setPoints(50);
-                setIsPointModifierOpen(true);
-              }}
+              onClick={handleButtonClick}
               disabled={!allQuestionsAnswered}>
               Spremi
             </Button>
           </div>
-
-          <PointModifierPopup
-            isOpen={isPointModifierOpen}
-            points={points}
-            closePopup={() => {
-              setIsPointModifierOpen(false);
-              navigate('/app');
-            }}
-          />
         </div>
       </div>
     </div>

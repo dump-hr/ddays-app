@@ -3,6 +3,7 @@ import {
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
+  FloorPlanCompanyDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import {
@@ -44,6 +45,7 @@ export class CompanyController {
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
   }
+
   @Get('top-rated')
   async getTopRated(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getTopRatedCompanies();
@@ -55,6 +57,11 @@ export class CompanyController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<CompanyPublicDto> {
     return await this.companyService.getOnePublic(user.id);
+  }
+
+  @Get('floor-plan')
+  async getFloorPlan(): Promise<FloorPlanCompanyDto[]> {
+    return await this.companyService.getFloorPlan();
   }
 
   @UseGuards(SponsorGuard)

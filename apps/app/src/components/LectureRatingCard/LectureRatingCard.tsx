@@ -15,7 +15,7 @@ type LectureRatingCardProps = {
     | 'CAMPFIRE_TALK'
     | 'PANEL'
     | 'OTHER';
-  speakers: {
+  speakers?: {
     firstName: string;
     lastName: string;
     title: string;
@@ -68,7 +68,7 @@ const LectureRatingCard = forwardRef<HTMLDivElement, LectureRatingCardProps>(
         <div className={c.nameSpeakers}>
           <h3 className={c.name}>{name}</h3>
           <p className={c.speakers}>
-            {speakers.map(
+            {speakers?.map(
               (speaker) =>
                 `${speaker.firstName} ${speaker.lastName} // ${speaker.title}${
                   speaker.companyName ? ` @ ${speaker.companyName}` : ''
