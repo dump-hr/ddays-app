@@ -15,7 +15,7 @@ export const printUser = async (user: Partial<UserPublicDto> | undefined) => {
   const dynamicStyle = `
     @font-face {
       font-family: NeueMachina;
-      src: url('/admin/src/assets/fonts/PPNeueMachina-PlainMedium.woff2') format('woff2');
+      src: url('/admin/PPNeueMachina-PlainMedium.woff2') format('woff2');
     }
 
     @media print {
