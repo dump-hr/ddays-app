@@ -39,9 +39,13 @@ const AccreditationPage = () => {
       .filter(
         (user) =>
           user.firstName?.toLowerCase().includes(searchLower) ||
-          false ||
           user.lastName?.toLowerCase().includes(searchLower) ||
-          false,
+          user.email?.toLowerCase().includes(searchLower) ||
+          (
+            user.firstName?.toLowerCase() +
+            ' ' +
+            user.lastName?.toLowerCase()
+          ).includes(searchLower),
       )
       .slice(0, 100); // Limit to 100 results
   }, [users, searchTerm]);
