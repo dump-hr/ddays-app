@@ -3,7 +3,7 @@ import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { usePatchSelectedApplicant } from '../../../api/flyTalks/usePatchSelectedApplicant';
 import CheckIcon from '../../../assets/icons/check.svg';
 import QuestionIcon from '../../../assets/icons/question.svg';
-import XIcon from '../../../assets/icons/x.svg';
+//import XIcon from '../../../assets/icons/x.svg';
 import WhiteButton from '../../../components/WhiteButton';
 import c from '../FlyTalksPage.module.scss';
 
@@ -32,7 +32,8 @@ const TableRow: React.FC<TableRowProps> = ({
     if (isAccepted) {
       return CheckIcon;
     }
-    return XIcon;
+    //return XIcon;
+    return QuestionIcon;
   }
 
   const patchApplicant = usePatchSelectedApplicant();
