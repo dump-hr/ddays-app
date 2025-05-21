@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { AchievementNames } from '@ddays-app/types';
+import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
 class AchievementNameValidationPipe implements PipeTransform {
