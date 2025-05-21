@@ -1,8 +1,8 @@
 //import { useNavigate } from 'react-router-dom';
 import { HeaderCard } from '../HeaderCard/HeaderCard';
-//import accreditationImage from './../../../assets/images/accreditationIcon.png';
-import enterCodeImage from '@/assets/images/enterCodeIcon.png';
-//import tShirtImage from '@/assets/images/tShirtIcon.png';
+import accreditationImage from './../../../assets/images/accreditationIcon.png';
+import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
+//import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 //import { RouteNames } from '@/router/routes';
 import { useState } from 'react';
@@ -42,7 +42,7 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       height: 34,
       onClick: () => openCodePopup && openCodePopup(),
     },
-    /*
+    
     {
       id: HeaderCards.ACCREDITATION,
       img: `${accreditationImage}`,
@@ -53,7 +53,7 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
         setIsPopupOpen(true);
       },
     },
-    {
+   /* {
       id: HeaderCards.SHOPPING,
       img: `${tShirtImage}`,
       text: 'Shopping',
