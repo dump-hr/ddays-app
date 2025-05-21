@@ -4,7 +4,6 @@ import {
   RatingQuestionDto,
 } from '@ddays-app/types';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CompanyCategory } from '@prisma/client';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { BoothService } from 'src/booth/booth.service';
 import { PrismaService } from 'src/prisma.service';
@@ -96,6 +95,7 @@ export class RatingService {
         });
       }),
     );
+    /*
 
     const completedAchievements =
       await this.achievementService.getCompletedAchievements(userId);
@@ -148,6 +148,7 @@ export class RatingService {
 
     const allBooths = await this.boothService.getAll();
 
+    
     if (
       existingRatings.length >= 0 &&
       !completedAchievements.some(
@@ -225,6 +226,7 @@ export class RatingService {
         true,
       );
     }
+      */
 
     return newRatings;
   }
