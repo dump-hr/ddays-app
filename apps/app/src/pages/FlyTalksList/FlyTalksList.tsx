@@ -22,6 +22,7 @@ const FlyTalksList = () => {
   const groups =
     event?.map((event) => ({
       id: event.id,
+      isApplicationOpen: event.isApplicationOpen,
       start: event.startsAt.split('T')[1]?.slice(0, 5),
       end: event.endsAt.split('T')[1]?.slice(0, 5),
       day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,

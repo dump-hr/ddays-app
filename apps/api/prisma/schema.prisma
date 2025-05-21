@@ -118,18 +118,20 @@ model CompanyToInterest {
 }
 
 model Event {
-  id               Int                @id @default(autoincrement())
-  name             String
-  description      String?
-  type             EventType?
-  theme            Theme?
-  startsAt         String
-  endsAt           String
-  requirements     String?
-  footageLink      String?
-  maxParticipants  Int?
-  codeId           Int?
-  isOnEnglish      Boolean?           @default(false)
+  id                Int        @id @default(autoincrement())
+  name              String
+  description       String?
+  type              EventType?
+  theme             Theme?
+  startsAt          String
+  endsAt            String
+  requirements      String?
+  footageLink       String?
+  maxParticipants   Int?
+  codeId            Int?
+  isOnEnglish       Boolean?   @default(false)
+  isApplicationOpen Boolean?   @default(true)
+
   companyToFlyTalk CompanyToFlyTalk[]
   code             Code?              @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   eventToInterest  EventToInterest[]
