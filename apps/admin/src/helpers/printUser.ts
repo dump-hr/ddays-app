@@ -21,22 +21,25 @@ export const printUser = async (user: Partial<UserPublicDto> | undefined) => {
     @media print {
       @page {
         size: 105mm 148mm;
-        margin: 0;
+        margin: 0 0 -25px 0;
+        padding: 0;
       }
 
       body {
         position: relative;
         height: 148mm;
         width: 105mm;
-        margin: 0;
+        margin: 0 0 -25px 0;
         padding: 0;
+        z-index: 1;
       }
 
       .name-container {
         position: absolute;
-        bottom: 25px;
-        left: 48.5px;
+        bottom: 0px;
+        left: 28.5px;
         width: 215px;
+        z-index: 10000;
       }
     }
 
