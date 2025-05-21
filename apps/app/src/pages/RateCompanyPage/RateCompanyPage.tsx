@@ -1,59 +1,118 @@
 import c from './RateCompanyPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-import HRCloudLogo from '../../assets/images/HRCloud.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RouteNames } from '../../router/routes';
 import RatingQuestion from '../../components/RatingQuestion';
-import { useState } from 'react';
-
-enum RatingType {
-  GENERAL_IMPRESSION = 'generalImpression',
-  STAND_CONTENT = 'standContent',
-  EXHIBITORS = 'exhibitors',
-}
-
-interface RatingAnswers {
-  [RatingType.GENERAL_IMPRESSION]: number | null;
-  [RatingType.STAND_CONTENT]: number | null;
-  [RatingType.EXHIBITORS]: number | null;
-}
-
-const RATING_QUESTIONS = [
-  {
-    type: RatingType.GENERAL_IMPRESSION,
-    title: 'Generalni dojam štanda',
-    text: 'Kakav je dojam štand ostavio na tebe?',
-  },
-  {
-    type: RatingType.STAND_CONTENT,
-    title: 'Sadržaj štanda',
-    text: 'Što se sve nudi? Je li ti bilo zabavno?',
-  },
-  {
-    type: RatingType.EXHIBITORS,
-    title: 'Izlagači',
-    text: 'Ocijeni svoj dojam o izlagačima.',
-  },
-];
+import { useEffect, useState } from 'react';
+import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
+import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
+import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
+import toast from 'react-hot-toast';
+import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
+import { useCompanyGetById } from '@/api/company/useGetCompanyById';
 
 export const RateCompanyPage = () => {
-  const [answers, setAnswers] = useState<RatingAnswers>({
-    [RatingType.GENERAL_IMPRESSION]: null,
-    [RatingType.STAND_CONTENT]: null,
-    [RatingType.EXHIBITORS]: null,
-  });
+  const navigate = useNavigate();
+  const { companyId: companyIdString } = useParams();
+  const companyId = Number(companyIdString);
+  const {
+    data: company,
+    isLoading: isCompanyLoading,
+    isError: isCompanyError,
+  } = useCompanyGetById(companyId);
+
+  const { data: questions } = useRatingQuestionsGetAll();
+  const { mutate: addRatings } = useRatingAddMultiple();
+  const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const { data: userRatings } = useGetUserRatings();
+
+  useEffect(() => {
+    if (!questions) return;
+
+    const initialAnswers: Record<number, number | null> = {};
+    questions
+      .filter((q) => q.type === RatingQuestionType.BOOTH)
+      .forEach((question) => {
+        initialAnswers[question.id] = null;
+      });
+    setAnswers(initialAnswers);
+  }, [questions]);
+
+  useEffect(() => {
+    let toastId: React.ReactText | null = null;
+
+    if (isCompanyLoading) {
+      toastId = toast.loading('Učitavanje kompanije...', {
+        position: 'top-center',
+      });
+    } else {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+
+      if (isCompanyError) {
+        toast.error('Greška prilikom učitavanja kompanije.', {
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+
+      if (company?.booth === undefined || company?.booth === null) {
+        toast.error('Greška prilikom učitavanja štanda.', {
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+
+      if (userRatings?.some((rating) => rating.boothId === company?.boothId)) {
+        toast('Ovaj je štand već ocijenjen', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+      }
+    }
+
+    return () => {
+      if (toastId !== null) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings]);
+
+  if (!companyId) {
+    return <div>ID kompanije nije dobrog formata.</div>;
+  }
 
   const allQuestionsAnswered = Object.values(answers).every(
     (answer) => answer !== null,
   );
 
-  const handleAnswerChange = (type: RatingType, value: number) => {
+  const handleAnswerChange = (key: number, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [type]: value,
+      [key]: value,
     }));
   };
+
+  function handleButtonClick() {
+    const questionIds = Object.keys(answers).map((id) => Number(id));
+
+    const dtos: RatingModifyDto[] = questionIds
+      .filter((id) => answers[id] !== null)
+      .map((id) => ({
+        boothId: company?.boothId,
+        ratingQuestionId: id,
+        value: answers[id]!,
+        eventId: undefined,
+        comment: undefined,
+      }));
+
+    addRatings(dtos);
+  }
+
+  if (isCompanyLoading) return null;
 
   return (
     <div>
@@ -71,27 +130,33 @@ export const RateCompanyPage = () => {
             </Link>
           </div>
           <div className={c.companyDetails}>
-            <img src={HRCloudLogo} alt='Company logo' className={c.logo} />
-            <p className={c.companyLocationAtConference}>Z4</p>
+            <img
+              src={company?.logoImage}
+              alt='Company logo'
+              className={c.logo}
+            />
+            <p className={c.companyLocationAtConference}>{company?.booth}</p>
           </div>
           <div className={c.breakline}></div>
           <div className={c.ratingContainer}>
-            {RATING_QUESTIONS.map((question) => (
-              <RatingQuestion
-                key={question.type}
-                title={question.title}
-                text={question.text}
-                onRatingChange={(value) =>
-                  handleAnswerChange(question.type, value)
-                }
-              />
-            ))}
+            {questions
+              ?.filter((question) => question.type === RatingQuestionType.BOOTH)
+              .map((question) => (
+                <RatingQuestion
+                  key={question.id}
+                  title={question.subtitle}
+                  text={question.question}
+                  onRatingChange={(value) =>
+                    handleAnswerChange(question.id, value)
+                  }
+                />
+              ))}
           </div>
 
           <div className={c.buttonContainer}>
             <Button
               variant='black'
-              onClick={() => console.log('Button clicked')}
+              onClick={handleButtonClick}
               disabled={!allQuestionsAnswered}>
               Spremi
             </Button>

@@ -118,18 +118,20 @@ model CompanyToInterest {
 }
 
 model Event {
-  id               Int                @id @default(autoincrement())
-  name             String
-  description      String?
-  type             EventType?
-  theme            Theme?
-  startsAt         String
-  endsAt           String
-  requirements     String?
-  footageLink      String?
-  maxParticipants  Int?
-  codeId           Int?
-  isOnEnglish      Boolean?           @default(false)
+  id                Int        @id @default(autoincrement())
+  name              String
+  description       String?
+  type              EventType?
+  theme             Theme?
+  startsAt          String
+  endsAt            String
+  requirements      String?
+  footageLink       String?
+  maxParticipants   Int?
+  codeId            Int?
+  isOnEnglish       Boolean?   @default(false)
+  isApplicationOpen Boolean?   @default(true)
+
   companyToFlyTalk CompanyToFlyTalk[]
   code             Code?              @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   eventToInterest  EventToInterest[]
@@ -192,14 +194,29 @@ model NotificationTemplate {
 }
 
 model Rating {
-  id      Int     @id @default(autoincrement())
-  userId  Int?
-  boothId Int?
-  eventId Int?
-  grades  Json?   @db.Json
-  comment String?
-  booth   Booth?  @relation(fields: [boothId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  event   Event?  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id               Int            @id @default(autoincrement())
+  userId           Int
+  boothId          Int?
+  eventId          Int?
+  value            Int
+  ratingQuestionId Int
+  comment          String?
+  ratingQuestion   RatingQuestion @relation(fields: [ratingQuestionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  booth            Booth?         @relation(fields: [boothId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event            Event?         @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model RatingQuestion {
+  id       Int                @id @default(autoincrement())
+  subtitle String
+  question String
+  type     RatingQuestionType
+  Rating   Rating[]
+}
+
+enum RatingQuestionType {
+  BOOTH
+  EVENT
 }
 
 model Speaker {
@@ -253,6 +270,7 @@ model User {
   UserToCode              UserToCode[]
   passwordResetTokens     PasswordResetToken[]
   emailConfirmationTokens EmailConfirmationToken[]
+  UserToPrinter           UserToPrinter[]
 
   @@unique([email, isDeleted])
   @@unique([phoneNumber, isDeleted])
@@ -375,6 +393,20 @@ model EmailConfirmationToken {
   expiresAt DateTime
 
   @@index([userId])
+}
+
+model UserToPrinter {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  printerId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  printer   Printer  @relation(fields: [printerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Printer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  UserToPrinter UserToPrinter[]
 }
 
 enum Accessory {

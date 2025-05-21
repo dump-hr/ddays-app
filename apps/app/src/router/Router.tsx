@@ -33,6 +33,7 @@ import { RewardsPage } from '@/pages/RewardsPage';
 import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
 import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 import { RegistrationLayout } from '@/layout/RegistrationLayout';
+import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
       <Route path={RouteNames.RATE_COMPANY} element={<RateCompanyPage />} />
       <Route path={RouteNames.RATE_LECTURE} element={<RateLecturePage />} />
       <Route path={RouteNames.SCANNER} element={<ScannerPage />} />
+      <Route path={RouteNames.FLOOR_PLAN} element={<FloorPlanPage />} />
       <Route element={<NavigationLayout />} errorElement={<>error</>}>
         <Route path={RouteNames.HOME} element={<Home />} />
 
