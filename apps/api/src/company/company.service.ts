@@ -474,4 +474,61 @@ export class CompanyService {
 
     return companiesWithRatings;
   }
+
+  async getRecommendedCompanies(userId: number): Promise<CompanyPublicDto[]> {
+    // Prvo dohvatimo korisnika s njegovim interesima
+    const userInterests = (await this.interestService.getForUser(userId)) || [];
+
+    const allCompanies = await this.prisma.company.findMany({
+      include: {
+        booth: {
+          select: { name: true, id: true },
+        },
+        companyToInterest: {
+          include: {
+            interest: true,
+          },
+        },
+      },
+    });
+
+    const recommendedCompanies = allCompanies
+      .map((company) => {
+        const matchingInterests = company.companyToInterest.filter((cti) =>
+          userInterests.some((ui) => ui.id === cti.interest.id),
+        );
+        return {
+          ...company,
+          matchingInterests,
+        };
+      })
+      .filter((company) => company.matchingInterests.length > 0)
+      .sort((a, b) => b.matchingInterests.length - a.matchingInterests.length)
+      .slice(0, 5);
+
+    return recommendedCompanies.map((company) => ({
+      id: company.id,
+      category: null,
+      name: company.name,
+      description: null,
+      opportunitiesDescription: null,
+      websiteUrl: null,
+      instagramUrl: null,
+      linkedinUrl: null,
+      booth: null,
+      boothId: null,
+      logoImage: company.logoImage || null,
+      landingImage: null,
+      landingImageCompanyCulture: null,
+      bookOfStandards: null,
+      video: null,
+      interests: company.companyToInterest.map((cti) => ({
+        id: cti.interest.id,
+        name: cti.interest.name,
+        theme: cti.interest.theme,
+      })),
+      jobs: null,
+      averageRating: null,
+    }));
+  }
 }

@@ -1,13 +1,16 @@
 import c from './ProfileRecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
-import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '@/router/routes';
 
+import { useGetRecommendedCompanies } from '@/api/company/useGetRecommendedCompanies';
+
 const ProfileRecommendationsPage = () => {
   const navigate = useNavigate();
+  const { data: recommendations } = useGetRecommendedCompanies();
+
   return (
     <div className={c.page}>
       <img
@@ -29,7 +32,7 @@ const ProfileRecommendationsPage = () => {
           Prema tvojim interesima vidimo da se najbolje slažeš s ovim tvrtkama.
         </p>
         <div className={c.recommendationsWrapper}>
-          {recommendations.map((company, i) => (
+          {recommendations?.map((company, i) => (
             <RecommendedCompany
               key={i}
               number={i + 1}
