@@ -88,7 +88,7 @@ const FlyTalksPage = () => {
           <InfoMessage message='Odabir sudionika zatvoren.' />
         ) : (
           <InfoMessage
-            message={`Odabir sudionika zatvorit će se u srijedu 21. 5. u 20:00. (${formatTimeLeft(
+            message={`Odabir sudionika zatvorit će se u četvrtak 22. 5. u 12:00. (${formatTimeLeft(
               timeLeft,
             )})`}
           />
