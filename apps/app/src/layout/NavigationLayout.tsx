@@ -16,7 +16,7 @@ export const NavigationLayout = () => {
 
   return (
     <div className={styles.container}>
-      {!isMobile && shouldShowNavbar && <DesktopNavigation />}
+      {shouldShowNavbar && <DesktopNavigation />}
       <UserProvider>
         <Outlet />
       </UserProvider>
