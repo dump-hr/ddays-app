@@ -34,6 +34,7 @@ import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
 import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 import { RegistrationLayout } from '@/layout/RegistrationLayout';
 import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
+import AccreditationScanPage from '@/pages/AccreditationScanPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -94,6 +95,10 @@ const router = createBrowserRouter(
           element={<FlyTalksApplyPage />}
         />
         <Route path={RouteNames.SHOPPING} element={<ShoppingPage />} />
+        <Route
+          path={RouteNames.ACCREDITATION_SCAN}
+          element={<AccreditationScanPage />}
+        />
       </Route>
       <Route path='/app/test' element={<TestPage />} />
       <Route path='*' element={<NotFoundPage />} />
