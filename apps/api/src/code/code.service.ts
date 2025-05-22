@@ -296,6 +296,8 @@ export class CodeService {
         });
       });
 
+      await this.markCompletedAchievementsForNewCode(userId);
+
       return {
         code: foundCode,
         redirectUrl: null,
@@ -315,8 +317,6 @@ export class CodeService {
         redirectUrl: `/rate-event/${codeEventId}`,
       };
     }
-
-    await this.markCompletedAchievementsForNewCode(userId);
 
     return { code: foundCode, redirectUrl: null };
   }

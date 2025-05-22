@@ -99,7 +99,6 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
       ))}
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          console.log('Form data:', formData);
           if (id) {
             await updateCompany.mutateAsync({
               ...formData,

@@ -89,8 +89,6 @@ export const RateLecturePage = () => {
         comment: undefined,
       }));
 
-    console.log('Dtos', dtos);
-
     addRatings(dtos);
   }
 

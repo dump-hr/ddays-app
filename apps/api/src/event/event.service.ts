@@ -60,7 +60,6 @@ export class EventService {
       file.buffer,
       file.mimetype,
     );
-    console.log(cv);
     return cv;
   }
 
