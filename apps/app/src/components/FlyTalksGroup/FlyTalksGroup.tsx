@@ -73,7 +73,6 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
             : `${c.group} ${c.groupFull}`
       }>
       <div className={c.groupHeader}>
-        <button onClick={() => console.log(wasUserAccepted)}>get status</button>
         <div></div>
         <img className={c.starIcon} src={star} alt='' />
         <p>
