@@ -1,19 +1,32 @@
 import router from '@/router/Router';
 
+function base64UrlDecode(base64Url: string) {
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  while (base64.length % 4) {
+    base64 += '=';
+  }
+  return atob(base64);
+}
+
 export function isTokenExpired(token: string | undefined) {
   if (!token) return true;
 
-  const expiry = JSON.parse(atob(token.split('.')[1])).exp;
-  return Math.floor(new Date().getTime() / 1000) >= expiry;
+  const payload = token.split('.')[1];
+  if (!payload) return true;
+
+  const decoded = base64UrlDecode(payload);
+  const expiry = JSON.parse(decoded).exp;
+  return Math.floor(Date.now() / 1000) >= expiry;
 }
 
 export function parseJwt(token: string) {
   if (!token) return;
 
   const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace('-', '+').replace('_', '/');
+  if (!base64Url) return;
 
-  return JSON.parse(window.atob(base64));
+  const decoded = base64UrlDecode(base64Url);
+  return JSON.parse(decoded);
 }
 
 export const logout = () => {
