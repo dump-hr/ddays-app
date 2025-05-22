@@ -18,6 +18,11 @@ const TopCompaniesSection: React.FC = () => {
             <TopCompany company={company} number={index + 1} />
           </React.Fragment>
         ))}
+        {topCompanies.length === 0 && (
+          <p className={c.noCompanies}>
+            Prošetaj po konfi, ocijeni štandove pa ćemo vidit 'ko je u top 5!
+          </p>
+        )}
       </div>
       {/*<RecommendationsButton className={c.duck} />*/}
     </section>

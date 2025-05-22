@@ -1,6 +1,6 @@
 import { Header } from '../../components/Header';
 import c from './Home.module.scss';
-//import TopCompaniesSection from '../../components/TopCompaniesSection';
+import TopCompaniesSection from '../../components/TopCompaniesSection';
 import EventsSection from './sections/EventsSection';
 import LocationSection from '../../components/LocationSection';
 import CodePopup from './popups/CodePopup/CodePopup';
@@ -35,9 +35,8 @@ const HomePage = () => {
       <main className={c.main}>
         <EventsSection />
         <LocationSection />
-        {/**
-         <TopCompaniesSection />
-         */}
+
+        <TopCompaniesSection />
 
         <CodePopup
           isOpen={isCodePopupOpen}
