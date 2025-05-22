@@ -27,6 +27,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/admin.guard';
 import { AuthenticatedRequest } from 'src/auth/auth.dto';
+import { UserGuard } from 'src/auth/user.guard';
 
 import { SponsorGuard } from '../auth/sponsor.guard';
 import { CompanyService } from './company.service';
@@ -44,6 +45,14 @@ export class CompanyController {
   @Get()
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
+  }
+
+  @UseGuards(UserGuard)
+  @Get('recommended')
+  async getRecommended(
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<CompanyPublicDto[]> {
+    return await this.companyService.getRecommendedCompanies(user.id);
   }
 
   @Get('top-rated')

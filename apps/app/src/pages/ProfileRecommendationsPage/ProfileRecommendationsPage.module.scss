@@ -10,6 +10,8 @@
   padding-bottom: inherit;
   position: relative;
   display: flex;
+  @include mobileNavigationPadding();
+  min-height: 100dvh;
 
   @media screen and (min-width: $breakpoint-tablet) {
     padding-top: 166px;
@@ -91,6 +93,13 @@
 
     .recommendationsWrapper {
       margin-bottom: 48px;
+
+      .noRecommendations {
+        margin: 0 auto;
+        color: $black-50;
+        font-family: Inter;
+        text-align: center;
+      }
     }
   }
 }

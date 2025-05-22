@@ -32,14 +32,26 @@ export const RateLecturePage = () => {
     (answer) => answer !== null,
   );
 
+  const { data: questions } = useRatingQuestionsGetAll();
+
+  useEffect(() => {
+    if (!questions) return;
+
+    const initialAnswers: Record<number, number | null> = {};
+    questions
+      .filter((q) => q.type === RatingQuestionType.EVENT)
+      .forEach((question) => {
+        initialAnswers[question.id] = null;
+      });
+    setAnswers(initialAnswers);
+  }, [questions]);
+
   const handleAnswerChange = (key: number, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [key]: value,
     }));
   };
-
-  const { data: questions } = useRatingQuestionsGetAll();
 
   useEffect(() => {
     let toastId: React.ReactText | null = null;
