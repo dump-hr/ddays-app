@@ -78,7 +78,7 @@ const boothPositions: BoothWithPosition[] = [
   },
   {
     boothString: 'S12',
-    position: { x: 51.6, y: 19.1 },
+    position: { x: 66.2, y: 19.1 },
   },
   {
     boothString: 'S13',
