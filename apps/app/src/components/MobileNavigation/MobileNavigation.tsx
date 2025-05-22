@@ -14,7 +14,10 @@ export const MobileNavigation = (): ReactElement => {
 
   const handleTabChange = (tab: NAVIGATION_TAB_ID) => {
     setSelectedTab(tab);
-    navigate(navigationTabs[tab].route);
+    const tabRoute = navigationTabs.find((t) => t.id === tab)?.route;
+    if (tabRoute) {
+      navigate(tabRoute);
+    }
   };
 
   return (
