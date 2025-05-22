@@ -20,6 +20,7 @@ import { AuthenticatedRequest } from 'src/auth/auth.dto';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { AchievementService } from './achievement.service';
+import { AchievementNameValidationPipe } from './achievement.validator';
 
 @Controller('achievement')
 export class AchievementController {
@@ -87,7 +88,7 @@ export class AchievementController {
   @Post('complete-by-name/:name')
   async completeAchievementByName(
     @Req() { user }: AuthenticatedRequest,
-    @Param('name') name: string,
+    @Param('name', AchievementNameValidationPipe) name: string,
   ): Promise<AchievementDto> {
     const suppressDuplicate = false;
     return await this.achievementService.completeAchievementByName(

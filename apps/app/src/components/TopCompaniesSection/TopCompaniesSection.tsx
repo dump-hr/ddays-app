@@ -2,7 +2,6 @@ import c from './TopCompaniesSection.module.scss';
 import React from 'react';
 import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
 import TopCompany from '../TopCompany';
-import RecommendationsButton from '../RecommendationsButton';
 
 const TopCompaniesSection: React.FC = () => {
   const { data: topCompanies = [] } = useGetTopRatedCompanies();
@@ -19,8 +18,13 @@ const TopCompaniesSection: React.FC = () => {
             <TopCompany company={company} number={index + 1} />
           </React.Fragment>
         ))}
+        {topCompanies.length === 0 && (
+          <p className={c.noCompanies}>
+            Prošetaj po konfi, ocijeni štandove pa ćemo vidit 'ko je u top 5!
+          </p>
+        )}
       </div>
-      <RecommendationsButton className={c.duck} />
+      {/*<RecommendationsButton className={c.duck} />*/}
     </section>
   );
 };

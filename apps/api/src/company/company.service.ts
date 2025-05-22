@@ -57,6 +57,11 @@ export class CompanyService {
 
   async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
     const companies = await this.prisma.company.findMany({
+      where: {
+        booth: {
+          isNot: null, // Ensure the company has a booth
+        },
+      },
       include: {
         booth: {
           include: {
@@ -66,28 +71,35 @@ export class CompanyService {
       },
     });
 
-    const companiesWithAvgRating = companies.map((company) => {
-      const ratings = company.booth?.rating ?? [];
+    const companiesWithAvgRating = companies
+      .map((company) => {
+        const ratings = company.booth?.rating ?? [];
 
-      const averageRating =
-        ratings.length > 0
-          ? ratings.reduce((acc, rating) => {
-              return acc + rating.value;
-            }, 0) / ratings.length
-          : 0;
+        if (ratings.length === 0) {
+          return null; // Exclude companies with no ratings
+        }
 
-      return {
-        ...company,
-        booth: company.booth?.name,
-        averageRating,
-      };
-    });
+        const averageRating =
+          ratings.reduce((sum, r) => sum + r.value, 0) / ratings.length;
+
+        return {
+          ...company,
+          booth: company.booth?.name, // convert booth object to booth name
+          averageRating,
+        };
+      })
+      .filter(
+        (company): company is typeof company & { averageRating: number } =>
+          company !== null,
+      );
 
     const topRated = companiesWithAvgRating
       .sort((a, b) => b.averageRating - a.averageRating)
       .slice(0, 5);
 
-    return topRated;
+    return topRated.map(({ ...company }) => ({
+      ...company,
+    }));
   }
 
   async getOne(id: number): Promise<CompanyDto> {
