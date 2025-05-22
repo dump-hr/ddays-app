@@ -306,6 +306,7 @@ model UserToEvent {
   portfolioProfile     String?
   cv                   String?
   description          String?
+  finallySelected      Boolean?
   event                Event                  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user                 User                   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   CompanyToFlyTalkUser CompanyToFlyTalkUser[]
@@ -396,16 +397,16 @@ model EmailConfirmationToken {
 }
 
 model UserToPrinter {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   userId    Int
   printerId Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  printer   Printer  @relation(fields: [printerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  printer   Printer @relation(fields: [printerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Printer {
-  id        Int      @id @default(autoincrement())
-  name      String
+  id            Int             @id @default(autoincrement())
+  name          String
   UserToPrinter UserToPrinter[]
 }
 
