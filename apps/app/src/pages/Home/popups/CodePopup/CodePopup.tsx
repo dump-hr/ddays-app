@@ -24,7 +24,6 @@ const CodePopup: React.FC<CodePopupProps> = ({
     applyCode.mutate(code, {
       onSuccess: (submittedCode) => {
         closePopup();
-        console.log(submittedCode);
         if (submittedCode.redirectUrl) {
           const currentUrl = new URL(window.location.href);
           const appendPath = submittedCode.redirectUrl;
