@@ -104,6 +104,9 @@ export class RatingService {
     const ratedBooths = await this.prisma.rating.findMany({
       where: {
         userId: userId,
+        boothId: {
+          not: null,
+        },
       },
       select: {
         boothId: true,
