@@ -2,7 +2,6 @@ import c from './TopCompaniesSection.module.scss';
 import React from 'react';
 import { useGetTopRatedCompanies } from '@/api/booth/useGetTopRatedCompanies';
 import TopCompany from '../TopCompany';
-import RecommendationsButton from '../RecommendationsButton';
 
 const TopCompaniesSection: React.FC = () => {
   const { data: topCompanies = [] } = useGetTopRatedCompanies();
@@ -20,7 +19,7 @@ const TopCompaniesSection: React.FC = () => {
           </React.Fragment>
         ))}
       </div>
-      <RecommendationsButton className={c.duck} />
+      {/*<RecommendationsButton className={c.duck} />*/}
     </section>
   );
 };
