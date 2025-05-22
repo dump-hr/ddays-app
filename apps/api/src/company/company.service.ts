@@ -156,7 +156,14 @@ export class CompanyService {
             event: {
               include: {
                 userToEvent: {
-                  include: {
+                  select: {
+                    eventId: true,
+                    finallySelected: true,
+                    linkedinProfile: true,
+                    githubProfile: true,
+                    portfolioProfile: true,
+                    cv: true,
+                    description: true,
                     user: {
                       select: {
                         id: true,
@@ -200,6 +207,7 @@ export class CompanyService {
           cv: rel.cv,
           description: rel.description,
           selected: matchingCompany?.selected ?? false,
+          finallySelected: rel.finallySelected,
         };
       }),
     );
