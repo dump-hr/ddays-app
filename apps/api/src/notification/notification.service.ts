@@ -154,14 +154,24 @@ export class NotificationService {
   }
 
   async getUnreadNotificationsCount(userId: number) {
+    const now = new Date();
+    now.setHours(now.getHours() + 2); // Add 2 hours for UTC+2
+
+    const fifteenMinutesFromNow = new Date(now);
+    fifteenMinutesFromNow.setMinutes(now.getMinutes() + 15);
+
     return this.prisma.userNotification.count({
       where: {
         userId,
-        status: {
-          not: NotificationStatus.READ,
-        },
+        status: NotificationStatus.DELIVERED,
         notification: {
           isActive: true,
+          event: {
+            startsAt: {
+              gte: now.toISOString(),
+              lte: fifteenMinutesFromNow.toISOString(),
+            },
+          },
         },
       },
     });
