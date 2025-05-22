@@ -43,18 +43,6 @@ export const navigationTabs: NavigationTabInfo[] = [
     route: RouteNames.FLY_TALKS,
   },
   {
-    id: NAVIGATION_TAB_ID.PROFILE,
-    name: 'Profil',
-    icon: 'profile-icon',
-    width: 22,
-    height: 22,
-    route: RouteNames.PROFILE,
-  },
-  /*
-    
-  
-
-  {
     id: NAVIGATION_TAB_ID.COMPANIES,
     name: 'Tvrtke',
     icon: 'companies-icon',
@@ -62,5 +50,12 @@ export const navigationTabs: NavigationTabInfo[] = [
     height: 24,
     route: RouteNames.COMPANIES,
   },
-  */
+  {
+    id: NAVIGATION_TAB_ID.PROFILE,
+    name: 'Profil',
+    icon: 'profile-icon',
+    width: 22,
+    height: 22,
+    route: RouteNames.PROFILE,
+  },
 ];
