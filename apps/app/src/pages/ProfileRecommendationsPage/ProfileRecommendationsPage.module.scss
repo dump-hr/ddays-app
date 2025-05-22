@@ -10,6 +10,7 @@
   padding-bottom: inherit;
   position: relative;
   display: flex;
+  @include mobileNavigationPadding();
 
   @media screen and (min-width: $breakpoint-tablet) {
     padding-top: 166px;

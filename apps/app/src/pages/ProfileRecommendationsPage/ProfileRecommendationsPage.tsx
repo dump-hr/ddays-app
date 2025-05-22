@@ -3,7 +3,6 @@ import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
 import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
-import EventsSection from './EventsSection';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '@/router/routes';
 
@@ -39,11 +38,15 @@ const ProfileRecommendationsPage = () => {
             />
           ))}
         </div>
-        <h3 className={c.title}>Predavanja</h3>
+        {/**
+         * <h3 className={c.title}>Predavanja</h3>
         <p className={c.paragraph}>
           Na temelju tvojih interesa preporučamo ti sljedeća predavanja.
         </p>
         <EventsSection />
+         * 
+         * 
+         */}
       </main>
     </div>
   );
