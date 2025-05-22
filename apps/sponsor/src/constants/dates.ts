@@ -1,1 +1,1 @@
-export const SPONSOR_FLY_TALK_DEADLINE = new Date('2025-05-21T18:00:00Z');
+export const SPONSOR_FLY_TALK_DEADLINE = new Date('2025-05-22T10:00:00Z');
