@@ -40,6 +40,9 @@ const ProfileRecommendationsPage = () => {
               hasSeparator={i !== 4}
             />
           ))}
+          {recommendations?.length === 0 && (
+            <p className={c.noRecommendations}>Odaberi barem jedan interes.</p>
+          )}
         </div>
         {/**
          * <h3 className={c.title}>Predavanja</h3>

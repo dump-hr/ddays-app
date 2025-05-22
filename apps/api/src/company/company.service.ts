@@ -479,6 +479,10 @@ export class CompanyService {
     // Prvo dohvatimo korisnika s njegovim interesima
     const userInterests = (await this.interestService.getForUser(userId)) || [];
 
+    if (userInterests.length === 0) {
+      return [];
+    }
+
     const allCompanies = await this.prisma.company.findMany({
       include: {
         booth: {
@@ -503,7 +507,20 @@ export class CompanyService {
         };
       })
       .filter((company) => company.matchingInterests.length > 0)
-      .sort((a, b) => b.matchingInterests.length - a.matchingInterests.length)
+      .sort((a, b) => {
+        const aScore = a.matchingInterests.length;
+        const bScore = b.matchingInterests.length;
+
+        if (bScore !== aScore) {
+          return bScore - aScore; // Prvo po broju poklapanja, silazno
+        }
+
+        // Ako je score isti, sortiraj po manjem ukupnom broju interesa (uzlazno)
+        const aTotal = a.companyToInterest.length;
+        const bTotal = b.companyToInterest.length;
+
+        return aTotal - bTotal;
+      })
       .slice(0, 5);
 
     return recommendedCompanies.map((company) => ({
