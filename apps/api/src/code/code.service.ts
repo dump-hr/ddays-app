@@ -276,24 +276,31 @@ export class CodeService {
       );
     }
 
-    await this.prisma.$transaction(async (tx) => {
-      await tx.userToCode.create({
-        data: {
-          codeId: foundCode.id,
-          userId,
-        },
-      });
-
-      await tx.user.update({
-        where: { id: userId },
-        data: {
-          points: { increment: foundCode.points },
-        },
-      });
-    });
-
     const codeCompanyId = await this.getCompany(code);
     const codeEventId = await this.getEvent(code);
+
+    if (!codeCompanyId && !codeEventId) {
+      await this.prisma.$transaction(async (tx) => {
+        await tx.userToCode.create({
+          data: {
+            codeId: foundCode.id,
+            userId,
+          },
+        });
+
+        await tx.user.update({
+          where: { id: userId },
+          data: {
+            points: { increment: foundCode.points },
+          },
+        });
+      });
+
+      return {
+        code: foundCode,
+        redirectUrl: null,
+      };
+    }
 
     if (codeCompanyId) {
       return {
