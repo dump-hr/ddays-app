@@ -21,13 +21,11 @@ export class PrinterController {
   constructor(private readonly printerService: PrinterService) {}
 
   @Get('all')
-  @UseGuards(AdminGuard)
   async getAllPrinters(): Promise<PrinterDto[]> {
     return this.printerService.getAllPrinters();
   }
 
   @Post('assign')
-  @UseGuards(AdminGuard)
   async assignUserToPrinter(
     @Body() dto: PrinterAssignmentDto,
   ): Promise<UserToPrinterDto> {

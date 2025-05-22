@@ -44,6 +44,7 @@ export enum RouteNames {
   RATE_COMPANY = '/app/rate-company/:companyId',
   FLOOR_PLAN = '/app/floor-plan',
   RATE_EVENT = '/app/rate-event/:eventId',
+  ACCREDITATION_SCAN = '/app/JxASXlJhOJ',
 }
 
 export const navbarRoutes = [
