@@ -97,7 +97,7 @@ export const SettingsHeader: React.FC = () => {
         {isNotEditingMode && (
           <>
             <img src={EditIcon} alt='edit' />
-            {!isMobile && <span>UREDI SVOJE INTERESE</span>}
+            {!isMobile && <span>UREDI SVOJ PROFIL</span>}
           </>
         )}
         {isEditingMode && isMobile && <img src={CloseIcon} alt='close' />}

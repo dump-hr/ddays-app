@@ -9,5 +9,8 @@ export enum Path {
   Reward = '/admin/reward',
   Achievement = '/admin/achievement',
   Code = '/admin/code',
+  Accreditation = '/admin/accreditation',
+  AccreditationScan = '/admin/accreditation-scan',
+  TransactionScan = '/admin/transaction-scan',
   Shopping = '/admin/shopping',
 }

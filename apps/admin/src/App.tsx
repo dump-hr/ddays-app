@@ -7,6 +7,8 @@ import { Route, Switch } from 'wouter';
 
 import { Layout } from './components/Layout';
 import { Path } from './constants/paths';
+import AccreditationPage from './pages/AccreditationPage';
+import AccreditationScanPage from './pages/AccreditationScanPage';
 import AchievementPage from './pages/AchievementPage';
 import { BoothPage } from './pages/BoothPage';
 import CodePage from './pages/CodePage';
@@ -17,6 +19,7 @@ import { InterestPage } from './pages/InterestPage';
 import RewardPage from './pages/RewardPage';
 import ShoppingPage from './pages/ShoppingPage';
 import SpeakerPage from './pages/SpeakerPage';
+import TransactionScanPage from './pages/TransactionScanPage';
 
 export const App = () => {
   useMsalAuthentication(InteractionType.Redirect);
@@ -34,6 +37,12 @@ export const App = () => {
           <Route path={Path.Reward} component={RewardPage} />
           <Route path={Path.Achievement} component={AchievementPage} />
           <Route path={Path.Code} component={CodePage} />
+          <Route path={Path.Accreditation} component={AccreditationPage} />
+          <Route
+            path={Path.AccreditationScan}
+            component={AccreditationScanPage}
+          />
+          <Route path={Path.TransactionScan} component={TransactionScanPage} />
           <Route path={Path.Shopping} component={ShoppingPage} />
         </Switch>
       </Layout>

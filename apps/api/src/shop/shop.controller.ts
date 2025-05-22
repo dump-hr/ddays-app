@@ -67,10 +67,13 @@ export class ShopController {
     return this.shopService.getAllUserTransactions(user.id);
   }
 
-  @Patch('transaction/:id/verify')
-  @UseGuards(UserGuard)
-  verifyCollectedItem(@Param('id', ParseIntPipe) id: number, @Req() { user }) {
-    return this.shopService.verifyCollectedItem(id, user.id);
+  @Patch('transaction/verify')
+  @UseGuards(AdminGuard)
+  verifyCollectedItem(
+    @Body() verifyCollectedItemDto: { itemId: number; userId: number },
+  ) {
+    const { itemId, userId } = verifyCollectedItemDto;
+    return this.shopService.verifyCollectedItem(itemId, userId);
   }
 
   @Patch('shopItem/:id')

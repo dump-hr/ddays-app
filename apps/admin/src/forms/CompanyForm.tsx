@@ -44,7 +44,7 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
     {
       id: 'websiteUrl',
       type: QuestionType.Field,
-      title: 'Website',
+      title: 'Web stranica',
       defaultValue: company?.websiteUrl,
     },
     {
@@ -53,6 +53,12 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
       title: 'Kategorija sponzorstva',
       options: Object.values(CompanyCategory),
       defaultValue: company?.category,
+    },
+    {
+      id: 'codeId',
+      type: QuestionType.Number,
+      title: 'Kod (0 for null)',
+      defaultValue: company?.codeId,
     },
     {
       id: 'interestIds',
@@ -94,7 +100,10 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
       <Button
         onClick={form.handleSubmit(async (formData) => {
           if (id) {
-            await updateCompany.mutateAsync({ ...formData, id });
+            await updateCompany.mutateAsync({
+              ...formData,
+              id,
+            });
           } else {
             await createCompany.mutateAsync(formData);
           }

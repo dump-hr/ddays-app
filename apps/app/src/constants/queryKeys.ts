@@ -26,4 +26,7 @@ export const QUERY_KEYS = {
   company: 'company',
   companies: 'companies',
   jobs: 'jobs',
+  codeCompanyId: 'codeCompanyId',
+  codeEventId: 'codeEventId',
+  flyTalkApplicationStatus: 'flyTalkApplicationStatus',
 };

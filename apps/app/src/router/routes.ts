@@ -41,8 +41,10 @@ export enum RouteNames {
   CONFIRM_EMAIL = '/app/confirm-email',
   NOTIFICATIONS = '/app/notifications',
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
-  RATE_COMPANY = '/app/rate-company',
-  RATE_LECTURE = '/app/rate-lecture',
+  RATE_COMPANY = '/app/rate-company/:companyId',
+  FLOOR_PLAN = '/app/floor-plan',
+  RATE_EVENT = '/app/rate-event/:eventId',
+  ACCREDITATION_SCAN = '/app/JxASXlJhOJ',
 }
 
 export const navbarRoutes = [

@@ -82,7 +82,9 @@ export class EventController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<EventDto> {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<EventWithSpeakerDto> {
     return await this.eventService.getOne(id);
   }
 
@@ -154,5 +156,14 @@ export class EventController {
     @Body() dto: UserToEventDto,
   ): Promise<void> {
     return await this.eventService.leaveEvent(eventId, dto);
+  }
+
+  @UseGuards(UserGuard)
+  @Get('application-status/:flyTalkId')
+  async getApplicationStatus(
+    @Param('flyTalkId', ParseIntPipe) flyTalkId: number,
+    @Req() { user }: AuthenticatedRequest,
+  ): Promise<boolean | null> {
+    return await this.eventService.getApplicationStatus(user.id, flyTalkId);
   }
 }

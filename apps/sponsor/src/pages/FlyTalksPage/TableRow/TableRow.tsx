@@ -25,8 +25,8 @@ const TableRow: React.FC<TableRowProps> = ({
   function getStatusIcon(): string {
     if (!timeLeft) return QuestionIcon;
 
-    const isAccepted = applicant.selected;
-    if (timeLeft.getTime() !== 0) {
+    const isAccepted = applicant.finallySelected;
+    if (timeLeft.getTime() !== 0 || applicant.finallySelected === null) {
       return QuestionIcon;
     }
     if (isAccepted) {

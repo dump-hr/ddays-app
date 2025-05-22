@@ -39,6 +39,16 @@ export class CodeController {
     return await this.codeService.getOne(code);
   }
 
+  @Get(':code/companyId')
+  async getCompany(@Param('code') code: string): Promise<number | null> {
+    return await this.codeService.getCompany(code);
+  }
+
+  @Get(':code/eventId')
+  async getEvent(@Param('code') code: string): Promise<number | null> {
+    return await this.codeService.getEvent(code);
+  }
+
   @UseGuards(AdminGuard)
   @Patch(':id')
   async update(
@@ -59,7 +69,7 @@ export class CodeController {
   async apply(
     @Param('code') code: string,
     @Req() { user }: AuthenticatedRequest,
-  ): Promise<CodeDto> {
+  ): Promise<{ code: CodeDto; redirectUrl: string }> {
     return await this.codeService.apply(code, user.id);
   }
 

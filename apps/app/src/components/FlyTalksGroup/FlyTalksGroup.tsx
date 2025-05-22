@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
 import { useDeleteFlyTalkApplication } from '@/api/flyTalks/useDeleteFlyTalkApplication';
+import { useGetFlyTalkApplicationStatus } from '@/api/flyTalks/useFlyTalkGetApplicationStatus';
 
 interface FlyTalksGroupProps {
   group: {
@@ -20,20 +21,22 @@ interface FlyTalksGroupProps {
       name: string;
     }[];
     hasUserApplied: boolean;
+    isApplicationOpen?: boolean;
   };
   hasUserAlreadyAppliedOnDay?: boolean;
-  wasUserAccepted?: boolean;
   refetch?: () => void;
 }
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   group,
   hasUserAlreadyAppliedOnDay,
-  wasUserAccepted,
   refetch,
 }) => {
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
+
+  const isButtonDisabled = !group.isApplicationOpen && !group.hasUserApplied;
+  const { data: wasUserAccepted } = useGetFlyTalkApplicationStatus(group.id);
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
@@ -45,6 +48,16 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
       }
     }
   };
+
+  function getButtonText() {
+    if (group.hasUserApplied) {
+      return 'Odjavi termin';
+    }
+    if (isButtonDisabled) {
+      return 'Prijave su zatvorene';
+    }
+    return 'Prijavi termin';
+  }
 
   return (
     <div
@@ -85,8 +98,9 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
           <Button
             variant='orange'
             className={c.applyButton}
-            onClick={handleApplyClick}>
-            {group.hasUserApplied ? 'Odjavi termin' : 'Prijavi'}
+            onClick={handleApplyClick}
+            disabled={isButtonDisabled}>
+            {getButtonText()}
           </Button>
         )}
       </div>

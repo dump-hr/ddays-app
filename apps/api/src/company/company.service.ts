@@ -3,12 +3,14 @@ import {
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyPublicDto,
+  FloorPlanCompanyDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
 import { PrismaService } from 'src/prisma.service';
+import { RatingService } from 'src/rating/rating.service';
 
 @Injectable()
 export class CompanyService {
@@ -16,6 +18,7 @@ export class CompanyService {
     private readonly prisma: PrismaService,
     private readonly blobService: BlobService,
     private readonly interestService: InterestService,
+    private readonly ratingService: RatingService,
   ) {}
 
   async create(dto: CompanyModifyDto): Promise<CompanyDto> {
@@ -54,6 +57,11 @@ export class CompanyService {
 
   async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
     const companies = await this.prisma.company.findMany({
+      where: {
+        booth: {
+          isNot: null, // Ensure the company has a booth
+        },
+      },
       include: {
         booth: {
           include: {
@@ -63,31 +71,35 @@ export class CompanyService {
       },
     });
 
-    const companiesWithAvgRating = companies.map((company) => {
-      const ratings = company.booth?.rating ?? [];
+    const companiesWithAvgRating = companies
+      .map((company) => {
+        const ratings = company.booth?.rating ?? [];
 
-      const averageRating =
-        ratings.length > 0
-          ? ratings.reduce((acc, rating) => {
-              const value = Number(
-                (rating.grades as { value: number })?.value || 0,
-              );
-              return acc + value;
-            }, 0) / ratings.length
-          : 0;
+        if (ratings.length === 0) {
+          return null; // Exclude companies with no ratings
+        }
 
-      return {
-        ...company,
-        booth: company.booth?.name,
-        averageRating,
-      };
-    });
+        const averageRating =
+          ratings.reduce((sum, r) => sum + r.value, 0) / ratings.length;
+
+        return {
+          ...company,
+          booth: company.booth?.name, // convert booth object to booth name
+          averageRating,
+        };
+      })
+      .filter(
+        (company): company is typeof company & { averageRating: number } =>
+          company !== null,
+      );
 
     const topRated = companiesWithAvgRating
       .sort((a, b) => b.averageRating - a.averageRating)
       .slice(0, 5);
 
-    return topRated;
+    return topRated.map(({ ...company }) => ({
+      ...company,
+    }));
   }
 
   async getOne(id: number): Promise<CompanyDto> {
@@ -108,7 +120,7 @@ export class CompanyService {
     const foundCompany = await this.prisma.company.findUnique({
       where: { id },
       include: {
-        booth: { select: { name: true } },
+        booth: { select: { name: true, id: true } },
       },
     });
 
@@ -121,6 +133,7 @@ export class CompanyService {
     return {
       ...foundCompany,
       booth: foundCompany.booth?.name || null,
+      boothId: foundCompany.booth?.id || null,
       interests,
     };
   }
@@ -155,7 +168,14 @@ export class CompanyService {
             event: {
               include: {
                 userToEvent: {
-                  include: {
+                  select: {
+                    eventId: true,
+                    finallySelected: true,
+                    linkedinProfile: true,
+                    githubProfile: true,
+                    portfolioProfile: true,
+                    cv: true,
+                    description: true,
                     user: {
                       select: {
                         id: true,
@@ -199,6 +219,7 @@ export class CompanyService {
           cv: rel.cv,
           description: rel.description,
           selected: matchingCompany?.selected ?? false,
+          finallySelected: rel.finallySelected,
         };
       }),
     );
@@ -285,7 +306,7 @@ export class CompanyService {
         websiteUrl: dto.websiteUrl,
         instagramUrl: dto.instagramUrl,
         linkedinUrl: dto.linkedinUrl,
-        codeId: dto.codeId,
+        codeId: dto.codeId ? dto.codeId : null,
       },
     });
 
@@ -403,5 +424,54 @@ export class CompanyService {
     });
 
     return updatedCompany;
+  }
+
+  async getFloorPlan(): Promise<FloorPlanCompanyDto[]> {
+    const companies = await this.prisma.company.findMany({
+      where: {
+        booth: {
+          isNot: null,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        logoImage: true,
+        booth: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        companyToInterest: {
+          select: {
+            interest: {
+              select: {
+                id: true,
+                name: true,
+                theme: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const companiesWithRatings = await Promise.all(
+      companies.map(async (company) => ({
+        name: company.name,
+        booth: company.booth?.name ?? '',
+        boothId: company.booth?.id,
+        logoImage: company.logoImage ?? undefined,
+        interests: company.companyToInterest.map((cti) => ({
+          id: cti.interest.id,
+          name: cti.interest.name,
+          theme: cti.interest.theme,
+        })),
+        boothRating: await this.ratingService.getCompanyRating(company.id),
+      })),
+    );
+
+    return companiesWithRatings;
   }
 }
