@@ -8,6 +8,10 @@
   gap: 8px;
   border-bottom: 1px solid $black-90;
   position: relative;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
 }
 
 .iconWrapper {
