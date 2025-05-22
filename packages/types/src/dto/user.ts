@@ -75,6 +75,7 @@ export type UserToCompanyDto = {
   portfolioProfile: string;
   cv: string;
   description: string;
+  finallySelected: boolean | null;
 };
 
 export type UserWithFlyTalkDto = {
