@@ -5,11 +5,12 @@
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width: 920px) {
-    display: grid;
-    max-width: 970px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    //display: grid;
+    max-width: 422px;
+    padding: 48px 0;
     margin: 0 auto;
-    grid-template-columns: 420px 1fr;
+    //grid-template-columns: 420px 1fr;
     gap: 32px;
   }
 
@@ -41,6 +42,12 @@
       @include dottedBreak;
       margin-top: 18px;
       margin-bottom: 32px;
+    }
+
+    .noCompanies {
+      margin: 0 auto;
+      color: $black-50;
+      font-family: Inter;
     }
   }
 
