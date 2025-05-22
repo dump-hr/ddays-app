@@ -25,6 +25,11 @@ export const useEventRemoveFromPersonalSchedule = () => {
           QUERY_KEYS.eventParticipantsCount,
           params.eventId,
         ]);
+
+        void queryClient.invalidateQueries([QUERY_KEYS.userNotifications]);
+        void queryClient.invalidateQueries([
+          QUERY_KEYS.unreadNotificationsCount,
+        ]);
       },
       onError: () => {
         toast.error(

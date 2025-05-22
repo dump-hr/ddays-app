@@ -20,7 +20,7 @@
   gap: 14px;
   padding: 0 16px;
   border-radius: 8px;
-  &:hover{
+  &:hover {
     background-color: $black-90;
   }
 }
@@ -41,8 +41,11 @@
   right: 72px;
   top: 19px;
 
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+
   @media screen and (max-width: $breakpoint-tablet-lg) {
     right: 36px;
-    
   }
 }

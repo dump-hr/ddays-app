@@ -1,9 +1,11 @@
 import {
   EventDto,
   EventModifyDto,
+  EventType,
   EventWithCompanyDto,
   EventWithSpeakerDto,
   EventWithUsersDto,
+  NotificationStatus,
   UserToEventDto,
 } from '@ddays-app/types';
 import {
@@ -12,16 +14,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { EventType, UserToEvent } from '@prisma/client';
+import { UserToEvent } from '@prisma/client';
 import ical from 'ical-generator';
 import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
-export class AlreadyJoinedEventException extends HttpException {
-  constructor() {
-    super('Ovaj je događaj već dodan u tvoj raspored.', HttpStatus.BAD_REQUEST);
-  }
-}
+import { getEventTypeText, getTimesForNotification } from './event.helper';
 
 @Injectable()
 export class EventService {
@@ -309,19 +307,83 @@ export class EventService {
     });
 
     if (existingEntry) {
-      throw new AlreadyJoinedEventException();
+      throw new NotFoundException('You are already joined to this event');
     }
 
-    return await this.prisma.userToEvent.create({
-      data: {
-        userId: dto.userId,
-        eventId: eventId,
-        linkedinProfile: dto.linkedinProfile,
-        githubProfile: dto.githubProfile,
-        portfolioProfile: dto.portfolioProfile,
-        cv: dto.cv,
-        description: dto.description,
+    const event = await this.prisma.event.findUnique({
+      where: { id: eventId },
+      select: {
+        id: true,
+        name: true,
+        theme: true,
+        startsAt: true,
       },
+    });
+
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    return await this.prisma.$transaction(async (tx) => {
+      // Create the user-event registration
+      const userToEvent = await tx.userToEvent.create({
+        data: {
+          userId: dto.userId,
+          eventId: eventId,
+          linkedinProfile: dto.linkedinProfile,
+          githubProfile: dto.githubProfile,
+          portfolioProfile: dto.portfolioProfile,
+          cv: dto.cv,
+          description: dto.description,
+        },
+      });
+
+      const { now, eventStartTime, minutesUntilEvent } =
+        getTimesForNotification(event.startsAt);
+
+      let notification = await tx.notification.findFirst({
+        where: {
+          eventId: event.id,
+          isActive: true,
+          activatedAt: {
+            gte: new Date(now.getTime() - 30 * 60 * 1000), // Look for notifications created/activated within the last 30 minutes
+          },
+        },
+        include: {
+          userNotification: true,
+        },
+      });
+
+      if (!notification) {
+        notification = await tx.notification.create({
+          data: {
+            title: `Raspored`,
+            content: `${getEventTypeText(
+              event.theme as EventType,
+            )} koje ste zabilježeli "${
+              event.name
+            }" počinje za ${minutesUntilEvent} minuta!`,
+            activatedAt: now,
+            expiresAt: new Date(eventStartTime.getTime() + 30 * 60 * 1000), // Expires 30 min after event starts
+            isActive: true,
+            eventId: event.id,
+          },
+          include: {
+            userNotification: true,
+          },
+        });
+      }
+
+      await tx.userNotification.create({
+        data: {
+          userId: dto.userId,
+          notificationId: notification.id,
+          status: NotificationStatus.DELIVERED,
+          deliveredAt: now,
+        },
+      });
+
+      return userToEvent;
     });
   }
 
@@ -337,13 +399,40 @@ export class EventService {
       throw new NotFoundException('You are not currently joined to this event');
     }
 
-    await this.prisma.userToEvent.delete({
-      where: {
-        userId_eventId: {
-          userId: dto.userId,
+    await this.prisma.$transaction(async (tx) => {
+      // 1. Find notifications associated with this event
+      const notifications = await tx.notification.findMany({
+        where: {
           eventId: eventId,
         },
-      },
+        select: {
+          id: true,
+        },
+      });
+
+      const notificationIds = notifications.map((n) => n.id);
+
+      // 2. Delete user notification relationships if any exist
+      if (notificationIds.length > 0) {
+        await tx.userNotification.deleteMany({
+          where: {
+            userId: dto.userId,
+            notificationId: {
+              in: notificationIds,
+            },
+          },
+        });
+      }
+
+      // 3. Delete the user-event relationship
+      await tx.userToEvent.delete({
+        where: {
+          userId_eventId: {
+            userId: dto.userId,
+            eventId: eventId,
+          },
+        },
+      });
     });
   }
 

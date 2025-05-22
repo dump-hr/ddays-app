@@ -67,7 +67,9 @@ const Notification: React.FC<NotificationProps> = ({
           </button>
         )}
       </div>
-      <p className={c.time}>{getPassedTime(notification.activatedAt)}</p>
+      <p className={c.time}>
+        {getPassedTime(new Date(notification.activatedAt || ''))}
+      </p>
       {notificationsLength - 1 !== index && (
         <div className={c.dottedBreak}></div>
       )}

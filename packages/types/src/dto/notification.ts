@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { NotificationStatus } from 'src/enum';
 
 export type NotificationDto = {
   id: number;
@@ -17,6 +18,15 @@ export type NotificationDto = {
   eventId?: number;
   isActive?: boolean;
 };
+
+export class NotificationResponseDto {
+  userId: number;
+  notificationId: number;
+  deliveredAt?: Date;
+  readAt?: Date;
+  notification: NotificationDto;
+  status: NotificationStatus;
+}
 
 export class NotificationModifyDto {
   @IsString()
