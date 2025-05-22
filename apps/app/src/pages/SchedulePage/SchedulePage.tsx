@@ -163,7 +163,7 @@ export const SchedulePage = () => {
                 Poveži s mojim kalendarom
               </Button>
             )}
-            {filteredEvents.map((event, i) => (
+            {filteredEvents.map((event) => (
               <ScheduleCard
                 handleAddToPersonalSchedule={() =>
                   handleAddToPersonalSchedule(event.id)
@@ -171,7 +171,7 @@ export const SchedulePage = () => {
                 handleRemoveFromPersonalSchedule={() =>
                   handleRemoveFromPersonalSchedule(event.id)
                 }
-                key={i}
+                key={event.id}
                 event={event}
                 isAddedToSchedule={mySchedule?.some((e) => e.id === event.id)}
               />
