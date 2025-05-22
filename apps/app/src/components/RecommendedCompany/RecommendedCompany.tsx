@@ -1,11 +1,11 @@
-import { CompanyDto } from '@ddays-app/types';
+import { CompanyPublicDto } from '@ddays-app/types';
 import c from './RecommendedCompany.module.scss';
 import clsx from 'clsx';
 import BadgeGold from '../../assets/images/badge-gold.png';
 
 type RecommendedCompanyProps = {
   number: number;
-  company: CompanyDto;
+  company: CompanyPublicDto;
   hasSeparator?: boolean;
 };
 

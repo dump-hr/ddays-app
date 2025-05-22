@@ -22,6 +22,17 @@ const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
   function handleCodeSubmit() {
     applyCode.mutate(code, {
       onSuccess: (code) => {
+        if (code.redirectUrl) {
+          const currentUrl = new URL(
+            window.location.href
+              .replace('/scanner', '')
+              .replace('/scanner/', ''),
+          );
+          const appendPath = code.redirectUrl;
+          currentUrl.pathname =
+            currentUrl.pathname.replace(/\/$/, '') + appendPath;
+          window.location.href = currentUrl.toString();
+        }
         closePopup(code.code.points);
       },
       onError: (error) => {

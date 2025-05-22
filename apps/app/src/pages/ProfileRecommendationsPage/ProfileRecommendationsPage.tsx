@@ -1,14 +1,16 @@
 import c from './ProfileRecommendationsPage.module.scss';
 import ArrowLeft from '../../assets/icons/arrow-left.svg';
 import ArrowWhite from '../../assets/icons/arrow-left-white.svg';
-import { recommendations } from './recommendations';
 import RecommendedCompany from '../../components/RecommendedCompany';
-import EventsSection from './EventsSection';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '@/router/routes';
 
+import { useGetRecommendedCompanies } from '@/api/company/useGetRecommendedCompanies';
+
 const ProfileRecommendationsPage = () => {
   const navigate = useNavigate();
+  const { data: recommendations } = useGetRecommendedCompanies();
+
   return (
     <div className={c.page}>
       <img
@@ -30,7 +32,7 @@ const ProfileRecommendationsPage = () => {
           Prema tvojim interesima vidimo da se najbolje slažeš s ovim tvrtkama.
         </p>
         <div className={c.recommendationsWrapper}>
-          {recommendations.map((company, i) => (
+          {recommendations?.map((company, i) => (
             <RecommendedCompany
               key={i}
               number={i + 1}
@@ -38,12 +40,19 @@ const ProfileRecommendationsPage = () => {
               hasSeparator={i !== 4}
             />
           ))}
+          {recommendations?.length === 0 && (
+            <p className={c.noRecommendations}>Odaberi barem jedan interes.</p>
+          )}
         </div>
-        <h3 className={c.title}>Predavanja</h3>
+        {/**
+         * <h3 className={c.title}>Predavanja</h3>
         <p className={c.paragraph}>
           Na temelju tvojih interesa preporučamo ti sljedeća predavanja.
         </p>
         <EventsSection />
+         * 
+         * 
+         */}
       </main>
     </div>
   );
