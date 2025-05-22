@@ -95,7 +95,7 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsNumber()
-  codeId: number;
+  codeId?: number;
 
   @IsOptional()
   @IsArray()

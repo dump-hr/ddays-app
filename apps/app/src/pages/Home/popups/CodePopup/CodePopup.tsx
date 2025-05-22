@@ -24,8 +24,16 @@ const CodePopup: React.FC<CodePopupProps> = ({
     applyCode.mutate(code, {
       onSuccess: (submittedCode) => {
         closePopup();
+        console.log(submittedCode);
+        if (submittedCode.redirectUrl) {
+          const currentUrl = new URL(window.location.href);
+          const appendPath = submittedCode.redirectUrl;
+          currentUrl.pathname =
+            currentUrl.pathname.replace(/\/$/, '') + appendPath;
+          window.location.href = currentUrl.toString();
+        }
         setCode(Array(6).fill(''));
-        onSuccess(submittedCode.points || 0);
+        onSuccess(submittedCode.code.points || 0);
       },
       onError: (error) => {
         setErrorMessage(String(error));

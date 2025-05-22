@@ -294,7 +294,7 @@ export class CompanyService {
         websiteUrl: dto.websiteUrl,
         instagramUrl: dto.instagramUrl,
         linkedinUrl: dto.linkedinUrl,
-        codeId: dto.codeId,
+        codeId: dto.codeId ? dto.codeId : null,
       },
     });
 

@@ -22,7 +22,7 @@ const ScannedCodePopup: React.FC<ScannedCodePopupProps> = ({
   function handleCodeSubmit() {
     applyCode.mutate(code, {
       onSuccess: (code) => {
-        closePopup(code.points);
+        closePopup(code.code.points);
       },
       onError: (error) => {
         toast.error(String(error), {

@@ -32,7 +32,7 @@ export class EventService {
 
   async create(dto: EventModifyDto): Promise<EventDto> {
     const createdEvent = await this.prisma.event.create({
-      data: dto,
+      data: { ...dto, codeId: dto.codeId || null },
     });
 
     return createdEvent;
@@ -295,7 +295,7 @@ export class EventService {
   async update(id: number, dto: EventModifyDto): Promise<EventDto> {
     const updatedEvent = await this.prisma.event.update({
       where: { id },
-      data: dto,
+      data: { ...dto, codeId: dto.codeId || null },
     });
 
     return updatedEvent;

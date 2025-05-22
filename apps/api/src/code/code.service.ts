@@ -217,7 +217,10 @@ export class CodeService {
     }
   }
 
-  async apply(code: string, userId: number): Promise<CodeDto> {
+  async apply(
+    code: string,
+    userId: number,
+  ): Promise<{ code: CodeDto; redirectUrl: string | null }> {
     const currentPoints = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -289,9 +292,26 @@ export class CodeService {
       });
     });
 
+    const codeCompanyId = await this.getCompany(code);
+    const codeEventId = await this.getEvent(code);
+
+    if (codeCompanyId) {
+      return {
+        code: foundCode,
+        redirectUrl: `/rate-company/${codeCompanyId}`,
+      };
+    }
+
+    if (codeEventId) {
+      return {
+        code: foundCode,
+        redirectUrl: `/rate-event/${codeEventId}`,
+      };
+    }
+
     await this.markCompletedAchievementsForNewCode(userId);
 
-    return foundCode;
+    return { code: foundCode, redirectUrl: null };
   }
 
   async updateAchievementsForCode(codeId: number, achievementIds: number[]) {
@@ -385,5 +405,48 @@ export class CodeService {
     }
 
     return code;
+  }
+
+  async getCompany(code: string): Promise<number> {
+    const codeId = await this.prisma.code.findFirst({
+      where: { value: code },
+      select: {
+        id: true,
+      },
+    });
+
+    const company = await this.prisma.company.findFirst({
+      where: { codeId: codeId.id },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!company) {
+      return null;
+    }
+
+    return company.id;
+  }
+
+  async getEvent(code: string): Promise<number> {
+    const codeId = await this.prisma.code.findFirst({
+      where: { value: code },
+      select: {
+        id: true,
+      },
+    });
+
+    const event = await this.prisma.event.findFirst({
+      where: { codeId: codeId.id },
+      select: {
+        id: true,
+      },
+    });
+    if (!event) {
+      return null;
+    }
+
+    return event.id;
   }
 }

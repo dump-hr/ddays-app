@@ -43,7 +43,7 @@ export enum RouteNames {
   TERMS_AND_CONDITIONS = '/app/terms-and-conditions',
   RATE_COMPANY = '/app/rate-company/:companyId',
   FLOOR_PLAN = '/app/floor-plan',
-  RATE_LECTURE = '/app/rate-lecture/:lectureId',
+  RATE_EVENT = '/app/rate-event/:eventId',
 }
 
 export const navbarRoutes = [
