@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import c from './FlyTalksGroup.module.scss';
 import sadEmoji from '../../assets/images/sad-emoji.png';
 import { useDeleteFlyTalkApplication } from '@/api/flyTalks/useDeleteFlyTalkApplication';
+import { useGetFlyTalkApplicationStatus } from '@/api/flyTalks/useFlyTalkGetApplicationStatus';
 
 interface FlyTalksGroupProps {
   group: {
@@ -23,20 +24,19 @@ interface FlyTalksGroupProps {
     isApplicationOpen?: boolean;
   };
   hasUserAlreadyAppliedOnDay?: boolean;
-  wasUserAccepted?: boolean;
   refetch?: () => void;
 }
 
 const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
   group,
   hasUserAlreadyAppliedOnDay,
-  wasUserAccepted,
   refetch,
 }) => {
   const navigate = useNavigate();
   const deleteFlyTalkApplication = useDeleteFlyTalkApplication();
 
   const isButtonDisabled = !group.isApplicationOpen && !group.hasUserApplied;
+  const { data: wasUserAccepted } = useGetFlyTalkApplicationStatus(group.id);
 
   const handleApplyClick = () => {
     if (!group.hasUserApplied) {
@@ -73,6 +73,7 @@ const FlyTalksGroup: React.FC<FlyTalksGroupProps> = ({
             : `${c.group} ${c.groupFull}`
       }>
       <div className={c.groupHeader}>
+        <button onClick={() => console.log(wasUserAccepted)}>get status</button>
         <div></div>
         <img className={c.starIcon} src={star} alt='' />
         <p>

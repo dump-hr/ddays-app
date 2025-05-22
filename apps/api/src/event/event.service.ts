@@ -480,4 +480,22 @@ export class EventService {
       isApplicationOpen: workshop.isApplicationOpen,
     }));
   }
+
+  async getApplicationStatus(
+    userId: number,
+    flyTalkId: number,
+  ): Promise<boolean | null> {
+    const application = await this.prisma.userToEvent.findFirst({
+      where: {
+        userId,
+        eventId: flyTalkId,
+      },
+    });
+
+    if (!application) {
+      return null;
+    }
+
+    return application.finallySelected;
+  }
 }
