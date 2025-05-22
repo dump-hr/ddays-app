@@ -1,8 +1,11 @@
 import c from './LocationSection.module.scss';
 import fesb from '../../assets/images/fesb.png';
 import Button from '../Button';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '@/router/routes';
 
 const LocationSection = () => {
+  const navigate = useNavigate();
   return (
     <div className={c.containerWrapper}>
       <div className={c.titleWrapper}>
@@ -13,8 +16,11 @@ const LocationSection = () => {
           gdje se koja tvrtka nalazi.
         </p>
 
-        <Button className={c.button} variant='black' disabled>
-          Uskoro dostupno
+        <Button
+          className={c.button}
+          variant='black'
+          onClick={() => navigate(RouteNames.FLOOR_PLAN)}>
+          Zaviri u naš prostor
         </Button>
       </div>
 
