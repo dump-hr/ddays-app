@@ -16,13 +16,13 @@ import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 
 export const RateLecturePage = () => {
   const navigate = useNavigate();
-  const { lectureId: lectureIdString } = useParams();
-  const lectureId = Number(lectureIdString);
+  const { eventId: evendIdString } = useParams();
+  const eventId = Number(evendIdString);
   const {
     data: event,
     isLoading: isEventLoading,
     isError: isEventError,
-  } = useEventGetById(lectureId);
+  } = useEventGetById(eventId);
   const { data: userRatings } = useGetUserRatings();
 
   const [answers, setAnswers] = useState<Record<number, number | null>>({});

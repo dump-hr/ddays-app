@@ -4,6 +4,7 @@ import {
   RatingQuestionDto,
 } from '@ddays-app/types';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CompanyCategory, EventType } from '@prisma/client';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { BoothService } from 'src/booth/booth.service';
 import { PrismaService } from 'src/prisma.service';
@@ -95,14 +96,17 @@ export class RatingService {
         });
       }),
     );
-    /*
 
     const completedAchievements =
       await this.achievementService.getCompletedAchievements(userId);
 
+    // Booth related achievements
     const ratedBooths = await this.prisma.rating.findMany({
       where: {
         userId: userId,
+        boothId: {
+          not: null,
+        },
       },
       select: {
         boothId: true,
@@ -147,20 +151,6 @@ export class RatingService {
     ).length;
 
     const allBooths = await this.boothService.getAll();
-
-    
-    if (
-      existingRatings.length >= 0 &&
-      !completedAchievements.some(
-        (achievement) => achievement.name === 'Quality Assurance',
-      )
-    ) {
-      await this.achievementService.completeAchievementByName(
-        userId,
-        'Quality Assurance',
-        true,
-      );
-    }
 
     if (
       ratedBooths.length >= 1 &&
@@ -226,7 +216,163 @@ export class RatingService {
         true,
       );
     }
-      */
+
+    // Event related achievements
+    const ratedEvents = await this.prisma.rating.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        eventId: true,
+      },
+      distinct: ['eventId'],
+    });
+
+    const allWorkshops = await this.prisma.event.findMany({
+      where: {
+        type: EventType.WORKSHOP,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    const numberOfRatedWorkshops = ratedEvents.filter((ratedEvent) =>
+      allWorkshops.some((event) => event.id === ratedEvent.eventId),
+    ).length;
+
+    const allCampfireTalks = await this.prisma.event.findMany({
+      where: {
+        type: EventType.CAMPFIRE_TALK,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    const numberOfRatedCampfireTalks = ratedEvents.filter((ratedEvent) =>
+      allCampfireTalks.some((event) => event.id === ratedEvent.eventId),
+    ).length;
+
+    const allLectures = await this.prisma.event.findMany({
+      where: {
+        type: EventType.LECTURE,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    const numberOfRatedLectures = ratedEvents.filter((ratedEvent) =>
+      allLectures.some((event) => event.id === ratedEvent.eventId),
+    ).length;
+
+    if (
+      ratedEvents.length >= 1 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Novice attender',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Novice attender',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedWorkshops >= 1 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Hard at work',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Hard at work',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedCampfireTalks >= 1 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Ring of fire',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Ring of fire',
+        true,
+      );
+    }
+
+    if (
+      (numberOfRatedLectures >= 1 || numberOfRatedWorkshops >= 1) &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Quality Assurance',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Quality Assurance',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedLectures >= 5 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Intermediate attender',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Intermediate attender',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedWorkshops >= 2 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Extra hard at work',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Extra hard at work',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedLectures >= 10 &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Advanced attender',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Advanced attender',
+        true,
+      );
+    }
+
+    if (
+      numberOfRatedLectures >= allLectures.length &&
+      !completedAchievements.some(
+        (achievement) => achievement.name === 'Master attender',
+      )
+    ) {
+      await this.achievementService.completeAchievementByName(
+        userId,
+        'Master attender',
+        true,
+      );
+    }
 
     return newRatings;
   }
