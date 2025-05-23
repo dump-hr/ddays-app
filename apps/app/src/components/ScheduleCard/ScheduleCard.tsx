@@ -68,7 +68,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     if (isEventFull && event.type === EventType.WORKSHOP) return 'Popunjeno';
 
     if (new Date(event.startsAt).getTime() < new Date().getTime())
-      return 'Predavanje je završeno';
+      return 'Događaj je završen';
 
     return 'Dodaj u svoj raspored';
   }
