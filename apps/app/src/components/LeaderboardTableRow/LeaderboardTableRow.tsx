@@ -15,10 +15,10 @@ const LeaderboardTableRow = forwardRef<
   const { rank, name, level, points, profilePhotoUrl } = userRank;
   const scaleImg = profilePhotoUrl
     ? {
-        scale: '1.4',
+        scale: !profilePhotoUrl?.includes('https://') ? '1' : '1.4',
       }
     : {};
-    
+
   return (
     <tr className={c.row} ref={ref}>
       <td className={c.rankCell}>{rank}.</td>
