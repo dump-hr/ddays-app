@@ -3,6 +3,7 @@ import {
   EventModifyDto,
   EventType,
   EventWithCompanyDto,
+  EventWithRatingDto,
   EventWithSpeakerDto,
   EventWithUsersDto,
   NotificationStatus,
@@ -585,5 +586,42 @@ export class EventService {
     }
 
     return application.finallySelected;
+  }
+
+  async getAllWithRatings(): Promise<EventWithRatingDto[]> {
+    const events = await this.prisma.event.findMany();
+
+    const ratings = await this.prisma.rating.findMany({
+      where: {
+        eventId: {
+          in: events.map((event) => event.id),
+          not: null,
+        },
+      },
+    });
+
+    const applications = await this.prisma.userToEvent.findMany({
+      where: {
+        eventId: {
+          in: events.map((event) => event.id),
+          not: null,
+        },
+      },
+    });
+
+    return events.map((event) => ({
+      id: event.id,
+      name: event.name,
+      type: event.type,
+      theme: event.theme,
+      numberOfApplications: applications.filter(
+        (app) => app.eventId === event.id,
+      ).length,
+      averageRating:
+        ratings
+          .filter((rating) => rating.eventId === event.id)
+          .reduce((acc, rating) => acc + rating.value, 0) /
+          ratings.filter((rating) => rating.eventId === event.id).length || 0,
+    }));
   }
 }

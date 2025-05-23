@@ -1,6 +1,7 @@
 import { EventWithUsersDto } from '@ddays-app/types';
 import { useState } from 'react';
 
+import { useEventGetAllWithRating } from '../api/event/useEventGetAllWithRating';
 import { useGetWorkshopsWithUsers } from '../api/event/useGetWorkshopsWithUsers';
 import { useGetUserCount } from '../api/user/useGetUserCount';
 import { Modal } from '../components/Modal';
@@ -17,6 +18,8 @@ export const HomePage = () => {
   const [modalWorkshop, setModalWorkshop] = useState<EventWithUsersDto | null>(
     null,
   );
+
+  const { data: eventsWithRatings } = useEventGetAllWithRating();
 
   function formatStartDate(dateString: string) {
     const date = new Date(dateString);
@@ -70,8 +73,30 @@ export const HomePage = () => {
           <h3>{userCount}</h3>
         </div>
         <section className={c.section}>
+          <h3 className={c.sectionTitle}>Ocjene</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Naziv</th>
+                <th>Tip</th>
+                <th>Broj prijava</th>
+                <th>Ocjena</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventsWithRatings?.map((event) => (
+                <tr key={event.id}>
+                  <td>{event.name}</td>
+                  <td>{event.type}</td>
+                  <td>{event?.averageRating || 'problem'}</td>
+                  <td>{event.averageRating}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+        <section className={c.section}>
           <h3 className={c.sectionTitle}>Radionice</h3>
-
           <table>
             <thead>
               <tr>

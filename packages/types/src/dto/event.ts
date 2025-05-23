@@ -12,6 +12,14 @@ import { SpeakerWithCompanyDto } from './speaker';
 import { CompanyDto, CompanyWithFlyTalkDto } from './company';
 import { UserDto, UserWithFlyTalkDto } from './user';
 
+export type EventWithRatingDto = {
+  id: number;
+  name: string;
+  type: `${EventType}`;
+  theme: `${Theme}`;
+  averageRating?: number;
+};
+
 export type EventDto = {
   id: number;
   name: string;
