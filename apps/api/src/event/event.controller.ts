@@ -57,6 +57,12 @@ export class EventController {
     return await this.eventService.uploadCV(file);
   }
 
+  @UseGuards(AdminGuard)
+  @Get('all-with-ratings')
+  async getAllWithRatings(): Promise<EventWithRatingDto[]> {
+    return await this.eventService.getAllWithRatings();
+  }
+
   @Get('with-speaker')
   async getAllWithSpeaker(): Promise<EventWithSpeakerDto[]> {
     return await this.eventService.getAllWithSpeaker();
@@ -124,12 +130,6 @@ export class EventController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<UserToEventDto> {
     return await this.eventService.deleteFlyTalkApplication(user.id, eventId);
-  }
-
-  @UseGuards(AdminGuard)
-  @Get('all-with-ratings')
-  async getAllWithRatings(): Promise<EventWithRatingDto[]> {
-    return await this.eventService.getAllWithRatings();
   }
 
   @UseGuards(AdminGuard)

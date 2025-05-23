@@ -593,35 +593,36 @@ export class EventService {
 
     const ratings = await this.prisma.rating.findMany({
       where: {
-        eventId: {
-          in: events.map((event) => event.id),
-          not: null,
-        },
+        eventId: { in: events.map((e) => e.id) },
       },
     });
 
     const applications = await this.prisma.userToEvent.findMany({
       where: {
-        eventId: {
-          in: events.map((event) => event.id),
-          not: null,
-        },
+        eventId: { in: events.map((e) => e.id) },
       },
     });
 
-    return events.map((event) => ({
-      id: event.id,
-      name: event.name,
-      type: event.type,
-      theme: event.theme,
-      numberOfApplications: applications.filter(
+    return events.map((event) => {
+      const eventRatings = ratings.filter((r) => r.eventId === event.id);
+      const eventApplications = applications.filter(
         (app) => app.eventId === event.id,
-      ).length,
-      averageRating:
-        ratings
-          .filter((rating) => rating.eventId === event.id)
-          .reduce((acc, rating) => acc + rating.value, 0) /
-          ratings.filter((rating) => rating.eventId === event.id).length || 0,
-    }));
+      );
+
+      const averageRating =
+        eventRatings.length > 0
+          ? eventRatings.reduce((acc, r) => acc + r.value, 0) /
+            eventRatings.length
+          : 0;
+
+      return {
+        id: event.id,
+        name: event.name,
+        type: event.type,
+        theme: event.theme,
+        numberOfApplications: eventApplications.length,
+        averageRating,
+      };
+    });
   }
 }

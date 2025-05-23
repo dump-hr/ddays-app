@@ -1,4 +1,4 @@
-import { EventWithUsersDto } from '@ddays-app/types';
+import { EventType, EventWithUsersDto } from '@ddays-app/types';
 import { useState } from 'react';
 
 import { useEventGetAllWithRating } from '../api/event/useEventGetAllWithRating';
@@ -19,7 +19,7 @@ export const HomePage = () => {
     null,
   );
 
-  const { data: eventsWithRatings } = useEventGetAllWithRating();
+  const { data: eventsWithRating } = useEventGetAllWithRating();
 
   function formatStartDate(dateString: string) {
     const date = new Date(dateString);
@@ -73,25 +73,29 @@ export const HomePage = () => {
           <h3>{userCount}</h3>
         </div>
         <section className={c.section}>
-          <h3 className={c.sectionTitle}>Ocjene</h3>
+          <h3 className={c.sectionTitle}>Ocjene - Predavanja</h3>
           <table>
             <thead>
               <tr>
                 <th>Naziv</th>
-                <th>Tip</th>
                 <th>Broj prijava</th>
                 <th>Ocjena</th>
               </tr>
             </thead>
             <tbody>
-              {eventsWithRatings?.map((event) => (
-                <tr key={event.id}>
-                  <td>{event.name}</td>
-                  <td>{event.type}</td>
-                  <td>{event?.averageRating || 'problem'}</td>
-                  <td>{event.averageRating}</td>
-                </tr>
-              ))}
+              {eventsWithRating
+                ?.filter((e) => e.type === EventType.LECTURE)
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))
+                .map((event) => (
+                  <tr key={event.id}>
+                    <td>{event.name}</td>
+                    <td>{'-'}</td>
+                    <td>
+                      {Math.round((event?.averageRating || 0) * 100) / 100}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </section>
