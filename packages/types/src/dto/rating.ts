@@ -1,4 +1,11 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 import { RatingQuestionType } from '../enum';
 
 export type RatingQuestionDto = {
@@ -6,6 +13,7 @@ export type RatingQuestionDto = {
   question: string;
   subtitle: string;
   type: `${RatingQuestionType}`;
+  excludefromAvg?: boolean;
 };
 
 export type RatingDto = {

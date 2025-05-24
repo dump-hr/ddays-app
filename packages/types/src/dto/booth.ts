@@ -58,5 +58,6 @@ export type BoothWithRatingDto = {
   name: string;
   companyName: string;
   numberOfRatings?: number;
+  numberOfUniqueUsers?: number;
   averageRating?: number;
 };

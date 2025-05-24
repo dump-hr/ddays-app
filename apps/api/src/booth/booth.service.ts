@@ -177,6 +177,11 @@ export class BoothService {
           .reduce((acc, rating) => acc + rating.value, 0) /
         (boothRatings.filter((rating) => rating.boothId === booth.id).length ||
           1),
+      numberOfUniqueUsers: new Set(
+        boothRatings
+          .filter((rating) => rating.boothId === booth.id)
+          .map((rating) => rating.userId),
+      ).size,
     }));
   }
 }
