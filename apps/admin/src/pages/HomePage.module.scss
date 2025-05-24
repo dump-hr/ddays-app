@@ -48,6 +48,8 @@
     border-radius: 8px;
     margin-top: 32px;
 
+    overflow-x: auto;
+
     .sectionTitle {
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -61,6 +63,7 @@
       gap: 8px;
       margin-bottom: 16px;
       height: 32px;
+      min-width: 500px;
 
       .tab {
         background: none;
@@ -80,6 +83,7 @@
 
 table {
   width: 100%;
+  min-width: 1000px;
   border-collapse: collapse;
 
   thead {
@@ -93,7 +97,7 @@ table {
 
   tbody {
     tr {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
       &:hover {
         background-color: rgba(0, 0, 0, 0.03);
       }
@@ -122,13 +126,47 @@ table {
   }
 }
 
-#ratings {
+#eventRatings {
   thead,
   tbody {
     tr {
       th:nth-child(2),
       td:nth-child(2) {
         width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 100px;
+      }
+    }
+    tr {
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 16px;
+      }
+    }
+  }
+
+  span {
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+#boothRatings {
+  thead,
+  tbody {
+    tr {
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 80px;
       }
     }
     tr {

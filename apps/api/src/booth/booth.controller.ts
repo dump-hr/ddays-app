@@ -3,6 +3,7 @@ import {
   BoothDto,
   BoothModifyDto,
   BoothPublicDto,
+  BoothWithRatingDto,
   CompanyCategory,
 } from '@ddays-app/types';
 import {
@@ -52,6 +53,12 @@ export class BoothController {
     @Req() { user }: AuthenticatedRequest,
   ): Promise<BoothPublicDto[]> {
     return await this.boothService.getAllForCompany(user.id);
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('all-with-ratings')
+  async getAllWithRatings(): Promise<BoothWithRatingDto[]> {
+    return await this.boothService.getAllWithRatings();
   }
 
   @UseGuards(SponsorGuard)

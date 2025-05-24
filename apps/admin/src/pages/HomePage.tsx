@@ -2,10 +2,12 @@ import { EventType, EventWithUsersDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useState } from 'react';
 
+import { useBoothGetAllWithRating } from '../api/booth/useBoothGetAllWithRating';
 import { useEventGetAllWithRating } from '../api/event/useEventGetAllWithRating';
 import { useGetWorkshopsWithUsers } from '../api/event/useGetWorkshopsWithUsers';
 import { useGetUserCount } from '../api/user/useGetUserCount';
 import { Modal } from '../components/Modal';
+import { getRatingColor } from '../helpers/color';
 import c from './HomePage.module.scss';
 
 export const HomePage = () => {
@@ -23,6 +25,7 @@ export const HomePage = () => {
   );
 
   const { data: eventsWithRating } = useEventGetAllWithRating();
+  const { data: boothsWithRating } = useBoothGetAllWithRating();
 
   function formatStartDate(dateString: string) {
     const date = new Date(dateString);
@@ -52,29 +55,6 @@ export const HomePage = () => {
       default:
         return 'Neodređeno';
     }
-  }
-
-  function getRatingColor(rating: number): string {
-    const clampedRating = Math.min(Math.max(rating, 1), 5);
-
-    // Map 1 to 0 (red), 3 to 0.5 (yellow), 5 to 1 (green)
-    const t = (clampedRating - 1) / 4;
-
-    let r, g, b;
-
-    if (t < 0.5) {
-      const ratio = t / 0.5;
-      r = 255;
-      g = Math.round(255 * ratio);
-      b = 0;
-    } else {
-      const ratio = (t - 0.5) / 0.5;
-      r = Math.round(255 * (1 - ratio));
-      g = 255;
-      b = 0;
-    }
-
-    return `rgb(${r}, ${g}, ${b})`;
   }
 
   return (
@@ -118,7 +98,7 @@ export const HomePage = () => {
           <h3>{userCount}</h3>
         </div>
         <section className={c.section}>
-          <h3 className={c.sectionTitle}>Ocjene</h3>
+          <h3 className={c.sectionTitle}>Ocjene - Događaji</h3>
           <div className={c.tabContainer}>
             {Object.values(EventType)
               .filter(
@@ -136,7 +116,7 @@ export const HomePage = () => {
                 </button>
               ))}
           </div>
-          <table id={c.ratings}>
+          <table id={c.eventRatings}>
             <thead>
               <tr>
                 <th>Naziv</th>
@@ -155,18 +135,71 @@ export const HomePage = () => {
                   <tr key={event.id}>
                     <td>{event.name}</td>
                     <td>{event.numberOfApplications || '-'}</td>
-                    <td>{event.numberOfRatings || '-'}</td>
+                    <td>
+                      {event.numberOfRatings ? (
+                        <>
+                          {event.numberOfRatings / 3}{' '}
+                          <span>({event.numberOfRatings})</span>
+                        </>
+                      ) : (
+                        '-'
+                      )}
+                    </td>
                     <td>
                       {Math.round((event?.averageRating || 0) * 1000) / 1000 ||
                         '-'}
                     </td>
                     <td className={c.ratingCell}>
-                      {event.averageRating && (
+                      {event.averageRating ? (
                         <div
                           className={c.ratingMarker}
                           style={{
                             backgroundColor: getRatingColor(
                               event?.averageRating || 0,
+                            ),
+                          }}
+                        />
+                      ) : (
+                        '-'
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </section>
+        <section className={c.section}>
+          <h3 className={c.sectionTitle}>Ocjene - Štandovi</h3>
+          <table id={c.boothRatings}>
+            <thead>
+              <tr>
+                <th>Štand</th>
+                <th>Kompanija</th>
+                <th>Broj ocjena</th>
+                <th>Ocjena</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {boothsWithRating
+                ?.sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))
+                .map((booth) => (
+                  <tr key={booth.id}>
+                    <td>{booth.name}</td>
+                    <td>{booth.companyName}</td>
+                    <td>{booth.numberOfRatings || '-'}</td>
+                    <td>
+                      {Math.round((booth?.averageRating || 0) * 1000) / 1000 ||
+                        '-'}
+                    </td>
+                    <td className={c.ratingCell}>
+                      {booth.averageRating && (
+                        <div
+                          className={c.ratingMarker}
+                          style={{
+                            backgroundColor: getRatingColor(
+                              booth?.averageRating || 0,
                             ),
                           }}
                         />

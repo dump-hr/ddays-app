@@ -52,3 +52,11 @@ export class BoothModifyFormDto {
   @IsString()
   companyName?: string;
 }
+
+export type BoothWithRatingDto = {
+  id: number;
+  name: string;
+  companyName: string;
+  numberOfRatings?: number;
+  averageRating?: number;
+};
