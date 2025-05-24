@@ -67,6 +67,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     if (isAddedToSchedule) return 'Izbriši iz rasporeda';
     if (isEventFull && event.type === EventType.WORKSHOP) return 'Popunjeno';
 
+    if (new Date(event.startsAt).getTime() < new Date().getTime())
+      return 'Događaj je završen';
+
     return 'Dodaj u svoj raspored';
   }
 
@@ -85,6 +88,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
     return () => clearInterval(interval);
   }, [event.startsAt, event.endsAt]);
+
+  const isDisabled =
+    (isEventFull && !isAddedToSchedule && event.type === EventType.WORKSHOP) ||
+    new Date(event.startsAt).getTime() < new Date().getTime();
 
   return (
     <div className={c.scheduleCard}>
@@ -192,16 +199,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
           [c.button]: true,
           [c.collapsibleContent]: true,
           [c.collapsed]: !isOpen,
-          [c.disabled]:
-            isEventFull &&
-            !isAddedToSchedule &&
-            event.type === EventType.WORKSHOP,
+          [c.disabled]: isDisabled,
         })}
         variant={isAddedToSchedule ? 'black' : 'orange'}
         onClick={handleClick}
-        disabled={
-          isEventFull && !isAddedToSchedule && event.type === EventType.WORKSHOP
-        }>
+        disabled={isDisabled}>
         {getButtonText()}
       </Button>
 
