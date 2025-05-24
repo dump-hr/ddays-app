@@ -207,11 +207,12 @@ model Rating {
 }
 
 model RatingQuestion {
-  id       Int                @id @default(autoincrement())
-  subtitle String
-  question String
-  type     RatingQuestionType
-  Rating   Rating[]
+  id             Int                @id @default(autoincrement())
+  subtitle       String
+  question       String
+  excludefromAvg Boolean?           @default(false)
+  type           RatingQuestionType
+  Rating         Rating[]
 }
 
 enum RatingQuestionType {

@@ -621,6 +621,9 @@ export class EventService {
     const ratings = await this.prisma.rating.findMany({
       where: {
         eventId: { in: events.map((e) => e.id) },
+        ratingQuestion: {
+          excludefromAvg: false,
+        },
       },
     });
 
@@ -649,6 +652,7 @@ export class EventService {
         theme: event.theme,
         numberOfApplications: eventApplications.length,
         numberOfRatings: eventRatings.length,
+        numberOfUniqueUsers: new Set(eventRatings.map((r) => r.userId)).size,
         averageRating,
       };
     });

@@ -138,7 +138,7 @@ export const HomePage = () => {
                     <td>
                       {event.numberOfRatings ? (
                         <>
-                          {event.numberOfRatings / 3}{' '}
+                          {event.numberOfUniqueUsers}{' '}
                           <span>({event.numberOfRatings})</span>
                         </>
                       ) : (
@@ -188,7 +188,16 @@ export const HomePage = () => {
                   <tr key={booth.id}>
                     <td>{booth.name}</td>
                     <td>{booth.companyName}</td>
-                    <td>{booth.numberOfRatings || '-'}</td>
+                    <td>
+                      {booth.numberOfRatings ? (
+                        <>
+                          {booth.numberOfUniqueUsers || '-'}{' '}
+                          <span>({booth.numberOfRatings})</span>
+                        </>
+                      ) : (
+                        '-'
+                      )}
+                    </td>
                     <td>
                       {Math.round((booth?.averageRating || 0) * 1000) / 1000 ||
                         '-'}

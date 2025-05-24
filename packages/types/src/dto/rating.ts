@@ -6,6 +6,7 @@ export type RatingQuestionDto = {
   question: string;
   subtitle: string;
   type: `${RatingQuestionType}`;
+  excludefromAvg?: boolean;
 };
 
 export type RatingDto = {
