@@ -1,4 +1,5 @@
 import { EventType, EventWithUsersDto } from '@ddays-app/types';
+import clsx from 'clsx';
 import { useState } from 'react';
 
 import { useEventGetAllWithRating } from '../api/event/useEventGetAllWithRating';
@@ -8,6 +9,8 @@ import { Modal } from '../components/Modal';
 import c from './HomePage.module.scss';
 
 export const HomePage = () => {
+  const [ratingTab, setRatingTab] = useState<EventType>(EventType.LECTURE);
+
   const { data: userCount } = useGetUserCount();
   const { data: workshops } = useGetWorkshopsWithUsers();
 
@@ -30,6 +33,25 @@ export const HomePage = () => {
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
     return `${day}. ${month}. u ${hours}:${minutes}`;
+  }
+
+  function getTypeString(type: EventType) {
+    switch (type) {
+      case EventType.LECTURE:
+        return 'Predavanje';
+      case EventType.WORKSHOP:
+        return 'Radionica';
+      case EventType.PANEL:
+        return 'Panel';
+      case EventType.CAMPFIRE_TALK:
+        return 'Campfire talk';
+      case EventType.FLY_TALK:
+        return 'Fly talk';
+      case EventType.OTHER:
+        return 'Ostalo';
+      default:
+        return 'Neodređeno';
+    }
   }
 
   return (
@@ -73,7 +95,21 @@ export const HomePage = () => {
           <h3>{userCount}</h3>
         </div>
         <section className={c.section}>
-          <h3 className={c.sectionTitle}>Ocjene - Predavanja</h3>
+          <h3 className={c.sectionTitle}>Ocjene</h3>
+          <div className={c.tabContainer}>
+            {Object.values(EventType)
+              .filter((type) => type !== EventType.OTHER)
+              .map((type) => (
+                <button
+                  key={type}
+                  className={clsx(c.tab, {
+                    [c.active]: type === ratingTab,
+                  })}
+                  onClick={() => setRatingTab(type)}>
+                  {getTypeString(type)}
+                </button>
+              ))}
+          </div>
           <table>
             <thead>
               <tr>
@@ -84,7 +120,7 @@ export const HomePage = () => {
             </thead>
             <tbody>
               {eventsWithRating
-                ?.filter((e) => e.type === EventType.LECTURE)
+                ?.filter((e) => e.type === ratingTab)
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))
                 .map((event) => (
@@ -92,7 +128,7 @@ export const HomePage = () => {
                     <td>{event.name}</td>
                     <td>{'-'}</td>
                     <td>
-                      {Math.round((event?.averageRating || 0) * 100) / 100}
+                      {Math.round((event?.averageRating || 0) * 1000) / 1000}
                     </td>
                   </tr>
                 ))}

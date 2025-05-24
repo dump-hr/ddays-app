@@ -55,6 +55,26 @@
       font-weight: 700;
       margin-bottom: 16px;
     }
+
+    .tabContainer {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      height: 32px;
+
+      .tab {
+        background: none;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: 200ms;
+        cursor: pointer;
+
+        &.active {
+          border-bottom: 2px solid black;
+          padding-bottom: 8px;
+        }
+      }
+    }
   }
 }
 
@@ -79,6 +99,13 @@ table {
         box-sizing: border-box;
         padding: 8px 0;
       }
+    }
+  }
+
+  tr {
+    user-select: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
     }
   }
 }
