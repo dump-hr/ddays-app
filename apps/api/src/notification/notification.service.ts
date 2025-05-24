@@ -80,12 +80,10 @@ export class NotificationService {
     const notifications = await this.prisma.userNotification.findMany({
       where: {
         userId,
-        status: NotificationStatus.DELIVERED,
         notification: {
           isActive: true,
           event: {
             startsAt: {
-              gte: now.toISOString(),
               lte: fifteenMinutesFromNow.toISOString(),
             },
           },
@@ -168,7 +166,6 @@ export class NotificationService {
           isActive: true,
           event: {
             startsAt: {
-              gte: now.toISOString(),
               lte: fifteenMinutesFromNow.toISOString(),
             },
           },
