@@ -438,8 +438,35 @@ export class EventService {
   }
 
   async getEventsInMySchedule(userId: number): Promise<EventWithSpeakerDto[]> {
+    const now = new Date().toISOString();
+
     const mySchedule = await this.prisma.userToEvent.findMany({
-      where: { userId },
+      where: {
+        userId,
+        event: {
+          OR: [
+            {
+              startsAt: {
+                gte: now,
+              },
+            },
+            {
+              AND: [
+                {
+                  startsAt: {
+                    lte: now,
+                  },
+                },
+                {
+                  endsAt: {
+                    gte: now,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
       include: {
         event: {
           include: {
