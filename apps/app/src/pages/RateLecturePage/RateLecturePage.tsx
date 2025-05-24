@@ -8,7 +8,11 @@ import { useEffect, useState } from 'react';
 import LectureRatingCard from '../../components/LectureRatingCard/LectureRatingCard';
 import { useNavigate } from 'react-router-dom';
 import { useRatingQuestionsGetAll } from '@/api/rating/useRatingQuestionsGetAll';
-import { RatingModifyDto, RatingQuestionType } from '@ddays-app/types';
+import {
+  EventType,
+  RatingModifyDto,
+  RatingQuestionType,
+} from '@ddays-app/types';
 import { useEventGetById } from '@/api/event/useEventGetById';
 import toast from 'react-hot-toast';
 import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
@@ -72,12 +76,49 @@ export const RateLecturePage = () => {
         navigate(RouteNames.HOME);
       }
 
+      if (event?.type === null || event?.type === undefined) {
+        toast('Greška prilikom učitavanja vrste događaja.', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+        return;
+      }
+
+      if (event.type === EventType.FLY_TALK || event.type === EventType.OTHER) {
+        toast('Ova vrsta događaja nije dostupna za ocjenjivanje', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+        return;
+      }
+
+      if (new Date(event?.startsAt) > new Date()) {
+        toast('Događaj još nije započeo', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+        return;
+      }
+
+      if (new Date(event?.endsAt).getTime() + 15 * 60 * 1000 < Date.now()) {
+        toast('Događaj je već završio', {
+          icon: '⚠️',
+          position: 'top-center',
+        });
+        navigate(RouteNames.HOME);
+        return;
+      }
+
       if (userRatings?.some((rating) => rating.eventId === event?.id)) {
         toast('Ovaj je događaj već ocijenjen', {
           icon: '⚠️',
           position: 'top-center',
         });
         navigate(RouteNames.HOME);
+        return;
       }
     }
 
