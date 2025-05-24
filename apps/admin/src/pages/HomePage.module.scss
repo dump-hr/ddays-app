@@ -50,6 +50,10 @@
 
     overflow-x: auto;
 
+    table {
+      user-select: none;
+    }
+
     .sectionTitle {
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -107,10 +111,6 @@ table {
         padding: 8px 0;
       }
     }
-  }
-
-  tr {
-    user-select: none;
   }
 }
 
