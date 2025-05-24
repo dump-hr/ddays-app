@@ -94,6 +94,9 @@ table {
   tbody {
     tr {
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
 
       td {
         box-sizing: border-box;
@@ -104,8 +107,47 @@ table {
 
   tr {
     user-select: none;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.ratingCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  .ratingMarker {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+#ratings {
+  thead,
+  tbody {
+    tr {
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 100px;
+      }
+    }
+    tr {
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 16px;
+      }
     }
   }
 }

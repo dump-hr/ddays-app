@@ -17,6 +17,8 @@ export type EventWithRatingDto = {
   name: string;
   type: `${EventType}`;
   theme: `${Theme}`;
+  numberOfRatings?: number;
+  numberOfApplications?: number;
   averageRating?: number;
 };
 

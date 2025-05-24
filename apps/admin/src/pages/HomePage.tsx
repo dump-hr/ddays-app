@@ -54,6 +54,29 @@ export const HomePage = () => {
     }
   }
 
+  function getRatingColor(rating: number): string {
+    const clampedRating = Math.min(Math.max(rating, 1), 5);
+
+    // Map 1 to 0 (red), 3 to 0.5 (yellow), 5 to 1 (green)
+    const t = (clampedRating - 1) / 4;
+
+    let r, g, b;
+
+    if (t < 0.5) {
+      const ratio = t / 0.5;
+      r = 255;
+      g = Math.round(255 * ratio);
+      b = 0;
+    } else {
+      const ratio = (t - 0.5) / 0.5;
+      r = Math.round(255 * (1 - ratio));
+      g = 255;
+      b = 0;
+    }
+
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
   return (
     <>
       <Modal
@@ -98,7 +121,10 @@ export const HomePage = () => {
           <h3 className={c.sectionTitle}>Ocjene</h3>
           <div className={c.tabContainer}>
             {Object.values(EventType)
-              .filter((type) => type !== EventType.OTHER)
+              .filter(
+                (type) =>
+                  type !== EventType.OTHER && type !== EventType.FLY_TALK,
+              )
               .map((type) => (
                 <button
                   key={type}
@@ -110,12 +136,14 @@ export const HomePage = () => {
                 </button>
               ))}
           </div>
-          <table>
+          <table id={c.ratings}>
             <thead>
               <tr>
                 <th>Naziv</th>
                 <th>Broj prijava</th>
+                <th>Broj ocjena</th>
                 <th>Ocjena</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -126,9 +154,23 @@ export const HomePage = () => {
                 .map((event) => (
                   <tr key={event.id}>
                     <td>{event.name}</td>
-                    <td>{'-'}</td>
+                    <td>{event.numberOfApplications || '-'}</td>
+                    <td>{event.numberOfRatings || '-'}</td>
                     <td>
-                      {Math.round((event?.averageRating || 0) * 1000) / 1000}
+                      {Math.round((event?.averageRating || 0) * 1000) / 1000 ||
+                        '-'}
+                    </td>
+                    <td className={c.ratingCell}>
+                      {event.averageRating && (
+                        <div
+                          className={c.ratingMarker}
+                          style={{
+                            backgroundColor: getRatingColor(
+                              event?.averageRating || 0,
+                            ),
+                          }}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}

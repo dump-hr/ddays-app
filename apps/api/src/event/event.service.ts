@@ -621,6 +621,7 @@ export class EventService {
         type: event.type,
         theme: event.theme,
         numberOfApplications: eventApplications.length,
+        numberOfRatings: eventRatings.length,
         averageRating,
       };
     });
