@@ -1,6 +1,7 @@
 import {
   BoothCreateManyDto,
   BoothModifyDto,
+  BoothWithRatingDto,
   CompanyCategory,
 } from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
@@ -145,5 +146,37 @@ export class BoothService {
     return await this.prisma.booth.delete({
       where: { id },
     });
+  }
+
+  async getAllWithRatings(): Promise<BoothWithRatingDto[]> {
+    const booths = await this.prisma.booth.findMany({
+      where: { companyId: { not: null } },
+      include: {
+        company: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    const boothRatings = await this.prisma.rating.findMany({
+      where: { boothId: { in: booths.map((booth) => booth.id) } },
+    });
+
+    return booths.map((booth) => ({
+      id: booth.id,
+      name: booth.name,
+      companyName: booth.company.name,
+      numberOfRatings: boothRatings.filter(
+        (rating) => rating.boothId === booth.id,
+      ).length,
+      averageRating:
+        boothRatings
+          .filter((rating) => rating.boothId === booth.id)
+          .reduce((acc, rating) => acc + rating.value, 0) /
+        (boothRatings.filter((rating) => rating.boothId === booth.id).length ||
+          1),
+    }));
   }
 }

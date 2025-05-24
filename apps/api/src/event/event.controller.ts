@@ -2,6 +2,7 @@ import {
   EventDto,
   EventModifyDto,
   EventWithCompanyDto,
+  EventWithRatingDto,
   EventWithSpeakerDto,
   EventWithUsersDto,
   UserToEventDto,
@@ -54,6 +55,12 @@ export class EventController {
       throw new BadRequestException('File is required');
     }
     return await this.eventService.uploadCV(file);
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('all-with-ratings')
+  async getAllWithRatings(): Promise<EventWithRatingDto[]> {
+    return await this.eventService.getAllWithRatings();
   }
 
   @Get('with-speaker')

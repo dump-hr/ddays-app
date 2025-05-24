@@ -48,6 +48,8 @@
     border-radius: 8px;
     margin-top: 32px;
 
+    overflow-x: auto;
+
     .sectionTitle {
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -55,11 +57,33 @@
       font-weight: 700;
       margin-bottom: 16px;
     }
+
+    .tabContainer {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      height: 32px;
+      min-width: 500px;
+
+      .tab {
+        background: none;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: 200ms;
+        cursor: pointer;
+
+        &.active {
+          border-bottom: 2px solid black;
+          padding-bottom: 8px;
+        }
+      }
+    }
   }
 }
 
 table {
   width: 100%;
+  min-width: 1000px;
   border-collapse: collapse;
 
   thead {
@@ -73,11 +97,94 @@ table {
 
   tbody {
     tr {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
 
       td {
         box-sizing: border-box;
         padding: 8px 0;
+      }
+    }
+  }
+
+  tr {
+    user-select: none;
+  }
+}
+
+.ratingCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  .ratingMarker {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+#eventRatings {
+  thead,
+  tbody {
+    tr {
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 100px;
+      }
+    }
+    tr {
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 16px;
+      }
+    }
+  }
+
+  span {
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+#boothRatings {
+  thead,
+  tbody {
+    tr {
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 80px;
+      }
+    }
+    tr {
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 120px;
+      }
+    }
+    tr {
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 100px;
+      }
+    }
+    tr {
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 16px;
       }
     }
   }
