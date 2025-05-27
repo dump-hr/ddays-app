@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import c from './Layout.module.scss';
 import ProfilePicturePlaceholder from '/src/assets/images/profile-picture-placeholder.jpg';
+import LogoutIcon from '@/assets/icons/logout.svg';
 
 export const Layout = () => {
   return (
@@ -17,7 +18,7 @@ export const Layout = () => {
               <p className={c.email}>lovre.tomic@dump.hr</p>
             </div>
           </div>
-          <button className={c.logoutButton}>O</button>
+          <img src={LogoutIcon} className={c.logoutButton} />
         </div>
       </div>
       <main className={c.main}>
