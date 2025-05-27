@@ -40,7 +40,8 @@ const setupProxies = (app: INestApplication) => {
           !pathname.startsWith('/api') &&
           !pathname.startsWith('/admin') &&
           !pathname.startsWith('/sponsor') &&
-          !pathname.startsWith('/app'),
+          !pathname.startsWith('/app') &&
+          !pathname.startsWith('/adminv2'),
         { target: 'http://localhost:3004' },
       ),
     );
@@ -59,6 +60,13 @@ const setupProxies = (app: INestApplication) => {
       '/app',
       createProxyMiddleware({
         target: 'http://localhost:3005',
+      }),
+    );
+
+    app.use(
+      '/adminv2',
+      createProxyMiddleware({
+        target: 'http://localhost:3006',
       }),
     );
   }
