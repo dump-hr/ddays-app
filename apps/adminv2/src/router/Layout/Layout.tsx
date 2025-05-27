@@ -2,6 +2,8 @@ import { Outlet } from 'react-router-dom';
 import c from './Layout.module.scss';
 import ProfilePicturePlaceholder from '/src/assets/images/profile-picture-placeholder.jpg';
 import LogoutIcon from '@/assets/icons/logout.svg';
+import { navigationItems } from '../navigationItemsData';
+import NavigationItem from '../../components/NavigationItem';
 
 export const Layout = () => {
   return (
@@ -20,6 +22,11 @@ export const Layout = () => {
           </div>
           <img src={LogoutIcon} className={c.logoutButton} />
         </div>
+        <nav className={c.navigation}>
+          {navigationItems.map((item) => (
+            <NavigationItem key={item.route} navigationItem={item} />
+          ))}
+        </nav>
       </div>
       <main className={c.main}>
         <header className={c.header}></header>

@@ -1,0 +1,23 @@
+.navigationItem {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  gap: 8px;
+
+  color: #929292;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 500;
+  letter-spacing: 0.28px;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  width: fit-content;
+  justify-content: flex-start;
+}
