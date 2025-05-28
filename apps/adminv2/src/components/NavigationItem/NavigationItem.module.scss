@@ -24,10 +24,10 @@
   transition: 100ms;
 
   &.selected {
-    color: orange;
+    color: $color-muted-orange;
     .icon {
       * {
-        fill: orange;
+        fill: $color-muted-orange;
       }
     }
   }
