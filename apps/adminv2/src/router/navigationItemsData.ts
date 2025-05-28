@@ -7,7 +7,7 @@ export type NavigationItemData = {
 
 export const navigationItems: NavigationItemData[] = [
   {
-    route: '/',
+    route: '',
     label: 'Početna',
   },
   {

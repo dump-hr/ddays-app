@@ -20,4 +20,15 @@
   flex-basis: auto;
   width: fit-content;
   justify-content: flex-start;
+
+  transition: 100ms;
+
+  &.selected {
+    color: orange;
+    .icon {
+      * {
+        fill: orange;
+      }
+    }
+  }
 }
