@@ -15,17 +15,32 @@
   font-weight: 500;
   letter-spacing: 0.28px;
 
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: auto;
-  width: fit-content;
-  justify-content: flex-start;
+  &:not(.fullWidth) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    width: fit-content;
+  }
 
+  justify-content: flex-start;
   transition: 100ms;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  .expandIcon {
+    margin-left: auto;
+    rotate: -90deg;
+    transition: 100ms;
+  }
 
   &.selected {
     color: $color-muted-orange;
-    .icon {
+    .expandIcon {
+      rotate: 0deg;
+    }
+
+    .icon,
+    .expandIcon {
       * {
         fill: $color-muted-orange;
       }
