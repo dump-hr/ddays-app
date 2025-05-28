@@ -30,6 +30,16 @@ export const Layout = () => {
               location.pathname === item.route ||
               location.pathname === item.route + '/';
 
+            const isOpen =
+              location.pathname.startsWith(item.route + '/') ||
+              item.subItems?.some((subItem) => {
+                const fullSubRoute = item.route + subItem.route;
+                return (
+                  location.pathname === fullSubRoute ||
+                  location.pathname === fullSubRoute + '/'
+                );
+              });
+
             const hasSubItems = item.subItems && item.subItems.length > 0;
 
             return (
@@ -38,8 +48,9 @@ export const Layout = () => {
                   key={item.route}
                   navigationItem={item}
                   isSelected={isSelected}
+                  isOpen={isOpen && hasSubItems}
                 />
-                {isSelected &&
+                {(isSelected || isOpen) &&
                   hasSubItems &&
                   item.subItems?.map((subItem) => {
                     const isSubItemSelected =
@@ -48,7 +59,10 @@ export const Layout = () => {
                     return (
                       <NavigationItem
                         key={subItem.route}
-                        navigationItem={subItem}
+                        navigationItem={{
+                          ...subItem,
+                          route: item.route + subItem.route,
+                        }}
                         isSelected={isSubItemSelected}
                       />
                     );

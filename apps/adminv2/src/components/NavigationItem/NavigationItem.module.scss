@@ -33,11 +33,15 @@
     transition: 100ms;
   }
 
+  &.open,
   &.selected {
-    color: $color-muted-orange;
     .expandIcon {
       rotate: 0deg;
     }
+  }
+
+  &.selected {
+    color: $color-muted-orange;
 
     .icon,
     .expandIcon {
