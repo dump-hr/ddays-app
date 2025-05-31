@@ -5,6 +5,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+/*
 import { RouteNames } from './routes';
 import { CompaniesPage } from '../pages/CompaniesPage';
 import { FlyTalksPage } from '../pages/FlyTalksPage';
@@ -35,11 +36,17 @@ import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 import { RegistrationLayout } from '@/layout/RegistrationLayout';
 import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
 import AccreditationScanPage from '@/pages/AccreditationScanPage';
+*/
+import ClosedAppPage from '@/pages/ClosedAppPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>
-      <Route
+      {/*
+        
+        
+        
+        <Route
         path={RouteNames.TERMS_AND_CONDITIONS}
         element={<TermsAndConditionsPage />}
       />
@@ -101,7 +108,12 @@ const router = createBrowserRouter(
         />
       </Route>
       <Route path='/app/test' element={<TestPage />} />
-      <Route path='*' element={<NotFoundPage />} />
+        
+        
+        
+        */}
+
+      <Route path='*' element={<ClosedAppPage />} />
     </React.Fragment>,
   ),
 );
