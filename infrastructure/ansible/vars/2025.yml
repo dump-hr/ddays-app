@@ -1,0 +1,4 @@
+---
+docker_image: ghcr.io/dump-hr/ddays-app:2025
+env_file: '2025'
+api_domain: 2025-days.dump.hr
