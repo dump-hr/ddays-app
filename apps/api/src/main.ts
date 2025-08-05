@@ -8,15 +8,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { AppModule } from './app.module';
-import { PostgresErrorFilter } from './postgres-error.filter';
 
 const setupClassValidator = (app: INestApplication) => {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-};
-
-const setupFilter = (app: INestApplication) => {
-  app.useGlobalFilters(new PostgresErrorFilter());
 };
 
 const setupSwagger = (app: INestApplication) => {
@@ -79,7 +74,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   setupClassValidator(app);
-  setupFilter(app);
   setupSwagger(app);
   setupProxies(app);
 
