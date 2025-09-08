@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useUserLogin } from '../../api/auth/useUserLogin';
+//odkomentirati kad se omogući pristup /app
+// import { useUserLogin } from '../../api/auth/useUserLogin';
 import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
@@ -16,7 +17,8 @@ export const LoginPage = () => {
   const [passwordError, setPasswordError] = useState('');
 
   const navigate = useNavigate();
-  const { mutate } = useUserLogin(() => navigate(RouteNames.HOME));
+  //odkomentirati kad se omogući pristup /app
+  // const { mutate } = useUserLogin(() => navigate(RouteNames.HOME));
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -58,9 +60,10 @@ export const LoginPage = () => {
     return isValid;
   };
 
+  //odkomentirati kad se omogući pristup /app
   const handleLogin = () => {
     if (validateInputs()) {
-      mutate({ email, password });
+      // mutate({ email, password });
     }
   };
 
