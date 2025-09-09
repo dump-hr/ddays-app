@@ -9,10 +9,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
-    "@azure/msal-browser": "^4.22.0",
+    "@azure/msal-browser": "^3.6.0",
     "@azure/msal-react": "^2.0.8",
     "@hookform/resolvers": "^3.3.4",
-    "axios": "^1.11.0",
+    "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
     "dayjs": "^1.11.10",
