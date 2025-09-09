@@ -18,7 +18,7 @@ interface ShoppingItemProps {
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const { setCartItems, totalCost, cartItems } = useShoppingContext();
   const { data: transactionItems } = useGetAllUserTransactions();
-  const { data, isLoading } = useGetUserPoints();
+  const { data } = useGetUserPoints();
 
   const [isInCart, setIsInCart] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -26,7 +26,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ product }) => {
   const outOfStock: boolean = product.quantity === 0;
   const notEnoughPoints: boolean = useMemo(
     () => (data?.points || 0) < totalCost + (product.price || 0),
-    [data, totalCost, isLoading],
+    [data, totalCost, product.price],
   );
 
   useEffect(() => {

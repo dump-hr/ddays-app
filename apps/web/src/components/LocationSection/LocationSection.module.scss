@@ -1,5 +1,5 @@
 @use '../../styles/mixins';
-@import 'styles/calc.scss';
+@use 'styles/calc.scss' as *;
 
 h1,
 h2,

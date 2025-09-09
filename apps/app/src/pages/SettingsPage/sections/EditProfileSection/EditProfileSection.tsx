@@ -62,6 +62,8 @@ export const EditProfileSection: React.FC = () => {
   useEffect(() => {
     if (isSubmitted || allFieldsAreFilled(editProfileFields, userSettingsData))
       validateEditProfile();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userSettingsData, isSubmitted]);
 
   const handleSaveClick = () => {

@@ -89,7 +89,16 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
     );
 
     return () => ctx.revert();
-  }, [isMobile, isImageShown, isOpenDescription, lastClickedCardId]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isMobile,
+    isImageShown,
+    isOpenDescription,
+    lastClickedCardId,
+    index,
+    imagesLength,
+  ]);
 
   return (
     <div className={c.speakerPhoto} ref={speakerPhoto}>

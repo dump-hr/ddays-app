@@ -63,6 +63,8 @@ export const ChangePassword: React.FC = () => {
       allFieldsAreFilled(changePasswordFields, passwordInputsData)
     )
       validateChangePassword();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [passwordInputsData, isSubmitted]);
 
   const handleSaveClick = () => {

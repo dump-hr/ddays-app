@@ -1,6 +1,6 @@
 @use '../../styles/mixins';
-@import 'styles/calc';
-@import 'styles/variables';
+@use 'styles/calc' as *;
+@use 'styles/variables' as *;
 
 .stickySection {
   overflow-y: hidden;
