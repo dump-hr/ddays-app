@@ -1,13 +1,16 @@
-import { AchievementNames, JwtResponseDto } from '@ddays-app/types';
+import {
+  AchievementNames,
+  JwtResponseDto,
+  RegistrationDto,
+} from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { hash } from 'bcrypt';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
+import { randomBytes } from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
-
-import { RegistrationDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -193,5 +196,65 @@ export class AuthService {
         profilePhotoUrl: true,
       },
     });
+  }
+
+  private client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+  async verifyGoogleToken(
+    idToken: string,
+  ): Promise<RegistrationDto | JwtResponseDto> {
+    const ticket = await this.client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload?.email) {
+      throw new Error('Google token has no email');
+    }
+
+    const email = payload.email;
+
+    const existingUser = await this.prisma.user.findFirst({
+      where: { email, isDeleted: false },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+      },
+    });
+
+    if (existingUser) {
+      const accessToken = this.jwtService.sign({
+        id: existingUser.id,
+        email: existingUser.email,
+        firstName: existingUser.firstName,
+        lastName: existingUser.lastName,
+      });
+
+      return { accessToken };
+    }
+
+    const plainRandomPassword = randomBytes(12).toString('hex');
+
+    const newUserData: RegistrationDto = {
+      email: payload.email,
+      firstName: payload.given_name || '',
+      lastName: payload.family_name || '',
+      profilePhotoUrl: null,
+      password: plainRandomPassword,
+      phoneNumber: '',
+      birthYear: null,
+      educationDegree: null,
+      occupation: null,
+      newsletterEnabled: false,
+      companiesNewsEnabled: false,
+      termsAndConditionsEnabled: false,
+      interests: [],
+    };
+
+    return newUserData;
   }
 }

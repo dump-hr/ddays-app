@@ -4,10 +4,13 @@ import { Input } from '../../components/Input';
 import c from './LoginPage.module.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import Button from '../../components/Button';
-//import googleIcon from '../../assets/icons/google.svg';
+import googleIcon from '../../assets/icons/google.svg';
 import { RouteNames } from '../../router/routes';
 import { useNavigate } from 'react-router-dom';
 import { isTokenExpired } from '@/helpers/auth';
+import { useGoogleAuthLogin } from '@/api/auth/useGoogleAuthLogin';
+import toast from 'react-hot-toast';
+import { GOOGLE_CLIENT_ID } from '@/constants/googleId';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -17,21 +20,34 @@ export const LoginPage = () => {
 
   const navigate = useNavigate();
   const { mutate } = useUserLogin(() => navigate(RouteNames.HOME));
+  const { mutate: mutateGoogle } = useGoogleAuthLogin();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken && !isTokenExpired(accessToken)) {
       navigate(RouteNames.HOME);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    if (window.google && !window.googleInitialized) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+      });
+      window.googleInitialized = true;
+    }
+  }, [navigate]);
+
+  const handleCredentialResponse = (response: { credential: string }) => {
+    if (response.credential) {
+      mutateGoogle(response.credential);
+    } else {
+      toast.error('Google login failed!');
+    }
+  };
 
   const clearErrors = (field: string) => {
-    if (field === 'email') {
-      setEmailError('');
-    } else if (field === 'password') {
-      setPasswordError('');
-    }
+    if (field === 'email') setEmailError('');
+    else if (field === 'password') setPasswordError('');
   };
 
   const validateInputs = () => {
@@ -44,16 +60,12 @@ export const LoginPage = () => {
     } else if (!emailRegex.test(email)) {
       setEmailError('Unesi ispravnu e-mail adresu.');
       isValid = false;
-    } else {
-      setEmailError('');
-    }
+    } else setEmailError('');
 
     if (!password) {
       setPasswordError('Ispuni sva polja.');
       isValid = false;
-    } else {
-      setPasswordError('');
-    }
+    } else setPasswordError('');
 
     return isValid;
   };
@@ -61,6 +73,14 @@ export const LoginPage = () => {
   const handleLogin = () => {
     if (validateInputs()) {
       mutate({ email, password });
+    }
+  };
+
+  const handleCustomGoogleLogin = () => {
+    if (window.google) {
+      window.google.accounts.id.prompt();
+    } else {
+      toast.error('Google login not initialized');
     }
   };
 
@@ -111,15 +131,14 @@ export const LoginPage = () => {
             <Button variant='orange' onClick={handleLogin}>
               Prijavi se
             </Button>
-            {/*
-            <Button variant='black' onClick={() => {}}>
+            <Button variant='black' onClick={handleCustomGoogleLogin}>
               <div className={c.buttonContent}>
                 <img src={googleIcon} alt='icon' className={c.googleIcon} />
-                Nastavi s Googleom
+                Nastavi s Google
               </div>
             </Button>
-            */}
           </div>
+
           <div className={c.registerContainer}>
             <a className={c.noAccount}>Nemaš račun?</a>
             <a href={RouteNames.REGISTER} className={c.registerLink}>

@@ -5,7 +5,7 @@ import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
 import { AuthFooter } from '@/components//AuthFooter';
 import Button from '@/components/Button/Button';
-//import GoogleIcon from '@/assets/icons/google-icon.svg';
+import googleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
@@ -17,6 +17,9 @@ import { RouteNames } from '@/router/routes';
 import { useRegistrationData } from '@/providers/RegistrationDataProvider';
 import toast from 'react-hot-toast';
 import RedStarIcon from '@/components/RedStarIcon';
+import { GOOGLE_CLIENT_ID } from '@/constants/googleId';
+import { isTokenExpired } from '@/helpers/auth';
+import { useGoogleAuthLogin } from '@/api/auth/useGoogleAuthLogin';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
@@ -27,15 +30,45 @@ export const GeneralRegistrationForm = () => {
     thirdStepIsSubmitted: false,
     fourthStepIsSubmitted: false,
   });
+  const [googleAuth, setGoogleAuth] = useState(false);
 
   const { userData, updateUserData, clearUserData } = useRegistrationData();
 
   const { mutate } = useUserRegister(() => {
     clearUserData();
-    navigate(RouteNames.CONFIRM_EMAIL);
+
+    if (googleAuth) {
+      navigate(RouteNames.HOME);
+    } else {
+      navigate(RouteNames.CONFIRM_EMAIL);
+    }
   });
+  const { mutate: mutateGoogle } = useGoogleAuthLogin();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && !isTokenExpired(accessToken)) {
+      navigate(RouteNames.HOME);
+    }
+
+    if (window.google && !window.googleInitialized) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+      });
+      window.googleInitialized = true;
+    }
+  }, [navigate]);
+
+  const handleCredentialResponse = (response: { credential: string }) => {
+    if (response.credential) {
+      mutateGoogle(response.credential);
+    } else {
+      toast.error('Google login failed!');
+    }
+  };
 
   useEffect(() => {
     if (location.state?.profilePhotoUrl) {
@@ -46,6 +79,16 @@ export const GeneralRegistrationForm = () => {
       navigate(location.pathname, { replace: true });
     }
   }, [location.pathname, location.state, navigate, updateUserData]);
+
+  useEffect(() => {
+    if (location.state?.startStep) setCurrentStep(location.state.startStep);
+
+    if (location.state?.googleAuth) setGoogleAuth(true);
+
+    if (location.state?.userData) updateUserData(location.state.userData);
+
+    navigate(location.pathname, { replace: true });
+  }, [location.state, navigate, updateUserData, location.pathname]);
 
   const { isStepValid } = useRegistration();
 
@@ -95,6 +138,11 @@ export const GeneralRegistrationForm = () => {
   };
 
   const goToNextStepIfAllowed = () => {
+    if (googleAuth && currentStep === RegistrationStep.ONE) {
+      setCurrentStep(RegistrationStep.TWO);
+      scrollToTopOfTheScreen();
+      return;
+    }
     if (
       currentStep === RegistrationStep.THREE ||
       currentStep === RegistrationStep.FOUR
@@ -129,6 +177,14 @@ export const GeneralRegistrationForm = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleCustomGoogleLogin = () => {
+    if (window.google) {
+      window.google.accounts.id.prompt();
+    } else {
+      toast.error('Google login not initialized');
+    }
+  };
+
   return (
     <div className={c.generalRegistrationForm}>
       <div className={c.registrationUpper}>
@@ -146,7 +202,10 @@ export const GeneralRegistrationForm = () => {
 
         <ProgressBar
           currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
+          setCurrentStep={(step) => {
+            if (googleAuth && step === RegistrationStep.ONE) return;
+            setCurrentStep(step);
+          }}
           handleRegistrationClick={handleRegistrationClick}
         />
       </div>
@@ -163,6 +222,7 @@ export const GeneralRegistrationForm = () => {
           userData={userData}
           updateUserData={updateUserData}
           isSubmitted={isSubmitted.secondStepIsSubmitted}
+          isGoogleAuth={googleAuth}
         />
       )}
 
@@ -192,14 +252,16 @@ export const GeneralRegistrationForm = () => {
               children='Dalje'
               onClick={handleRegistrationClick}
             />
-            {/*
-            <Button
-              type='submit'
-              variant='black'
-              children='Nastavi s Google'
-              icon={GoogleIcon}
-            />
-            */}
+
+            {currentStep === RegistrationStep.ONE ? (
+              <Button
+                type='submit'
+                variant='black'
+                children='Nastavi s Google'
+                icon={googleIcon}
+                onClick={handleCustomGoogleLogin}
+              />
+            ) : null}
           </>
         ) : null}
       </div>

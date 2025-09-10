@@ -14,16 +14,19 @@ import { useRegistration } from '@/providers/RegistrationContext';
 import { RegistrationStep } from '@/types/registration/registration.dto';
 import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
+import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
   isSubmitted: boolean;
+  isGoogleAuth?: boolean;
 };
 
 export const SecondStepRegistrationForm = ({
   userData,
   updateUserData,
   isSubmitted,
+  isGoogleAuth = false,
 }: Props) => {
   const { errors, clearStepErrors, setStepErrors } = useRegistration();
 
@@ -146,6 +149,14 @@ export const SecondStepRegistrationForm = ({
           errorLabel={errors[2]?.occupation}
           hasError={hasError(errors[2]?.occupation)}
         />
+
+        {isGoogleAuth && (
+          <CheckboxFieldsWrapper
+            userData={userData}
+            updateUserData={updateUserData}
+            errorMessage={errors[1]?.termsAndConditionsEnabled}
+          />
+        )}
       </div>
     </>
   );

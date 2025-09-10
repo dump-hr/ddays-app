@@ -39,4 +39,9 @@ export class AuthController {
   async findLoggedInUser(@Req() { user }) {
     return await this.authService.getUserById(user.id);
   }
+
+  @Post('google')
+  async googleLogin(@Body('token') token: string) {
+    return this.authService.verifyGoogleToken(token);
+  }
 }
