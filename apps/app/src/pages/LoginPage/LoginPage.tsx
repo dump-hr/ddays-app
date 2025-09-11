@@ -32,6 +32,7 @@ export const LoginPage = () => {
       window.google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
+        use_fedcm_for_prompt: true,
       });
       window.googleInitialized = true;
     }
@@ -42,6 +43,14 @@ export const LoginPage = () => {
       mutateGoogle(response.credential);
     } else {
       toast.error('Google login failed!');
+    }
+  };
+
+  const handleCustomGoogleLogin = () => {
+    if (window.google) {
+      window.google.accounts.id.prompt();
+    } else {
+      toast.error('Google login not initialized');
     }
   };
 
@@ -76,14 +85,6 @@ export const LoginPage = () => {
     }
   };
 
-  const handleCustomGoogleLogin = () => {
-    if (window.google) {
-      window.google.accounts.id.prompt();
-    } else {
-      toast.error('Google login not initialized');
-    }
-  };
-
   return (
     <div>
       <div className={c.wrapper}>
@@ -100,6 +101,7 @@ export const LoginPage = () => {
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </a>
           </div>
+
           <div className={c.formContainer}>
             <Input
               label='Email'
@@ -127,6 +129,7 @@ export const LoginPage = () => {
               Zaboravljena lozinka?
             </a>
           </div>
+
           <div className={c.buttonContainer}>
             <Button variant='orange' onClick={handleLogin}>
               Prijavi se

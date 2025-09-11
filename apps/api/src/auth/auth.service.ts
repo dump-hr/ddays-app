@@ -269,4 +269,30 @@ export class AuthService {
 
     return newUserData;
   }
+
+  // async handleGoogleCallback(
+  //   idToken: string,
+  // ): Promise<{ redirectUrl: string }> {
+  //   if (!idToken) {
+  //     return { redirectUrl: '/app/login?error=missing_token' };
+  //   }
+
+  //   try {
+  //     const userData = await this.verifyGoogleToken(idToken);
+
+  //     if ('accessToken' in userData) {
+  //       // Existing user → redirect to home with JWT
+  //       return { redirectUrl: `/app?accessToken=${userData.accessToken}` };
+  //     } else {
+  //       // New user → redirect to registration with Google data
+  //       const encodedUserData = encodeURIComponent(JSON.stringify(userData));
+  //       return {
+  //         redirectUrl: `/app/register?googleAuth=true&userData=${encodedUserData}`,
+  //       };
+  //     }
+  //   } catch (err) {
+  //     console.error('Google Auth Callback Error:', err);
+  //     return { redirectUrl: '/app/login?error=google_auth_failed' };
+  //   }
+  // }
 }
