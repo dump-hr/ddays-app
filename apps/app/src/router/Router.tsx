@@ -36,6 +36,7 @@ import ScannerPage from '@/pages/ScannerPage/ScannerPage';
 import { RegistrationLayout } from '@/layout/RegistrationLayout';
 import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
 import AccreditationScanPage from '@/pages/AccreditationScanPage';
+import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
 
 // import ClosedAppPage from '@/pages/ClosedAppPage';
 
@@ -110,6 +111,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path='/app/test' element={<TestPage />} />
       <Route path='*' element={<NotFoundPage />} />
+
+      <Route path={RouteNames.GOOGLE_CALLBACK} element={<GoogleCallback />} />
+
       {/* </> */}
       {/* )} */}
 

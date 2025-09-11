@@ -47,11 +47,20 @@ export const LoginPage = () => {
   };
 
   const handleCustomGoogleLogin = () => {
-    if (window.google) {
-      window.google.accounts.id.prompt();
-    } else {
-      toast.error('Google login not initialized');
-    }
+    window.google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        const redirectUri = `${window.location.origin}/app/google-callback`;
+
+        const params = new URLSearchParams({
+          client_id: GOOGLE_CLIENT_ID,
+          redirect_uri: redirectUri,
+          response_type: 'id_token',
+          scope: 'email profile',
+          nonce: Date.now().toString(),
+        });
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+      }
+    });
   };
 
   const clearErrors = (field: string) => {

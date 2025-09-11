@@ -3,7 +3,7 @@ import { ProgressBar } from '@/components/ProgressBar';
 import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
-import { AuthFooter } from '@/components//AuthFooter';
+import { AuthFooter } from '@/components/AuthFooter';
 import Button from '@/components/Button/Button';
 import googleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
@@ -23,6 +23,8 @@ import { useGoogleAuthLogin } from '@/api/auth/useGoogleAuthLogin';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
@@ -33,24 +35,18 @@ export const GeneralRegistrationForm = () => {
   const [googleAuth, setGoogleAuth] = useState(false);
 
   const { userData, updateUserData, clearUserData } = useRegistrationData();
-
   const { mutate } = useUserRegister(() => {
     clearUserData();
-
-    if (googleAuth) {
-      navigate(RouteNames.HOME);
-    } else {
-      navigate(RouteNames.CONFIRM_EMAIL);
-    }
+    navigate(googleAuth ? RouteNames.HOME : RouteNames.CONFIRM_EMAIL);
   });
   const { mutate: mutateGoogle } = useGoogleAuthLogin();
-
-  const navigate = useNavigate();
+  const { isStepValid } = useRegistration();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken && !isTokenExpired(accessToken)) {
       navigate(RouteNames.HOME);
+      return;
     }
 
     if (window.google && !window.googleInitialized) {
@@ -72,34 +68,35 @@ export const GeneralRegistrationForm = () => {
   };
 
   const handleCustomGoogleLogin = () => {
-    if (window.google) {
-      window.google.accounts.id.prompt();
-    } else {
-      toast.error('Google login not initialized');
-    }
+    window.google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        const redirectUri = `${window.location.origin}/app/google-callback`;
+
+        const params = new URLSearchParams({
+          client_id: GOOGLE_CLIENT_ID,
+          redirect_uri: redirectUri,
+          response_type: 'id_token',
+          scope: 'email profile',
+          nonce: Date.now().toString(),
+        });
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+      }
+    });
   };
 
   useEffect(() => {
     if (location.state?.profilePhotoUrl) {
-      updateUserData({
-        profilePhotoUrl: location.state.profilePhotoUrl,
-      });
+      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
       setCurrentStep(RegistrationStep.FOUR);
-      navigate(location.pathname, { replace: true });
     }
-  }, [location.pathname, location.state, navigate, updateUserData]);
-
-  useEffect(() => {
     if (location.state?.startStep) setCurrentStep(location.state.startStep);
-
     if (location.state?.googleAuth) setGoogleAuth(true);
-
     if (location.state?.userData) updateUserData(location.state.userData);
 
-    navigate(location.pathname, { replace: true });
-  }, [location.state, navigate, updateUserData, location.pathname]);
-
-  const { isStepValid } = useRegistration();
+    if (location.state) {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate, updateUserData]);
 
   const handleRegistrationClick = () => {
     switch (currentStep) {
@@ -124,25 +121,9 @@ export const GeneralRegistrationForm = () => {
         }
 
         mutate({
-          dto: {
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            password: userData.password,
-            phoneNumber: userData.phoneNumber,
-            birthYear: userData.birthYear,
-            educationDegree: userData.educationDegree,
-            occupation: userData.occupation,
-            newsletterEnabled: userData.newsletterEnabled,
-            companiesNewsEnabled: userData.companiesNewsEnabled,
-            interests: userData.interests,
-            profilePhotoUrl: userData.profilePhotoUrl,
-          },
+          dto: { ...userData },
           isFromGoogleAuth: googleAuth,
         });
-
-        break;
-      default:
         break;
     }
 
@@ -155,16 +136,9 @@ export const GeneralRegistrationForm = () => {
       scrollToTopOfTheScreen();
       return;
     }
-    if (
-      currentStep === RegistrationStep.THREE ||
-      currentStep === RegistrationStep.FOUR
-    ) {
-      const nextStep = currentStep + 1;
-      setCurrentStep(nextStep > 4 ? 4 : nextStep);
 
-      if (nextStep <= 4) scrollToTopOfTheScreen();
-    } else if (isStepValid(currentStep)) {
-      const nextStep = currentStep + 1;
+    const nextStep = currentStep + 1;
+    if (isStepValid(currentStep) || currentStep >= RegistrationStep.THREE) {
       setCurrentStep(nextStep > 4 ? 4 : nextStep);
       if (nextStep <= 4) scrollToTopOfTheScreen();
     }
@@ -194,7 +168,6 @@ export const GeneralRegistrationForm = () => {
       <div className={c.registrationUpper}>
         <h2>
           {displayStepTitle(currentStep)}
-
           <img
             src={CloseIcon}
             onClick={() => navigate('/app')}
@@ -229,7 +202,6 @@ export const GeneralRegistrationForm = () => {
           isGoogleAuth={googleAuth}
         />
       )}
-
       {currentStep === RegistrationStep.THREE && (
         <AvatarPickerRegistrationForm updateUserData={updateUserData} />
       )}
@@ -245,27 +217,26 @@ export const GeneralRegistrationForm = () => {
           <Button
             type='submit'
             variant='orange'
-            children='Spremi'
-            onClick={handleRegistrationClick}
-          />
+            onClick={handleRegistrationClick}>
+            Spremi
+          </Button>
         ) : currentStep !== RegistrationStep.THREE ? (
           <>
             <Button
               type='submit'
               variant='orange'
-              children='Dalje'
-              onClick={handleRegistrationClick}
-            />
-
-            {currentStep === RegistrationStep.ONE ? (
+              onClick={handleRegistrationClick}>
+              Dalje
+            </Button>
+            {currentStep === RegistrationStep.ONE && (
               <Button
                 type='submit'
                 variant='black'
-                children='Nastavi s Google'
                 icon={googleIcon}
-                onClick={handleCustomGoogleLogin}
-              />
-            ) : null}
+                onClick={handleCustomGoogleLogin}>
+                Nastavi s Google
+              </Button>
+            )}
           </>
         ) : null}
       </div>
