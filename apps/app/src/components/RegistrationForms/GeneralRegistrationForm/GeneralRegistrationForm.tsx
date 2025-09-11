@@ -57,6 +57,7 @@ export const GeneralRegistrationForm = () => {
       window.google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
+        use_fedcm_for_prompt: true,
       });
       window.googleInitialized = true;
     }
@@ -67,6 +68,14 @@ export const GeneralRegistrationForm = () => {
       mutateGoogle(response.credential);
     } else {
       toast.error('Google login failed!');
+    }
+  };
+
+  const handleCustomGoogleLogin = () => {
+    if (window.google) {
+      window.google.accounts.id.prompt();
+    } else {
+      toast.error('Google login not initialized');
     }
   };
 
@@ -178,14 +187,6 @@ export const GeneralRegistrationForm = () => {
 
   const scrollToTopOfTheScreen = () => {
     window.scrollTo(0, 0);
-  };
-
-  const handleCustomGoogleLogin = () => {
-    if (window.google) {
-      window.google.accounts.id.prompt();
-    } else {
-      toast.error('Google login not initialized');
-    }
   };
 
   return (
