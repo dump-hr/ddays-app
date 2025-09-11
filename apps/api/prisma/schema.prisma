@@ -260,7 +260,7 @@ model User {
   companiesNewsEnabled    Boolean?
   isDeleted               Boolean?                 @default(false)
   isConfirmed             Boolean?                 @default(false)
-  isGoogleAuth          Boolean?                 @default(false)
+  isFromGoogleAuth          Boolean?                 @default(false)
   profilePhotoUrl         String?
   avatar                  Avatar[]
   notification            Notification[]
