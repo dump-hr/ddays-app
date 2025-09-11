@@ -70,6 +70,7 @@ export class AuthService {
         lastName: true,
         password: true,
         isDeleted: true,
+        isFromGoogleAuth: true,
       },
     });
 
@@ -79,7 +80,11 @@ export class AuthService {
 
     const passwordsMatch = await compare(password, loginUser.password);
 
-    if (!passwordsMatch) {
+    if (loginUser.isFromGoogleAuth) {
+      throw new BadRequestException('Korisnik je prijavljen putem Google-a!');
+    }
+
+    if (!passwordsMatch && !loginUser.isFromGoogleAuth) {
       throw new BadRequestException('Neispravna lozinka!');
     }
 
@@ -93,7 +98,10 @@ export class AuthService {
     return { accessToken };
   }
 
-  async userRegister(register: RegistrationDto): Promise<JwtResponseDto> {
+  async userRegister(
+    register: RegistrationDto,
+    isFromGoogleAuth: boolean,
+  ): Promise<JwtResponseDto> {
     const existingActivePhoneUser = await this.prisma.user.findFirst({
       where: {
         phoneNumber: register.phoneNumber,
@@ -129,7 +137,8 @@ export class AuthService {
         ...registerWithoutInterests,
         isDeleted: false,
         password: hashedPassword,
-        isConfirmed: false,
+        isConfirmed: isFromGoogleAuth ? true : false,
+        isFromGoogleAuth,
       },
     });
 
@@ -140,7 +149,9 @@ export class AuthService {
       })),
     });
 
-    await this.emailService.sendEmailConfirmation(newUser.email);
+    if (!isFromGoogleAuth) {
+      await this.emailService.sendEmailConfirmation(newUser.email);
+    }
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,
@@ -253,6 +264,7 @@ export class AuthService {
       companiesNewsEnabled: false,
       termsAndConditionsEnabled: false,
       interests: [],
+      isFromGoogleAuth: true,
     };
 
     return newUserData;

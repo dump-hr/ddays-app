@@ -29,9 +29,10 @@ export class AuthController {
 
   @Post('user/register')
   async userRegister(
-    @Body() register: RegistrationDto,
+    @Body() body: RegistrationDto & { isFromGoogleAuth: boolean },
   ): Promise<JwtResponseDto> {
-    return await this.authService.userRegister(register);
+    const { isFromGoogleAuth, ...register } = body;
+    return await this.authService.userRegister(register, isFromGoogleAuth);
   }
 
   @Get('user/authenticated')

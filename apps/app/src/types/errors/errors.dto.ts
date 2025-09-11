@@ -14,4 +14,5 @@ export type RegistrationFormErrors = {
   companiesNewsEnabled: string;
   interests?: string;
   profilePhotoUrl?: string;
+  isFromGoogleAuth?: string;
 };

@@ -115,18 +115,21 @@ export const GeneralRegistrationForm = () => {
         }
 
         mutate({
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: userData.email,
-          password: userData.password,
-          phoneNumber: userData.phoneNumber,
-          birthYear: userData.birthYear,
-          educationDegree: userData.educationDegree,
-          occupation: userData.occupation,
-          newsletterEnabled: userData.newsletterEnabled,
-          companiesNewsEnabled: userData.companiesNewsEnabled,
-          interests: userData.interests,
-          profilePhotoUrl: userData.profilePhotoUrl,
+          dto: {
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            password: userData.password,
+            phoneNumber: userData.phoneNumber,
+            birthYear: userData.birthYear,
+            educationDegree: userData.educationDegree,
+            occupation: userData.occupation,
+            newsletterEnabled: userData.newsletterEnabled,
+            companiesNewsEnabled: userData.companiesNewsEnabled,
+            interests: userData.interests,
+            profilePhotoUrl: userData.profilePhotoUrl,
+          },
+          isFromGoogleAuth: googleAuth,
         });
 
         break;
