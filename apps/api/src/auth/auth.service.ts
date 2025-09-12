@@ -134,7 +134,16 @@ export class AuthService {
 
     const newUser = await this.prisma.user.create({
       data: {
-        ...registerWithoutInterests,
+        email: register.email,
+        firstName: register.firstName,
+        lastName: register.lastName,
+        profilePhotoUrl: register.profilePhotoUrl,
+        phoneNumber: register.phoneNumber,
+        birthYear: register.birthYear,
+        educationDegree: register.educationDegree,
+        occupation: register.occupation,
+        newsletterEnabled: register.newsletterEnabled,
+        companiesNewsEnabled: register.companiesNewsEnabled,
         isDeleted: false,
         password: hashedPassword,
         isConfirmed: isFromGoogleAuth ? true : false,
