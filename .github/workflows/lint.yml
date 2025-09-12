@@ -5,25 +5,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  # eslint_web:
-  #   name: Run ESLint (web)
-  #   runs-on: ubuntu-latest
+  eslint_web:
+    name: Run ESLint (web)
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 18.x
-  #         cache: 'yarn'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+          cache: 'yarn'
 
-  #     - name: Install dependencies
-  #       run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
-  #     - name: Run ESLint
-  #       run: yarn workspace web run lint
+      - name: Run ESLint
+        run: yarn workspace web run lint
 
   eslint_sponsor:
     name: Run ESLint (sponsor)
