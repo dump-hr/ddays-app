@@ -1,0 +1,17 @@
+export const RouteNames = {
+  BASENAME: '/adminv2',
+  HOME: '/',
+  ERROR: '*',
+  ADMINISTRATORS: '/administrators',
+  DATABASE: '/database',
+  USERS: '/database/users',
+  COMPANIES: '/database/companies',
+  SPEAKERS: '/database/speakers',
+  INTERESTS: '/database/interests',
+  EVENTS: '/database/events',
+  BOOTHS: '/database/booths',
+  REWARDS: '/database/rewards',
+  ACHIEVEMENTS: '/database/achievements',
+  CODES: '/database/codes',
+  SHOPPING: '/database/shopping',
+};

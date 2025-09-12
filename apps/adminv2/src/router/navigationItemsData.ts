@@ -1,3 +1,5 @@
+import { RouteNames } from './routes';
+
 export type NavigationItemData = {
   route: string;
   label: string;
@@ -7,55 +9,55 @@ export type NavigationItemData = {
 
 export const navigationItems: NavigationItemData[] = [
   {
-    route: '',
+    route: RouteNames.HOME,
     label: 'Početna',
   },
   {
-    route: '/administrators',
+    route: RouteNames.ADMINISTRATORS,
     label: 'Administratori',
   },
   {
-    route: '/database',
+    route: RouteNames.DATABASE,
     label: 'Baza podataka',
     subItems: [
       {
-        route: '/users',
+        route: RouteNames.USERS,
         label: 'Korisnici',
       },
       {
-        route: '/companies',
+        route: RouteNames.COMPANIES,
         label: 'Kompanije',
       },
       {
-        route: '/speakers',
+        route: RouteNames.SPEAKERS,
         label: 'Speakeri',
       },
       {
-        route: '/interests',
+        route: RouteNames.INTERESTS,
         label: 'Interesi',
       },
       {
-        route: '/events',
+        route: RouteNames.EVENTS,
         label: 'Događaji',
       },
       {
-        route: '/booths',
+        route: RouteNames.BOOTHS,
         label: 'Štandovi',
       },
       {
-        route: '/rewards',
+        route: RouteNames.REWARDS,
         label: 'Nagrade',
       },
       {
-        route: '/achievements',
+        route: RouteNames.ACHIEVEMENTS,
         label: 'Postignuća',
       },
       {
-        route: '/codes',
+        route: RouteNames.CODES,
         label: 'Kodovi',
       },
       {
-        route: '/shopping',
+        route: RouteNames.SHOPPING,
         label: 'Shopping',
       },
     ],

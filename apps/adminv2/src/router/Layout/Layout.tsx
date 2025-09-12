@@ -1,19 +1,32 @@
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import c from './Layout.module.scss';
 import ProfilePicturePlaceholder from '/src/assets/images/profile-picture-placeholder.jpg';
 import LogoutIcon from '@/assets/icons/logout.svg';
-import { navigationItems } from '../navigationItemsData';
+import {
+  navigationItems,
+  type NavigationItemData,
+} from '../navigationItemsData';
 import NavigationItem from '../../components/NavigationItem';
-import React from 'react';
 
 export const Layout = () => {
   const location = useLocation();
+
+  const isSelected = (route: string) => {
+    return location.pathname === route || location.pathname === route + '/';
+  };
+
+  const isParentOpen = (item: NavigationItemData) => {
+    if (!item.subItems || item.subItems.length === 0) return false;
+    return item.subItems.some((sub) => isSelected(sub.route));
+  };
+
   return (
     <div className={c.layout}>
       <div className={c.sidebar}>
         <div className={c.profileInfoWrapper}>
           <div className={c.profileInfo}>
-            <img src={ProfilePicturePlaceholder} alt='' />
+            <img src={ProfilePicturePlaceholder} alt='Profile' />
             <div className={c.profileDetails}>
               <div className={c.roleAndName}>
                 <div className={c.role}>S</div>
@@ -22,56 +35,37 @@ export const Layout = () => {
               <p className={c.email}>lovre.tomic@dump.hr</p>
             </div>
           </div>
-          <img src={LogoutIcon} className={c.logoutButton} />
+          <img src={LogoutIcon} className={c.logoutButton} alt='Logout' />
         </div>
+
         <nav className={c.navigation}>
           {navigationItems.map((item) => {
-            const isSelected =
-              location.pathname === item.route ||
-              location.pathname === item.route + '/';
-
-            const isOpen =
-              location.pathname.startsWith(item.route + '/') ||
-              item.subItems?.some((subItem) => {
-                const fullSubRoute = item.route + subItem.route;
-                return (
-                  location.pathname === fullSubRoute ||
-                  location.pathname === fullSubRoute + '/'
-                );
-              });
-
+            const parentSelected = isSelected(item.route);
+            const parentOpen = isParentOpen(item);
             const hasSubItems = item.subItems && item.subItems.length > 0;
 
             return (
               <React.Fragment key={item.route}>
                 <NavigationItem
-                  key={item.route}
                   navigationItem={item}
-                  isSelected={isSelected}
-                  isOpen={isOpen && hasSubItems}
+                  isSelected={parentSelected}
+                  isOpen={parentOpen && hasSubItems}
                 />
-                {(isSelected || isOpen) &&
-                  hasSubItems &&
-                  item.subItems?.map((subItem) => {
-                    const isSubItemSelected =
-                      location.pathname === item.route + subItem.route ||
-                      location.pathname === item.route + subItem.route + '/';
-                    return (
-                      <NavigationItem
-                        key={subItem.route}
-                        navigationItem={{
-                          ...subItem,
-                          route: item.route + subItem.route,
-                        }}
-                        isSelected={isSubItemSelected}
-                      />
-                    );
-                  })}
+                {hasSubItems &&
+                  (parentSelected || parentOpen) &&
+                  item.subItems?.map((subItem) => (
+                    <NavigationItem
+                      key={subItem.route}
+                      navigationItem={subItem}
+                      isSelected={isSelected(subItem.route)}
+                    />
+                  ))}
               </React.Fragment>
             );
           })}
         </nav>
       </div>
+
       <main className={c.main}>
         <header className={c.header}></header>
         <Outlet />
@@ -79,3 +73,5 @@ export const Layout = () => {
     </div>
   );
 };
+
+export default Layout;
