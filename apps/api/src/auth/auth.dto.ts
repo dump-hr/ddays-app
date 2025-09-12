@@ -86,4 +86,7 @@ export class RegistrationDto {
 
   @IsArray()
   interests: InterestDto[];
+
+  @IsBoolean()
+  isFromGoogleAuth: boolean;
 }

@@ -45,6 +45,7 @@ export enum RouteNames {
   FLOOR_PLAN = '/app/floor-plan',
   RATE_EVENT = '/app/rate-event/:eventId',
   ACCREDITATION_SCAN = '/app/JxASXlJhOJ',
+  GOOGLE_CALLBACK = '/app/google-callback',
 }
 
 export const navbarRoutes = [

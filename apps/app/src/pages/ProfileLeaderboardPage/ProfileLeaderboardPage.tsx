@@ -19,7 +19,7 @@ export const ProfileLeaderboardPage = () => {
 
   useEffect(() => {
     completeAchievementByName({ name: AchievementNames.BraveMove });
-  }, []);
+  }, [completeAchievementByName]);
 
   const {
     data: leaderboardData,

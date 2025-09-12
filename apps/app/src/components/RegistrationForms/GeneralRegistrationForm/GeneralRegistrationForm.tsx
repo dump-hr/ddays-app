@@ -3,9 +3,9 @@ import { ProgressBar } from '@/components/ProgressBar';
 import { FirstStepRegistrationForm } from '../FirstStepRegistrationForm';
 import { SecondStepRegistrationForm } from '../SecondStepRegistrationForm';
 import c from './GeneralRegistrationForm.module.scss';
-import { AuthFooter } from '@/components//AuthFooter';
+import { AuthFooter } from '@/components/AuthFooter';
 import Button from '@/components/Button/Button';
-//import GoogleIcon from '@/assets/icons/google-icon.svg';
+import googleIcon from '@/assets/icons/google-icon.svg';
 import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
@@ -17,9 +17,14 @@ import { RouteNames } from '@/router/routes';
 import { useRegistrationData } from '@/providers/RegistrationDataProvider';
 import toast from 'react-hot-toast';
 import RedStarIcon from '@/components/RedStarIcon';
+import { GOOGLE_CLIENT_ID } from '@/constants/googleId';
+import { isTokenExpired } from '@/helpers/auth';
+import { useGoogleAuthLogin } from '@/api/auth/useGoogleAuthLogin';
 
 export const GeneralRegistrationForm = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
@@ -27,27 +32,71 @@ export const GeneralRegistrationForm = () => {
     thirdStepIsSubmitted: false,
     fourthStepIsSubmitted: false,
   });
+  const [googleAuth, setGoogleAuth] = useState(false);
 
   const { userData, updateUserData, clearUserData } = useRegistrationData();
-
   const { mutate } = useUserRegister(() => {
     clearUserData();
-    navigate(RouteNames.CONFIRM_EMAIL);
+    navigate(googleAuth ? RouteNames.HOME : RouteNames.CONFIRM_EMAIL);
   });
+  const { mutate: mutateGoogle } = useGoogleAuthLogin();
+  const { isStepValid } = useRegistration();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && !isTokenExpired(accessToken)) {
+      navigate(RouteNames.HOME);
+      return;
+    }
+
+    if (window.google && !window.googleInitialized) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+        use_fedcm_for_prompt: true,
+      });
+      window.googleInitialized = true;
+    }
+  }, [navigate]);
+
+  const handleCredentialResponse = (response: { credential: string }) => {
+    if (response.credential) {
+      mutateGoogle(response.credential);
+    } else {
+      toast.error('Google login failed!');
+    }
+  };
+
+  const handleCustomGoogleLogin = () => {
+    window.google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        const redirectUri = `${window.location.origin}/app/google-callback`;
+
+        const params = new URLSearchParams({
+          client_id: GOOGLE_CLIENT_ID,
+          redirect_uri: redirectUri,
+          response_type: 'id_token',
+          scope: 'email profile',
+          nonce: Date.now().toString(),
+        });
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+      }
+    });
+  };
 
   useEffect(() => {
     if (location.state?.profilePhotoUrl) {
-      updateUserData({
-        profilePhotoUrl: location.state.profilePhotoUrl,
-      });
+      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
       setCurrentStep(RegistrationStep.FOUR);
+    }
+    if (location.state?.startStep) setCurrentStep(location.state.startStep);
+    if (location.state?.googleAuth) setGoogleAuth(true);
+    if (location.state?.userData) updateUserData(location.state.userData);
+
+    if (location.state) {
       navigate(location.pathname, { replace: true });
     }
-  }, [location.pathname, location.state, navigate, updateUserData]);
-
-  const { isStepValid } = useRegistration();
+  }, [location, navigate, updateUserData]);
 
   const handleRegistrationClick = () => {
     switch (currentStep) {
@@ -72,22 +121,9 @@ export const GeneralRegistrationForm = () => {
         }
 
         mutate({
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: userData.email,
-          password: userData.password,
-          phoneNumber: userData.phoneNumber,
-          birthYear: userData.birthYear,
-          educationDegree: userData.educationDegree,
-          occupation: userData.occupation,
-          newsletterEnabled: userData.newsletterEnabled,
-          companiesNewsEnabled: userData.companiesNewsEnabled,
-          interests: userData.interests,
-          profilePhotoUrl: userData.profilePhotoUrl,
+          dto: { ...userData },
+          isFromGoogleAuth: googleAuth,
         });
-
-        break;
-      default:
         break;
     }
 
@@ -95,16 +131,14 @@ export const GeneralRegistrationForm = () => {
   };
 
   const goToNextStepIfAllowed = () => {
-    if (
-      currentStep === RegistrationStep.THREE ||
-      currentStep === RegistrationStep.FOUR
-    ) {
-      const nextStep = currentStep + 1;
-      setCurrentStep(nextStep > 4 ? 4 : nextStep);
+    if (googleAuth && currentStep === RegistrationStep.ONE) {
+      setCurrentStep(RegistrationStep.TWO);
+      scrollToTopOfTheScreen();
+      return;
+    }
 
-      if (nextStep <= 4) scrollToTopOfTheScreen();
-    } else if (isStepValid(currentStep)) {
-      const nextStep = currentStep + 1;
+    const nextStep = currentStep + 1;
+    if (isStepValid(currentStep) || currentStep >= RegistrationStep.THREE) {
       setCurrentStep(nextStep > 4 ? 4 : nextStep);
       if (nextStep <= 4) scrollToTopOfTheScreen();
     }
@@ -134,7 +168,6 @@ export const GeneralRegistrationForm = () => {
       <div className={c.registrationUpper}>
         <h2>
           {displayStepTitle(currentStep)}
-
           <img
             src={CloseIcon}
             onClick={() => navigate('/app')}
@@ -146,7 +179,10 @@ export const GeneralRegistrationForm = () => {
 
         <ProgressBar
           currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
+          setCurrentStep={(step) => {
+            if (googleAuth && step === RegistrationStep.ONE) return;
+            setCurrentStep(step);
+          }}
           handleRegistrationClick={handleRegistrationClick}
         />
       </div>
@@ -163,9 +199,9 @@ export const GeneralRegistrationForm = () => {
           userData={userData}
           updateUserData={updateUserData}
           isSubmitted={isSubmitted.secondStepIsSubmitted}
+          isGoogleAuth={googleAuth}
         />
       )}
-
       {currentStep === RegistrationStep.THREE && (
         <AvatarPickerRegistrationForm updateUserData={updateUserData} />
       )}
@@ -181,25 +217,26 @@ export const GeneralRegistrationForm = () => {
           <Button
             type='submit'
             variant='orange'
-            children='Spremi'
-            onClick={handleRegistrationClick}
-          />
+            onClick={handleRegistrationClick}>
+            Spremi
+          </Button>
         ) : currentStep !== RegistrationStep.THREE ? (
           <>
             <Button
               type='submit'
               variant='orange'
-              children='Dalje'
-              onClick={handleRegistrationClick}
-            />
-            {/*
-            <Button
-              type='submit'
-              variant='black'
-              children='Nastavi s Google'
-              icon={GoogleIcon}
-            />
-            */}
+              onClick={handleRegistrationClick}>
+              Dalje
+            </Button>
+            {currentStep === RegistrationStep.ONE && (
+              <Button
+                type='submit'
+                variant='black'
+                icon={googleIcon}
+                onClick={handleCustomGoogleLogin}>
+                Nastavi s Google
+              </Button>
+            )}
           </>
         ) : null}
       </div>

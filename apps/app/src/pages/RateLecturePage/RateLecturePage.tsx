@@ -127,7 +127,16 @@ export const RateLecturePage = () => {
         toast.dismiss(toastId);
       }
     };
-  }, [isEventError, isEventLoading, navigate, event?.id, userRatings]);
+  }, [
+    isEventError,
+    isEventLoading,
+    navigate,
+    event?.id,
+    userRatings,
+    event?.type,
+    event?.startsAt,
+    event?.endsAt,
+  ]);
 
   function handleButtonClick() {
     const questionIds = Object.keys(answers).map((id) => Number(id));

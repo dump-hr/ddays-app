@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   login: 'userLogin',
   register: 'userRegister',
+  googleLogin: 'googleLogin',
   interests: 'interests',
   userSelectedInterests: 'userSelectedInterests',
   shopItems: 'shopItems',

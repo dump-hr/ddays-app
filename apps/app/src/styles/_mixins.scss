@@ -1,4 +1,4 @@
-@import './fonts';
+@use './fonts' as *;
 
 @mixin heading-1 {
   font-family: NeueMachina;

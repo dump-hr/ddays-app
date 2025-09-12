@@ -1,13 +1,16 @@
-import { AchievementNames, JwtResponseDto } from '@ddays-app/types';
+import {
+  AchievementNames,
+  JwtResponseDto,
+  RegistrationDto,
+} from '@ddays-app/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { hash } from 'bcrypt';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
+import { randomBytes } from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma.service';
-
-import { RegistrationDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -67,6 +70,7 @@ export class AuthService {
         lastName: true,
         password: true,
         isDeleted: true,
+        isFromGoogleAuth: true,
       },
     });
 
@@ -76,7 +80,11 @@ export class AuthService {
 
     const passwordsMatch = await compare(password, loginUser.password);
 
-    if (!passwordsMatch) {
+    if (loginUser.isFromGoogleAuth) {
+      throw new BadRequestException('Korisnik je prijavljen putem Google-a!');
+    }
+
+    if (!passwordsMatch && !loginUser.isFromGoogleAuth) {
       throw new BadRequestException('Neispravna lozinka!');
     }
 
@@ -90,7 +98,10 @@ export class AuthService {
     return { accessToken };
   }
 
-  async userRegister(register: RegistrationDto): Promise<JwtResponseDto> {
+  async userRegister(
+    register: RegistrationDto,
+    isFromGoogleAuth: boolean,
+  ): Promise<JwtResponseDto> {
     const existingActivePhoneUser = await this.prisma.user.findFirst({
       where: {
         phoneNumber: register.phoneNumber,
@@ -123,10 +134,20 @@ export class AuthService {
 
     const newUser = await this.prisma.user.create({
       data: {
-        ...registerWithoutInterests,
+        email: register.email,
+        firstName: register.firstName,
+        lastName: register.lastName,
+        profilePhotoUrl: register.profilePhotoUrl,
+        phoneNumber: register.phoneNumber,
+        birthYear: register.birthYear,
+        educationDegree: register.educationDegree,
+        occupation: register.occupation,
+        newsletterEnabled: register.newsletterEnabled,
+        companiesNewsEnabled: register.companiesNewsEnabled,
         isDeleted: false,
         password: hashedPassword,
-        isConfirmed: false,
+        isConfirmed: isFromGoogleAuth ? true : false,
+        isFromGoogleAuth,
       },
     });
 
@@ -137,7 +158,9 @@ export class AuthService {
       })),
     });
 
-    await this.emailService.sendEmailConfirmation(newUser.email);
+    if (!isFromGoogleAuth) {
+      await this.emailService.sendEmailConfirmation(newUser.email);
+    }
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,
@@ -193,5 +216,90 @@ export class AuthService {
         profilePhotoUrl: true,
       },
     });
+  }
+
+  private client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+  async verifyGoogleToken(
+    idToken: string,
+  ): Promise<RegistrationDto | JwtResponseDto> {
+    const ticket = await this.client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload?.email) {
+      throw new Error('Google token has no email');
+    }
+
+    const email = payload.email;
+
+    const existingUser = await this.prisma.user.findFirst({
+      where: { email, isDeleted: false },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+      },
+    });
+
+    if (existingUser) {
+      const accessToken = this.jwtService.sign({
+        id: existingUser.id,
+        email: existingUser.email,
+        firstName: existingUser.firstName,
+        lastName: existingUser.lastName,
+      });
+
+      return { accessToken };
+    }
+
+    const plainRandomPassword = randomBytes(12).toString('hex');
+
+    const newUserData: RegistrationDto = {
+      email: payload.email,
+      firstName: payload.given_name || '',
+      lastName: payload.family_name || '',
+      profilePhotoUrl: null,
+      password: plainRandomPassword,
+      phoneNumber: '',
+      birthYear: null,
+      educationDegree: null,
+      occupation: null,
+      newsletterEnabled: false,
+      companiesNewsEnabled: false,
+      termsAndConditionsEnabled: false,
+      interests: [],
+      isFromGoogleAuth: true,
+    };
+
+    return newUserData;
+  }
+
+  async handleGoogleCallback(
+    idToken: string,
+  ): Promise<{ redirectUrl: string }> {
+    if (!idToken) {
+      return { redirectUrl: '/app/login?error=missing_token' };
+    }
+
+    try {
+      const userData = await this.verifyGoogleToken(idToken);
+
+      if ('accessToken' in userData) {
+        return { redirectUrl: `/app?accessToken=${userData.accessToken}` };
+      } else {
+        const encodedUserData = encodeURIComponent(JSON.stringify(userData));
+        return {
+          redirectUrl: `/app/register?googleAuth=true&userData=${encodedUserData}`,
+        };
+      }
+    } catch (err) {
+      console.error('Google Auth Callback Error:', err);
+      return { redirectUrl: '/app/login?error=google_auth_failed' };
+    }
   }
 }

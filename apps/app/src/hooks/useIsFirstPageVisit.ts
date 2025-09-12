@@ -20,7 +20,7 @@ export const useIsFirstPageVisit = (localStorageName: string) => {
 
     localStorage.setItem(localStorageName, 'false');
     setFirstPageVisit(false);
-  }, []);
+  }, [localStorageName]);
 
   return { firstPageVisit, setFirstPageVisit };
 };

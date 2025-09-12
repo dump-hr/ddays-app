@@ -16,4 +16,5 @@ export type RegistrationDto = {
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled?: boolean;
   interests: InterestDto[];
+  isFromGoogleAuth?: boolean;
 };

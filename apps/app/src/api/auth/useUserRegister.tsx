@@ -5,10 +5,13 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 import { JwtResponseDto, RegistrationDto } from '@ddays-app/types';
 import RedStarIcon from '@/components/RedStarIcon';
 
-const registerUser = async (dto: Partial<RegistrationDto>) => {
+const registerUser = async (data: {
+  dto: Partial<RegistrationDto>;
+  isFromGoogleAuth: boolean;
+}) => {
   return axios.post<Partial<RegistrationDto>, JwtResponseDto>(
     '/auth/user/register',
-    dto,
+    { ...data.dto, isFromGoogleAuth: data.isFromGoogleAuth },
   );
 };
 

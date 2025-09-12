@@ -20,4 +20,11 @@ export default defineConfig({
       },
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ['mixed-decls', 'global-builtin', 'legacy-js-api'],
+      },
+    },
+  },
 });
