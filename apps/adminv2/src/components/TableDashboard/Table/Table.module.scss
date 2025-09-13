@@ -1,0 +1,105 @@
+.tableWrap {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; 
+
+  th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    font-weight: bold;
+    min-width: 120px; 
+    vertical-align: middle;
+  }
+
+  td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    min-width: 120px; 
+    vertical-align: middle;
+  }
+
+  .checkboxCol {
+    background: #fff;
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    text-align: center;
+    padding: 6px;
+  }
+
+
+
+  .checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .checkbox:checked {
+    background: $color-muted-orange;
+  }
+}
+
+.headerCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dataType {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 11px;
+  color: #888;
+  line-height: 1;
+  margin-bottom: 3px; 
+}
+
+.colName {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.altRow {
+  background-color: #fafafa;
+}
+
+.checkedRow {
+  color: $color-muted-orange;
+  background-color: $color-light-muted-orange;
+}
+
+.booleanBadge {
+  font-family: "Cascadia Mono", monospace;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.booleanTrue {
+  color: #609660;
+  background: #D2EFC7;
+}
+
+.booleanFalse {
+  color: #ED7455;
+  background: #FFDFC8;
+}
+
+
