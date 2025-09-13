@@ -35,7 +35,8 @@
     color: white;
     background-color: $color-muted-orange;
     border: none;
-  }
+    box-shadow: 0 0 4px 0  rgba(0, 0, 0, 0.20);
+}
 
   .redOutline {
     border: 1px solid $color-muted-orange;

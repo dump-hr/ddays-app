@@ -1,3 +1,12 @@
+import { TableDashboard } from '../../components/TableDashboard';
+import { useGetAllUsers } from '../../api/user/useGetAllUsers';
+
 export const UsersPage = () => {
-  return <h1>Users Page</h1>;
+  const { data: users } = useGetAllUsers();
+
+  if (!users) {
+    return <div>Loading...</div>;
+  }
+
+  return <TableDashboard data={users} />;
 };

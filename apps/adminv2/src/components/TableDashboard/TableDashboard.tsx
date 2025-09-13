@@ -3,43 +3,11 @@ import c from './TableDashboard.module.scss';
 import { TableSearch } from './TableSearch';
 import { TableActions } from './TableActions';
 import { Table } from './Table';
-import { Direction, DataRow } from '../../types/table';
+import { Direction } from '../../types/table';
 
-const mockData: DataRow[] = [
-  {
-    Id: 1,
-    Ime: 'Ivan',
-    'Godina rođenja': 2005,
-    'Potvrđen?': true,
-    'Profilna fotografija': 'link',
-    Bodovi: 1750,
-    Lozinka: 'hash',
-    Kompanija: 'Abysalto',
-    Tip: 'LECTURE',
-  },
-  {
-    Id: 2,
-    Ime: 'Marko',
-    'Godina rođenja': 2005,
-    'Potvrđen?': false,
-    'Profilna fotografija': 'link',
-    Bodovi: 568,
-    Lozinka: 'hash',
-    Kompanija: 'OTP banka',
-    Tip: 'CAMPFIRE_TALK',
-  },
-  {
-    Id: 3,
-    Ime: 'Petar',
-    'Godina rođenja': 2005,
-    'Potvrđen?': true,
-    'Profilna fotografija': 'link',
-    Bodovi: 1750,
-    Lozinka: 'hash',
-    Kompanija: 'Ericsson Nikola Tesla',
-    Tip: 'OTHER',
-  },
-];
+type TableDashboardProps = {
+  data: any;
+};
 
 const getDataType = (value: string | number | boolean | Date) => {
   if (typeof value === 'boolean') return 'boolean';
@@ -48,8 +16,8 @@ const getDataType = (value: string | number | boolean | Date) => {
   return 'string';
 };
 
-export const TableDashboard: React.FC = () => {
-  const columns = Object.keys(mockData[0]);
+export const TableDashboard: React.FC<TableDashboardProps> = ({ data }) => {
+  const columns = Object.keys(data[0]);
   const [selected, setSelected] = useState<number[]>([]);
   const [sortConfig, setSortConfig] = useState<{
     key: string;
@@ -67,10 +35,11 @@ export const TableDashboard: React.FC = () => {
   };
 
   const handleCheckAll = () => {
-    if (selected.length === mockData.length) {
+    if (selected.length === sortedData.length) {
       setSelected([]);
     } else {
-      setSelected(mockData.map((r) => r.Id));
+      const allIds = sortedData.map((row: any) => row.Id ?? row.id ?? row.ID);
+      setSelected(allIds);
     }
   };
 
@@ -82,10 +51,16 @@ export const TableDashboard: React.FC = () => {
   };
 
   const filteredData = useMemo(() => {
-    return mockData.filter((row) =>
-      String(row.Ime).toLowerCase().includes(searchTerm.toLowerCase()),
+    if (!searchTerm) return data;
+
+    const lowerSearch = searchTerm.toLowerCase();
+
+    return data.filter((row: any) =>
+      Object.values(row).some((val) =>
+        String(val).toLowerCase().includes(lowerSearch),
+      ),
     );
-  }, [searchTerm]);
+  }, [searchTerm, data]);
 
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return filteredData;
@@ -112,7 +87,7 @@ export const TableDashboard: React.FC = () => {
 
       <TableActions
         selectedCount={selected.length}
-        totalCount={mockData.length}
+        totalCount={data.length}
         onSort={handleSort}
       />
 

@@ -185,6 +185,9 @@ export class UserService {
         firstName: true,
         lastName: true,
         email: true,
+        phoneNumber: true,
+        isConfirmed: true,
+        isFromGoogleAuth: true,
       },
     });
   }

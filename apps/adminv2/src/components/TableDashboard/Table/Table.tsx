@@ -41,7 +41,9 @@ export const Table: React.FC<DataTableProps> = ({
             {columns.map((col) => (
               <th key={col}>
                 <div className={c.headerCell}>
-                  <div className={c.dataType}>{getDataType(data[0][col])}</div>
+                  <div className={c.dataType}>
+                    {data.length > 0 ? getDataType(data[0][col]) : '-'}
+                  </div>
                   <div className={c.colName}>{col}</div>
                 </div>
               </th>
@@ -49,38 +51,50 @@ export const Table: React.FC<DataTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((row, i) => (
-            <tr
-              key={row.Id ?? i}
-              className={`${i % 2 === 0 ? c.altRow : ''} ${
-                selected.includes(row.Id) ? c.checkedRow : ''
-              }`}>
-              <td className={c.checkboxCol}>
-                <input
-                  type='checkbox'
-                  className={c.checkbox}
-                  checked={selected.includes(row.Id)}
-                  onChange={() => onCheckboxChange(row.Id)}
-                />
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan={columns.length + 1} className={c.noData}>
+                Nema podataka za prikaz.
               </td>
-              {columns.map((col) => {
-                const val = row[col];
-                if (typeof val === 'boolean') {
-                  return (
-                    <td key={col}>
-                      <span
-                        className={`${c.booleanBadge} ${
-                          val ? c.booleanTrue : c.booleanFalse
-                        }`}>
-                        {String(val)}
-                      </span>
-                    </td>
-                  );
-                }
-                return <td key={col}>{val}</td>;
-              })}
             </tr>
-          ))}
+          ) : (
+            data.slice(0, 200).map((row, i) => {
+              const rowId = row.Id ?? row.id ?? row.ID;
+
+              return (
+                <tr
+                  key={rowId}
+                  className={`${i % 2 === 0 ? c.altRow : ''} ${
+                    selected.includes(rowId) ? c.checkedRow : ''
+                  }`}>
+                  <td className={c.checkboxCol}>
+                    <input
+                      type='checkbox'
+                      className={c.checkbox}
+                      checked={selected.includes(rowId)}
+                      onChange={() => onCheckboxChange(rowId)}
+                    />
+                  </td>
+                  {columns.map((col) => {
+                    const val = row[col];
+                    if (typeof val === 'boolean') {
+                      return (
+                        <td key={col}>
+                          <span
+                            className={`${c.booleanBadge} ${
+                              val ? c.booleanTrue : c.booleanFalse
+                            }`}>
+                            {String(val)}
+                          </span>
+                        </td>
+                      );
+                    }
+                    return <td key={col}>{val}</td>;
+                  })}
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>

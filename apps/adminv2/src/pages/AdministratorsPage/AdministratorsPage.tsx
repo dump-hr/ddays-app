@@ -1,5 +1,3 @@
-import { TableDashboard } from '../../components/TableDashboard';
-
 export const AdministratorsPage = () => {
-  return <TableDashboard />;
+  return <p>Admin page</p>;
 };
