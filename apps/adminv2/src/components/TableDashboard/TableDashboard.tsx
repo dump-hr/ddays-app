@@ -3,20 +3,26 @@ import c from './TableDashboard.module.scss';
 import { TableSearch } from './TableSearch';
 import { TableActions } from './TableActions';
 import { Table } from './Table';
-import { Direction } from '../../types/table';
+import { DataRow, Direction } from '../../types/table';
 
 type TableDashboardProps = {
-  data: any;
+  data: DataRow[];
+  dataType?: string;
+  onRefresh?: () => void;
 };
 
-const getDataType = (value: string | number | boolean | Date) => {
+const getDataType = (value: string | number | boolean | Date | null) => {
   if (typeof value === 'boolean') return 'boolean';
   if (typeof value === 'number') return 'number';
   if (value instanceof Date) return 'timestamp';
   return 'string';
 };
 
-export const TableDashboard: React.FC<TableDashboardProps> = ({ data }) => {
+export const TableDashboard: React.FC<TableDashboardProps> = ({
+  data,
+  dataType,
+  onRefresh,
+}) => {
   const columns = Object.keys(data[0]);
   const [selected, setSelected] = useState<number[]>([]);
   const [sortConfig, setSortConfig] = useState<{
@@ -38,7 +44,10 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({ data }) => {
     if (selected.length === sortedData.length) {
       setSelected([]);
     } else {
-      const allIds = sortedData.map((row: any) => row.Id ?? row.id ?? row.ID);
+      const allIds = sortedData
+        .map((row: DataRow) => row.Id ?? row.id ?? row.ID)
+        .filter((id): id is number => typeof id === 'number');
+
       setSelected(allIds);
     }
   };
@@ -55,7 +64,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({ data }) => {
 
     const lowerSearch = searchTerm.toLowerCase();
 
-    return data.filter((row: any) =>
+    return data.filter((row: DataRow) =>
       Object.values(row).some((val) =>
         String(val).toLowerCase().includes(lowerSearch),
       ),
@@ -83,12 +92,17 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({ data }) => {
 
   return (
     <div className={c.tableContainer}>
-      <TableSearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <TableSearch
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        dataType={dataType}
+      />
 
       <TableActions
         selectedCount={selected.length}
         totalCount={data.length}
         onSort={handleSort}
+        onRefresh={onRefresh}
       />
 
       <Table

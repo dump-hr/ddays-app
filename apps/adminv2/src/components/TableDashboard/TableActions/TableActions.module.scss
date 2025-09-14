@@ -1,52 +1,76 @@
 .actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 32px;
   padding: 16px;
   background-color: #f9f9f9;
   margin-bottom: 10px;
 }
 
-.leftButtons {
+.leftGroup {
   display: flex;
   gap: 8px;
   align-items: center;
-
-  button,
-  .selectedCount {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #929292;
-    background: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    white-space: nowrap;
-  }
-
-  .selectedCount {
-    cursor: default;
-  }
-
-  .redButton {
-    color: white;
-    background-color: $color-muted-orange;
-    border: none;
-    box-shadow: 0 0 4px 0  rgba(0, 0, 0, 0.20);
 }
 
-  .redOutline {
-    border: 1px solid $color-muted-orange;
-    color: $color-muted-orange;
-  }
+.rightGroup {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.buttonBase {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "SF Pro Display";
+  letter-spacing: 0.28px;
+}
+
+.redButton {
+  @extend .buttonBase;
+  background-color: $color-muted-orange;
+  color: white;
+  border: none;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.20);
+}
+
+.grayButton {
+  @extend .buttonBase;
+  background: #F0F0F0;
+  border: none;
+  color: #929292;
+}
+
+.redOutline {
+  @extend .buttonBase;
+  border: 1px solid $color-muted-orange;
+  color: $color-muted-orange;
+  background: white;
+}
+
+.defaultButton {
+  @extend .buttonBase;
+  border: 1px solid #929292;
+  background: white;
+  color: #555;
+}
+
+.selectedCount {
+  @extend .buttonBase;
+  border: 1px solid #929292;
+  background: white;
+  cursor: default;
+  padding: 11px 14px;
 }
 
 .totalCount {
   font-size: 14px;
   color: #555;
+  margin-left: 32px
 }
 
 .redIcon {

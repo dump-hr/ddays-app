@@ -8,9 +8,13 @@ import {
   type NavigationItemData,
 } from '../navigationItemsData';
 import NavigationItem from '../../components/NavigationItem';
+import { useNavigationItems } from '../../hooks/useNavigationItems';
+import ChevronRightIcon from '@/assets/icons/chevron_right.svg?react';
 
 export const Layout = () => {
   const location = useLocation();
+
+  const { breadcrumbItems } = useNavigationItems();
 
   const isSelected = (route: string) => {
     return location.pathname === route || location.pathname === route + '/';
@@ -67,7 +71,22 @@ export const Layout = () => {
       </div>
 
       <main className={c.main}>
-        <header className={c.header}></header>
+        <header className={c.header}>
+          <div className={c.breadcrumbs}>
+            {breadcrumbItems.map((item, index) => (
+              <React.Fragment key={item.route}>
+                <div className={c.breadcrumbItem}>
+                  {item.icon && <item.icon className={c.breadcrumbIcon} />}
+                  <span>{item.label}</span>
+                </div>
+                {index < breadcrumbItems.length - 1 && (
+                  <ChevronRightIcon className={c.breadcrumbSeparator} />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </header>
+
         <Outlet />
       </main>
     </div>

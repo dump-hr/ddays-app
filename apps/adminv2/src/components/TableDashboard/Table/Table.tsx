@@ -8,7 +8,7 @@ type DataTableProps = {
   selected: number[];
   onCheckAll: () => void;
   onCheckboxChange: (id: number) => void;
-  getDataType: (value: string | number | boolean | Date) => string;
+  getDataType: (value: string | number | boolean | Date | null) => string;
 };
 
 export const Table: React.FC<DataTableProps> = ({
@@ -63,16 +63,16 @@ export const Table: React.FC<DataTableProps> = ({
 
               return (
                 <tr
-                  key={rowId}
+                  key={Number(rowId)}
                   className={`${i % 2 === 0 ? c.altRow : ''} ${
-                    selected.includes(rowId) ? c.checkedRow : ''
+                    selected.includes(Number(rowId)) ? c.checkedRow : ''
                   }`}>
                   <td className={c.checkboxCol}>
                     <input
                       type='checkbox'
                       className={c.checkbox}
-                      checked={selected.includes(rowId)}
-                      onChange={() => onCheckboxChange(rowId)}
+                      checked={selected.includes(Number(rowId))}
+                      onChange={() => onCheckboxChange(Number(rowId))}
                     />
                   </td>
                   {columns.map((col) => {
@@ -89,7 +89,12 @@ export const Table: React.FC<DataTableProps> = ({
                         </td>
                       );
                     }
-                    return <td key={col}>{val}</td>;
+
+                    if (val instanceof Date) {
+                      return <td key={col}>{val.toLocaleString()}</td>;
+                    }
+
+                    return <td key={col}>{val ?? ''}</td>;
                   })}
                 </tr>
               );

@@ -1,24 +1,40 @@
 import React from 'react';
-import styles from './TableSearch.module.scss';
+import c from './TableSearch.module.scss';
+import { useNavigationItems } from '../../../hooks/useNavigationItems';
+import SearchIcon from '../../../assets/icons/search.svg?react';
 
 type TableSearchProps = {
   searchTerm: string;
   onSearchChange: (value: string) => void;
+  dataType?: string;
 };
 
 export const TableSearch: React.FC<TableSearchProps> = ({
   searchTerm,
   onSearchChange,
+  dataType,
 }) => {
+  const { currentItem } = useNavigationItems();
+
   return (
-    <div className={styles.searchContainer}>
-      <input
-        type='text'
-        placeholder='Pretraži po imenu...'
-        value={searchTerm}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className={styles.searchInput}
-      />
+    <div className={c.searchContainer}>
+      {currentItem && (
+        <div className={c.searchLabelWrapper}>
+          {currentItem.icon && <currentItem.icon className={c.searchIcon} />}
+          <span className={c.searchLabel}>{currentItem.label}</span>
+          <span className={c.dataTypeLabel}>{dataType}</span>
+        </div>
+      )}
+      <div className={c.searchInputWithIcon}>
+        <SearchIcon className={c.searchInputIcon} />
+        <input
+          type='text'
+          placeholder='Pretraži...'
+          value={searchTerm}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className={c.searchInput}
+        />
+      </div>
     </div>
   );
 };

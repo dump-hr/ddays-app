@@ -1,5 +1,4 @@
 import type { NavigationItemData } from '../../router/navigationItemsData';
-import ModelIcon from '@/assets/icons/model.svg?react';
 import ExpandDownIcon from '@/assets/icons/expand-down.svg?react';
 
 import c from './NavigationItem.module.scss';
@@ -30,7 +29,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
         [c.fullWidth]: hasSubItems,
       })}
       onClick={() => navigate(route)}>
-      <ModelIcon className={c.icon} />
+      {navigationItem.icon && <navigationItem.icon className={c.icon} />}
       {label}
       {hasSubItems && <ExpandDownIcon className={c.expandIcon} />}
     </button>

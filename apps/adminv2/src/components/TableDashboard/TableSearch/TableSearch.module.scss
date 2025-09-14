@@ -1,12 +1,71 @@
 .searchContainer {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 16px;
+}
+
+.searchLabelWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.searchLabel {
+  color: $color-gray;
+  font-family: "SF Pro Display";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.48px;
+}
+
+.dataTypeLabel {
+  color: #E09488;
+  font-family: "Cascadia Mono";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  background: #FFF2F0;
+  
+}
+
+.searchInputWithIcon {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
 }
 
 .searchInput {
-  width: 100%;
-  max-width: 300px;
-  padding: 6px 10px;
-  border: 1px solid #929292;
-  border-radius: 4px;
-  font-size: 14px;
+  display: flex;
+  width: 225px;
+  padding: 10px;
+  padding-left: 40px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid #e7e7e7;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: $color-muted-orange;
+}
+
+.searchInputIcon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none; 
 }

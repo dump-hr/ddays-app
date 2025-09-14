@@ -108,5 +108,34 @@
     border-bottom: 1px solid #e7e7e7;
     height: 68px;
     width: 100%;
+    display: flex;
+    padding: 16px;
   }
+
+  .breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  color: #929292;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumbIcon * {
+  width: 20px;
+  height: 20px;
+  fill: #929292;
+}
+
+.breadcrumbSeparator *{
+  width: 16px;
+  height: 16px;
+  stroke: #929292;
+}
+
 }
