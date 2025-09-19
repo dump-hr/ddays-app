@@ -1,6 +1,7 @@
 import React from 'react';
 import c from './Table.module.scss';
 import { DataRow } from '../../../types/table';
+import CopyIcon from '@/assets/icons/copy.svg?react';
 
 type DataTableProps = {
   columns: string[];
@@ -19,6 +20,32 @@ export const Table: React.FC<DataTableProps> = ({
   onCheckboxChange,
   getDataType,
 }) => {
+  const renderCellContent = (val: any) => {
+    if (!val) return '';
+
+    if (
+      typeof val === 'string' &&
+      (val.startsWith('http://') || val.startsWith('https://'))
+    ) {
+      const handleCopy = () => {
+        navigator.clipboard.writeText(val);
+      };
+
+      return (
+        <div className={c.linkCell}>
+          <span className={c.linkText}>link</span>
+          <CopyIcon
+            className={c.copyIcon}
+            onClick={handleCopy}
+            title='Copy link'
+          />
+        </div>
+      );
+    }
+
+    return <div className={c.scrollCell}>{String(val)}</div>;
+  };
+
   return (
     <div className={c.tableWrap}>
       <table className={c.table}>
@@ -94,7 +121,7 @@ export const Table: React.FC<DataTableProps> = ({
                       return <td key={col}>{val.toLocaleString()}</td>;
                     }
 
-                    return <td key={col}>{val ?? ''}</td>;
+                    return <td key={col}>{renderCellContent(val)}</td>;
                   })}
                 </tr>
               );

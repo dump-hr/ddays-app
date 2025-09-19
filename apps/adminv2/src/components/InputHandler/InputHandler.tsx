@@ -93,7 +93,7 @@ export const InputHandler: React.FC<InputHandlerProps> = ({
       defaultValue={question.defaultValue ?? inputDefaultValues[question.type]}
       disabled={question.disabled}
       render={({ field, fieldState }) => (
-        <div>
+        <div className={c.inputContainer}>
           {question.title && (
             <label className={c.label} htmlFor={question.id}>
               {question.title}

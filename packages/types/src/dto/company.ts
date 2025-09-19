@@ -70,13 +70,13 @@ export class CompanyModifyDto {
 
   @IsOptional()
   @IsString()
-  @IsBetweenWordCount(70, 5)
+  @IsBetweenWordCount(40, 30)
   @ValidateIf((e) => e.description !== '')
   description: string;
 
   @IsOptional()
   @IsString()
-  @IsBetweenWordCount(70, 5)
+  @IsBetweenWordCount(40, 30)
   opportunitiesDescription: string;
 
   @IsOptional()
@@ -105,12 +105,12 @@ export class CompanyModifyDto {
 
 export class CompanyModifyDescriptionDto {
   @IsString()
-  @IsBetweenWordCount(70, 5)
+  @IsBetweenWordCount(40, 30)
   description: string;
 
   @IsOptional()
   @IsString()
-  @IsBetweenWordCount(70, 5)
+  @IsBetweenWordCount(40, 30)
   @ValidateIf((e) => e.opportunitiesDescription !== '')
   opportunitiesDescription: string;
 

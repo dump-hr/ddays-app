@@ -104,7 +104,7 @@ export class AchievementController {
     return await this.achievementService.getOne(uuid);
   }
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Get()
   async getAll(): Promise<AchievementDto[]> {
     return await this.achievementService.getAll();

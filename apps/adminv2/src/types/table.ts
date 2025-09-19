@@ -1,5 +1,6 @@
 export type Direction = 'asc' | 'desc';
 
 export type DataRow = {
-  [key: string]: string | number | boolean | null | Date;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };

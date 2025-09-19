@@ -41,7 +41,7 @@ export class BoothController {
     return await this.boothService.createMany(dto);
   }
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Get()
   async getAll(): Promise<BoothDto[]> {
     return await this.boothService.getAll();
