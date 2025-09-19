@@ -10,6 +10,7 @@ type TableActionsProps = {
   totalCount: number;
   onSort: () => void;
   onRefresh?: () => void;
+  onCreateNew?: (data: any) => void;
 };
 
 export const TableActions: React.FC<TableActionsProps> = ({
@@ -17,11 +18,12 @@ export const TableActions: React.FC<TableActionsProps> = ({
   totalCount,
   onSort,
   onRefresh,
+  onCreateNew,
 }) => {
   return (
     <div className={c.actions}>
       <div className={c.leftGroup}>
-        <button type='button' className={c.redButton}>
+        <button type='button' className={c.redButton} onClick={onCreateNew}>
           <PlusIcon className={c.whiteIcon} />
           Dodaj
         </button>

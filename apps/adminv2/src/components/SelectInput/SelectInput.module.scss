@@ -1,0 +1,27 @@
+.selectInput {
+  width: 400px;
+  height: 40px;
+  border: 2px solid $color-dark-muted-orange;
+  border-radius: 4px;
+  padding: 0 10px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus {
+    border-color: $color-muted-orange;
+  }
+}
+
+.selectOption {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  border-radius: 4px;
+  z-index: 1;
+
+  &:hover {
+    background-color: $color-muted-orange;
+  }
+}

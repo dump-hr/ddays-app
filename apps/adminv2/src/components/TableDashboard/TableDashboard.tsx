@@ -9,19 +9,14 @@ type TableDashboardProps = {
   data: DataRow[];
   dataType?: string;
   onRefresh?: () => void;
-};
-
-const getDataType = (value: string | number | boolean | Date | null) => {
-  if (typeof value === 'boolean') return 'boolean';
-  if (typeof value === 'number') return 'number';
-  if (value instanceof Date) return 'timestamp';
-  return 'string';
+  renderForm?: (onSuccess: () => void) => React.ReactNode;
 };
 
 export const TableDashboard: React.FC<TableDashboardProps> = ({
   data,
   dataType,
   onRefresh,
+  renderForm,
 }) => {
   const columns = Object.keys(data[0]);
   const [selected, setSelected] = useState<number[]>([]);
@@ -33,6 +28,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
     direction: 'asc',
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleCheckboxChange = (id: number) => {
     setSelected((prev) =>
@@ -47,7 +43,6 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
       const allIds = sortedData
         .map((row: DataRow) => row.Id ?? row.id ?? row.ID)
         .filter((id): id is number => typeof id === 'number');
-
       setSelected(allIds);
     }
   };
@@ -59,11 +54,17 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
     setSortConfig({ key, direction });
   };
 
+  const handleOpenForm = () => setIsFormOpen(true);
+  const handleCloseForm = () => setIsFormOpen(false);
+
+  const handleFormSuccess = () => {
+    handleCloseForm();
+    onRefresh?.();
+  };
+
   const filteredData = useMemo(() => {
     if (!searchTerm) return data;
-
     const lowerSearch = searchTerm.toLowerCase();
-
     return data.filter((row: DataRow) =>
       Object.values(row).some((val) =>
         String(val).toLowerCase().includes(lowerSearch),
@@ -103,6 +104,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         totalCount={data.length}
         onSort={handleSort}
         onRefresh={onRefresh}
+        onCreateNew={handleOpenForm}
       />
 
       <Table
@@ -111,8 +113,16 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         selected={selected}
         onCheckAll={handleCheckAll}
         onCheckboxChange={handleCheckboxChange}
-        getDataType={getDataType}
+        getDataType={(v) => (typeof v === 'boolean' ? 'boolean' : 'string')}
       />
+
+      {isFormOpen && renderForm && (
+        <div className={c.modalBackdrop} onClick={handleCloseForm}>
+          <div className={c.modalContent} onClick={(e) => e.stopPropagation()}>
+            {renderForm(handleFormSuccess)}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
