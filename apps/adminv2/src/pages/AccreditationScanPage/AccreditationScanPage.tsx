@@ -82,15 +82,15 @@ export const AccreditationScanPage = () => {
   }, []);
 
   return (
-    <div>
-      <p>Printer selected: {printerSelected}</p>
-      <SelectInput
-        options={printersDropdownData || []}
-        isAllowedEmpty={true}
-        onChange={handleSelectChange}
-        defaultValue={printerSelected}
-      />
-      <div className={c.flex}>
+    <div className={c.container}>
+      <p style={{ padding: '8px' }}>Printer selected: {printerSelected}</p>
+      <div className={c.controls}>
+        <SelectInput
+          options={printersDropdownData || []}
+          isAllowedEmpty={true}
+          onChange={handleSelectChange}
+          defaultValue={printerSelected}
+        />
         <Button
           onClick={() => {
             if (!currentPrinterRef.current) {
@@ -117,15 +117,7 @@ export const AccreditationScanPage = () => {
       )}
 
       {isOpenQRCode && (
-        <div
-          className={c.scannerContainer}
-          style={{
-            width: '300px',
-            height: '300px',
-            position: 'relative',
-            border: '2px solid #000',
-            marginTop: '20px',
-          }}>
+        <div className={c.scannerContainer}>
           <Scanner
             onScan={(results) => {
               if (!results || results.length === 0) return;

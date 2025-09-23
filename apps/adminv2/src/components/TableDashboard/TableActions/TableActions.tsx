@@ -12,7 +12,6 @@ type TableActionsProps = {
   onCreateNew?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
-  onPrint?: () => void; // NEW: printing
 };
 
 export const TableActions: React.FC<TableActionsProps> = ({
@@ -23,7 +22,6 @@ export const TableActions: React.FC<TableActionsProps> = ({
   onCreateNew,
   onEdit,
   onDelete,
-  onPrint, // NEW
 }) => {
   return (
     <div className={c.actions}>
@@ -50,36 +48,28 @@ export const TableActions: React.FC<TableActionsProps> = ({
           Sortiraj
         </button>
 
-        {onEdit && (
-          <button
-            type='button'
-            className={c.defaultButton}
-            onClick={onEdit}
-            disabled={selectedCount !== 1}>
-            Uredi
-          </button>
-        )}
-
-        {onDelete && (
-          <button
-            type='button'
-            className={c.redOutline}
-            onClick={onDelete}
-            disabled={selectedCount === 0}>
-            Obriši
-          </button>
-        )}
-
-        {onPrint && (
-          <button
-            type='button'
-            className={c.defaultButton}
-            onClick={onPrint}
-            disabled={selectedCount !== 1}>
-            Print
-          </button>
-        )}
-
+        <div style={{ marginLeft: '32px', display: 'flex', gap: '8px' }}>
+          {onDelete && (
+            <button
+              type='button'
+              className={c.redOutline}
+              onClick={onDelete}
+              disabled={selectedCount === 0}
+              style={{ padding: '11px' }}>
+              Obriši
+            </button>
+          )}
+          {onEdit && (
+            <button
+              type='button'
+              className={c.defaultButton}
+              onClick={onEdit}
+              disabled={selectedCount !== 1}
+              style={{ padding: '11px' }}>
+              Uredi
+            </button>
+          )}
+        </div>
         <div className={c.selectedCount}>{selectedCount} odabrano</div>
       </div>
       <div className={c.totalCount}>{totalCount} rezultata</div>

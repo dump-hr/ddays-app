@@ -13,6 +13,7 @@ export const UsersPage = () => {
       dataType='UserPublicDto'
       onRefresh={refetch}
       renderForm={(onSuccess, id) => <UserForm onSuccess={onSuccess} id={id} />}
+      onEdit={() => {}}
     />
   );
 };

@@ -1,0 +1,48 @@
+.printerSelect {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    font-size: 16px;
+}
+
+.controls{
+    display: flex;
+    gap: 10px;
+    padding: 32px 16px;
+}
+
+.controlsHeader {
+    padding: 16px;
+    font-size: 30px;
+}
+
+.accreditationData {
+    padding: 16px;
+    margin: 0 16px;
+  border: 1px solid $color-muted-orange;
+  border-radius: 6px;
+  background-color: #fafafa;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+    gap: 8px;
+    max-width: 420px;
+  p {
+    margin: 6px 0;
+
+    strong {
+      display: inline-block;
+      width: 80px;
+      font-weight: 600;
+      color: #555;
+    }
+  }
+
+  .noData {
+    color: #999;
+    font-style: italic;
+  }
+}

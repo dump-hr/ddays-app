@@ -11,8 +11,11 @@ import { TableDashboard } from '../../components/TableDashboard';
 import { UserForm } from '../../forms/UserForm';
 import { printUser } from '../../helpers/printUser';
 
+import c from './AccreditationPrintPage.module.scss';
+
 export const AccreditationPrintPage = () => {
   const [printerSelected, setPrinterSelected] = useState('');
+  const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEditId, setUserToEditId] = useState<number>();
   const searchTerm = '';
@@ -60,34 +63,59 @@ export const AccreditationPrintPage = () => {
     setPrinterSelected(e.target.value.split(' - ')[0]);
   };
 
+  const handleSelectionChange = (ids: number[]) => {
+    if (ids.length > 1) {
+      const lastSelected = ids[ids.length - 1];
+      const user = filteredUsers.find((u) => u.id === lastSelected);
+      setSelectedUser(user || null);
+    } else {
+      const user = filteredUsers.find((u) => u.id === ids[0]);
+      setSelectedUser(user || null);
+    }
+  };
+
   return (
     <div>
-      <p>Printer selected: {printerSelected}</p>
-      <SelectInput
-        options={printersDropdownData || []}
-        onChange={handleSelectChange}
-        isAllowedEmpty={true}
-        defaultValue={printerSelected}
-      />
-
-      <h1>
+      <div className={c.printerSelect}>
+        <p>Printer selected: {printerSelected}</p>
+        <SelectInput
+          options={printersDropdownData || []}
+          onChange={handleSelectChange}
+          isAllowedEmpty={true}
+          defaultValue={printerSelected}
+          style={{ width: '420px' }}
+        />
+      </div>
+      <h1 className={c.controlsHeader}>
         <strong>Accreditation: </strong>
       </h1>
-      {accreditationData ? (
-        <>
-          <p>
-            <strong>Email:</strong> {accreditationData?.user.email}
-          </p>
-          <p>
-            <strong>Name:</strong> {accreditationData?.user.firstName}{' '}
-            {accreditationData?.user.lastName}{' '}
-          </p>
-        </>
-      ) : (
-        <p>No accreditation data available</p>
-      )}
+      <div className={c.accreditationData}>
+        {selectedUser ? (
+          <>
+            <p>
+              <strong>Email:</strong> {selectedUser.email}
+            </p>
+            <p>
+              <strong>Name:</strong> {selectedUser.firstName}{' '}
+              {selectedUser.lastName}
+            </p>
+          </>
+        ) : accreditationData ? (
+          <>
+            <p>
+              <strong>Email:</strong> {accreditationData?.user.email}
+            </p>
+            <p>
+              <strong>Name:</strong> {accreditationData?.user.firstName}{' '}
+              {accreditationData?.user.lastName}
+            </p>
+          </>
+        ) : (
+          <p className={c.noData}>No accreditation data available</p>
+        )}
+      </div>
 
-      <div className='flex'>
+      <div className={c.controls}>
         <Button
           onClick={() => {
             if (!printerSelected) {
@@ -107,11 +135,14 @@ export const AccreditationPrintPage = () => {
               return;
             }
 
-            if (!accreditationData) {
-              toast.error('No scanned accreditation data available');
+            const userToPrint = selectedUser || accreditationData?.user;
+
+            if (!userToPrint) {
+              toast.error('No user selected or scanned data available');
               return;
             }
-            printUser(accreditationData?.user);
+
+            printUser(userToPrint);
           }}
           variant='primary'>
           Print user
@@ -129,21 +160,7 @@ export const AccreditationPrintPage = () => {
           setUserToEditId(ids[0]);
           setIsModalOpen(true);
         }}
-        onPrint={(id) => {
-          if (!printerSelected) {
-            toast.error('Please select a printer first!');
-            return;
-          }
-
-          const userToPrint = filteredUsers.find((u) => u.id === id);
-          if (!userToPrint) {
-            toast.error('User not found!');
-            return;
-          }
-
-          refetch();
-          printUser(userToPrint);
-        }}
+        onSelectionChange={handleSelectionChange}
       />
 
       <Modal

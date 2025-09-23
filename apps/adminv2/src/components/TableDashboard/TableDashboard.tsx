@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import c from './TableDashboard.module.scss';
 import { TableSearch } from './TableSearch';
 import { TableActions } from './TableActions';
@@ -13,7 +13,7 @@ type TableDashboardProps = {
   renderForm?: (onSuccess: () => void, id?: number) => React.ReactNode;
   onEdit?: (ids: number[]) => void;
   onDelete?: (ids: number[]) => void;
-  onPrint?: (id: number) => void;
+  onSelectionChange?: (selectedIds: number[]) => void;
 };
 
 export const TableDashboard: React.FC<TableDashboardProps> = ({
@@ -23,7 +23,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   renderForm,
   onEdit,
   onDelete,
-  onPrint,
+  onSelectionChange,
 }) => {
   const columns = useMemo(() => {
     if (!data || data.length === 0) return [];
@@ -41,6 +41,10 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
 
+  useEffect(() => {
+    onSelectionChange?.(selected);
+  }, [selected, onSelectionChange]);
+
   const handleCheckboxChange = (id: number) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
@@ -56,19 +60,6 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         .filter((id): id is number => typeof id === 'number');
       setSelected(allIds);
     }
-  };
-
-  const handlePrint = () => {
-    if (!onPrint) return;
-    if (selected.length === 0) {
-      toast.error('Please select a user to print!');
-      return;
-    }
-    if (selected.length > 1) {
-      toast.error('You can print only one user at a time.');
-      return;
-    }
-    onPrint(selected[0]);
   };
 
   const handleSort = () => {
@@ -152,7 +143,6 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         onDelete={
           onDelete ? () => selected.length > 0 && onDelete(selected) : undefined
         }
-        onPrint={onPrint ? handlePrint : undefined}
       />
 
       <Table

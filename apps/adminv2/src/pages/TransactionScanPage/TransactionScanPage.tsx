@@ -3,7 +3,7 @@ import { Scanner } from '@yudiel/react-qr-scanner';
 
 import { useVerifyTransactionItem } from '../../api/shop/useVerifyTransactionItem';
 
-import c from '../AccreditationScanPage/AccreditationScanPage.module.scss';
+import c from './TransactionScanPage.module.scss';
 
 export const TransactionScanPage = () => {
   const isCooldownRef = useRef(false);
@@ -39,7 +39,7 @@ export const TransactionScanPage = () => {
   };
 
   return (
-    <div>
+    <div className={c.container}>
       {lastScanMessage && (
         <div
           style={{
@@ -64,7 +64,7 @@ export const TransactionScanPage = () => {
           }}
         />
       </div>
-      <p>Scan a QR code to verify a transaction.</p>
+      <p className={c.instructions}>Scan a QR code to verify a transaction.</p>
     </div>
   );
 };
