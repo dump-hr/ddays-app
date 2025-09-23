@@ -70,7 +70,7 @@ export class UserController {
     return await this.userService.getUserCount();
   }
 
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get('all')
   async getAllUsers(): Promise<Partial<UserPublicDto>[]> {
     return await this.userService.getAllUsers();

@@ -12,6 +12,7 @@
     "@azure/msal-browser": "^3.6.0",
     "@azure/msal-react": "^2.0.8",
     "@hookform/resolvers": "^3.3.4",
+    "@yudiel/react-qr-scanner": "^2.3.1",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
@@ -22,7 +23,6 @@
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
     "react-qr-code": "^2.0.15",
-    "react-qr-reader": "^3.0.0-beta-1",
     "react-query": "^3.39.3",
     "wouter": "^2.12.1"
   },

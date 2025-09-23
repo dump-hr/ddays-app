@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { QrReader } from 'react-qr-reader';
-
+import { Scanner } from '@yudiel/react-qr-scanner';
 import { useAssignPrinter } from '@/api/printer/useAssignPrinter';
 import { useGetAllPrinters } from '@/api/printer/useGetAllPrinters';
 import Button from '@/components/Button';
@@ -116,10 +115,10 @@ const AccreditationScanPage = () => {
 
       {isOpenQRCode && (
         <div className='scannerContainer'>
-          <QrReader
-            onResult={(result) => {
-              if (!result) return;
-              handleScan(result?.getText());
+          <Scanner
+            onScan={(results) => {
+              if (!results || results.length === 0) return;
+              handleScan(results[0].rawValue);
             }}
             constraints={{
               facingMode: 'environment',

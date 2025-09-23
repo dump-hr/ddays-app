@@ -1,4 +1,4 @@
-import { QrReader } from 'react-qr-reader';
+import { Scanner } from '@yudiel/react-qr-scanner';
 import c from './ScannerPage.module.scss';
 import { useRef, useState } from 'react';
 import { QrCodeData, QrCodeDataType } from '@/types/qr/qr';
@@ -112,16 +112,18 @@ const ScannerPage = () => {
         </button>
         <h1 className={c.title}>Skeniraj QR kod!</h1>
         <div className={c.readerWrapper}>
-          <QrReader
-            onResult={(result) => {
-              if (!result || isOpen) return;
-              handleScan(result?.getText());
-            }}
-            className={c.qrReader}
-            constraints={{
-              facingMode: 'environment',
-            }}
-          />
+          <div className={c.qrReader}>
+            <Scanner
+              onScan={(results) => {
+                if (!results || results.length === 0 || isOpen) return;
+                handleScan(results[0].rawValue);
+              }}
+              onError={(error) => console.error(error)}
+              constraints={{
+                facingMode: 'environment',
+              }}
+            />
+          </div>
         </div>
       </div>
 

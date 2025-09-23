@@ -4,13 +4,15 @@ import PlusIcon from '@/assets/icons/plus.svg?react';
 import RefreshIcon from '@/assets/icons/refresh.svg?react';
 import SortIcon from '@/assets/icons/sort.svg?react';
 import ExportIcon from '@/assets/icons/export.svg?react';
-
 type TableActionsProps = {
   selectedCount: number;
   totalCount: number;
   onSort: () => void;
   onRefresh?: () => void;
-  onCreateNew?: (data: any) => void;
+  onCreateNew?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onPrint?: () => void; // NEW: printing
 };
 
 export const TableActions: React.FC<TableActionsProps> = ({
@@ -19,6 +21,9 @@ export const TableActions: React.FC<TableActionsProps> = ({
   onSort,
   onRefresh,
   onCreateNew,
+  onEdit,
+  onDelete,
+  onPrint, // NEW
 }) => {
   return (
     <div className={c.actions}>
@@ -44,6 +49,36 @@ export const TableActions: React.FC<TableActionsProps> = ({
           <SortIcon />
           Sortiraj
         </button>
+
+        {onEdit && (
+          <button
+            type='button'
+            className={c.defaultButton}
+            onClick={onEdit}
+            disabled={selectedCount !== 1}>
+            Uredi
+          </button>
+        )}
+
+        {onDelete && (
+          <button
+            type='button'
+            className={c.redOutline}
+            onClick={onDelete}
+            disabled={selectedCount === 0}>
+            Obriši
+          </button>
+        )}
+
+        {onPrint && (
+          <button
+            type='button'
+            className={c.defaultButton}
+            onClick={onPrint}
+            disabled={selectedCount !== 1}>
+            Print
+          </button>
+        )}
 
         <div className={c.selectedCount}>{selectedCount} odabrano</div>
       </div>

@@ -20,6 +20,7 @@ export const Table: React.FC<DataTableProps> = ({
   onCheckboxChange,
   getDataType,
 }) => {
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderCellContent = (val: any) => {
     if (!val) return '';
 

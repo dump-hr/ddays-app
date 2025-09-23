@@ -27,7 +27,7 @@ export class CodeController {
     return await this.codeService.create(dto);
   }
 
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get()
   async getAll(): Promise<CodeDto[]> {
     return await this.codeService.getAll();

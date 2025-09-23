@@ -12,9 +12,11 @@
   "dependencies": {
     "@azure/msal-browser": "^4.22.1",
     "@azure/msal-react": "^3.0.19",
+    "@yudiel/react-qr-scanner": "^2.3.1",
     "clsx": "^2.1.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.6.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^7.6.1",
     "vite-plugin-svgr": "^4.3.0"

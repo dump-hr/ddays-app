@@ -4,12 +4,16 @@ import { TableSearch } from './TableSearch';
 import { TableActions } from './TableActions';
 import { Table } from './Table';
 import { DataRow, Direction } from '../../types/table';
+import toast from 'react-hot-toast';
 
 type TableDashboardProps = {
   data: DataRow[];
   dataType?: string;
   onRefresh?: () => void;
-  renderForm?: (onSuccess: () => void) => React.ReactNode;
+  renderForm?: (onSuccess: () => void, id?: number) => React.ReactNode;
+  onEdit?: (ids: number[]) => void;
+  onDelete?: (ids: number[]) => void;
+  onPrint?: (id: number) => void;
 };
 
 export const TableDashboard: React.FC<TableDashboardProps> = ({
@@ -17,8 +21,14 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   dataType,
   onRefresh,
   renderForm,
+  onEdit,
+  onDelete,
+  onPrint,
 }) => {
-  const columns = Object.keys(data[0]);
+  const columns = useMemo(() => {
+    if (!data || data.length === 0) return [];
+    return Object.keys(data[0]);
+  }, [data]);
   const [selected, setSelected] = useState<number[]>([]);
   const [sortConfig, setSortConfig] = useState<{
     key: string;
@@ -29,6 +39,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   const handleCheckboxChange = (id: number) => {
     setSelected((prev) =>
@@ -47,6 +58,19 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
     }
   };
 
+  const handlePrint = () => {
+    if (!onPrint) return;
+    if (selected.length === 0) {
+      toast.error('Please select a user to print!');
+      return;
+    }
+    if (selected.length > 1) {
+      toast.error('You can print only one user at a time.');
+      return;
+    }
+    onPrint(selected[0]);
+  };
+
   const handleSort = () => {
     const key = sortConfig.key || columns[0];
     const direction: Direction =
@@ -54,7 +78,24 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
     setSortConfig({ key, direction });
   };
 
-  const handleOpenForm = () => setIsFormOpen(true);
+  const handleEdit = (ids: number[]) => {
+    if (ids.length === 0) {
+      toast.error('Molimo odaberite jedan zapis za uređivanje.');
+      return;
+    }
+
+    if (ids.length > 1) {
+      toast.error('Možete uređivati samo jedan zapis istovremeno.');
+      return;
+    }
+
+    handleOpenForm(ids[0]);
+  };
+
+  const handleOpenForm = (id?: number) => {
+    setEditId(id ?? null);
+    setIsFormOpen(true);
+  };
   const handleCloseForm = () => setIsFormOpen(false);
 
   const handleFormSuccess = () => {
@@ -104,7 +145,14 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         totalCount={data.length}
         onSort={handleSort}
         onRefresh={onRefresh}
-        onCreateNew={handleOpenForm}
+        onCreateNew={() => handleOpenForm()}
+        onEdit={
+          onEdit ? () => selected.length > 0 && handleEdit(selected) : undefined
+        }
+        onDelete={
+          onDelete ? () => selected.length > 0 && onDelete(selected) : undefined
+        }
+        onPrint={onPrint ? handlePrint : undefined}
       />
 
       <Table
@@ -119,7 +167,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
       {isFormOpen && renderForm && (
         <div className={c.modalBackdrop} onClick={handleCloseForm}>
           <div className={c.modalContent} onClick={(e) => e.stopPropagation()}>
-            {renderForm(handleFormSuccess)}
+            {renderForm(handleFormSuccess, editId ?? undefined)}
           </div>
         </div>
       )}

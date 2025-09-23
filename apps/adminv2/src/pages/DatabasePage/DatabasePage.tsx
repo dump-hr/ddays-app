@@ -1,3 +1,10 @@
+import DatabaseIcon from '@/assets/icons/database.svg?react';
+import c from './DatabasePage.module.scss';
+
 export const DatabasePage = () => {
-  return <h1>Database Page</h1>;
+  return (
+    <div className={c.databasePage}>
+      <DatabaseIcon className={c.databaseIcon} />
+    </div>
+  );
 };

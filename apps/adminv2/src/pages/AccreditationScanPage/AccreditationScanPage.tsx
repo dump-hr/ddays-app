@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Scanner } from '@yudiel/react-qr-scanner';
-import { useAssignPrinter } from '../api/printer/useAssignPrinter';
-import { useGetAllPrinters } from '../api/printer/useGetAllPrinters';
-import { Button } from '../components/Button';
-import { SelectInput } from '../components/SelectInput';
 
-const AccreditationScanPage = () => {
+import { useAssignPrinter } from '../../api/printer/useAssignPrinter';
+import { useGetAllPrinters } from '../../api/printer/useGetAllPrinters';
+import { Button } from '../../components/Button';
+import { SelectInput } from '../../components/SelectInput';
+import c from './AccreditationScanPage.module.scss';
+
+import { Scanner } from '@yudiel/react-qr-scanner';
+
+export const AccreditationScanPage = () => {
   const assignPrinterMutation = useAssignPrinter();
   const { data: printers } = useGetAllPrinters();
 
@@ -87,7 +90,7 @@ const AccreditationScanPage = () => {
         onChange={handleSelectChange}
         defaultValue={printerSelected}
       />
-      <div className='flex'>
+      <div className={c.flex}>
         <Button
           onClick={() => {
             if (!currentPrinterRef.current) {
@@ -114,7 +117,15 @@ const AccreditationScanPage = () => {
       )}
 
       {isOpenQRCode && (
-        <div className='scannerContainer'>
+        <div
+          className={c.scannerContainer}
+          style={{
+            width: '300px',
+            height: '300px',
+            position: 'relative',
+            border: '2px solid #000',
+            marginTop: '20px',
+          }}>
           <Scanner
             onScan={(results) => {
               if (!results || results.length === 0) return;
@@ -128,5 +139,3 @@ const AccreditationScanPage = () => {
     </div>
   );
 };
-
-export default AccreditationScanPage;

@@ -3,6 +3,7 @@ import HomeIcon from '@/assets/icons/home.svg?react';
 import AdminIcon from '@/assets/icons/admins.svg?react';
 import DatabaseIcon from '@/assets/icons/database.svg?react';
 import ModelIcon from '@/assets/icons/model.svg?react';
+import AccreditationIcon from '@/assets/icons/accreditation.svg?react';
 
 export type NavigationItemData = {
   route: string;
@@ -75,6 +76,28 @@ export const navigationItems: NavigationItemData[] = [
       {
         route: RouteNames.SHOPPING,
         label: 'Shopping',
+        icon: ModelIcon,
+      },
+    ],
+  },
+  {
+    route: RouteNames.MANAGEMENT,
+    label: 'Upravljanje konferencijom',
+    icon: AccreditationIcon,
+    subItems: [
+      {
+        route: RouteNames.ACCREDITATION_PRINT,
+        label: 'Ispis akreditacija',
+        icon: ModelIcon,
+      },
+      {
+        route: RouteNames.ACCREDITATION_SCAN,
+        label: 'Skeniranje akreditacija',
+        icon: ModelIcon,
+      },
+      {
+        route: RouteNames.TRANSACTION_SCAN,
+        label: 'Skeniranje transakcija',
         icon: ModelIcon,
       },
     ],

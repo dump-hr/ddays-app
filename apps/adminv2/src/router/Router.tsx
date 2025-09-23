@@ -19,6 +19,9 @@ import { RewardPage } from '../pages/RewardPage';
 import { CodePage } from '../pages/CodePage';
 import { UsersPage } from '../pages/UsersPage';
 import DatabasePage from '../pages/DatabasePage';
+import { TransactionScanPage } from '../pages/TransactionScanPage';
+import { AccreditationScanPage } from '../pages/AccreditationScanPage';
+import { AccreditationPrintPage } from '../pages/AccreditationPrintPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +43,18 @@ const router = createBrowserRouter(
         <Route path={RouteNames.INTERESTS} element={<InterestsPage />} />
         <Route path={RouteNames.REWARDS} element={<RewardPage />} />
         <Route path={RouteNames.CODES} element={<CodePage />} />
+        <Route
+          path={RouteNames.TRANSACTION_SCAN}
+          element={<TransactionScanPage />}
+        />
+        <Route
+          path={RouteNames.ACCREDITATION_SCAN}
+          element={<AccreditationScanPage />}
+        />
+        <Route
+          path={RouteNames.ACCREDITATION_PRINT}
+          element={<AccreditationPrintPage />}
+        />
         <Route path={RouteNames.ERROR} element={<div>Error</div>} />
       </Route>
     </>,

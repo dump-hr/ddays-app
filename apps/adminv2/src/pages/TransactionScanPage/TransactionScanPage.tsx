@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 
-import { useVerifyTransactionItem } from '../api/shop/useVerifyTransactionItem';
+import { useVerifyTransactionItem } from '../../api/shop/useVerifyTransactionItem';
 
-const TransactionScanPage = () => {
+import c from '../AccreditationScanPage/AccreditationScanPage.module.scss';
+
+export const TransactionScanPage = () => {
   const isCooldownRef = useRef(false);
   const [lastScanMessage, setLastScanMessage] = useState('');
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -38,7 +40,6 @@ const TransactionScanPage = () => {
 
   return (
     <div>
-      <h1>Transaction Scan Page</h1>
       {lastScanMessage && (
         <div
           style={{
@@ -51,7 +52,7 @@ const TransactionScanPage = () => {
           {isCooldownRef.current && <span> (Waiting cooldown...)</span>}
         </div>
       )}
-      <div>
+      <div className={c.scannerContainer}>
         <Scanner
           onScan={(results) => {
             if (!results || results.length === 0) return;

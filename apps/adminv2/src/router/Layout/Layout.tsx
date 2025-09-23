@@ -10,9 +10,11 @@ import {
 import NavigationItem from '../../components/NavigationItem';
 import { useNavigationItems } from '../../hooks/useNavigationItems';
 import ChevronRightIcon from '@/assets/icons/chevron_right.svg?react';
+import { useAccount } from '../../hooks/useAccount';
 
 export const Layout = () => {
   const location = useLocation();
+  const { user, logout } = useAccount();
 
   const { breadcrumbItems } = useNavigationItems();
 
@@ -34,12 +36,17 @@ export const Layout = () => {
             <div className={c.profileDetails}>
               <div className={c.roleAndName}>
                 <div className={c.role}>S</div>
-                <p className={c.name}>Lovre Tomić</p>
+                <p className={c.name}>{user.name}</p>
               </div>
-              <p className={c.email}>lovre.tomic@dump.hr</p>
+              <p className={c.email}>{user.email}</p>
             </div>
           </div>
-          <img src={LogoutIcon} className={c.logoutButton} alt='Logout' />
+          <img
+            src={LogoutIcon}
+            className={c.logoutButton}
+            alt='Logout'
+            onClick={() => logout()}
+          />
         </div>
 
         <nav className={c.navigation}>

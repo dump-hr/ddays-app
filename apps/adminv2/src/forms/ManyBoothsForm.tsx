@@ -37,7 +37,7 @@ export const ManyBoothsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       <Button
         onClick={form.handleSubmit(async (data) => {
           await createManyBooths.mutateAsync(data);
-          onSuccess && onSuccess();
+          onSuccess?.();
         })}>
         Dodaj
       </Button>

@@ -82,7 +82,7 @@ export const BoothForm: React.FC<BoothFormProps> = ({ booth, onSuccess }) => {
           } else {
             await createBooth.mutateAsync(data);
           }
-          onSuccess && onSuccess();
+          onSuccess?.();
         })}>
         Submit
       </Button>

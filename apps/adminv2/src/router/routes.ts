@@ -14,4 +14,8 @@ export const RouteNames = {
   ACHIEVEMENTS: '/database/achievements',
   CODES: '/database/codes',
   SHOPPING: '/database/shopping',
+  MANAGEMENT: '/management',
+  ACCREDITATION_PRINT: '/management/accreditation-print',
+  ACCREDITATION_SCAN: '/management/accreditation-scan',
+  TRANSACTION_SCAN: '/management/transaction-scan',
 };

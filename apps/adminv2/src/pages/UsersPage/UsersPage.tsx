@@ -12,7 +12,7 @@ export const UsersPage = () => {
       data={users}
       dataType='UserPublicDto'
       onRefresh={refetch}
-      renderForm={(onSuccess) => <UserForm onSuccess={onSuccess} />}
+      renderForm={(onSuccess, id) => <UserForm onSuccess={onSuccess} id={id} />}
     />
   );
 };
