@@ -1,14 +1,13 @@
 .selectInput {
-  width: 400px;
   height: 40px;
-  border: 2px solid #5cc2a045;
+  border: 2px solid $color-muted-orange;
   border-radius: 4px;
   padding: 0 10px;
   outline: none;
   transition: border-color 0.2s ease-in-out;
 
   &:focus {
-    border-color: #5cc2a0;
+    border-color: $color-dark-muted-orange;
   }
 }
 
@@ -22,6 +21,6 @@
   z-index: 1;
 
   &:hover {
-    background-color: #5cc2a0;
+    background-color: $color-muted-orange;
   }
 }

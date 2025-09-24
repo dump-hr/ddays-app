@@ -9,6 +9,8 @@ import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
+import c from './Form.module.scss';
+
 type InterestFormProps = {
   id?: number;
   onSuccess: () => void;
@@ -48,7 +50,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({
   }
 
   return (
-    <>
+    <div className={c.formContainer}>
       {questions.map((q) => (
         <InputHandler question={q} form={form} key={q.id} />
       ))}
@@ -64,6 +66,6 @@ export const InterestForm: React.FC<InterestFormProps> = ({
         })}>
         Submit
       </Button>
-    </>
+    </div>
   );
 };

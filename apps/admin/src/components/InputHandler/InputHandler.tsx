@@ -43,7 +43,9 @@ const getInputComponent = (
         <Input
           {...controlProps}
           type='number'
-          onChange={(e) => field.onChange(+e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            field.onChange(+e.target.value)
+          }
         />
       );
     case QuestionType.TextArea:
@@ -54,7 +56,9 @@ const getInputComponent = (
           {...controlProps}
           type='checkbox'
           checked={controlProps.value}
-          onChange={(e) => field.onChange(e.target.checked)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            field.onChange(e.target.checked)
+          }
         />
       );
     case QuestionType.Date:
@@ -89,7 +93,7 @@ export const InputHandler: React.FC<InputHandlerProps> = ({
       defaultValue={question.defaultValue ?? inputDefaultValues[question.type]}
       disabled={question.disabled}
       render={({ field, fieldState }) => (
-        <div>
+        <div className={c.inputContainer}>
           {question.title && (
             <label className={c.label} htmlFor={question.id}>
               {question.title}

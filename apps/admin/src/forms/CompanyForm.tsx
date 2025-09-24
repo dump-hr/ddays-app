@@ -10,6 +10,8 @@ import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
+import c from './Form.module.scss';
+
 type CompanyFormProps = {
   id?: number;
   onSuccess: () => void;
@@ -93,7 +95,7 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ id, onSuccess }) => {
   }
 
   return (
-    <div>
+    <div className={c.formContainer}>
       {questions.map((q) => (
         <InputHandler question={q} form={form} key={q.id} />
       ))}

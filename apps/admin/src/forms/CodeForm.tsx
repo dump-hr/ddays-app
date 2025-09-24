@@ -16,6 +16,8 @@ import { CodeHelper } from '../helpers/code';
 import { Helper } from '../helpers/date';
 import { Question, QuestionType } from '../types/question';
 
+import c from './Form.module.scss';
+
 type CodeFormProps = {
   code?: CodeWithConnectedAchievementsDto;
   onSuccess: () => void;
@@ -93,7 +95,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
   });
 
   return (
-    <div>
+    <div className={c.formContainer}>
       {questions.map((q) => (
         <InputHandler question={q} form={form} key={q.id} />
       ))}

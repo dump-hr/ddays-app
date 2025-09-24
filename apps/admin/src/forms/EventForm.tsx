@@ -9,6 +9,8 @@ import { Button } from '../components/Button';
 import { InputHandler } from '../components/InputHandler';
 import { Question, QuestionType } from '../types/question';
 
+import c from './Form.module.scss';
+
 type EventFormProps = {
   id?: number;
   onSuccess: () => void;
@@ -100,7 +102,7 @@ export const EventForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
   }
 
   return (
-    <>
+    <div className={c.formContainer}>
       {questions.map((q) => {
         return <InputHandler question={q} form={form} key={q.id} />;
       })}
@@ -116,6 +118,6 @@ export const EventForm: React.FC<EventFormProps> = ({ id, onSuccess }) => {
         })}>
         Submit
       </Button>
-    </>
+    </div>
   );
 };

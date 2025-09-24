@@ -92,7 +92,7 @@ export class BoothController {
 
   @UseGuards(AdminGuard)
   @Patch(':id')
-  async modify(// @
+  async modify(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: BoothModifyDto,
   ): Promise<BoothDto> {

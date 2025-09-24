@@ -1,7 +1,7 @@
 .button {
-  background-color: #5cc2a0;
+  background-color: $color-muted-orange;
   color: #fff;
-  border: 2px solid #5cc2a0;
+  border: 2px solid $color-muted-orange;
   padding: 9px 26px;
   border-radius: 5px;
   cursor: pointer;
@@ -10,13 +10,14 @@
   transition: all 0.3s ease-in-out;
   display: block;
 
+
   &.primary {
-    background-color: #5cc2a0;
+    background-color: $color-muted-orange;
   }
 
   &.secondary {
     background-color: transparent;
-    color: #5cc2a0;
+    color: $color-muted-orange;
   }
 
   &:disabled {

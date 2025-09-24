@@ -3,14 +3,14 @@
   background-color: transparent;
   font-weight: 400;
   border: none;
-  border-bottom: 2px solid #5cc2a045;
+  border-bottom: 2px solid $color-muted-orange;
   transition: all 0.3s ease-in-out;
   padding: 10px 10px;
   display: block;
 
   &:focus {
     outline: none;
-    border-bottom-color: #5cc2a0;
+    border-bottom-color: $color-dark-muted-orange;
     color: #000;
   }
 

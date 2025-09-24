@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+    padding:32px;
+}
+
+.scannerContainer {
+  width: 80vw;
+  max-width: 350px;
+  position: 'relative'; 
+    @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.controls{
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px;
+}

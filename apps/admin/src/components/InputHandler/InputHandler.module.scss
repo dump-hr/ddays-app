@@ -5,3 +5,9 @@
 .error {
     color: red;
 }
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

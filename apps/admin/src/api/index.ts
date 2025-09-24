@@ -22,6 +22,7 @@ const acquireToken = async () => {
     return response.idToken;
   } catch (error) {
     await msalInstance.acquireTokenRedirect(silentRequest);
+    console.error('Token acquisition failed:', error);
   }
 };
 
