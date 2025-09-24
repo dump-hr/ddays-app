@@ -40,5 +40,6 @@ COPY --chown=nestjs:nestjs apps/admin/dist ./apps/admin/dist
 COPY --chown=nestjs:nestjs apps/sponsor/dist ./apps/sponsor/dist
 COPY --chown=nestjs:nestjs apps/web/dist ./apps/web/dist
 COPY --chown=nestjs:nestjs apps/app/dist ./apps/app/dist
+COPY --chown=nestjs:nestjs apps/admin-old/dist ./apps/admin-old/dist
 
 CMD node apps/api/dist/main.js

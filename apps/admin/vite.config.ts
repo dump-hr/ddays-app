@@ -5,7 +5,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react(), svgr()],
-  base: '/adminv2',
+  base: '/admin',
   server: {
     port: 3006,
     proxy: {
