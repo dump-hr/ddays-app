@@ -1,39 +1,9 @@
-import { PublicClientApplication } from '@azure/msal-browser';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { msalInstance } from '../configs/msalInstance';
+import toast from 'react-hot-toast';
 
-import { msalConfig } from '../configs/auth';
-
-export const api = axios.create({
-  baseURL: '/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-const msalInstance = new PublicClientApplication(msalConfig);
-
-const acquireToken = async () => {
-  const silentRequest = {
-    scopes: ['openid', 'profile'],
-    account: msalInstance.getAllAccounts()[0],
-  };
-  try {
-    const response = await msalInstance.acquireTokenSilent(silentRequest);
-    return response.idToken;
-  } catch (error) {
-    await msalInstance.acquireTokenRedirect(silentRequest);
-    console.error('Token acquisition failed:', error);
-  }
-};
-
-api.interceptors.request.use(async (config) => {
-  await msalInstance.initialize();
-
-  const token = await acquireToken();
-  config.headers.Authorization = `Bearer ${token}`;
-
-  return config;
-});
+import { AxiosError } from 'axios';
+import { SilentRequest } from '@azure/msal-browser';
 
 type ErrorResponse = AxiosError & {
   response: {
@@ -45,6 +15,62 @@ type ErrorResponse = AxiosError & {
   };
 };
 
+export const api = axios.create({
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export const getActiveAccount = async () => {
+  let accounts = msalInstance.getAllAccounts();
+  if (accounts.length > 0) {
+    msalInstance.setActiveAccount(accounts[0]);
+    return accounts[0];
+  }
+
+  return new Promise((resolve) => {
+    const interval = setInterval(() => {
+      accounts = msalInstance.getAllAccounts();
+      if (accounts.length > 0) {
+        msalInstance.setActiveAccount(accounts[0]);
+        clearInterval(interval);
+        resolve(accounts[0]);
+      }
+    }, 100);
+  });
+};
+
+const msal = msalInstance;
+
+const acquireToken = async () => {
+  const account = await getActiveAccount();
+
+  const silentRequest = {
+    scopes: ['openid', 'profile'],
+    account,
+  };
+
+  try {
+    const response = await msalInstance.acquireTokenSilent(
+      silentRequest as SilentRequest,
+    );
+    return response.idToken;
+  } catch (error) {
+    console.error('Silent token failed', error);
+    await msalInstance.acquireTokenRedirect(silentRequest as SilentRequest);
+  }
+};
+
+api.interceptors.request.use(async (config) => {
+  await msal.initialize();
+
+  const token = await acquireToken();
+  config.headers.Authorization = `Bearer ${token}`;
+
+  return config;
+});
+
 api.interceptors.response.use(
   (response) => response.data,
   async (error: ErrorResponse) => {
@@ -52,11 +78,13 @@ api.interceptors.response.use(
       if (error.response?.status === 401) {
         const silentRequest = {
           scopes: ['openid', 'profile'],
-          account: msalInstance.getAllAccounts()[0],
+          account: msal.getAllAccounts()[0],
           forceRefresh: true,
         };
 
-        await msalInstance.acquireTokenRedirect(silentRequest);
+        await msal.acquireTokenRedirect(silentRequest);
+      } else if (error.response?.status === 403) {
+        toast.error('Nisi admin');
       }
 
       return Promise.reject(error.response.data.message);
