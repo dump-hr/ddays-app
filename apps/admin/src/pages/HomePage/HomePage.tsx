@@ -245,6 +245,7 @@ export const HomePage = () => {
                     </td>
                     <td>
                       <button
+                        className={c.workshopButton}
                         onClick={() => {
                           setModalWorkshop(workshop);
                           setModals((prev) => ({ ...prev, workshops: true }));

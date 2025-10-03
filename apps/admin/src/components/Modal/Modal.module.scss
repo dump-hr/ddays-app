@@ -2,9 +2,15 @@
 .overlay {
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
   position: fixed;
+
+}
+
+.modal{
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .overlay {
@@ -13,7 +19,7 @@
 
 .modalContent {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
