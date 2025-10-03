@@ -3,10 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import c from './Layout.module.scss';
 import ProfilePicturePlaceholder from '/src/assets/images/profile-picture-placeholder.jpg';
 import LogoutIcon from '@/assets/icons/logout.svg';
-import {
-  navigationItems,
-  type NavigationItemData,
-} from '../navigationItemsData';
+import { navigationItems } from '../navigationItemsData';
 import NavigationItem from '../../components/NavigationItem';
 import { useNavigationItems } from '../../hooks/useNavigationItems';
 import ChevronRightIcon from '@/assets/icons/chevron_right.svg?react';
@@ -20,13 +17,16 @@ export const Layout = () => {
   const { breadcrumbItems } = useNavigationItems();
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [openParents, setOpenParents] = useState<Record<string, boolean>>({});
 
   const isSelected = (route: string) =>
     location.pathname === route || location.pathname === route + '/';
 
-  const isParentOpen = (item: NavigationItemData) => {
-    if (!item.subItems || item.subItems.length === 0) return false;
-    return item.subItems.some((sub) => isSelected(sub.route));
+  const toggleParent = (route: string) => {
+    setOpenParents((prev) => ({
+      ...prev,
+      [route]: !prev[route],
+    }));
   };
 
   return (
@@ -34,57 +34,52 @@ export const Layout = () => {
       <div className={`${c.sidebar} ${isSidebarOpen ? c.open : ''}`}>
         <div className={c.profileInfoWrapper}>
           <div className={c.profileInfo}>
-            {isSidebarOpen ? (
-              <button
-                className={c.sidebarCloseButton}
-                onClick={() => setSidebarOpen(false)}>
-                <CloseIcon />
-              </button>
-            ) : (
-              <>
-                <img src={ProfilePicturePlaceholder} alt='Profile' />
-                <div className={c.profileDetails}>
-                  <div className={c.roleAndName}>
-                    <div className={c.role}>S</div>
-                    <p className={c.name}>{user.name}</p>
-                  </div>
-                  <p className={c.email}>{user.email}</p>
-                </div>
-              </>
-            )}
+            <button
+              className={c.sidebarCloseButton}
+              onClick={() => setSidebarOpen(false)}>
+              <CloseIcon />
+            </button>
+            <img src={ProfilePicturePlaceholder} alt='Profile' />
+            <div className={c.profileDetails}>
+              <div className={c.roleAndName}>
+                <div className={c.role}>S</div>
+                <p className={c.name}>{user.name}</p>
+              </div>
+              <p className={c.email}>{user.email}</p>
+            </div>
           </div>
-          {!isSidebarOpen && (
-            <img
-              src={LogoutIcon}
-              className={c.logoutButton}
-              alt='Logout'
-              onClick={() => logout()}
-            />
-          )}
+          <img
+            src={LogoutIcon}
+            className={c.logoutButton}
+            alt='Logout'
+            onClick={() => logout()}
+          />
         </div>
 
         <nav className={c.navigation}>
           {navigationItems.map((item) => {
-            const parentSelected = isSelected(item.route);
-            const parentOpen = isParentOpen(item);
+            const parentOpen = openParents[item.route] || false;
             const hasSubItems = item.subItems && item.subItems.length > 0;
 
             return (
               <React.Fragment key={item.route}>
                 <NavigationItem
                   navigationItem={item}
-                  isSelected={parentSelected}
-                  isOpen={parentOpen && hasSubItems}
+                  isSelected={isSelected(item.route)}
+                  isOpen={parentOpen}
+                  onToggle={() => toggleParent(item.route)}
                 />
-                {hasSubItems &&
-                  (parentSelected || parentOpen) &&
-                  item.subItems?.map((subItem) => (
-                    <NavigationItem
-                      key={subItem.route}
-                      navigationItem={subItem}
-                      isSelected={isSelected(subItem.route)}
-                    />
-                  ))}
+                {hasSubItems && parentOpen && (
+                  <div className={c.subMenu}>
+                    {item.subItems?.map((subItem) => (
+                      <NavigationItem
+                        key={subItem.route}
+                        navigationItem={subItem}
+                        isSelected={isSelected(subItem.route)}
+                      />
+                    ))}
+                  </div>
+                )}
               </React.Fragment>
             );
           })}
