@@ -89,6 +89,14 @@ model Company {
   landingImageCompanyCulture String?
   bookOfStandards            String?
   video                      String?
+  peopleForAccreditation     String[]
+  swagBag                    String?
+  swagBagNumber              Int?
+  boothPlan                  String?
+  equipment                  String?
+  notes                      String[]
+  campfireParticipation      Boolean                @default(false)
+  campfireSpeakers           String[]
   codeId                     Int?
   booth                      Booth?
   code                       Code?                  @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -260,7 +268,7 @@ model User {
   companiesNewsEnabled    Boolean?
   isDeleted               Boolean?                 @default(false)
   isConfirmed             Boolean?                 @default(false)
-  isFromGoogleAuth          Boolean?                 @default(false)
+  isFromGoogleAuth        Boolean?                 @default(false)
   profilePhotoUrl         String?
   avatar                  Avatar[]
   notification            Notification[]
@@ -410,6 +418,57 @@ model Printer {
   id            Int             @id @default(autoincrement())
   name          String
   UserToPrinter UserToPrinter[]
+}
+
+model PotentialSponsor {
+  id             Int                @id @default(autoincrement())
+  tier           Tier               @default(DEFAULT)
+  company        String             @unique
+  email          String?
+  representative String             @default("")
+  comment        String?
+  status         SponsorStatus      @default(DID_NOT_CONTACT)
+  notes          String?
+  materials      SponsorMaterials[]
+}
+
+model SponsorMaterials {
+  id                     Int               @id @default(autoincrement())
+  sponsorId              Int
+  logo                   Boolean           @default(false)
+  picture                Boolean           @default(false)
+  description            Boolean           @default(false)
+  video                  Boolean           @default(false)
+  advertisement          Boolean           @default(false)
+  appCareer              Boolean           @default(false)
+  campfire               Boolean           @default(false)
+  flyTalks               Boolean           @default(false)
+  swagBag                Boolean           @default(false)
+  boothPlan              Boolean           @default(false)
+  equipment              Boolean           @default(false)
+  peopleForAccreditation Boolean           @default(false)
+  insertedIntoApp        Boolean           @default(false)
+  notes                  String?
+  potentialSponsor       PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum Tier {
+  DEFAULT
+  BRONZE
+  SILVER
+  GOLD
+}
+
+enum SponsorStatus {
+  DID_NOT_CONTACT
+  DISCARDED
+  ZERO_PING
+  FIRST_PING
+  SECOND_PING
+  MEETING_DONE
+  INTERESTED
+  FOLLOW_UP
+  AGREED
 }
 
 enum Accessory {
