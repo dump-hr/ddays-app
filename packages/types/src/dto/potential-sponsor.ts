@@ -9,7 +9,6 @@ export type PotentialSponsorDto = {
   representative: string;
   comment?: string;
   status: `${SponsorStatus}`;
-  notes?: string;
 };
 
 export class PotentialSponsorModifyDto {
@@ -32,10 +31,6 @@ export class PotentialSponsorModifyDto {
 
   @IsEnum(SponsorStatus)
   status: `${SponsorStatus}`;
-
-  @IsString()
-  @IsOptional()
-  notes: string;
 }
 
 export type SponsorMaterialsDto = {

@@ -428,7 +428,6 @@ model PotentialSponsor {
   representative String             @default("")
   comment        String?
   status         SponsorStatus      @default(DID_NOT_CONTACT)
-  notes          String?
   materials      SponsorMaterials[]
 }
 
