@@ -26,6 +26,7 @@ import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
+import { PotentialSponsorModule } from './potential-sponsor/potential-sponsor.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { UserModule } from './user/user.module';
     EmailModule,
     AvatarModule,
     RatingModule,
+    PotentialSponsorModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
