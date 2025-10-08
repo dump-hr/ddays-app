@@ -97,4 +97,21 @@ export const navigationItems: NavigationItemData[] = [
       },
     ],
   },
+  {
+    route: RouteNames.SPONSOR_MANAGEMENT,
+    label: 'Upravljanje sponzorima',
+    icon: AccreditationIcon,
+    subItems: [
+      {
+        route: RouteNames.POTENTIAL_SPONSORS,
+        label: 'Potencijalni sponzori',
+        icon: ModelIcon,
+      },
+      {
+        route: RouteNames.SPONSOR_MATERIALS,
+        label: 'Materijali za sponzore',
+        icon: ModelIcon,
+      },
+    ],
+  },
 ];

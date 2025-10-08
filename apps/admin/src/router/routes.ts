@@ -18,4 +18,7 @@ export const RouteNames = {
   ACCREDITATION_PRINT: '/management/accreditation-print',
   ACCREDITATION_SCAN: '/management/accreditation-scan',
   TRANSACTION_SCAN: '/management/transaction-scan',
+  SPONSOR_MANAGEMENT: '/sponsor-management',
+  POTENTIAL_SPONSORS: '/sponsor-management/potential-sponsors',
+  SPONSOR_MATERIALS: '/sponsor-management/sponsor-materials',
 };
