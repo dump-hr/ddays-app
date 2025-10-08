@@ -4,31 +4,31 @@
 
 .filters {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  gap: 10px;
-
-  .searchInput {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.95rem;
-  }
+  gap: 16px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
 
   select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: "SF Pro Display";
+    background-color: $color-muted-orange;
+    color: white;
+    border: none;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.20);
   }
 }
 
 .sponsorsTable {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-family: 'SF Pro Display';
+  color: #444;
+  margin-bottom: 300px;
 
   th {
     padding: 5px;
@@ -42,21 +42,20 @@
 
   td {
     padding: 3px 5px;
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    border: 1px solid #ddd;
     height: 44px;
     vertical-align: middle;
+    font-size: 14px;
   }
 
   input,
   select {
     width: 100%;
     padding: 6px 8px;
-    box-sizing: border-box;
-    font-size: 0.9rem;
-    border: 1px solid #ccc;
+    border:none;
     border-radius: 8px;
+    font-family: 'SF Pro Display';
+    color: #444;
 
     &:focus {
       outline: none;
@@ -70,7 +69,6 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-
   }
 }
 
@@ -78,13 +76,10 @@
   background-color: #fafafa;
 }
 
-
-
 .commentCell {
   position: relative;
-  overflow: visible; 
+  overflow: visible;
   min-width: 220px;
-
 
   .commentPreview {
     display: inline-block;
@@ -92,10 +87,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 
-  .commentHover {
-    display: none;
+  .commentExpanded {
     position: absolute;
     top: calc(100% + 4px);
     left: 0;
@@ -108,12 +103,10 @@
     font-size: 0.9rem;
     white-space: normal;
     word-break: break-word;
-  }
-
-  &:hover .commentHover {
-    display: block;
+    cursor: pointer;
   }
 }
+
 .textArea {
   width: 100%;
   min-height: 60px;
@@ -134,46 +127,17 @@
   text-align: center;
 }
 
-.tierDEFAULT {
-  background-color: #edf0f2; 
-}
-.tierBRONZE {
-  background-color: #cd7f32; 
-}
-.tierSILVER {
-  background-color: #c0c0c0; 
-}
-.tierGOLD {
-  background-color: #ffd700; 
-}
+.tierDEFAULT { background-color: #edf0f2; }
+.tierBRONZE { background-color: #d1761b; }
+.tierSILVER { background-color: #c0c0c0; }
+.tierGOLD { background-color: #ffd700; }
 
-
-.statusDID_NOT_CONTACT {
-  background-color: #edf0f2;
-}
-.statusDISCARDED {
-  background-color: #a90600;
-}
-.statusZERO_PING {
-  background-color: white;
-}
-.statusFIRST_PING {
-  background-color: cyan;
-}
-.statusSECOND_PING {
-  background-color: #d858ff;
-}
-.statusMEETING_DONE {
-  background-color: #5cb85c;
-}
-.statusINTERESTED {
-  background-color: #f7b731;
-}
-.statusFOLLOW_UP {
-  background-color: #ff97ff;
-}
-.statusAGREED {
-  background-color: #0e26dc;
-}
-
-
+.statusDID_NOT_CONTACT { background-color: #edf0f2; }
+.statusDISCARDED { background-color: #a90600cc;}
+.statusZERO_PING { background-color: white; }
+.statusFIRST_PING { background-color: cyan; }
+.statusSECOND_PING { background-color: #d858ff; }
+.statusMEETING_DONE { background-color: #5cb85c; }
+.statusINTERESTED { background-color: #f7b731; }
+.statusFOLLOW_UP { background-color: #ff97ff; }
+.statusAGREED { background-color: #0e26dcb7;}

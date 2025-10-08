@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { PotentialSponsorDto, Tier, SponsorStatus } from '@ddays-app/types';
 import c from './PotentialSponsorsTable.module.scss';
+import { TableSearch } from '../TableDashboard/TableSearch';
 
 type PotentialSponsorsTableProps = {
   sponsors: PotentialSponsorDto[];
@@ -31,11 +32,15 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
   onUpdate,
 }) => {
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [expandedCommentId, setExpandedCommentId] = useState<number | null>(
+    null,
+  );
   const [formState, setFormState] = useState<
     Record<number, Partial<PotentialSponsorDto>>
   >({});
   const [searchTerm, setSearchTerm] = useState('');
   const [representativeFilter, setRepresentativeFilter] = useState('');
+  const [tierFilter, setTierFilter] = useState<Tier | ''>('');
 
   const handleEditClick = (sponsor: PotentialSponsorDto) => {
     setEditingId(sponsor.id);
@@ -71,6 +76,10 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
     }
   };
 
+  const toggleCommentExpand = (id: number) => {
+    setExpandedCommentId((prev) => (prev === id ? null : id));
+  };
+
   const filteredSponsors = useMemo(() => {
     return sponsors.filter((s) => {
       const matchesCompany = s.company
@@ -79,47 +88,58 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
       const matchesRep =
         representativeFilter === '' ||
         s.representative.toLowerCase() === representativeFilter.toLowerCase();
-      return matchesCompany && matchesRep;
+      const matchesTier = tierFilter === '' || s.tier === tierFilter;
+      return matchesCompany && matchesRep && matchesTier;
     });
-  }, [sponsors, searchTerm, representativeFilter]);
+  }, [sponsors, searchTerm, representativeFilter, tierFilter]);
 
   const uniqueRepresentatives = Array.from(
     new Set(sponsors.map((s) => s.representative)),
   ).sort();
 
-  const getTierClass = (tier: Tier | undefined) => {
-    if (!tier) return '';
-    return c[`tier${tier}`];
-  };
+  const getTierClass = (tier: Tier | undefined) =>
+    tier ? c[`tier${tier}`] : '';
+  const getStatusClass = (status: SponsorStatus | undefined) =>
+    status ? c[`status${status}`] : '';
 
-  const getStatusClass = (status: SponsorStatus | undefined) => {
-    if (!status) return '';
-    return c[`status${status}`];
+  const handleCancel = () => {
+    setEditingId(null);
   };
 
   return (
     <div className={c.tableWrap}>
+      <TableSearch
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        dataType={'PotentialSponsorDto'}
+      />
       <div className={c.filters}>
-        <input
-          type='text'
-          placeholder='Search by company...'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={c.searchInput}
-        />
         <select
-          value={representativeFilter}
-          onChange={(e) => setRepresentativeFilter(e.target.value)}>
-          <option value=''>All Representatives</option>
-          {uniqueRepresentatives.map((rep) => (
-            <option key={rep} value={rep}>
-              {rep}
+          value={tierFilter}
+          onChange={(e) => setTierFilter(e.target.value as Tier | '')}>
+          <option value=''>Sve razine</option>
+          {Object.values(Tier).map((tier) => (
+            <option key={tier} value={tier}>
+              {TierLabels[tier]}
             </option>
           ))}
         </select>
+        <select
+          value={representativeFilter}
+          onChange={(e) => setRepresentativeFilter(e.target.value)}>
+          <option value=''>Svi predstavnici</option>
+          {uniqueRepresentatives.map(
+            (item) =>
+              item && (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ),
+          )}
+        </select>
       </div>
 
-      <table className={`${c.sponsorsTable} ${c.table}`}>
+      <table className={c.sponsorsTable}>
         <thead>
           <tr>
             <th>Razina</th>
@@ -132,14 +152,15 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {filteredSponsors.map((sponsor, idx) => {
+          {filteredSponsors.map((sponsor, index) => {
             const isEditing = editingId === sponsor.id;
+            const isExpanded = expandedCommentId === sponsor.id;
             const currentValues = formState[sponsor.id] || sponsor;
 
             return (
               <tr
                 key={sponsor.id}
-                className={idx % 2 === 0 ? c.altRow : undefined}>
+                className={index % 2 === 0 ? c.altRow : undefined}>
                 <td>
                   <select
                     className={`${c.tierSelect} ${getTierClass(currentValues.tier as Tier)}`}
@@ -212,16 +233,24 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
                         handleInputChange(sponsor.id, 'comment', e.target.value)
                       }
                       className={c.textArea}
-                      rows={4}
+                      rows={2}
                     />
                   ) : sponsor.comment ? (
                     <>
-                      <span className={c.commentPreview}>
-                        {sponsor.comment.length > 30
-                          ? sponsor.comment.slice(0, 30) + '...'
+                      <span
+                        className={c.commentPreview}
+                        onClick={() => toggleCommentExpand(sponsor.id)}>
+                        {sponsor.comment.length > 20 && !isExpanded
+                          ? sponsor.comment.slice(0, 20) + '...'
                           : sponsor.comment}
                       </span>
-                      <div className={c.commentHover}>{sponsor.comment}</div>
+                      {isExpanded && (
+                        <div
+                          className={c.commentExpanded}
+                          onClick={() => toggleCommentExpand(sponsor.id)}>
+                          {sponsor.comment}
+                        </div>
+                      )}
                     </>
                   ) : (
                     ''
@@ -248,7 +277,19 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
 
                 <td className={c.actionsCell}>
                   {isEditing ? (
-                    <button onClick={() => handleSave(sponsor.id)}>Save</button>
+                    <>
+                      <button
+                        onClick={() => handleSave(sponsor.id)}
+                        style={{ marginRight: '2px' }}>
+                        Save
+                      </button>
+                      <button
+                        type='button'
+                        className={c.cancelButton}
+                        onClick={handleCancel}>
+                        Cancel
+                      </button>
+                    </>
                   ) : (
                     <button onClick={() => handleEditClick(sponsor)}>
                       Edit
