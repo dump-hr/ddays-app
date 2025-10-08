@@ -1,6 +1,5 @@
 import {
   IsBoolean,
-  IsDate,
   IsDateString,
   IsEnum,
   IsNumber,
@@ -9,7 +8,7 @@ import {
 } from 'class-validator';
 import { EventType, Theme } from '../enum';
 import { SpeakerWithCompanyDto } from './speaker';
-import { CompanyDto, CompanyWithFlyTalkDto } from './company';
+import { CompanyWithFlyTalkDto } from './company';
 import { UserDto, UserWithFlyTalkDto } from './user';
 
 export type EventWithRatingDto = {

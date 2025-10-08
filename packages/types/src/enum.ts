@@ -109,3 +109,22 @@ export enum AchievementNames {
   BraveMove = 'Brave move',
   WhatsNew = "What's new?",
 }
+
+export enum Tier {
+  DEFAULT = 'DEFAULT',
+  BRONZE = 'BRONZE',
+  SILVER = 'SILVER',
+  GOLD = 'GOLD',
+}
+
+export enum SponsorStatus {
+  DID_NOT_CONTACT = 'DID_NOT_CONTACT',
+  DISCARDED = 'DISCARDED',
+  ZERO_PING = 'ZERO_PING',
+  FIRST_PING = 'FIRST_PING',
+  SECOND_PING = 'SECOND_PING',
+  MEETING_DONE = 'MEETING_DONE',
+  INTERESTED = 'INTERESTED',
+  FOLLOW_UP = 'FOLLOW_UP',
+  AGREED = 'AGREED',
+}
