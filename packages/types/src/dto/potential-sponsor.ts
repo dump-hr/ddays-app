@@ -1,4 +1,10 @@
-import { IsEnum, IsOptional, IsString, Length } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  Length,
+} from 'class-validator';
 import { SponsorStatus, Tier } from 'src/enum';
 
 export type PotentialSponsorDto = {
@@ -53,3 +59,61 @@ export type SponsorMaterialsDto = {
   notes?: string;
   sponsor?: PotentialSponsorDto;
 };
+
+export class SponsorMaterialsModifyDto {
+  @IsOptional()
+  @IsBoolean()
+  logo: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  picture: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  description: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  video: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  advertisement: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  appCareer: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  campfire: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  flyTalks: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  swagBag: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  boothPlan: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  equipment: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  peopleForAccreditation: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  insertedIntoApp: boolean;
+
+  @IsString()
+  @IsOptional()
+  notes: string;
+}

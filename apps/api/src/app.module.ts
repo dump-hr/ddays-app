@@ -24,6 +24,7 @@ import { PrismaService } from './prisma.service';
 import { RatingModule } from './rating/rating.module';
 import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
+import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
@@ -46,6 +47,7 @@ import { UserModule } from './user/user.module';
     AvatarModule,
     RatingModule,
     PotentialSponsorModule,
+    SponsorMaterialsModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
