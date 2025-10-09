@@ -1,84 +1,34 @@
 import React, { useState, useMemo } from 'react';
 import { PotentialSponsorDto, Tier, SponsorStatus } from '@ddays-app/types';
-import c from './PotentialSponsorsTable.module.scss';
 import { TableSearch } from '../TableDashboard/TableSearch';
+import { TierLabels, StatusLabels } from './labels';
+import { usePotentialSponsorUpdate } from '../../api/potential-sponsor/usePotentialSponsorUpdate';
+import PlusIcon from '../../assets/icons/plus.svg?react';
+
+import c from './PotentialSponsorsTable.module.scss';
 
 type PotentialSponsorsTableProps = {
   sponsors: PotentialSponsorDto[];
-  onUpdate: (updatedSponsor: PotentialSponsorDto) => void;
-};
-
-const TierLabels: Record<Tier, string> = {
-  [Tier.DEFAULT]: '-',
-  [Tier.BRONZE]: 'Brončani',
-  [Tier.SILVER]: 'Srebrni',
-  [Tier.GOLD]: 'Zlatni',
-};
-
-const StatusLabels: Record<SponsorStatus, string> = {
-  [SponsorStatus.DID_NOT_CONTACT]: 'Nismo kontaktirali',
-  [SponsorStatus.DISCARDED]: 'Odbijeni',
-  [SponsorStatus.ZERO_PING]: 'Nulti ping',
-  [SponsorStatus.FIRST_PING]: 'Prvi ping',
-  [SponsorStatus.SECOND_PING]: 'Drugi ping',
-  [SponsorStatus.MEETING_DONE]: 'Sastanak obavljen',
-  [SponsorStatus.INTERESTED]: 'Zainteresirani',
-  [SponsorStatus.FOLLOW_UP]: 'Naknadno javljanje',
-  [SponsorStatus.AGREED]: 'Dogovoreno',
+  onRefresh?: () => void;
+  renderForm?: (onSuccess: () => void, id?: number) => React.ReactNode;
 };
 
 export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
   sponsors,
-  onUpdate,
+  onRefresh,
+  renderForm,
 }) => {
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [expandedCommentId, setExpandedCommentId] = useState<number | null>(
-    null,
-  );
-  const [formState, setFormState] = useState<
-    Record<number, Partial<PotentialSponsorDto>>
-  >({});
   const [searchTerm, setSearchTerm] = useState('');
   const [representativeFilter, setRepresentativeFilter] = useState('');
   const [tierFilter, setTierFilter] = useState<Tier | ''>('');
+  const [expandedCommentId, setExpandedCommentId] = useState<number | null>(
+    null,
+  );
 
-  const handleEditClick = (sponsor: PotentialSponsorDto) => {
-    setEditingId(sponsor.id);
-    setFormState((prev) => ({ ...prev, [sponsor.id]: sponsor }));
-  };
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
-  const handleInputChange = (
-    sponsorId: number,
-    field: keyof PotentialSponsorDto,
-    value: string,
-  ) => {
-    setFormState((prev) => ({
-      ...prev,
-      [sponsorId]: { ...prev[sponsorId], [field]: value },
-    }));
-    if (field === 'tier' || field === 'status') {
-      const updated = {
-        ...sponsors.find((s) => s.id === sponsorId)!,
-        [field]: value,
-      };
-      onUpdate(updated);
-    }
-  };
-
-  const handleSave = (sponsorId: number) => {
-    if (editingId !== null) {
-      const updatedSponsor = {
-        ...sponsors.find((s) => s.id === sponsorId)!,
-        ...formState[sponsorId],
-      };
-      onUpdate(updatedSponsor);
-      setEditingId(null);
-    }
-  };
-
-  const toggleCommentExpand = (id: number) => {
-    setExpandedCommentId((prev) => (prev === id ? null : id));
-  };
+  const updateSponsor = usePotentialSponsorUpdate();
 
   const filteredSponsors = useMemo(() => {
     return sponsors.filter((s) => {
@@ -102,8 +52,50 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
   const getStatusClass = (status: SponsorStatus | undefined) =>
     status ? c[`status${status}`] : '';
 
-  const handleCancel = () => {
-    setEditingId(null);
+  const toggleCommentExpand = (id: number) => {
+    setExpandedCommentId((prev) => (prev === id ? null : id));
+  };
+
+  const handleOpenForm = (id?: number) => {
+    setEditId(id ?? null);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => setIsFormOpen(false);
+
+  const handleFormSuccess = () => {
+    handleCloseForm();
+    onRefresh?.();
+  };
+
+  const handleTierChange = (id: number, newTier: Tier) => {
+    const sponsor = sponsors.find((s) => s.id === id);
+    if (!sponsor) return;
+
+    updateSponsor.mutate({
+      id,
+      company: sponsor.company,
+      email: sponsor.email || '',
+      representative: sponsor.representative,
+      comment: sponsor.comment || '',
+      tier: newTier,
+      status: sponsor.status,
+    });
+  };
+
+  const handleStatusChange = (id: number, newStatus: SponsorStatus) => {
+    const sponsor = sponsors.find((s) => s.id === id);
+    if (!sponsor) return;
+
+    updateSponsor.mutate({
+      id,
+      company: sponsor.company,
+      email: sponsor.email || '',
+      representative: sponsor.representative,
+      comment: sponsor.comment || '',
+      tier: sponsor.tier,
+      status: newStatus,
+    });
   };
 
   return (
@@ -113,7 +105,16 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
         onSearchChange={setSearchTerm}
         dataType={'PotentialSponsorDto'}
       />
+
       <div className={c.filters}>
+        <button
+          type='button'
+          className={c.redButton}
+          onClick={() => handleOpenForm()}>
+          <PlusIcon className={c.whiteIcon} />
+          Dodaj
+        </button>
+
         <select
           value={tierFilter}
           onChange={(e) => setTierFilter(e.target.value as Tier | '')}>
@@ -124,6 +125,7 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
             </option>
           ))}
         </select>
+
         <select
           value={representativeFilter}
           onChange={(e) => setRepresentativeFilter(e.target.value)}>
@@ -153,9 +155,7 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
         </thead>
         <tbody>
           {filteredSponsors.map((sponsor, index) => {
-            const isEditing = editingId === sponsor.id;
             const isExpanded = expandedCommentId === sponsor.id;
-            const currentValues = formState[sponsor.id] || sponsor;
 
             return (
               <tr
@@ -163,79 +163,25 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
                 className={index % 2 === 0 ? c.altRow : undefined}>
                 <td>
                   <select
-                    className={`${c.tierSelect} ${getTierClass(currentValues.tier as Tier)}`}
-                    value={currentValues.tier || ''}
+                    className={`${c.tierSelect} ${getTierClass(sponsor.tier as Tier)}`}
+                    value={sponsor.tier}
                     onChange={(e) =>
-                      handleInputChange(sponsor.id, 'tier', e.target.value)
+                      handleTierChange(sponsor.id, e.target.value as Tier)
                     }>
                     {Object.values(Tier).map((tier) => (
-                      <option
-                        key={tier}
-                        value={tier}
-                        className={c[`tier${tier}`]}>
-                        {TierLabels[tier as Tier]}
+                      <option key={tier} value={tier}>
+                        {TierLabels[tier]}
                       </option>
                     ))}
                   </select>
                 </td>
 
-                <td>
-                  {isEditing ? (
-                    <input
-                      type='text'
-                      value={currentValues.company || ''}
-                      onChange={(e) =>
-                        handleInputChange(sponsor.id, 'company', e.target.value)
-                      }
-                    />
-                  ) : (
-                    sponsor.company
-                  )}
-                </td>
-
-                <td>
-                  {isEditing ? (
-                    <input
-                      type='email'
-                      value={currentValues.email || ''}
-                      onChange={(e) =>
-                        handleInputChange(sponsor.id, 'email', e.target.value)
-                      }
-                    />
-                  ) : (
-                    sponsor.email
-                  )}
-                </td>
-
-                <td>
-                  {isEditing ? (
-                    <input
-                      type='text'
-                      value={currentValues.representative || ''}
-                      onChange={(e) =>
-                        handleInputChange(
-                          sponsor.id,
-                          'representative',
-                          e.target.value,
-                        )
-                      }
-                    />
-                  ) : (
-                    sponsor.representative
-                  )}
-                </td>
+                <td>{sponsor.company}</td>
+                <td>{sponsor.email}</td>
+                <td>{sponsor.representative}</td>
 
                 <td className={c.commentCell}>
-                  {isEditing ? (
-                    <textarea
-                      value={currentValues.comment || ''}
-                      onChange={(e) =>
-                        handleInputChange(sponsor.id, 'comment', e.target.value)
-                      }
-                      className={c.textArea}
-                      rows={2}
-                    />
-                  ) : sponsor.comment ? (
+                  {sponsor.comment ? (
                     <>
                       <span
                         className={c.commentPreview}
@@ -259,48 +205,43 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
 
                 <td>
                   <select
-                    className={`${c.statusSelect} ${getStatusClass(currentValues.status as SponsorStatus)}`}
-                    value={currentValues.status || ''}
+                    className={`${c.statusSelect} ${getStatusClass(sponsor.status as SponsorStatus)}`}
+                    value={sponsor.status}
                     onChange={(e) =>
-                      handleInputChange(sponsor.id, 'status', e.target.value)
+                      handleStatusChange(
+                        sponsor.id,
+                        e.target.value as SponsorStatus,
+                      )
                     }>
                     {Object.values(SponsorStatus).map((status) => (
-                      <option
-                        key={status}
-                        value={status}
-                        className={c[`status${status}`]}>
-                        {StatusLabels[status as SponsorStatus]}
+                      <option key={status} value={status}>
+                        {StatusLabels[status]}
                       </option>
                     ))}
                   </select>
                 </td>
 
                 <td className={c.actionsCell}>
-                  {isEditing ? (
-                    <>
-                      <button
-                        onClick={() => handleSave(sponsor.id)}
-                        style={{ marginRight: '2px' }}>
-                        Save
-                      </button>
-                      <button
-                        type='button'
-                        className={c.cancelButton}
-                        onClick={handleCancel}>
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <button onClick={() => handleEditClick(sponsor)}>
-                      Edit
-                    </button>
-                  )}
+                  <button
+                    onClick={() => {
+                      handleOpenForm(sponsor.id);
+                    }}>
+                    Edit
+                  </button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+
+      {isFormOpen && renderForm && (
+        <div className={c.modalBackdrop} onClick={handleCloseForm}>
+          <div className={c.modalContent} onClick={(e) => e.stopPropagation()}>
+            {renderForm(handleFormSuccess, editId ?? undefined)}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

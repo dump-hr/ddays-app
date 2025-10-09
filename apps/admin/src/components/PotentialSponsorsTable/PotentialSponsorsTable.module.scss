@@ -10,15 +10,36 @@
   background-color: #f9f9f9;
   margin-bottom: 10px;
 
+  .buttonBase {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "SF Pro Display";
+  letter-spacing: 0.28px;
+}
+
+.redButton {
+  @extend .buttonBase;
+  background-color: $color-muted-orange;
+  color: white;
+  border: none;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.20);
+}
+
+.whiteIcon {
+  filter: brightness(0) invert(1);
+}
+
+
   select {
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: "SF Pro Display";
-    background-color: $color-muted-orange;
-    color: white;
-    border: none;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.20);
+      @extend .buttonBase;
+      padding: 12px 12px;
+  background: #F0F0F0;
+  border: none;
+  color: #929292;
   }
 }
 
@@ -127,6 +148,25 @@
   text-align: center;
 }
 
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+
 .tierDEFAULT { background-color: #edf0f2; }
 .tierBRONZE { background-color: #d1761b; }
 .tierSILVER { background-color: #c0c0c0; }
@@ -141,3 +181,4 @@
 .statusINTERESTED { background-color: #f7b731; }
 .statusFOLLOW_UP { background-color: #ff97ff; }
 .statusAGREED { background-color: #0e26dcb7;}
+

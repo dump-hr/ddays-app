@@ -18,6 +18,7 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
+import { PotentialSponsorModule } from './potential-sponsor/potential-sponsor.module';
 import { PrinterModule } from './printer/printer.module';
 import { PrismaService } from './prisma.service';
 import { RatingModule } from './rating/rating.module';
@@ -26,7 +27,6 @@ import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { PotentialSponsorModule } from './potential-sponsor/potential-sponsor.module';
 
 @Module({
   imports: [

@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString, Length } from 'class-validator';
 import { SponsorStatus, Tier } from 'src/enum';
 
 export type PotentialSponsorDto = {
@@ -16,6 +16,7 @@ export class PotentialSponsorModifyDto {
   tier: `${Tier}`;
 
   @IsString()
+  @Length(1)
   company: string;
 
   @IsString()
