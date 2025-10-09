@@ -43,6 +43,7 @@
   }
 }
 
+
 .sponsorsTable {
   width: 100%;
   border-collapse: collapse;
@@ -59,7 +60,14 @@
     font-weight: bold;
     min-width: 140px;
     vertical-align: middle;
+
   }
+      .numberCol {
+  width: 40px;
+  min-width: 40px;
+  text-align: center;
+  padding: 0 4px;
+}
 
   td {
     padding: 3px 5px;

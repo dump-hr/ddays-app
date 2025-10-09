@@ -29,7 +29,7 @@ export class PotentialSponsorService {
 
   async getAll(): Promise<PotentialSponsorDto[]> {
     const potentialSponsors = await this.prisma.potentialSponsor.findMany({
-      orderBy: { representative: 'asc' },
+      orderBy: [{ representative: 'asc' }, { company: 'asc' }],
     });
 
     return potentialSponsors;

@@ -3,7 +3,7 @@ import { PotentialSponsorDto, Tier, SponsorStatus } from '@ddays-app/types';
 import { TableSearch } from '../TableDashboard/TableSearch';
 import { TierLabels, StatusLabels } from './labels';
 import { usePotentialSponsorUpdate } from '../../api/potential-sponsor/usePotentialSponsorUpdate';
-import PlusIcon from '../../assets/icons/plus.svg?react';
+import { PotentialSponsorsFilters } from './PotentialSponsorFilters/PotentialSponsorFilters';
 
 import c from './PotentialSponsorsTable.module.scss';
 
@@ -98,6 +98,25 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
     });
   };
 
+  const handleAssignRepresentative = (
+    start: number,
+    end: number,
+    representative: string,
+  ) => {
+    const filtered = filteredSponsors.slice(start - 1, end);
+    filtered.forEach((sponsor) => {
+      updateSponsor.mutate({
+        id: sponsor.id,
+        company: sponsor.company,
+        email: sponsor.email || '',
+        comment: sponsor.comment || '',
+        tier: sponsor.tier as Tier,
+        status: sponsor.status as SponsorStatus,
+        representative,
+      });
+    });
+  };
+
   return (
     <div className={c.tableWrap}>
       <TableSearch
@@ -106,44 +125,20 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
         dataType={'PotentialSponsorDto'}
       />
 
-      <div className={c.filters}>
-        <button
-          type='button'
-          className={c.redButton}
-          onClick={() => handleOpenForm()}>
-          <PlusIcon className={c.whiteIcon} />
-          Dodaj
-        </button>
-
-        <select
-          value={tierFilter}
-          onChange={(e) => setTierFilter(e.target.value as Tier | '')}>
-          <option value=''>Sve razine</option>
-          {Object.values(Tier).map((tier) => (
-            <option key={tier} value={tier}>
-              {TierLabels[tier]}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={representativeFilter}
-          onChange={(e) => setRepresentativeFilter(e.target.value)}>
-          <option value=''>Svi predstavnici</option>
-          {uniqueRepresentatives.map(
-            (item) =>
-              item && (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ),
-          )}
-        </select>
-      </div>
+      <PotentialSponsorsFilters
+        onAdd={() => handleOpenForm()}
+        tierFilter={tierFilter}
+        onTierChange={setTierFilter}
+        representativeFilter={representativeFilter}
+        onRepresentativeChange={setRepresentativeFilter}
+        uniqueRepresentatives={uniqueRepresentatives}
+        onAssignRepresentative={handleAssignRepresentative}
+      />
 
       <table className={c.sponsorsTable}>
         <thead>
           <tr>
+            <th className={c.numberCol}>#</th>
             <th>Razina</th>
             <th>Firma</th>
             <th>Email</th>
@@ -161,6 +156,7 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
               <tr
                 key={sponsor.id}
                 className={index % 2 === 0 ? c.altRow : undefined}>
+                <td>{index + 1}</td>
                 <td>
                   <select
                     className={`${c.tierSelect} ${getTierClass(sponsor.tier as Tier)}`}
