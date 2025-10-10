@@ -157,7 +157,7 @@
 }
 
 .tierDEFAULT { background-color: #edf0f2; }
-.tierBRONZE { background-color: #d1761b; }
+.tierBRONZE { background-color: #CD7F32; }
 .tierSILVER { background-color: #c0c0c0; }
 .tierGOLD { background-color: #ffd700; }
 
@@ -171,3 +171,44 @@
 .statusFOLLOW_UP { background-color: #ff97ff; }
 .statusAGREED { background-color: #0e26dcb7;}
 
+
+
+// za tablicu s materijalima
+.sponsorsTable .tierCellInMaterials {
+  padding: 0;             
+  height: 24px;            
+  text-align: center;
+}
+.sponsorsTable .smallSelect {
+  width: 40px;
+  padding: 0;
+  height: 24px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.sponsorsTable .tierInMaterials {
+  height: 44px;
+  line-height: 44px;
+  font-weight: bold;
+  color:black
+}
+
+
+.sponsorsTable .smallCell{
+  font-size: 12px;
+  min-width: 70px;
+  padding: 0;
+  text-align: center;
+}
+
+
+.notesInput {
+  width: 100%;
+  min-width: 150px;
+  height: 24px;
+  font-size: 14px;
+  padding: 2px;
+  resize: vertical;
+}

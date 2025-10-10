@@ -451,6 +451,8 @@ model SponsorMaterials {
   potentialSponsor       PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
+
+
 enum Tier {
   DEFAULT
   BRONZE

@@ -6,12 +6,12 @@ import { TierLabels } from '../labels';
 import c from '../PotentialSponsorsTable.module.scss';
 
 type PotentialSponsorsFiltersProps = {
-  onAdd: () => void;
-  tierFilter: Tier | '';
-  onTierChange: (value: Tier | '') => void;
-  representativeFilter: string;
-  onRepresentativeChange: (value: string) => void;
-  uniqueRepresentatives: string[];
+  onAdd?: () => void;
+  tierFilter?: Tier | '';
+  onTierChange?: (value: Tier | '') => void;
+  representativeFilter?: string;
+  onRepresentativeChange?: (value: string) => void;
+  uniqueRepresentatives?: string[];
   onAssignRepresentative?: (
     start: number,
     end: number,
@@ -48,43 +48,51 @@ export const PotentialSponsorsFilters: React.FC<
 
   return (
     <div className={c.filters}>
-      <button type='button' className={c.redButton} onClick={onAdd}>
-        <PlusIcon className={c.whiteIcon} />
-        Dodaj
-      </button>
+      {onAdd && (
+        <button type='button' className={c.redButton} onClick={onAdd}>
+          <PlusIcon className={c.whiteIcon} />
+          Dodaj
+        </button>
+      )}
 
-      <select
-        value={tierFilter}
-        onChange={(e) => onTierChange(e.target.value as Tier | '')}>
-        <option value=''>Sve razine</option>
-        {Object.values(Tier).map((tier) => (
-          <option key={tier} value={tier}>
-            {TierLabels[tier]}
-          </option>
-        ))}
-      </select>
+      {onTierChange && (
+        <select
+          value={tierFilter}
+          onChange={(e) => onTierChange?.(e.target.value as Tier | '')}>
+          <option value=''>Sve razine</option>
+          {Object.values(Tier).map((tier) => (
+            <option key={tier} value={tier}>
+              {TierLabels[tier]}
+            </option>
+          ))}
+        </select>
+      )}
 
-      <select
-        value={representativeFilter}
-        onChange={(e) => onRepresentativeChange(e.target.value)}>
-        <option value=''>Svi predstavnici</option>
-        {uniqueRepresentatives.map(
-          (rep) =>
-            rep && (
-              <option key={rep} value={rep}>
-                {rep}
-              </option>
-            ),
-        )}
-      </select>
+      {onRepresentativeChange && (
+        <select
+          value={representativeFilter}
+          onChange={(e) => onRepresentativeChange?.(e.target.value)}>
+          <option value=''>Svi predstavnici</option>
+          {uniqueRepresentatives?.map(
+            (rep) =>
+              rep && (
+                <option key={rep} value={rep}>
+                  {rep}
+                </option>
+              ),
+          )}
+        </select>
+      )}
 
-      <button
-        type='button'
-        className={c.redButton}
-        style={{ padding: '12px 12px' }}
-        onClick={() => setShowAssignInputs((prev) => !prev)}>
-        Dodijeli predstavnika
-      </button>
+      {onAssignRepresentative && (
+        <button
+          type='button'
+          className={c.redButton}
+          style={{ padding: '12px 12px' }}
+          onClick={() => setShowAssignInputs((prev) => !prev)}>
+          Dodijeli predstavnika
+        </button>
+      )}
 
       {showAssignInputs && (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>

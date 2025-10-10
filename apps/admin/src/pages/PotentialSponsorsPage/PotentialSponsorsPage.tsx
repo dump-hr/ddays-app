@@ -79,7 +79,7 @@ export const PotentialSponsorsPage = () => {
           <TableSearch
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
-            dataType={'PotentialSponsorDto'}
+            dataType='PotentialSponsorDto'
           />
 
           <PotentialSponsorsFilters
