@@ -16,11 +16,11 @@ export const SponsorMaterialsPage = () => {
     if (!sponsorMaterials) return [];
     return sponsorMaterials.filter((s) => {
       const matchesCompany = s.potentialSponsor?.company
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
       const matchesRep =
         representativeFilter === '' ||
-        s.potentialSponsor?.representative.toLowerCase() ===
+        s.potentialSponsor?.representative?.toLowerCase() ===
           representativeFilter.toLowerCase();
       const matchesTier =
         tierFilter === '' || s.potentialSponsor?.tier === tierFilter;

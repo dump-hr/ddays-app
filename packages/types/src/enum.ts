@@ -110,6 +110,12 @@ export enum AchievementNames {
   WhatsNew = "What's new?",
 }
 
+export enum MaterialsCheckboxState {
+  SUBMITTED = 'SUBMITTED',
+  WILL_NOT_SUBMIT = 'WILL_NOT_SUBMIT',
+  NOT_SUBMITTED_YET = 'NOT_SUBMITTED_YET',
+}
+
 export enum Tier {
   DEFAULT = 'DEFAULT',
   BRONZE = 'BRONZE',

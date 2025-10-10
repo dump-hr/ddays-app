@@ -8,7 +8,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { SponsorStatus, Tier } from 'src/enum';
+import { MaterialsCheckboxState, SponsorStatus, Tier } from 'src/enum';
 
 export type PotentialSponsorDto = {
   id: number;
@@ -46,21 +46,20 @@ export class PotentialSponsorModifyDto {
 export type SponsorMaterialsDto = {
   id: number;
   sponsorId: number;
-  logo: boolean;
-  picture: boolean;
-  description: boolean;
-  video: boolean;
-  advertisement: boolean;
-  appCareer: boolean;
-  campfire: boolean;
-  flyTalks: boolean;
-  swagBag: boolean;
-  boothPlan: boolean;
-  equipment: boolean;
-  peopleForAccreditation: boolean;
-  insertedIntoApp: boolean;
-  notes?: string;
-  sponsor?: PotentialSponsorDto;
+  logo: `${MaterialsCheckboxState}`;
+  picture: `${MaterialsCheckboxState}`;
+  description: `${MaterialsCheckboxState}`;
+  video: `${MaterialsCheckboxState}`;
+  advertisement: `${MaterialsCheckboxState}`;
+  appCareer: `${MaterialsCheckboxState}`;
+  campfire: `${MaterialsCheckboxState}`;
+  flyTalks: `${MaterialsCheckboxState}`;
+  swagBag: `${MaterialsCheckboxState}`;
+  boothPlan: `${MaterialsCheckboxState}`;
+  equipment: `${MaterialsCheckboxState}`;
+  peopleForAccreditation: `${MaterialsCheckboxState}`;
+  insertedIntoApp: `${MaterialsCheckboxState}`;
+  potentialSponsor?: Partial<PotentialSponsorDto>;
 };
 
 export class SponsorMaterialsModifyDto {
@@ -69,58 +68,54 @@ export class SponsorMaterialsModifyDto {
   sponsorId: number;
 
   @IsOptional()
-  @IsBoolean()
-  logo: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  logo: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  picture: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  picture: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  description: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  description: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  video: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  video: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  advertisement: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  advertisement: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  appCareer: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  appCareer: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  campfire: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  campfire: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  flyTalks: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  flyTalks: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  swagBag: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  swagBag: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  boothPlan: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  boothPlan: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  equipment: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  equipment: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  peopleForAccreditation: boolean;
+  @IsEnum(MaterialsCheckboxState)
+  peopleForAccreditation: `${MaterialsCheckboxState}`;
 
   @IsOptional()
-  @IsBoolean()
-  insertedIntoApp: boolean;
-
-  @IsString()
-  @IsOptional()
-  notes: string;
+  @IsEnum(MaterialsCheckboxState)
+  insertedIntoApp: `${MaterialsCheckboxState}`;
 }

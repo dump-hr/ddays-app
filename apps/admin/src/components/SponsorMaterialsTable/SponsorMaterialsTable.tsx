@@ -1,4 +1,5 @@
 import {
+  MaterialsCheckboxState,
   SponsorMaterialsDto,
   SponsorMaterialsModifyDto,
   Tier,
@@ -31,21 +32,27 @@ export const SponsorMaterialsTable = ({
     material: SponsorMaterialsDto,
     colKey: keyof SponsorMaterialsModifyDto,
   ) => {
+    const state = material[colKey] as MaterialsCheckboxState;
     const value =
-      material[colKey] === true
+      state === MaterialsCheckboxState.SUBMITTED
         ? 'yes'
-        : material[colKey] === false
+        : state === MaterialsCheckboxState.WILL_NOT_SUBMIT
           ? 'no'
           : '';
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newValue = e.target.value;
-      const updateValue = newValue === 'yes';
+
+      const updateValue =
+        newValue === 'yes'
+          ? MaterialsCheckboxState.SUBMITTED
+          : newValue === 'no'
+            ? MaterialsCheckboxState.WILL_NOT_SUBMIT
+            : MaterialsCheckboxState.NOT_SUBMITTED_YET;
 
       handleMaterialsChange(material.id, {
         ...material,
         [colKey]: updateValue,
-        notes: material.notes ?? '',
       });
     };
 
@@ -110,10 +117,6 @@ export const SponsorMaterialsTable = ({
                     )}
                   </React.Fragment>
                 ))}
-
-              <td>
-                <textarea className={c.notesInput} />
-              </td>
             </tr>
           ))}
         </tbody>

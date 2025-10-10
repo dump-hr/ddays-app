@@ -434,24 +434,27 @@ model PotentialSponsor {
 model SponsorMaterials {
   id                     Int               @id @default(autoincrement())
   sponsorId              Int
-  logo                   Boolean           @default(false)
-  picture                Boolean           @default(false)
-  description            Boolean           @default(false)
-  video                  Boolean           @default(false)
-  advertisement          Boolean           @default(false)
-  appCareer              Boolean           @default(false)
-  campfire               Boolean           @default(false)
-  flyTalks               Boolean           @default(false)
-  swagBag                Boolean           @default(false)
-  boothPlan              Boolean           @default(false)
-  equipment              Boolean           @default(false)
-  peopleForAccreditation Boolean           @default(false)
-  insertedIntoApp        Boolean           @default(false)
-  notes                  String?
+  logo                   MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  picture                MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  description            MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  video                  MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  advertisement          MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  appCareer              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  campfire               MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  flyTalks               MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  swagBag                MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  boothPlan              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  equipment              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  peopleForAccreditation MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
+  insertedIntoApp        MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
   potentialSponsor       PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-
+enum MaterialsCheckboxState {
+  SUBMITTED
+  WILL_NOT_SUBMIT
+  NOT_SUBMITTED_YET
+}
 
 enum Tier {
   DEFAULT

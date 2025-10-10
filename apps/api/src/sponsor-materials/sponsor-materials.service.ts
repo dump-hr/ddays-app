@@ -42,8 +42,6 @@ export class SponsorMaterialsService {
       },
     });
 
-    console.log('Created sponsor materials:', createdSponsorMaterials);
-
     return createdSponsorMaterials;
   }
 
