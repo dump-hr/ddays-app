@@ -1,51 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { PotentialSponsorDto, Tier, SponsorStatus } from '@ddays-app/types';
-import { TableSearch } from '../TableDashboard/TableSearch';
 import { TierLabels, StatusLabels } from './labels';
 import { usePotentialSponsorUpdate } from '../../api/potential-sponsor/usePotentialSponsorUpdate';
-import { PotentialSponsorsFilters } from './PotentialSponsorFilters/PotentialSponsorFilters';
+import { useSponsorMaterialsCreate } from '../../api/sponsor-materials/useSponsorMaterialsCreate';
 
 import c from './PotentialSponsorsTable.module.scss';
 
 type PotentialSponsorsTableProps = {
   sponsors: PotentialSponsorDto[];
-  onRefresh?: () => void;
-  renderForm?: (onSuccess: () => void, id?: number) => React.ReactNode;
+  onEdit?: (id?: number) => void;
 };
 
 export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
   sponsors,
-  onRefresh,
-  renderForm,
+  onEdit,
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [representativeFilter, setRepresentativeFilter] = useState('');
-  const [tierFilter, setTierFilter] = useState<Tier | ''>('');
   const [expandedCommentId, setExpandedCommentId] = useState<number | null>(
     null,
   );
 
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editId, setEditId] = useState<number | null>(null);
-
   const updateSponsor = usePotentialSponsorUpdate();
-
-  const filteredSponsors = useMemo(() => {
-    return sponsors.filter((s) => {
-      const matchesCompany = s.company
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      const matchesRep =
-        representativeFilter === '' ||
-        s.representative.toLowerCase() === representativeFilter.toLowerCase();
-      const matchesTier = tierFilter === '' || s.tier === tierFilter;
-      return matchesCompany && matchesRep && matchesTier;
-    });
-  }, [sponsors, searchTerm, representativeFilter, tierFilter]);
-
-  const uniqueRepresentatives = Array.from(
-    new Set(sponsors.map((s) => s.representative)),
-  ).sort();
+  const createSponsorMaterial = useSponsorMaterialsCreate();
 
   const getTierClass = (tier: Tier | undefined) =>
     tier ? c[`tier${tier}`] : '';
@@ -54,18 +29,6 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
 
   const toggleCommentExpand = (id: number) => {
     setExpandedCommentId((prev) => (prev === id ? null : id));
-  };
-
-  const handleOpenForm = (id?: number) => {
-    setEditId(id ?? null);
-    setIsFormOpen(true);
-  };
-
-  const handleCloseForm = () => setIsFormOpen(false);
-
-  const handleFormSuccess = () => {
-    handleCloseForm();
-    onRefresh?.();
   };
 
   const handleTierChange = (id: number, newTier: Tier) => {
@@ -96,45 +59,16 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
       tier: sponsor.tier,
       status: newStatus,
     });
-  };
 
-  const handleAssignRepresentative = (
-    start: number,
-    end: number,
-    representative: string,
-  ) => {
-    const filtered = filteredSponsors.slice(start - 1, end);
-    filtered.forEach((sponsor) => {
-      updateSponsor.mutate({
-        id: sponsor.id,
-        company: sponsor.company,
-        email: sponsor.email || '',
-        comment: sponsor.comment || '',
-        tier: sponsor.tier as Tier,
-        status: sponsor.status as SponsorStatus,
-        representative,
+    if (newStatus === SponsorStatus.AGREED) {
+      createSponsorMaterial.mutate({
+        sponsorId: id,
       });
-    });
+    }
   };
 
   return (
     <div className={c.tableWrap}>
-      <TableSearch
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        dataType={'PotentialSponsorDto'}
-      />
-
-      <PotentialSponsorsFilters
-        onAdd={() => handleOpenForm()}
-        tierFilter={tierFilter}
-        onTierChange={setTierFilter}
-        representativeFilter={representativeFilter}
-        onRepresentativeChange={setRepresentativeFilter}
-        uniqueRepresentatives={uniqueRepresentatives}
-        onAssignRepresentative={handleAssignRepresentative}
-      />
-
       <table className={c.sponsorsTable}>
         <thead>
           <tr>
@@ -149,7 +83,7 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {filteredSponsors.map((sponsor, index) => {
+          {sponsors.map((sponsor, index) => {
             const isExpanded = expandedCommentId === sponsor.id;
 
             return (
@@ -201,7 +135,9 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
 
                 <td>
                   <select
-                    className={`${c.statusSelect} ${getStatusClass(sponsor.status as SponsorStatus)}`}
+                    className={`${c.statusSelect} ${getStatusClass(
+                      sponsor.status as SponsorStatus,
+                    )}`}
                     value={sponsor.status}
                     onChange={(e) =>
                       handleStatusChange(
@@ -218,26 +154,13 @@ export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
                 </td>
 
                 <td className={c.actionsCell}>
-                  <button
-                    onClick={() => {
-                      handleOpenForm(sponsor.id);
-                    }}>
-                    Edit
-                  </button>
+                  <button onClick={() => onEdit?.(sponsor.id)}>Edit</button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-
-      {isFormOpen && renderForm && (
-        <div className={c.modalBackdrop} onClick={handleCloseForm}>
-          <div className={c.modalContent} onClick={(e) => e.stopPropagation()}>
-            {renderForm(handleFormSuccess, editId ?? undefined)}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

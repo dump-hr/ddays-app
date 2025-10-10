@@ -1,0 +1,100 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-family: 'SF Pro Display';
+  color: #444;
+  margin-bottom: 300px;
+
+  th {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    font-weight: bold;
+    min-width: 140px;
+    vertical-align: middle;
+  }
+
+  td {
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+    height: 44px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'SF Pro Display';
+    color: #444;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    padding: 6px 12px;
+    background: $color-muted-orange;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+
+.numberCol {
+  width: 40px;
+  min-width: 40px;
+  text-align: center;
+  padding: 0 4px;
+}
+
+.altRow {
+  background-color: #fafafa;
+}
+
+.commentCell {
+  position: relative;
+  overflow: visible;
+  min-width: 220px;
+
+  .commentPreview {
+    display: inline-block;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .commentExpanded {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-width: 300px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+  white-space: normal;
+  word-break: break-word;
+  cursor: pointer;
+}
+
+}
+
+.actionsCell {
+  text-align: center;
+}
+select.tierDEFAULT { background-color: #edf0f2; }
+select.tierBRONZE { background-color: #d1761b; color: white; }
+select.tierSILVER { background-color: #c0c0c0; }
+select.tierGOLD { background-color: #ffd700; }

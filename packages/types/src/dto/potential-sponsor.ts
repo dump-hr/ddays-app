@@ -1,6 +1,9 @@
 import {
   IsBoolean,
   IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -61,6 +64,10 @@ export type SponsorMaterialsDto = {
 };
 
 export class SponsorMaterialsModifyDto {
+  @IsInt()
+  @IsNotEmpty()
+  sponsorId: number;
+
   @IsOptional()
   @IsBoolean()
   logo: boolean;
