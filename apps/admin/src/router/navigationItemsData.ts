@@ -112,6 +112,11 @@ export const navigationItems: NavigationItemData[] = [
         label: 'Materijali za sponzore',
         icon: ModelIcon,
       },
+      {
+        route: RouteNames.SPONSOR_CONTRACTS,
+        label: 'Ugovori za sponzore',
+        icon: ModelIcon,
+      },
     ],
   },
 ];

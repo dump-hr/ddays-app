@@ -6,6 +6,7 @@ import { usePotentialSponsorUpdate } from '../../api/potential-sponsor/usePotent
 import { useSponsorMaterialsCreate } from '../../api/sponsor-materials/useSponsorMaterialsCreate';
 
 import c from './PotentialSponsorsTable.module.scss';
+import { useSponsorContractsCreate } from '../../api/sponsor-contracts/useSponsorContractsCreate';
 
 type PotentialSponsorsTableProps = {
   sponsors: PotentialSponsorDto[];
@@ -22,6 +23,7 @@ export const PotentialSponsorsTable: FC<PotentialSponsorsTableProps> = ({
 
   const updateSponsor = usePotentialSponsorUpdate();
   const createSponsorMaterial = useSponsorMaterialsCreate();
+  const createSponsorContract = useSponsorContractsCreate();
 
   const getTierClass = (tier: Tier | undefined) =>
     tier ? c[`tier${tier}`] : '';
@@ -63,6 +65,10 @@ export const PotentialSponsorsTable: FC<PotentialSponsorsTableProps> = ({
 
     if (newStatus === SponsorStatus.AGREED) {
       createSponsorMaterial.mutate({
+        sponsorId: id,
+      });
+
+      createSponsorContract.mutate({
         sponsorId: id,
       });
     }

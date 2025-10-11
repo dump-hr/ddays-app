@@ -7,7 +7,7 @@ import {
 import c from '../PotentialSponsorsTable/PotentialSponsorsTable.module.scss';
 import { TierLabels } from '../PotentialSponsorsTable/labels';
 import { useSponsorMaterialsUpdate } from '../../api/sponsor-materials/useSponsorMaterialsUpdate';
-import { tableColumns } from './tableColumns';
+import { tableColumns } from './tableColumnsMaterials';
 import React from 'react';
 
 type SponsorMaterialsTableProps = {

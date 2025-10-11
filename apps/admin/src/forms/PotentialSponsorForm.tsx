@@ -88,7 +88,6 @@ export const PotentialSponsorForm: React.FC<PotentialSponsorFormProps> = ({
           if (id) {
             await updatePotentialSponsor.mutateAsync({ ...formData, id });
           } else {
-            console.log(formData, id);
             await createPotentialSponsor.mutateAsync(formData);
           }
           onSuccess();

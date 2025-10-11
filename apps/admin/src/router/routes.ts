@@ -21,4 +21,5 @@ export const RouteNames = {
   SPONSOR_MANAGEMENT: '/sponsor-management',
   POTENTIAL_SPONSORS: '/sponsor-management/potential-sponsors',
   SPONSOR_MATERIALS: '/sponsor-management/sponsor-materials',
+  SPONSOR_CONTRACTS: '/sponsor-management/sponsor-contracts',
 };

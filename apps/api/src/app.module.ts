@@ -25,8 +25,8 @@ import { RatingModule } from './rating/rating.module';
 import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
-import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SponsorContractModule } from './sponsor-contract/sponsor-contract.module';
+import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
 

@@ -171,13 +171,13 @@ export class SponsorContractModifyDto {
   generated: boolean;
 
   @IsBoolean()
-  signedFromDump: boolean;
+  signedFromDUMP: boolean;
 
   @IsBoolean()
   contractSent: boolean;
 
   @IsBoolean()
-  signedFormSponsor: boolean;
+  signedFromSponsor: boolean;
 
   @IsBoolean()
   billGenerated: boolean;
