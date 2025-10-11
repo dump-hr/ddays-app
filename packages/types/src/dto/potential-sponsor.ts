@@ -119,3 +119,72 @@ export class SponsorMaterialsModifyDto {
   @IsEnum(MaterialsCheckboxState)
   insertedIntoApp: `${MaterialsCheckboxState}`;
 }
+
+export type SponsorContractDto = {
+  id: number;
+  sponsorId: number;
+  name?: string;
+  address?: string;
+  oib?: string;
+  companyRepresentative?: string;
+  companyRepresentativePosition?: string;
+  queryForCompanyData: boolean;
+  generated: boolean;
+  signedFromDump: boolean;
+  contractSent: boolean;
+  signedFormSponsor: boolean;
+  billGenerated: boolean;
+  billPayed: boolean;
+  archived: boolean;
+  potentialSponsor?: Partial<PotentialSponsorDto>;
+};
+
+export class SponsorContractModifyDto {
+  @IsInt()
+  @IsNotEmpty()
+  sponsorId: number;
+
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  address: string;
+
+  @IsOptional()
+  @IsString()
+  oib: string;
+
+  @IsOptional()
+  @IsString()
+  companyRepresentative: string;
+
+  @IsOptional()
+  @IsString()
+  companyRepresentativePosition: string;
+
+  @IsBoolean()
+  queryForCompanyData: boolean;
+
+  @IsBoolean()
+  generated: boolean;
+
+  @IsBoolean()
+  signedFromDump: boolean;
+
+  @IsBoolean()
+  contractSent: boolean;
+
+  @IsBoolean()
+  signedFormSponsor: boolean;
+
+  @IsBoolean()
+  billGenerated: boolean;
+
+  @IsBoolean()
+  billPayed: boolean;
+
+  @IsBoolean()
+  archived: boolean;
+}

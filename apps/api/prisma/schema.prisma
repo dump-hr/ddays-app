@@ -421,33 +421,53 @@ model Printer {
 }
 
 model PotentialSponsor {
-  id             Int                @id @default(autoincrement())
-  tier           Tier               @default(DEFAULT)
-  company        String             @unique
-  email          String?
-  representative String             @default("")
-  comment        String?
-  status         SponsorStatus      @default(DID_NOT_CONTACT)
-  materials      SponsorMaterials[]
+  id              Int                @id @default(autoincrement())
+  tier            Tier               @default(DEFAULT)
+  company         String             @unique
+  email           String?
+  representative  String             @default("")
+  comment         String?
+  status          SponsorStatus      @default(DID_NOT_CONTACT)
+  materials       SponsorMaterials[]
+  SponsorContract SponsorContract?
 }
 
 model SponsorMaterials {
-  id                     Int               @id @default(autoincrement())
+  id                     Int                    @id @default(autoincrement())
   sponsorId              Int
-  logo                   MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  picture                MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  description            MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  video                  MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  advertisement          MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  appCareer              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  campfire               MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  flyTalks               MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  swagBag                MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  boothPlan              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  equipment              MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  peopleForAccreditation MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  insertedIntoApp        MaterialsCheckboxState           @default(NOT_SUBMITTED_YET)
-  potentialSponsor       PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  logo                   MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  picture                MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  description            MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  video                  MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  advertisement          MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  appCareer              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  campfire               MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  flyTalks               MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  swagBag                MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  boothPlan              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  equipment              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  peopleForAccreditation MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  insertedIntoApp        MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  potentialSponsor       PotentialSponsor?      @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model SponsorContract {
+  id                            Int               @id @default(autoincrement())
+  sponsorId                     Int               @unique
+  name                          String?
+  address                       String?
+  oib                           String?
+  companyRepresentative         String?
+  companyRepresentativePosition String?
+  queryForCompanyData           Boolean           @default(false)
+  generated                     Boolean           @default(false)
+  signedFromDUMP                Boolean           @default(false)
+  contractSent                  Boolean           @default(false)
+  signedFromSponsor             Boolean           @default(false)
+  billGenerated                 Boolean           @default(false)
+  billPayed                     Boolean           @default(false)
+  archived                      Boolean           @default(false)
+  potentialSponsor              PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum MaterialsCheckboxState {
