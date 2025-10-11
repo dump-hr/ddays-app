@@ -130,9 +130,9 @@ export type SponsorContractDto = {
   companyRepresentativePosition?: string;
   queryForCompanyData: boolean;
   generated: boolean;
-  signedFromDump: boolean;
+  signedFromDUMP: boolean;
   contractSent: boolean;
-  signedFormSponsor: boolean;
+  signedFromSponsor: boolean;
   billGenerated: boolean;
   billPayed: boolean;
   archived: boolean;
