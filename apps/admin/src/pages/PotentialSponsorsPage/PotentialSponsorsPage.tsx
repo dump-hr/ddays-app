@@ -14,8 +14,10 @@ export const PotentialSponsorsPage = () => {
   const updateSponsor = usePotentialSponsorUpdate();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [representativeFilter, setRepresentativeFilter] = useState('');
-  const [tierFilter, setTierFilter] = useState<Tier | ''>('');
+  const [representativeFilter, setRepresentativeFilter] = useState<
+    string | undefined
+  >(undefined);
+  const [tierFilter, setTierFilter] = useState<Tier | undefined>(undefined);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
 
@@ -25,10 +27,13 @@ export const PotentialSponsorsPage = () => {
       const matchesCompany = s.company
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
+
       const matchesRep =
-        representativeFilter === '' ||
+        representativeFilter === undefined ||
         s.representative.toLowerCase() === representativeFilter.toLowerCase();
-      const matchesTier = tierFilter === '' || s.tier === tierFilter;
+
+      const matchesTier = tierFilter === undefined || s.tier === tierFilter;
+
       return matchesCompany && matchesRep && matchesTier;
     });
   }, [potentialSponsors, searchTerm, representativeFilter, tierFilter]);
@@ -83,9 +88,7 @@ export const PotentialSponsorsPage = () => {
           />
 
           <PotentialSponsorsFilters
-            onAdd={() => {
-              handleOpenForm();
-            }}
+            onAdd={() => handleOpenForm()}
             tierFilter={tierFilter}
             onTierChange={setTierFilter}
             representativeFilter={representativeFilter}

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import type { FC } from 'react';
 import { PotentialSponsorDto, Tier, SponsorStatus } from '@ddays-app/types';
 import { TierLabels, StatusLabels } from './labels';
 import { usePotentialSponsorUpdate } from '../../api/potential-sponsor/usePotentialSponsorUpdate';
@@ -11,7 +12,7 @@ type PotentialSponsorsTableProps = {
   onEdit?: (id?: number) => void;
 };
 
-export const PotentialSponsorsTable: React.FC<PotentialSponsorsTableProps> = ({
+export const PotentialSponsorsTable: FC<PotentialSponsorsTableProps> = ({
   sponsors,
   onEdit,
 }) => {

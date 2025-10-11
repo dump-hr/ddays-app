@@ -17,7 +17,6 @@ export class CodeHelper {
     if (existingCodes === undefined || existingCodes.length === 0) {
       return this.generateRandomCode(6);
     }
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const uniqueCode = this.generateRandomCode(6);
       if (

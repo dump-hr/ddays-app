@@ -2,7 +2,11 @@ import {
   PotentialSponsorDto,
   PotentialSponsorModifyDto,
 } from '@ddays-app/types';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -15,7 +19,7 @@ export class PotentialSponsorService {
     });
 
     if (samePotentialSponsor) {
-      throw new NotFoundException('Potential sponsor with this name exists');
+      throw new BadRequestException('Potential sponsor with this name exists');
     }
 
     const createdPotentialSponsor = await this.prisma.potentialSponsor.create({
@@ -64,7 +68,7 @@ export class PotentialSponsorService {
     });
 
     if (samePotentialSponsor) {
-      throw new NotFoundException('Potential sponsor with this name exists');
+      throw new BadRequestException('Potential sponsor with this name exists');
     }
 
     const updatedPotentialSponsor = await this.prisma.potentialSponsor.update({

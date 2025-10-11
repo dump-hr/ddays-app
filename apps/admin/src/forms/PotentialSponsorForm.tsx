@@ -57,10 +57,6 @@ export const PotentialSponsorForm: React.FC<PotentialSponsorFormProps> = ({
     },
   ];
 
-  useEffect(() => {
-    form.reset(potentialSponsor);
-  }, [potentialSponsor]);
-
   const form = useForm<PotentialSponsorModifyDto>({
     resolver: classValidatorResolver(PotentialSponsorModifyDto),
     defaultValues: {
@@ -72,6 +68,10 @@ export const PotentialSponsorForm: React.FC<PotentialSponsorFormProps> = ({
       status: potentialSponsor?.status || SponsorStatus.DID_NOT_CONTACT,
     },
   });
+
+  useEffect(() => {
+    form.reset(potentialSponsor);
+  }, [potentialSponsor, form]);
 
   if (id && isLoading) {
     return <div>Loading...</div>;

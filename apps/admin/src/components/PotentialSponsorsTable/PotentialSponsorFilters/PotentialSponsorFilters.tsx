@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import type { FC } from 'react';
 import { Tier } from '@ddays-app/types';
-import PlusIcon from '../../../assets/icons/plus.svg?react';
+import PlusIcon from '@/assets/icons/plus.svg?react';
 import { TierLabels } from '../labels';
 
 import c from '../PotentialSponsorsTable.module.scss';
 
 type PotentialSponsorsFiltersProps = {
   onAdd?: () => void;
-  tierFilter?: Tier | '';
-  onTierChange?: (value: Tier | '') => void;
-  representativeFilter?: string;
-  onRepresentativeChange?: (value: string) => void;
+  tierFilter?: Tier | undefined;
+  onTierChange?: (value: Tier | undefined) => void;
+  representativeFilter?: string | undefined;
+  onRepresentativeChange?: (value: string | undefined) => void;
   uniqueRepresentatives?: string[];
   onAssignRepresentative?: (
     start: number,
@@ -19,9 +20,7 @@ type PotentialSponsorsFiltersProps = {
   ) => void;
 };
 
-export const PotentialSponsorsFilters: React.FC<
-  PotentialSponsorsFiltersProps
-> = ({
+export const PotentialSponsorsFilters: FC<PotentialSponsorsFiltersProps> = ({
   onAdd,
   tierFilter,
   onTierChange,
@@ -30,20 +29,34 @@ export const PotentialSponsorsFilters: React.FC<
   uniqueRepresentatives,
   onAssignRepresentative,
 }) => {
-  const [showAssignInputs, setShowAssignInputs] = useState(false);
-  const [startRow, setStartRow] = useState('');
-  const [endRow, setEndRow] = useState('');
-  const [repName, setRepName] = useState('');
+  const [assignState, setAssignState] = useState({
+    showInputs: false,
+    startRow: '',
+    endRow: '',
+    repName: '',
+  });
+
+  const handleChange = (
+    field: keyof typeof assignState,
+    value: string | boolean,
+  ) => {
+    setAssignState((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const handleAssignClick = () => {
-    const start = parseInt(startRow);
-    const end = parseInt(endRow);
-    if (!start || !end || !repName) return;
-    onAssignRepresentative?.(start, end, repName);
-    setStartRow('');
-    setEndRow('');
-    setRepName('');
-    setShowAssignInputs(false);
+    const start = parseInt(assignState.startRow);
+    const end = parseInt(assignState.endRow);
+    if (!start || !end || !assignState.repName) return;
+    onAssignRepresentative?.(start, end, assignState.repName);
+    setAssignState({
+      showInputs: false,
+      startRow: '',
+      endRow: '',
+      repName: '',
+    });
   };
 
   return (
@@ -57,8 +70,12 @@ export const PotentialSponsorsFilters: React.FC<
 
       {onTierChange && (
         <select
-          value={tierFilter}
-          onChange={(e) => onTierChange?.(e.target.value as Tier | '')}>
+          value={tierFilter ?? ''}
+          onChange={(e) =>
+            onTierChange(
+              e.target.value === '' ? undefined : (e.target.value as Tier),
+            )
+          }>
           <option value=''>Sve razine</option>
           {Object.values(Tier).map((tier) => (
             <option key={tier} value={tier}>
@@ -70,8 +87,12 @@ export const PotentialSponsorsFilters: React.FC<
 
       {onRepresentativeChange && (
         <select
-          value={representativeFilter}
-          onChange={(e) => onRepresentativeChange?.(e.target.value)}>
+          value={representativeFilter ?? ''}
+          onChange={(e) =>
+            onRepresentativeChange(
+              e.target.value === '' ? undefined : e.target.value,
+            )
+          }>
           <option value=''>Svi predstavnici</option>
           {uniqueRepresentatives?.map(
             (rep) =>
@@ -89,30 +110,30 @@ export const PotentialSponsorsFilters: React.FC<
           type='button'
           className={c.redButton}
           style={{ padding: '12px 12px' }}
-          onClick={() => setShowAssignInputs((prev) => !prev)}>
+          onClick={() => handleChange('showInputs', !assignState.showInputs)}>
           Dodijeli predstavnika
         </button>
       )}
 
-      {showAssignInputs && (
+      {assignState.showInputs && (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <input
             type='number'
             placeholder='Start row'
-            value={startRow}
-            onChange={(e) => setStartRow(e.target.value)}
+            value={assignState.startRow}
+            onChange={(e) => handleChange('startRow', e.target.value)}
           />
           <input
             type='number'
             placeholder='End row'
-            value={endRow}
-            onChange={(e) => setEndRow(e.target.value)}
+            value={assignState.endRow}
+            onChange={(e) => handleChange('endRow', e.target.value)}
           />
           <input
             type='text'
             placeholder='Predstavnik'
-            value={repName}
-            onChange={(e) => setRepName(e.target.value)}
+            value={assignState.repName}
+            onChange={(e) => handleChange('repName', e.target.value)}
           />
           <button
             type='button'

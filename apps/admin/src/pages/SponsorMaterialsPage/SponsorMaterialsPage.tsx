@@ -6,24 +6,27 @@ import { PotentialSponsorsFilters } from '../../components/PotentialSponsorsTabl
 import { Tier } from '@ddays-app/types';
 
 export const SponsorMaterialsPage = () => {
-  const { data: sponsorMaterials } = useSponsorMaterialsGetAll();
+  const { data: sponsorMaterials, isLoading } = useSponsorMaterialsGetAll();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [tierFilter, setTierFilter] = useState<Tier | ''>('');
-  const [representativeFilter, setRepresentativeFilter] = useState('');
+  const [tierFilter, setTierFilter] = useState<Tier | undefined>(undefined);
+  const [representativeFilter, setRepresentativeFilter] = useState<
+    string | undefined
+  >(undefined);
 
   const filteredSponsors = useMemo(() => {
     if (!sponsorMaterials) return [];
     return sponsorMaterials.filter((s) => {
-      const matchesCompany = s.potentialSponsor?.company
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase());
+      const company = s.potentialSponsor?.company?.toLowerCase() ?? '';
+      const rep = s.potentialSponsor?.representative?.toLowerCase() ?? '';
+      const tier = s.potentialSponsor?.tier;
+
+      const matchesCompany = company.includes(searchTerm.toLowerCase());
       const matchesRep =
-        representativeFilter === '' ||
-        s.potentialSponsor?.representative?.toLowerCase() ===
-          representativeFilter.toLowerCase();
-      const matchesTier =
-        tierFilter === '' || s.potentialSponsor?.tier === tierFilter;
+        representativeFilter === undefined ||
+        rep === representativeFilter.toLowerCase();
+      const matchesTier = tierFilter === undefined || tier === tierFilter;
+
       return matchesCompany && matchesRep && matchesTier;
     });
   }, [sponsorMaterials, searchTerm, representativeFilter, tierFilter]);
@@ -40,7 +43,7 @@ export const SponsorMaterialsPage = () => {
 
   return (
     <>
-      {!sponsorMaterials ? (
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
@@ -57,6 +60,7 @@ export const SponsorMaterialsPage = () => {
             onRepresentativeChange={setRepresentativeFilter}
             uniqueRepresentatives={uniqueRepresentatives}
           />
+
           {filteredSponsors.length > 0 ? (
             <SponsorMaterialsTable materials={filteredSponsors} />
           ) : (
