@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FC } from 'react';
 import { Tier } from '@ddays-app/types';
-import PlusIcon from '@/assets/icons/plus.svg?react';
+import PlusIcon from '../../../assets/icons/plus.svg?react';
 import { TierLabels } from '../labels';
 
 import c from '../PotentialSponsorsTable.module.scss';
