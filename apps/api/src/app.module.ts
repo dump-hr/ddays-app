@@ -18,12 +18,15 @@ import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { NotificationModule } from './notification/notification.module';
+import { PotentialSponsorModule } from './potential-sponsor/potential-sponsor.module';
 import { PrinterModule } from './printer/printer.module';
 import { PrismaService } from './prisma.service';
 import { RatingModule } from './rating/rating.module';
 import { RewardModule } from './reward/reward.module';
 import { ShopModule } from './shop/shop.module';
 import { SpeakerModule } from './speaker/speaker.module';
+import { SponsorContractModule } from './sponsor-contract/sponsor-contract.module';
+import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
 
@@ -44,6 +47,9 @@ import { UserModule } from './user/user.module';
     EmailModule,
     AvatarModule,
     RatingModule,
+    PotentialSponsorModule,
+    SponsorMaterialsModule,
+    SponsorContractModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

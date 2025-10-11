@@ -1,4 +1,4 @@
-import avatarsSvgSprite from '../../assets/icons/avatars.svg';
+import avatarsSvgSprite from '@/assets/icons/avatars.svg';
 
 type AvatarIconProps = {
   width?: number;

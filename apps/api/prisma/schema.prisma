@@ -89,6 +89,14 @@ model Company {
   landingImageCompanyCulture String?
   bookOfStandards            String?
   video                      String?
+  peopleForAccreditation     String[]
+  swagBag                    String?
+  swagBagNumber              Int?
+  boothPlan                  String?
+  equipment                  String?
+  notes                      String[]
+  campfireParticipation      Boolean                @default(false)
+  campfireSpeakers           String[]
   codeId                     Int?
   booth                      Booth?
   code                       Code?                  @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -260,7 +268,7 @@ model User {
   companiesNewsEnabled    Boolean?
   isDeleted               Boolean?                 @default(false)
   isConfirmed             Boolean?                 @default(false)
-  isFromGoogleAuth          Boolean?                 @default(false)
+  isFromGoogleAuth        Boolean?                 @default(false)
   profilePhotoUrl         String?
   avatar                  Avatar[]
   notification            Notification[]
@@ -410,6 +418,81 @@ model Printer {
   id            Int             @id @default(autoincrement())
   name          String
   UserToPrinter UserToPrinter[]
+}
+
+model PotentialSponsor {
+  id              Int                @id @default(autoincrement())
+  tier            Tier               @default(DEFAULT)
+  company         String             @unique
+  email           String?
+  representative  String             @default("")
+  comment         String?
+  status          SponsorStatus      @default(DID_NOT_CONTACT)
+  materials       SponsorMaterials[]
+  SponsorContract SponsorContract?
+}
+
+model SponsorMaterials {
+  id                     Int                    @id @default(autoincrement())
+  sponsorId              Int
+  logo                   MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  picture                MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  description            MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  video                  MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  advertisement          MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  appCareer              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  campfire               MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  flyTalks               MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  swagBag                MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  boothPlan              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  equipment              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  peopleForAccreditation MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  insertedIntoApp        MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  potentialSponsor       PotentialSponsor?      @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model SponsorContract {
+  id                            Int               @id @default(autoincrement())
+  sponsorId                     Int               @unique
+  name                          String?
+  address                       String?
+  oib                           String?
+  companyRepresentative         String?
+  companyRepresentativePosition String?
+  queryForCompanyData           Boolean           @default(false)
+  generated                     Boolean           @default(false)
+  signedFromDUMP                Boolean           @default(false)
+  contractSent                  Boolean           @default(false)
+  signedFromSponsor             Boolean           @default(false)
+  billGenerated                 Boolean           @default(false)
+  billPayed                     Boolean           @default(false)
+  archived                      Boolean           @default(false)
+  potentialSponsor              PotentialSponsor? @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum MaterialsCheckboxState {
+  SUBMITTED
+  WILL_NOT_SUBMIT
+  NOT_SUBMITTED_YET
+}
+
+enum Tier {
+  DEFAULT
+  BRONZE
+  SILVER
+  GOLD
+}
+
+enum SponsorStatus {
+  DID_NOT_CONTACT
+  DISCARDED
+  ZERO_PING
+  FIRST_PING
+  SECOND_PING
+  MEETING_DONE
+  INTERESTED
+  FOLLOW_UP
+  AGREED
 }
 
 enum Accessory {

@@ -22,6 +22,9 @@ import DatabasePage from '../pages/DatabasePage';
 import { TransactionScanPage } from '../pages/TransactionScanPage';
 import { AccreditationScanPage } from '../pages/AccreditationScanPage';
 import { AccreditationPrintPage } from '../pages/AccreditationPrintPage';
+import { SponsorMaterialsPage } from '../pages/SponsorMaterialsPage';
+import { PotentialSponsorsPage } from '../pages/PotentialSponsorsPage';
+import { SponsorContractsPage } from '../pages/SponsorContractsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,6 +55,18 @@ const router = createBrowserRouter(
         <Route
           path={RouteNames.ACCREDITATION_PRINT}
           element={<AccreditationPrintPage />}
+        />
+        <Route
+          path={RouteNames.POTENTIAL_SPONSORS}
+          element={<PotentialSponsorsPage />}
+        />
+        <Route
+          path={RouteNames.SPONSOR_MATERIALS}
+          element={<SponsorMaterialsPage />}
+        />
+        <Route
+          path={RouteNames.SPONSOR_CONTRACTS}
+          element={<SponsorContractsPage />}
         />
         <Route path={RouteNames.ERROR} element={<div>Error</div>} />
       </Route>

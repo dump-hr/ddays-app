@@ -1,43 +1,42 @@
-.modal,
-.overlay {
-  width: 100vw;
-  height: 100vh;
+.modal {
   position: fixed;
-
-}
-
-.modal{
-  z-index: 1000;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px; 
 }
 
 .overlay {
+  position: absolute;
+  inset: 0;
   background-color: #00000080;
 }
 
 .modalContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1.4;
+  position: relative;
   background: #f1f1f1;
-  padding: 14px 28px;
-  border-radius: 3px;
-  max-width: 90vw;
-  min-width: 300px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
   max-height: 90vh;
-  overflow-y: scroll;
+  overflow-y: auto;
+  z-index: 101;
 
-  .close {
-    float: right;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 0; 
+    max-height: 100vh;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -46,6 +45,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -12,3 +12,4 @@ export * from './speaker';
 export * from './booth';
 export * from './reward';
 export * from './avatar';
+export * from './potential-sponsor';

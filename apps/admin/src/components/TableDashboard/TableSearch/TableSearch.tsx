@@ -1,7 +1,7 @@
-import React from 'react';
+import type { FC } from 'react';
 import c from './TableSearch.module.scss';
 import { useNavigationItems } from '../../../hooks/useNavigationItems';
-import SearchIcon from '../../../assets/icons/search.svg?react';
+import SearchIcon from '@/assets/icons/search.svg?react';
 
 type TableSearchProps = {
   searchTerm: string;
@@ -9,7 +9,7 @@ type TableSearchProps = {
   dataType?: string;
 };
 
-export const TableSearch: React.FC<TableSearchProps> = ({
+export const TableSearch: FC<TableSearchProps> = ({
   searchTerm,
   onSearchChange,
   dataType,

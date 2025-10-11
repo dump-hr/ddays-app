@@ -70,6 +70,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   };
 
   const handleEdit = (ids: number[]) => {
+    // TODO: vidit zasto se toast ne pojavljuje
     if (ids.length === 0) {
       toast.error('Molimo odaberite jedan zapis za uređivanje.');
       return;

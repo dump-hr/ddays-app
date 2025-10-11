@@ -1,0 +1,214 @@
+.tableWrap {
+  overflow-x: auto;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+
+  .buttonBase {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "SF Pro Display";
+  letter-spacing: 0.28px;
+}
+
+.redButton {
+  @extend .buttonBase;
+  background-color: $color-muted-orange;
+  color: white;
+  border: none;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.20);
+}
+
+.whiteIcon {
+  filter: brightness(0) invert(1);
+}
+
+
+  select {
+      @extend .buttonBase;
+      padding: 12px 12px;
+  background: #F0F0F0;
+  border: none;
+  color: #929292;
+  }
+}
+
+
+.sponsorsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-family: 'SF Pro Display';
+  color: #444;
+  margin-bottom: 300px;
+
+  th {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    font-weight: bold;
+    min-width: 140px;
+    vertical-align: middle;
+
+  }
+      .numberCol {
+  width: 40px;
+  min-width: 40px;
+  text-align: center;
+  padding: 0 4px;
+}
+
+  td {
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+    height: 44px;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 6px 8px;
+    border:none;
+    border-radius: 8px;
+    font-family: 'SF Pro Display';
+    color: #444;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    padding: 6px 12px;
+    background: $color-muted-orange;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+
+.altRow {
+  background-color: #fafafa;
+}
+
+.commentCell {
+  position: relative;
+  overflow: visible;
+  min-width: 220px;
+
+  .commentPreview {
+    display: inline-block;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .commentExpanded {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    font-size: 0.9rem;
+    white-space: normal;
+    word-break: break-word;
+    cursor: pointer;
+  }
+}
+
+.textArea {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #999;
+  }
+}
+
+.actionsCell {
+  text-align: center;
+}
+
+.tierDEFAULT { background-color: #edf0f2; }
+.tierBRONZE { background-color: #CD7F32; }
+.tierSILVER { background-color: #c0c0c0; }
+.tierGOLD { background-color: #ffd700; }
+
+.statusDID_NOT_CONTACT { background-color: #edf0f2; }
+.statusDISCARDED { background-color: #a90600cc;}
+.statusZERO_PING { background-color: white; }
+.statusFIRST_PING { background-color: cyan; }
+.statusSECOND_PING { background-color: #d858ff; }
+.statusMEETING_DONE { background-color: #5cb85c; }
+.statusINTERESTED { background-color: #f7b731; }
+.statusFOLLOW_UP { background-color: #ff97ff; }
+.statusAGREED { background-color: #0e26dcb7;}
+
+
+
+// za tablicu s materijalima
+.sponsorsTable .tierCellInMaterials {
+  padding: 0;             
+  height: 24px;            
+  text-align: center;
+}
+.sponsorsTable .smallSelect {
+  width: 40px;
+  padding: 0;
+  height: 24px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.sponsorsTable .tierInMaterials {
+  height: 44px;
+  line-height: 44px;
+  font-weight: bold;
+  color:black
+}
+
+
+.sponsorsTable .smallCell{
+  font-size: 12px;
+  min-width: 70px;
+  padding: 0;
+  text-align: center;
+}
+
+
+.notesInput {
+  width: 100%;
+  min-width: 150px;
+  height: 24px;
+  font-size: 14px;
+  padding: 2px;
+  resize: vertical;
+}
