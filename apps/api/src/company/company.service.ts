@@ -527,6 +527,7 @@ export class CompanyService {
       id: company.id,
       category: null,
       name: company.name,
+      username: company.username,
       description: null,
       opportunitiesDescription: null,
       websiteUrl: null,
@@ -546,6 +547,7 @@ export class CompanyService {
       })),
       jobs: null,
       averageRating: null,
+      campfireParticipation: company.campfireParticipation,
     }));
   }
 }

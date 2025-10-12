@@ -7,6 +7,7 @@ import { LogoUpload } from '../formSteps/LogoUpload';
 import { PhotoUpload } from '../formSteps/PhotoUpload';
 import { Video } from '../formSteps/Video';
 import { FormSteps, SponsorForm } from '../types/form';
+import { Accreditation } from '../formSteps/Accreditation';
 
 export const sponsorForm: SponsorForm = {
   [FormSteps.Description]: {
@@ -56,6 +57,11 @@ export const sponsorForm: SponsorForm = {
     title: 'App Career matching',
     description: 'Predaja do 1. travnja 2025.',
     component: InterestPicker,
+  },
+  [FormSteps.Accreditation]: {
+    title: 'Akreditacije',
+    description: 'Predaja do 1.travnja 2025.',
+    component: Accreditation,
   },
 };
 

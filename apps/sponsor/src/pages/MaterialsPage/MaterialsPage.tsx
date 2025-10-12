@@ -1,5 +1,6 @@
 import { CompanyCategory } from '@ddays-app/types';
 import { useState } from 'react';
+import type { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
@@ -49,7 +50,7 @@ const getShouldRenderJobsCount = (
   return false;
 };
 
-export const MaterialsPage: React.FC = () => {
+export const MaterialsPage: FC = () => {
   const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
     null,
   );
@@ -64,6 +65,7 @@ export const MaterialsPage: React.FC = () => {
     [FormSteps.Videos]: !!company?.video,
     [FormSteps.Jobs]: !!jobs?.length,
     [FormSteps.Interests]: !!company?.interests?.length,
+    [FormSteps.Accreditation]: !!company?.peopleForAccreditation?.length,
     //[FormSteps.SwagBag]: false,
   };
 
