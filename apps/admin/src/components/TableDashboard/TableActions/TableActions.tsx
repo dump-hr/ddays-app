@@ -12,6 +12,7 @@ type TableActionsProps = {
   onCreateNew?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  onExport?: () => void;
 };
 
 export const TableActions: React.FC<TableActionsProps> = ({
@@ -22,6 +23,7 @@ export const TableActions: React.FC<TableActionsProps> = ({
   onCreateNew,
   onEdit,
   onDelete,
+  onExport,
 }) => {
   return (
     <div className={c.actions}>
@@ -31,7 +33,7 @@ export const TableActions: React.FC<TableActionsProps> = ({
           Dodaj
         </button>
 
-        <button type='button' className={c.grayButton}>
+        <button type='button' className={c.grayButton} onClick={onExport}>
           <ExportIcon />
           Izvezi
         </button>

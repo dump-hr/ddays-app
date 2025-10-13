@@ -117,6 +117,14 @@ export const SponsorMaterialsTable = ({
                     )}
                   </React.Fragment>
                 ))}
+
+              <td style={{ textAlign: 'center' }}>
+                {new Date(material.createdOn).toLocaleDateString('hr-HR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })}
+              </td>
             </tr>
           ))}
         </tbody>

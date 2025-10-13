@@ -35,8 +35,8 @@
 
 
   select {
-      @extend .buttonBase;
-      padding: 12px 12px;
+  @extend .buttonBase;
+  padding: 12px 12px;
   background: #F0F0F0;
   border: none;
   color: #929292;
@@ -58,11 +58,11 @@
     border-bottom: 1px solid #ddd;
     background: white;
     font-weight: bold;
-    min-width: 140px;
+    min-width: 125px;
     vertical-align: middle;
 
   }
-      .numberCol {
+  .numberCol {
   width: 40px;
   min-width: 40px;
   text-align: center;

@@ -448,6 +448,7 @@ model SponsorMaterials {
   equipment              MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
   peopleForAccreditation MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
   insertedIntoApp        MaterialsCheckboxState @default(NOT_SUBMITTED_YET)
+  createdOn              DateTime               @default(now()) @db.Date
   potentialSponsor       PotentialSponsor?      @relation(fields: [sponsorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
