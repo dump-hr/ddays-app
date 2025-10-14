@@ -1,10 +1,11 @@
-import { FormComponent } from '../../types/form';
-import { Input } from '../../components/Input';
 import { useState } from 'react';
-import { Button } from '../../components/Button';
-import { useCompanyUpdateAccreditation } from '../../api/company/useCompanyUpdateAccreditation';
-import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import toast from 'react-hot-toast';
+
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useCompanyUpdateAccreditation } from '../../api/company/useCompanyUpdateAccreditation';
+import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
+import { FormComponent } from '../../types/form';
 import c from './Accreditation.module.scss';
 
 const isPersonNameValid = (person: string) => {
