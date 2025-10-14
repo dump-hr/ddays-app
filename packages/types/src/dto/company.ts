@@ -1,10 +1,14 @@
 import {
+  ArrayMaxSize,
   IsArray,
   IsEnum,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
   IsUrl,
+  Length,
+  Max,
   ValidateIf,
 } from 'class-validator';
 import { CompanyCategory } from '../enum';
@@ -72,10 +76,12 @@ export class CompanyModifyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
 
-  @IsString() // TODO: add is not empty
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @IsString() // TODO: add is not empty
+  @IsString()
+  @IsNotEmpty()
   username: string;
 
   @IsOptional()

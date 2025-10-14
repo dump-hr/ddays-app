@@ -336,6 +336,20 @@ export class CompanyService {
     return updatedCompany;
   }
 
+  async updateAccreditation(
+    companyId: number,
+    data: string[],
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        peopleForAccreditation: data,
+      },
+    });
+
+    return updatedCompany;
+  }
+
   async updateLandingImage(
     id: number,
     file: Express.Multer.File,
