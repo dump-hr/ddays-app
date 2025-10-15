@@ -14,8 +14,7 @@ const isPersonNameValid = (person: string) => {
     return false;
   }
 
-  const words = person.split(/\s+/);
-  if (words.length < 2) {
+  if (person.split(/\s+/).length < 2) {
     toast.error('Molimo vas unesite ime i prezime osobe');
     return false;
   }
