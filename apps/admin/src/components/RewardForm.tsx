@@ -52,7 +52,7 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
   });
 
   const handleImageUpload = async (files: File[]) => {
-    if (!id) return; // only upload after reward exists
+    if (!id) return;
     await updateImage.mutateAsync({ id, file: files[0] });
   };
 
@@ -71,7 +71,6 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
         <InputHandler question={q} form={form} key={q.id} />
       ))}
 
-      {/* ✅ File Upload inside the form */}
       {id && (
         <>
           <p>Slika:</p>
@@ -85,13 +84,10 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
 
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          let rewardId = id;
-
           if (id) {
             await updateReward.mutateAsync({ ...formData, id });
           } else {
-            const created = await createReward.mutateAsync(formData);
-            rewardId = created.id;
+            await createReward.mutateAsync(formData);
           }
 
           onSuccess();
