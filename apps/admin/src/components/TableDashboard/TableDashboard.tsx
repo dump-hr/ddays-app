@@ -5,6 +5,7 @@ import { TableActions } from './TableActions';
 import { Table } from './Table';
 import { DataRow, Direction } from '../../types/table';
 import toast from 'react-hot-toast';
+import { exportToCSV } from '../../helpers/exportToCsv';
 
 type TableDashboardProps = {
   data: DataRow[];
@@ -143,6 +144,9 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         }
         onDelete={
           onDelete ? () => selected.length > 0 && onDelete(selected) : undefined
+        }
+        onExport={() =>
+          exportToCSV(sortedData, `${dataType || 'table'}-export.csv`)
         }
       />
 

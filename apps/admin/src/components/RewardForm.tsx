@@ -14,7 +14,6 @@ import { FileUpload } from '../components/FileUpload';
 import { Question, QuestionType } from '../types/question';
 
 import c from './Form.module.scss';
-import { useState } from 'react';
 
 type RewardFormProps = {
   id?: number;
@@ -28,8 +27,6 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
   const updateReward = useRewardUpdate();
   const updateImage = useRewardUpdateImage();
   const removeImage = useRewardRemoveImage();
-
-  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const questions: Question[] = [
     {
@@ -48,24 +45,20 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
 
   const form = useForm<RewardModifyDto>({
     resolver: classValidatorResolver(RewardModifyDto),
+    defaultValues: {
+      name: reward?.name ?? '',
+      description: reward?.description ?? '',
+    },
   });
 
   const handleImageUpload = async (files: File[]) => {
-    // If we're editing, upload right away
-    if (id && files[0]) {
-      await updateImage.mutateAsync({ id, file: files[0] });
-    } else {
-      // If we're creating, just store the file until reward is created
-      setImageFile(files[0]);
-    }
+    if (!id) return;
+    await updateImage.mutateAsync({ id, file: files[0] });
   };
 
   const handleImageRemove = async () => {
-    if (id) {
-      await removeImage.mutateAsync(id);
-    } else {
-      setImageFile(null);
-    }
+    if (!id) return;
+    await removeImage.mutateAsync(id);
   };
 
   if (id && isLoading) {
@@ -78,32 +71,23 @@ export const RewardForm: React.FC<RewardFormProps> = ({ id, onSuccess }) => {
         <InputHandler question={q} form={form} key={q.id} />
       ))}
 
-      <p>Slika:</p>
-      <FileUpload
-        src={
-          id
-            ? reward?.imageUrl
-            : imageFile
-              ? URL.createObjectURL(imageFile)
-              : undefined
-        }
-        handleUpload={handleImageUpload}
-        handleRemove={handleImageRemove}
-      />
+      {id && (
+        <>
+          <p>Slika:</p>
+          <FileUpload
+            src={reward?.imageUrl}
+            handleUpload={handleImageUpload}
+            handleRemove={handleImageRemove}
+          />
+        </>
+      )}
 
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          let rewardId = id;
-
           if (id) {
             await updateReward.mutateAsync({ ...formData, id });
           } else {
-            const created = await createReward.mutateAsync(formData);
-            rewardId = created.id;
-
-            if (imageFile) {
-              await updateImage.mutateAsync({ id: rewardId, file: imageFile });
-            }
+            await createReward.mutateAsync(formData);
           }
 
           onSuccess();

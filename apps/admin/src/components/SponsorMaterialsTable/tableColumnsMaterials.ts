@@ -19,4 +19,5 @@ export const tableColumns = [
   { label: 'Oprema', key: 'equipment', small: true },
   { label: 'Osobe za akr.', key: 'peopleForAccreditation', small: true },
   { label: 'Uneseni u app', key: 'insertedIntoApp', small: true },
+  { label: 'Datum pristanka', key: 'createdOn' },
 ];
