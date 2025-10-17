@@ -59,6 +59,7 @@ export type SponsorMaterialsDto = {
   equipment: `${MaterialsCheckboxState}`;
   peopleForAccreditation: `${MaterialsCheckboxState}`;
   insertedIntoApp: `${MaterialsCheckboxState}`;
+  createdOn: Date;
   potentialSponsor?: Partial<PotentialSponsorDto>;
 };
 
@@ -118,6 +119,9 @@ export class SponsorMaterialsModifyDto {
   @IsOptional()
   @IsEnum(MaterialsCheckboxState)
   insertedIntoApp: `${MaterialsCheckboxState}`;
+
+  @IsString()
+  createdOn: Date;
 }
 
 export type SponsorContractDto = {
