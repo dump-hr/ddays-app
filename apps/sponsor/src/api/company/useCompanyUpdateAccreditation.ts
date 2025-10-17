@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const companyUpdateAccreditation = (listOfPeople: string[]) => {
-  return api.patch(`company/accreditation`, listOfPeople);
+  return api.patch('company/accreditation', listOfPeople);
 };
 
 export const useCompanyUpdateAccreditation = () => {

@@ -7,6 +7,7 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { FormComponent } from '../../types/form';
 import c from './Accreditation.module.scss';
+import clsx from 'clsx';
 
 const isPersonNameValid = (person: string) => {
   if (!person || person.length < 2 || person.length > 50 || /\d/.test(person)) {
@@ -44,9 +45,11 @@ export const Accreditation: FormComponent = () => {
   };
 
   return (
-    <section>
+    <section className={c.accreditationSection}>
       <h1>Akreditacije</h1>
-      <p>Dodajte osobe koje će prisustvovati na DUMP DAYS</p>
+      <p className={c.yMargin}>
+        Dodajte osobe koje će prisustvovati na DUMP DAYS
+      </p>
 
       <div>
         <Input
@@ -59,23 +62,24 @@ export const Accreditation: FormComponent = () => {
         </Button>
       </div>
 
-      <ul>
+      <ul className={c.personList}>
         {people.map((person) => (
           <li key={person} className={c.listItem}>
             <span className={c.yMargin}>{person}</span>
-            <Button
-              variant='secondary'
+            <button
               onClick={() => handleRemovePerson(person)}
-              className={c.removePersonButton}>
+              className={clsx(c.button, c.secondary)}>
               Ukloni
-            </Button>
+            </button>
           </li>
         ))}
       </ul>
 
-      <Button onClick={() => updateAccreditation(people)} className={c.yMargin}>
+      <button
+        onClick={() => updateAccreditation(people)}
+        className={clsx(c.button, c.primary, c.saveButton)}>
         Spremi
-      </Button>
+      </button>
     </section>
   );
 };
