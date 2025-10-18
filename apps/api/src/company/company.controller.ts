@@ -165,6 +165,16 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
+  @Patch('/accreditation')
+  async updateAccreditation(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: string[],
+  ) {
+    return await this.companyService.updateAccreditation(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Patch('/flytalk-holders')
   async updateFlyTalkHolders(
     @Req() { user }: AuthenticatedRequest,

@@ -1,12 +1,16 @@
 import {
+  ArrayMaxSize,
   IsArray,
   IsBoolean,
   IsEnum,
+  IsNotEmpty,
   IsJSON,
   IsNumber,
   IsOptional,
   IsString,
   IsUrl,
+  Length,
+  Max,
   ValidateIf,
 } from 'class-validator';
 import { CompanyCategory } from '../enum';
@@ -16,20 +20,30 @@ import { JobDto } from './job';
 
 export type CompanyPublicDto = {
   id: number;
-  category: `${CompanyCategory}`;
+  category?: `${CompanyCategory}`;
   name: string;
+  username: string;
   description?: string;
   opportunitiesDescription?: string;
   websiteUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
-  booth?: string;
-  boothId?: number;
   logoImage?: string;
   landingImage?: string;
   landingImageCompanyCulture?: string;
   bookOfStandards?: string;
   video?: string;
+  peopleForAccreditation?: string[];
+  swagBag?: string;
+  swagBagNumber?: number;
+  boothPlan?: string;
+  equipment?: string;
+  notes?: string[];
+  campfireParticipation: boolean;
+  campfireSpeakers?: string[];
+  codeId?: number;
+  booth?: string;
+  boothId?: number;
   interests?: InterestDto[];
   jobs?: JobDto[];
   averageRating?: number;
@@ -66,10 +80,12 @@ export class CompanyModifyDto {
   @IsEnum(CompanyCategory)
   category: CompanyCategory;
 
-  @IsString() // TODO: add is not empty
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @IsString() // TODO: add is not empty
+  @IsString()
+  @IsNotEmpty()
   username: string;
 
   @IsOptional()

@@ -43,10 +43,15 @@ export class CompanyService {
 
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     const companies = await this.prisma.company.findMany({
-      include: {
+      select: {
+        id: true,
+        name: true,
+        username: true,
         booth: {
           select: { name: true },
         },
+        password: false,
+        campfireParticipation: true,
       },
       orderBy: { name: 'asc' },
     });
@@ -364,6 +369,20 @@ export class CompanyService {
     };
   }
 
+  async updateAccreditation(
+    companyId: number,
+    data: string[],
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        peopleForAccreditation: data,
+      },
+    });
+
+    return updatedCompany;
+  }
+
   async updateLandingImage(
     id: number,
     file: Express.Multer.File,
@@ -575,6 +594,7 @@ export class CompanyService {
       id: company.id,
       category: null,
       name: company.name,
+      username: company.username,
       description: null,
       opportunitiesDescription: null,
       websiteUrl: null,
@@ -594,6 +614,7 @@ export class CompanyService {
       })),
       jobs: null,
       averageRating: null,
+      campfireParticipation: company.campfireParticipation,
     }));
   }
 }

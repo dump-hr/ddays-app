@@ -33,6 +33,7 @@ export const events: EventWithSpeakerDto[] = [
           id: 1,
           category: CompanyCategory.GOLD,
           name: 'Tech Co.',
+          username: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
@@ -64,6 +65,7 @@ export const events: EventWithSpeakerDto[] = [
               companyId: 1,
             },
           ],
+          campfireParticipation: false,
         },
       },
     ],
@@ -95,6 +97,7 @@ export const events: EventWithSpeakerDto[] = [
           id: 1,
           category: CompanyCategory.GOLD,
           name: 'Tech Co.',
+          username: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
@@ -126,6 +129,7 @@ export const events: EventWithSpeakerDto[] = [
               companyId: 1,
             },
           ],
+          campfireParticipation: false,
         },
       },
     ],
@@ -157,6 +161,7 @@ export const events: EventWithSpeakerDto[] = [
           id: 1,
           category: CompanyCategory.GOLD,
           name: 'Tech Co.',
+          username: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
@@ -188,6 +193,7 @@ export const events: EventWithSpeakerDto[] = [
               companyId: 1,
             },
           ],
+          campfireParticipation: false,
         },
       },
     ],
@@ -219,6 +225,7 @@ export const events: EventWithSpeakerDto[] = [
           id: 1,
           category: CompanyCategory.GOLD,
           name: 'Tech Co.',
+          username: 'Tech Co.',
           description:
             'A leading tech company specializing in web development.',
           opportunitiesDescription: 'We offer great growth opportunities.',
@@ -250,6 +257,7 @@ export const events: EventWithSpeakerDto[] = [
               companyId: 1,
             },
           ],
+          campfireParticipation: false,
         },
       },
     ],
