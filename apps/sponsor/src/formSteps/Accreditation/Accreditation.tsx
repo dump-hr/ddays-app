@@ -1,14 +1,14 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateAccreditation } from '../../api/company/useCompanyUpdateAccreditation';
+import { useCreateUser } from '../../api/user/useCreateUser';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { FormComponent } from '../../types/form';
 import c from './Accreditation.module.scss';
-import clsx from 'clsx';
-import { useCreateUser } from '../../api/user/useCreateUser';
 
 const isPersonNameValid = (person: string) => {
   if (!person || person.length < 2 || person.length > 50 || /\d/.test(person)) {

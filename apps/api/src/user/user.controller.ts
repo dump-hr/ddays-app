@@ -16,11 +16,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { UserModifyDto } from './user.dto';
 import { UserService } from './user.service';
-import { SponsorGuard } from 'src/auth/sponsor.guard';
 
 @Controller('user')
 export class UserController {
