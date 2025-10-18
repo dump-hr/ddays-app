@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useCompanyUpdateAccreditation } from '../../api/company/useCompanyUpdateAccreditation';
 import { useCreateUser } from '../../api/user/useCreateUser';
-import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { FormComponent } from '../../types/form';
 import c from './Accreditation.module.scss';
@@ -24,7 +23,7 @@ const isPersonNameValid = (person: string) => {
   return true;
 };
 
-export const Accreditation: FormComponent = () => {
+export const Accreditation: FormComponent = ({ close }) => {
   const [personName, setPersonName] = useState<string>('');
 
   const { data: companyData } = useCompanyGetCurrentPublic();
@@ -62,9 +61,9 @@ export const Accreditation: FormComponent = () => {
         if (!firstName || !lastName) return;
 
         await createUser({ firstName, lastName });
-      });
 
-      toast.success('Akreditacije su uspješno spremljene!');
+        close();
+      });
     } catch (error) {
       toast.error('Došlo je do greške pri spremanju akreditacija.');
       console.error(error);
@@ -74,7 +73,7 @@ export const Accreditation: FormComponent = () => {
   return (
     <section className={c.accreditationSection}>
       <h1>Akreditacije</h1>
-      <p className={c.yMargin}>
+      <p className={clsx(c.yMargin, c.description)}>
         Dodajte osobe koje će prisustvovati na DUMP DAYS
       </p>
 
@@ -85,9 +84,11 @@ export const Accreditation: FormComponent = () => {
           onChange={(value) => setPersonName(value)}
         />
 
-        <Button onClick={handleAddPerson} className={c.yMargin}>
+        <button
+          onClick={handleAddPerson}
+          className={clsx(c.yMargin, c.button, c.secondary, c.add)}>
           Dodaj osobu
-        </Button>
+        </button>
       </div>
 
       <ul className={c.personList}>
@@ -96,7 +97,7 @@ export const Accreditation: FormComponent = () => {
             <span className={c.yMargin}>{person}</span>
             <button
               onClick={() => handleRemovePerson(person)}
-              className={clsx(c.button, c.secondary)}>
+              className={clsx(c.button, c.secondary, c.remove)}>
               Ukloni
             </button>
           </li>

@@ -12,11 +12,11 @@ const createUser = (data: UserCreateForAccreditationDto) => {
 };
 
 export const useCreateUser = () => {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation(createUser, {
     onSuccess: () => {
-      queryClinet.invalidateQueries(['users']);
+      queryClient.invalidateQueries(['users']);
       toast.success('Korisnik uspješno dodan');
     },
     onError: () => {
