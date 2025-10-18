@@ -20,6 +20,7 @@ import { UserGuard } from 'src/auth/user.guard';
 
 import { UserModifyDto } from './user.dto';
 import { UserService } from './user.service';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 
 @Controller('user')
 export class UserController {
@@ -87,6 +88,14 @@ export class UserController {
   @UseGuards(AdminGuard)
   @Post()
   async createUserForAccreditation(
+    @Body() dto: UserCreateForAccreditationDto,
+  ): Promise<Partial<UserPublicDto>> {
+    return await this.userService.createUserForAccreditation(dto);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Post('company-employee')
+  async createCompanyEmployeeForAccreditation(
     @Body() dto: UserCreateForAccreditationDto,
   ): Promise<Partial<UserPublicDto>> {
     return await this.userService.createUserForAccreditation(dto);

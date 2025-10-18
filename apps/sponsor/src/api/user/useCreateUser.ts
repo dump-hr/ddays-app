@@ -5,7 +5,10 @@ import { useMutation, useQueryClient } from 'react-query';
 import { api } from '..';
 
 const createUser = (data: UserCreateForAccreditationDto) => {
-  return api.post<never, UserCreateForAccreditationDto>('/user', data);
+  return api.post<never, UserCreateForAccreditationDto>(
+    '/user/company-employee',
+    data,
+  );
 };
 
 export const useCreateUser = () => {
