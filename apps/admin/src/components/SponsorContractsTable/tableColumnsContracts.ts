@@ -4,9 +4,9 @@ export const tableColumns = [
   { label: '#', key: 'number', className: c.numberCol },
   { label: 'Firma', key: 'company' },
   { label: 'Predstavnik', key: 'representative' },
-  { label: 'Ime', key: 'name' },
-  { label: 'Adresa', key: 'address' },
-  { label: 'OIB', key: 'oib' },
+  { label: 'Ime firme d.o.o', key: 'name' },
+  { label: 'Adresa firme', key: 'address' },
+  { label: 'OIB firme', key: 'oib' },
   { label: 'Predstavnik firme', key: 'companyRepresentative' },
   {
     label: 'Poz. predstavnika',
