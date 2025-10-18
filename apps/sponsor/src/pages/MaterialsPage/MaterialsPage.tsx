@@ -64,6 +64,7 @@ export const MaterialsPage: React.FC = () => {
     [FormSteps.Videos]: !!company?.video,
     [FormSteps.Jobs]: !!jobs?.length,
     [FormSteps.Interests]: !!company?.interests?.length,
+    [FormSteps.Flytalk]: !!company?.flytalkParticipation,
     //[FormSteps.SwagBag]: false,
   };
 

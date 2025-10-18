@@ -1,6 +1,7 @@
 import { CompanyCategory } from '@ddays-app/types';
 
 import { Description } from '../formSteps/Description';
+import { FlyTalks } from '../formSteps/Flytalks';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
 import { LogoUpload } from '../formSteps/LogoUpload';
@@ -56,6 +57,11 @@ export const sponsorForm: SponsorForm = {
     title: 'App Career matching',
     description: 'Predaja do 1. travnja 2025.',
     component: InterestPicker,
+  },
+  [FormSteps.Flytalk]: {
+    title: 'Fly Talks',
+    description: 'Predaja do 1. travnja 2025.',
+    component: FlyTalks,
   },
 };
 

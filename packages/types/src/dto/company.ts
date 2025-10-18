@@ -1,6 +1,8 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
+  IsJSON,
   IsNumber,
   IsOptional,
   IsString,
@@ -31,6 +33,8 @@ export type CompanyPublicDto = {
   interests?: InterestDto[];
   jobs?: JobDto[];
   averageRating?: number;
+  flytalkParticipation?: boolean;
+  flytalkHolders?: JSON;
 };
 
 export type CompanyDto = {
@@ -101,6 +105,15 @@ export class CompanyModifyDto {
   @IsArray()
   @IsNumber({}, { each: true })
   interestIds: number[];
+}
+
+export class CompanyModifyFlyTalkHoldersDto {
+  @IsBoolean()
+  flytalkParticipation: boolean;
+
+  @IsJSON()
+  @IsOptional()
+  flytalkHolders: JSON;
 }
 
 export class CompanyModifyDescriptionDto {

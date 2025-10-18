@@ -2,6 +2,7 @@ import {
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
+  CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
 } from '@ddays-app/types';
@@ -160,6 +161,16 @@ export class CompanyController {
     @Body() data: CompanyModifyDescriptionDto,
   ) {
     return await this.companyService.updateDescription(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Patch('/flytalk-holders')
+  async updateFlyTalkHolders(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: CompanyModifyFlyTalkHoldersDto,
+  ) {
+    return await this.companyService.updateFlyTalkHolders(user.id, data);
   }
 
   @UseGuards(SponsorGuard)
