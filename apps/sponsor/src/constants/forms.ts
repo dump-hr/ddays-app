@@ -1,5 +1,6 @@
 import { CompanyCategory } from '@ddays-app/types';
 
+import { Accreditation } from '../formSteps/Accreditation';
 import { Description } from '../formSteps/Description';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
@@ -56,6 +57,11 @@ export const sponsorForm: SponsorForm = {
     title: 'App Career matching',
     description: 'Predaja do 1. travnja 2025.',
     component: InterestPicker,
+  },
+  [FormSteps.Accreditation]: {
+    title: 'Akreditacije',
+    description: 'Predaja do 1.travnja 2025.',
+    component: Accreditation,
   },
 };
 

@@ -16,6 +16,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/auth/admin.guard';
+import { SponsorGuard } from 'src/auth/sponsor.guard';
 import { UserGuard } from 'src/auth/user.guard';
 
 import { UserModifyDto } from './user.dto';
@@ -87,6 +88,14 @@ export class UserController {
   @UseGuards(AdminGuard)
   @Post()
   async createUserForAccreditation(
+    @Body() dto: UserCreateForAccreditationDto,
+  ): Promise<Partial<UserPublicDto>> {
+    return await this.userService.createUserForAccreditation(dto);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Post('company-employee')
+  async createCompanyEmployeeForAccreditation(
     @Body() dto: UserCreateForAccreditationDto,
   ): Promise<Partial<UserPublicDto>> {
     return await this.userService.createUserForAccreditation(dto);

@@ -51,10 +51,12 @@ export class SpeakerService {
           select: {
             id: true,
             name: true,
+            username: true,
             category: true,
             websiteUrl: true,
             instagramUrl: true,
             linkedinUrl: true,
+            campfireParticipation: true,
           },
         },
       },
