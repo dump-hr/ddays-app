@@ -41,10 +41,15 @@ export class CompanyService {
 
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     const companies = await this.prisma.company.findMany({
-      include: {
+      select: {
+        id: true,
+        name: true,
+        username: true,
         booth: {
           select: { name: true },
         },
+        password: false,
+        campfireParticipation: true,
       },
       orderBy: { name: 'asc' },
     });
