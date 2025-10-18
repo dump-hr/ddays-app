@@ -1,4 +1,5 @@
 import {
+  CompanyAdminDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -46,6 +47,12 @@ export class CompanyController {
   @Get()
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('all-for-admin')
+  async getAllForAdmin(): Promise<CompanyAdminDto[]> {
+    return await this.companyService.getAllForAdmin();
   }
 
   @UseGuards(UserGuard)

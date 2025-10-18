@@ -1,11 +1,11 @@
 import { TableDashboard } from '../../components/TableDashboard';
-import { useCompanyGetAllPublic } from '../../api/company/useCompanyGetAllPublic';
 import { CompanyForm } from '../../forms/CompanyForm';
 import { useCompanyRemove } from '../../api/company/useCompanyRemove';
 import toast from 'react-hot-toast';
+import { useCompanyGetAllAdmin } from '../../api/company/useCompanyGetAllAdmin';
 
 export const CompanyPage = () => {
-  const { data: companies, refetch } = useCompanyGetAllPublic();
+  const { data: companies, refetch } = useCompanyGetAllAdmin();
   const removeCompany = useCompanyRemove();
 
   const handleDelete = async (ids: number[]) => {

@@ -1,4 +1,5 @@
 import {
+  CompanyAdminDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -59,6 +60,42 @@ export class CompanyService {
     return companies.map((company) => ({
       ...company,
       booth: company.booth?.name || null,
+    }));
+  }
+
+  async getAllForAdmin(): Promise<CompanyAdminDto[]> {
+    const companies = await this.prisma.company.findMany({
+      select: {
+        id: true,
+        category: true,
+        name: true,
+        username: true,
+        password: true,
+        description: true,
+        opportunitiesDescription: true,
+        websiteUrl: true,
+        instagramUrl: true,
+        linkedinUrl: true,
+        logoImage: true,
+        landingImage: true,
+        landingImageCompanyCulture: true,
+        bookOfStandards: true,
+        video: true,
+        peopleForAccreditation: true,
+        swagBag: true,
+        swagBagNumber: true,
+        boothPlan: true,
+        equipment: true,
+        notes: true,
+        codeId: true,
+        flytalkParticipation: true,
+        flytalkHolders: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+
+    return companies.map((company) => ({
+      ...company,
       flytalkHolders: (company.flytalkHolders as unknown as JSON) || null,
     }));
   }
@@ -380,7 +417,11 @@ export class CompanyService {
       },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateLandingImage(

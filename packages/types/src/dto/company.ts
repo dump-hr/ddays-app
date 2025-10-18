@@ -51,6 +51,34 @@ export type CompanyPublicDto = {
   flytalkHolders?: JSON;
 };
 
+export type CompanyAdminDto = {
+  id: number;
+  category?: `${CompanyCategory}`;
+  name: string;
+  username: string;
+  password: string;
+  description?: string;
+  opportunitiesDescription?: string;
+  websiteUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  logoImage?: string;
+  landingImage?: string;
+  landingImageCompanyCulture?: string;
+  bookOfStandards?: string;
+  video?: string;
+  peopleForAccreditation?: string[];
+  swagBag?: string;
+  swagBagNumber?: number;
+  boothPlan?: string;
+  equipment?: string;
+  notes?: string[];
+  codeId?: number;
+  booth?: string;
+  flytalkParticipation?: boolean;
+  flytalkHolders?: JSON;
+};
+
 export type CompanyDto = {
   id: number;
   category: `${CompanyCategory}`;
