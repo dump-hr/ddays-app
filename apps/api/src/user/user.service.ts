@@ -42,7 +42,9 @@ export class UserService {
           AchievementNames.WhatsNew,
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error('Error completing achievement:', error);
+    }
 
     return this.prisma.user.update({
       where: { id: userId },

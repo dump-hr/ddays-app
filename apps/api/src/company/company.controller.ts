@@ -97,6 +97,8 @@ export class CompanyController {
       selected: boolean;
       companyId: number;
     },
+    //TODO: Replace any with proper type
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     return await this.companyService.selectApplicant(
       body.user,

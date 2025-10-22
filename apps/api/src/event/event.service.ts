@@ -603,6 +603,37 @@ export class EventService {
     }));
   }
 
+  async getAllFlyTalks(): Promise<EventDto[]> {
+    const flyTalks = await this.prisma.event.findMany({
+      where: {
+        type: EventType.FLY_TALK,
+      },
+    });
+
+    return flyTalks;
+  }
+
+  async updateFlyTalkApplicationStatus(eventId: number): Promise<EventDto> {
+    const event = await this.prisma.event.findUnique({
+      where: { id: eventId },
+    });
+
+    console.log(`Updating application status for event ID: ${eventId}`);
+
+    if (!event) {
+      throw new NotFoundException(`Event with id ${eventId} not found`);
+    }
+
+    const updatedEvent = await this.prisma.event.update({
+      where: { id: eventId },
+      data: {
+        isApplicationOpen: false,
+      },
+    });
+
+    return updatedEvent;
+  }
+
   async getApplicationStatus(
     userId: number,
     flyTalkId: number,
