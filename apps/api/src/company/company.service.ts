@@ -1,12 +1,15 @@
 import {
+  CompanyAdminDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
+  CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 import { BlobService } from 'src/blob/blob.service';
 import { InterestService } from 'src/interest/interest.service';
 import { PrismaService } from 'src/prisma.service';
@@ -60,6 +63,43 @@ export class CompanyService {
     }));
   }
 
+  async getAllForAdmin(): Promise<CompanyAdminDto[]> {
+    const companies = await this.prisma.company.findMany({
+      select: {
+        id: true,
+        category: true,
+        name: true,
+        username: true,
+        password: true,
+        description: true,
+        opportunitiesDescription: true,
+        websiteUrl: true,
+        instagramUrl: true,
+        linkedinUrl: true,
+        logoImage: true,
+        landingImage: true,
+        landingImageCompanyCulture: true,
+        bookOfStandards: true,
+        video: true,
+        peopleForAccreditation: true,
+        swagBag: true,
+        swagBagNumber: true,
+        boothPlan: true,
+        equipment: true,
+        notes: true,
+        codeId: true,
+        flytalkParticipation: true,
+        flytalkHolders: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+
+    return companies.map((company) => ({
+      ...company,
+      flytalkHolders: (company.flytalkHolders as unknown as JSON) || null,
+    }));
+  }
+
   async getTopRatedCompanies(): Promise<CompanyPublicDto[]> {
     const companies = await this.prisma.company.findMany({
       where: {
@@ -104,6 +144,7 @@ export class CompanyService {
 
     return topRated.map(({ ...company }) => ({
       ...company,
+      flytalkHolders: (company.flytalkHolders as unknown as JSON) || null,
     }));
   }
 
@@ -139,6 +180,7 @@ export class CompanyService {
       ...foundCompany,
       booth: foundCompany.booth?.name || null,
       boothId: foundCompany.booth?.id || null,
+      flytalkHolders: (foundCompany.flytalkHolders as unknown as JSON) || null,
       interests,
     };
   }
@@ -338,7 +380,30 @@ export class CompanyService {
       },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
+  }
+
+  async updateFlyTalkHolders(
+    companyId: number,
+    data: CompanyModifyFlyTalkHoldersDto,
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        flytalkParticipation: data.flytalkParticipation,
+        flytalkHolders: data.flytalkHolders as unknown as InputJsonValue,
+      },
+    });
+
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateAccreditation(
@@ -352,7 +417,11 @@ export class CompanyService {
       },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateLandingImage(
@@ -370,7 +439,11 @@ export class CompanyService {
       data: { landingImage },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateLandingImageCompanyCulture(
@@ -388,7 +461,11 @@ export class CompanyService {
       data: { landingImageCompanyCulture },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateBookOfStandards(
@@ -406,7 +483,11 @@ export class CompanyService {
       data: { bookOfStandards },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateLogoImage(
@@ -424,7 +505,11 @@ export class CompanyService {
       data: { logoImage },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateVideo(
@@ -442,7 +527,11 @@ export class CompanyService {
       data: { video },
     });
 
-    return updatedCompany;
+    return {
+      ...updatedCompany,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async getFloorPlan(): Promise<FloorPlanCompanyDto[]> {

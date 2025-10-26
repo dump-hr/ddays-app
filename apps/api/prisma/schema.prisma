@@ -97,6 +97,8 @@ model Company {
   notes                      String[]
   campfireParticipation      Boolean                @default(false)
   campfireSpeakers           String[]
+  flytalkParticipation       Boolean                @default(false)
+  flytalkHolders             Json?
   codeId                     Int?
   booth                      Booth?
   code                       Code?                  @relation(fields: [codeId], references: [id], onDelete: NoAction, onUpdate: NoAction)

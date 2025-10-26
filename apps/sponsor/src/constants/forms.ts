@@ -2,6 +2,7 @@ import { CompanyCategory } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
 import { Description } from '../formSteps/Description';
+import { FlyTalks } from '../formSteps/Flytalks';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
 import { LogoUpload } from '../formSteps/LogoUpload';
@@ -62,6 +63,11 @@ export const sponsorForm: SponsorForm = {
     title: 'Akreditacije',
     description: 'Predaja do 1.travnja 2025.',
     component: Accreditation,
+  },
+  [FormSteps.Flytalk]: {
+    title: 'Fly Talks',
+    description: 'Predaja do 1. travnja 2025.',
+    component: FlyTalks,
   },
 };
 

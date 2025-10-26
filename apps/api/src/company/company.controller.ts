@@ -1,7 +1,9 @@
 import {
+  CompanyAdminDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
+  CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
 } from '@ddays-app/types';
@@ -45,6 +47,12 @@ export class CompanyController {
   @Get()
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('all-for-admin')
+  async getAllForAdmin(): Promise<CompanyAdminDto[]> {
+    return await this.companyService.getAllForAdmin();
   }
 
   @UseGuards(UserGuard)
@@ -170,6 +178,16 @@ export class CompanyController {
     @Body() data: string[],
   ) {
     return await this.companyService.updateAccreditation(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Patch('/flytalk-holders')
+  async updateFlyTalkHolders(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: CompanyModifyFlyTalkHoldersDto,
+  ) {
+    return await this.companyService.updateFlyTalkHolders(user.id, data);
   }
 
   @UseGuards(SponsorGuard)
