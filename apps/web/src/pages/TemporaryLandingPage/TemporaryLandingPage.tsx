@@ -12,7 +12,7 @@ export const TemporaryLandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const RegisterButton = (
     <Button
-      onClick={() => (window.location.href = 'https://days.dump.hr/app/login')}>
+      onClick={() => (window.location.href = 'https://2025-days.dump.hr/app/login')}>
       Prijavi se
     </Button>
   );

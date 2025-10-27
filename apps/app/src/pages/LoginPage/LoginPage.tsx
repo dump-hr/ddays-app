@@ -69,14 +69,14 @@ export const LoginPage = () => {
       <div className={c.wrapper}>
         <div className={c.pageName}>
           <span className={c.pageTitle}>Prijava</span>
-          <a href='https://days.dump.hr'>
+          <a href='https://2025-days.dump.hr'>
             <img src={closeIcon} alt='Close login' className={c.closeIcon} />
           </a>
         </div>
         <div className={c.container}>
           <div className={c.titleContainer}>
             <h1 className={c.title}>Dobro došli!</h1>
-            <a href='https://days.dump.hr'>
+            <a href='https://2025-days.dump.hr'>
               <img src={closeIcon} alt='Close login' className={c.closeIcon} />
             </a>
           </div>
