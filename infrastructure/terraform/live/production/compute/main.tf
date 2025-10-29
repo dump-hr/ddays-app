@@ -48,7 +48,7 @@ module "web" {
   source = "../../../modules/ec2"
 
   name_prefix               = "ddays-app-production"
-  instance_type             = "t3a.nano"
+  instance_type             = "t3a.small"
   instance_count            = 1
   instance_root_device_size = 20
   subnets                   = data.aws_subnets.public_subnets.ids
