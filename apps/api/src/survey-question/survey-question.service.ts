@@ -43,6 +43,7 @@ export class SurveyQuestionService {
 
       return deletedSurveyQuestion;
     } catch (error) {
+      console.error(error);
       throw new NotFoundException('Survey question not found');
     }
   }
@@ -59,6 +60,7 @@ export class SurveyQuestionService {
 
       return updatedSurveyQuestion;
     } catch (error) {
+      console.error(error);
       throw new NotFoundException('Survey question not found');
     }
   }
