@@ -7,3 +7,5 @@ export * from './dto/event';
 
 export * from './dto/registration';
 export * from './dto/rating';
+
+export * from './constants';

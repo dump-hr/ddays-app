@@ -1,42 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as cron from 'node-cron';
+import { Cron } from '@nestjs/schedule';
 import { EventService } from './event.service';
+import { FLY_TALK_APPLICATION_STATUS_CRON } from '@ddays-app/types';
 
 @Injectable()
 export class EventScheduler {
-  private readonly logger = new Logger(EventScheduler.name);
+  constructor(private readonly eventService: EventService) {}
 
-  constructor(private readonly eventService: EventService) {
-    this.scheduleFlyTalkStatusUpdate(new Date('2025-10-22T18:46:00'));
-  }
+  @Cron(FLY_TALK_APPLICATION_STATUS_CRON, { timeZone: 'Europe/Zagreb' })
+  async handleFlyTalkStatusUpdate() {
+    console.log('Starting Fly Talk application status update job');
+    const flyTalkEvents = await this.eventService.getAllFlyTalks();
 
-  private scheduleFlyTalkStatusUpdate(scheduledDate: Date) {
-    const cronExpression = this.getCronExpression(scheduledDate);
-
-    cron.schedule(
-      cronExpression,
-      async () => {
-        const flyTalkEvents = await this.eventService.getAllFlyTalks();
-
-        for (const event of flyTalkEvents) {
-          try {
-            await this.eventService.updateFlyTalkApplicationStatus(event.id);
-          } catch (error) {
-            console.error(`Failed to update event ${event.id}`, error);
-          }
-        }
-      },
-      {
-        timezone: 'Europe/Zagreb',
-      },
-    );
-  }
-
-  private getCronExpression(date: Date) {
-    const minute = date.getMinutes();
-    const hour = date.getHours();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    return `${minute} ${hour} ${day} ${month} *`;
+    for (const event of flyTalkEvents) {
+      try {
+        await this.eventService.updateFlyTalkApplicationStatus(event.id);
+      } catch (error) {
+        console.log(`Failed to update event ${event.id}`, error);
+      }
+    }
   }
 }
