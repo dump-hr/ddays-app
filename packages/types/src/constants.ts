@@ -1,0 +1,1 @@
+export const FLY_TALK_APPLICATION_STATUS_CRON = '46 18 22 10 *';

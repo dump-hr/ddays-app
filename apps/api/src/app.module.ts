@@ -29,9 +29,11 @@ import { SponsorContractModule } from './sponsor-contract/sponsor-contract.modul
 import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     BlobModule,
     AuthModule,
     AchievementModule,

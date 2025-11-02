@@ -26,6 +26,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/platform-socket.io": "^10.3.8",
+    "@nestjs/schedule": "^6.0.1",
     "@nestjs/serve-static": "^4.0.0",
     "@nestjs/swagger": "^7.1.16",
     "@nestjs/websockets": "^10.3.8",
@@ -35,6 +36,7 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "0.13.2",
+    "cron": "^4.3.3",
     "dotenv": "^16.3.1",
     "google-auth-library": "^10.3.0",
     "http-proxy-middleware": "^2.0.6",
@@ -64,6 +66,7 @@
     "eslint-config-ddays": "*",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "jest": "^29.5.0",
     "prettier": "^3.0.0",
@@ -73,6 +76,7 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.2.0",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "typescript-eslint": "^8.46.2"
   }
 }

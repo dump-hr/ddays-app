@@ -3,7 +3,7 @@ import {
   SpeakerModifyDto,
   SpeakerWithCompanyDto,
 } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
@@ -38,7 +38,7 @@ export class SpeakerService {
     });
 
     if (!foundSpeaker) {
-      throw new Error('Speaker not found');
+      throw new NotFoundException('Speaker not found');
     }
 
     return foundSpeaker;
@@ -74,7 +74,7 @@ export class SpeakerService {
 
       return deletedSpeaker;
     } catch (error) {
-      throw new Error('Speaker not found');
+      throw new Error(error as string);
     }
   }
 
