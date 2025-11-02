@@ -6,44 +6,44 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-// import { RouteNames } from './routes';
-// import { CompaniesPage } from '../pages/CompaniesPage';
-// import { FlyTalksPage } from '../pages/FlyTalksPage';
-// import { LoginPage } from '../pages/LoginPage';
-// import { NotFoundPage } from '../pages/NotFoundPage';
-// import { PasswordResetPage } from '../pages/PasswordResetPage';
-// import { ProfilePage } from '../pages/ProfilePage';
-// import { SettingsPage } from '../pages/SettingsPage';
-// import { RegisterPage } from '../pages/RegisterPage';
-// import { SchedulePage } from '../pages/SchedulePage';
-// import { ShoppingPage } from '../pages/ShoppingPage';
-// import { NotificationsPage } from '../pages/NotificationsPage';
-// import { NavigationLayout } from '../layout';
-// import Home from '../pages/Home';
-// import TestPage from '../pages/TestPage/TestPage';
-// import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
-// import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
-// import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
-// import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
-// import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
-// import { AvatarsPage } from '@/pages/AvatarsPage';
-// import { RateCompanyPage } from '../pages/RateCompanyPage';
-// import { RateLecturePage } from '../pages/RateLecturePage';
-// import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
-// import { RewardsPage } from '@/pages/RewardsPage';
-// import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
-// import ScannerPage from '@/pages/ScannerPage/ScannerPage';
-// import { RegistrationLayout } from '@/layout/RegistrationLayout';
-// import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
-// import AccreditationScanPage from '@/pages/AccreditationScanPage';
-// import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
+import { RouteNames } from './routes';
+import { CompaniesPage } from '../pages/CompaniesPage';
+import { FlyTalksPage } from '../pages/FlyTalksPage';
+import { LoginPage } from '../pages/LoginPage';
+import { NotFoundPage } from '../pages/NotFoundPage';
+import { PasswordResetPage } from '../pages/PasswordResetPage';
+import { ProfilePage } from '../pages/ProfilePage';
+import { SettingsPage } from '../pages/SettingsPage';
+import { RegisterPage } from '../pages/RegisterPage';
+import { SchedulePage } from '../pages/SchedulePage';
+import { ShoppingPage } from '../pages/ShoppingPage';
+import { NotificationsPage } from '../pages/NotificationsPage';
+import { NavigationLayout } from '../layout';
+import Home from '../pages/Home';
+import TestPage from '../pages/TestPage/TestPage';
+import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
+import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
+import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
+import { TermsAndConditionsPage } from '../pages/TermsAndConditionsPage';
+import { ProfileAchievementsPage } from '@/pages/ProfileAchievementsPage';
+import { AvatarsPage } from '@/pages/AvatarsPage';
+import { RateCompanyPage } from '../pages/RateCompanyPage';
+import { RateLecturePage } from '../pages/RateLecturePage';
+import { ProfileLeaderboardPage } from '@/pages/ProfileLeaderboardPage';
+import { RewardsPage } from '@/pages/RewardsPage';
+import ProfileRecommendationsPage from '@/pages/ProfileRecommendationsPage';
+import ScannerPage from '@/pages/ScannerPage/ScannerPage';
+import { RegistrationLayout } from '@/layout/RegistrationLayout';
+import FloorPlanPage from '@/pages/FloorPlanPage/FloorPlanPage';
+import AccreditationScanPage from '@/pages/AccreditationScanPage';
+import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
 
-import ClosedAppPage from '@/pages/ClosedAppPage';
+// import ClosedAppPage from '@/pages/ClosedAppPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>
-      {/* <Route
+      <Route
         path={RouteNames.TERMS_AND_CONDITIONS}
         element={<TermsAndConditionsPage />}
       />
@@ -107,9 +107,9 @@ const router = createBrowserRouter(
       <Route path='/app/test' element={<TestPage />} />
       <Route path='*' element={<NotFoundPage />} />
 
-      <Route path={RouteNames.GOOGLE_CALLBACK} element={<GoogleCallback />} /> */}
+      <Route path={RouteNames.GOOGLE_CALLBACK} element={<GoogleCallback />} />
 
-      <Route path='*' element={<ClosedAppPage />} />
+      {/* <Route path='*' element={<ClosedAppPage />} /> */}
     </React.Fragment>,
   ),
 );

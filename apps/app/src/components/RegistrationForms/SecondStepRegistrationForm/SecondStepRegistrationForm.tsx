@@ -15,6 +15,7 @@ import { RegistrationStep } from '@/types/registration/registration.dto';
 import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
+import { InvitationCodeInput } from './InvitationCodeInput';
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
@@ -157,6 +158,8 @@ export const SecondStepRegistrationForm = ({
             errorMessage={errors[1]?.termsAndConditionsEnabled}
           />
         )}
+
+        <InvitationCodeInput />
       </div>
     </>
   );
