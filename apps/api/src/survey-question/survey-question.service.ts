@@ -43,8 +43,7 @@ export class SurveyQuestionService {
 
       return deletedSurveyQuestion;
     } catch (error) {
-      console.error(error);
-      throw new NotFoundException('Survey question not found');
+      throw new Error(error as string);
     }
   }
 
@@ -60,8 +59,7 @@ export class SurveyQuestionService {
 
       return updatedSurveyQuestion;
     } catch (error) {
-      console.error(error);
-      throw new NotFoundException('Survey question not found');
+      throw new Error(error as string);
     }
   }
 }
