@@ -3,8 +3,8 @@ import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
 import { EventController } from './event.controller';
-import { EventService } from './event.service';
 import { EventScheduler } from './event.scheduler';
+import { EventService } from './event.service';
 
 @Module({
   controllers: [EventController],

@@ -1,7 +1,8 @@
-import { Injectable} from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
-import { EventService } from './event.service';
 import { FLY_TALK_APPLICATION_STATUS_CRON } from '@ddays-app/types';
+import { Injectable } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
+
+import { EventService } from './event.service';
 
 @Injectable()
 export class EventScheduler {

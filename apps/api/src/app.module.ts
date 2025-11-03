@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -29,7 +30,6 @@ import { SponsorContractModule } from './sponsor-contract/sponsor-contract.modul
 import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
