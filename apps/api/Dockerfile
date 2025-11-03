@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 LABEL org.opencontainers.image.source https://github.com/dump-hr/ddays-app
 
 FROM base AS builder
