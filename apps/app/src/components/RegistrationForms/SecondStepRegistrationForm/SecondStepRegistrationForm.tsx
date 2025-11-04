@@ -16,6 +16,7 @@ import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 import { InvitationCodeInput } from './InvitationCodeInput';
+import { useGetInviteCodes } from '@/api/user/useGetInviteCodes';
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
@@ -30,6 +31,7 @@ export const SecondStepRegistrationForm = ({
   isGoogleAuth = false,
 }: Props) => {
   const { errors, clearStepErrors, setStepErrors } = useRegistration();
+  const { data: inviteCodes } = useGetInviteCodes();
 
   const secondStepFields: (keyof Partial<RegistrationDto>)[] = [
     UserDataFields.PhoneNumber,
@@ -40,6 +42,11 @@ export const SecondStepRegistrationForm = ({
     UserDataFields.CompaniesNewsEnabled,
     UserDataFields.TermsAndConditionsEnabled,
   ];
+
+  useEffect(() => {
+    console.log('Current invite code:', userData.inviteCode);
+    console.log('Available invite codes:', inviteCodes);
+  }, [userData.inviteCode, inviteCodes]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,7 +79,17 @@ export const SecondStepRegistrationForm = ({
       newErrors[key] = error || '';
     });
 
+    if (userData.inviteCode && !inviteCodes?.includes(userData.inviteCode)) {
+      newErrors['inviteCode'] = 'Neispravan kod.';
+      console.log('Invalid invite code:', userData.inviteCode);
+      return;
+    } else {
+      newErrors['inviteCode'] = '';
+      console.log('Valid invite code:', userData.inviteCode);
+    }
+
     if (Object.keys(newErrors).length > 0) {
+      console.log('Validation errors found:', newErrors);
       setStepErrors(RegistrationStep.TWO, newErrors);
     } else {
       clearStepErrors(RegistrationStep.TWO);
@@ -159,7 +176,7 @@ export const SecondStepRegistrationForm = ({
           />
         )}
 
-        <InvitationCodeInput />
+        <InvitationCodeInput onChange={handleInputChange} />
       </div>
     </>
   );

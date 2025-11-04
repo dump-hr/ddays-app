@@ -160,9 +160,9 @@ export class AuthService {
       })),
     });
 
-    if (!isFromGoogleAuth) {
-      await this.emailService.sendEmailConfirmation(newUser.email);
-    }
+    // if (!isFromGoogleAuth) {
+    //   // await this.emailService.sendEmailConfirmation(newUser.email);
+    // }
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,
@@ -325,6 +325,6 @@ export class AuthService {
   }
 
   generateInviteCode(): string {
-    return randomBytes(6).toString('hex').toUpperCase();
+    return randomBytes(3).toString('hex').toUpperCase();
   }
 }
