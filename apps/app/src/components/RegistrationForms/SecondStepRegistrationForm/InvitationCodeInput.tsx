@@ -1,9 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import './InvitationCodeInput.scss';
 
 const CODE_LENGTH = 6;
 
-export const InvitationCodeInput = () => {
+export const InvitationCodeInput = ({
+  onChange,
+}: {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}) => {
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(''));
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -17,6 +21,15 @@ export const InvitationCodeInput = () => {
 
     if (value && index < CODE_LENGTH - 1) {
       inputsRef.current[index + 1]?.focus();
+    }
+
+    if (
+      newCode.length === CODE_LENGTH &&
+      newCode.every((char) => char !== '')
+    ) {
+      onChange({
+        target: { name: 'inviteCode', value: newCode.join('') },
+      } as ChangeEvent<HTMLInputElement>);
     }
   };
 

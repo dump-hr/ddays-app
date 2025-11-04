@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './sponsor.strategy';
 import { UserGuard } from './user.guard';
 import { UserJwtStrategy } from './user.strategy';
+import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { UserJwtStrategy } from './user.strategy';
     PrismaService,
     UserGuard,
     AchievementService,
+    UserService,
   ],
   exports: [AuthService, UserGuard],
 })

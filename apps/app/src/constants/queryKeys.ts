@@ -30,4 +30,5 @@ export const QUERY_KEYS = {
   codeCompanyId: 'codeCompanyId',
   codeEventId: 'codeEventId',
   flyTalkApplicationStatus: 'flyTalkApplicationStatus',
+  inviteCodes: 'inviteCodes',
 };
