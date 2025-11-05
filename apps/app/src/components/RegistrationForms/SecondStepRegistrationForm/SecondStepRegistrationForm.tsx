@@ -15,7 +15,7 @@ import { RegistrationStep } from '@/types/registration/registration.dto';
 import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
-import { InvitationCodeInput } from './InvitationCodeInput';
+import { InvitationCodeInput } from './InvitationCodeInput/InvitationCodeInput';
 import { useGetInviteCodes } from '@/api/user/useGetInviteCodes';
 type Props = {
   userData: Partial<RegistrationDto>;
@@ -41,12 +41,8 @@ export const SecondStepRegistrationForm = ({
     UserDataFields.NewsletterEnabled,
     UserDataFields.CompaniesNewsEnabled,
     UserDataFields.TermsAndConditionsEnabled,
+    UserDataFields.InviteCode,
   ];
-
-  useEffect(() => {
-    console.log('Current invite code:', userData.inviteCode);
-    console.log('Available invite codes:', inviteCodes);
-  }, [userData.inviteCode, inviteCodes]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -76,20 +72,20 @@ export const SecondStepRegistrationForm = ({
 
     secondStepFields.forEach((key) => {
       const error = validateField(key, userData[key]);
-      newErrors[key] = error || '';
+      (newErrors as any)[key] = error;
     });
 
     if (userData.inviteCode && !inviteCodes?.includes(userData.inviteCode)) {
-      newErrors['inviteCode'] = 'Neispravan kod.';
-      console.log('Invalid invite code:', userData.inviteCode);
-      return;
+      newErrors[UserDataFields.InviteCode] = 'Neispravan kod.';
+    } else if (userData.inviteCode) {
+      newErrors[UserDataFields.InviteCode] = undefined;
+      userData.isInvited = true;
     } else {
-      newErrors['inviteCode'] = '';
-      console.log('Valid invite code:', userData.inviteCode);
+      userData.isInvited = false;
+      newErrors[UserDataFields.InviteCode] = undefined;
     }
 
     if (Object.keys(newErrors).length > 0) {
-      console.log('Validation errors found:', newErrors);
       setStepErrors(RegistrationStep.TWO, newErrors);
     } else {
       clearStepErrors(RegistrationStep.TWO);
@@ -176,7 +172,10 @@ export const SecondStepRegistrationForm = ({
           />
         )}
 
-        <InvitationCodeInput onChange={handleInputChange} />
+        <InvitationCodeInput
+          onChange={handleInputChange}
+          error={errors[2]?.inviteCode}
+        />
       </div>
     </>
   );

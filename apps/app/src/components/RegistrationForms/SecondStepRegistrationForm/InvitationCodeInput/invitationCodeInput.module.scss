@@ -1,4 +1,4 @@
-.invitation-code {
+.invitationCode {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,14 +14,14 @@
     width: 100%;
   }
 
-  .code-inputs {
+  .codeInputs {
     display: flex;
     gap: 0.75rem;
     justify-content: space-evenly;
     width: 100%;
   }
 
-  .code-input-wrapper {
+  .codeInputWrapper {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -34,7 +34,7 @@
     color: $black-50;
   }
 
-  .code-box {
+  .codeBox {
     width: 3rem;
     height: 3rem;
     text-align: center;
@@ -53,5 +53,11 @@
     &:not(:focus):hover {
       border-color: $black-50;
     }
+  }
+
+  .errorText {
+    @include paragraph-14;
+    color: $error-light;
+    transition: gap 0.3s ease-in;
   }
 }

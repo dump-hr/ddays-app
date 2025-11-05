@@ -1,12 +1,14 @@
 import { useState, useRef, ChangeEvent } from 'react';
-import './InvitationCodeInput.scss';
+import c from './invitationCodeInput.module.scss';
 
 const CODE_LENGTH = 6;
 
 export const InvitationCodeInput = ({
   onChange,
+  error,
 }: {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }) => {
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(''));
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
@@ -23,14 +25,9 @@ export const InvitationCodeInput = ({
       inputsRef.current[index + 1]?.focus();
     }
 
-    if (
-      newCode.length === CODE_LENGTH &&
-      newCode.every((char) => char !== '')
-    ) {
-      onChange({
-        target: { name: 'inviteCode', value: newCode.join('') },
-      } as ChangeEvent<HTMLInputElement>);
-    }
+    onChange({
+      target: { name: 'inviteCode', value: newCode.join('') },
+    } as ChangeEvent<HTMLInputElement>);
   };
 
   const handleKeyDown = (
@@ -43,26 +40,31 @@ export const InvitationCodeInput = ({
   };
 
   return (
-    <div className='invitation-code'>
+    <div className={c.invitationCode}>
       <h3>Imaš kod?</h3>
 
-      <div className='code-inputs'>
+      <div className={c.codeInputs}>
         {code.map((char, index) => (
-          <div key={index} className='code-input-wrapper'>
+          <div key={index} className={c.codeInputWrapper}>
             <input
               ref={(el) => (inputsRef.current[index] = el)}
               type='text'
               maxLength={1}
-              className='code-box'
+              className={c.codeBox}
               value={char}
               onChange={(e) => handleChange(e.target.value, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
             />
 
-            {index === 2 && <span className='minus'> - </span>}
+            {index === 2 && <span className={c.minus}> - </span>}
           </div>
         ))}
       </div>
+      {error && (
+        <label htmlFor='' className={c.errorText}>
+          {error}
+        </label>
+      )}
     </div>
   );
 };

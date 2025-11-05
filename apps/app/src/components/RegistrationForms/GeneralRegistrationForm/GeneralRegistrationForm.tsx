@@ -99,6 +99,7 @@ export const GeneralRegistrationForm = () => {
   }, [location, navigate, updateUserData]);
 
   const handleRegistrationClick = () => {
+    console.log('Current Step:', currentStep);
     switch (currentStep) {
       case RegistrationStep.ONE:
         setIsSubmitted({ ...isSubmitted, firstStepIsSubmitted: true });

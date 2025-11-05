@@ -171,10 +171,10 @@ export class AuthService {
       lastName: newUser.lastName,
     });
 
-    await this.achievementService.completeAchievementByName(
-      newUser.id,
-      AchievementNames.FirstSteps,
-    );
+    // await this.achievementService.completeAchievementByName(
+    //   newUser.id,
+    //   AchievementNames.FirstSteps,
+    // );
 
     const EARLY_BIRD_CUTOFF = new Date('2025-05-10T22:00:00.000Z'); // 10.5.2024 00:00 CEST
     const currentTime = new Date();
@@ -188,30 +188,22 @@ export class AuthService {
       );
     }
 
-    if (register.newsletterEnabled) {
-      await this.achievementService.completeAchievementByName(
-        newUser.id,
-        AchievementNames.WhatsNew,
-      );
-    }
+    // if (register.newsletterEnabled) {
+    //   await this.achievementService.completeAchievementByName(
+    //     newUser.id,
+    //     AchievementNames.WhatsNew,
+    //   );
+    // }
 
     if (newUser.isInvited) {
-      await this.prisma.user
-        .findFirst({
-          where: { inviteCode: register.inviteCode },
-        })
-        .then(async (inviter) => {
-          if (inviter) {
-            await this.prisma.user.update({
-              where: { id: inviter.id },
-              data: {
-                numberOfInvitations: {
-                  increment: 1,
-                },
-              },
-            });
-          }
-        });
+      await this.prisma.user.update({
+        where: { inviteCode: register.inviteCode },
+        data: {
+          numberOfInvitations: {
+            increment: 1,
+          },
+        },
+      });
     }
 
     return { accessToken };
