@@ -77,12 +77,13 @@ export const SecondStepRegistrationForm = ({
 
     if (userData.inviteCode && !inviteCodes?.includes(userData.inviteCode)) {
       newErrors[UserDataFields.InviteCode] = 'Neispravan kod.';
+      userData.isInvited = false;
     } else if (userData.inviteCode) {
       newErrors[UserDataFields.InviteCode] = undefined;
       userData.isInvited = true;
     } else {
-      userData.isInvited = false;
       newErrors[UserDataFields.InviteCode] = undefined;
+      userData.isInvited = false;
     }
 
     if (Object.keys(newErrors).length > 0) {

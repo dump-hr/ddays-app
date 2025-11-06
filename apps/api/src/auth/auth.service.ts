@@ -160,9 +160,9 @@ export class AuthService {
       })),
     });
 
-    // if (!isFromGoogleAuth) {
-    //   // await this.emailService.sendEmailConfirmation(newUser.email);
-    // }
+    if (!isFromGoogleAuth) {
+      // await this.emailService.sendEmailConfirmation(newUser.email);
+    }
 
     const accessToken = this.jwtService.sign({
       id: newUser.id,
@@ -171,10 +171,10 @@ export class AuthService {
       lastName: newUser.lastName,
     });
 
-    // await this.achievementService.completeAchievementByName(
-    //   newUser.id,
-    //   AchievementNames.FirstSteps,
-    // );
+    await this.achievementService.completeAchievementByName(
+      newUser.id,
+      AchievementNames.FirstSteps,
+    );
 
     const EARLY_BIRD_CUTOFF = new Date('2025-05-10T22:00:00.000Z'); // 10.5.2024 00:00 CEST
     const currentTime = new Date();
@@ -188,12 +188,12 @@ export class AuthService {
       );
     }
 
-    // if (register.newsletterEnabled) {
-    //   await this.achievementService.completeAchievementByName(
-    //     newUser.id,
-    //     AchievementNames.WhatsNew,
-    //   );
-    // }
+    if (register.newsletterEnabled) {
+      await this.achievementService.completeAchievementByName(
+        newUser.id,
+        AchievementNames.WhatsNew,
+      );
+    }
 
     if (newUser.isInvited) {
       await this.prisma.user.update({

@@ -5,7 +5,7 @@ import CloseIcon from '@/assets/icons/remove-icon-black.svg';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-// import { useSendConfirmationEmail } from '@/api/email/useSendConfirmationEmail';
+import { useSendConfirmationEmail } from '@/api/email/useSendConfirmationEmail';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import { RouteNames } from '@/router/routes';
 
@@ -20,7 +20,7 @@ export const ConfirmEmail = () => {
   const [showPointsPopup, setShowPointsPopup] = useState(false);
   const [processedToken, setProcessedToken] = useState<string | null>(null);
 
-  // const { mutate: sendConfirmationEmail } = useSendConfirmationEmail();
+  const { mutate: sendConfirmationEmail } = useSendConfirmationEmail();
   const { data: user } = useLoggedInUser();
 
   const [timeLeft, setTimeLeft] = useState<number>(0);
@@ -62,7 +62,7 @@ export const ConfirmEmail = () => {
       return;
     }
 
-    // sendConfirmationEmail(user?.email);
+    sendConfirmationEmail(user?.email);
     const currentTime = Date.now();
     setLastSentTime(currentTime);
     setTimeLeft(COUNTDOWN_TIME);
