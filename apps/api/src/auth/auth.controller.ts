@@ -10,6 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { UserService } from 'src/user/user.service';
 
 import { RegistrationDto } from './auth.dto';
 import { UserLoginDto } from './auth.dto';
@@ -18,7 +19,10 @@ import { UserGuard } from './user.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post('company/login')
   async companyPasswordLogin(
@@ -54,6 +58,11 @@ export class AuthController {
   @Post('google')
   async googleLogin(@Body('token') token: string) {
     return this.authService.verifyGoogleToken(token);
+  }
+
+  @Get('invite-codes')
+  async getUserInviteCodes(): Promise<string[]> {
+    return this.userService.getUserInviteCodes();
   }
 
   @Get('callback')

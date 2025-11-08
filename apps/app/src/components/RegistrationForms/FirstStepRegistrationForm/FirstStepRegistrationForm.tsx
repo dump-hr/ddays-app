@@ -47,7 +47,8 @@ export const FirstStepRegistrationForm = ({
 
     firstStepFields.forEach((key) => {
       const error = validateField(key, userData[key] as string);
-      newErrors[key] = error || '';
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (newErrors as any)[key] = error;
     });
 
     const passwordsMatchError = validateRepeatedPassword(

@@ -148,6 +148,8 @@ export class AuthService {
         password: hashedPassword,
         isConfirmed: isFromGoogleAuth ? true : false,
         isFromGoogleAuth,
+        inviteCode: this.generateInviteCode(),
+        isInvited: register.isInvited,
       },
     });
 
@@ -159,7 +161,7 @@ export class AuthService {
     });
 
     if (!isFromGoogleAuth) {
-      await this.emailService.sendEmailConfirmation(newUser.email);
+      // await this.emailService.sendEmailConfirmation(newUser.email);
     }
 
     const accessToken = this.jwtService.sign({
@@ -191,6 +193,17 @@ export class AuthService {
         newUser.id,
         AchievementNames.WhatsNew,
       );
+    }
+
+    if (newUser.isInvited) {
+      await this.prisma.user.update({
+        where: { inviteCode: register.inviteCode },
+        data: {
+          numberOfInvitations: {
+            increment: 1,
+          },
+        },
+      });
     }
 
     return { accessToken };
@@ -301,5 +314,9 @@ export class AuthService {
       console.error('Google Auth Callback Error:', err);
       return { redirectUrl: '/app/login?error=google_auth_failed' };
     }
+  }
+
+  generateInviteCode(): string {
+    return randomBytes(3).toString('hex').toUpperCase();
   }
 }

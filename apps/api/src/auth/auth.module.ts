@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { AchievementService } from 'src/achievement/achievement.service';
 import { EmailModule } from 'src/email/email.module';
 import { PrismaService } from 'src/prisma.service';
+import { UserService } from 'src/user/user.service';
 
 import { AzureADStrategy } from './admin.strategy';
 import { AuthController } from './auth.controller';
@@ -30,6 +31,7 @@ import { UserJwtStrategy } from './user.strategy';
     PrismaService,
     UserGuard,
     AchievementService,
+    UserService,
   ],
   exports: [AuthService, UserGuard],
 })
