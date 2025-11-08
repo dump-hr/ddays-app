@@ -74,7 +74,6 @@ export const SecondStepRegistrationForm = ({
       const error = validateField(key, userData[key]);
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       (newErrors as any)[key] = error;
-      // newErrors[key] = error || '';
     });
 
     if (userData.inviteCode && !inviteCodes?.includes(userData.inviteCode)) {
