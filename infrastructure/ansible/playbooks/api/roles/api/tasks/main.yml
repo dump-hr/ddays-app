@@ -12,7 +12,12 @@
     mode: 0600
 
 - name: Get the ip address of the prometheus production server
-  command: cd $(git rev-parse --show-toplevel); ansible-inventory -i infrastructure/ansible/inventories/prometheus.aws_ec2.yml --list | jq -r '.aws_ec2.hosts[0]'
+  command: aws ec2 describe-instances \
+    --region eu-central-1 \
+    --profile dump-monitoring \
+    --filters "Name=tag:Project,Values=dump-monitoring" "Name=tag:Environment,Values=production" \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' \
+    --output text
   register: production_ip
 
 - name: Create new api docker container
