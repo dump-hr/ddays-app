@@ -11,6 +11,10 @@
     group: '{{ ansible_user }}'
     mode: 0600
 
+- name: Get the ip address of the prometheus production server
+  command: cd $(git rev-parse --show-toplevel); ansible-inventory -i infrastructure/ansible/inventories/prometheus.aws_ec2.yml --list | jq -r '.aws_ec2.hosts[0]'
+  register: production_ip
+
 - name: Create new api docker container
   docker_container:
     name: '{{ container_name }}'
@@ -30,8 +34,11 @@
       traefik.http.middlewares.api-cors.headers.accesscontrolmaxage: '100'
       traefik.http.middlewares.api-cors.headers.addvaryheader: 'true'
       traefik.http.routers.api.middlewares: 'api-retry, api-cors'
-      # Setting a service property ensures that the generated service name will be consistent between versions
       traefik.http.services.api.loadbalancer.server.scheme: 'http'
+      # Router specifically for /api/metrics with IP restriction
+      traefik.http.middlewares.metrics-whitelist.ipwhitelist.sourcerange: '{{ production_ip.stdout }}'
+      traefik.http.routers.api-metrics.rule: 'Host(`{{ api_domain }}`) && PathPrefix(`/api/metrics`)'
+      traefik.http.routers.api-metrics.middlewares: metrics-whitelist
 
 - name: Swap docker containers if new one is healthy
   block:
