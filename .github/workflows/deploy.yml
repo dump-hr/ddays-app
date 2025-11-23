@@ -90,7 +90,20 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile ddays-app
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile ddays-app
 
+      - name: Get Prometheus server IP
+        id: get-ip
+        run: |
+          IP=$(aws ec2 describe-instances \
+            --region eu-central-1 \
+            --profile ddays-app \
+            --filters "Name=tag:Project,Values=dump-monitoring" "Name=tag:Environment,Values=production" \
+            --query 'Reservations[0].Instances[0].PublicIpAddress' \
+            --output text)
+          echo "prometheus_ip=$IP" >> $GITHUB_OUTPUT
+
       - name: Run Ansible playbook
         run: |
           eval $(ssh-agent)
           ./infrastructure/scripts/ansible-playbook.sh ${{ github.ref_name == 'main' && 'production' || github.ref_name }} api
+        env:
+          prometheus_ip: ${{ steps.get-ip.outputs.prometheus_ip }}

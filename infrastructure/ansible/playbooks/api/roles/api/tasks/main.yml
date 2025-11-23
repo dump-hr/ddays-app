@@ -11,14 +11,13 @@
     group: '{{ ansible_user }}'
     mode: 0600
 
-- name: Get the ip address of the prometheus production server
-  command: aws ec2 describe-instances \
-    --region eu-central-1 \
-    --profile ddays-app \
-    --filters "Name=tag:Project,Values=dump-monitoring" "Name=tag:Environment,Values=production" \
-    --query 'Reservations[0].Instances[0].PublicIpAddress' \
-    --output text
-  register: production_ip
+- name: Set Prometheus IP from environment
+  set_fact:
+    prometheus_ip: "{{ lookup('env', 'prometheus_ip') }}"
+
+- name: print Prometheus IP
+  debug:
+    msg: 'Prometheus IP is {{ prometheus_ip }}'
 
 - name: Create new api docker container
   docker_container:
@@ -41,7 +40,7 @@
       traefik.http.routers.api.middlewares: 'api-retry, api-cors'
       traefik.http.services.api.loadbalancer.server.scheme: 'http'
       # Router specifically for /api/metrics with IP restriction
-      traefik.http.middlewares.metrics-whitelist.ipwhitelist.sourcerange: '{{ production_ip.stdout }}'
+      traefik.http.middlewares.metrics-whitelist.ipwhitelist.sourcerange: '{{ prometheus_ip }}'
       traefik.http.routers.api-metrics.rule: 'Host(`{{ api_domain }}`) && PathPrefix(`/api/metrics`)'
       traefik.http.routers.api-metrics.middlewares: metrics-whitelist
 
