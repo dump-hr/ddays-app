@@ -14,7 +14,7 @@
 - name: Get the ip address of the prometheus production server
   command: aws ec2 describe-instances \
     --region eu-central-1 \
-    --profile dump-monitoring \
+    --profile ddays-app \
     --filters "Name=tag:Project,Values=dump-monitoring" "Name=tag:Environment,Values=production" \
     --query 'Reservations[0].Instances[0].PublicIpAddress' \
     --output text
