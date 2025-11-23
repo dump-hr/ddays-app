@@ -15,10 +15,6 @@
   set_fact:
     prometheus_ip: "{{ lookup('env', 'prometheus_ip') }}"
 
-- name: print Prometheus IP
-  debug:
-    msg: 'Prometheus IP is {{ prometheus_ip }}'
-
 - name: Create new api docker container
   docker_container:
     name: '{{ container_name }}'
@@ -43,6 +39,11 @@
       traefik.http.middlewares.metrics-whitelist.ipwhitelist.sourcerange: '{{ prometheus_ip }}'
       traefik.http.routers.api-metrics.rule: 'Host(`{{ api_domain }}`) && PathPrefix(`/api/metrics`)'
       traefik.http.routers.api-metrics.middlewares: metrics-whitelist
+
+      # Direct router for /api/metrics so prometheus can access it without Host header
+      traefik.http.routers.api-metrics-direct.rule: 'PathPrefix(`/api/metrics`)'
+      traefik.http.routers.api-metrics-direct.middlewares: 'metrics-whitelist'
+      traefik.http.routers.api-metrics-direct.priority: '100'
 
 - name: Swap docker containers if new one is healthy
   block:
