@@ -18,6 +18,7 @@ import { FrequentlyAskedQuestionModule } from './frequently-asked-question/frequ
 import { InterestModule } from './interest/interest.module';
 import { JobModule } from './job/job.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { MetricsModule } from './metrics/metrics.module';
 import { NotificationModule } from './notification/notification.module';
 import { PotentialSponsorModule } from './potential-sponsor/potential-sponsor.module';
 import { PrinterModule } from './printer/printer.module';
@@ -30,7 +31,6 @@ import { SponsorContractModule } from './sponsor-contract/sponsor-contract.modul
 import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { UserModule } from './user/user.module';
-
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -52,6 +52,7 @@ import { UserModule } from './user/user.module';
     PotentialSponsorModule,
     SponsorMaterialsModule,
     SponsorContractModule,
+    MetricsModule,
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [

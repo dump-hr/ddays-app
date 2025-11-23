@@ -22,7 +22,7 @@
       - name: traefiknet
     labels:
       traefik.enable: 'true'
-      traefik.http.routers.api.rule: 'Host(`{{ api_domain }}`)'
+      traefik.http.routers.api.rule: 'Host(`{{ api_domain }}`) && !PathPrefix(`/api/metrics`)'
       traefik.http.middlewares.api-retry.retry.attempts: '5'
       traefik.http.middlewares.api-retry.retry.initialinterval: '100ms'
       traefik.http.middlewares.api-cors.headers.accesscontrolallowmethods: '*'
