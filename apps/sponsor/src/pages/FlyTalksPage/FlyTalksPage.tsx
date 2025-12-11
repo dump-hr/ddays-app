@@ -7,7 +7,9 @@ import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import { FlyTalks } from '../../formSteps/Flytalks/Flytalks';
 import { Modal } from '../../components/Modal';
 import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
-import { FormSteps, FormStep } from '../../types/form';
+import StatusErrorSvg from '../../assets/icons/status-error.svg';
+import StatusSuccessSvg from '../../assets/icons/status-success.svg';
+import { FormSteps, FormStep, StepStatus } from '../../types/form';
 import { sponsorForm } from '../../constants/forms';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import InfoMessage from '../../components/InfoMessage';
@@ -65,6 +67,28 @@ const FlyTalksPage = () => {
     component: FlyTalks as any,
   };
 
+  const statusChips = {
+    [StepStatus.Pending]: (
+      <div className={c.statusChip}>
+        <p>Predaj materijale</p>
+      </div>
+    ),
+    [StepStatus.Good]: (
+      <div className={c.statusChip}>
+        <img src={StatusSuccessSvg} />
+        <p>Uredi</p>
+      </div>
+    ),
+    [StepStatus.Bad]: (
+      <div className={c.statusChip}>
+        <img src={StatusErrorSvg} />
+        <p>Uredi</p>
+      </div>
+    ),
+  };
+
+  const flytalkStatus = !!company?.flytalkParticipation;
+
   return (
     <div className={c.page}>
       {isModalOpen && (
@@ -77,29 +101,6 @@ const FlyTalksPage = () => {
       )}
 
       <div className={c.content}>
-        {/* Fly Talks card — opens modal on click (do not open automatically) */}
-        <div style={{ marginBottom: 24 }}>
-          <article
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '16px',
-              border: '1px solid rgba(0,0,0,0.08)',
-              borderRadius: 8,
-              cursor: 'pointer',
-            }}
-            onClick={() => setCurrentForm(FormSteps.Flytalk)}>
-            <div>
-              <h3 style={{ margin: 0 }}>Fly Talks</h3>
-              <p style={{ margin: 0, opacity: 0.75 }}>
-                Predaja do 1. travnja 2025.
-              </p>
-            </div>
-            <img src={ArrowRightSvg} alt='Open' />
-          </article>
-        </div>
-
         {currentForm && (
           <Modal
             currentForm={currentForm}
@@ -112,43 +113,63 @@ const FlyTalksPage = () => {
           />
         )}
 
-        {/* Show applicants UI only when company participates in FlyTalks */}
+        <section className={c.titleSection}>
+          <h2 className={c.title}>Fly Talks</h2>
+          <p>
+            Ukupno odabranih sudionika:
+            {
+              filteredApplicants.filter((applicant) => applicant.selected)
+                .length
+            }
+            /{filteredApplicants.length}
+          </p>
+          <div className={c.buttons}>
+            {tabs
+              .sort((b, a) => new Date(a).getTime() - new Date(b).getTime())
+              .map((value) => (
+                <WhiteButton
+                  variant={selectedTab === value ? 'primary' : 'secondary'}
+                  key={value}
+                  onClick={() => setSelectedTab(value)}>
+                  {formatDatetime(value)}
+                </WhiteButton>
+              ))}
+          </div>
+        </section>
+
+        {timeLeft.getTime() === 0 ? (
+          <InfoMessage message='Odabir sudionika zatvoren.' />
+        ) : (
+          <InfoMessage
+            message={`Odabir sudionika zatvorit će se u četvrtak 22. 5. u 12:00. (${formatTimeLeft(
+              timeLeft,
+            )})`}
+          />
+        )}
+
+        <div style={{ marginBottom: 24 }}>
+          <article
+            className={c.item}
+            onClick={() => setCurrentForm(FormSteps.Flytalk)}>
+            <div className={c.itemInfo}>
+              <div>
+                <h4>Osobe koje održavaju fly talks</h4>
+                <p className={c.itemDescription}>Predaja do 1. travnja 2025.</p>
+              </div>
+            </div>
+            <div className={c.itemAction}>
+              {
+                statusChips[
+                  flytalkStatus ? StepStatus.Good : StepStatus.Pending
+                ]
+              }
+              <img src={ArrowRightSvg} alt='Open' />
+            </div>
+          </article>
+        </div>
+
         {!company || company.flytalkParticipation ? (
           <>
-            <section className={c.titleSection}>
-              <h2 className={c.title}>Fly Talks</h2>
-              <p>
-                Ukupno odabranih sudionika:{' '}
-                {
-                  filteredApplicants.filter((applicant) => applicant.selected)
-                    .length
-                }
-                /{filteredApplicants.length}
-              </p>
-              <div className={c.buttons}>
-                {tabs
-                  .sort((b, a) => new Date(a).getTime() - new Date(b).getTime())
-                  .map((value) => (
-                    <WhiteButton
-                      variant={selectedTab === value ? 'primary' : 'secondary'}
-                      key={value}
-                      onClick={() => setSelectedTab(value)}>
-                      {formatDatetime(value)}
-                    </WhiteButton>
-                  ))}
-              </div>
-            </section>
-
-            {timeLeft.getTime() === 0 ? (
-              <InfoMessage message='Odabir sudionika zatvoren.' />
-            ) : (
-              <InfoMessage
-                message={`Odabir sudionika zatvorit će se u četvrtak 22. 5. u 12:00. (${formatTimeLeft(
-                  timeLeft,
-                )})`}
-              />
-            )}
-
             {filteredApplicants.length === 0 ? (
               <p className={c.noApplicants}>Nema prijavljenih sudionika.</p>
             ) : (
