@@ -1,22 +1,22 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
 import { useGetFlyTalks } from '../../api/flyTalks/useGetFlyTaks';
-import FlyTalkUserModal from '../../components/FlyTalkUserModal';
-import { FlyTalks } from '../../formSteps/Flytalks/Flytalks';
-import { Modal } from '../../components/Modal';
 import ArrowRightSvg from '../../assets/icons/arrow-right.svg';
 import StatusErrorSvg from '../../assets/icons/status-error.svg';
 import StatusSuccessSvg from '../../assets/icons/status-success.svg';
-import { FormSteps, FormStep, StepStatus } from '../../types/form';
-import { sponsorForm } from '../../constants/forms';
-import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import FlyTalkUserModal from '../../components/FlyTalkUserModal';
 import InfoMessage from '../../components/InfoMessage';
+import { Modal } from '../../components/Modal';
 import WhiteButton from '../../components/WhiteButton';
 import { SPONSOR_FLY_TALK_DEADLINE } from '../../constants/dates';
+import { sponsorForm } from '../../constants/forms';
+import { FlyTalks } from '../../formSteps/Flytalks/Flytalks';
 import { formatDatetime } from '../../helpers/date';
 import { calculateTimeLeft, formatTimeLeft } from '../../helpers/time';
+import { FormStep, FormSteps, StepStatus } from '../../types/form';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
 
@@ -64,7 +64,7 @@ const FlyTalksPage = () => {
   const flyTalkForm: FormStep = {
     title: 'Fly Talks',
     description: 'Predaja do 1. travnja 2025.',
-    component: FlyTalks as any,
+    component: FlyTalks,
   };
 
   const statusChips = {
@@ -107,7 +107,7 @@ const FlyTalksPage = () => {
             form={
               currentForm === FormSteps.Flytalk
                 ? flyTalkForm
-                : (sponsorForm as any)[currentForm]
+                : sponsorForm[currentForm]
             }
             close={() => setCurrentForm(null)}
           />

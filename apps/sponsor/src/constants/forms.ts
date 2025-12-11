@@ -63,18 +63,15 @@ export const sponsorForm: SponsorForm = {
     description: 'Predaja do 1.travnja 2025.',
     component: Accreditation,
   },
-  // FlyTalks moved to separate page (FlyTalksPage). Keep a hidden entry so types stay satisfied
-  // and the item is not rendered in the Materials modal (empty tier -> filtered out).
   [FormSteps.Flytalk]: {
     title: 'Fly Talks',
     description: 'Predaja do 1. travnja 2025.',
-    component: (() => null) as any,
+    component: () => null,
     tier: [],
   },
-};
-
-/*[FormSteps.SwagBag]: {
+  /*[FormSteps.SwagBag]: {
   title: 'Swag Bag',
   description: 'Predaja do 15. travnja 2025.',
   component: InterestPicker,
 },*/
+};
