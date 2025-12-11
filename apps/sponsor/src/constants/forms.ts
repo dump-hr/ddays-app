@@ -2,7 +2,6 @@ import { CompanyCategory } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
 import { Description } from '../formSteps/Description';
-import { FlyTalks } from '../formSteps/Flytalks';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
 import { LogoUpload } from '../formSteps/LogoUpload';
@@ -64,10 +63,13 @@ export const sponsorForm: SponsorForm = {
     description: 'Predaja do 1.travnja 2025.',
     component: Accreditation,
   },
+  // FlyTalks moved to separate page (FlyTalksPage). Keep a hidden entry so types stay satisfied
+  // and the item is not rendered in the Materials modal (empty tier -> filtered out).
   [FormSteps.Flytalk]: {
     title: 'Fly Talks',
     description: 'Predaja do 1. travnja 2025.',
-    component: FlyTalks,
+    component: (() => null) as any,
+    tier: [],
   },
 };
 
