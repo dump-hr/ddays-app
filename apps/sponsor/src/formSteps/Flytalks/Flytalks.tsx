@@ -44,7 +44,7 @@ export const FlyTalks: FormComponent = ({ close }) => {
     const trimmedName = fullName.trim();
     const trimmedEmail = email.trim();
 
-    if (trimmedName.length < 2) {
+    if (trimmedName.length < 2 || trimmedName.match(/\d/)) {
       toast.error('Unesite valjano ime i prezime');
       return;
     }
