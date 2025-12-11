@@ -44,8 +44,10 @@ export const DISPLAY = {
   FIRST_DAY_AND_DATE: 'ČETVRTAK, 28.05',
   SECOND_DAY_AND_DATE: 'PETAK, 29.05',
 
-  FIRST_DATE_AND_DAY: '23. 5. - PETAK',
-  SECOND_DATE_AND_DAY: '24. 5. - ČETVRTAK',
+  FIRST_DATE_AND_DAY: '28. 5. - PETAK',
+  SECOND_DATE_AND_DAY: '29. 5. - ČETVRTAK',
+
+  //Jos prominit u FlyTalksPage u sponsor appu "tabs" koji se izvlace iz baze podataka
 };
 
 export default { YEAR, ISO, DISPLAY };

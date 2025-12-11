@@ -71,9 +71,8 @@ export const sponsorForm: SponsorForm = {
     tier: [],
   },
 };
-  /*[FormSteps.SwagBag]: {
+/*[FormSteps.SwagBag]: {
   title: 'Swag Bag',
   description: 'Predaja do 15. travnja 2025.',
   component: InterestPicker,
 },*/
-};
