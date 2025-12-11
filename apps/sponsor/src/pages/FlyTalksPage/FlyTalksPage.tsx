@@ -20,32 +20,51 @@ import { FormStep, FormSteps, StepStatus } from '../../types/form';
 import c from './FlyTalksPage.module.scss';
 import TableRow from './TableRow';
 
+const flyTalkForm: FormStep = {
+  title: 'Fly Talks',
+  description: 'Predaja do 1. travnja 2025.',
+  component: FlyTalks,
+};
+
+const statusChips = {
+  [StepStatus.Pending]: (
+    <div className={c.statusChip}>
+      <p>Predaj materijale</p>
+    </div>
+  ),
+  [StepStatus.Good]: (
+    <div className={c.statusChip}>
+      <img src={StatusSuccessSvg} />
+      <p>Uredi</p>
+    </div>
+  ),
+  [StepStatus.Bad]: (
+    <div className={c.statusChip}>
+      <img src={StatusErrorSvg} />
+      <p>Uredi</p>
+    </div>
+  ),
+};
+
 const FlyTalksPage = () => {
   const targetTime = useMemo(() => SPONSOR_FLY_TALK_DEADLINE, []);
   const [modalUser, setModalUser] = useState<UserToCompanyDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState<Date>(calculateTimeLeft(targetTime));
-
-  function handleOpenModal(user: UserToCompanyDto) {
-    setModalUser(user);
-    setIsModalOpen(true);
-  }
+  const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
+    null,
+  );
+  const [selectedTab, setSelectedTab] = useState<string>('');
 
   const { data: applicants = [] } = useGetApplicants();
   const { data: tabs = [] } = useGetFlyTalks();
-
-  const [selectedTab, setSelectedTab] = useState<string>('');
+  const { data: company } = useCompanyGetCurrentPublic();
 
   useEffect(() => {
     if (tabs.length > 0 && !selectedTab) {
       setSelectedTab(tabs[0]);
     }
   }, [tabs, selectedTab]);
-
-  const filteredApplicants = useMemo(() => {
-    const datetime = selectedTab;
-    return applicants.filter((a) => a.date === datetime);
-  }, [applicants, selectedTab]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,39 +74,17 @@ const FlyTalksPage = () => {
     return () => clearInterval(interval);
   }, [targetTime]);
 
-  const { data: company } = useCompanyGetCurrentPublic();
-
-  const [currentForm, setCurrentForm] = useState<keyof typeof FormSteps | null>(
-    null,
-  );
-
-  const flyTalkForm: FormStep = {
-    title: 'Fly Talks',
-    description: 'Predaja do 1. travnja 2025.',
-    component: FlyTalks,
-  };
-
-  const statusChips = {
-    [StepStatus.Pending]: (
-      <div className={c.statusChip}>
-        <p>Predaj materijale</p>
-      </div>
-    ),
-    [StepStatus.Good]: (
-      <div className={c.statusChip}>
-        <img src={StatusSuccessSvg} />
-        <p>Uredi</p>
-      </div>
-    ),
-    [StepStatus.Bad]: (
-      <div className={c.statusChip}>
-        <img src={StatusErrorSvg} />
-        <p>Uredi</p>
-      </div>
-    ),
-  };
+  const filteredApplicants = useMemo(() => {
+    const datetime = selectedTab;
+    return applicants.filter((a) => a.date === datetime);
+  }, [applicants, selectedTab]);
 
   const flytalkStatus = !!company?.flytalkParticipation;
+
+  function handleOpenModal(user: UserToCompanyDto) {
+    setModalUser(user);
+    setIsModalOpen(true);
+  }
 
   return (
     <div className={c.page}>
