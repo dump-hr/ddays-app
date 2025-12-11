@@ -20,7 +20,7 @@ type Page = {
 export const pages: Page[] = [
   {
     path: Path.Materials,
-    name: 'Predaja materijala',
+    name: 'Materijali',
     icon: materialsSvg,
     Component: MaterialsPage,
   },
