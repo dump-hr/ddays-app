@@ -1,3 +1,4 @@
+import { DISPLAY } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -69,8 +70,9 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   return (
     <header className={classes}>
       <p className={c.text}>
-        SPLIT <span className={c.separator}>//</span> FESB <br /> 28.
-        <span className={c.separator}>—</span> 29. 05. 2026.
+        SPLIT <span className={c.separator}>//</span> FESB <br />{' '}
+        {DISPLAY.HEADER_DAY_START_NUM}
+        <span className={c.separator}>—</span> {DISPLAY.HEADER_DAY_END_FULL}
       </p>
       <p className={c.text}>
         BESPLATNA KONFERENCIJA <br />

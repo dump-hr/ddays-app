@@ -8,6 +8,7 @@ import {
   EventWithUsersDto,
   NotificationStatus,
   UserToEventDto,
+  YEAR,
 } from '@ddays-app/types';
 import {
   HttpException,
@@ -537,7 +538,7 @@ export class EventService {
   async generateIcal(userId: number): Promise<string> {
     try {
       const mySchedule = await this.getEventsInMySchedule(userId);
-      const calendar = ical({ name: 'DUMP Days 2025.' });
+      const calendar = ical({ name: `DUMP Days ${YEAR}.` });
 
       mySchedule.forEach((event) => {
         let location = '';

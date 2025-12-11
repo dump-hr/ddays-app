@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DISPLAY, ISO } from '@ddays-app/types';
 import Tab from '../../components/Tab';
 import TabGroup from '../../components/TabGroup';
 import c from './FlyTalksList.module.scss';
@@ -25,7 +26,10 @@ const FlyTalksList = () => {
       isApplicationOpen: event.isApplicationOpen,
       start: event.startsAt.split('T')[1]?.slice(0, 5),
       end: event.endsAt.split('T')[1]?.slice(0, 5),
-      day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+      day:
+        event.startsAt.split('T')[0] === ISO.FIRST_DAY_START.split('T')[0]
+          ? 1
+          : 2,
       participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
       hasUserApplied: Array.isArray(event.users)
         ? event.users.some((user) => user.id === currentUser?.id)
@@ -50,8 +54,8 @@ const FlyTalksList = () => {
       <main>
         <div className={c.tabGroup}>
           <TabGroup setter={handleTabChange}>
-            <Tab id={Tabs.first_day}>23.05.</Tab>
-            <Tab id={Tabs.second_day}>24.05.</Tab>
+            <Tab id={Tabs.first_day}>{DISPLAY.FIRST_DAY_DATE}</Tab>
+            <Tab id={Tabs.second_day}>{DISPLAY.SECOND_DAY_DATE}</Tab>
           </TabGroup>
         </div>
         <p className={c.listInfoText}>

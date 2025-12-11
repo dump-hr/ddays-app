@@ -1,4 +1,4 @@
-import { EventType, Theme } from '@ddays-app/types';
+import { DISPLAY, EventType, Theme } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
@@ -51,14 +51,14 @@ const ScheduleSection = () => {
                 className={clsx(c.scheduleButton, {
                   [c.scheduleButtonFocused]: date === ConferenceDay.First,
                 })}>
-                PETAK, 23.05
+                {DISPLAY.FIRST_DAY_AND_DATE}
               </button>
               <button
                 onClick={() => setDate(ConferenceDay.Second)}
                 className={clsx(c.scheduleButton, {
                   [c.scheduleButtonFocused]: date === ConferenceDay.Second,
                 })}>
-                SUBOTA, 24.05
+                {DISPLAY.SECOND_DAY_AND_DATE}
               </button>
             </div>
             <div className={c.scheduleHeaderRight}>

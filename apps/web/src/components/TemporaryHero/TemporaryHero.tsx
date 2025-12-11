@@ -1,3 +1,4 @@
+import { YEAR } from '@ddays-app/types';
 import Button from 'components/Button';
 
 import ScrollingTitle from '../ScrollingTitle';
@@ -5,7 +6,7 @@ import c from './TemporaryHero.module.scss';
 
 const TemporaryHero = () => {
   function openArchivedWeb() {
-    window.open('https://2024-days.dump.hr/', '_blank');
+    window.open(`https://${YEAR}-days.dump.hr/`, '_blank');
   }
 
   return (
@@ -15,7 +16,7 @@ const TemporaryHero = () => {
       </div>
       <div className={c.textButtonsWrapper}>
         <div className={c.buttons}>
-          <Button onClick={openArchivedWeb}>Posjeti web 2024.</Button>
+          <Button onClick={openArchivedWeb}>Posjeti web {YEAR}.</Button>
         </div>
       </div>
 

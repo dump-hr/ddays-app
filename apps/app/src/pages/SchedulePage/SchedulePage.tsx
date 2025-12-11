@@ -6,6 +6,8 @@ import {
   AchievementNames,
   EventType,
   EventWithSpeakerDto,
+  ISO,
+  DISPLAY,
 } from '@ddays-app/types';
 import { UserToEventDto } from '@ddays-app/types/src/dto/user';
 
@@ -116,7 +118,9 @@ export const SchedulePage = () => {
     }
 
     const dateFilter = new Date(
-      activeTab === TabId.FIRST_DAY ? '2025-05-23' : '2025-05-24',
+      activeTab === TabId.FIRST_DAY
+        ? ISO.FIRST_DAY_START.split('T')[0]
+        : ISO.SECOND_DAY_START.split('T')[0],
     ).toDateString();
 
     setFilteredEvents(
@@ -141,8 +145,8 @@ export const SchedulePage = () => {
             setter={(id) => setActiveTab(id as TabId)}
             defaultTab={TabId.FIRST_DAY}
             className={c.contentWidth}>
-            <Tab id={TabId.FIRST_DAY}>23.05.</Tab>
-            <Tab id={TabId.SECOND_DAY}>24.05.</Tab>
+            <Tab id={TabId.FIRST_DAY}>{DISPLAY.FIRST_DAY_DATE}</Tab>
+            <Tab id={TabId.SECOND_DAY}>{DISPLAY.SECOND_DAY_DATE}</Tab>
             <Tab id={TabId.MY_SCHEDULE}>Moj raspored</Tab>
           </TabGroup>
 

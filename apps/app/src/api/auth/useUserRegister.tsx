@@ -2,7 +2,7 @@ import axios from '../base';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { QUERY_KEYS } from '@/constants/queryKeys';
-import { JwtResponseDto, RegistrationDto } from '@ddays-app/types';
+import { JwtResponseDto, RegistrationDto, ISO } from '@ddays-app/types';
 import RedStarIcon from '@/components/RedStarIcon';
 
 const registerUser = async (data: {
@@ -25,7 +25,7 @@ export const useUserRegister = (navigate: () => void) => {
         position: 'top-center',
       });
 
-      const EARLY_BIRD_CUTOFF = new Date('2025-05-09T22:00:00.000Z'); // 10.5.2024 00:00 CEST
+      const EARLY_BIRD_CUTOFF = new Date(ISO.EARLY_BIRD_CUTOFF_FRONTEND); // DATUM
       const currentTime = new Date();
 
       if (currentTime < EARLY_BIRD_CUTOFF) {
