@@ -1,4 +1,5 @@
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
+import { ISO } from '@ddays-app/types';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useGetApplicants } from '../../api/flyTalks/useGetApplicants';
@@ -88,7 +89,7 @@ const FlyTalksPage = () => {
           <InfoMessage message='Odabir sudionika zatvoren.' />
         ) : (
           <InfoMessage
-            message={`Odabir sudionika zatvorit će se u četvrtak 22. 5. u 12:00. (${formatTimeLeft(
+            message={`${ISO.SPONSOR_FLY_TALK_DEADLINE_STRING} (${formatTimeLeft(
               timeLeft,
             )})`}
           />

@@ -1,3 +1,4 @@
+import { DISPLAY } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -70,9 +71,9 @@ const TemporaryHeader = () => {
         ZA NOVU GENERACIJU
       </p>
       <p className={c.text}>
-        23. — 24. 05.
+        {DISPLAY.TEMP_HEADER_DAYS}
         <br />
-        2025.
+        {DISPLAY.TEMP_HEADER_YEAR}
       </p>
     </header>
   );
