@@ -5,6 +5,7 @@ import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import WhiteButton from '../../components/WhiteButton';
 import { sponsorForm } from '../../constants/forms';
+import { SwagBag } from '../../formSteps/SwagBag';
 import { getPageTitle } from '../../helpers';
 import c from './SwagBagPage.module.scss';
 
@@ -39,7 +40,11 @@ export const SwagBagPage: FC = () => {
           {currentForm && (
             <Modal
               currentForm={'Jobs'}
-              form={sponsorForm['Jobs']}
+              form={{
+                ...sponsorForm['Jobs'],
+                title: 'Dodaj swag bag materijale',
+                component: SwagBag,
+              }}
               close={() => {
                 setCurrentForm(null);
               }}
