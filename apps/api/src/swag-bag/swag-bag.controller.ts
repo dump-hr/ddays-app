@@ -1,4 +1,8 @@
-import { SwagBagDto, SwagBagModifyDto } from '@ddays-app/types';
+import {
+  SwagBagDto,
+  SwagBagModifyDto,
+  SwagBagWithCompanyDto,
+} from '@ddays-app/types';
 import {
   Body,
   Controller,
@@ -48,5 +52,11 @@ export class SwagBagController {
     @Body() { swagBags }: SwagBagsModifyForCompanyDto,
   ): Promise<SwagBagDto[]> {
     return await this.swagBagService.updateForCompany(user.id, swagBags);
+  }
+
+  @UseGuards(SponsorGuard)
+  @Get('all/company')
+  async getAllWithCompany(): Promise<SwagBagWithCompanyDto[]> {
+    return await this.swagBagService.getAllWithCompany();
   }
 }

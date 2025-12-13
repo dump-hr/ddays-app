@@ -1,10 +1,16 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Tier } from 'src/enum';
 
 export type SwagBagDto = {
   id: number;
   companyId: number;
   name: string;
   quantity: number;
+};
+
+export type SwagBagWithCompanyDto = SwagBagDto & {
+  companyName: string;
+  companyTier: Tier;
 };
 
 export class SwagBagModifyDto {

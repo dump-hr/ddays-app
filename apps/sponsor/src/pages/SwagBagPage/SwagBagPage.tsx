@@ -1,7 +1,9 @@
 import { type FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useQueryClient } from 'react-query';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useSwagBagGetAllWithCompany } from '../../api/swagBag/useSwagBagGetAllWithCompany';
 import { useSwagBagGetByCompany } from '../../api/swagBag/useSwagBagGetByCompany';
 import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
@@ -15,6 +17,9 @@ export const SwagBagPage: FC = () => {
   const [currentForm, setCurrentForm] = useState<string | null>(null);
   const { data: company } = useCompanyGetCurrentPublic();
   const { data: companySwagBags } = useSwagBagGetByCompany(company?.id);
+  const queryClient = useQueryClient();
+
+  const { data: allSwagBags } = useSwagBagGetAllWithCompany();
 
   return (
     <>
@@ -52,6 +57,22 @@ export const SwagBagPage: FC = () => {
               Dodaj swag bag materijale
             </WhiteButton>
           </div>
+          {allSwagBags && allSwagBags.length > 0 && (
+            <div className={c.allSwagBagsGrid}>
+              <h4>TIER</h4>
+              <h4>TVRTKA</h4>
+              <h4>SWAG BAG</h4>
+              <h4>KOLIČINA</h4>
+              {allSwagBags.map((swagBag) => (
+                <>
+                  <p>{swagBag.companyTier}</p>
+                  <p>{swagBag.companyName}</p>
+                  <p>{swagBag.name}</p>
+                  <p>{swagBag.quantity}</p>
+                </>
+              ))}
+            </div>
+          )}
           {currentForm && (
             <Modal
               currentForm={'Jobs'}
@@ -61,6 +82,7 @@ export const SwagBagPage: FC = () => {
                 component: SwagBag,
               }}
               close={() => {
+                queryClient.invalidateQueries();
                 setCurrentForm(null);
               }}
             />

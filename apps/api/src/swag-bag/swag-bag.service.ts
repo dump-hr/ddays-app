@@ -2,6 +2,8 @@ import {
   SwagBagDto,
   SwagBagModifyDto,
   SwagBagModifyToCompanyDto,
+  SwagBagWithCompanyDto,
+  Tier,
 } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
@@ -80,5 +82,20 @@ export class SwagBagService {
 
     const companySwagBags = await this.getByCompany(companyId);
     return companySwagBags;
+  }
+
+  async getAllWithCompany(): Promise<SwagBagWithCompanyDto[]> {
+    const swagBags = await this.prisma.swagBag.findMany({
+      include: { company: { select: { name: true, category: true } } },
+    });
+
+    return swagBags.map(({ id, companyId, name, quantity, company }) => ({
+      id,
+      companyId,
+      name,
+      quantity,
+      companyName: company.name,
+      companyTier: company.category as Tier,
+    }));
   }
 }
