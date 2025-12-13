@@ -9,6 +9,7 @@ import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import WhiteButton from '../../components/WhiteButton';
 import { sponsorForm } from '../../constants/forms';
+import { TierLabels } from '../../constants/labels';
 import { SwagBag } from '../../formSteps/SwagBag';
 import { getPageTitle } from '../../helpers';
 import c from './SwagBagPage.module.scss';
@@ -20,6 +21,8 @@ export const SwagBagPage: FC = () => {
   const queryClient = useQueryClient();
 
   const { data: allSwagBags } = useSwagBagGetAllWithCompany();
+
+  console.log(allSwagBags);
 
   return (
     <>
@@ -65,7 +68,11 @@ export const SwagBagPage: FC = () => {
               <h4>KOLIČINA</h4>
               {allSwagBags.map((swagBag) => (
                 <>
-                  <p>{swagBag.companyTier}</p>
+                  <p>
+                    {Object.entries(TierLabels).find(
+                      ([key]) => key === swagBag.companyTier,
+                    )?.[1] || '-'}
+                  </p>
                   <p>{swagBag.companyName}</p>
                   <p>{swagBag.name}</p>
                   <p>{swagBag.quantity}</p>
