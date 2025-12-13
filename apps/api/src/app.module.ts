@@ -30,6 +30,7 @@ import { SpeakerModule } from './speaker/speaker.module';
 import { SponsorContractModule } from './sponsor-contract/sponsor-contract.module';
 import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
+import { SwagBagModule } from './swag-bag/swag-bag.module';
 import { UserModule } from './user/user.module';
 @Module({
   imports: [
@@ -92,6 +93,7 @@ import { UserModule } from './user/user.module';
     RewardModule,
     AvatarModule,
     PrinterModule,
+    SwagBagModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

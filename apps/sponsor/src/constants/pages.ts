@@ -8,6 +8,7 @@ import { CompanyProfile } from '../pages/CompanyProfile';
 import FlyTalksPage from '../pages/FlyTalksPage';
 import { MaterialsPage } from '../pages/MaterialsPage';
 import { SpotsPage } from '../pages/SpotsPage/SpotsPage';
+import { SwagBagPage } from '../pages/SwagBagPage';
 import { Path } from './paths';
 
 type Page = {
@@ -51,6 +52,12 @@ export const pages: Page[] = [
     name: 'Odabir mjesta',
     icon: standSvg,
     Component: SpotsPage,
+  },
+  {
+    path: Path.SwagBag,
+    icon: profileSvg,
+    name: 'Swag bag',
+    Component: SwagBagPage,
   },
   {
     path: Path.Profile,

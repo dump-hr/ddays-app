@@ -82,8 +82,6 @@ export class CompanyService {
         bookOfStandards: true,
         video: true,
         peopleForAccreditation: true,
-        swagBag: true,
-        swagBagNumber: true,
         boothPlan: true,
         equipment: true,
         notes: true,

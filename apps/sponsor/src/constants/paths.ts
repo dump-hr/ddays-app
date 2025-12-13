@@ -5,5 +5,6 @@ export enum Path {
   Stand = '/sponsor/stand',
   FlyTalks = '/sponsor/fly-talks',
   SpotsPage = '/sponsor/spots',
+  SwagBag = '/sponsor/swag-bag',
   CatchAll = '/sponsor/:path*',
 }
