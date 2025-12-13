@@ -1,6 +1,8 @@
 import { type FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
+import { useSwagBagGetByCompany } from '../../api/swagBag/useSwagBagGetByCompany';
 import InfoMessage from '../../components/InfoMessage';
 import { Modal } from '../../components/Modal';
 import WhiteButton from '../../components/WhiteButton';
@@ -11,6 +13,8 @@ import c from './SwagBagPage.module.scss';
 
 export const SwagBagPage: FC = () => {
   const [currentForm, setCurrentForm] = useState<string | null>(null);
+  const { data: company } = useCompanyGetCurrentPublic();
+  const { data: companySwagBags } = useSwagBagGetByCompany(company?.id);
 
   return (
     <>
@@ -29,6 +33,17 @@ export const SwagBagPage: FC = () => {
               Swag bag materijali podrazumijevaju Vaš merch koji će biti
               podijeljen unutar naših swag bagova (ovo san izmislila bzvz je)
             </p>
+            {(companySwagBags ?? []).length > 0 && (
+              <div className={c.swagBagList}>
+                {companySwagBags?.map((swagBag) => (
+                  <div key={swagBag.id} className={c.swagBagItem}>
+                    <span>
+                      {swagBag.name} x {swagBag.quantity}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
             <WhiteButton
               className={c.button}
               onClick={() => {

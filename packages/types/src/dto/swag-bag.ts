@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export type SwagBagDto = {
   id: number;
@@ -16,4 +16,20 @@ export class SwagBagModifyDto {
 
   @IsNumber()
   companyId: number;
+}
+
+export class SwagBagModifyToCompanyDto {
+  @IsNumber()
+  @IsOptional()
+  id?: number;
+
+  @IsNumber()
+  @IsOptional()
+  companyId?: number;
+
+  @IsString()
+  name: string;
+
+  @IsNumber()
+  quantity: number;
 }

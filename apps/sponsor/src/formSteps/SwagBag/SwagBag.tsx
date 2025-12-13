@@ -1,56 +1,60 @@
-import { CompanyCategory, JobModifyForCompanyDto } from '@ddays-app/types';
+import { SwagBagModifyToCompanyDto } from '@ddays-app/types';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
-import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
-import { useJobUpdateForCompany } from '../../api/job/useJobUpdateForCompany';
+import { useSwagBagGetByCompany } from '../../api/swagBag/useSwagBagGetByCompany';
+import { useSwagBagUpdateForCompany } from '../../api/swagBag/useSwagBagUpdateForCompany';
 import { Input } from '../../components/Input';
 import { FormComponent } from '../../types/form';
 import c from './SwagBag.module.scss';
-import { getMaxJobsPerTier } from './utils';
 
 export const SwagBag: FormComponent = ({ close }) => {
   const ref = useRef(true);
 
-  const [jobs, setJobs] = useState<JobModifyForCompanyDto[]>([]);
+  const [swagBags, setSwagBags] = useState<SwagBagModifyToCompanyDto[]>([]);
   const [displayErrors, setDisplayErrors] = useState(false);
 
   const { data: company } = useCompanyGetCurrentPublic();
-  const { data: companyJobs } = useJobGetForCompany(company?.id);
+  const { data: companySwagBags } = useSwagBagGetByCompany(company?.id);
 
-  const { mutateAsync: updateSponsorJobs } = useJobUpdateForCompany();
+  const { mutateAsync: updateSponsorSwagBags } = useSwagBagUpdateForCompany();
 
   useEffect(() => {
-    if (jobs.length) return;
+    if (swagBags.length) return;
     if (ref.current) {
-      setJobs(companyJobs ?? []);
+      setSwagBags(companySwagBags ?? []);
       ref.current = false;
     }
-  }, [companyJobs, jobs]);
+  }, [companySwagBags, swagBags]);
 
   const handleAdd = () => {
-    setJobs((prev) => [
+    setSwagBags((prev) => [
       ...prev,
       {
-        location: '',
-        position: '',
-        details: '',
-        link: '',
+        quantity: 0,
+        name: '',
       },
     ]);
   };
 
   const handleRemove = (idToRemove?: number) => {
-    setJobs((prev) => prev.filter((_, i) => i !== idToRemove));
+    setSwagBags((prev) => prev.filter((_, i) => i !== idToRemove));
   };
 
   const handleSave = async () => {
-    const jobsToSave = jobs.filter(isValid);
+    const swagBagsToSave = swagBags.filter(isValid);
 
-    if (jobsToSave.length === jobs.length) {
-      await updateSponsorJobs(jobsToSave);
+    if (swagBagsToSave.length === swagBags.length) {
+      if (company?.id) {
+        await updateSponsorSwagBags({
+          companyId: company.id,
+          swagBags: swagBagsToSave,
+        });
+      } else {
+        toast.error('Company ID is missing.');
+      }
       close();
       return;
     }
@@ -59,8 +63,8 @@ export const SwagBag: FormComponent = ({ close }) => {
     setDisplayErrors(true);
   };
 
-  const isValid = (job: JobModifyForCompanyDto) => {
-    return job.position.length > 0 && job.details.length > 0;
+  const isValid = (swagBag: SwagBagModifyToCompanyDto) => {
+    return swagBag.quantity > 0 && swagBag.name !== '';
   };
 
   return (
@@ -73,39 +77,38 @@ export const SwagBag: FormComponent = ({ close }) => {
       </div>
 
       <div className={c.jobsContainer}>
-        {jobs.map(({ details, location, position, link }, index) => (
+        {swagBags.map(({ quantity, name }, index) => (
           <div key={index} className={c.inputContainer}>
             <div className={c.subtitleContainer}>
               <h2 className={c.subtitle}>
                 #{index + 1} Materijal{' '}
-                {!isValid({ details, location, position, link }) &&
-                  displayErrors && (
-                    <span className={c.error}>(nepotpuni podaci)</span>
-                  )}
+                {!isValid({ quantity, name }) && displayErrors && (
+                  <span className={c.error}>(nepotpuni podaci)</span>
+                )}
               </h2>
               <span onClick={() => handleRemove(index)} className={c.label}>
                 Ukloni
               </span>
             </div>
             <Input
-              value={position}
+              value={quantity.toString() ?? ''}
               label='Količina'
               onChange={(value) => {
-                setJobs((prev) => {
-                  const newJobs = [...prev];
-                  newJobs[index].position = value;
-                  return newJobs;
+                setSwagBags((prev) => {
+                  const newSwagBags = [...prev];
+                  newSwagBags[index].quantity = Number(value);
+                  return newSwagBags;
                 });
               }}
             />
             <Input
-              value={location ?? ''}
+              value={name ?? ''}
               label='Materijal'
               onChange={(value) => {
-                setJobs((prev) => {
-                  const newJobs = [...prev];
-                  newJobs[index].location = value;
-                  return newJobs;
+                setSwagBags((prev) => {
+                  const newSwagBags = [...prev];
+                  newSwagBags[index].name = value;
+                  return newSwagBags;
                 });
               }}
             />
@@ -114,8 +117,7 @@ export const SwagBag: FormComponent = ({ close }) => {
       </div>
 
       <div>
-        {jobs.length <
-          getMaxJobsPerTier(company?.category as CompanyCategory) && (
+        {swagBags.length < 3 && (
           <button onClick={handleAdd} className={clsx(c.button, c.secondary)}>
             Dodaj materijal
           </button>
