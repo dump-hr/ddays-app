@@ -22,8 +22,6 @@ export const SwagBagPage: FC = () => {
 
   const { data: allSwagBags } = useSwagBagGetAllWithCompany();
 
-  console.log(allSwagBags);
-
   return (
     <>
       <Helmet>
