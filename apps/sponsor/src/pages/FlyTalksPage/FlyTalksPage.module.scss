@@ -12,6 +12,97 @@
   }
 }
 
+.page .itemsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  margin-top:20px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+
+  .itemIndex {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .itemDescription {
+    color: #ffffffcc;
+  }
+
+  div {
+    h4 {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    p {
+      opacity: 0.5;
+      margin: 0;
+    }
+  }
+}
+
+.itemAction {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.jobsCount {
+  position: absolute;
+  left: -30px;
+  color: #ffffff80;
+  font-size: 14px;
+}
+
+.statusChip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+
+  p {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
 .titleSection {
   width: 100%;
   border-radius: 8px;
@@ -51,44 +142,40 @@
   width: 100%;
   text-align: left;
   border-spacing: 12px;
-  margin-top: 24px;
+  table-layout: fixed;
+
+  th,
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+
+    &:nth-child(1) {
+      width: 75px;  
+    }
+    &:nth-child(2) {
+      width: 200px; 
+    }
+    &:nth-child(3) {
+      width: 200px; 
+    }
+    &:nth-child(4) {
+      width: 162px; 
+    }
+    &:nth-child(5) {
+      width: 140px; 
+    }
+    &:last-child {
+      width: auto;  
+      text-align: right;
+    }
+  }
 
   th {
     color: rgba(255, 255, 255, 0.5);
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    &:last-of-type {
-      text-align: right;
-    }
-  }
-
-  td {
-    &:nth-of-type(1) {
-      // status
-      width: 75px;
-    }
-    &:nth-of-type(2) {
-      // ime i prezime
-      width: 200px;
-    }
-    &:nth-of-type(3) {
-      // e-adresa
-      width: 200px;
-    }
-    &:nth-of-type(4) {
-      // opis
-      width: 162px;
-    }
-    &:nth-of-type(5) {
-      // CV
-      width: 140px;
-    }
-    &:last-of-type {
-      // odabir
-      width: auto;
-      text-align: right;
-    }
   }
 }
 
