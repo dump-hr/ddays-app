@@ -8,7 +8,7 @@
 
 #### Dependencies
 
-- Node.js >=18 and yarn
+- Node.js >=20 and yarn
 - PostgreSQL >= 15 or Docker for running PostgreSQL in container
 
 #### Setup environment
