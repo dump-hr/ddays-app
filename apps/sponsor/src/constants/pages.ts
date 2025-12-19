@@ -3,6 +3,7 @@ import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
 //import flyTalksSvg from '../assets/icons/fly-talks.svg';
 import standSvg from '../assets/icons/stand.svg';
+import swagBagsSvg from '../assets/icons/swagBags.svg';
 //import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import FlyTalksPage from '../pages/FlyTalksPage';
@@ -55,7 +56,7 @@ export const pages: Page[] = [
   },
   {
     path: Path.SwagBag,
-    icon: profileSvg,
+    icon: swagBagsSvg,
     name: 'Swag bag',
     Component: SwagBagPage,
   },

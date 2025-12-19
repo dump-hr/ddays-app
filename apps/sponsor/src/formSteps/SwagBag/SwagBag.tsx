@@ -95,6 +95,8 @@ export const SwagBag: FormComponent = ({ close }) => {
               label='Količina'
               onChange={(value) => {
                 setSwagBags((prev) => {
+                  if (isNaN(Number(value))) return prev;
+                  if (Number(value) > 10000) return prev;
                   const newSwagBags = [...prev];
                   newSwagBags[index].quantity = Number(value);
                   return newSwagBags;
@@ -106,6 +108,7 @@ export const SwagBag: FormComponent = ({ close }) => {
               label='Materijal'
               onChange={(value) => {
                 setSwagBags((prev) => {
+                  if (value.length > 25) return prev;
                   const newSwagBags = [...prev];
                   newSwagBags[index].name = value;
                   return newSwagBags;
