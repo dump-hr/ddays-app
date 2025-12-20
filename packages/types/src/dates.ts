@@ -24,6 +24,10 @@ export const DISPLAY = {
   SPONSOR_DEADLINE_OZUJAK_15: 'Predaja do 15. ožujka 2026.',
   SPONSOR_DEADLINE_TRAVANJ_15: 'Predaja do 15. travnja 2026.',
 
+  //Swag bag page in sponsor app
+  SWAG_BAG_DEADLINE:
+    'Molimo vas da informacije o swag bag materijalima predate do 15. svibnja 2026.',
+
   // Small display snippets used in schedule/flytalks
   LOCATION_DAY_1_SHORT: '28.',
   LOCATION_DAY_2_FULL: '29. 05. 2026.',
