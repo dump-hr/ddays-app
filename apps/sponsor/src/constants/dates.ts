@@ -1,1 +1,5 @@
-export const SPONSOR_FLY_TALK_DEADLINE = new Date('2025-05-22T10:00:00Z');
+import { ISO } from '@ddays-app/types';
+
+export const SPONSOR_FLY_TALK_DEADLINE = new Date(
+  ISO.SPONSOR_FLY_TALK_DEADLINE,
+);

@@ -1,3 +1,4 @@
+import { DISPLAY, ISO } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -22,7 +23,7 @@ import TableRow from './TableRow';
 
 const flyTalkForm: FormStep = {
   title: 'Fly Talks',
-  description: 'Predaja do 1. travnja 2025.',
+  description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
   component: FlyTalks,
 };
 
@@ -138,7 +139,7 @@ const FlyTalksPage = () => {
           <InfoMessage message='Odabir sudionika zatvoren.' />
         ) : (
           <InfoMessage
-            message={`Odabir sudionika zatvorit će se u četvrtak 22. 5. u 12:00. (${formatTimeLeft(
+            message={`${ISO.SPONSOR_FLY_TALK_DEADLINE_STRING} (${formatTimeLeft(
               timeLeft,
             )})`}
           />
@@ -151,7 +152,9 @@ const FlyTalksPage = () => {
             <div className={c.itemInfo}>
               <div>
                 <h4>Osobe koje održavaju fly talks</h4>
-                <p className={c.itemDescription}>Predaja do 1. travnja 2025.</p>
+                <p className={c.itemDescription}>
+                  {DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1}
+                </p>
               </div>
             </div>
             <div className={c.itemAction}>

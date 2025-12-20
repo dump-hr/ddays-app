@@ -1,3 +1,4 @@
+import { DISPLAY } from '@ddays-app/types';
 import { type FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQueryClient } from 'react-query';
@@ -31,7 +32,7 @@ export const SwagBagPage: FC = () => {
         <div className={c.pageWrapper}>
           <InfoMessage
             style={{ marginBottom: '20px' }}
-            message='Please predajte preostale materijale do 15.4. nesto nesto'
+            message={DISPLAY.SWAG_BAG_DEADLINE}
           />
           <div className={c.contentWrapper}>
             <h4 className={c.title}>Swag bag materijali</h4>

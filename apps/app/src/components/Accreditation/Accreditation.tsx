@@ -123,7 +123,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
           </div>
           <RecieptText
             item={{
-              id: 'dumpdays2025',
+              id: 'dumpdays2026',
               userId: String(user?.email),
               orderedAt: new Date(),
               shopItem: {

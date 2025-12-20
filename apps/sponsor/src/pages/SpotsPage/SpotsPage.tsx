@@ -1,4 +1,4 @@
-import { UTCDate } from '@date-fns/utc';
+import { ISO } from '@ddays-app/types';
 
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { BoothConfirmationPage } from '../../components/BoothConfirmationPage/BoothConfirmationPage';
@@ -7,9 +7,7 @@ import useCountdown from '../../hooks/useCountdown';
 
 export const SpotsPage = () => {
   const currentCompany = useCompanyGetCurrentPublic();
-  const { elapsedTime, didFinish } = useCountdown(
-    new UTCDate(2025, 4, 5, 10, 0).toString(),
-  );
+  const { elapsedTime, didFinish } = useCountdown(ISO.SPOTS_OPENING);
 
   if (currentCompany.isLoading) {
     return (
