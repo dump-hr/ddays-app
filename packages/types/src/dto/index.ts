@@ -13,3 +13,4 @@ export * from './booth';
 export * from './reward';
 export * from './avatar';
 export * from './potential-sponsor';
+export * from './swag-bag'

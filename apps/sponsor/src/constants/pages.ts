@@ -3,11 +3,13 @@ import materialsSvg from '../assets/icons/materials.svg';
 import profileSvg from '../assets/icons/profile.svg';
 //import flyTalksSvg from '../assets/icons/fly-talks.svg';
 import standSvg from '../assets/icons/stand.svg';
+import swagBagsSvg from '../assets/icons/swagBags.svg';
 //import standSvg from '../assets/icons/stand.svg';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import FlyTalksPage from '../pages/FlyTalksPage';
 import { MaterialsPage } from '../pages/MaterialsPage';
 import { SpotsPage } from '../pages/SpotsPage/SpotsPage';
+import { SwagBagPage } from '../pages/SwagBagPage';
 import { Path } from './paths';
 
 type Page = {
@@ -51,6 +53,12 @@ export const pages: Page[] = [
     name: 'Odabir mjesta',
     icon: standSvg,
     Component: SpotsPage,
+  },
+  {
+    path: Path.SwagBag,
+    icon: swagBagsSvg,
+    name: 'Swag bag',
+    Component: SwagBagPage,
   },
   {
     path: Path.Profile,

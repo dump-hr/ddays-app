@@ -1,0 +1,58 @@
+.page {
+  min-height: calc(100vh - 88px);
+  width: 100%;
+  background: #0e0e0e;
+  padding: 24px;
+}
+
+.pageWrapper {
+  max-width: 1050px;
+  margin: auto;
+
+  .contentWrapper {
+    margin-top: 48px;
+    max-width: 410px;
+
+    .title {
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 48px;
+    }
+
+    .subtitle {
+      color: #ffffff80;
+      margin-top: 8px;
+      max-width: 650px;
+    }
+
+    .swagBagList {
+      margin: 32px 0;
+      padding: 16px;
+      gap: 24px;
+      border: 1px solid #ffffff33;
+      border-radius: 12px;
+    }
+
+    .button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 20px 0;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+  }
+  .allSwagBagsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 64px;
+    width: 100%;
+
+    h4 {
+      margin: 0;
+      font-size: 14px;
+      color: #ffffff80;
+    }
+  }
+}
