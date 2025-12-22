@@ -22,35 +22,55 @@
     font-size: 14px;
     color: #a8a8a8;
     margin: 0;
+    line-height: 1.5;
 }
 
 .inputContainer {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    position: relative;
+    width: 100%;
 }
 
 .textArea {
     min-height: 150px;
+    background-color: #110f14;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    color: white;
+    font-family: inherit;
+    resize: none;
+
+    &:focus {
+        outline: 1px solid white;
+    }
 }
 
-.error {
-    color: #ff4d4f;
+.charCount {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    color: #a8a8a8;
     font-size: 12px;
 }
 
 .buttonsContainer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 16px 0;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 700;
     cursor: pointer;
     border: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: all 0.2s ease;
 
     &.primary {
@@ -58,7 +78,7 @@
         color: black;
 
         &:hover {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            opacity: 0.9;
         }
     }
 }

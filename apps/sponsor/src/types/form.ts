@@ -11,6 +11,7 @@ export enum FormSteps {
   Accreditation = 'Accreditation',
   Flytalk = 'Flytalk',
   BoothPlan = 'BoothPlan',
+  BoothEquipment = 'BoothEquipment',
 }
 
 export enum StepStatus {

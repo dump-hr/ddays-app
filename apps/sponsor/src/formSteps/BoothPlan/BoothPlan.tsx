@@ -24,12 +24,6 @@ export const BoothPlan: FormComponent = ({ close }) => {
   }, [company]);
 
   const handleSave = async () => {
-    if (!boothPlan) {
-      toast.error('Molimo unesite plan štanda.');
-      setDisplayErrors(true);
-      return;
-    }
-
     if (company?.id) {
       try {
         await updateBoothPlan({
@@ -46,10 +40,11 @@ export const BoothPlan: FormComponent = ({ close }) => {
   return (
     <div className={c.container}>
       <div className={c.infoContainer}>
-        <h1 className={c.title}>Plan štanda</h1>
+        <h1 className={c.title}>Dodaj plan štanda</h1>
         <p className={c.description}>
-          Unesite kratak opis sadržaja Vašeg štanda (promotivni materijali,
-          igrice, nagrade, i sl.)
+          Primjer: Playstation 5 (Fifa), kviz o digitalnom marketingu (nagrada
+          Kindle), skrivena šifra na štandu, kolo sreće (nagrada knjiga po
+          izboru)
         </p>
       </div>
 
@@ -60,10 +55,9 @@ export const BoothPlan: FormComponent = ({ close }) => {
           onChange={(value) => setBoothPlan(value)}
           textArea
           className={c.textArea}
+          maxLength={150}
         />
-        {displayErrors && !boothPlan && (
-          <span className={c.error}>Ovo polje je obavezno.</span>
-        )}
+        <span className={c.charCount}>{boothPlan.length}/150</span>
       </div>
 
       <div className={c.buttonsContainer}>

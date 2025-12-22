@@ -8,6 +8,7 @@ type InputProps = {
   onChange?: (value: string) => void;
   className?: string;
   textArea?: boolean;
+  maxLength?: number;
 };
 
 export const Input = ({
@@ -17,6 +18,7 @@ export const Input = ({
   onChange = () => {},
   className,
   textArea = false,
+  maxLength,
 }: InputProps) => {
   if (textArea) {
     return (
@@ -26,6 +28,7 @@ export const Input = ({
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         className={clsx(c.input, className)}
+        maxLength={maxLength}
       />
     );
   }
@@ -37,6 +40,7 @@ export const Input = ({
       disabled={disabled}
       onChange={(e) => onChange(e.target.value)}
       className={clsx(c.input, className)}
+      maxLength={maxLength}
     />
   );
 };

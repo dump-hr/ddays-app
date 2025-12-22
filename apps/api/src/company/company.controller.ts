@@ -202,6 +202,16 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
+  @Patch('/equipment')
+  async updateEquipment(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: { equipment: string },
+  ) {
+    return await this.companyService.updateEquipment(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Patch('/flytalk-holders')
   async updateFlyTalkHolders(
     @Req() { user }: AuthenticatedRequest,

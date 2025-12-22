@@ -667,7 +667,7 @@ export class CompanyService {
     const updatedCompany = await this.prisma.company.update({
       where: { id: companyId },
       data: {
-        boothPlan: data.boothPlan,
+        boothPlan: data.boothPlan === '' ? null : data.boothPlan,
       },
       include: {
         booth: { select: { name: true, id: true } },
