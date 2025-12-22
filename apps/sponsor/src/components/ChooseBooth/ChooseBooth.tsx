@@ -67,6 +67,8 @@ export const ChooseBooth = () => {
     );
   }
 
+  const selectedBooth = booths.data.find((b) => b.id === selectedBoothId);
+
   return (
     <section className={c.container}>
       <article className={c.choice}>
@@ -90,7 +92,7 @@ export const ChooseBooth = () => {
           className={clsx(c.button, !selectedBoothId && c.disabled)}
           onClick={handleReserve}
           disabled={!selectedBoothId || reserveBooth.isLoading}>
-          Odaberi
+          Odaberi {selectedBooth?.name}
         </button>
       </article>
       <aside className={c.map}>

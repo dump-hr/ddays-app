@@ -2,6 +2,7 @@ import { CompanyCategory } from '@ddays-app/types';
 import { DISPLAY } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
+import { BoothPlan } from '../formSteps/BoothPlan';
 import { Description } from '../formSteps/Description';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
@@ -69,6 +70,11 @@ export const sponsorForm: SponsorForm = {
     description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
     component: () => null,
     tier: [],
+  },
+  [FormSteps.BoothPlan]: {
+    title: 'Plan štanda',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
+    component: BoothPlan,
   },
 };
 /*[FormSteps.SwagBag]: {

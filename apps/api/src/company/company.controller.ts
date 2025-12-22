@@ -184,6 +184,16 @@ export class CompanyController {
 
   @UseGuards(SponsorGuard)
   @ApiBearerAuth()
+  @Patch('/booth-plan')
+  async updateBoothPlan(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: { boothPlan: string },
+  ) {
+    return await this.companyService.updateBoothPlan(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Patch('/flytalk-holders')
   async updateFlyTalkHolders(
     @Req() { user }: AuthenticatedRequest,

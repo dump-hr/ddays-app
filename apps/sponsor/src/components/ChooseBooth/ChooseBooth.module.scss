@@ -9,10 +9,8 @@ ul {
   flex-direction: row;
   gap: 13vw;
   width: 100%;
-  margin-top: 5.5vw;
   justify-content: center;
   align-items: start;
-  margin-bottom: 64px;
 
   .choice {
     display: flex;
@@ -51,7 +49,7 @@ ul {
       cursor: pointer;
 
       .text {
-        font-size: 2.5vw;
+        font-size: 2.2vw;
         transition:
           background-color 0.3s,
           color 0.3s;
@@ -64,7 +62,7 @@ ul {
       }
 
       &.chosen {
-        background-color: #d0d0d0;
+        background-color: white;
         color: #000000;
       }
 
@@ -80,11 +78,11 @@ ul {
     }
 
     .button {
-      margin-top: 16px;
+      margin-top: 32px;
 
       font-size: 20px;
-      font-weight: 400;
-
+      font-weight: 900;
+      color: black;
       box-sizing: border-box;
       height: 56px;
       padding: 0 24px;

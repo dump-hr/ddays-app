@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.description {
+    font-size: 14px;
+    color: #a8a8a8;
+    margin: 0;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.textArea {
+    min-height: 150px;
+}
+
+.error {
+    color: #ff4d4f;
+    font-size: 12px;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+
+    &.primary {
+        background-color: white;
+        color: black;
+
+        &:hover {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+    }
+}

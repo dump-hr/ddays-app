@@ -53,6 +53,8 @@ export class CompanyService {
         },
         password: false,
         campfireParticipation: true,
+        boothPlan: true,
+        category: true,
       },
       orderBy: { name: 'asc' },
     });
@@ -655,5 +657,28 @@ export class CompanyService {
       averageRating: null,
       campfireParticipation: company.campfireParticipation,
     }));
+  }
+
+  async updateBoothPlan(
+    companyId: number,
+    data: { boothPlan: string },
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        boothPlan: data.boothPlan,
+      },
+      include: {
+        booth: { select: { name: true, id: true } },
+      },
+    });
+
+    return {
+      ...updatedCompany,
+      booth: updatedCompany.booth?.name || null,
+      boothId: updatedCompany.booth?.id || null,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 }
