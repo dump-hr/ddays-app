@@ -6,6 +6,7 @@ import {
   CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
+  CompanyBoothPlanDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -680,5 +681,28 @@ export class CompanyService {
       flytalkHolders:
         (updatedCompany.flytalkHolders as unknown as JSON) || null,
     };
+  }
+  async getBoothPlans(): Promise<CompanyBoothPlanDto[]> {
+    const companies = await this.prisma.company.findMany({
+      where: {
+        boothPlan: {
+          not: null,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        category: true,
+        boothPlan: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+
+    return companies.map((company) => ({
+      id: company.id,
+      name: company.name,
+      category: company.category,
+      boothPlan: company.boothPlan,
+    }));
   }
 }

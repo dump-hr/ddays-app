@@ -7,39 +7,38 @@ ul {
 .container {
   display: flex;
   flex-direction: row;
-  gap: 13vw;
+  gap: 32px;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: start;
 
   .choice {
     display: flex;
     flex-direction: column;
-    margin-top: 3.5vw;
-    width: 31vw;
+    margin-top: 24px;
+    width: 35%;
 
     .title {
-      font-size: 1.5vw;
+      font-size: 24px;
       font-weight: 800;
       font-family: Fuse;
       color: #fff;
-      margin-bottom: 5vw;
+      margin-bottom: 32px;
     }
 
     .spots {
       display: flex;
       width: 100%;
       flex-wrap: wrap;
-      column-gap: 10px;
-      row-gap: 24px;
+      gap: 12px;
       flex-direction: row;
       user-select: none;
     }
 
     .spot {
       box-sizing: border-box;
-      width: 7.2vw;
-      height: 5vw;
+      width: 80px;
+      height: 60px;
       color: #ffffff;
       justify-content: center;
       align-items: center;
@@ -49,7 +48,7 @@ ul {
       cursor: pointer;
 
       .text {
-        font-size: 2.2vw;
+        font-size: 24px;
         transition:
           background-color 0.3s,
           color 0.3s;
@@ -100,8 +99,9 @@ ul {
   }
 
   .map {
-    width: 43.75vw;
+    width: 60%;
     height: auto;
+    margin-top: 24px;
 
     img {
       width: 100%;

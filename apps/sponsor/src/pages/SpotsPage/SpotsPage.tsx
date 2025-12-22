@@ -2,7 +2,7 @@ import { ISO, Tier } from '@ddays-app/types';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 
-import { useCompanyGetAllPublic } from '../../api/company/useCompanyGetAllPublic';
+import { useCompanyGetBoothPlans } from '../../api/company/useCompanyGetBoothPlans';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
 import { BoothConfirmationPage } from '../../components/BoothConfirmationPage/BoothConfirmationPage';
 import ChooseBooth from '../../components/ChooseBooth';
@@ -17,12 +17,15 @@ import c from './SpotsPage.module.scss';
 export const SpotsPage = () => {
   const [currentForm, setCurrentForm] = useState<string | null>(null);
   const currentCompany = useCompanyGetCurrentPublic();
-  const { data: allCompanies } = useCompanyGetAllPublic();
+  const {
+    data: allCompanies = [],
+    isLoading,
+  } = useCompanyGetBoothPlans();
   const { elapsedTime, didFinish } = useCountdown(ISO.SPOTS_OPENING);
   const queryClient = useQueryClient();
 
   const renderMainContent = () => {
-    if (currentCompany.isLoading) {
+    if (currentCompany.isLoading || isLoading) {
       return (
         <div
           style={{
@@ -61,9 +64,9 @@ export const SpotsPage = () => {
 
   return (
     <div className={c.page}>
-      {renderMainContent()}
-
       <div className={c.pageWrapper}>
+        {renderMainContent()}
+
         <div className={c.contentWrapper}>
           <h4 className={c.title}>Plan štanda</h4>
           <p className={c.subtitle}>
@@ -88,20 +91,18 @@ export const SpotsPage = () => {
             <h4>TIER SPONZORSTVA</h4>
             <h4>TVRTKA</h4>
             <h4>PLAN ŠTANDA</h4>
-            {allCompanies
-              .filter((company) => company.boothPlan)
-              .map((company) => (
-                <div key={company.id} style={{ display: 'contents' }}>
-                  <p>
-                    {company.category
-                      ? (TierLabels[company.category as unknown as Tier] ??
-                        company.category)
-                      : '-'}
-                  </p>
-                  <p>{company.name}</p>
-                  <p>{company.boothPlan}</p>
-                </div>
-              ))}
+            {allCompanies.map((company) => (
+              <div key={company.id} style={{ display: 'contents' }}>
+                <p>
+                  {company.category
+                    ? (TierLabels[company.category as unknown as Tier] ??
+                      company.category)
+                    : '-'}
+                </p>
+                <p>{company.name}</p>
+                <p>{company.boothPlan || 'Nema opisa'}</p>
+              </div>
+            ))}
           </div>
         )}
 
