@@ -1,12 +1,12 @@
 import {
   CompanyAdminDto,
+  CompanyBoothPlanDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
-  CompanyBoothPlanDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -658,6 +658,29 @@ export class CompanyService {
       averageRating: null,
       campfireParticipation: company.campfireParticipation,
     }));
+  }
+
+  async updateEquipment(
+    companyId: number,
+    data: { equipment: string },
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        equipment: data.equipment === '[]' ? null : data.equipment,
+      },
+      include: {
+        booth: { select: { name: true, id: true } },
+      },
+    });
+
+    return {
+      ...updatedCompany,
+      booth: updatedCompany.booth?.name || null,
+      boothId: updatedCompany.booth?.id || null,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
   }
 
   async updateBoothPlan(

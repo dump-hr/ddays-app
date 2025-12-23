@@ -11,7 +11,6 @@ import c from './BoothPlan.module.scss';
 export const BoothPlan: FormComponent = ({ close }) => {
   const ref = useRef(true);
   const [boothPlan, setBoothPlan] = useState('');
-  const [displayErrors, setDisplayErrors] = useState(false);
 
   const { data: company } = useCompanyGetCurrentPublic();
   const { mutateAsync: updateBoothPlan } = useCompanyUpdateBoothPlan();

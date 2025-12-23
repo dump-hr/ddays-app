@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import c from './Input.module.scss';
 
 type InputProps = {

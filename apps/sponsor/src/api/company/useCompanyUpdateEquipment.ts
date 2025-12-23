@@ -8,10 +8,10 @@ export const useCompanyUpdateEquipment = () => {
 
   return useMutation(
     async (data: { equipment: string }) => {
-      const response = await api.patch<
-        { equipment: string },
-        CompanyPublicDto
-      >('/company/equipment', data);
+      const response = await api.patch<{ equipment: string }, CompanyPublicDto>(
+        '/company/equipment',
+        data,
+      );
       return response;
     },
     {

@@ -1,12 +1,12 @@
 import {
   CompanyAdminDto,
+  CompanyBoothPlanDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
   CompanyModifyFlyTalkHoldersDto,
   CompanyPublicDto,
   FloorPlanCompanyDto,
-  CompanyBoothPlanDto,
 } from '@ddays-app/types';
 import { UserToCompanyDto } from '@ddays-app/types/src/dto/user';
 import {
@@ -49,7 +49,6 @@ export class CompanyController {
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
   }
-
 
   @UseGuards(SponsorGuard)
   @Get('booth-plans')

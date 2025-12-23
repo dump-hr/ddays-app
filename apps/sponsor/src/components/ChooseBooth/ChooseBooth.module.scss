@@ -96,6 +96,46 @@ ul {
         background-color: color-mix(in srgb, #fff 90%, #000 10%);
       }
     }
+
+    .confirmation {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 0;
+
+      .header {
+        font-size: 24px;
+        font-weight: 800;
+        font-family: Fuse;
+        color: #fff;
+        margin-bottom: 54px;
+      }
+
+      .mainTitle {
+        font-size: 50px;
+        font-weight: 800;
+        font-family: Fuse;
+        color: #fff;
+        line-height: title;
+        margin-bottom: 24px;
+        line-height: normal;
+      }
+
+      .desc {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: Fuse;
+        color: #fff;
+        margin-bottom: 40px;
+        line-height: 1.5;
+        opacity: 0.5;
+      }
+
+      .button {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
   }
 
   .map {

@@ -2,8 +2,8 @@ import { CompanyCategory } from '@ddays-app/types';
 import { DISPLAY } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
-import { BoothPlan } from '../formSteps/BoothPlan';
 import { BoothEquipment } from '../formSteps/BoothEquipment/BoothEquipment';
+import { BoothPlan } from '../formSteps/BoothPlan';
 import { Description } from '../formSteps/Description';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';

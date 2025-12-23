@@ -4,7 +4,6 @@ import { useQueryClient } from 'react-query';
 
 import { useCompanyGetBoothPlans } from '../../api/company/useCompanyGetBoothPlans';
 import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurrentPublic';
-import { BoothConfirmationPage } from '../../components/BoothConfirmationPage/BoothConfirmationPage';
 import ChooseBooth from '../../components/ChooseBooth';
 import { Modal } from '../../components/Modal';
 import WhiteButton from '../../components/WhiteButton';
@@ -17,10 +16,7 @@ import c from './SpotsPage.module.scss';
 export const SpotsPage = () => {
   const [currentForm, setCurrentForm] = useState<FormSteps | null>(null);
   const currentCompany = useCompanyGetCurrentPublic();
-  const {
-    data: allCompanies = [],
-    isLoading,
-  } = useCompanyGetBoothPlans();
+  const { data: allCompanies = [], isLoading } = useCompanyGetBoothPlans();
   const { elapsedTime, didFinish } = useCountdown(ISO.SPOTS_OPENING);
   const queryClient = useQueryClient();
 
@@ -40,11 +36,7 @@ export const SpotsPage = () => {
       );
     }
 
-    if (currentCompany.data?.booth) {
-      return <BoothConfirmationPage name={currentCompany.data.booth} />;
-    }
-
-    if (!didFinish) {
+    if (!didFinish && !currentCompany.data?.booth) {
       return (
         <div
           style={{
@@ -53,14 +45,14 @@ export const SpotsPage = () => {
             alignItems: 'center',
             height: '60vh',
             color: 'white',
-            fontSize: '24px'
+            fontSize: '24px',
           }}>
           Biranje mjesta kreće za {elapsedTime}
         </div>
       );
     }
 
-    return <ChooseBooth />;
+    return <ChooseBooth confirmedBooth={currentCompany.data?.booth} />;
   };
 
   return (
@@ -83,11 +75,16 @@ export const SpotsPage = () => {
                 if (items.length > 0) {
                   return (
                     <div className={c.boothPlanList}>
-                      {items.map((item: any, i: number) => (
-                        <div key={i}>
-                          {item.quantity} x {item.name}
-                        </div>
-                      ))}
+                      {items.map(
+                        (
+                          item: { name: string; quantity: number },
+                          i: number,
+                        ) => (
+                          <div key={i}>
+                            {item.quantity} x {item.name}
+                          </div>
+                        ),
+                      )}
                     </div>
                   );
                 }

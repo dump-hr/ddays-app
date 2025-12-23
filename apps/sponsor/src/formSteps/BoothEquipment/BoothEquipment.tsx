@@ -79,7 +79,11 @@ export const BoothEquipment: FormComponent = ({ close }) => {
       <div className={c.infoContainer}>
         <h1 className={c.title}>Materijali potrebni za štand</h1>
         <p className={c.description}>
-          Oprema za štand su školske klupe, stolnjaci, stolice - napišite što vam je potrebno i u kojoj količini. Ako ste izrazili želju za tepihom, on je već podrazumijevan i čekat će vas na štandu. Svaki štand imat će produžni kabel s 4 do 5 utičnica, ako imate preferencu za to, također naznačite.
+          Oprema za štand su školske klupe, stolnjaci, stolice - napišite što
+          vam je potrebno i u kojoj količini. Ako ste izrazili želju za tepihom,
+          on je već podrazumijevan i čekat će vas na štandu. Svaki štand imat će
+          produžni kabel s 4 do 5 utičnica, ako imate preferencu za to, također
+          naznačite.
         </p>
       </div>
 
