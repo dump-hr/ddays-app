@@ -7,7 +7,7 @@ import {
   allFieldsAreFilled,
   validateField,
   validations,
-} from '@/helpers/validateInput';
+} from '@/validation/validateInput';
 import { RegistrationFormErrors } from '@/types/errors/errors.dto';
 import { UserDataFields, UserProfileFields } from '@/types/enums';
 import { useRegistration } from '@/providers/RegistrationContext';

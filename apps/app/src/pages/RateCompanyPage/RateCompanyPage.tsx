@@ -11,6 +11,7 @@ import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 import toast from 'react-hot-toast';
 import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
 import { useCompanyGetById } from '@/api/company/useGetCompanyById';
+import { useGeoValidation } from '@/hooks/useGeoValidation';
 
 export const RateCompanyPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export const RateCompanyPage = () => {
   const { mutate: addRatings } = useRatingAddMultiple();
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const { data: userRatings } = useGetUserRatings();
+  const geolocation = useGeoValidation();
 
   useEffect(() => {
     if (!questions) return;
@@ -49,6 +51,14 @@ export const RateCompanyPage = () => {
     } else {
       if (toastId !== null) {
         toast.dismiss(toastId);
+      }
+
+      if (geolocation.isOk === false) {
+        toast.error(
+          `Ne možete ocijeniti štand izvan dozvoljene lokacije ili je preciznost GPS-a preniska.`,
+        );
+        navigate(RouteNames.HOME);
+        return;
       }
 
       if (isCompanyError) {

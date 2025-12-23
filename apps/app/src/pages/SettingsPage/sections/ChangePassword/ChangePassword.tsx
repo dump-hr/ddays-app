@@ -16,7 +16,7 @@ import {
   allFieldsAreFilled,
   validateField,
   validateRepeatedPassword,
-} from '@/helpers/validateInput';
+} from '@/validation/validateInput';
 import { useChangeUserPassword } from '@/api/user/useChangeUserPassword';
 
 export const ChangePassword: React.FC = () => {
