@@ -32,12 +32,6 @@ export const App = () => {
           path='/sponsor/materials'
           children={<Redirect to={Path.Materials} />}
         />
-        {/*     
-        <Route
-          path='/sponsor/stand'
-          children={<Redirect to={Path.SpotsPage} />}
-        />
-        */}
       </Switch>
       <Toaster />
     </HelmetProvider>
