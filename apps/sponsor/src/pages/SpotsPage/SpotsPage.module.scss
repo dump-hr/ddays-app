@@ -1,0 +1,68 @@
+.page {
+    width: 100%;
+    background-color: #0e0e0e;
+    min-height: calc(100vh - 88px);
+    padding-bottom: 24px;
+}
+
+.pageWrapper {
+    max-width: 1050px;
+    margin: auto;
+
+    .contentWrapper {
+        max-width: 410px;
+
+        .title {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #ffffff80;
+            margin-top: 8px;
+            max-width: 650px;
+        }
+
+        .boothPlanList {
+            margin-top: 32px;
+            padding: 16px;
+            gap: 24px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ffffff33;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 20px 0;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+    }
+
+    .allBoothPlansGrid {
+        display: grid;
+        grid-template-columns: 200px 250px 1fr;
+        gap: 16px;
+        margin-top: 64px;
+        width: 100%;
+        color: white;
+
+        h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #ffffff80;
+            text-transform: uppercase;
+        }
+
+        p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    }
+}

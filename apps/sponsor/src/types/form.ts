@@ -10,7 +10,8 @@ export enum FormSteps {
   Interests = 'Interests',
   Accreditation = 'Accreditation',
   Flytalk = 'Flytalk',
-  // SwagBag = 'SwagBag',
+  BoothPlan = 'BoothPlan',
+  BoothEquipment = 'BoothEquipment',
 }
 
 export enum StepStatus {

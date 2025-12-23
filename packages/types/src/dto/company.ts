@@ -196,3 +196,10 @@ export type FloorPlanCompanyDto = {
   interests?: InterestDto[];
   boothRating: number;
 };
+
+export type CompanyBoothPlanDto = {
+  id: number;
+  name: string;
+  category?: `${CompanyCategory}`;
+  boothPlan?: string;
+};
