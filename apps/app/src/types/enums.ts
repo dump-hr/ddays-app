@@ -13,6 +13,7 @@ export enum UserDataFields {
   CompaniesNewsEnabled = 'companiesNewsEnabled',
   TermsAndConditionsEnabled = 'termsAndConditionsEnabled',
   ProfilePhotoUrl = 'profilePhotoUrl',
+  InviteCode = 'inviteCode',
 }
 
 export enum UserProfileFields {
