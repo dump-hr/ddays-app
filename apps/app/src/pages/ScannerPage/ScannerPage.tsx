@@ -43,7 +43,7 @@ const ScannerPage = () => {
 
     if (geolocation.isOk === false) {
       toast.error(
-        `Ne možete skenirati QR kod izvan dozvoljene lokacije ili je preciznost GPS-a preniska. ${geolocation.error ?? 'neki error'}`,
+        `Ne možete skenirati QR kod izvan dozvoljene lokacije. ${geolocation?.error ?? ''}`,
       );
       return;
     }
