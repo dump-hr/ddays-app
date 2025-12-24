@@ -1,18 +1,20 @@
-// Target location (set this to the place you want)
-const TARGET = { lat: 43.393407, lon: 16.281887 }; // example (Split)
-/* const TARGET = { lat: 43.508133, lon: 17.440193 }; */ // DUMP location
+import {
+  TARGET_LAT,
+  TARGET_LON,
+  EARTH_RADIUS_M,
+  VALIDATION_RADIUS_M,
+} from '@/constants/geolocation';
 
-// Validation radius in meters
-const RADIUS_M = 250;
-
+/* const TARGET = { lat: 43.393407, lon: 16.281887 }; */ // example (Split)
 type Coordinates = {
   lat: number;
   lon: number;
 };
 
+const TARGET_COORDS: Coordinates = { lat: TARGET_LAT, lon: TARGET_LON }; // DUMP location
+
 // Haversine distance in meters
 export function distanceMeters(a: Coordinates, b: Coordinates): number {
-  const R = 6371000; // Earth radius (m)
   const toRad = (deg: number) => (deg * Math.PI) / 180;
 
   const dLat = toRad(b.lat - a.lat);
@@ -27,7 +29,7 @@ export function distanceMeters(a: Coordinates, b: Coordinates): number {
   const h =
     sinDLat * sinDLat + Math.cos(lat1) * Math.cos(lat2) * sinDLon * sinDLon;
 
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return 2 * EARTH_RADIUS_M * Math.asin(Math.sqrt(h));
 }
 
 export function validateWithinRadius(userCoords: GeolocationCoordinates) {
@@ -35,10 +37,10 @@ export function validateWithinRadius(userCoords: GeolocationCoordinates) {
     lat: userCoords.latitude,
     lon: userCoords.longitude,
   };
-  const dist = distanceMeters(user, TARGET);
+  const dist = distanceMeters(user, TARGET_COORDS);
 
   return {
-    ok: dist <= RADIUS_M,
+    ok: dist <= VALIDATION_RADIUS_M,
     distanceMeters: dist,
     accuracyMeters: userCoords.accuracy, // reported by device
   };

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { validateWithinRadius } from '@/validation/validateGeolocation';
+import { ACCURACY_LIMIT_M } from '@/constants/geolocation';
 
 type GeoResult = {
   ok: boolean;
@@ -11,13 +12,12 @@ export function useGeoValidation(options?: {
   accuracyLimitMeters?: number;
   geolocationOptions?: PositionOptions;
 }) {
-  const accuracyLimit = options?.accuracyLimitMeters ?? 250;
-  // Current - new object every render
-
+  const accuracyLimit = options?.accuracyLimitMeters ?? ACCURACY_LIMIT_M;
   const geoOptions = useMemo(
     () =>
       options?.geolocationOptions ?? {
-        enableHighAccuracy: true,
+        // koristit ce vise baterije radi gps-a, mozda nam se neisplati
+        // enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
       },
