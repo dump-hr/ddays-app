@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { validateWithinRadius } from '@/validation/validateGeolocation';
-import { ACCURACY_LIMIT_M } from '@/constants/geolocation';
+import { VALIDATION_RADIUS_M } from '@/constants/geolocation';
 
 type GeoResult = {
-  ok: boolean;
+  isOk: boolean;
   distanceMeters: number;
   accuracyMeters: number | null;
 };
@@ -12,12 +12,11 @@ export function useGeoValidation(options?: {
   accuracyLimitMeters?: number;
   geolocationOptions?: PositionOptions;
 }) {
-  const accuracyLimit = options?.accuracyLimitMeters ?? ACCURACY_LIMIT_M;
+  const accuracyLimit = options?.accuracyLimitMeters ?? VALIDATION_RADIUS_M;
   const geoOptions = useMemo(
     () =>
       options?.geolocationOptions ?? {
-        // koristit ce vise baterije radi gps-a, mozda nam se neisplati
-        // enableHighAccuracy: true,
+        enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
       },
@@ -42,28 +41,29 @@ export function useGeoValidation(options?: {
         const accuracy = pos.coords.accuracy ?? null;
 
         // Reject low-accuracy fixes first
-        if (accuracy == null || accuracy > accuracyLimit) {
+        if (!accuracy || accuracy > accuracyLimit) {
           const msg = `Location accuracy too low (${accuracy ? Math.round(accuracy) : '?'}m).`;
           setIsOk(false);
           setError(msg);
           setResult(
-            accuracy == null
+            !accuracy
               ? null
-              : { ok: false, distanceMeters: NaN, accuracyMeters: accuracy },
+              : { isOk: false, distanceMeters: NaN, accuracyMeters: accuracy },
           );
           return;
         }
 
-        const r = validateWithinRadius(pos.coords);
+        const { isOk, distanceMeters } = validateWithinRadius(pos.coords);
 
         const payload: GeoResult = {
-          ok: r.ok,
-          distanceMeters: r.distanceMeters,
+          isOk,
+          distanceMeters,
           accuracyMeters: accuracy,
         };
 
         setResult(payload);
-        setIsOk(r.ok);
+        setIsOk(isOk);
+        console.log('Geo validation result:', payload);
       },
       (err) => {
         setIsOk(false);
