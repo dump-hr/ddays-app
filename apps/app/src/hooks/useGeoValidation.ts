@@ -2,12 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { validateWithinRadius } from '@/validation/validateGeolocation';
 import { VALIDATION_RADIUS_M } from '@/constants/geolocation';
 
-type GeoResult = {
-  isOk: boolean;
-  distanceMeters: number;
-  accuracyMeters: number | null;
-};
-
 export function useGeoValidation(options?: {
   accuracyLimitMeters?: number;
   geolocationOptions?: PositionOptions;
@@ -25,49 +19,36 @@ export function useGeoValidation(options?: {
 
   const [isOk, setIsOk] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<GeoResult | null>(null);
 
-  const validate = useCallback(() => {
+  const validateGeolocation = useCallback(() => {
     setError(null);
 
     if (typeof window === 'undefined' || !('geolocation' in navigator)) {
       setIsOk(false);
-      setError('Geolocation is not available in this environment.');
+      setError('Geolokacija nije uključena ili je nedostupna.');
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
+    void navigator.geolocation.getCurrentPosition(
       (pos) => {
         const accuracy = pos.coords.accuracy ?? null;
 
         // Reject low-accuracy fixes first
         if (!accuracy || accuracy > accuracyLimit) {
-          const msg = `Location accuracy too low (${accuracy ? Math.round(accuracy) : '?'}m).`;
+          const msg = `Preciznost lokacije je preniska.`;
           setIsOk(false);
           setError(msg);
-          setResult(
-            !accuracy
-              ? null
-              : { isOk: false, distanceMeters: NaN, accuracyMeters: accuracy },
-          );
           return;
         }
 
-        const { isOk, distanceMeters } = validateWithinRadius(pos.coords);
-
-        const payload: GeoResult = {
-          isOk,
-          distanceMeters,
-          accuracyMeters: accuracy,
-        };
-
-        setResult(payload);
-        setIsOk(isOk);
-        console.log('Geo validation result:', payload);
+        const result = validateWithinRadius(pos.coords);
+        // for debugging:
+        // console.log('Geolocation validation result:', result);
+        setIsOk(result.isOk);
       },
-      (err) => {
+      () => {
         setIsOk(false);
-        setError(err.message);
+        setError(`Greška pri dohvaćanju lokacije. Pokušajte ponovno.`);
       },
       geoOptions,
     );
@@ -75,8 +56,8 @@ export function useGeoValidation(options?: {
 
   // Run validation once on mount
   useEffect(() => {
-    validate();
-  }, [validate]);
+    validateGeolocation();
+  }, [validateGeolocation]);
 
-  return { validate, isOk, error, result };
+  return { validateGeolocation, isOk, error };
 }
