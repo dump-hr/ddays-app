@@ -41,9 +41,10 @@ const ScannerPage = () => {
       return;
     }
 
-    if (geolocation.isOk === false) {
+    if (!geolocation.isOk) {
       toast.error(
-        `Ne možete skenirati QR kod izvan dozvoljene lokacije. ${geolocation?.error ?? ''}`,
+        geolocation?.error ??
+          'Ne možete skenirati QR kod izvan dozvoljene lokacije.',
       );
       return;
     }

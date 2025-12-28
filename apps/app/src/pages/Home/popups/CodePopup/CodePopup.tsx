@@ -25,7 +25,7 @@ const CodePopup: React.FC<CodePopupProps> = ({
   function handleCodeSubmit(code: string) {
     if (!geolocation.isOk) {
       setErrorMessage(
-        `Ne možete unijeti kod izvan dozvoljene lokacije. ${geolocation?.error ?? ''}`,
+        `${geolocation?.error ?? 'Ne možete unijeti kod izvan dozvoljene lokacije.'}`,
       );
       return;
     }
