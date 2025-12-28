@@ -23,16 +23,16 @@ export const BoothPlan: FormComponent = ({ close }) => {
   }, [company]);
 
   const handleSave = async () => {
-    if (company?.id) {
-      try {
-        await updateBoothPlan({
-          boothPlan: boothPlan,
-        });
-        toast.success('Plan štanda uspješno spremljen.');
-        close();
-      } catch (e) {
-        toast.error('Došlo je do greške prilikom spremanja.');
-      }
+    if (!company?.id) return;
+
+    try {
+      await updateBoothPlan({
+        boothPlan,
+      });
+      toast.success('Plan štanda uspješno spremljen.');
+      close();
+    } catch {
+      toast.error('Došlo je do greške prilikom spremanja.');
     }
   };
 

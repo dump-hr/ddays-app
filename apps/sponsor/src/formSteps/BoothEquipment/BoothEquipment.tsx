@@ -6,7 +6,7 @@ import { useCompanyGetCurrentPublic } from '../../api/company/useCompanyGetCurre
 import { useCompanyUpdateEquipment } from '../../api/company/useCompanyUpdateEquipment';
 import { Input } from '../../components/Input';
 import { FormComponent } from '../../types/form';
-import c from './BoothEquipment.module.scss'; // We will create this or share styles
+import c from './BoothEquipment.module.scss';
 
 export type EquipmentItem = {
   name: string;
@@ -23,19 +23,20 @@ export const BoothEquipment: FormComponent = ({ close }) => {
   const { mutateAsync: updateEquipment } = useCompanyUpdateEquipment();
 
   useEffect(() => {
-    if (items.length) return;
-    if (ref.current) {
-      if (company?.equipment) {
-        try {
-          const parsed = JSON.parse(company.equipment);
-          if (Array.isArray(parsed)) {
-            setItems(parsed);
-          }
-        } catch (e) {
-          // If parse fails or simple string, maybe handle differently or init empty
-          console.error('Failed to parse equipment', e);
-        }
-      }
+    if (items.length || !ref.current) return;
+
+    if (!company?.equipment) {
+      ref.current = false;
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(company.equipment);
+
+      if (Array.isArray(parsed)) setItems(parsed);
+    } catch (e) {
+      console.error('Failed to parse equipment', e);
+    } finally {
       ref.current = false;
     }
   }, [company?.equipment, items.length]);

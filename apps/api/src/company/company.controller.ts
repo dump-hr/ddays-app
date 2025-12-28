@@ -51,6 +51,7 @@ export class CompanyController {
   }
 
   @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
   @Get('booth-plans')
   async getBoothPlans(): Promise<CompanyBoothPlanDto[]> {
     return await this.companyService.getBoothPlans();
