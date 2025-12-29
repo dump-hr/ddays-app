@@ -54,7 +54,7 @@ export const RateCompanyPage = () => {
       }
 
       if (!geolocation.isOk) {
-        toast.error(geolocation?.error ?? 'Ne možete ocijeniti štand izvan dozvoljene lokacije.');
+        toast.error(`${geolocation.error ?? "Greška, pokušajte ponovno."}`);
         navigate(RouteNames.HOME);
         return;
       }

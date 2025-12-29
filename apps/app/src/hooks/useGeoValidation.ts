@@ -35,9 +35,8 @@ export function useGeoValidation(options?: {
 
         // Reject low-accuracy fixes first
         if (!accuracy || accuracy > accuracyLimit) {
-          const msg = `Preciznost lokacije je preniska.`;
           setIsOk(false);
-          setError(msg);
+          setError('Preciznost lokacije je preniska.');
           return;
         }
 
@@ -45,6 +44,9 @@ export function useGeoValidation(options?: {
         // for debugging:
         // console.log('Geolocation validation result:', result);
         setIsOk(result.isOk);
+        if (!result.isOk) {
+          setError('Izvan ste dozvoljene lokacije.');
+        }
       },
       () => {
         setIsOk(false);

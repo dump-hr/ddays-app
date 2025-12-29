@@ -5,14 +5,13 @@ import {
   VALIDATION_RADIUS_M,
 } from '@/constants/geolocation';
 
-
 type Coordinates = {
   lat: number;
   lon: number;
 };
 
 /* const TARGET_COORDS  = { lat: 43.393407, lon: 16.281887 }; */ // for testing, set to your location
-const TARGET_COORDS: Coordinates = { lat: TARGET_LAT, lon: TARGET_LON }; 
+const TARGET_COORDS: Coordinates = { lat: TARGET_LAT, lon: TARGET_LON };
 
 // Haversine distance in meters
 export function distanceMeters(a: Coordinates, b: Coordinates): number {
