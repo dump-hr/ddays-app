@@ -1,5 +1,6 @@
 import {
   CompanyAdminDto,
+  CompanyBoothPlanDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -53,6 +54,8 @@ export class CompanyService {
         },
         password: false,
         campfireParticipation: true,
+        boothPlan: true,
+        category: true,
       },
       orderBy: { name: 'asc' },
     });
@@ -654,6 +657,75 @@ export class CompanyService {
       jobs: null,
       averageRating: null,
       campfireParticipation: company.campfireParticipation,
+    }));
+  }
+
+  async updateEquipment(
+    companyId: number,
+    data: { equipment: string },
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        equipment: data.equipment === '[]' ? null : data.equipment,
+      },
+      include: {
+        booth: { select: { name: true, id: true } },
+      },
+    });
+
+    return {
+      ...updatedCompany,
+      booth: updatedCompany.booth?.name || null,
+      boothId: updatedCompany.booth?.id || null,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
+  }
+
+  async updateBoothPlan(
+    companyId: number,
+    data: { boothPlan: string },
+  ): Promise<CompanyPublicDto> {
+    const updatedCompany = await this.prisma.company.update({
+      where: { id: companyId },
+      data: {
+        boothPlan: data.boothPlan === '' ? null : data.boothPlan,
+      },
+      include: {
+        booth: { select: { name: true, id: true } },
+      },
+    });
+
+    return {
+      ...updatedCompany,
+      booth: updatedCompany.booth?.name || null,
+      boothId: updatedCompany.booth?.id || null,
+      flytalkHolders:
+        (updatedCompany.flytalkHolders as unknown as JSON) || null,
+    };
+  }
+  async getBoothPlans(): Promise<CompanyBoothPlanDto[]> {
+    const companies = await this.prisma.company.findMany({
+      where: {
+        boothPlan: {
+          not: null,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        category: true,
+        boothPlan: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+
+    return companies.map((company) => ({
+      id: company.id,
+      name: company.name,
+      category: company.category,
+      boothPlan: company.boothPlan,
     }));
   }
 }

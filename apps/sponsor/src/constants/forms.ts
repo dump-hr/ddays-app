@@ -2,6 +2,8 @@ import { CompanyCategory } from '@ddays-app/types';
 import { DISPLAY } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
+import { BoothEquipment } from '../formSteps/BoothEquipment/BoothEquipment';
+import { BoothPlan } from '../formSteps/BoothPlan';
 import { Description } from '../formSteps/Description';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
@@ -68,6 +70,18 @@ export const sponsorForm: SponsorForm = {
     title: 'Fly Talks',
     description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
     component: () => null,
+    tier: [],
+  },
+  [FormSteps.BoothPlan]: {
+    title: 'Plan štanda',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
+    component: BoothPlan,
+    tier: [],
+  },
+  [FormSteps.BoothEquipment]: {
+    title: 'Materijali potrebni za štand',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
+    component: BoothEquipment,
     tier: [],
   },
 };
