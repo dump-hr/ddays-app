@@ -13,6 +13,7 @@ import c from './ChooseBooth.module.scss';
 const socket = io();
 
 interface Props {
+  //TODO: change to more specific type, but only if booth names will not change
   confirmedBooth?: string | null;
 }
 

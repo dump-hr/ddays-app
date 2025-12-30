@@ -20,8 +20,6 @@ export const SpotsPage = () => {
   const { elapsedTime, didFinish } = useCountdown(ISO.SPOTS_OPENING);
   const queryClient = useQueryClient();
 
-  console.log(allCompanies);
-
   const renderMainContent = () => {
     if (currentCompany.isLoading || isLoading) {
       return (
