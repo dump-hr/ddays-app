@@ -1,5 +1,6 @@
 import {
   CompanyAdminDto,
+  CompanyBoothPlanDto,
   CompanyDto,
   CompanyModifyDescriptionDto,
   CompanyModifyDto,
@@ -47,6 +48,13 @@ export class CompanyController {
   @Get()
   async getAllPublic(): Promise<CompanyPublicDto[]> {
     return await this.companyService.getAllPublic();
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Get('booth-plans')
+  async getBoothPlans(): Promise<CompanyBoothPlanDto[]> {
+    return await this.companyService.getBoothPlans();
   }
 
   @UseGuards(AdminGuard)
@@ -180,6 +188,26 @@ export class CompanyController {
     @Body() data: string[],
   ) {
     return await this.companyService.updateAccreditation(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Patch('/booth-plan')
+  async updateBoothPlan(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: { boothPlan: string },
+  ) {
+    return await this.companyService.updateBoothPlan(user.id, data);
+  }
+
+  @UseGuards(SponsorGuard)
+  @ApiBearerAuth()
+  @Patch('/equipment')
+  async updateEquipment(
+    @Req() { user }: AuthenticatedRequest,
+    @Body() data: { equipment: string },
+  ) {
+    return await this.companyService.updateEquipment(user.id, data);
   }
 
   @UseGuards(SponsorGuard)
