@@ -60,8 +60,7 @@ export const SpotsPage = () => {
       <div className={c.pageWrapper}>
         {renderMainContent()}
 
-        {didFinish && (
-          <div className={c.contentWrapper}>
+        <div className={c.contentWrapper}>
             <h4 className={c.title}>Potrebni materijali za štand</h4>
             <p className={c.subtitle}>
               Ovdje možete tražiti neke materijale koje želite da Vam DUMP
@@ -119,9 +118,8 @@ export const SpotsPage = () => {
               Dodaj plan štanda
             </WhiteButton>
           </div>
-        )}
 
-        {didFinish && allCompanies && allCompanies.length > 0 && (
+        {allCompanies && allCompanies.length > 0 && (
           <div className={c.allBoothPlansGrid}>
             <h4>TIER SPONZORSTVA</h4>
             <h4>TVRTKA</h4>
