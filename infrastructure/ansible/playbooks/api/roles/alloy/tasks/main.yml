@@ -1,0 +1,80 @@
+---
+- name: Install prerequisite packages
+  ansible.builtin.apt:
+    name: [gpg, wget]
+    state: present
+  become: true
+
+- name: Create keyring directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Download Grafana GPG key
+  ansible.builtin.get_url:
+    url: https://apt.grafana.com/gpg-full.key
+    dest: /etc/apt/keyrings/grafana.asc
+    mode: '0644'
+  become: true
+
+- name: Add Grafana apt repository
+  ansible.builtin.apt_repository:
+    repo: 'deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main'
+    filename: grafana
+    state: present
+  become: true
+
+- name: Install Alloy package
+  ansible.builtin.apt:
+    name: alloy
+    update_cache: yes
+    state: present
+  become: true
+
+- name: Add alloy user to docker group
+  ansible.builtin.user:
+    name: alloy
+    groups: docker
+    append: yes
+  become: true
+  notify: Restart Alloy Service
+
+- name: Ensure Alloy config directory exists
+  ansible.builtin.file:
+    path: /home/admin/alloy
+    state: directory
+    owner: alloy
+    group: alloy
+    mode: '0755'
+  become: true
+
+- name: Deploy Alloy configuration file
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/config.alloy"
+    dest: /home/admin/alloy/config.alloy
+    owner: alloy
+    group: alloy
+    mode: '0644'
+  become: true
+  notify: Restart Alloy Service
+
+- name: Update the Environment file
+  ansible.builtin.copy:
+    dest: /etc/default/alloy
+    content: |
+      CONFIG_FILE="/home/admin/alloy/config.alloy"
+      CUSTOM_ARGS="--storage.path=/var/lib/alloy/data --server.http.listen-addr=0.0.0.0:12345"
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: Restart Alloy Service
+
+- name: Ensure Alloy is started and enabled
+  ansible.builtin.systemd:
+    name: alloy
+    state: started
+    enabled: true
+  become: true

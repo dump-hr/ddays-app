@@ -17,14 +17,15 @@
         cache_valid_time: 3600
 
   roles:
-    - role: geerlingguy.docker
-      become: true
-      vars:
-        docker_users:
-          - admin
-    - role: traefik
-    - role: api
-      vars:
-        docker_image: '{{ docker_image }}'
-        env_file: '{{ env_file }}'
-        api_domain: '{{ api_domain }}'
+    # - role: geerlingguy.docker
+    #   become: true
+    #   vars:
+    #     docker_users:
+    #       - admin
+    # - role: traefik
+    - role: alloy
+    # - role: api
+    #   vars:
+    #     docker_image: '{{ docker_image }}'
+    #     env_file: '{{ env_file }}'
+    #     api_domain: '{{ api_domain }}'
