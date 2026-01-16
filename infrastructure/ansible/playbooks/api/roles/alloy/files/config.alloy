@@ -7,8 +7,15 @@ discovery.relabel "docker_logs" {
 
   rule {
     source_labels = ["__meta_docker_container_name"]
-    regex         = "/?api"
+    regex         = "/?(api)"
     action       = "keep"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/?(api)"
+    target_label  = "container"
+    replacement   = "$1"
   }
 }
 
