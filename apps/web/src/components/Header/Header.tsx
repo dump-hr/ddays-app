@@ -69,8 +69,8 @@ const Header = ({ Button, toggleMobileMenu }: HeaderProps) => {
   return (
     <header className={classes}>
       <p className={c.text}>
-        SPLIT <span className={c.separator}>//</span> FESB <br /> 23.{' '}
-        <span className={c.separator}>—</span> 24. 05. 2025.
+        SPLIT <span className={c.separator}>//</span> FESB <br /> 28.
+        <span className={c.separator}>—</span> 29. 05. 2026.
       </p>
       <p className={c.text}>
         BESPLATNA KONFERENCIJA <br />
