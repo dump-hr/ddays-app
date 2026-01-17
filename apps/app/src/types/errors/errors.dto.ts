@@ -15,4 +15,6 @@ export type RegistrationFormErrors = {
   interests?: string;
   profilePhotoUrl?: string;
   isFromGoogleAuth?: string;
+  inviteCode?: string;
+  isInvited?: boolean;
 };

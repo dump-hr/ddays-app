@@ -44,7 +44,9 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const isStepValid = (step: number) => {
     const stepErrors = errors[step] || {};
     if (!stepErrors || !errors[step]) return false;
-    return Object.values(stepErrors).every((error) => error === '');
+    return Object.values(stepErrors).every(
+      (error) => error === '' || error === undefined,
+    );
   };
 
   const value = {

@@ -17,4 +17,6 @@ export type RegistrationDto = {
   termsAndConditionsEnabled?: boolean;
   interests: InterestDto[];
   isFromGoogleAuth?: boolean;
+  inviteCode?: string;
+  isInvited?: boolean;
 };

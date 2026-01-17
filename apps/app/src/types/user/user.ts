@@ -17,6 +17,7 @@ export type RegistrationDto = {
   companiesNewsEnabled: boolean;
   termsAndConditionsEnabled?: boolean;
   interests: InterestDto[];
+  inviteCode: string;
 };
 
 export type ProfileSettingsDto = {
