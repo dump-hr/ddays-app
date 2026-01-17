@@ -3,6 +3,12 @@
   set_fact:
     alloy_secrets: "{{ lookup('community.sops.sops', playbook_dir + '/roles/alloy/files/auth.env.enc') }}"
 
+- name: Debug alloy_secrets
+  debug:
+    msg: 
+      - "Value: {{ alloy_secrets }}"
+      - "Type: {{ alloy_secrets | type_debug }}"
+
 - name: Install prerequisite packages
   ansible.builtin.apt:
     name: [gpg, wget]
