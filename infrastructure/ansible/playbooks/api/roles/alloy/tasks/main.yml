@@ -1,7 +1,7 @@
 ---
 - name: Load Alloy secrets from SOPS
   set_fact:
-    alloy_secrets: "{{ (lookup('community.sops.sops', role_path + '/files/auth.env.enc') | from_json).data }}"
+    alloy_secrets: "{{ lookup('community.sops.sops', playbook_dir + '/roles/alloy/files/auth.env.enc') }}"
 
 - name: Install prerequisite packages
   ansible.builtin.apt:
@@ -70,7 +70,7 @@
     content: |
       CONFIG_FILE="/home/admin/alloy/config.alloy"
       CUSTOM_ARGS="--storage.path=/var/lib/alloy/data --server.http.listen-addr=0.0.0.0:12345"
-      {{ alloy_secrets }}
+      {{ alloy_secrets.data if alloy_secrets is mapping else (alloy_secrets | from_json).data }}
     owner: root
     group: root
     mode: '0644'
