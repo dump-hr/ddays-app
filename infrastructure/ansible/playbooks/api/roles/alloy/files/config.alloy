@@ -28,5 +28,10 @@ loki.source.docker "default" {
 loki.write "remote" {
   endpoint {
     url = "https://loki.dump.hr/loki/api/v1/push"
+
+    basic_auth {
+      username = sys.env("loki_username")
+      password = sys.env("loki_password")
+    }
   }
 }
