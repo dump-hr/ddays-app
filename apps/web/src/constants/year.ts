@@ -1,1 +1,1 @@
-export const year = 2025;
+export const year = 2026;

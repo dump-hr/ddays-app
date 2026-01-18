@@ -23,6 +23,7 @@
         docker_users:
           - admin
     - role: traefik
+    - role: alloy
     - role: api
       vars:
         docker_image: '{{ docker_image }}'
