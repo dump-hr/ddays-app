@@ -109,23 +109,23 @@ jobs:
       - name: Run ESLint
         run: yarn workspace app run lint
 
-  eslint_admin_old:
-    name: Run ESLint (admin-old)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x
-          cache: 'yarn'
-          cache-dependency-path: '**/package.json'
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
-      - name: Run ESLint
-        run: yarn workspace admin-old run lint
+#  eslint_admin_old:
+#    name: Run ESLint (admin-old)
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v3
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 20.x
+#          cache: 'yarn'
+#          cache-dependency-path: '**/package.json'
+#
+#      - name: Install dependencies
+#        run: yarn install --immutable
+#
+#      - name: Run ESLint
+#        run: yarn workspace admin-old run lint

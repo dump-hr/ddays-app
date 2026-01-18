@@ -1,8 +1,9 @@
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import { EventWithSpeakerDto, DISPLAY } from '@ddays-app/types';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import c from './EventsSection.module.scss';
 import { events } from './events';
+import { ISO } from '@ddays-app/types';
 import clsx from 'clsx';
 import TabGroup from '@/components/TabGroup';
 import Tab from '@/components/Tab';
@@ -32,7 +33,11 @@ const EventsSection = () => {
   };
 
   function filterEventsByDate(day: number) {
-    const date = new Date(day === 1 ? '2025-05-23' : '2025-05-24');
+    const date = new Date(
+      day === 1
+        ? ISO.FIRST_DAY_START.split('T')[0]
+        : ISO.SECOND_DAY_START.split('T')[0],
+    );
     return events.filter((event) => {
       const eventDate = new Date(event.startsAt);
       return (
@@ -111,8 +116,8 @@ const EventsSection = () => {
   return (
     <section className={c.lectures}>
       <TabGroup setter={handleTabChange}>
-        <Tab id={Tabs.DAY_1}>23. 5. - PETAK</Tab>
-        <Tab id={Tabs.DAY_2}>24. 5. - SUBOTA</Tab>
+        <Tab id={Tabs.DAY_1}>{DISPLAY.FIRST_DATE_AND_DAY}</Tab>
+        <Tab id={Tabs.DAY_2}>{DISPLAY.SECOND_DATE_AND_DAY}</Tab>
       </TabGroup>
 
       <div className={c.scrollingCards}>

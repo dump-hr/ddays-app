@@ -92,7 +92,7 @@ export const HomePage = () => {
       </Modal>
 
       <div className={c.page}>
-        <h1>Statistike 2025.</h1>
+        <h1>Statistike .</h1>
         <div className={c.totalUsers}>
           <p>Trenutno korisnika:</p>
           <h3>{userCount}</h3>

@@ -1,0 +1,37 @@
+discovery.docker "linux_containers" {
+  host = "unix:///var/run/docker.sock"
+}
+
+discovery.relabel "docker_logs" {
+  targets = discovery.docker.linux_containers.targets
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/?(api)"
+    action       = "keep"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/?(api)"
+    target_label  = "container"
+    replacement   = "$1"
+  }
+}
+
+loki.source.docker "default" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_logs.output
+  forward_to = [loki.write.remote.receiver]
+}
+
+loki.write "remote" {
+  endpoint {
+    url = "https://loki.dump.hr/loki/api/v1/push"
+
+    basic_auth {
+      username = sys.env("loki_username")
+      password = sys.env("loki_password")
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { ISO, DISPLAY } from '@ddays-app/types';
 import c from './FlyTalksApplyPage.module.scss';
 import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
@@ -25,7 +26,10 @@ const FlyTalksApplyPage = () => {
         id: event.id,
         start: formatTime(event.startsAt),
         end: formatTime(event.endsAt),
-        day: event.startsAt.split('T')[0] === '2025-05-23' ? 1 : 2,
+        day:
+          event.startsAt.split('T')[0] === ISO.FIRST_DAY_START.split('T')[0]
+            ? 1
+            : 2,
         participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
         hasUserApplied: Array.isArray(event.users)
           ? event.users.some((user) => user.id === 1)
@@ -148,7 +152,9 @@ const FlyTalksApplyPage = () => {
         <div className={c.mainContent}>
           <div className={c.timeContainer}>
             <p className={c.dateParagraph}>
-              {group?.day === 1 ? '23.05. // PETAK' : '24.05. // SUBOTA'}
+              {group?.day === 1
+                ? DISPLAY.FLYTALKS_DAY_1
+                : DISPLAY.FLYTALKS_DAY_2}
             </p>
             <p className={c.timeParagraph}>
               {group?.start} - {group?.end}

@@ -73,7 +73,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       title: 'Datum isteka',
       defaultValue:
         Helper.formatExpirationDate(code?.expirationDate) ||
-        Helper.formatExpirationDate(new Date('2025-05-24T20:00:00.000')),
+        Helper.formatExpirationDate(new Date('2025-05-24T20:00:00.000')), //DATUM
     },
     {
       id: 'achievements',
