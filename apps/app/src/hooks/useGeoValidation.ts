@@ -18,7 +18,7 @@ export function useGeoValidation(options?: {
     [options?.geolocationOptions],
   );
 
-  const [isOk, setIsOk] = useState<boolean | null>(null);
+  const [isOk, setIsOk] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const geolocationErrorMessage = (geoError: GeolocationPositionError) => {
