@@ -50,6 +50,15 @@ resource "aws_security_group_rule" "public_in_https" {
   security_group_id = aws_security_group.public.id
 }
 
+resource "aws_security_group_rule" "public_in_alloy" {
+  type              = "ingress"
+  from_port         = 12345
+  to_port           = 12345
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.public.id
+}
+
 resource "aws_security_group" "private" {
   name        = "${var.name_prefix}-vpc-private-sg"
   description = "Private internet access"

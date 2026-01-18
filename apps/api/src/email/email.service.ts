@@ -1,3 +1,4 @@
+import { YEAR } from '@ddays-app/types';
 import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { ServerClient } from 'postmark';
@@ -54,7 +55,7 @@ export class EmailService {
     try {
       await this.sendEmail(
         email,
-        'DDays 2025 - Resetiranje lozinke',
+        `DDays ${YEAR} - Resetiranje lozinke`,
         `Pozdrav, klikni na link ispod da resetiraš lozinku: ${resetLink}\n\nLink za resetiranje lozinke traje 15 minuta.`,
       );
       return {
@@ -125,7 +126,7 @@ export class EmailService {
     try {
       await this.sendEmail(
         email,
-        'DDays 2025 - Potvrda email adrese',
+        `DDays ${YEAR} - Potvrda email adrese`,
         `Pozdrav, klikni na link ispod da potvrdiš svoju email adresu: ${confirmationLink}`,
       );
       return { success: true, message: 'Email za potvrdu je poslan' };

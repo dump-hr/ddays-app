@@ -65,7 +65,6 @@ export const MaterialsPage: FC = () => {
     [FormSteps.Videos]: !!company?.video,
     [FormSteps.Jobs]: !!jobs?.length,
     [FormSteps.Interests]: !!company?.interests?.length,
-    [FormSteps.Flytalk]: !!company?.flytalkParticipation,
     [FormSteps.Accreditation]: !!company?.peopleForAccreditation?.length,
     //[FormSteps.SwagBag]: false,
   };

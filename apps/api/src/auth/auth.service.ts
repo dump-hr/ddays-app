@@ -1,5 +1,6 @@
 import {
   AchievementNames,
+  ISO,
   JwtResponseDto,
   RegistrationDto,
 } from '@ddays-app/types';
@@ -176,7 +177,7 @@ export class AuthService {
       AchievementNames.FirstSteps,
     );
 
-    const EARLY_BIRD_CUTOFF = new Date('2025-05-10T22:00:00.000Z'); // 10.5.2024 00:00 CEST
+    const EARLY_BIRD_CUTOFF = new Date(ISO.EARLY_BIRD_CUTOFF_API);
     const currentTime = new Date();
 
     const isEarlyBird = currentTime < EARLY_BIRD_CUTOFF;

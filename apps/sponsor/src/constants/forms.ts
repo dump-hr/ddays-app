@@ -1,8 +1,10 @@
 import { CompanyCategory } from '@ddays-app/types';
+import { DISPLAY } from '@ddays-app/types';
 
 import { Accreditation } from '../formSteps/Accreditation';
+import { BoothEquipment } from '../formSteps/BoothEquipment/BoothEquipment';
+import { BoothPlan } from '../formSteps/BoothPlan';
 import { Description } from '../formSteps/Description';
-import { FlyTalks } from '../formSteps/Flytalks';
 import { InterestPicker } from '../formSteps/InterestPicker';
 import { Job } from '../formSteps/Job/Job';
 import { LogoUpload } from '../formSteps/LogoUpload';
@@ -15,10 +17,10 @@ export const sponsorForm: SponsorForm = {
     title: 'Opisi tvrtke',
     description: (category) => {
       if (category === CompanyCategory.BRONZE)
-        return 'Predaja do 8. ožujka 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_8;
       if (category === CompanyCategory.SILVER)
-        return 'Predaja do 15. ožujka 2025.';
-      return 'Predaja do 1. travnja 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_15;
+      return DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1;
     },
     component: Description,
   },
@@ -26,10 +28,10 @@ export const sponsorForm: SponsorForm = {
     title: 'Logotip tvrtke',
     description: (category) => {
       if (category === CompanyCategory.BRONZE)
-        return 'Predaja do 8. ožujka 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_8;
       if (category === CompanyCategory.SILVER)
-        return 'Predaja do 15. ožujka 2025.';
-      return 'Predaja do 1. travnja 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_15;
+      return DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1;
     },
     component: LogoUpload,
   },
@@ -37,40 +39,52 @@ export const sponsorForm: SponsorForm = {
     title: 'Fotografije tvrtke',
     description: (category) => {
       if (category === CompanyCategory.BRONZE)
-        return 'Predaja do 8. ožujka 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_8;
       if (category === CompanyCategory.SILVER)
-        return 'Predaja do 15. ožujka 2025.';
-      return 'Predaja do 1. travnja 2025.';
+        return DISPLAY.SPONSOR_DEADLINE_OZUJAK_15;
+      return DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1;
     },
     component: PhotoUpload,
   },
   [FormSteps.Videos]: {
     title: 'Videozapis tvrtke',
-    description: 'Predaja do 1. travnja 2025.',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
     component: Video,
   },
   [FormSteps.Jobs]: {
     title: 'Oglasi za posao',
-    description: 'Predaja do 15. travnja 2025.',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
     component: Job,
   },
   [FormSteps.Interests]: {
     title: 'App Career matching',
-    description: 'Predaja do 1. travnja 2025.',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
     component: InterestPicker,
   },
   [FormSteps.Accreditation]: {
     title: 'Akreditacije',
-    description: 'Predaja do 1.travnja 2025.',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
     component: Accreditation,
   },
   [FormSteps.Flytalk]: {
     title: 'Fly Talks',
-    description: 'Predaja do 1. travnja 2025.',
-    component: FlyTalks,
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_1,
+    component: () => null,
+    tier: [],
+  },
+  [FormSteps.BoothPlan]: {
+    title: 'Plan štanda',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
+    component: BoothPlan,
+    tier: [],
+  },
+  [FormSteps.BoothEquipment]: {
+    title: 'Materijali potrebni za štand',
+    description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
+    component: BoothEquipment,
+    tier: [],
   },
 };
-
 /*[FormSteps.SwagBag]: {
   title: 'Swag Bag',
   description: 'Predaja do 15. travnja 2025.',

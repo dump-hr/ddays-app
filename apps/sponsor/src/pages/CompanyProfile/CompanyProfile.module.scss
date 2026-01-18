@@ -1,9 +1,11 @@
-section {
+.page {
   width: 100%;
+  min-height: calc(100vh - 88px);
+  background-color: #0e0e0e;
 }
 
-body {
-  background-color: #181717;
+section {
+  width: 100%;
 }
 
 p,
@@ -13,7 +15,6 @@ h3 {
 
 .headerInfo {
   height: 467px;
-  background-color: #202022;
   position: relative;
 
   .coverImage {

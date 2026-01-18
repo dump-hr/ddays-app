@@ -7,41 +7,38 @@ ul {
 .container {
   display: flex;
   flex-direction: row;
-  gap: 13vw;
+  gap: 32px;
   width: 100%;
-  margin-top: 5.5vw;
-  justify-content: center;
+  justify-content: space-between;
   align-items: start;
-  margin-bottom: 64px;
 
   .choice {
     display: flex;
     flex-direction: column;
-    margin-top: 3.5vw;
-    width: 31vw;
+    margin-top: 24px;
+    width: 35%;
 
     .title {
-      font-size: 1.5vw;
+      font-size: 24px;
       font-weight: 800;
       font-family: Fuse;
       color: #fff;
-      margin-bottom: 5vw;
+      margin-bottom: 32px;
     }
 
     .spots {
       display: flex;
       width: 100%;
       flex-wrap: wrap;
-      column-gap: 10px;
-      row-gap: 24px;
+      gap: 12px;
       flex-direction: row;
       user-select: none;
     }
 
     .spot {
       box-sizing: border-box;
-      width: 7.2vw;
-      height: 5vw;
+      width: 80px;
+      height: 60px;
       color: #ffffff;
       justify-content: center;
       align-items: center;
@@ -51,7 +48,7 @@ ul {
       cursor: pointer;
 
       .text {
-        font-size: 2.5vw;
+        font-size: 24px;
         transition:
           background-color 0.3s,
           color 0.3s;
@@ -64,7 +61,7 @@ ul {
       }
 
       &.chosen {
-        background-color: #d0d0d0;
+        background-color: white;
         color: #000000;
       }
 
@@ -80,11 +77,11 @@ ul {
     }
 
     .button {
-      margin-top: 16px;
+      margin-top: 32px;
 
       font-size: 20px;
-      font-weight: 400;
-
+      font-weight: 900;
+      color: black;
       box-sizing: border-box;
       height: 56px;
       padding: 0 24px;
@@ -99,11 +96,52 @@ ul {
         background-color: color-mix(in srgb, #fff 90%, #000 10%);
       }
     }
+
+    .confirmation {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 0;
+
+      .header {
+        font-size: 24px;
+        font-weight: 800;
+        font-family: Fuse;
+        color: #fff;
+        margin-bottom: 54px;
+      }
+
+      .mainTitle {
+        font-size: 50px;
+        font-weight: 800;
+        font-family: Fuse;
+        color: #fff;
+        line-height: title;
+        margin-bottom: 24px;
+        line-height: normal;
+      }
+
+      .desc {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: Fuse;
+        color: #fff;
+        margin-bottom: 40px;
+        line-height: 1.5;
+        opacity: 0.5;
+      }
+
+      .button {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
   }
 
   .map {
-    width: 43.75vw;
+    width: 60%;
     height: auto;
+    margin-top: 24px;
 
     img {
       width: 100%;
