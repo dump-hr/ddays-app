@@ -9,6 +9,13 @@
     state: present
   become: true
 
+- name: Create keyring directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  become: true
+
 - name: Download Grafana GPG key
   ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg-full.key
@@ -37,6 +44,15 @@
     append: yes
   become: true
   notify: Restart Alloy Service
+
+- name: Ensure Alloy config directory exists
+  ansible.builtin.file:
+    path: /home/admin/alloy
+    state: directory
+    owner: alloy
+    group: alloy
+    mode: '0755'
+  become: true
 
 - name: Deploy Alloy configuration file
   ansible.builtin.copy:
