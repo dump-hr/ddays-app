@@ -61,63 +61,60 @@ export const SpotsPage = () => {
         {renderMainContent()}
 
         <div className={c.contentWrapper}>
-            <h4 className={c.title}>Potrebni materijali za štand</h4>
-            <p className={c.subtitle}>
-              Ovdje možete tražiti neke materijale koje želite da Vam DUMP
-              dostavi za rad
-            </p>
-            {(() => {
-              try {
-                const items = currentCompany.data?.equipment
-                  ? JSON.parse(currentCompany.data.equipment)
-                  : [];
-                if (items.length > 0) {
-                  return (
-                    <div className={c.boothPlanList}>
-                      {items.map(
-                        (
-                          item: { name: string; quantity: number },
-                          i: number,
-                        ) => (
-                          <div key={i}>
-                            {item.quantity} x {item.name}
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  );
-                }
-              } catch (e) {
-                return null;
+          <h4 className={c.title}>Potrebni materijali za štand</h4>
+          <p className={c.subtitle}>
+            Ovdje možete tražiti neke materijale koje želite da Vam DUMP dostavi
+            za rad
+          </p>
+          {(() => {
+            try {
+              const items = currentCompany.data?.equipment
+                ? JSON.parse(currentCompany.data.equipment)
+                : [];
+              if (items.length > 0) {
+                return (
+                  <div className={c.boothPlanList}>
+                    {items.map(
+                      (item: { name: string; quantity: number }, i: number) => (
+                        <div key={i}>
+                          {item.quantity} x {item.name}
+                        </div>
+                      ),
+                    )}
+                  </div>
+                );
               }
-            })()}
-            <WhiteButton
-              className={c.button}
-              onClick={() => {
-                setCurrentForm(FormSteps.BoothEquipment);
-              }}>
-              Dodaj materijale
-            </WhiteButton>
+            } catch (e) {
+              return null;
+            }
+          })()}
+          <WhiteButton
+            className={c.button}
+            onClick={() => {
+              setCurrentForm(FormSteps.BoothEquipment);
+            }}>
+            Dodaj materijale
+          </WhiteButton>
 
-            <h4 className={c.title} style={{ marginTop: '48px' }}>
-              Plan štanda
-            </h4>
-            <p className={c.subtitle}>
-              Plan štanda je kratak opis sadržaja Vašeg štanda
-            </p>
-            {currentCompany.data?.boothPlan && (
-              <div className={c.boothPlanList}>
-                {currentCompany.data.boothPlan}
-              </div>
-            )}
-            <WhiteButton
-              className={c.button}
-              onClick={() => {
-                setCurrentForm(FormSteps.BoothPlan);
-              }}>
-              Dodaj plan štanda
-            </WhiteButton>
-          </div>
+          <h4 className={c.title} style={{ marginTop: '48px' }}>
+            Plan štanda
+          </h4>
+          <p className={c.subtitle}>
+            Plan štanda je kratak opis sadržaja Vašeg štanda
+          </p>
+          {currentCompany.data?.boothPlan && (
+            <div className={c.boothPlanList}>
+              {currentCompany.data.boothPlan}
+            </div>
+          )}
+          <WhiteButton
+            className={c.button}
+            onClick={() => {
+              setCurrentForm(FormSteps.BoothPlan);
+            }}>
+            Dodaj plan štanda
+          </WhiteButton>
+        </div>
 
         {allCompanies && allCompanies.length > 0 && (
           <div className={c.allBoothPlansGrid}>
