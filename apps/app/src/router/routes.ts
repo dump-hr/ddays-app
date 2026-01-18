@@ -57,6 +57,7 @@ export const navbarRoutes = [
   RouteNames.COMPANIES,
   RouteNames.SCHEDULE,
   RouteNames.FLY_TALKS,
+  RouteNames.PROFILE_INVITE_CODE,
 ];
 
 export interface SubMenu {

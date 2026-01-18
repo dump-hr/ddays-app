@@ -161,7 +161,7 @@ export class AuthService {
     });
 
     if (!isFromGoogleAuth) {
-      // await this.emailService.sendEmailConfirmation(newUser.email);
+      await this.emailService.sendEmailConfirmation(newUser.email);
     }
 
     const accessToken = this.jwtService.sign({
@@ -227,6 +227,7 @@ export class AuthService {
         isDeleted: true,
         points: true,
         profilePhotoUrl: true,
+        inviteCode: true,
       },
     });
   }

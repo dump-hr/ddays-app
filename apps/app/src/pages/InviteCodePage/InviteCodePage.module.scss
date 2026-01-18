@@ -23,5 +23,25 @@
 }
 
 .inviteCodeMain {
+  display: flex;
+  align-items: center;
   min-height: 45vh;
+}
+
+@media (max-width: 900px) {
+  .inputWrapper {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .inputWrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .inputWrapper {
+    width: 100%;
+  }
 }

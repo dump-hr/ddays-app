@@ -74,6 +74,10 @@ const router = createBrowserRouter(
           />
           <Route path={RouteNames.PROFILE_REWARDS} element={<RewardsPage />} />
           <Route
+            path={RouteNames.PROFILE_INVITE_CODE}
+            element={<InviteCodePage />}
+          />
+          <Route
             path={RouteNames.PROFILE_RECOMMENDATIONS}
             element={<ProfileRecommendationsPage></ProfileRecommendationsPage>}
           />
