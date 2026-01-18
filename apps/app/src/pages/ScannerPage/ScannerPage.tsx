@@ -36,13 +36,14 @@ const ScannerPage = () => {
 
   function handleScan(data: string) {
     const currentTime = Date.now();
+    geolocation.validateGeolocation();	
 
     if (currentTime - lastScanTimeRef.current < 3000) {
       return;
     }
 
-    if (!geolocation.isOk) {
-      toast.error(`${geolocation.error ?? 'Greška, pokušajte ponovno.'}`);
+    if (geolocation?.isOk === false) {
+      toast.error(geolocation?.error ?? 'Greška, pokušajte ponovno.');
       return;
     }
 

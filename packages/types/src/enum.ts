@@ -134,3 +134,9 @@ export enum SponsorStatus {
   FOLLOW_UP = 'FOLLOW_UP',
   AGREED = 'AGREED',
 }
+
+export enum GeolocationErrorCodes {
+  PERMISSION_DENIED = 1,
+  POSITION_UNAVAILABLE = 2,
+  TIMEOUT = 3,
+}

@@ -23,8 +23,8 @@ const CodePopup: React.FC<CodePopupProps> = ({
   const geolocation = useGeoValidation();
 
   function handleCodeSubmit(code: string) {
-    if (!geolocation.isOk) {
-      setErrorMessage(`${geolocation.error ?? "Greška, pokušajte ponovno."}`);
+    if (geolocation?.isOk === false) {
+      setErrorMessage(geolocation?.error ?? "Greška, pokušajte ponovno.");
       return;
     }
 

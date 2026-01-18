@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { validateWithinRadius } from '@/validation/validateGeolocation';
 import { VALIDATION_RADIUS_M } from '@/constants/geolocation';
+import { GeolocationErrorCodes } from '@ddays-app/types';
 
 export function useGeoValidation(options?: {
   accuracyLimitMeters?: number;
@@ -20,6 +21,25 @@ export function useGeoValidation(options?: {
   const [isOk, setIsOk] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const geolocationErrorMessage = (geoError: GeolocationPositionError) => {
+    let message = 'Greška pri dohvaćanju lokacije. Pokušajte ponovno.';
+
+    switch (geoError?.code) {
+      case GeolocationErrorCodes.PERMISSION_DENIED:
+        message = 'Pristup lokaciji je odbijen. Provjerite dozvole za lokaciju.';
+        break;
+      case GeolocationErrorCodes.POSITION_UNAVAILABLE:
+        message = 'Lokacija trenutno nije dostupna. Pokušajte ponovno kasnije.';
+        break;
+      case GeolocationErrorCodes.TIMEOUT:
+        message = 'Vrijeme za dohvaćanje lokacije je isteklo. Pokušajte ponovno.';
+        break;
+      default:
+        break;
+    }
+    return message;
+  }
+
   const validateGeolocation = useCallback(() => {
     setError(null);
 
@@ -34,23 +54,23 @@ export function useGeoValidation(options?: {
         const accuracy = pos.coords.accuracy ?? null;
 
         // Reject low-accuracy fixes first
-        if (!accuracy || accuracy > accuracyLimit) {
+        if (!accuracy || accuracy >= accuracyLimit) {
           setIsOk(false);
           setError('Preciznost lokacije je preniska.');
           return;
         }
 
         const result = validateWithinRadius(pos.coords);
-        // for debugging:
-        // console.log('Geolocation validation result:', result);
         setIsOk(result.isOk);
+
         if (!result.isOk) {
           setError('Izvan ste dozvoljene lokacije.');
         }
       },
-      () => {
+      (geoError) => {
         setIsOk(false);
-        setError(`Greška pri dohvaćanju lokacije. Pokušajte ponovno.`);
+        const message = geolocationErrorMessage(geoError);
+        setError(message);
       },
       geoOptions,
     );

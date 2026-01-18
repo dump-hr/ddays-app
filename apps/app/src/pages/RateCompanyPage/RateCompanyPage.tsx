@@ -42,7 +42,8 @@ export const RateCompanyPage = () => {
   }, [questions]);
 
   useEffect(() => {
-    let toastId: React.ReactText | null = null;
+    let toastId: string | null = null;
+    geolocation.validateGeolocation();
 
     if (isCompanyLoading) {
       toastId = toast.loading('Učitavanje kompanije...', {
@@ -53,8 +54,8 @@ export const RateCompanyPage = () => {
         toast.dismiss(toastId);
       }
 
-      if (!geolocation.isOk) {
-        toast.error(`${geolocation.error ?? "Greška, pokušajte ponovno."}`);
+      if (geolocation?.isOk === false) {
+        toast.error(geolocation?.error ?? "Greška, pokušajte ponovno.");
         navigate(RouteNames.HOME);
         return;
       }
@@ -87,7 +88,7 @@ export const RateCompanyPage = () => {
         toast.dismiss(toastId);
       }
     };
-  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings]);
+  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings, geolocation]);
 
   if (!companyId) {
     return <div>ID kompanije nije dobrog formata.</div>;
