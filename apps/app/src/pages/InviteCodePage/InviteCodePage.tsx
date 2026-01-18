@@ -10,6 +10,7 @@ import { Input } from '@/components/Input';
 import s from './InviteCodePage.module.scss';
 import Button from '@/components/Button';
 import WhatsappIcon from '../../assets/icons/whatsapp-icon.svg';
+import { clsx } from 'clsx';
 
 export const InviteCodePage = () => {
   const { data: user } = useLoggedInUser();
@@ -33,7 +34,7 @@ export const InviteCodePage = () => {
           <ProfileStat dataType='achievements' />
         </div>
       </header>
-      <main className={c.main}>
+      <main className={clsx(c.main, s.inviteCodeMain)}>
         <header className={c.mainHeader}>
           <img
             src={ArrowLeft}
@@ -56,7 +57,16 @@ export const InviteCodePage = () => {
             }}
           />
 
-          <Button variant='black' icon={WhatsappIcon} className={s.shareButton}>
+          <Button
+            variant='black'
+            icon={WhatsappIcon}
+            className={s.shareButton}
+            onClick={() => {
+              window.open(
+                `https://wa.me/?text=Podijeli kod ${user?.inviteCode ?? ''}`,
+                '_blank',
+              );
+            }}>
             Podijeli kod
           </Button>
         </div>
