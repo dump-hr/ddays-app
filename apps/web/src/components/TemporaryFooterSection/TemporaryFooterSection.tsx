@@ -39,11 +39,7 @@ const TemporaryFooterSection = () => {
         </div>
         <div className={c.dottedRuler}></div>
         <div className={c.bottomSmallTextWrapper}>
-          <div
-            className={c.mb24}
-            style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <p>© DUMPDAYS 2026</p>
-          </div>
+          <p>© DUMPDAYS 2026</p>
           <p className={c.footerBottomSmallText}>
             Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>
