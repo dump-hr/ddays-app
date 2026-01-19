@@ -14,7 +14,6 @@ import { clsx } from 'clsx';
 
 export const InviteCodePage = () => {
   const { data: user } = useLoggedInUser();
-  console.log(user);
   const navigate = useNavigate();
 
   return (
