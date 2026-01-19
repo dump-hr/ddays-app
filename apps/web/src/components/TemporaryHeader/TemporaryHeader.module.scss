@@ -91,6 +91,11 @@
     width: 100%;
     pointer-events: none;
 
+    .text:nth-of-type(1) {
+      margin: auto;
+      text-align: center;
+    }
+
     .text:nth-of-type(2),
     .button {
       display: none;
