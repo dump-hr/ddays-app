@@ -132,8 +132,7 @@ export const Accreditation: FormComponent = ({ close }) => {
           </ul>
 
           <div className={c.addPersonContainer}>
-            <div
-              style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
               <Input
                 value={fullName}
                 onChange={(val) => setFullName(val)}

@@ -279,7 +279,7 @@ model User {
   isConfirmed             Boolean?                 @default(false)
   isFromGoogleAuth        Boolean?                 @default(false)
   profilePhotoUrl         String?
-  inviteCode              String?                  @unique // mozda maknit unique da ne bude exception na bazi nego handleat u kodu
+  inviteCode              String?                  @unique
   isInvited               Boolean?                 @default(false)
   numberOfInvitations     Int?                     @default(0)
   avatar                  Avatar[]
