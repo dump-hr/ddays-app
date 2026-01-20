@@ -14,12 +14,11 @@ export const App = () => {
   return (
     <HelmetProvider>
       <Helmet>
-
         <title>{getPageTitle()}</title>
       </Helmet>
 
       <Switch>
-        {/* <Route path={Path.Landing} component={LandingPage} /> */}
+        {/* <Route path={Path.Landing} component={LandingPage} /> 
         {/*<Route path={Path.Chatbot} component={Chatbot} /> */}
         <Route path='/' component={TemporaryLandingPage} />
       </Switch>

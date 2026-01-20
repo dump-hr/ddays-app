@@ -1,0 +1,327 @@
+.PastEditions {
+    padding: 24px;
+    transition: 200ms;
+    position: relative;
+    background-color: #171615;
+    padding-bottom: 250px;
+  
+    &:before {
+      content: '';
+      background-image: url(../../assets/images/noise.webp);
+      opacity: 0.5;
+      mix-blend-mode: soft-light;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  
+    h1 {
+      color: #eaeaea;
+      text-align: center;
+      font-family: 'PP Neue Machina';
+      font-size: 100px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100px;
+      letter-spacing: -5px;
+      text-transform: uppercase;
+      margin-top: 120px;
+  
+      span {
+        color: #e75b3f;
+        font-family: 'PP Neue Machina';
+        font-size: 100px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100px;
+        letter-spacing: -5px;
+        text-transform: uppercase;
+      }
+    }
+  
+    .editionsContainer {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0 30px;
+  
+      .editionWrapper {
+        position: relative;
+        width: 20%;
+        scale: 0.8;
+  
+        &:nth-child(4n + 1) {
+          align-self: flex-start;
+          margin-left: 0;
+        }
+  
+        &:nth-child(4n + 2) {
+          align-self: flex-end;
+          margin-right: 25%;
+        }
+  
+        &:nth-child(4n + 3) {
+          align-self: flex-start;
+          margin-left: 25%;
+        }
+  
+        &:nth-child(4n + 4) {
+          align-self: flex-end;
+        }
+  
+        .editionImageWrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 25/21;
+          overflow: hidden;
+          border: 3.769px solid #ededed;
+          transform: rotate(2deg);
+          transition: all 0.4s ease-in-out;
+          cursor: pointer;
+  
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 100%;
+            background-image: url(../../assets/images/papercut-texture.webp);
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 2;
+          }
+  
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e4573e;
+            mix-blend-mode: color;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+            pointer-events: none;
+          }
+  
+          .editionImage {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            position: relative;
+            z-index: 1;
+            filter: grayscale(90%);
+  
+            background: linear-gradient(
+              0deg,
+              rgba(23, 22, 21, 0.4) 0%,
+              rgba(23, 22, 21, 0.4) 100%
+            );
+          }
+        }
+  
+        .frontImage {
+          position: relative;
+          z-index: 30;
+  
+          .editionTitle {
+            position: absolute;
+            bottom: -12%;
+            left: -13%;
+            right: 0;
+            color: white;
+            width: 100%;
+            z-index: 4;
+            margin: 0;
+            text-align: center;
+            font-family: 'PP Neue Machina';
+            font-weight: 500;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            white-space: nowrap;
+          }
+        }
+  
+        .backgroundImage1 {
+          transform: rotate(26deg);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 3;
+        }
+  
+        .backgroundImage2 {
+          transform: rotate(18deg);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+        }
+  
+        .backgroundImage3 {
+          transform: rotate(10deg);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+  
+        &:hover {
+          .editionImageWrapper {
+            &::after {
+              opacity: 0.6;
+            }
+  
+            .editionImage {
+              filter: grayscale(60%);
+            }
+          }
+  
+          .backgroundImage1 {
+            transform: rotate(-4deg);
+          }
+  
+          .backgroundImage2 {
+            transform: rotate(-12deg);
+          }
+  
+          .backgroundImage3 {
+            transform: rotate(-20deg);
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .PastEditions {
+      padding: 20px;
+      padding-bottom: 150px;
+  
+      h1 {
+        font-size: 72px;
+        line-height: 72px;
+        letter-spacing: -3px;
+        margin-top: 80px;
+  
+        span {
+          font-size: 72px;
+          line-height: 72px;
+          letter-spacing: -3px;
+        }
+      }
+  
+      .editionsContainer {
+        gap: 50px;
+        padding: 0 20px;
+  
+        .editionWrapper {
+          width: 30%;
+          scale: 0.85;
+  
+          &:nth-child(4n + 1) {
+            margin-left: 5%;
+          }
+  
+          &:nth-child(4n + 2) {
+            margin-right: 15%;
+          }
+  
+          &:nth-child(4n + 3) {
+            margin-left: 15%;
+          }
+  
+          &:nth-child(4n + 4) {
+            margin-right: 5%;
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .PastEditions {
+      padding: 16px;
+      padding-bottom: 150px;
+  
+      h1 {
+        font-size: 72px;
+        line-height: 72px;
+        letter-spacing: -2px;
+        margin-top: 60px;
+  
+        span {
+          font-size: 72px;
+          line-height: 72px;
+          letter-spacing: -2px;
+        }
+      }
+  
+      .editionsContainer {
+        gap: 40px;
+        padding: 0 16px;
+  
+        .editionWrapper {
+          width: 45%;
+          scale: 0.9;
+  
+          &:nth-child(4n + 1),
+          &:nth-child(4n + 3) {
+            align-self: flex-start;
+            margin-left: 0;
+            margin-right: 0;
+          }
+  
+          &:nth-child(4n + 2),
+          &:nth-child(4n + 4) {
+            align-self: flex-end;
+            margin-left: 0;
+            margin-right: 0;
+          }
+  
+          .editionImageWrapper {
+            border-width: 2px;
+          }
+  
+          .frontImage {
+            .editionTitle {
+              bottom: -10%;
+              left: -10%;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .PastEditions {
+      padding: 12px;
+      padding-bottom: 100px;
+  
+      .editionsContainer {
+        gap: 30px;
+        padding: 0 12px;
+  
+        .editionWrapper {
+          width: 45%;
+          margin: 30px;
+  
+          .frontImage {
+            .editionTitle {
+              bottom: -8%;
+              left: -8%;
+            }
+          }
+        }
+      }
+    }
+  }
