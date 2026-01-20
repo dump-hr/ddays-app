@@ -21,7 +21,7 @@ export const InviteCodePage = () => {
       <header className={c.header}>
         <div className={c.flexWrapper}>
           <p className={c.title}>
-            <span>Postignuća</span> <br />
+            <span>KOD</span> <br />
             {user?.firstName} {user?.lastName}
           </p>
 
@@ -34,14 +34,14 @@ export const InviteCodePage = () => {
         </div>
       </header>
       <main className={clsx(c.main, s.inviteCodeMain)}>
-        <header className={c.mainHeader}>
+        <header className={clsx(c.mainHeader, s.mainHeader)}>
           <img
             src={ArrowLeft}
             alt=''
             className={c.arrowLeft}
             onClick={() => navigate(-1)}
           />
-          <h3 className={c.title}>Postignuća</h3>
+          <h3 className={c.title}>KOD</h3>
         </header>
 
         <div className={s.inputWrapper}>

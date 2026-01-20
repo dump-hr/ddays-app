@@ -32,6 +32,11 @@
     align-items: center;
     font-size: 1.5rem;
     color: $black-50;
+
+    @media (max-width: 420px) {
+      font-size: 1rem;
+      margin-left: 0.15rem;
+    }
   }
 
   .codeBox {
@@ -44,6 +49,20 @@
     transition: all 0.2s ease-in-out;
     outline: none;
     text-transform: uppercase;
+
+    @media (max-width: 420px) {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.125rem;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 340px) {
+      width: 1.85rem;
+      height: 1.85rem;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
 
     &:focus {
       border-color: $primary-muted-orange;

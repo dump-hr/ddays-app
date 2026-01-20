@@ -166,6 +166,11 @@ export const SecondStepRegistrationForm = ({
           hasError={hasError(errors[2]?.occupation)}
         />
 
+        <InvitationCodeInput
+          onChange={handleInputChange}
+          error={errors[2]?.inviteCode}
+        />
+
         {isGoogleAuth && (
           <CheckboxFieldsWrapper
             userData={userData}
@@ -173,11 +178,6 @@ export const SecondStepRegistrationForm = ({
             errorMessage={errors[1]?.termsAndConditionsEnabled}
           />
         )}
-
-        <InvitationCodeInput
-          onChange={handleInputChange}
-          error={errors[2]?.inviteCode}
-        />
       </div>
     </>
   );
