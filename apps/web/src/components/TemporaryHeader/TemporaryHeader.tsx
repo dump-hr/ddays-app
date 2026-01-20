@@ -1,8 +1,9 @@
 import { DISPLAY } from '@ddays-app/types';
 import clsx from 'clsx';
+import Button from 'components/Button';
 import { useEffect, useState } from 'react';
 
-import c from './Header.module.scss';
+import c from './TemporaryHeader.module.scss';
 
 const TemporaryHeader = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -61,20 +62,22 @@ const TemporaryHeader = () => {
     [c.hidden]: !isStickyVisible,
   });
 
+  function openArchivedWeb() {
+    window.open(`https://days.dump.hr/app/`, '_blank');
+  }
+
   return (
     <header className={classes}>
       <p className={c.text}>
-        SPLIT <br /> <span className={c.separator}>//</span> FESB
+        SPLIT <span className={c.separator}>//</span> FESB <br />{' '}
+        {DISPLAY.HEADER_DAY_START_NUM}
+        <span className={c.separator}>—</span> {DISPLAY.HEADER_DAY_END_FULL}
       </p>
       <p className={c.text}>
         BESPLATNA KONFERENCIJA <br />
         ZA NOVU GENERACIJU
       </p>
-      <p className={c.text}>
-        {DISPLAY.TEMP_HEADER_DAYS}
-        <br />
-        {DISPLAY.TEMP_HEADER_YEAR}
-      </p>
+      <Button onClick={openArchivedWeb}> DUMP DAYS WEB APP</Button>
     </header>
   );
 };
