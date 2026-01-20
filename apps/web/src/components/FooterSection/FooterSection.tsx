@@ -73,7 +73,19 @@ const FooterSection = () => {
         </div>
         <div className={c.dottedRuler}></div>
         <div className={c.bottomSmallTextWrapper}>
-          <p className={c.mb24}>© DUMPDAYS</p>
+          <div
+            className={c.mb24}
+            style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <p>© DUMPDAYS</p>
+            <a
+              className={c.footerBottomSmallText}
+              href='/app/terms-and-conditions'
+              target='_blank'
+              rel='noreferrer'
+              style={{ textDecoration: 'underline', color: 'inherit' }}>
+              Pravila privatnosti
+            </a>
+          </div>
           <p className={c.footerBottomSmallText}>
             Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>
