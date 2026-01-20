@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { useRef, useEffect, useCallback } from 'react';
-import { temporaryEditions } from '../../constants/temporary-editions';
+import { useCallback, useEffect, useRef } from 'react';
 
+import { temporaryEditions } from '../../constants/temporary-editions';
 import c from './TemporaryPastEditions.module.scss';
 
 const TemporaryPastEditions = () => {
@@ -33,6 +33,10 @@ const TemporaryPastEditions = () => {
     return () => window.removeEventListener('resize', adjustFontSizes);
   }, [adjustFontSizes]);
 
+  const handleEditionClick = (link: string) => {
+    window.open(link, '_blank'); // Open the link in a new tab
+  };
+
   return (
     <div className={c.PastEditions}>
       <h1>
@@ -40,7 +44,12 @@ const TemporaryPastEditions = () => {
       </h1>
       <div className={c.editionsContainer}>
         {temporaryEditions.map((edition, editionIndex) => (
-          <div className={c.editionWrapper} key={edition.year}>
+          <div
+            className={c.editionWrapper}
+            key={edition.year}
+            onClick={() => handleEditionClick(edition.link)} // Add click handler
+            style={{ cursor: 'pointer' }} // Add pointer cursor for better UX
+          >
             {[1, 2, 3].map((_, index) => (
               <div
                 className={clsx(

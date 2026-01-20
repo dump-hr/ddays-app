@@ -3,6 +3,7 @@
     transition: 200ms;
     position: relative;
     background-color: #171615;
+    padding-bottom: 250px;
   
     &:before {
       content: '';
@@ -41,7 +42,7 @@
     }
   
     .editionsContainer {
-      margin-top: 60px;
+      margin-top: 80px;
       display: flex;
       flex-direction: column;
       gap: 60px;
@@ -203,6 +204,7 @@
   @media screen and (max-width: 1024px) {
     .PastEditions {
       padding: 20px;
+      padding-bottom: 150px;
   
       h1 {
         font-size: 72px;
@@ -245,20 +247,20 @@
     }
   }
   
-  // Mobile styles
   @media screen and (max-width: 768px) {
     .PastEditions {
       padding: 16px;
+      padding-bottom: 150px;
   
       h1 {
-        font-size: 48px;
-        line-height: 48px;
+        font-size: 72px;
+        line-height: 72px;
         letter-spacing: -2px;
         margin-top: 60px;
   
         span {
-          font-size: 48px;
-          line-height: 48px;
+          font-size: 72px;
+          line-height: 72px;
           letter-spacing: -2px;
         }
       }
@@ -303,19 +305,7 @@
   @media screen and (max-width: 480px) {
     .PastEditions {
       padding: 12px;
-  
-      h1 {
-        font-size: 36px;
-        line-height: 38px;
-        letter-spacing: -1.5px;
-        margin-top: 40px;
-  
-        span {
-          font-size: 36px;
-          line-height: 38px;
-          letter-spacing: -1.5px;
-        }
-      }
+      padding-bottom: 100px;
   
       .editionsContainer {
         gap: 30px;

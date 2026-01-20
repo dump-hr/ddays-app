@@ -1,6 +1,7 @@
 @use '../../styles/mixins';
 .footer {
   padding: 24px 0px;
+  padding-top: 100px;
   background-color: #171615;
   position: relative;
   display: flex;
@@ -10,7 +11,7 @@
   &:before {
     content: '';
     background-image: url(../../assets/images/noise.webp);
-    opacity: 0.5;
+    opacity: 1;
     mix-blend-mode: hard-light;
     top: 0;
     left: 0;
