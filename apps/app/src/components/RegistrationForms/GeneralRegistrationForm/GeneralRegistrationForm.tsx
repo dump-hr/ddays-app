@@ -37,11 +37,7 @@ export const GeneralRegistrationForm = () => {
         prev.set('step', step.toString());
         return prev;
       },
-      { replace: true }, // Replace to avoid building up history for every step change if desired, or push. 
-      // Actually standard behavior is usually push for steps, but let's see. 
-      // User wants to use back button. So default push is fine.
-      // But wait, existing logic uses `setCurrentStep`.
-      // Let's us default setSearchParams behavior which pushes to history.
+      { replace: true },
     );
   };
 
@@ -105,33 +101,50 @@ export const GeneralRegistrationForm = () => {
   };
 
   useEffect(() => {
-    if (!location.state) return;
+    const isGoogleAuth = googleAuth || location.state?.googleAuth === true;
+    if (isGoogleAuth) {
+      localStorage.setItem('ddays_registration_is_google', 'true');
+    }
+  }, [googleAuth, location.state?.googleAuth]);
+
+  useEffect(() => {
+    if (
+      !location.state ||
+      (typeof location.state === 'object' &&
+        Object.keys(location.state).length === 0)
+    ) {
+      return;
+    }
 
     const newParams = new URLSearchParams(searchParams);
+    let hasUpdates = false;
 
     if (location.state.profilePhotoUrl) {
       updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
       newParams.set('step', RegistrationStep.FOUR.toString());
+      hasUpdates = true;
     }
     if (location.state.startStep) {
       newParams.set('step', location.state.startStep.toString());
+      hasUpdates = true;
     }
     if (location.state.googleAuth) {
       newParams.set('googleAuth', 'true');
+      hasUpdates = true;
     }
     if (location.state.userData) {
-      updateUserData(location.state.userData);
+      const incomingData = location.state.userData;
+      const cleanData = Object.fromEntries(
+        Object.entries(incomingData).filter((entry) => entry[1] !== null && entry[1] !== ''),
+      );
+      updateUserData(cleanData);
+      hasUpdates = true;
     }
 
-    setSearchParams(newParams, { replace: true, state: {} });
-    // Clear location state by navigating with empty state, effectively handled by setSearchParams options if supported or we might need explicit navigate.
-    // setSearchParams in v6 accepts options? Yes, { replace, state }.
-    // actually, setSearchParams only takes { replace, state } in newer versions.
-    // Let's verify standard behavior. usually it's (params, navigateOptions).
-
-    // Alternatively, to be safe and clear state:
-    // navigate(`${location.pathname}?${newParams.toString()}`, { replace: true, state: {} });
-  }, [location.state, updateUserData, searchParams, setSearchParams]);
+    if (hasUpdates) {
+      setSearchParams(newParams, { replace: true, state: null });
+    }
+  }, [location.state, updateUserData, setSearchParams, searchParams]);
 
   const handleRegistrationClick = () => {
     switch (currentStep) {

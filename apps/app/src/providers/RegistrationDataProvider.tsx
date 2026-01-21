@@ -1,5 +1,5 @@
 import { RegistrationDto } from '@/types/user/user';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
 const defaultRegistrationData: RegistrationDto = {
   firstName: '',
@@ -32,20 +32,28 @@ const RegistrationDataContext = createContext<
 export const RegistrationDataProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [userData, setUserData] = useState<RegistrationDto>(
-    defaultRegistrationData,
-  );
+  const [userData, setUserData] = useState<RegistrationDto>(() => {
+    const savedData = localStorage.getItem('ddays_registration_data');
+    return savedData
+      ? JSON.parse(savedData)
+      : defaultRegistrationData;
+  });
 
-  const updateUserData = (newData: Partial<RegistrationDto>) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      ...newData,
-    }));
-  };
+  const updateUserData = useCallback((newData: Partial<RegistrationDto>) => {
+    setUserData((prevData) => {
+      const updatedData = { ...prevData, ...newData };
+      localStorage.setItem(
+        'ddays_registration_data',
+        JSON.stringify(updatedData),
+      );
+      return updatedData;
+    });
+  }, []);
 
-  const clearUserData = () => {
+  const clearUserData = useCallback(() => {
     setUserData(defaultRegistrationData);
-  };
+    localStorage.removeItem('ddays_registration_data');
+  }, []);
 
   return (
     <RegistrationDataContext.Provider
