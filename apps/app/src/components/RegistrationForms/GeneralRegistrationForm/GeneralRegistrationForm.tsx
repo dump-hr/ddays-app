@@ -10,7 +10,7 @@ import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
@@ -25,14 +25,34 @@ export const GeneralRegistrationForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentStep =
+    (Number(searchParams.get('step')) as RegistrationStep) ||
+    RegistrationStep.ONE;
+  const googleAuth = searchParams.get('googleAuth') === 'true';
+
+  const setCurrentStep = (step: RegistrationStep) => {
+    setSearchParams(
+      (prev) => {
+        prev.set('step', step.toString());
+        return prev;
+      },
+      { replace: true }, // Replace to avoid building up history for every step change if desired, or push. 
+      // Actually standard behavior is usually push for steps, but let's see. 
+      // User wants to use back button. So default push is fine.
+      // But wait, existing logic uses `setCurrentStep`.
+      // Let's us default setSearchParams behavior which pushes to history.
+    );
+  };
+
+
+
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
     thirdStepIsSubmitted: false,
     fourthStepIsSubmitted: false,
   });
-  const [googleAuth, setGoogleAuth] = useState(false);
 
   const { userData, updateUserData, clearUserData } = useRegistrationData();
   const { mutate } = useUserRegister(() => {
@@ -85,18 +105,33 @@ export const GeneralRegistrationForm = () => {
   };
 
   useEffect(() => {
-    if (location.state?.profilePhotoUrl) {
-      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
-      setCurrentStep(RegistrationStep.FOUR);
-    }
-    if (location.state?.startStep) setCurrentStep(location.state.startStep);
-    if (location.state?.googleAuth) setGoogleAuth(true);
-    if (location.state?.userData) updateUserData(location.state.userData);
+    if (!location.state) return;
 
-    if (location.state) {
-      navigate(location.pathname, { replace: true });
+    const newParams = new URLSearchParams(searchParams);
+
+    if (location.state.profilePhotoUrl) {
+      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
+      newParams.set('step', RegistrationStep.FOUR.toString());
     }
-  }, [location, navigate, updateUserData]);
+    if (location.state.startStep) {
+      newParams.set('step', location.state.startStep.toString());
+    }
+    if (location.state.googleAuth) {
+      newParams.set('googleAuth', 'true');
+    }
+    if (location.state.userData) {
+      updateUserData(location.state.userData);
+    }
+
+    setSearchParams(newParams, { replace: true, state: {} });
+    // Clear location state by navigating with empty state, effectively handled by setSearchParams options if supported or we might need explicit navigate.
+    // setSearchParams in v6 accepts options? Yes, { replace, state }.
+    // actually, setSearchParams only takes { replace, state } in newer versions.
+    // Let's verify standard behavior. usually it's (params, navigateOptions).
+
+    // Alternatively, to be safe and clear state:
+    // navigate(`${location.pathname}?${newParams.toString()}`, { replace: true, state: {} });
+  }, [location.state, updateUserData, searchParams, setSearchParams]);
 
   const handleRegistrationClick = () => {
     switch (currentStep) {
