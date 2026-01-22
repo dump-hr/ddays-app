@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import Facebook from '../../assets/images/facebook.webp';
 import Instagram from '../../assets/images/instagram.webp';
 import LinkedIn from '../../assets/images/linkedin.webp';
@@ -11,15 +9,6 @@ const TemporaryFooterSection = () => {
     <footer className={c.footer}>
       <div className={c.bottomWrapper} id='kontakt'>
         <div className={c.questionsWrapper}>
-          <h2 className={clsx(c.bigText, c.mb54)}>IMAŠ PITANJA?</h2>
-
-          <a
-            className={clsx(c.button, c.grainyButton)}
-            href='mailto:info@dump.hr'>
-            {`[ `}
-            KONTAKTIRAJ DUMPOVCE
-            {` ]`}
-          </a>
           <div className={c.socialsWrapper}>
             <a
               className={c.facebook}
@@ -50,7 +39,7 @@ const TemporaryFooterSection = () => {
         </div>
         <div className={c.dottedRuler}></div>
         <div className={c.bottomSmallTextWrapper}>
-          <p className={c.mb24}>© DUMPDAYS</p>
+          <p>© DUMPDAYS 2026</p>
           <p className={c.footerBottomSmallText}>
             Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>

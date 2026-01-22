@@ -1,0 +1,109 @@
+.TemporaryBanner {
+  position: relative;
+  background-color: #171615;
+
+  &::after {
+    content: '';
+    background-image: url(../../assets/images/noise.webp);
+    opacity: 0.3;
+    mix-blend-mode: soft-light;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .GroupPhoto {
+    position: relative;
+    width: 100%;
+    object-fit: cover;
+    transform: translateY(10px);
+    min-height: 700px;
+  }
+
+  .FullDuckie {
+    position: absolute;
+    left: 20px;
+    width: 340px;
+    height: auto;
+    bottom: -120px;
+    height: auto;
+    z-index: 20;
+    transform: scaleX(-1);
+  }
+
+  .DaysStickerBig {
+    position: absolute;
+    right: 20px;
+    width: 220px;
+    height: auto;
+    top: -100px;
+    z-index: 20;
+  }
+
+  p {
+    color: #ededed;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-feature-settings: 'ss07' on;
+    font-family: 'PP Neue Machina';
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120px; /* 100% */
+    letter-spacing: -5.025px;
+    text-transform: uppercase;
+    position: absolute; 
+    top: 90px;
+    width: 100%;
+
+  }
+
+  .SectionBreaker {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    opacity: 0.91;
+    mix-blend-mode: darken;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .FullDuckie {
+      width: 250px;
+      bottom: -80px;
+    }
+
+    .DaysStickerBig {
+      width: 160px;
+      top: -70px;
+    }
+
+    .GroupPhoto {
+      height: 600px;
+      object-fit: cover;
+    }
+
+    p {
+      font-size: 80px;
+      line-height: 80px; /* 100% */
+      letter-spacing: -3.35px;
+      top: 80px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .FullDuckie {
+      width: 190px;
+      bottom: -60px;
+      left: -50px;
+    }
+
+    .DaysStickerBig {
+      width: 130px;
+      top: -50px;
+      right: 0px;
+    }
+  }
+}
