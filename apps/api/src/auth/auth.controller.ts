@@ -60,11 +60,6 @@ export class AuthController {
     return this.authService.verifyGoogleToken(token);
   }
 
-  @Get('invite-codes')
-  async getUserInviteCodes(): Promise<string[]> {
-    return this.userService.getUserInviteCodes();
-  }
-
   @Get('callback')
   async googleCallback(
     @Query('id_token') idToken: string,

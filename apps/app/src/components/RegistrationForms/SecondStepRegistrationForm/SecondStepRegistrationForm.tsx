@@ -16,7 +16,7 @@ import { dropdownInputs } from '@/constants/sharedInputs';
 import { RegistrationDto } from '@ddays-app/types';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';
 import { InvitationCodeInput } from './InvitationCodeInput/InvitationCodeInput';
-import { useGetInviteCodes } from '@/api/user/useGetInviteCodes';
+
 type Props = {
   userData: Partial<RegistrationDto>;
   updateUserData: (newData: Partial<RegistrationDto>) => void;
@@ -31,7 +31,6 @@ export const SecondStepRegistrationForm = ({
   isGoogleAuth = false,
 }: Props) => {
   const { errors, clearStepErrors, setStepErrors } = useRegistration();
-  const { data: inviteCodes } = useGetInviteCodes();
 
   const secondStepFields: (keyof Partial<RegistrationDto>)[] = [
     UserDataFields.PhoneNumber,
@@ -75,17 +74,6 @@ export const SecondStepRegistrationForm = ({
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       (newErrors as any)[key] = error;
     });
-
-    if (userData.inviteCode && !inviteCodes?.includes(userData.inviteCode)) {
-      newErrors[UserDataFields.InviteCode] = 'Neispravan kod.';
-      userData.isInvited = false;
-    } else if (userData.inviteCode) {
-      newErrors[UserDataFields.InviteCode] = undefined;
-      userData.isInvited = true;
-    } else {
-      newErrors[UserDataFields.InviteCode] = undefined;
-      userData.isInvited = false;
-    }
 
     if (Object.keys(newErrors).length > 0) {
       setStepErrors(RegistrationStep.TWO, newErrors);

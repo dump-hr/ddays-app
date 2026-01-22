@@ -128,6 +128,23 @@ export class AuthService {
       throw new BadRequestException('Korisnik sa ovim emailom već postoji!');
     }
 
+    if (register.inviteCode?.length > 0) {
+      const inviteCode = await this.prisma.user.findFirst({
+        select: {
+          inviteCode: true,
+        },
+        where: {
+          inviteCode: register.inviteCode,
+        },
+      });
+
+      if (!inviteCode) {
+        throw new BadRequestException('Uneseni kod nije validan!');
+      }
+
+      register.isInvited = true;
+    }
+
     const saltRounds = 10;
     const hashedPassword = await hash(register.password, saltRounds);
 
