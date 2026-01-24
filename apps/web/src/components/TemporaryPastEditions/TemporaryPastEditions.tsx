@@ -34,7 +34,7 @@ const TemporaryPastEditions = () => {
   }, [adjustFontSizes]);
 
   const handleEditionClick = (link: string) => {
-    window.open(link, '_blank'); // Open the link in a new tab
+    window.open(link, '_blank');
   };
 
   return (
@@ -47,8 +47,8 @@ const TemporaryPastEditions = () => {
           <div
             className={c.editionWrapper}
             key={edition.year}
-            onClick={() => handleEditionClick(edition.link)} // Add click handler
-            style={{ cursor: 'pointer' }} // Add pointer cursor for better UX
+            onClick={() => handleEditionClick(edition.link)}
+            style={{ cursor: 'pointer' }}
           >
             {[1, 2, 3].map((_, index) => (
               <div
