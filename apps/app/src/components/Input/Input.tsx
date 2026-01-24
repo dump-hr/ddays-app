@@ -11,6 +11,8 @@ type InputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   type?: 'text' | 'email' | 'password';
+  rightIcon?: string;
+  onRightIconClick?: () => void;
 } & Omit<React.HTMLProps<HTMLInputElement>, 'onChange'>;
 
 export const Input = ({
@@ -20,6 +22,8 @@ export const Input = ({
   onChange,
   error,
   type = 'text',
+  rightIcon,
+  onRightIconClick,
   ...props
 }: InputProps) => {
   const [isPasswordVisible, setPasswordToBeVisible] = useState(false);
@@ -75,6 +79,15 @@ export const Input = ({
             onClick={passwordVisibility}
             className={c.togglePassword}>
             <img src={isPasswordVisible ? EyeIcon : EyeClosedIcon} />
+          </button>
+        )}
+
+        {rightIcon && (
+          <button
+            type='button'
+            className={c.rightIcon}
+            onClick={onRightIconClick}>
+            <img src={rightIcon} alt='' />
           </button>
         )}
       </div>

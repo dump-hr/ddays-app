@@ -1,0 +1,82 @@
+.invitationCode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: Inter;
+
+  h3 {
+    font-size: 1.25rem;
+    @include paragraph-14;
+    color: $black-50;
+    font-family: Inter;
+    text-align: left;
+    width: 100%;
+  }
+
+  .codeInputs {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .codeInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .minus {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: $black-50;
+
+    @media (max-width: 420px) {
+      font-size: 1rem;
+      margin-left: 0.15rem;
+    }
+  }
+
+  .codeBox {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 2px solid $black-50;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    text-transform: uppercase;
+
+    @media (max-width: 420px) {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.125rem;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 340px) {
+      width: 1.85rem;
+      height: 1.85rem;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+
+    &:focus {
+      border-color: $primary-muted-orange;
+      transform: scale(1.05);
+    }
+
+    &:not(:focus):hover {
+      border-color: $black-50;
+    }
+  }
+
+  .errorText {
+    @include paragraph-14;
+    color: $error-light;
+    transition: gap 0.3s ease-in;
+  }
+}

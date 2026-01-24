@@ -27,6 +27,7 @@ export enum RouteNames {
   PROFILE = '/app/profile',
   PROFILE_INTERESTS = '/app/profile/interests',
   PROFILE_REWARDS = '/app/profile/rewards',
+  PROFILE_INVITE_CODE = '/app/profile/invite-code',
   PROFILE_SETTINGS = '/app/profile/settings',
   PROFILE_ACHIEVEMENTS = '/app/profile/achievements',
   SCANNER = '/app/scanner',
@@ -56,6 +57,7 @@ export const navbarRoutes = [
   RouteNames.COMPANIES,
   RouteNames.SCHEDULE,
   RouteNames.FLY_TALKS,
+  RouteNames.PROFILE_INVITE_CODE,
 ];
 
 export interface SubMenu {

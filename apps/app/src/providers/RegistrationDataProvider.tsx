@@ -17,6 +17,7 @@ const defaultRegistrationData: RegistrationDto = {
   companiesNewsEnabled: false,
   termsAndConditionsEnabled: false,
   interests: [],
+  inviteCode: '',
 };
 
 type RegistrationDataContextType = {

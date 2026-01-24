@@ -6,6 +6,7 @@ import Bag from '@/assets/icons/bag.svg';
 import Trophy from '@/assets/icons/trophy.svg';
 import Gift from '@/assets/icons/gift.svg';
 import UserEdit from '@/assets/icons/user-edit.svg';
+import Ticket from '@/assets/icons/ticket.svg';
 
 import AvatarPointsCircle from '../../components/AvatarPointsCircle/AvatarPointsCircle';
 import ProfileStat from '../../components/ProfileStat';
@@ -26,6 +27,11 @@ const navigationItems = [
     icon: Award,
     label: 'Moja postignuća',
     href: RouteNames.PROFILE_ACHIEVEMENTS,
+  },
+  {
+    icon: Ticket,
+    label: 'Moj kod',
+    href: RouteNames.PROFILE_INVITE_CODE,
   },
   {
     icon: Bag,

@@ -4,8 +4,13 @@ import {
   JwtResponseDto,
   RegistrationDto,
 } from '@ddays-app/types';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Prisma } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { OAuth2Client } from 'google-auth-library';
@@ -127,30 +132,76 @@ export class AuthService {
       throw new BadRequestException('Korisnik sa ovim emailom već postoji!');
     }
 
+    if (register.inviteCode?.length > 0) {
+      const inviteCode = await this.prisma.user.findFirst({
+        select: {
+          inviteCode: true,
+        },
+        where: {
+          inviteCode: register.inviteCode,
+        },
+      });
+
+      if (!inviteCode) {
+        throw new BadRequestException('Uneseni kod nije validan!');
+      }
+
+      register.isInvited = true;
+    } else register.isInvited = false;
+
     const saltRounds = 10;
     const hashedPassword = await hash(register.password, saltRounds);
 
-    const registerWithoutInterests = { ...register };
-    delete registerWithoutInterests.interests;
+    let retryCount = 0;
+    const maxRetries = 10;
+    let newUser;
 
-    const newUser = await this.prisma.user.create({
-      data: {
-        email: register.email,
-        firstName: register.firstName,
-        lastName: register.lastName,
-        profilePhotoUrl: register.profilePhotoUrl,
-        phoneNumber: register.phoneNumber,
-        birthYear: register.birthYear,
-        educationDegree: register.educationDegree,
-        occupation: register.occupation,
-        newsletterEnabled: register.newsletterEnabled,
-        companiesNewsEnabled: register.companiesNewsEnabled,
-        isDeleted: false,
-        password: hashedPassword,
-        isConfirmed: isFromGoogleAuth ? true : false,
-        isFromGoogleAuth,
-      },
-    });
+    while (retryCount < maxRetries) {
+      try {
+        newUser = await this.prisma.user.create({
+          data: {
+            email: register.email,
+            firstName: register.firstName,
+            lastName: register.lastName,
+            profilePhotoUrl: register.profilePhotoUrl,
+            phoneNumber: register.phoneNumber,
+            birthYear: register.birthYear,
+            educationDegree: register.educationDegree,
+            occupation: register.occupation,
+            newsletterEnabled: register.newsletterEnabled,
+            companiesNewsEnabled: register.companiesNewsEnabled,
+            isDeleted: false,
+            password: hashedPassword,
+            isConfirmed: isFromGoogleAuth ? true : false,
+            isFromGoogleAuth,
+            inviteCode: this.generateInviteCode(),
+            isInvited: register.isInvited,
+          },
+        });
+
+        break;
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === 'P2002') {
+            const target = error.meta?.target as string[];
+            if (target && target.includes('inviteCode')) {
+              retryCount++;
+              console.log(
+                `Invite code collision detected for code: ${newUser?.inviteCode}. Retrying... (${retryCount})`,
+              );
+              continue;
+            }
+          }
+        }
+        throw error;
+      }
+    }
+
+    if (!newUser) {
+      throw new ServiceUnavailableException(
+        'Trenutno se nije moguće registrirati, pokušajte ponovno malo kasnije.',
+      );
+    }
 
     await this.prisma.userToInterest.createMany({
       data: register.interests.map((interest) => ({
@@ -169,6 +220,17 @@ export class AuthService {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
     });
+
+    if (newUser.isInvited && register.inviteCode) {
+      await this.prisma.user.update({
+        where: { inviteCode: register.inviteCode },
+        data: {
+          numberOfInvitations: {
+            increment: 1,
+          },
+        },
+      });
+    }
 
     await this.achievementService.completeAchievementByName(
       newUser.id,
@@ -215,6 +277,7 @@ export class AuthService {
         isDeleted: true,
         points: true,
         profilePhotoUrl: true,
+        inviteCode: true,
       },
     });
   }
@@ -302,5 +365,9 @@ export class AuthService {
       console.error('Google Auth Callback Error:', err);
       return { redirectUrl: '/app/login?error=google_auth_failed' };
     }
+  }
+
+  generateInviteCode(): string {
+    return randomBytes(3).toString('hex').toUpperCase();
   }
 }
