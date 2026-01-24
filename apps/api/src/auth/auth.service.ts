@@ -4,7 +4,11 @@ import {
   JwtResponseDto,
   RegistrationDto,
 } from '@ddays-app/types';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
@@ -143,7 +147,7 @@ export class AuthService {
       }
 
       register.isInvited = true;
-    }
+    } else register.isInvited = false;
 
     const saltRounds = 10;
     const hashedPassword = await hash(register.password, saltRounds);
@@ -194,8 +198,8 @@ export class AuthService {
     }
 
     if (!newUser) {
-      throw new BadRequestException(
-        'Nije moguće generirati jedinstveni kod, pokušajte ponovno.',
+      throw new ServiceUnavailableException(
+        'Trenutno se nije moguće registrirati, pokušajte ponovno malo kasnije.',
       );
     }
 
@@ -216,6 +220,17 @@ export class AuthService {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
     });
+
+    if (newUser.isInvited && register.inviteCode) {
+      await this.prisma.user.update({
+        where: { inviteCode: register.inviteCode },
+        data: {
+          numberOfInvitations: {
+            increment: 1,
+          },
+        },
+      });
+    }
 
     await this.achievementService.completeAchievementByName(
       newUser.id,
@@ -239,17 +254,6 @@ export class AuthService {
         newUser.id,
         AchievementNames.WhatsNew,
       );
-    }
-
-    if (newUser.isInvited && register.inviteCode) {
-      await this.prisma.user.update({
-        where: { inviteCode: register.inviteCode },
-        data: {
-          numberOfInvitations: {
-            increment: 1,
-          },
-        },
-      });
     }
 
     return { accessToken };
