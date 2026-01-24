@@ -157,6 +157,7 @@ export const SecondStepRegistrationForm = ({
         <InvitationCodeInput
           onChange={handleInputChange}
           error={errors[2]?.inviteCode}
+          value={userData?.inviteCode}
         />
 
         {isGoogleAuth && (

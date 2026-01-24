@@ -4,6 +4,7 @@ import {
   ChangeEvent,
   KeyboardEvent,
   ClipboardEvent,
+  useEffect,
 } from 'react';
 import c from './invitationCodeInput.module.scss';
 
@@ -12,15 +13,31 @@ const CODE_LENGTH = 6;
 export const InvitationCodeInput = ({
   onChange,
   error,
+  value,
 }: {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  value?: string;
 }) => {
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(''));
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
-  const handleChange = (value: string, index: number) => {
-    const char = value.slice(-1);
+  useEffect(() => {
+    if (value) {
+      const newCode = Array(CODE_LENGTH).fill('');
+      const chars = value.split('');
+
+      for (let i = 0; i < CODE_LENGTH; i++) {
+        if (chars[i]) {
+          newCode[i] = chars[i];
+        }
+      }
+      setCode(newCode);
+    }
+  }, [value]);
+
+  const handleChange = (val: string, index: number) => {
+    const char = val.slice(-1);
 
     if (!/^[a-zA-Z0-9]?$/.test(char)) return;
 
