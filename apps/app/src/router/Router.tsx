@@ -41,7 +41,7 @@ import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
 import ClosedAppPage from '@/pages/ClosedAppPage';
 import { InviteCodePage } from '@/pages/InviteCodePage';
 
-const isAppOpen = true;
+const isAppOpen = false;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
