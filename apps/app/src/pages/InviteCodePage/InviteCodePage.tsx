@@ -62,7 +62,7 @@ export const InviteCodePage = () => {
             className={s.shareButton}
             onClick={() => {
               window.open(
-                `https://wa.me/?text=Podijeli kod ${user?.inviteCode ?? ''}`,
+                `https://wa.me/?text=Iskoristi moj kod za bodove na Dump Days konferenciji: ${user?.inviteCode ?? ''}`,
                 '_blank',
               );
             }}>
