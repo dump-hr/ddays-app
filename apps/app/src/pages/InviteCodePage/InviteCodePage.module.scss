@@ -1,0 +1,51 @@
+.inputWrapper {
+  width: 30%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shareButton {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.shareButton > div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.shareButton > div img {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+.inviteCodeMain {
+  display: flex;
+  align-items: center;
+  min-height: 45vh;
+}
+
+.mainHeader {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .inputWrapper {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .inputWrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .inputWrapper {
+    width: 100%;
+  }
+}

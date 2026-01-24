@@ -39,8 +39,9 @@ import AccreditationScanPage from '@/pages/AccreditationScanPage';
 import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
 
 import ClosedAppPage from '@/pages/ClosedAppPage';
+import { InviteCodePage } from '@/pages/InviteCodePage';
 
-const isAppOpen = false;
+const isAppOpen = true;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -98,6 +99,10 @@ const router = createBrowserRouter(
               <Route
                 path={RouteNames.PROFILE_REWARDS}
                 element={<RewardsPage />}
+              />
+              <Route
+                path={RouteNames.PROFILE_INVITE_CODE}
+                element={<InviteCodePage />}
               />
               <Route
                 path={RouteNames.PROFILE_RECOMMENDATIONS}

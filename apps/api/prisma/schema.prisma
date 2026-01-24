@@ -279,6 +279,9 @@ model User {
   isConfirmed             Boolean?                 @default(false)
   isFromGoogleAuth        Boolean?                 @default(false)
   profilePhotoUrl         String?
+  inviteCode              String?                  @unique
+  isInvited               Boolean?                 @default(false)
+  numberOfInvitations     Int?                     @default(0)
   avatar                  Avatar[]
   notification            Notification[]
   transactionItems        TransactionItem[]

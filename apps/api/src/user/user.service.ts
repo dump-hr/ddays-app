@@ -208,6 +208,16 @@ export class UserService {
     });
   }
 
+  async getUserInviteCodes(): Promise<string[]> {
+    const inviteCodes = await this.prisma.user.findMany({
+      select: {
+        inviteCode: true,
+      },
+    });
+
+    return inviteCodes.map((code) => code.inviteCode);
+  }
+
   async createUserForAccreditation({
     firstName,
     lastName,

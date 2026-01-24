@@ -84,3 +84,21 @@
   align-items: center;
   justify-content: center;
 }
+
+.rightIcon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-60%);
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
