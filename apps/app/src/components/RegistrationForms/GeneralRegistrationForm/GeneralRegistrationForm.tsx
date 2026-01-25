@@ -10,7 +10,7 @@ import CloseIcon from '@/assets/icons/black-remove-icon.svg';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { FourthStepRegistrationForm } from '../FourthStepRegistrationForm';
 import { RegistrationStep } from '@/types/registration/registration.dto';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { AvatarPickerRegistrationForm } from '../AvatarPickerRegistrationForm';
 import { useUserRegister } from '@/api/auth/useUserRegister';
 import { RouteNames } from '@/router/routes';
@@ -25,14 +25,30 @@ export const GeneralRegistrationForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [currentStep, setCurrentStep] = useState(RegistrationStep.ONE);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentStep =
+    (Number(searchParams.get('step')) as RegistrationStep) ||
+    RegistrationStep.ONE;
+  const googleAuth = searchParams.get('googleAuth') === 'true';
+
+  const setCurrentStep = (step: RegistrationStep) => {
+    setSearchParams(
+      (prev) => {
+        prev.set('step', step.toString());
+        return prev;
+      },
+      { replace: true },
+    );
+  };
+
+
+
   const [isSubmitted, setIsSubmitted] = useState({
     firstStepIsSubmitted: false,
     secondStepIsSubmitted: false,
     thirdStepIsSubmitted: false,
     fourthStepIsSubmitted: false,
   });
-  const [googleAuth, setGoogleAuth] = useState(false);
 
   const { userData, updateUserData, clearUserData } = useRegistrationData();
   const { mutate } = useUserRegister(() => {
@@ -85,18 +101,50 @@ export const GeneralRegistrationForm = () => {
   };
 
   useEffect(() => {
-    if (location.state?.profilePhotoUrl) {
-      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
-      setCurrentStep(RegistrationStep.FOUR);
+    const isGoogleAuth = googleAuth || location.state?.googleAuth === true;
+    if (isGoogleAuth) {
+      localStorage.setItem('ddays_registration_is_google', 'true');
     }
-    if (location.state?.startStep) setCurrentStep(location.state.startStep);
-    if (location.state?.googleAuth) setGoogleAuth(true);
-    if (location.state?.userData) updateUserData(location.state.userData);
+  }, [googleAuth, location.state?.googleAuth]);
 
-    if (location.state) {
-      navigate(location.pathname, { replace: true });
+  useEffect(() => {
+    if (
+      !location.state ||
+      (typeof location.state === 'object' &&
+        Object.keys(location.state).length === 0)
+    ) {
+      return;
     }
-  }, [location, navigate, updateUserData]);
+
+    const newParams = new URLSearchParams(searchParams);
+    let hasUpdates = false;
+
+    if (location.state.profilePhotoUrl) {
+      updateUserData({ profilePhotoUrl: location.state.profilePhotoUrl });
+      newParams.set('step', RegistrationStep.FOUR.toString());
+      hasUpdates = true;
+    }
+    if (location.state.startStep) {
+      newParams.set('step', location.state.startStep.toString());
+      hasUpdates = true;
+    }
+    if (location.state.googleAuth) {
+      newParams.set('googleAuth', 'true');
+      hasUpdates = true;
+    }
+    if (location.state.userData) {
+      const incomingData = location.state.userData;
+      const cleanData = Object.fromEntries(
+        Object.entries(incomingData).filter((entry) => entry[1] !== null && entry[1] !== ''),
+      );
+      updateUserData(cleanData);
+      hasUpdates = true;
+    }
+
+    if (hasUpdates) {
+      setSearchParams(newParams, { replace: true, state: null });
+    }
+  }, [location.state, updateUserData, setSearchParams, searchParams]);
 
   const handleRegistrationClick = () => {
     switch (currentStep) {

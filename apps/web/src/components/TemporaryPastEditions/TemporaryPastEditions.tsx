@@ -48,8 +48,7 @@ const TemporaryPastEditions = () => {
             className={c.editionWrapper}
             key={edition.year}
             onClick={() => handleEditionClick(edition.link)}
-            style={{ cursor: 'pointer' }}
-          >
+            style={{ cursor: 'pointer' }}>
             {[1, 2, 3].map((_, index) => (
               <div
                 className={clsx(
