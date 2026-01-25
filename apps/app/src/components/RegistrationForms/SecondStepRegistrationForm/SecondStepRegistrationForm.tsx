@@ -164,7 +164,7 @@ export const SecondStepRegistrationForm = ({
           <CheckboxFieldsWrapper
             userData={userData}
             updateUserData={updateUserData}
-            errorMessage={errors[1]?.termsAndConditionsEnabled}
+            errorMessage={errors[2]?.termsAndConditionsEnabled}
           />
         )}
       </div>
