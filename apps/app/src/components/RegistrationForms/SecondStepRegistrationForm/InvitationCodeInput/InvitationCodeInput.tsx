@@ -90,7 +90,7 @@ export const InvitationCodeInput = ({
 
   return (
     <div className={c.invitationCode}>
-      <h3>Imaš kod?</h3>
+      <h3>Imaš kod od nekoga?</h3>
 
       <div className={c.codeInputs}>
         {code.map((char, index) => (

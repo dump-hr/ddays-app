@@ -62,7 +62,11 @@ export const InviteCodePage = () => {
             className={s.shareButton}
             onClick={() => {
               window.open(
-                `https://wa.me/?text=Iskoristi moj kod za bodove na Dump Days konferenciji: ${user?.inviteCode ?? ''}`,
+                `https://wa.me/?text=${encodeURIComponent(
+                  `Hej! Iskoristi moj invite kod pri registraciji na Dump Days konferenciji: ${
+                    user?.inviteCode ?? ''
+                  }\n\nhttps://days.dump.hr`,
+                )}`,
                 '_blank',
               );
             }}>
