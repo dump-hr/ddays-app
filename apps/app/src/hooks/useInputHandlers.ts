@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import { DropdownOption } from '../components/Dropdown/DropdownOption';
 import { UserDataFields, UserProfileFields } from '../types/enums';
-import { validations } from '@/helpers/validateInput';
+import { validations } from '@/validation/validateInput';
 
 export const useInputHandlers = (
   updateState: (data: Record<string, unknown>) => void,
