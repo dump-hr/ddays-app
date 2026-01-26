@@ -235,26 +235,32 @@ export class AuthService {
         },
       });
 
-      console.log('Referrer found:', referrer.id, 'Invitations:', referrer.numberOfInvitations);
+      try {
+        if (referrer.numberOfInvitations == 1) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite1,
+            true,
+          );
+        }
 
-      if (referrer.numberOfInvitations === 1) {
-        console.log('Awarding Invite 1 to', referrer.id);
-        await this.achievementService.completeAchievementByName(
-          referrer.id,
-          AchievementNames.Invite1,
-        );
-      } else if (referrer.numberOfInvitations === 3) {
-        console.log('Awarding Invite 3 to', referrer.id);
-        await this.achievementService.completeAchievementByName(
-          referrer.id,
-          AchievementNames.Invite3,
-        );
-      } else if (referrer.numberOfInvitations === 5) {
-        console.log('Awarding Invite 5 to', referrer.id);
-        await this.achievementService.completeAchievementByName(
-          referrer.id,
-          AchievementNames.Invite5,
-        );
+        if (referrer.numberOfInvitations == 3) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite3,
+            true,
+          );
+        }
+
+        if (referrer.numberOfInvitations == 5) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite5,
+            true,
+          );
+        }
+      } catch (error) {
+        console.error('Failed to award invalid code achievements:', error);
       }
     }
 
