@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import sprite from '../../../assets/sprite.svg';
 import { FC, useState } from 'react';
 import { UserDataFields } from '@/types/enums';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { RouteNames, routes } from '@/router/routes';
 import { DuckObject } from '@/types/avatar/avatar';
 
@@ -31,9 +31,12 @@ export const AvatarPickerRegistrationForm: FC<Props> = ({ updateUserData }) => {
     goToNextStep();
   };
 
+  const [searchParams] = useSearchParams();
+  const googleAuth = searchParams.get('googleAuth') === 'true';
+
   const goToNextStep = () => {
     navigate(location.pathname, {
-      state: { profilePhotoUrl: selectedDuckUrl },
+      state: { profilePhotoUrl: selectedDuckUrl, googleAuth },
     });
   };
 
