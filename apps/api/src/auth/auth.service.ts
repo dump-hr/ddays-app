@@ -236,7 +236,7 @@ export class AuthService {
       });
 
       try {
-        if (referrer.numberOfInvitations == 1) {
+        if (referrer?.numberOfInvitations == 1) {
           await this.achievementService.completeAchievementByName(
             referrer.id,
             AchievementNames.Invite1,
@@ -244,7 +244,7 @@ export class AuthService {
           );
         }
 
-        if (referrer.numberOfInvitations == 3) {
+        if (referrer?.numberOfInvitations == 3) {
           await this.achievementService.completeAchievementByName(
             referrer.id,
             AchievementNames.Invite3,
@@ -252,7 +252,7 @@ export class AuthService {
           );
         }
 
-        if (referrer.numberOfInvitations == 5) {
+        if (referrer?.numberOfInvitations == 5) {
           await this.achievementService.completeAchievementByName(
             referrer.id,
             AchievementNames.Invite5,
@@ -260,7 +260,9 @@ export class AuthService {
           );
         }
       } catch (error) {
-        console.error(`Failed to award invalid code achievements: ${error}, refferer id: ${referrer.id}`);
+        console.error(
+          `Failed to award invalid code achievements: ${error}, refferer id: ${referrer?.id}`,
+        );
       }
     }
 
