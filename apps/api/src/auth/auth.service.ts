@@ -222,14 +222,48 @@ export class AuthService {
     });
 
     if (newUser.isInvited && register.inviteCode) {
-      await this.prisma.user.update({
+      const referrer = await this.prisma.user.update({
         where: { inviteCode: register.inviteCode },
         data: {
           numberOfInvitations: {
             increment: 1,
           },
         },
+        select: {
+          id: true,
+          numberOfInvitations: true,
+        },
       });
+
+      try {
+        if (referrer?.numberOfInvitations == 1) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite1,
+            true,
+          );
+        }
+
+        if (referrer?.numberOfInvitations == 3) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite3,
+            true,
+          );
+        }
+
+        if (referrer?.numberOfInvitations == 5) {
+          await this.achievementService.completeAchievementByName(
+            referrer.id,
+            AchievementNames.Invite5,
+            true,
+          );
+        }
+      } catch (error) {
+        console.error(
+          `Failed to award invalid code achievements: ${error}, refferer id: ${referrer?.id}`,
+        );
+      }
     }
 
     await this.achievementService.completeAchievementByName(
