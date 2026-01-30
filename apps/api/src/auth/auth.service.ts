@@ -260,7 +260,7 @@ export class AuthService {
           );
         }
       } catch (error) {
-        console.error('Failed to award invalid code achievements:', error);
+        console.error(`Failed to award invalid code achievements: ${error}, refferer id: ${referrer.id}`);
       }
     }
 
