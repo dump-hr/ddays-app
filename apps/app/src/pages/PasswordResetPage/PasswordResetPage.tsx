@@ -10,7 +10,7 @@ import { SuccessStep } from './steps/SuccessStep';
 import {
   validations,
   validateRepeatedPassword,
-} from '../../helpers/validateInput';
+} from '../../validation/validateInput';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useResetPassword } from '../../api/user/useResetPassword';
 import { sendVerificationEmail } from '../../helpers/handleVerificationSent';
