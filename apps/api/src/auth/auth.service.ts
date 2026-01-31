@@ -7,6 +7,7 @@ import {
 import {
   BadRequestException,
   Injectable,
+  Logger,
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -27,6 +28,8 @@ export class AuthService {
     private readonly achievementService: AchievementService,
   ) {}
 
+  private readonly logger = new Logger(AuthService.name);
+
   async companyPasswordLogin(
     username: string,
     password: string,
@@ -44,10 +47,16 @@ export class AuthService {
     });
 
     if (!loginCompany) {
+      this.logger.warn(
+        `Company login failed - company not found for username: ${username}`,
+      );
       throw new BadRequestException('Company not found');
     }
 
     if (password !== loginCompany.password) {
+      this.logger.warn(
+        `Company login failed - invalid password for username: ${username}`,
+      );
       throw new BadRequestException('Password does not match');
     }
 
@@ -56,6 +65,10 @@ export class AuthService {
       username: loginCompany.username,
       name: loginCompany.name,
     });
+
+    this.logger.log(
+      `Company login success for username: ${username}, ID: ${loginCompany.id}`,
+    );
 
     return { accessToken };
   }
@@ -81,16 +94,23 @@ export class AuthService {
     });
 
     if (!loginUser) {
+      this.logger.warn(`User login failed - user not found for email: ${email}`);
       throw new BadRequestException('Korisnik nije pronađen!');
     }
 
     const passwordsMatch = await compare(password, loginUser.password);
 
     if (loginUser.isFromGoogleAuth) {
+      this.logger.warn(
+        `User login failed - user is from Google Auth for email: ${email}`,
+      );
       throw new BadRequestException('Korisnik je prijavljen putem Google-a!');
     }
 
     if (!passwordsMatch && !loginUser.isFromGoogleAuth) {
+      this.logger.warn(
+        `User login failed - invalid password for email: ${email}`,
+      );
       throw new BadRequestException('Neispravna lozinka!');
     }
 
@@ -100,6 +120,10 @@ export class AuthService {
       firstName: loginUser.firstName,
       lastName: loginUser.lastName,
     });
+
+    this.logger.log(
+      `User login success for email: ${email}, ID: ${loginUser.id}`,
+    );
 
     return { accessToken };
   }
@@ -116,6 +140,9 @@ export class AuthService {
     });
 
     if (existingActivePhoneUser) {
+      this.logger.warn(
+        `User register failed  for ${register.email} - phone collision: ${register.phoneNumber}`,
+      );
       throw new BadRequestException(
         'Korisnik sa ovim brojem telefona već postoji!',
       );
@@ -129,6 +156,9 @@ export class AuthService {
     });
 
     if (existingActiveEmailUser) {
+      this.logger.warn(
+        `User register failed for ${register.email} - email collision: ${register.email}`,
+      );
       throw new BadRequestException('Korisnik sa ovim emailom već postoji!');
     }
 
@@ -143,6 +173,9 @@ export class AuthService {
       });
 
       if (!inviteCode) {
+        this.logger.warn(
+          `User register failed for ${register.email} - invalid invite code: ${register.inviteCode}`,
+        );
         throw new BadRequestException('Uneseni kod nije validan!');
       }
 
@@ -186,7 +219,7 @@ export class AuthService {
             const target = error.meta?.target as string[];
             if (target && target.includes('inviteCode')) {
               retryCount++;
-              console.log(
+              this.logger.warn(
                 `Invite code collision detected for code: ${newUser?.inviteCode}. Retrying... (${retryCount})`,
               );
               continue;
@@ -198,6 +231,9 @@ export class AuthService {
     }
 
     if (!newUser) {
+      this.logger.error(
+        'User register failed for ' + register.email + ' - could not create user (max retries exceeded for invite code)',
+      );
       throw new ServiceUnavailableException(
         'Trenutno se nije moguće registrirati, pokušajte ponovno malo kasnije.',
       );
@@ -260,7 +296,7 @@ export class AuthService {
           );
         }
       } catch (error) {
-        console.error(
+        this.logger.error(
           `Failed to award invalid code achievements: ${error}, refferer id: ${referrer?.id}`,
         );
       }
@@ -289,6 +325,10 @@ export class AuthService {
         AchievementNames.WhatsNew,
       );
     }
+
+    this.logger.log(
+      `User register success for email: ${newUser.email}, ID: ${newUser.id}`,
+    );
 
     return { accessToken };
   }
@@ -329,6 +369,7 @@ export class AuthService {
     const payload = ticket.getPayload();
 
     if (!payload?.email) {
+      this.logger.warn('Google token has no email ' + payload?.email);
       throw new Error('Google token has no email');
     }
 
@@ -352,6 +393,8 @@ export class AuthService {
         lastName: existingUser.lastName,
       });
 
+      this.logger.log('Login with google success for: ' + existingUser.email);
+
       return { accessToken };
     }
 
@@ -374,6 +417,8 @@ export class AuthService {
       isFromGoogleAuth: true,
     };
 
+    this.logger.log('Google registration initiated for: ' + newUserData.email);
+
     return newUserData;
   }
 
@@ -381,6 +426,7 @@ export class AuthService {
     idToken: string,
   ): Promise<{ redirectUrl: string }> {
     if (!idToken) {
+      this.logger.warn('Google callback failed - missing token');
       return { redirectUrl: '/app/login?error=missing_token' };
     }
 
@@ -388,15 +434,21 @@ export class AuthService {
       const userData = await this.verifyGoogleToken(idToken);
 
       if ('accessToken' in userData) {
+        this.logger.log(
+          `Google login success for email: ${(userData as any).email || 'unknown'}`,
+        );
         return { redirectUrl: `/app?accessToken=${userData.accessToken}` };
       } else {
+        this.logger.log(
+          `Google registration initiated (redirecting to form) for email: ${userData.email}`,
+        );
         const encodedUserData = encodeURIComponent(JSON.stringify(userData));
         return {
           redirectUrl: `/app/register?googleAuth=true&userData=${encodedUserData}`,
         };
       }
     } catch (err) {
-      console.error('Google Auth Callback Error:', err);
+      this.logger.error('Google Auth Callback Error:', err);
       return { redirectUrl: '/app/login?error=google_auth_failed' };
     }
   }
