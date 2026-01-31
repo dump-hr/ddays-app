@@ -299,7 +299,7 @@ export class AuthService {
         }
       } catch (error) {
         this.logger.error(
-          `Failed to award invalid code achievements: ${error}, refferer id: ${referrer?.id}`,
+          `Failed to award invite code achievements: ${error}, referrer id: ${referrer?.id}`,
         );
       }
     }
@@ -371,7 +371,7 @@ export class AuthService {
     const payload = ticket.getPayload();
 
     if (!payload?.email) {
-      this.logger.warn('Google token has no email ' + payload?.email);
+      this.logger.warn('Google token has no email in payload');
       throw new Error('Google token has no email');
     }
 
