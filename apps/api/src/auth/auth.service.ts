@@ -94,7 +94,9 @@ export class AuthService {
     });
 
     if (!loginUser) {
-      this.logger.warn(`User login failed - user not found for email: ${email}`);
+      this.logger.warn(
+        `User login failed - user not found for email: ${email}`,
+      );
       throw new BadRequestException('Korisnik nije pronađen!');
     }
 
@@ -232,7 +234,9 @@ export class AuthService {
 
     if (!newUser) {
       this.logger.error(
-        'User register failed for ' + register.email + ' - could not create user (max retries exceeded for invite code)',
+        'User register failed for ' +
+          register.email +
+          ' - could not create user (max retries exceeded for invite code)',
       );
       throw new ServiceUnavailableException(
         'Trenutno se nije moguće registrirati, pokušajte ponovno malo kasnije.',
