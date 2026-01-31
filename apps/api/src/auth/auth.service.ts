@@ -143,7 +143,7 @@ export class AuthService {
 
     if (existingActivePhoneUser) {
       this.logger.warn(
-        `User register failed  for ${register.email} - phone collision: ${register.phoneNumber}`,
+        `User register failed for ${register.email} - phone collision: ${register.phoneNumber}`,
       );
       throw new BadRequestException(
         'Korisnik sa ovim brojem telefona već postoji!',
@@ -234,9 +234,7 @@ export class AuthService {
 
     if (!newUser) {
       this.logger.error(
-        'User register failed for ' +
-          register.email +
-          ' - could not create user (max retries exceeded for invite code)',
+        `User register failed for ${register.email} - could not create user (max retries exceeded for invite code)`,
       );
       throw new ServiceUnavailableException(
         'Trenutno se nije moguće registrirati, pokušajte ponovno malo kasnije.',
