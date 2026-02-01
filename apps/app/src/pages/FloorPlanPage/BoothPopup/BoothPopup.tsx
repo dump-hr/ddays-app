@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 import { PropsWithChildren } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './BoothPopup.module.scss';
 import { FloorPlanCompanyDto, RatingDto } from '@ddays-app/types';
 import InfoLightIcon from '@/assets/icons/info-light.svg';
 import CloseIcon from '@/assets/icons/remove-icon.svg';
 import { isBoothRated } from '@/helpers/isBoothRated';
+import { RouteNames } from '@/router/routes';
+import Button from '@/components/Button';
+
 type BoothPopupProps = {
   closePopup: () => void;
   isOpen: boolean;
@@ -20,6 +24,7 @@ const BoothPopup = ({
   availableBooths,
   userRatings,
 }: PropsWithChildren<BoothPopupProps>) => {
+  const navigate = useNavigate();
   const isRated = isBoothRated(companyInfo.booth, availableBooths, userRatings);
 
   return (
@@ -70,13 +75,29 @@ const BoothPopup = ({
           )}
 
           {!isRated && (
-            <div className={styles.infoMessage}>
-              <img className={styles.icon} src={InfoLightIcon} />
-              <p className={styles.message}>
-                Nakon što posjetiš štand, možeš ga ocijeniti i osvojiti dodatne
-                bodove!
-              </p>
-            </div>
+            <>
+              <div className={styles.infoMessage}>
+                <img className={styles.icon} src={InfoLightIcon} />
+                <p className={styles.message}>
+                  Nakon što posjetiš štand, možeš ga ocijeniti i osvojiti
+                  dodatne bodove!
+                </p>
+              </div>
+              <Button
+                variant="orange"
+                className={styles.rateButton}
+                onClick={() => {
+                  closePopup();
+                  navigate(
+                    RouteNames.RATE_COMPANY.replace(
+                      ':companyId',
+                      String((companyInfo as unknown as { id: number }).id),
+                    ),
+                  );
+                }}>
+                Ocijeni štand
+              </Button>
+            </>
           )}
         </div>
       </div>

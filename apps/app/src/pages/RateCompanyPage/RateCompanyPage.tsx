@@ -54,9 +54,13 @@ export const RateCompanyPage = () => {
         toast.dismiss(toastId);
       }
 
-      if (geolocation?.isOk === false) {
-        toast.error(geolocation?.error ?? "Greška, pokušajte ponovno.");
-        navigate(RouteNames.HOME);
+      if (geolocation?.isOk === false && geolocation?.error != null) {
+        const isOutsideLocation = geolocation.error.includes('Izvan');
+        const message = isOutsideLocation
+          ? 'Ocjenjivanje štandova moguće je samo na lokaciji konferencije.'
+          : geolocation.error;
+        toast.error(message);
+        navigate(RouteNames.FLOOR_PLAN);
         return;
       }
 
