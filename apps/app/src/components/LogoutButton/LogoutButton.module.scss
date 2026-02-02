@@ -39,4 +39,8 @@
     width: 16px;
     height: 16px;
   }
+
+  @media (max-width: $breakpoint-tablet ) {
+    margin-bottom: 64px;
+  }
 }
