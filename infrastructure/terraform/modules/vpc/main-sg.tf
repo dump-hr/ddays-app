@@ -59,6 +59,15 @@ resource "aws_security_group_rule" "public_in_alloy" {
   security_group_id = aws_security_group.public.id
 }
 
+resource "aws_security_group_rule" "public_in_node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.public.id
+}
+
 resource "aws_security_group" "private" {
   name        = "${var.name_prefix}-vpc-private-sg"
   description = "Private internet access"
