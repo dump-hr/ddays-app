@@ -6,7 +6,7 @@ import {
   allFieldsAreFilled,
   validateField,
   validateRepeatedPassword,
-} from '@/helpers/validateInput';
+} from '@/validation/validateInput';
 import { UserDataFields } from '@/types/enums';
 import { useRegistration } from '@/providers/RegistrationContext';
 import { CheckboxFieldsWrapper } from '../CheckboxFieldsWrapper';

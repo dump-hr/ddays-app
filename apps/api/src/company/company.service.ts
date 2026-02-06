@@ -568,6 +568,7 @@ export class CompanyService {
 
     const companiesWithRatings = await Promise.all(
       companies.map(async (company) => ({
+        id: company.id,
         name: company.name,
         booth: company.booth?.name ?? '',
         boothId: company.booth?.id,
