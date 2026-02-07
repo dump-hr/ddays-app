@@ -354,6 +354,7 @@ export class AuthService {
         points: true,
         profilePhotoUrl: true,
         inviteCode: true,
+        isFromGoogleAuth: true,
       },
     });
   }

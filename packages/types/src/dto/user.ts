@@ -43,6 +43,7 @@ export type UserPublicDto = {
   points: number;
   profilePhotoUrl: string;
   inviteCode: string;
+  isFromGoogleAuth: boolean | null;
 };
 
 export type ChangeUserPasswordDto = {

@@ -11,11 +11,13 @@ import { SettingsHeader } from './sections/SettingsHeader';
 import { RegistrationProvider } from '@/context/RegistrationContext';
 import { useUserContext } from '@/context/UserContext';
 import DeleteAccountPopup from './popups/DeleteAccountPopup';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 
 const SettingsPage = () => {
   const [isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen] =
     useState(false);
 
+  const { data: user } = useLoggedInUser();
   const { isEditing, isChangingPassword, setIsChangingPassword } =
     useUserContext();
 
@@ -39,14 +41,16 @@ const SettingsPage = () => {
 
               {!isEditing && !isChangingPassword && (
                 <div className={styles.settingsButtonsContainer}>
-                  <SettingsButton
-                    icon={LockIcon}
-                    variant={'grey'}
-                    onClick={() => {
-                      setIsChangingPassword(true);
-                    }}>
-                    Promjeni lozinku
-                  </SettingsButton>
+                  {!user?.isFromGoogleAuth && (
+                    <SettingsButton
+                      icon={LockIcon}
+                      variant={'grey'}
+                      onClick={() => {
+                        setIsChangingPassword(true);
+                      }}>
+                      Promjeni lozinku
+                    </SettingsButton>
+                  )}
                   <SettingsButton
                     icon={ThrashIcon}
                     variant={'red'}
