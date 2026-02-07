@@ -19,6 +19,8 @@ import { dropdownInputs } from '@/constants/sharedInputs';
 import RedStarIcon from '@/components/RedStarIcon';
 import { useAchievementGetCompleted } from '@/api/achievement/useAchievementGetCompleted';
 import { AchievementNames } from '@ddays-app/types';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { UserProfileFields } from '@/types/enums';
 
 export const EditProfileSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -27,6 +29,8 @@ export const EditProfileSection: React.FC = () => {
     useUserContext();
   const { data: userAchievements } = useAchievementGetCompleted();
   const [achievementCompleted, setAchievementCompleted] = useState(false);
+  const { data: loggedInUser } = useLoggedInUser();
+  const isGoogleAuthUser = loggedInUser?.isFromGoogleAuth === true;
 
   const {
     handleDropdownChange,
@@ -101,11 +105,15 @@ export const EditProfileSection: React.FC = () => {
   return (
     <>
       {textInputs.map((input) => {
+        // Email field should always be disabled for Google auth users
+        const isEmailField = input.name === UserProfileFields.Email;
+        const isDisabled = !isEditing || (isEmailField && isGoogleAuthUser);
+
         return (
           <Input
             key={input.name}
             name={input.name}
-            disabled={!isEditing}
+            disabled={isDisabled}
             type={input.type}
             value={userSettingsData[input.name]?.toString()}
             placeholder={input.placeholder}
