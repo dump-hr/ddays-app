@@ -19,6 +19,21 @@ export class UserService {
   ) {}
 
   async updateUserProfile(userId: number, data: UserModifyDto) {
+    const currentUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, isFromGoogleAuth: true },
+    });
+
+    if (!currentUser) {
+      throw new BadRequestException('Korisnik nije pronađen');
+    }
+
+    if (currentUser.isFromGoogleAuth && data.email !== currentUser.email) {
+      throw new BadRequestException(
+        'Korisnici prijavljeni putem Google računa ne mogu mijenjati email adresu',
+      );
+    }
+
     const existingUser = await this.prisma.user.findFirst({
       where: {
         OR: [{ email: data.email }, { phoneNumber: data.phoneNumber }],
@@ -65,6 +80,12 @@ export class UserService {
       throw new BadRequestException('Korisnik nije pronađen');
     }
 
+    if (user.isFromGoogleAuth) {
+      throw new BadRequestException(
+        'Korisnici prijavljeni putem Google računa ne mogu mijenjati lozinku',
+      );
+    }
+
     const isPasswordValid = await bcrypt.compare(
       currentPassword,
       user.password,
@@ -99,7 +120,6 @@ export class UserService {
         throw new BadRequestException('Korisnik nije pronađen');
       }
 
-      // First, remove interests that are no longer selected
       await prisma.userToInterest.deleteMany({
         where: {
           userId,
@@ -109,7 +129,6 @@ export class UserService {
         },
       });
 
-      // Find existing user-to-interest associations
       const existingAssociations = await prisma.userToInterest.findMany({
         where: { userId },
       });
@@ -118,12 +137,10 @@ export class UserService {
         (association) => association.interestId,
       );
 
-      // Filter out the interests that already exist for this user
       const newInterests = interests.filter(
         (interest) => !existingInterestIds.includes(interest.id),
       );
 
-      // Insert only the new interests that aren't already associated
       if (newInterests.length > 0) {
         await prisma.userToInterest.createMany({
           data: newInterests.map((interest) => ({
