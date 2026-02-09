@@ -64,7 +64,7 @@ export function useGeoValidation(options?: {
         setIsOk(result.isOk);
 
         if (!result.isOk) {
-          setError('Izvan ste dozvoljene lokacije.');
+          setError('Izvan ste lokacije konferencije.');
         }
       },
       (geoError) => {
