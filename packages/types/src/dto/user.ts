@@ -42,6 +42,7 @@ export type UserPublicDto = {
   isDeleted: boolean;
   points: number;
   profilePhotoUrl: string;
+  inviteCode: string;
 };
 
 export type ChangeUserPasswordDto = {

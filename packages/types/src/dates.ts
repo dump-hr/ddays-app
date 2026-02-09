@@ -13,8 +13,8 @@ export const ISO = {
   // spots / booth selection opening (UTCDate(2026,4,5,10,0) -> 2026-05-05T10:00:00Z)
   SPOTS_OPENING: '2025-12-05T10:00:00Z',
   // early bird cutoffs used in frontend/backend
-  EARLY_BIRD_CUTOFF_FRONTEND: '2026-05-14T22:00:00.000Z',
-  EARLY_BIRD_CUTOFF_API: '2026-05-15T22:00:00.000Z',
+  EARLY_BIRD_CUTOFF_FRONTEND: '2026-05-15T23:00:00.000Z',
+  EARLY_BIRD_CUTOFF_API: '2026-05-15T23:00:00.000Z',
 };
 
 export const DISPLAY = {

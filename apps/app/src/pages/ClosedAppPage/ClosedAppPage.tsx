@@ -6,7 +6,7 @@ const ClosedAppPage = () => {
     <div className={c.page}>
       <img src={DuckImage} alt='See you later duck' className={c.duck} />
       <h1 className={c.title}>Vidimo se!</h1>
-      <p className={c.text}>Vidimo se dogodine...</p>
+      <p className={c.text}>Vidimo se uskoro...</p>
     </div>
   );
 };

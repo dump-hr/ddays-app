@@ -108,6 +108,9 @@ export enum AchievementNames {
   EarlyBird = 'Early bird',
   BraveMove = 'Brave move',
   WhatsNew = "What's new?",
+  Invite1 = 'Invite 1',
+  Invite3 = 'Invite 3',
+  Invite5 = 'Invite 5',
 }
 
 export enum MaterialsCheckboxState {

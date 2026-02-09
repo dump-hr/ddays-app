@@ -69,3 +69,4 @@ yarn workspace admin add react-hot-toast
 - [TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
 - [React Query Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)
 - [React Hook Form with ZOD Tutorial](https://www.youtube.com/watch?v=dldjCPa9ZW4)
+
