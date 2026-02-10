@@ -7,6 +7,12 @@ export function useGeoValidation(options?: {
   accuracyLimitMeters?: number;
   geolocationOptions?: PositionOptions;
 }) {
+  const geoValidationEnv = String(
+    import.meta.env.VITE_ENABLE_GEO_VALIDATION ?? '',
+  ).trim();
+
+  const isGeoValidationEnabled =
+    geoValidationEnv.toLowerCase() !== 'false' && geoValidationEnv !== '';
   const accuracyLimit = options?.accuracyLimitMeters ?? VALIDATION_RADIUS_M;
   const geoOptions = useMemo(
     () =>
@@ -18,7 +24,7 @@ export function useGeoValidation(options?: {
     [options?.geolocationOptions],
   );
 
-  const [isOk, setIsOk] = useState<boolean>(false);
+  const [isOk, setIsOk] = useState<boolean>(!isGeoValidationEnabled);
   const [error, setError] = useState<string | null>(null);
 
   const geolocationErrorMessage = (geoError: GeolocationPositionError) => {
@@ -26,22 +32,29 @@ export function useGeoValidation(options?: {
 
     switch (geoError?.code) {
       case GeolocationErrorCodes.PERMISSION_DENIED:
-        message = 'Pristup lokaciji je odbijen. Provjerite dozvole za lokaciju.';
+        message =
+          'Pristup lokaciji je odbijen. Provjerite dozvole za lokaciju.';
         break;
       case GeolocationErrorCodes.POSITION_UNAVAILABLE:
         message = 'Lokacija trenutno nije dostupna. Pokušajte ponovno kasnije.';
         break;
       case GeolocationErrorCodes.TIMEOUT:
-        message = 'Vrijeme za dohvaćanje lokacije je isteklo. Pokušajte ponovno.';
+        message =
+          'Vrijeme za dohvaćanje lokacije je isteklo. Pokušajte ponovno.';
         break;
       default:
         break;
     }
     return message;
-  }
+  };
 
   const validateGeolocation = useCallback(() => {
     setError(null);
+
+    if (!isGeoValidationEnabled) {
+      setIsOk(true);
+      return;
+    }
 
     if (typeof window === 'undefined' || !('geolocation' in navigator)) {
       setIsOk(false);
@@ -74,9 +87,8 @@ export function useGeoValidation(options?: {
       },
       geoOptions,
     );
-  }, [accuracyLimit, geoOptions]);
+  }, [accuracyLimit, geoOptions, isGeoValidationEnabled]);
 
-  // Run validation once on mount
   useEffect(() => {
     validateGeolocation();
   }, [validateGeolocation]);
