@@ -5,6 +5,7 @@ import { FloorPlanCompanyDto, RatingDto } from '@ddays-app/types';
 import InfoLightIcon from '@/assets/icons/info-light.svg';
 import CloseIcon from '@/assets/icons/remove-icon.svg';
 import { isBoothRated } from '@/helpers/isBoothRated';
+
 type BoothPopupProps = {
   closePopup: () => void;
   isOpen: boolean;

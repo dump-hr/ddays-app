@@ -13,6 +13,7 @@ import AppliedCodeAchievementPopup from '@/components/AppliedCodeAchievementPopu
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
 import ScannedAchievementPopup from './popups/ScannedAchievementPopup';
 import ScannedCodePopup from './popups/ScannedCodePopup';
+import { useGeoValidation } from '@/hooks/useGeoValidation';
 
 const ScannerPage = () => {
   const [scannedAchievement, setScannedAchievement] = useState('');
@@ -25,6 +26,7 @@ const ScannerPage = () => {
 
   const { data: achievement } = useAchievementGetByUuid(scannedAchievement);
   const { data: completedAchievements } = useAchievementGetCompleted();
+  const geolocation = useGeoValidation();
 
   const { data: appliedCodes } = useCodeGetApplied();
   const { data: user } = useLoggedInUser();
@@ -34,8 +36,14 @@ const ScannerPage = () => {
 
   function handleScan(data: string) {
     const currentTime = Date.now();
+    geolocation.validateGeolocation();	
 
     if (currentTime - lastScanTimeRef.current < 3000) {
+      return;
+    }
+
+    if (geolocation?.isOk === false) {
+      toast.error(geolocation?.error ?? 'Greška, pokušajte ponovno.');
       return;
     }
 

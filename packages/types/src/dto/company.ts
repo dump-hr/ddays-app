@@ -189,6 +189,7 @@ export class CompanyModifyDescriptionDto {
 }
 
 export type FloorPlanCompanyDto = {
+  id: number;
   name: string;
   booth: string;
   logoImage?: string;

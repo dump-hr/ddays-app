@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import Button from '../../components/Button';
 import FileInput from '../../components/FileInput';
-import { validateFlyTalksInput } from '@/helpers/validateInput';
+import { validateFlyTalksInput } from '@/validation/validateInput';
 import ConfirmationPopup from './ConfirmationPopup';
 import { useGetAllFlyTalkGroups } from '@/api/flyTalks/useGetGroupCompanies';
 import { usePostApplyToFlyTalks } from '@/api/flyTalks/usePostApplyToFlyTalks';

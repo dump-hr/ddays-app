@@ -4,6 +4,7 @@ import CodeInput from '@/components/CodeInput';
 import Button from '@/components/Button';
 import { useState } from 'react';
 import { useCodeApply } from '@/api/code/useCodeApply';
+import { useGeoValidation } from '@/hooks/useGeoValidation';
 
 type CodePopupProps = {
   isOpen: boolean;
@@ -19,8 +20,14 @@ const CodePopup: React.FC<CodePopupProps> = ({
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
   const [errorMessage, setErrorMessage] = useState('');
   const applyCode = useCodeApply();
+  const geolocation = useGeoValidation();
 
   function handleCodeSubmit(code: string) {
+    if (geolocation?.isOk === false) {
+      setErrorMessage(geolocation?.error ?? "Greška, pokušajte ponovno.");
+      return;
+    }
+
     applyCode.mutate(code, {
       onSuccess: (submittedCode) => {
         closePopup();
