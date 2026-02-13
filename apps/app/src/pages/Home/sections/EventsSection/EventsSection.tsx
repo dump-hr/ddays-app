@@ -1,10 +1,9 @@
-import CompactScheduleCard from '../../../../components/CompactScheduleCard';
-import Tab from '../../../../components/Tab';
-import TabGroup from '../../../../components/TabGroup';
-import ArrowRight from '../../../../assets/icons/arrow-right.svg';
-import { EventWithSpeakerDto } from '@ddays-app/types';
+import CompactScheduleCard from '@/components/CompactScheduleCard';
+import Tab from '@/components/Tab';
+import TabGroup from '@/components/TabGroup';
+import ArrowRight from '@/assets/icons/arrow-right.svg';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getLiveEvents, getNextEvents } from '../../eventsHelper';
+import { getLiveEvents, getNextEvents } from '@/pages/Home/eventsHelper';
 import c from './EventsSection.module.scss';
 import clsx from 'clsx';
 import { useGetCurrentEvents } from '@/api/event/useGetCurrentEvents';
@@ -20,10 +19,6 @@ const EventsSection = () => {
   );
 
   const [snappedCardIndex, setSnappedCardIndex] = useState(0);
-  const [displayedEvents, setDisplayedEvents] = useState<EventWithSpeakerDto[]>(
-    [],
-  );
-
   const { data: events = [] } = useGetCurrentEvents();
 
   const handleTabChange = (tab: string) => {
@@ -45,13 +40,10 @@ const EventsSection = () => {
   const nextEventRefs = useRef<(HTMLDivElement | null)[]>([]);
   const container = containerRef.current;
 
-  useEffect(() => {
-    if (lecturesTab === Tabs.Trenutno) {
-      setDisplayedEvents(liveEvents);
-    } else if (lecturesTab === Tabs.Uskoro) {
-      setDisplayedEvents(nextEvents);
-    }
-  }, [lecturesTab, liveEvents, nextEvents]);
+  const displayedEvents = useMemo(
+    () => (lecturesTab === Tabs.Trenutno ? liveEvents : nextEvents),
+    [lecturesTab, liveEvents, nextEvents],
+  );
 
   useEffect(() => {
     if (!container) return;

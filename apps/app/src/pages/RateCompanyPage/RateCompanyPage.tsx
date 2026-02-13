@@ -11,6 +11,7 @@ import { useRatingAddMultiple } from '@/api/rating/useRatingAddMultiple';
 import toast from 'react-hot-toast';
 import { useGetUserRatings } from '@/api/rating/useGetUserRatings';
 import { useCompanyGetById } from '@/api/company/useGetCompanyById';
+import { useGeoValidation } from '@/hooks/useGeoValidation';
 
 export const RateCompanyPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export const RateCompanyPage = () => {
   const { mutate: addRatings } = useRatingAddMultiple();
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const { data: userRatings } = useGetUserRatings();
+  const geolocation = useGeoValidation();
 
   useEffect(() => {
     if (!questions) return;
@@ -40,7 +42,8 @@ export const RateCompanyPage = () => {
   }, [questions]);
 
   useEffect(() => {
-    let toastId: React.ReactText | null = null;
+    let toastId: string | null = null;
+    geolocation.validateGeolocation();
 
     if (isCompanyLoading) {
       toastId = toast.loading('Učitavanje kompanije...', {
@@ -49,6 +52,16 @@ export const RateCompanyPage = () => {
     } else {
       if (toastId !== null) {
         toast.dismiss(toastId);
+      }
+
+      if (geolocation?.isOk === false && geolocation?.error != null) {
+        const isOutsideLocation = geolocation.error.includes('Izvan');
+        const message = isOutsideLocation
+          ? 'Ocjenjivanje štandova moguće je samo na lokaciji konferencije.'
+          : geolocation.error;
+        toast.error(message);
+        navigate(RouteNames.FLOOR_PLAN);
+        return;
       }
 
       if (isCompanyError) {
@@ -79,7 +92,7 @@ export const RateCompanyPage = () => {
         toast.dismiss(toastId);
       }
     };
-  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings]);
+  }, [isCompanyLoading, isCompanyError, navigate, company, userRatings, geolocation]);
 
   if (!companyId) {
     return <div>ID kompanije nije dobrog formata.</div>;
