@@ -12,8 +12,8 @@ import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
-import Header from '../../components/Header';
 import Hero from '../../components/Hero';
+import Navbar from '../../components/Navbar';
 import LocationSection from '../../components/LocationSection';
 import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
@@ -33,7 +33,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <ReactLenis root>
-      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
+      <Navbar items={landingNavigation} toggleMobileMenu={toggleMobileMenu} />
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}

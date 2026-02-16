@@ -1,0 +1,151 @@
+@use '../../styles/variables' as vars;
+
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 74px;
+  z-index: 9999;
+  box-sizing: border-box;
+  background-color: vars.$background;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/images/noise.webp);
+    opacity: 0.5;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoImage {
+  width: 35px;
+  height: 43px;
+  object-fit: contain;
+}
+
+.logoText {
+  color: vars.$primary;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.navLink {
+  color: vars.$primary;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 200ms;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.ctaButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background: vars.$tertiary;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background 200ms;
+
+  &:hover {
+    background: darken(#ff482f, 5%);
+  }
+}
+
+.ctaText {
+  color: #fff;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 0 16px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .ctaButton {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+    pointer-events: auto;
+  }
+}
