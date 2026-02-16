@@ -1,6 +1,6 @@
 import duck from 'assets/images/full-duckie.webp';
-import play from 'assets/images/play.svg';
-import vinyl from 'assets/images/vinyl.webp';
+import play from 'assets/images/play-arrow.svg';
+import vinyl from 'assets/images/black-vinyl-inline.png';
 import clsx from 'clsx';
 
 import classes from './DuckieSection.module.scss';
@@ -8,9 +8,6 @@ import classes from './DuckieSection.module.scss';
 export const DuckieSection = () => (
   <div className={classes.container} id='konferencija'>
     <div className={clsx(classes.column, classes.duckie)}>
-      <div className={clsx(classes.areas, classes.desktop)}>
-        DEV, DESIGN &TECH KONFA
-      </div>
       <div className={classes.duckieArea}>
         <div className={classes.images}>
           <div className={classes.duckie}>
@@ -35,11 +32,6 @@ export const DuckieSection = () => (
       </div>
     </div>
     <div className={classes.column}>
-      <div className={clsx(classes.areas, classes.mobile)}>
-        DEV, DESIGN
-        <br />
-        &TECH KONFA
-      </div>
       <p className={classes.paragraph}>
         DUMP Udruga mladih programera u proteklih četrnaest godina svojim
         aktivnim predavanjima i radionicama sudjeluje u izgradnji i razvoju

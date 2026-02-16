@@ -5,10 +5,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 74px;
+  height: 58px;
   z-index: 9999;
   box-sizing: border-box;
   background-color: vars.$background;
+  overflow: visible;
+  padding-top: 10px;
 
   &::before {
     content: '';
@@ -26,6 +28,7 @@
 
 .content {
   position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -147,5 +150,44 @@
   .hamburger {
     display: block;
     pointer-events: auto;
+  }
+}
+
+.navBreaker {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.rippedEdge {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  z-index: 1;
+  transform: scaleY(-1);
+}
+
+.rippedFg {
+  mask-image: url('../../assets/images/section-breaker.webp');
+  mask-size: 100% 100%;
+  height: 30px;
+  width: 100%;
+  background-color: vars.$background;
+  position: relative;
+
+  &::before {
+    content: '';
+    background-image: url(../../assets/images/noise.webp);
+    opacity: 0.5;
+    mix-blend-mode: soft-light;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 }

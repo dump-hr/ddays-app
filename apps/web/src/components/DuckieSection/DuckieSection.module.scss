@@ -1,5 +1,5 @@
-@use 'styles/calc' as *;
-@use 'styles/variables' as *;
+@use "styles/calc" as *;
+@use "styles/variables" as *;
 
 .container {
   width: 100%;
@@ -12,7 +12,7 @@
 
   &:before {
     z-index: -1;
-    content: '';
+    content: "";
     background-image: url(../../assets/images/noise.webp);
     opacity: 0.15;
     top: 0;
@@ -53,7 +53,7 @@
     .areas {
       width: vw-calc(112);
       color: $primary;
-      font-family: 'PP Neue Montreal Mono', sans-serif;
+      font-family: "PP Neue Montreal Mono", sans-serif;
       font-weight: 500;
       font-size: vw-calc(16);
       text-overflow: ellipsis;
@@ -85,7 +85,7 @@
       position: relative;
       width: 100%;
       height: vw-calc(818);
-      margin-top: 92px;
+      margin-top: 52px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -156,10 +156,10 @@
             cursor: pointer;
             position: relative;
             display: flex;
-            min-width: vw-calc(80);
-            min-height: vw-calc(80);
+            min-width: vw-calc(96);
+            min-height: vw-calc(96);
             border-radius: 50%;
-            background-color: #f3f3f0;
+            background-color: #e4573e;
             z-index: 4;
             align-items: center;
             justify-content: center;
@@ -170,11 +170,13 @@
             }
 
             .play {
-              width: vw-calc(36);
-              height: vw-calc(36);
+              width: vw-calc(37);
+              height: vw-calc(54);
+              transform: rotate(5deg);
 
               @media (max-width: 768px) {
-                display: none;
+                width: vw-mobile-calc(24);
+                height: vw-mobile-calc(35);
               }
             }
           }
@@ -197,7 +199,7 @@
 
     .paragraph {
       color: #171615b2;
-      font-family: 'PP Neue Machina';
+      font-family: "PP Neue Machina";
       font-size: 24px;
       font-weight: 500;
       line-height: 32px;
@@ -251,7 +253,7 @@
           font-size: 100px;
           font-weight: 500;
           letter-spacing: -5px;
-          font-feature-settings: 'ss12' on;
+          font-feature-settings: "ss12" on;
           line-height: 100px;
 
           @media (max-width: 768px) {

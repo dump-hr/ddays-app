@@ -1,14 +1,15 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
+import HeroSection from 'components/HeroSection';
 import MobileMenu from 'components/MobileMenu';
 import Navbar from 'components/Navbar';
 import TemporaryBanner from 'components/TemporaryBanner';
 import TemporaryFooterSection from 'components/TemporaryFooterSection';
-import TemporaryHero from 'components/TemporaryHero';
 import TemporaryPastEditions from 'components/TemporaryPastEditions';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
 import { landingNavigation } from '../../constants/landing-navigation';
+import DuckieSection from 'components/DuckieSection';
 
 export const TemporaryLandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,7 +34,8 @@ export const TemporaryLandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <TemporaryHero />
+      <HeroSection />
+      <DuckieSection />
       <TemporaryPastEditions />
       <TemporaryBanner />
       <TemporaryFooterSection />

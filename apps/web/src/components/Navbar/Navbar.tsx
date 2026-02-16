@@ -1,4 +1,3 @@
-import { SectionBreaker } from 'components/SectionBreaker';
 import DaysSticker from '../../assets/images/days-sticker.webp';
 import HamburgerButton from '../HamburgerButton';
 import c from './Navbar.module.scss';
@@ -44,8 +43,10 @@ const Navbar = ({ items, toggleMobileMenu }: NavbarProps) => {
             />
           </div>
         </div>
+        <div className={c.rippedEdge}>
+          <div className={c.rippedFg} />
+        </div>
       </nav>
-      <SectionBreaker fg='dark' bg='light' className={c.sectionBreaker} />
     </>
   );
 };
