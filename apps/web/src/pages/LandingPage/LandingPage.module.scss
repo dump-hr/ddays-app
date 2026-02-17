@@ -4,3 +4,10 @@
     position: relative;
     z-index: 10;
 }
+
+.flippedAndTransparent {
+    transform: translateY(calc(-50% + 200px));
+    margin-bottom: -48px;
+    position: relative;
+    z-index: 1;
+}

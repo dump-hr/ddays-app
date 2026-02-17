@@ -50,7 +50,7 @@ export const LandingPage: React.FC = () => {
       <SectionBreaker bg='light' fg='dark' />
       <StatsSection />
       <ScheduleSection />
-      <SectionBreaker bg='light' fg='green' />
+      <SectionBreaker bg='light' fg='orange' />
       <SpeakersSection />
       <LocationSection />
       <SectionBreaker bg="green" fg='light' />
@@ -59,6 +59,7 @@ export const LandingPage: React.FC = () => {
       <GallerySection />
       <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />
+      <SectionBreaker fg='dark' flipped className={c.flippedAndTransparent} />
       <FooterSection />
     </ReactLenis>
   );
