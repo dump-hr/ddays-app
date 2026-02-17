@@ -11,6 +11,11 @@
   background-color: vars.$background;
   overflow: visible;
   padding-top: 10px;
+  transition: transform 0.3s ease;
+
+  &.hidden {
+    transform: translateY(-100%);
+  }
 
   &::before {
     content: '';

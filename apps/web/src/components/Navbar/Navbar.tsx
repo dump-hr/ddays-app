@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 import DaysSticker from '../../assets/images/days-sticker.webp';
 import HamburgerButton from '../HamburgerButton';
 import c from './Navbar.module.scss';
@@ -13,9 +15,29 @@ type NavbarProps = {
 };
 
 const Navbar = ({ items, toggleMobileMenu }: NavbarProps) => {
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 10) {
+        setVisible(true);
+      } else if (currentY > lastScrollY.current) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <nav className={c.navbar}>
+      <nav className={clsx(c.navbar, { [c.hidden]: !visible })}>
         <div className={c.content}>
           <a href='/' className={c.logo}>
             <img src={DaysSticker} alt='DUMP Days' className={c.logoImage} />
