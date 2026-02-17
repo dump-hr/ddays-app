@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import FilmFrameImage from '../../assets/film-frame.webp';
+import FilmFrameImage from '../../assets/images/film-frame.webp';
 import c from './FilmFrame.module.scss';
 
 type FilmFrameProps = {

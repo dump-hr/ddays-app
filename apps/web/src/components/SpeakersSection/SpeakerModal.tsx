@@ -1,7 +1,7 @@
 import { SpeakerWithCompanyDto } from '@ddays-app/types';
 import { useEffect } from 'react';
 
-import CloseSvg from '../../assets/close.svg';
+import CloseSvg from '../../assets/icons/close-modal.svg';
 import c from './SpeakersSection.module.scss';
 
 type SpeakerModalProps = {

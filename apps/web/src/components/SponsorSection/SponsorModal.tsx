@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useEffect } from 'react';
 
 import { useJobGetForCompany } from '../../api/job/useJobGetForCompany';
-import CloseSvg from '../../assets/close.svg';
+import CloseSvg from '../../assets/icons/close-modal.svg';
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './SponsorSection.module.scss';
 
