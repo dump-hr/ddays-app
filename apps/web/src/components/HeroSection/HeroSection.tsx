@@ -1,4 +1,5 @@
 import duckWithBg from 'assets/images/duck-with-orange-background.png';
+import { DISPLAY } from '@ddays-app/types';
 
 import c from './HeroSection.module.scss';
 
@@ -20,7 +21,7 @@ export const HeroSection = () => {
           <span className={c.titleLine}>GENERACIJU</span>
           <div className={c.lastRow}>
             <span className={c.dateLocation}>
-              {'28. — 29. 05.\n// SPLIT, FESB'}
+              {`${DISPLAY.TEMP_HEADER_DAYS}\n// SPLIT, FESB`}
             </span>
             <span className={c.titleLine}>DIGITALA_</span>
           </div>
