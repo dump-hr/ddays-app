@@ -139,7 +139,31 @@
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1028px) and (min-width: 900px) {
+  .navLink {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .right {
+    gap: 16px;
+  }
+
+  .navLinks {
+    gap: 16px;
+  }
+
+  .ctaButton {
+    padding: 10px 14px;
+  }
+
+  .ctaText {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media screen and (max-width: 900px) {
   .content {
     padding: 0 16px;
   }

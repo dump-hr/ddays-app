@@ -55,7 +55,7 @@ const Navbar = ({ items, toggleMobileMenu }: NavbarProps) => {
               ))}
             </ul>
 
-            <a href='#' className={c.ctaButton}>
+            <a href='https://days.dump.hr/app/' className={c.ctaButton}>
               <span className={c.ctaText}>Registriraj se</span>
             </a>
 
