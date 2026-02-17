@@ -69,8 +69,7 @@ div {
 
   &Wrapper {
     position: absolute;
-    background: url('../../assets/images/split-background.webp') transparent
-      bottom / 100% auto no-repeat;
+    background: url('../../assets/images/split-background.webp') transparent bottom / 100% auto no-repeat;
 
     mix-blend-mode: soft-light;
 
@@ -398,31 +397,4 @@ div {
   width: 100%;
   height: 100px;
   z-index: 3;
-
-  .breakerPadding {
-    width: 100%;
-    height: 70px;
-    position: relative;
-    background-color: #f5ede1;
-
-    &:before {
-      content: '';
-      background-image: url(../../assets/images/noise.webp);
-      opacity: 0.15;
-      top: 0;
-      left: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-  }
-
-  @media (max-width: 992px) {
-    height: 30px;
-
-    .breakerPadding {
-      height: 0;
-    }
-  }
 }

@@ -10,14 +10,15 @@
   .sectionBreaker {
     z-index: 5;
     position: absolute;
-    left: 0;
+    left: -2px;
     bottom: -45px;
-    width: 100%;
+    width: 110%;
     height: 45px;
     rotate: -0.7deg;
 
     mask-image: url('../../assets/images/section-breaker.webp');
     background: black;
+
     &:before {
       content: '';
       background-image: url(../../assets/images/noise.webp);
@@ -32,11 +33,13 @@
   }
 
   @media screen and (min-width: 768px) {
-    > div {
+    >div {
       scale: 1.01;
+
       &:nth-of-type(2) {
         rotate: 1deg;
       }
+
       &:nth-of-type(3) {
         rotate: -1deg;
       }

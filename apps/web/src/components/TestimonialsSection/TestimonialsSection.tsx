@@ -5,6 +5,7 @@ import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
 import { useScreenSize } from '../../hooks/useScreenSize';
 import c from './TestimonialsSection.module.scss';
+import { SectionBreaker } from 'components/SectionBreaker';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,7 +85,7 @@ const TestimonialsSection = () => {
       <Testimonial color='white' {...testimonials[0]} />
       <Testimonial color='black' {...testimonials[1]} refEl={blackSection} />
       <Testimonial color='beige' {...testimonials[2]} refEl={beigeSection} />
-      <div className={c.sectionBreaker}></div>
+      <SectionBreaker bg='dark' fg="dark" className={c.sectionBreaker} />
     </section>
   );
 };

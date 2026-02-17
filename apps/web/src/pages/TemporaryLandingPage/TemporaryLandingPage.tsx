@@ -36,8 +36,6 @@ export const TemporaryLandingPage: React.FC = () => {
         />
       )}
       <HeroSection />
-      <StatsSection />
-      <DuckieSection />
       <TemporaryPastEditions />
       <TemporaryBanner />
       <TemporaryFooterSection />

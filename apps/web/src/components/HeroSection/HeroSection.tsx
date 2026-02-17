@@ -11,10 +11,10 @@ export const HeroSection = () => {
           <span className={c.subtitle}>// DUMP DAYS X</span>
           <span className={c.titleLine}>KONFERENCIJA</span>
           <span className={c.titleLine}>
-            ZA{' '}
+            ZA
             <span className={c.slavicaInline}>
               <img src={duckWithBg} alt='' className={c.slavicaDuck} />
-            </span>{' '}
+            </span>
             NOVU
           </span>
           <span className={c.titleLine}>GENERACIJU</span>
@@ -25,10 +25,6 @@ export const HeroSection = () => {
             <span className={c.titleLine}>DIGITALA_</span>
           </div>
         </div>
-      </div>
-
-      <div className={c.rippedEdge}>
-        <div className={c.rippedFg} />
       </div>
     </section>
   );

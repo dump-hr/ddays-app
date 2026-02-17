@@ -51,19 +51,14 @@ const LocationSection = () => {
       <div className={c.date}>
         <p className={c.dateText}>{DISPLAY.LOCATION_DAY_1_SHORT} </p>
         <span className={c.dateSpan}>
-          {' '}
-          —{' '}
+          —
           <img
             src={splitStamp}
             alt='split stamp'
             className={c.dateSpanImage}
-          />{' '}
+          />
         </span>
         <p className={c.dateText}>{DISPLAY.LOCATION_DAY_2_FULL}</p>
-      </div>
-      <div className={c.dateBreaker}>
-        <SectionBreaker fg='light' />
-        <div className={c.breakerPadding} />
       </div>
     </div>
   );

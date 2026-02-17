@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 50px;
 }
 
 .overlay {
@@ -221,33 +222,5 @@
   @media (max-width: 400px) {
     font-size: 8px;
     letter-spacing: 0.6px;
-  }
-}
-
-.rippedEdge {
-  position: relative;
-  height: 30px;
-  width: 100%;
-  margin-top: -30px;
-  z-index: 3;
-}
-
-.rippedFg {
-  mask-image: url('../../assets/images/section-breaker.webp');
-  mask-size: 100% 100%;
-  height: 30px;
-  width: 100%;
-  background-color: $background;
-  position: relative;
-
-  &::before {
-    content: '';
-    background-image: url(../../assets/images/noise.webp);
-    opacity: 0.15;
-    inset: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
   }
 }
