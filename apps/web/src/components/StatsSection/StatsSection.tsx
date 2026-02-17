@@ -32,7 +32,7 @@ export const StatsSection = () => {
   lenisRef.current = lenis;
 
   useLayoutEffect(() => {
-    if (window.innerWidth < 768) return;
+    if (window.innerWidth < 1028) return;
 
     const ctx = gsap.context(() => {
       if (!gridRef.current || !sectionRef.current) return;

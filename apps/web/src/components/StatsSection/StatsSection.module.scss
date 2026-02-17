@@ -13,8 +13,12 @@
     justify-content: center;
     overflow: hidden;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1028px) {
         min-height: auto;
+        padding: 40px 0;
+    }
+
+    @media (max-width: 768px) {
         padding: 16px 0;
     }
 
@@ -35,14 +39,16 @@
     width: vw-calc(1376);
     justify-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1028px) {
         grid-template-columns: repeat(2, 1fr);
         width: 90%;
         gap: 16px;
     }
 
-    @media (max-width: 500px) {
-        gap: 10px;
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        width: 90%;
+        gap: 12px;
     }
 }
 
@@ -52,6 +58,10 @@
     justify-content: center;
     aspect-ratio: 593 / 437;
     padding: 16px 8px;
+
+    @media (max-width: 768px) {
+        order: -1;
+    }
 }
 
 .titleText {
