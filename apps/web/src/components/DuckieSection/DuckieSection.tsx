@@ -1,6 +1,7 @@
 import duck from 'assets/images/full-duckie.webp';
 import play from 'assets/images/play-arrow.svg';
 import vinyl from 'assets/images/black-vinyl-inline.png';
+import vinylCutout from 'assets/images/vinyl-cutout.png';
 import clsx from 'clsx';
 
 import classes from './DuckieSection.module.scss';
@@ -26,6 +27,7 @@ export const DuckieSection = () => (
                 <img className={classes.play} src={play} alt='' />
               </div>
               <img className={classes.vinylImage} src={vinyl} alt='vinyl' />
+              <img className={classes.cutout} src={vinylCutout} alt='' />
             </div>
           </div>
         </div>

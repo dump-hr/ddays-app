@@ -1,4 +1,4 @@
-import duck from 'assets/images/full-duckie.webp';
+import duckWithBg from 'assets/images/duck-with-orange-background.png';
 
 import c from './HeroSection.module.scss';
 
@@ -9,20 +9,21 @@ export const HeroSection = () => {
         <div className={c.overlay} />
         <div className={c.heroContent}>
           <span className={c.subtitle}>// DUMP DAYS X</span>
-          <h1 className={c.title}>
-            <span className={c.titleLine}>KONFERENCIJA</span>
-            <span className={c.titleLine}>
-              ZA{' '}
-              <span className={c.slavicaInline}>
-                <span className={c.redStrip} />
-                <img src={duck} alt='' className={c.slavicaDuck} />
-              </span>{' '}
-              NOVU
+          <span className={c.titleLine}>KONFERENCIJA</span>
+          <span className={c.titleLine}>
+            ZA{' '}
+            <span className={c.slavicaInline}>
+              <img src={duckWithBg} alt='' className={c.slavicaDuck} />
+            </span>{' '}
+            NOVU
+          </span>
+          <span className={c.titleLine}>GENERACIJU</span>
+          <div className={c.lastRow}>
+            <span className={c.dateLocation}>
+              {'28. — 29. 05.\n// SPLIT, FESB'}
             </span>
-            <span className={c.titleLine}>GENERACIJU</span>
             <span className={c.titleLine}>DIGITALA_</span>
-          </h1>
-          <span className={c.dateLocation}>28. — 29. 05. // SPLIT, FESB</span>
+          </div>
         </div>
       </div>
 

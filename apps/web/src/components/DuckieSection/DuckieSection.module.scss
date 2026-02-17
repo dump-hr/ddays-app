@@ -1,5 +1,5 @@
-@use "styles/calc" as *;
-@use "styles/variables" as *;
+@use 'styles/calc' as *;
+@use 'styles/variables' as *;
 
 .container {
   width: 100%;
@@ -12,7 +12,7 @@
 
   &:before {
     z-index: -1;
-    content: "";
+    content: '';
     background-image: url(../../assets/images/noise.webp);
     opacity: 0.15;
     top: 0;
@@ -53,7 +53,7 @@
     .areas {
       width: vw-calc(112);
       color: $primary;
-      font-family: "PP Neue Montreal Mono", sans-serif;
+      font-family: 'PP Neue Montreal Mono', sans-serif;
       font-weight: 500;
       font-size: vw-calc(16);
       text-overflow: ellipsis;
@@ -85,7 +85,7 @@
       position: relative;
       width: 100%;
       height: vw-calc(818);
-      margin-top: 52px;
+      margin-top: 72px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -193,13 +193,23 @@
               height: vw-mobile-calc(215);
             }
           }
+
+          .cutout {
+            position: absolute;
+            width: 107%;
+            height: 107%;
+            z-index: 2;
+            pointer-events: none;
+            object-fit: contain;
+            filter: brightness(1.85);
+          }
         }
       }
     }
 
     .paragraph {
       color: #171615b2;
-      font-family: "PP Neue Machina";
+      font-family: 'PP Neue Machina';
       font-size: 24px;
       font-weight: 500;
       line-height: 32px;
@@ -253,7 +263,7 @@
           font-size: 100px;
           font-weight: 500;
           letter-spacing: -5px;
-          font-feature-settings: "ss12" on;
+          font-feature-settings: 'ss12' on;
           line-height: 100px;
 
           @media (max-width: 768px) {
