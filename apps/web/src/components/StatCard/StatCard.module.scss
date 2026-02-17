@@ -1,0 +1,85 @@
+@use 'styles/calc' as *;
+@use 'styles/variables' as *;
+
+.statCard {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 593 / 437;
+    overflow: hidden;
+    mask-image: url(../../assets/stamp-horizontal.svg);
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+}
+
+.imageWrapper {
+    position: absolute;
+    inset: 0;
+}
+
+.bgImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(23, 22, 21, 0.4);
+}
+
+.content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: -15px;
+    z-index: 1;
+}
+
+.number {
+    font-family: 'PP Neue Machina', sans-serif;
+    font-size: vw-calc(100);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #ededed;
+
+    @media (max-width: 768px) {
+        font-size: vw-mobile-calc(60);
+    }
+
+    @media (max-width: 400px) {
+        font-size: vw-mobile-calc(48);
+    }
+}
+
+.labelWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    margin-top: -15px;
+}
+
+.label {
+    font-family: 'PP Neue Montreal Mono', sans-serif;
+    font-size: vw-calc(18);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #ededed;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 12px;
+    }
+}

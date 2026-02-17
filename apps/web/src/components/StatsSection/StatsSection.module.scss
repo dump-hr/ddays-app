@@ -1,0 +1,33 @@
+@use 'styles/calc' as *;
+@use 'styles/variables' as *;
+
+.statsSection {
+    width: 100%;
+    background-color: $background;
+    padding: vw-calc(80) 0;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+        padding: 40px 0;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: vw-calc(30);
+    width: vw-calc(1200);
+    justify-items: center;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+        gap: 20px;
+    }
+
+    @media (max-width: 500px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}

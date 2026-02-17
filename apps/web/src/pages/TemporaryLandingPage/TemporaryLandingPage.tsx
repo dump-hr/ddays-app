@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Button from '../../components/Button';
 import { landingNavigation } from '../../constants/landing-navigation';
 import DuckieSection from 'components/DuckieSection';
+import { StatsSection } from 'components/StatsSection';
 
 export const TemporaryLandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,6 +36,7 @@ export const TemporaryLandingPage: React.FC = () => {
         />
       )}
       <HeroSection />
+      <StatsSection />
       <DuckieSection />
       <TemporaryPastEditions />
       <TemporaryBanner />
