@@ -258,6 +258,10 @@
       row-gap: 125px;
       column-gap: vw-calc(109);
 
+      @media (min-width: 1028px) {
+        margin-bottom: 256px;
+      }
+
       @media (max-width: 768px) {
         margin-top: vw-mobile-calc(88);
         row-gap: vw-mobile-calc(153);
