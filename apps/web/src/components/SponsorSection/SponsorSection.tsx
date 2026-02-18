@@ -1,29 +1,19 @@
-import { CompanyCategory, CompanyPublicDto } from '@ddays-app/types';
+import { CompanyCategory } from '@ddays-app/types';
 import bronzeSponsor from 'assets/images/bronze-sponsor.webp';
 import goldSponsor from 'assets/images/golden-sponsor.webp';
-import kodak from 'assets/images/kodak.webp';
 import silverSponsor from 'assets/images/silver-sponsor.webp';
 import clsx from 'clsx';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { useGetAllSponsors } from '../../api/sponsor/useGetAllSponsors';
 import { useScreenSize } from '../../hooks/useScreenSize';
-import { SponsorJobCount } from './SponsorJobCount';
-import SponsorModal from './SponsorModal';
 import c from './SponsorSection.module.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const SponsorSection: React.FC = () => {
-  const [sponsorForModal, setSponsorForModal] =
-    useState<CompanyPublicDto | null>(null);
-
-  const handleCloseModal = () => {
-    setSponsorForModal(null);
-  };
-
   const { data } = useGetAllSponsors();
   const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
@@ -56,8 +46,8 @@ export const SponsorSection: React.FC = () => {
         end: 'bottom 20%',
         toggleActions: 'play none none reverse',
       },
-      repeat: -1, // Infinite repeat
-      repeatDelay: 0.5, // Delay between repeats
+      repeat: -1,
+      repeatDelay: 0.5,
     });
 
     tl.fromTo(
@@ -82,9 +72,6 @@ export const SponsorSection: React.FC = () => {
 
   return (
     <section className={c.container} id='sponzori'>
-      {sponsorForModal !== null && (
-        <SponsorModal sponsor={sponsorForModal} close={handleCloseModal} />
-      )}
       <div className={c.stickySection}>
         <div className={c.quote}>
           <span className={c.idea}>Vjerujemo u jaka prijateljstva.</span>
@@ -146,44 +133,24 @@ export const SponsorSection: React.FC = () => {
       <article className={c.sponsorSection}>
         <img src={goldSponsor} alt='zlatni sponzori' />
         <span className={c.sponsorTier}>Zlatni sponzori</span>
-        <section className={c.goldenRow}>
-          {goldSponsors.map((sponsor) => {
-            if (sponsor.name.toLowerCase() === '4. zlatni sponzor') return null;
-            return (
-              <article
-                onClick={() => setSponsorForModal(sponsor)}
-                className={c.sponsor}
-                key={sponsor.id}>
-                <figure className={c.picture}>
-                  <img
-                    className={c.landing}
-                    src={sponsor.landingImage?.replace(
-                      /\.[^/.]+$/,
-                      '_optimized.webp',
-                    )}
-                    alt={sponsor.name}
-                  />
-                  <img className={c.kodak} src={kodak} alt={sponsor.name} />
-                  <img
-                    className={c.logo}
-                    src={sponsor.logoImage}
-                    alt={sponsor.name}
-                  />
-                </figure>
-                <span className={c.name}>{sponsor.name}</span>
-                <div className={c.dots}></div>
-                <div className={c.openPositions}>
-                  <span className={c.label}>Otvorene pozicije</span>
-                  <div className={c.ellipse}>
-                    <span className={c.number}>
-                      <SponsorJobCount sponsorId={sponsor.id} />
-                    </span>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </section>
+        <div className={c.logosWrapper}>
+          <section className={c.logos}>
+            {goldSponsors.map((sponsor, index) => (
+              <figure className={c.logo} key={sponsor.id}>
+                <a target='_blank' href={sponsor.websiteUrl}>
+                  <img src={sponsor.logoImage} alt={sponsor.name} />
+                </a>
+                {(goldSponsors.length % maxSponsors
+                  ? index <
+                    goldSponsors.length - (goldSponsors.length % maxSponsors)
+                  : index < goldSponsors.length - maxSponsors) && (
+                  <div className={c.horizontalDots}></div>
+                )}
+                <div className={c.verticalDots}></div>
+              </figure>
+            ))}
+          </section>
+        </div>
       </article>
       <article className={c.sponsorSection}>
         <img src={silverSponsor} alt='srebrni sponzori' />

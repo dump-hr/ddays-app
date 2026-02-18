@@ -1,7 +1,7 @@
-import Facebook from '../../assets/images/facebook.webp';
-import Instagram from '../../assets/images/instagram.webp';
-import LinkedIn from '../../assets/images/linkedin.webp';
-import YouTube from '../../assets/images/youtube.webp';
+import Facebook from '../../assets/images/FB.png';
+import Instagram from '../../assets/images/IG.png';
+import LinkedIn from '../../assets/images/LN.png';
+import YouTube from '../../assets/images/YT.png';
 import c from './TemporaryFooterSection.module.scss';
 
 const TemporaryFooterSection = () => {

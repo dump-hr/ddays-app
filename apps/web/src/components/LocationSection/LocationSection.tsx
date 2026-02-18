@@ -3,7 +3,7 @@ import { SectionBreaker } from 'components/SectionBreaker';
 
 import fesbBackground from '../../assets/images/fesb.webp';
 import splitStamp from '../../assets/images/split-stamp.webp';
-import vintageFesb from '../../assets/vintage-fesb.webp';
+import vintageFesb from '../../assets/images/vintage-fesb.webp';
 import c from './LocationSection.module.scss';
 
 const LocationSection = () => {
@@ -51,19 +51,10 @@ const LocationSection = () => {
       <div className={c.date}>
         <p className={c.dateText}>{DISPLAY.LOCATION_DAY_1_SHORT} </p>
         <span className={c.dateSpan}>
-          {' '}
-          —{' '}
-          <img
-            src={splitStamp}
-            alt='split stamp'
-            className={c.dateSpanImage}
-          />{' '}
+          —
+          <img src={splitStamp} alt='split stamp' className={c.dateSpanImage} />
         </span>
         <p className={c.dateText}>{DISPLAY.LOCATION_DAY_2_FULL}</p>
-      </div>
-      <div className={c.dateBreaker}>
-        <SectionBreaker fg='light' />
-        <div className={c.breakerPadding} />
       </div>
     </div>
   );

@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import { SectionBreaker } from 'components/SectionBreaker';
 
 import DaysSticker from '../../assets/images/days-sticker-big.webp';
-import Facebook from '../../assets/images/facebook.webp';
+import Facebook from '../../assets/images/FB.png';
 import FooterDuckie from '../../assets/images/footer-duckie.webp';
-import Instagram from '../../assets/images/instagram.webp';
-import LinkedIn from '../../assets/images/linkedin.webp';
-import YouTube from '../../assets/images/youtube.webp';
+import Instagram from '../../assets/images/IG.png';
+import LinkedIn from '../../assets/images/LN.png';
+import YouTube from '../../assets/images/YT.png';
 import c from './FooterSection.module.scss';
 
 const FooterSection = () => {

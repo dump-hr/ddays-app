@@ -9,6 +9,7 @@
   position: relative;
   background-color: #f5ede1;
   z-index: 1;
+  padding-bottom: 96px;
 
   &:before {
     z-index: -1;
@@ -84,8 +85,8 @@
     .duckieArea {
       position: relative;
       width: 100%;
-      height: vw-calc(818);
-      margin-top: 92px;
+      height: 100%;
+      margin-top: 42px;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -94,6 +95,10 @@
         height: vw-mobile-calc(423);
         transform: rotate(10deg);
         margin-top: 0;
+      }
+
+      @media (min-width: 461px) and (max-width: 670px) {
+        margin-bottom: 350px
       }
 
       .images {
@@ -107,6 +112,12 @@
           height: vw-mobile-calc(423);
         }
 
+        @media (min-width: 461px) and (max-width: 670px) {
+          width: vw-mobile-calc(207);
+          height: vw-mobile-calc(372);
+          transform: rotate(12deg);
+        }
+
         .duckie {
           position: relative;
           margin-top: 13px;
@@ -117,6 +128,12 @@
             margin-top: 0;
             width: vw-mobile-calc(280);
             height: vw-mobile-calc(304);
+          }
+
+          @media (min-width: 461px) and (max-width: 670px) {
+            margin-top: 30px;
+            width: vw-mobile-calc(255);
+            height: vw-mobile-calc(274);
           }
 
           .duckImage {
@@ -156,10 +173,10 @@
             cursor: pointer;
             position: relative;
             display: flex;
-            min-width: vw-calc(80);
-            min-height: vw-calc(80);
+            min-width: vw-calc(96);
+            min-height: vw-calc(96);
             border-radius: 50%;
-            background-color: #f3f3f0;
+            background-color: #e4573e;
             z-index: 4;
             align-items: center;
             justify-content: center;
@@ -170,11 +187,13 @@
             }
 
             .play {
-              width: vw-calc(36);
-              height: vw-calc(36);
+              width: vw-calc(37);
+              height: vw-calc(54);
+              transform: rotate(5deg);
 
               @media (max-width: 768px) {
-                display: none;
+                width: vw-mobile-calc(24);
+                height: vw-mobile-calc(35);
               }
             }
           }
@@ -190,6 +209,16 @@
               width: vw-mobile-calc(215);
               height: vw-mobile-calc(215);
             }
+          }
+
+          .cutout {
+            position: absolute;
+            width: 107%;
+            height: 107%;
+            z-index: 2;
+            pointer-events: none;
+            object-fit: contain;
+            filter: brightness(1.85);
           }
         }
       }
@@ -228,6 +257,10 @@
       flex-wrap: wrap;
       row-gap: 125px;
       column-gap: vw-calc(109);
+
+      @media (min-width: 1028px) {
+        margin-bottom: 256px;
+      }
 
       @media (max-width: 768px) {
         margin-top: vw-mobile-calc(88);

@@ -18,7 +18,7 @@ export const App = () => {
       </Helmet>
 
       <Switch>
-        {/* <Route path={Path.Landing} component={LandingPage} /> 
+        {/* <Route path={Path.Landing} component={LandingPage} /> */}
         {/*<Route path={Path.Chatbot} component={Chatbot} /> */}
         <Route path='/' component={TemporaryLandingPage} />
       </Switch>

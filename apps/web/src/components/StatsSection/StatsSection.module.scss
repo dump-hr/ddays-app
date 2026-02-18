@@ -1,0 +1,83 @@
+@use 'styles/calc' as *;
+@use 'styles/variables' as *;
+
+.statsSection {
+    width: 100%;
+    position: relative;
+    background-color: #000;
+    min-height: 100vh;
+    padding: vw-calc(80) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    @media (max-width: 1028px) {
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    @media (max-width: 768px) {
+        padding: 16px 0;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url(../../assets/images/noise.webp);
+        opacity: 0.15;
+        pointer-events: none;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: vw-calc(16);
+    width: vw-calc(1376);
+    justify-items: center;
+
+    @media (max-width: 1028px) {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+        gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        width: 90%;
+        gap: 12px;
+    }
+}
+
+.titleCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 593 / 437;
+    padding: 16px 8px;
+
+    @media (max-width: 768px) {
+        order: -1;
+    }
+}
+
+.titleText {
+    font-family: 'PP Neue Machina', sans-serif;
+    font-size: vw-calc(48);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: #ff482f;
+
+    @media (max-width: 768px) {
+        font-size: vw-mobile-calc(28);
+    }
+
+    @media (max-width: 400px) {
+        font-size: vw-mobile-calc(22);
+    }
+}

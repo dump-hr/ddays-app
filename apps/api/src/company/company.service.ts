@@ -56,6 +56,8 @@ export class CompanyService {
         campfireParticipation: true,
         boothPlan: true,
         category: true,
+        logoImage: true,
+        landingImage: true,
       },
       orderBy: { name: 'asc' },
     });

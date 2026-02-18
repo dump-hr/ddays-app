@@ -34,7 +34,6 @@ export const DISPLAY = {
   FLYTALKS_DAY_1: '28.05. // ČETVRTAK',
   FLYTALKS_DAY_2: '29.05. // PETAK',
 
-  // Temporary header (used by web TemporaryHeader)
   TEMP_HEADER_DAYS: '28. — 29. 05.',
   TEMP_HEADER_YEAR: '2026.',
 

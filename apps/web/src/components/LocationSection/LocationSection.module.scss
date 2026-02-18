@@ -11,7 +11,7 @@ div {
 }
 
 .containerWrapper {
-  padding-top: 523px;
+  padding-top: 256px;
   position: relative;
   background-color: #065852;
 
@@ -69,8 +69,7 @@ div {
 
   &Wrapper {
     position: absolute;
-    background: url('../../assets/images/split-background.webp') transparent
-      bottom / 100% auto no-repeat;
+    background: url('../../assets/images/split-background.webp') transparent bottom / 100% auto no-repeat;
 
     mix-blend-mode: soft-light;
 
@@ -115,7 +114,7 @@ div {
 .stamp {
   width: 436.853px;
   height: 592.916px;
-  background-image: url('../../assets/stamp.svg');
+  background-image: url('../../assets/icons/stamp.svg');
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -296,9 +295,9 @@ div {
 
 .date {
   margin-top: vw-calc(76);
-  padding-left: vw-calc(27);
   position: relative;
   width: 100%;
+  text-align: center;
 
   &Text {
     display: inline;
@@ -323,8 +322,6 @@ div {
   }
 
   &Span {
-    display: none;
-    position: relative;
     display: inline;
     color: transparent;
     text-align: center;
@@ -340,15 +337,16 @@ div {
     &Image {
       position: absolute;
       z-index: 1;
-      top: vw-calc(12);
+      top: vw-calc(131);
       right: 0;
       left: 0;
       margin: 0 auto;
       width: vw-calc(254);
       height: vw-calc(182);
+      transform: translateY(-50%);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(2);
+        top: vw-mid-calc(32);
         width: vw-mid-calc(69.273);
         height: vw-mid-calc(49.637);
       }
@@ -357,7 +355,7 @@ div {
     &::after {
       content: '';
       position: absolute;
-      top: vw-calc(-40);
+      top: vw-calc(131);
       right: 0;
       left: 0;
       margin: 0 auto;
@@ -366,14 +364,13 @@ div {
       align-items: center;
       width: vw-calc(210.721);
       height: vw-calc(286);
-      background-image: url('../../assets/stamp.svg');
+      background-image: url('../../assets/icons/stamp.svg');
       background-size: cover;
       background-repeat: no-repeat;
-
-      transform: rotate(-90deg);
+      transform: translateY(-50%) rotate(-90deg);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(-12);
+        top: vw-mid-calc(32);
         width: vw-mid-calc(57.47);
         height: vw-mid-calc(78.001);
       }
@@ -398,31 +395,4 @@ div {
   width: 100%;
   height: 100px;
   z-index: 3;
-
-  .breakerPadding {
-    width: 100%;
-    height: 70px;
-    position: relative;
-    background-color: #f5ede1;
-
-    &:before {
-      content: '';
-      background-image: url(../../assets/images/noise.webp);
-      opacity: 0.15;
-      top: 0;
-      left: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-  }
-
-  @media (max-width: 992px) {
-    height: 30px;
-
-    .breakerPadding {
-      height: 0;
-    }
-  }
 }

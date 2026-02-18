@@ -1,3 +1,4 @@
+import { SectionBreaker } from 'components/SectionBreaker';
 import Testimonial from 'components/Testimonial/Testimonial';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -84,7 +85,7 @@ const TestimonialsSection = () => {
       <Testimonial color='white' {...testimonials[0]} />
       <Testimonial color='black' {...testimonials[1]} refEl={blackSection} />
       <Testimonial color='beige' {...testimonials[2]} refEl={beigeSection} />
-      <div className={c.sectionBreaker}></div>
+      <SectionBreaker bg='dark' fg='dark' className={c.sectionBreaker} />
     </section>
   );
 };

@@ -3,20 +3,22 @@ import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import GallerySection from 'components/GallerySection';
+import HeroSection from 'components/HeroSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 import SpeakersSection from 'components/SpeakersSection';
 import SponsorSection from 'components/SponsorSection';
+import { StatsSection } from 'components/StatsSection';
 import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
-import Header from '../../components/Header';
-import Hero from '../../components/Hero';
 import LocationSection from '../../components/LocationSection';
+import Navbar from '../../components/Navbar';
 import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
+import c from './LandingPage.module.scss';
 
 export const LandingPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,7 +35,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <ReactLenis root>
-      <Header Button={RegisterButton} toggleMobileMenu={toggleMobileMenu} />
+      <Navbar items={landingNavigation} toggleMobileMenu={toggleMobileMenu} />
       {window.innerWidth < 768 && (
         <MobileMenu
           Button={RegisterButton}
@@ -42,19 +44,22 @@ export const LandingPage: React.FC = () => {
           items={landingNavigation}
         />
       )}
-      <Hero Button={RegisterButton} items={landingNavigation} />
+      <HeroSection />
+      <SectionBreaker fg='light' className={c.transparentBackground} />
       <DuckieSection />
-      {/*<EventsSection /> */}
+      <SectionBreaker bg='light' fg='dark' />
+      <StatsSection />
       <ScheduleSection />
-      <SectionBreaker fg='orange' bg='light' />
+      <SectionBreaker bg='light' fg='orange' />
       <SpeakersSection />
       <LocationSection />
+      <SectionBreaker bg='green' fg='light' />
       <SponsorSection />
-      <SectionBreaker fg='dark' bg='light' />
       <RegistrationSection />
       <GallerySection />
       <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />
+      <SectionBreaker fg='dark' flipped className={c.flippedAndTransparent} />
       <FooterSection />
     </ReactLenis>
   );
