@@ -2,7 +2,7 @@ import { useRef, useLayoutEffect } from 'react';
 import { useLenis } from '@studio-freight/react-lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { StatCard } from 'components/StatCard';
+import { StatCard } from './StatCard';
 
 import statPredavanja from 'assets/images/stat-predavanja.jpg';
 import statRadionica from 'assets/images/stat-radionica.jpg';
