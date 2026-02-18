@@ -1,5 +1,5 @@
-import duckWithBg from 'assets/images/duck-with-orange-background.png';
 import { DISPLAY } from '@ddays-app/types';
+import duckWithBg from 'assets/images/duck-with-orange-background.png';
 
 import c from './HeroSection.module.scss';
 

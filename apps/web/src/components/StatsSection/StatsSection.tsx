@@ -1,15 +1,14 @@
-import { useRef, useLayoutEffect } from 'react';
 import { useLenis } from '@studio-freight/react-lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { StatCard } from './StatCard';
-
-import statPredavanja from 'assets/images/stat-predavanja.jpg';
-import statRadionica from 'assets/images/stat-radionica.jpg';
-import statPanela from 'assets/images/stat-panela.jpg';
 import statCampfire from 'assets/images/stat-campfire.jpg';
 import statFlytalks from 'assets/images/stat-flytalks.jpg';
+import statPanela from 'assets/images/stat-panela.jpg';
+import statPredavanja from 'assets/images/stat-predavanja.jpg';
+import statRadionica from 'assets/images/stat-radionica.jpg';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLayoutEffect, useRef } from 'react';
 
+import { StatCard } from './StatCard';
 import c from './StatsSection.module.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +25,7 @@ const stats = [
 export const StatsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<ReturnType<typeof useLenis> | null>(null);
 
   const lenis = useLenis();
   lenisRef.current = lenis;
@@ -38,7 +37,7 @@ export const StatsSection = () => {
       if (!gridRef.current || !sectionRef.current) return;
 
       const children = gsap.utils.toArray<HTMLElement>(
-        gridRef.current.children
+        gridRef.current.children,
       );
       if (children.length === 0) return;
 
@@ -98,9 +97,7 @@ export const StatsSection = () => {
         {stats.map((stat, i) =>
           stat === null ? (
             <div key={i} className={c.titleCard}>
-              <span className={c.titleText}>
-                Šta ima na Daysima?
-              </span>
+              <span className={c.titleText}>Šta ima na Daysima?</span>
             </div>
           ) : (
             <StatCard
@@ -109,7 +106,7 @@ export const StatsSection = () => {
               number={stat.number}
               text={stat.text}
             />
-          )
+          ),
         )}
       </div>
     </section>

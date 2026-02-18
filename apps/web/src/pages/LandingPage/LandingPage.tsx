@@ -3,21 +3,21 @@ import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import GallerySection from 'components/GallerySection';
+import HeroSection from 'components/HeroSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 import SpeakersSection from 'components/SpeakersSection';
 import SponsorSection from 'components/SponsorSection';
+import { StatsSection } from 'components/StatsSection';
 import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
 
 import Button from '../../components/Button';
-import { StatsSection } from 'components/StatsSection';
-import Navbar from '../../components/Navbar';
 import LocationSection from '../../components/LocationSection';
+import Navbar from '../../components/Navbar';
 import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
-import HeroSection from 'components/HeroSection';
 import c from './LandingPage.module.scss';
 
 export const LandingPage: React.FC = () => {
@@ -53,7 +53,7 @@ export const LandingPage: React.FC = () => {
       <SectionBreaker bg='light' fg='orange' />
       <SpeakersSection />
       <LocationSection />
-      <SectionBreaker bg="green" fg='light' />
+      <SectionBreaker bg='green' fg='light' />
       <SponsorSection />
       <RegistrationSection />
       <GallerySection />

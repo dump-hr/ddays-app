@@ -10,7 +10,7 @@ export const StatCard = ({ image, number, text }: StatCardProps) => {
   return (
     <div className={c.statCard}>
       <div className={c.imageWrapper}>
-        <img src={image} alt="" className={c.bgImage} />
+        <img src={image} alt='' className={c.bgImage} />
         <div className={c.overlay} />
       </div>
       <div className={c.content}>

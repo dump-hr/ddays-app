@@ -1,6 +1,6 @@
+import vinyl from 'assets/images/black-vinyl-inline.png';
 import duck from 'assets/images/full-duckie.webp';
 import play from 'assets/images/play-arrow.svg';
-import vinyl from 'assets/images/black-vinyl-inline.png';
 import vinylCutout from 'assets/images/vinyl-cutout.png';
 import clsx from 'clsx';
 
@@ -57,5 +57,4 @@ export const DuckieSection = () => (
       </div>
     </div>
   </div>
-  
 );

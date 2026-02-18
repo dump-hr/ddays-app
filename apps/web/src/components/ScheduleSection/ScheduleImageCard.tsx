@@ -1,9 +1,9 @@
 import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
 import CampfireTalks from 'assets/images/events/schedule/campfire-talks.png';
 import LunchImage from 'assets/images/events/schedule/pizza-lunch.png';
-import stampBackground from 'assets/images/samp-background-schedule-section.png';
-import microphoneImg from 'assets/images/microphone.png';
 import laptopImg from 'assets/images/laptop.png';
+import microphoneImg from 'assets/images/microphone.png';
+import stampBackground from 'assets/images/samp-background-schedule-section.png';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
@@ -45,9 +45,7 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
   const image = getImageSrc(src);
 
   const isSpeakerPhoto =
-    event.type !== EventType.CAMPFIRE_TALK &&
-    event.name !== 'Ručak' &&
-    !!src;
+    event.type !== EventType.CAMPFIRE_TALK && event.name !== 'Ručak' && !!src;
 
   const animateCards = (
     translateY: number,
@@ -104,19 +102,24 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
 
   return (
     <div className={c.speakerPhoto} ref={speakerPhoto}>
-      {image && (
-        isSpeakerPhoto ? (
+      {image &&
+        (isSpeakerPhoto ? (
           <div className={c.stampWrapper}>
             <div className={c.stampCard}>
-              <img src={stampBackground} className={c.stampBackground} alt="" />
-              <img src={image} className={c.stampImage} alt="" />
+              <img src={stampBackground} className={c.stampBackground} alt='' />
+              <img src={image} className={c.stampImage} alt='' />
             </div>
-            <img src={event.type === EventType.WORKSHOP ? laptopImg : microphoneImg} className={c.stampMicrophone} alt="" />
+            <img
+              src={
+                event.type === EventType.WORKSHOP ? laptopImg : microphoneImg
+              }
+              className={c.stampMicrophone}
+              alt=''
+            />
           </div>
         ) : (
-          <img src={image} width={120} alt="" />
-        )
-      )}
+          <img src={image} width={120} alt='' />
+        ))}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+
 import DaysSticker from '../../assets/images/days-sticker.webp';
 import HamburgerButton from '../HamburgerButton';
 import c from './Navbar.module.scss';

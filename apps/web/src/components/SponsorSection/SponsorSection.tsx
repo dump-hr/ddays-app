@@ -14,7 +14,6 @@ import c from './SponsorSection.module.scss';
 gsap.registerPlugin(ScrollTrigger);
 
 export const SponsorSection: React.FC = () => {
-
   const { data } = useGetAllSponsors();
   const sponsors = (data || []).filter((sponsor) => sponsor.logoImage);
 
@@ -34,7 +33,6 @@ export const SponsorSection: React.FC = () => {
     (sponsor) => sponsor.category === CompanyCategory.FRIEND,
   );
 
-
   const { isMobile } = useScreenSize(768);
   const maxSponsors = useMemo(() => (isMobile ? 2 : 4), [isMobile]);
 
@@ -48,8 +46,8 @@ export const SponsorSection: React.FC = () => {
         end: 'bottom 20%',
         toggleActions: 'play none none reverse',
       },
-      repeat: -1, 
-      repeatDelay: 0.5, 
+      repeat: -1,
+      repeatDelay: 0.5,
     });
 
     tl.fromTo(
@@ -144,8 +142,7 @@ export const SponsorSection: React.FC = () => {
                 </a>
                 {(goldSponsors.length % maxSponsors
                   ? index <
-                    goldSponsors.length -
-                      (goldSponsors.length % maxSponsors)
+                    goldSponsors.length - (goldSponsors.length % maxSponsors)
                   : index < goldSponsors.length - maxSponsors) && (
                   <div className={c.horizontalDots}></div>
                 )}
