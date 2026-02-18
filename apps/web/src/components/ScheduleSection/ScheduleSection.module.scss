@@ -192,13 +192,69 @@
 .speakerPhoto {
   position: absolute;
   z-index: 2;
-  top: -10px;
-  right: 250px;
+  top: -20px;
+  right: 220px;
 
   @media screen and (max-width: 1180px) {
-    right: 200px;
+    right: 180px;
   }
 }
+
+.stampWrapper {
+  position: relative;
+  width: 130px;
+  aspect-ratio: 437 / 593;
+  overflow: hidden;
+  mask-image: url(../../assets/icons/stamp.svg);
+  -webkit-mask-image: url(../../assets/icons/stamp.svg);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.stampCard {
+  position: relative;
+  width: 130px;
+  aspect-ratio: 437 / 593;
+  overflow: hidden;
+  mask-image: url(../../assets/icons/stamp.svg);
+  -webkit-mask-image: url(../../assets/icons/stamp.svg);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.stampBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.stampImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transform: scale(1.15);
+}
+
+.stampMicrophone {
+  position: absolute;
+  bottom: -30px;
+  right: -50px;
+  width: 100%;
+  z-index: 0;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .nonClickable {
   cursor: text;
 }

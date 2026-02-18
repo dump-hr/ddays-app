@@ -1,6 +1,9 @@
 import { EventType, EventWithSpeakerDto } from '@ddays-app/types';
 import CampfireTalks from 'assets/images/events/schedule/campfire-talks.png';
 import LunchImage from 'assets/images/events/schedule/pizza-lunch.png';
+import stampBackground from 'assets/images/samp-background-schedule-section.png';
+import microphoneImg from 'assets/images/microphone.png';
+import laptopImg from 'assets/images/laptop.png';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
@@ -30,21 +33,21 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
   lastClickedCardId,
 }) => {
   const speakerPhoto = useRef<HTMLDivElement>(null);
-  const isSpeakerPhoto = useRef(false);
-  const cardAspectRatio = useRef(1);
   const { isMobile } = useScreenSize(1030);
 
-  const getImageSrcAndSetType = (src?: string): string => {
+  const getImageSrc = (src?: string): string => {
     if (event.type === EventType.CAMPFIRE_TALK) return CampfireTalks;
     if (event.name === 'Ručak') return LunchImage;
     if (!src) return '';
-
-    isSpeakerPhoto.current = true;
-    cardAspectRatio.current = 401 / 320;
     return src;
   };
 
-  const image = getImageSrcAndSetType(src);
+  const image = getImageSrc(src);
+
+  const isSpeakerPhoto =
+    event.type !== EventType.CAMPFIRE_TALK &&
+    event.name !== 'Ručak' &&
+    !!src;
 
   const animateCards = (
     translateY: number,
@@ -80,9 +83,8 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
     const rotateDeg = index !== 0 ? 6 * index : -3;
     let translateX = 70;
 
-    if (isSpeakerPhoto.current && imagesLength > 1) translateX = 90 * index;
-
-    if (isSpeakerPhoto.current && imagesLength === 3) translateX -= 80;
+    if (isSpeakerPhoto && imagesLength > 1) translateX = 90 * index;
+    if (isSpeakerPhoto && imagesLength === 3) translateX -= 80;
 
     const ctx = gsap.context(() =>
       animateCards(translateY, translateX, rotateDeg),
@@ -103,7 +105,17 @@ const ScheduleImageCard: React.FC<ScheduleImageCardProps> = ({
   return (
     <div className={c.speakerPhoto} ref={speakerPhoto}>
       {image && (
-        <img src={image} height={cardAspectRatio.current * 120} width={120} />
+        isSpeakerPhoto ? (
+          <div className={c.stampWrapper}>
+            <div className={c.stampCard}>
+              <img src={stampBackground} className={c.stampBackground} alt="" />
+              <img src={image} className={c.stampImage} alt="" />
+            </div>
+            <img src={event.type === EventType.WORKSHOP ? laptopImg : microphoneImg} className={c.stampMicrophone} alt="" />
+          </div>
+        ) : (
+          <img src={image} width={120} alt="" />
+        )
       )}
     </div>
   );
