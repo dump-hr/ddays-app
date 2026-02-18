@@ -56,7 +56,7 @@ export const StatsSection = () => {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top top',
+        start: 'top -85px',
         end: '+=2500',
         pin: true,
         anticipatePin: 1,
