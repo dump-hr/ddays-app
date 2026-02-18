@@ -11,7 +11,7 @@ div {
 }
 
 .containerWrapper {
-  padding-top: 523px;
+  padding-top: 256px;
   position: relative;
   background-color: #065852;
 
@@ -295,9 +295,9 @@ div {
 
 .date {
   margin-top: vw-calc(76);
-  padding-left: vw-calc(27);
   position: relative;
   width: 100%;
+  text-align: center;
 
   &Text {
     display: inline;
@@ -322,8 +322,6 @@ div {
   }
 
   &Span {
-    display: none;
-    position: relative;
     display: inline;
     color: transparent;
     text-align: center;
@@ -339,15 +337,16 @@ div {
     &Image {
       position: absolute;
       z-index: 1;
-      top: vw-calc(12);
+      top: vw-calc(131);
       right: 0;
       left: 0;
       margin: 0 auto;
       width: vw-calc(254);
       height: vw-calc(182);
+      transform: translateY(-50%);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(2);
+        top: vw-mid-calc(32);
         width: vw-mid-calc(69.273);
         height: vw-mid-calc(49.637);
       }
@@ -356,7 +355,7 @@ div {
     &::after {
       content: '';
       position: absolute;
-      top: vw-calc(-40);
+      top: vw-calc(131);
       right: 0;
       left: 0;
       margin: 0 auto;
@@ -368,11 +367,10 @@ div {
       background-image: url('../../assets/icons/stamp.svg');
       background-size: cover;
       background-repeat: no-repeat;
-
-      transform: rotate(-90deg);
+      transform: translateY(-50%) rotate(-90deg);
 
       @media (max-width: 992px) {
-        top: vw-mid-calc(-12);
+        top: vw-mid-calc(32);
         width: vw-mid-calc(57.47);
         height: vw-mid-calc(78.001);
       }
