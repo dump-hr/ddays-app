@@ -1,4 +1,3 @@
-import ArrowTopRight from '../../assets/icons/arrow-top-right.svg';
 import c from './GallerySection.module.scss';
 
 const GallerySection = () => {
@@ -11,9 +10,12 @@ const GallerySection = () => {
 
   return (
     <section className={c.gallerySection} onClick={onClickHandler}>
-      <h3 className={c.title}>Galerija</h3>
-      <p className={c.subtitle}>Throwback na prošlogodišnja izdanja Daysa</p>
-      <img src={ArrowTopRight} className={c.arrow} />
+      <div className={c.content}>
+        <p className={c.subtitle}>
+          Throwback na prošlogodišnja izdanja Daysa
+        </p>
+        <h3 className={c.title}>Galerija</h3>
+      </div>
     </section>
   );
 };

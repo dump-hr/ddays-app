@@ -61,10 +61,6 @@ const SpeakersSection = () => {
           </div>
         )}
       </div>
-      <div className={c.sectionBreaker}>
-        <SectionBreaker fg='green' />
-        <div className={c.breakerPadding} />
-      </div>
     </div>
   );
 };
