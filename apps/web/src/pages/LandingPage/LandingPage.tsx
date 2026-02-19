@@ -52,10 +52,12 @@ export const LandingPage: React.FC = () => {
       <ScheduleSection />
       <SectionBreaker bg='light' fg='orange' />
       <SpeakersSection />
+      <SectionBreaker bg='orange' fg='green' />
       <LocationSection />
       <SectionBreaker bg='green' fg='light' />
       <SponsorSection />
       <RegistrationSection />
+      <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
       <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />

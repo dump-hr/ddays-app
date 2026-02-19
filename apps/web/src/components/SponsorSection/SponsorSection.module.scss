@@ -90,10 +90,10 @@
     overflow-x: hidden;
     box-sizing: border-box;
     position: relative;
-    height: vw-calc(705);
+    height: vw-calc(550);
 
     @media (max-width: 768px) {
-      height: vw-mobile-calc(275);
+      height: vw-mobile-calc(200);
     }
 
     .image {
@@ -426,7 +426,8 @@
           justify-content: center;
           align-items: center;
 
-          &:nth-child(2n) {
+          &:nth-child(2n),
+          &:last-child {
             .verticalDots {
               display: none;
             }

@@ -147,7 +147,6 @@
     @media screen and (min-width: 768px) {
       line-height: 32px;
     }
-
   }
 
   &Title {
@@ -403,41 +402,5 @@
 
   @media screen and (max-width: 950px) {
     height: 200px;
-  }
-}
-
-.sectionBreaker {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: calc(0px + 31px);
-  z-index: 3;
-
-  .breakerPadding {
-    width: 100%;
-    height: 0;
-    position: relative;
-    background-color: #f5ede1;
-
-    &:before {
-      content: '';
-      background-image: url(../../assets/images/noise.webp);
-      opacity: 0.15;
-      top: 0;
-      left: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-  }
-
-  @media (max-width: 992px) {
-    height: 30px;
-
-    .breakerPadding {
-      height: 0;
-    }
   }
 }
