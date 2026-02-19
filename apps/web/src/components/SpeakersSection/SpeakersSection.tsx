@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { SectionBreaker } from 'components/SectionBreaker';
 import { useState } from 'react';
 
 import { useSpeakerWithCompanyGetAll } from '../../api/speaker/useSpeakerWithCompanyGetAll';

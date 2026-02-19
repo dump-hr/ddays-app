@@ -11,9 +11,7 @@ const GallerySection = () => {
   return (
     <section className={c.gallerySection} onClick={onClickHandler}>
       <div className={c.content}>
-        <p className={c.subtitle}>
-          Throwback na prošlogodišnja izdanja Daysa
-        </p>
+        <p className={c.subtitle}>Throwback na prošlogodišnja izdanja Daysa</p>
         <h3 className={c.title}>Galerija</h3>
       </div>
     </section>
