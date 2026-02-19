@@ -72,11 +72,7 @@ const JobsSection = () => {
                 {isHovered && logoImage && (
                   <div className={c.stamp}>
                     <div className={c.stampInner}>
-                      <img
-                        src={stampUnion}
-                        className={c.stampShape}
-                        alt=''
-                      />
+                      <img src={stampUnion} className={c.stampShape} alt='' />
                       <img
                         src={stampBgTexture}
                         className={c.stampTexture}
