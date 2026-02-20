@@ -1,0 +1,210 @@
+.jobsSection {
+  width: 100%;
+  position: relative;
+  background-color: #f5ede1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../../assets/images/noise.webp');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.wrapper {
+  padding: 64px 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  color: #171615;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 112px;
+  font-weight: 500;
+  line-height: 1.21;
+  letter-spacing: -6px;
+  margin: 0 0 72px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 32px;
+  border-top: 1px dashed rgba(23, 22, 21, 0.2);
+  border-bottom: 1px dashed rgba(23, 22, 21, 0.2);
+  position: relative;
+  cursor: default;
+  transition: background-color 0.2s ease;
+
+  &Hovered {
+    background-color: #040404;
+    border-color: #181818;
+
+    .position {
+      color: #fff;
+    }
+
+    .companyName {
+      color: #fff;
+      opacity: 1;
+    }
+
+    .arrow {
+      filter: brightness(0) invert(1);
+      opacity: 1;
+    }
+  }
+
+  &Clickable {
+    cursor: pointer;
+  }
+}
+
+.rowContent {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 48px;
+}
+
+.position {
+  color: #020202;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  width: 429px;
+  flex-shrink: 0;
+}
+
+.companyName {
+  color: #020202;
+  font-family: 'PP Neue Montreal Mono', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.5;
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.arrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.5;
+  filter: brightness(0);
+}
+
+.stamp {
+  position: absolute;
+  right: 120px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-4deg);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.stampInner {
+  position: relative;
+  width: 200px;
+  height: 210px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../../assets/images/noise.webp');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+.stampShape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stampTexture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+  clip-path: inset(2%);
+}
+
+.stampLogo {
+  position: absolute;
+  inset: 0;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+  object-fit: contain;
+  z-index: 1;
+  filter: brightness(0) invert(1);
+}
+
+@media screen and (max-width: 992px) {
+  .title {
+    font-size: 64px;
+    letter-spacing: -3px;
+    margin-bottom: 48px;
+  }
+
+  .wrapper {
+    padding: 48px 16px;
+  }
+
+  .row {
+    padding: 32px 16px;
+  }
+
+  .rowContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .position {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .companyName {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .stamp {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+}

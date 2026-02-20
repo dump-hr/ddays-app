@@ -4,6 +4,7 @@ import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
 import GallerySection from 'components/GallerySection';
 import HeroSection from 'components/HeroSection';
+import JobsSection from 'components/JobsSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
@@ -56,6 +57,7 @@ export const LandingPage: React.FC = () => {
       <LocationSection />
       <SectionBreaker bg='green' fg='light' />
       <SponsorSection />
+      <JobsSection />
       <RegistrationSection />
       <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
