@@ -9,7 +9,6 @@ import { Theme } from '@ddays-app/types';
 
 type ProfileHeaderProps = {
   pageHeader: string;
-  userNameAndSurname: string;
 };
 export const ProfileHeader = ({ pageHeader }: ProfileHeaderProps) => {
   const { data: user } = useLoggedInUser();
