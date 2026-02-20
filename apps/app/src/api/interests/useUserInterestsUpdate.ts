@@ -16,7 +16,7 @@ export const useUserInterestsUpdate = () => {
 
   return useMutation(userInterestsUpdate, {
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries('user-interests');
     },
     onError: (error: string) => {
       toast.error(error);

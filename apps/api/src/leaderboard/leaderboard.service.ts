@@ -4,7 +4,7 @@ import {
   LeaderboardResponseDto,
   UserRankResponseDto,
 } from '@ddays-app/types/src/dto/leaderboard';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from '../prisma.service';
 import { getLevelFromPoints } from './leaderboard.helper';
@@ -80,7 +80,7 @@ export class LeaderboardService {
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     const usersAbove = await this.prisma.user.count({

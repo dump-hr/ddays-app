@@ -91,7 +91,6 @@ import { UserModule } from './user/user.module';
     UserModule,
     LeaderboardModule,
     RewardModule,
-    AvatarModule,
     PrinterModule,
     SwagBagModule,
   ],

@@ -74,7 +74,7 @@ export class SpeakerService {
 
       return deletedSpeaker;
     } catch (error) {
-      throw new Error(error as string);
+      throw new NotFoundException('Speaker not found');
     }
   }
 

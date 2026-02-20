@@ -32,10 +32,7 @@ export const ProfileInterestsPage = () => {
       />
 
       <div className={c.container}>
-        <ProfileHeader
-          pageHeader='Interesi'
-          userNameAndSurname='Marija Gudelj'
-        />
+        <ProfileHeader pageHeader='Interesi' />
         <main className={c.main}>
           <div className={c.wrapper}>
             {isMobile ? (
