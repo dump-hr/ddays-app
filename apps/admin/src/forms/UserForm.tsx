@@ -53,12 +53,12 @@ export const UserForm: React.FC<UserFormProps> = ({ id, onSuccess }) => {
 
       <Button
         onClick={form.handleSubmit(async (formData) => {
-          onSuccess();
           if (id) {
-            updateUser.mutate(formData);
+            await updateUser.mutateAsync(formData);
           } else {
-            createUser.mutate(formData);
+            await createUser.mutateAsync(formData);
           }
+          onSuccess();
         })}>
         Submit
       </Button>
