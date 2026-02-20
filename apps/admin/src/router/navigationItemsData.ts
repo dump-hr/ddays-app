@@ -73,6 +73,11 @@ export const navigationItems: NavigationItemData[] = [
         label: 'Shopping',
         icon: ModelIcon,
       },
+      {
+        route: RouteNames.FAQS,
+        label: 'FAQ',
+        icon: ModelIcon,
+      },
     ],
   },
   {

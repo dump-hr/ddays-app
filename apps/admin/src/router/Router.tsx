@@ -25,6 +25,7 @@ import { AccreditationPrintPage } from '../pages/AccreditationPrintPage';
 import { SponsorMaterialsPage } from '../pages/SponsorMaterialsPage';
 import { PotentialSponsorsPage } from '../pages/PotentialSponsorsPage';
 import { SponsorContractsPage } from '../pages/SponsorContractsPage';
+import { FaqPage } from '../pages/FaqPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
         <Route path={RouteNames.INTERESTS} element={<InterestsPage />} />
         <Route path={RouteNames.REWARDS} element={<RewardPage />} />
         <Route path={RouteNames.CODES} element={<CodePage />} />
+        <Route path={RouteNames.FAQS} element={<FaqPage />} />
         <Route path={RouteNames.MANAGEMENT} element={<AdministratorsPage />} />
         <Route
           path={RouteNames.TRANSACTION_SCAN}
