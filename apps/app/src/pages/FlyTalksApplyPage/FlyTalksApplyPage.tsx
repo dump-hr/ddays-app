@@ -32,7 +32,7 @@ const FlyTalksApplyPage = () => {
             : 2,
         participantsNumber: Array.isArray(event.users) ? event.users.length : 0,
         hasUserApplied: Array.isArray(event.users)
-          ? event.users.some((user) => user.id === 1)
+          ? event.users.some((user) => user.id === currentUser?.id)
           : false,
         companies: Array.isArray(event.companies)
           ? event.companies.map((company) => ({

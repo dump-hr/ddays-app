@@ -1,5 +1,5 @@
 import { YEAR } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { ServerClient } from 'postmark';
 import { PrismaService } from 'src/prisma.service';
@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class EmailService {
   private readonly client: ServerClient;
+
+  private readonly logger = new Logger(EmailService.name);
 
   constructor(private readonly prisma: PrismaService) {
     const postmarkToken = process.env.POSTMARK_API_TOKEN;
@@ -63,7 +65,10 @@ export class EmailService {
         message: 'Email za resetiranje lozinke je poslan',
       };
     } catch (error) {
-      console.error('Greška pri slanju emaila za resetiranje lozinke:', error);
+      this.logger.error(
+        'Greška pri slanju emaila za resetiranje lozinke:',
+        error,
+      );
       return { success: false, message: 'Greška pri slanju emaila' };
     }
   }
@@ -131,7 +136,7 @@ export class EmailService {
       );
       return { success: true, message: 'Email za potvrdu je poslan' };
     } catch (error) {
-      console.error('Greška pri slanju emaila za potvrdu:', error);
+      this.logger.error('Greška pri slanju emaila za potvrdu:', error);
       return { success: false, message: 'Greška pri slanju emaila' };
     }
   }
@@ -180,7 +185,7 @@ export class EmailService {
       console.log('Email uspješno poslan:', result);
       return { success: true, message: 'Email uspješno poslan' };
     } catch (error) {
-      console.error('Greška pri slanju emaila:', error);
+      this.logger.error('Greška pri slanju emaila:', error);
       throw error;
     }
   }

@@ -1,5 +1,5 @@
 import { RewardDto, RewardModifyDto } from '@ddays-app/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlobService } from 'src/blob/blob.service';
 import { PrismaService } from 'src/prisma.service';
 
@@ -28,7 +28,7 @@ export class RewardService {
     });
 
     if (!foundReward) {
-      throw new Error('Reward not found');
+      throw new NotFoundException('Reward not found');
     }
 
     return foundReward;

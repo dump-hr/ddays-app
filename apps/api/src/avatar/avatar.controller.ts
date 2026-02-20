@@ -34,6 +34,10 @@ export class AvatarController {
       body: avatarUploadDto.body || null,
     };
 
+    if (file.size > 10 * 1024 * 1024) {
+      throw new Error('File size exceeds the 10MB limit.');
+    }
+
     return this.avatarService.updateAvatar(
       userId,
       file.buffer,

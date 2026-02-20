@@ -80,6 +80,10 @@ export class UserService {
       throw new BadRequestException('Korisnik nije pronađen');
     }
 
+    if (user.isDeleted) {
+      throw new BadRequestException('Korisnik je obrisan');
+    }
+
     if (user.isFromGoogleAuth) {
       throw new BadRequestException(
         'Korisnici prijavljeni putem Google računa ne mogu mijenjati lozinku',
