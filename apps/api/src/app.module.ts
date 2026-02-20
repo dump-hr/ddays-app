@@ -59,12 +59,7 @@ import { UserModule } from './user/user.module';
       ? [
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', 'web', 'dist'),
-            exclude: [
-              '/api/(.*)',
-              '/app/(.*)',
-              '/sponsor/(.*)',
-              '/admin/(.*)',
-            ],
+            exclude: ['/api/(.*)', '/app/(.*)', '/sponsor/(.*)', '/admin/(.*)'],
           }),
           ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', '..', 'app', 'dist'),
