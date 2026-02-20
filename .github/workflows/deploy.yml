@@ -32,7 +32,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build frontend web apps
-        run: yarn build --filter=admin... --filter=sponsor... --filter=web... --filter=app... --filter=admin-old...
+        run: yarn build --filter=admin... --filter=sponsor... --filter=web... --filter=app...
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
