@@ -27,6 +27,8 @@ export type UserModifyDto = {
   isDeleted?: boolean;
 };
 
+import { Accessory, Body, Colors, Face } from '../enum';
+
 export type UserPublicDto = {
   id: number;
   email: string;
@@ -44,6 +46,12 @@ export type UserPublicDto = {
   profilePhotoUrl: string;
   inviteCode: string;
   isFromGoogleAuth: boolean | null;
+  avatar: {
+    color: Colors;
+    face: Face;
+    accessory: Accessory;
+    body: Body;
+  }[] | null;
 };
 
 export type ChangeUserPasswordDto = {
