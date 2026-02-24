@@ -23,12 +23,11 @@
     background-color: $black-90;
 
     .avatar {
+      width: 100%;
       height: 100%;
+      object-fit: contain;
       user-select: none;
       -webkit-user-drag: none;
-      position: relative;
-      bottom:10px;
-      left:5px;
     }
 
     .levelWrapper {

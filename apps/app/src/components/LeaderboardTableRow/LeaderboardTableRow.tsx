@@ -13,11 +13,6 @@ const LeaderboardTableRow = forwardRef<
   LeaderboardTableRowProps
 >(({ userRank }, ref) => {
   const { rank, name, level, points, profilePhotoUrl } = userRank;
-  const scaleImg = profilePhotoUrl
-    ? {
-        scale: !profilePhotoUrl?.includes('https://') ? '1' : '1.4',
-      }
-    : {};
 
   return (
     <tr className={c.row} ref={ref}>
@@ -28,7 +23,6 @@ const LeaderboardTableRow = forwardRef<
             src={profilePhotoUrl || RegularDuck}
             alt='Duck'
             className={c.duckIcon}
-            style={scaleImg}
           />
           <div className={c.playerInfo}>
             <span className={c.playerName}>{name}</span>
