@@ -9,13 +9,17 @@ import React from 'react';
 
 const queryClient = new QueryClient();
 
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <MsalProvider instance={msalInstance}>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <Toaster />
-      </QueryClientProvider>
-    </MsalProvider>
-  </React.StrictMode>,
-);
+msalInstance.initialize().then(() => {
+  msalInstance.handleRedirectPromise().then(() => {
+    createRoot(document.getElementById('root')!).render(
+      <React.StrictMode>
+        <MsalProvider instance={msalInstance}>
+          <QueryClientProvider client={queryClient}>
+            <App />
+            <Toaster />
+          </QueryClientProvider>
+        </MsalProvider>
+      </React.StrictMode>,
+    );
+  });
+});

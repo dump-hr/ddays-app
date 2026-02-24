@@ -29,8 +29,15 @@ export const getActiveAccount = async () => {
     return accounts[0];
   }
 
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
+    let elapsed = 0;
     const interval = setInterval(() => {
+      elapsed += 100;
+      if (elapsed > 10000) {
+        clearInterval(interval);
+        reject(new Error('Timed out waiting for MSAL account'));
+        return;
+      }
       accounts = msalInstance.getAllAccounts();
       if (accounts.length > 0) {
         msalInstance.setActiveAccount(accounts[0]);
@@ -63,7 +70,6 @@ const acquireToken = async () => {
 };
 
 api.interceptors.request.use(async (config) => {
-  await msal.initialize();
 
   const token = await acquireToken();
   config.headers.Authorization = `Bearer ${token}`;
