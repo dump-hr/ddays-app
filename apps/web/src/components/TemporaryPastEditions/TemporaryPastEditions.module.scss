@@ -1,10 +1,9 @@
 .PastEditions {
     padding: 24px;
-    transition: 200ms;
     position: relative;
     background-color: #171615;
     padding-bottom: 250px;
-  
+
     &:before {
       content: '';
       background-image: url(../../assets/images/noise.webp);
@@ -79,7 +78,7 @@
           overflow: hidden;
           border: 3.769px solid #ededed;
           transform: rotate(2deg);
-          transition: all 0.4s ease-in-out;
+          transition: transform 0.4s ease-in-out;
           cursor: pointer;
   
           &::before {
@@ -118,6 +117,7 @@
             position: relative;
             z-index: 1;
             filter: grayscale(90%);
+            will-change: transform;
   
             background: linear-gradient(
               0deg,
