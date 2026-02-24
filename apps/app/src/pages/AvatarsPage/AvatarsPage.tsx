@@ -39,8 +39,9 @@ export const AvatarsPage: FC = () => {
   const { data: currentUser } = useLoggedInUser();
 
   useEffect(() => {
-    if (!currentUser?.avatar) return;
-    const { color, face, accessory, body } = currentUser.avatar[0];
+    const avatar = currentUser?.avatar?.[0];
+    if (!avatar) return;
+    const { color, face, accessory, body } = avatar;
     setSelectedOptions({
       [DuckItems.COLORS]:
         DUCK_OPTIONS[DuckItems.COLORS].find((o) => o.value === color) ??
