@@ -15,6 +15,14 @@ import {
 } from '@/api/avatar/useUploadAvatar';
 import { AchievementNames, UserWithAvatarDto } from '@ddays-app/types';
 import { useAchievementCompleteByName } from '@/api/achievement/useAchievementCompleteByName';
+import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+
+const defaultOptions: Record<DuckItems, Option> = {
+  [DuckItems.COLORS]: DUCK_OPTIONS[DuckItems.COLORS][0],
+  [DuckItems.FACE]: DUCK_OPTIONS[DuckItems.FACE][7],
+  [DuckItems.ACCESSORIES]: DUCK_OPTIONS[DuckItems.ACCESSORIES][7],
+  [DuckItems.BODY]: DUCK_OPTIONS[DuckItems.BODY][7],
+};
 
 export const AvatarsPage: FC = () => {
   const navigate = useNavigate();
@@ -25,14 +33,31 @@ export const AvatarsPage: FC = () => {
     DuckItems.COLORS,
   );
   const [currentOptions, setCurrentOptions] = useState<Option[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<DuckItems, Option>
-  >({
-    [DuckItems.COLORS]: DUCK_OPTIONS[DuckItems.COLORS][0],
-    [DuckItems.FACE]: DUCK_OPTIONS[DuckItems.FACE][7],
-    [DuckItems.ACCESSORIES]: DUCK_OPTIONS[DuckItems.ACCESSORIES][7],
-    [DuckItems.BODY]: DUCK_OPTIONS[DuckItems.BODY][7],
-  });
+  const [selectedOptions, setSelectedOptions] =
+    useState<Record<DuckItems, Option>>(defaultOptions);
+
+  const { data: currentUser } = useLoggedInUser();
+
+  useEffect(() => {
+    const avatar = currentUser?.avatar?.[0];
+    if (!avatar) return;
+    const { color, face, accessory, body } = avatar;
+    setSelectedOptions({
+      [DuckItems.COLORS]:
+        DUCK_OPTIONS[DuckItems.COLORS].find((o) => o.value === color) ??
+        defaultOptions[DuckItems.COLORS],
+      [DuckItems.FACE]:
+        DUCK_OPTIONS[DuckItems.FACE].find((o) => o.value === face) ??
+        defaultOptions[DuckItems.FACE],
+      [DuckItems.ACCESSORIES]:
+        DUCK_OPTIONS[DuckItems.ACCESSORIES].find(
+          (o) => o.value === accessory,
+        ) ?? defaultOptions[DuckItems.ACCESSORIES],
+      [DuckItems.BODY]:
+        DUCK_OPTIONS[DuckItems.BODY].find((o) => o.value === body) ??
+        defaultOptions[DuckItems.BODY],
+    });
+  }, [currentUser]);
 
   const avatarPreviewRef = useRef<AvatarPreviewRef>(null);
 
@@ -107,10 +132,6 @@ export const AvatarsPage: FC = () => {
       console.error('Error generating avatar:', error);
     }
   };
-
-  useEffect(() => {
-    setCurrentOptions(DUCK_OPTIONS[navigationItem]);
-  }, [navigationItem]);
 
   return (
     <div className={c.container}>

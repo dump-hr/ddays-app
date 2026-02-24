@@ -355,6 +355,14 @@ export class AuthService {
         profilePhotoUrl: true,
         inviteCode: true,
         isFromGoogleAuth: true,
+        avatar: {
+          select: {
+            color: true,
+            face: true,
+            accessory: true,
+            body: true,
+          },
+        },
       },
     });
   }
