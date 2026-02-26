@@ -1,6 +1,6 @@
 @use 'styles/calc' as *;
 @use 'styles/variables' as *;
-
+@use 'styles/mixins';
 
 .heroSection {
   width: 100%;
@@ -21,6 +21,13 @@
   justify-content: center;
   padding-bottom: 0;
   padding-top: 5vh;
+
+  @media (max-width: 768px) {
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 32px;
+    padding-top: 0;
+  }
 }
 
 .overlay {
@@ -50,12 +57,11 @@
   gap: 0;
 
   @media (max-width: 768px) {
-    width: 95%;
+    width: 100%;
     max-width: none;
-  }
-
-  @media (max-width: 400px) {
-    width: 82%;
+    padding: 0 16px;
+    box-sizing: border-box;
+    align-items: flex-start;
   }
 }
 
@@ -70,16 +76,8 @@
   margin-bottom: vw-calc(14);
 
   @media (max-width: 768px) {
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-
-  @media (max-width: 500px) {
     font-size: 10px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 8px;
+    margin-bottom: 10px;
   }
 }
 
@@ -91,12 +89,10 @@
   gap: 0;
 
   @media (max-width: 768px) {
-    margin-top: vw-mobile-calc(-9);
-    gap: vw-mobile-calc(4);
-  }
-
-  @media (max-width: 400px) {
-    margin-top: vw-mobile-calc(4);
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin-top: 0;
+    gap: 8px;
   }
 
   .titleLine {
@@ -107,15 +103,7 @@
     color: #a1caed;
 
     @media (max-width: 768px) {
-      margin-left: vw-mobile-calc(25);
-    }
-
-    @media (max-width: 500px) {
-      margin-left: vw-mobile-calc(20);
-    }
-
-    @media (max-width: 400px) {
-      margin-left: vw-mobile-calc(10);
+      margin-left: 0;
     }
   }
 }
@@ -138,13 +126,8 @@
     margin-top: vw-calc(10);
 
     @media (max-width: 768px) {
-      margin-left: vw-mobile-calc(20);
-      margin-top: vw-mobile-calc(-3);
-    }
-
-    @media (max-width: 400px) {
-      margin-left: vw-mobile-calc(10);
-      margin-top: vw-mobile-calc(4);
+      margin-left: 0;
+      margin-top: 0;
     }
   }
 
@@ -152,22 +135,13 @@
     margin-top: vw-calc(-7);
 
     @media (max-width: 768px) {
-      margin-top: vw-mobile-calc(-3);
-    }
-
-    @media (max-width: 400px) {
-      margin-top: vw-mobile-calc(4);
+      margin-top: 0;
     }
   }
 
   @media (max-width: 768px) {
     font-size: vw-mobile-calc(48);
     gap: vw-mobile-calc(8);
-  }
-
-  @media (max-width: 400px) {
-    font-size: vw-mobile-calc(42);
-    gap: vw-mobile-calc(4);
   }
 }
 
@@ -184,11 +158,6 @@
   @media (max-width: 768px) {
     width: vw-mobile-calc(120);
     height: vw-mobile-calc(52);
-  }
-
-  @media (max-width: 400px) {
-    width: vw-mobile-calc(100);
-    height: vw-mobile-calc(40);
   }
 }
 
@@ -212,18 +181,43 @@
   white-space: pre-line;
   flex-shrink: 0;
 
-
   @media (max-width: 768px) {
-    font-size: 12px;
-  }
-
-  @media (max-width: 500px) {
     font-size: 10px;
+    white-space: nowrap;
     letter-spacing: 0.8px;
   }
+}
 
-  @media (max-width: 400px) {
-    font-size: 8px;
-    letter-spacing: 0.6px;
+.ctaDivider {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    @include mixins.dottedBreak(rgba(255, 255, 255, 0.3));
+    margin-top: 24px;
+    align-self: stretch;
+  }
+}
+
+.ctaButton {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    padding: 18px 0;
+    margin-top: 16px;
+    background-color: $background;
+    color: #171615;
+    font-family: 'PP Neue Montreal Mono', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
   }
 }

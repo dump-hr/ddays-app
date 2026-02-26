@@ -25,6 +25,10 @@ export const HeroSection = () => {
             </span>
             <span className={c.titleLine}>DIGITALA_</span>
           </div>
+          <div className={c.ctaDivider} />
+          <a href='https://days.dump.hr/app/login' className={c.ctaButton}>
+            REGISTRIRAJ SE
+          </a>
         </div>
       </div>
     </section>
