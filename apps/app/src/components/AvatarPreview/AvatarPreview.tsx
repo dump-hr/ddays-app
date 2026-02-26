@@ -87,6 +87,8 @@ export const AvatarPreview = forwardRef<AvatarPreviewRef, AvatarPreviewProps>(
           {Object.entries(elements).map(([key, value]) => {
             const itemType = key as DuckItems;
 
+            if (!value.imagePreviewSrc) return null;
+
             return (
               <img
                 key={key}
