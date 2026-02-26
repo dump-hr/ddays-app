@@ -12,9 +12,10 @@ p {
 body {
   position: relative;
   overflow-x: hidden;
+  cursor: none;
 }
 
-html{
+html {
   overflow-x: hidden;
 }
 
@@ -31,4 +32,5 @@ select,
 div,
 a {
   -webkit-tap-highlight-color: transparent;
+  cursor: none !important;
 }
