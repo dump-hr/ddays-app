@@ -5,12 +5,12 @@ import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestions
 import FilmSection from 'components/FilmSection';
 import GallerySection from 'components/GallerySection';
 import HeroSection from 'components/HeroSection';
-import JobsSection from 'components/JobsSection';
+// import JobsSection from 'components/JobsSection';
 import MobileMenu from 'components/MobileMenu';
-import RegistrationSection from 'components/RegistrationSection';
+// import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
-import SpeakersSection from 'components/SpeakersSection';
-import SponsorSection from 'components/SponsorSection';
+// import SpeakersSection from 'components/SpeakersSection';
+// import SponsorSection from 'components/SponsorSection';
 import { StatsSection } from 'components/StatsSection';
 import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
@@ -18,7 +18,8 @@ import { useState } from 'react';
 import Button from '../../components/Button';
 import LocationSection from '../../components/LocationSection';
 import Navbar from '../../components/Navbar';
-import ScheduleSection from '../../components/ScheduleSection';
+// import ScheduleSection from '../../components/ScheduleSection';
+import TemporaryPastEditions from '../../components/TemporaryPastEditions';
 import { landingNavigation } from '../../constants/landing-navigation';
 import c from './LandingPage.module.scss';
 
@@ -51,15 +52,17 @@ export const LandingPage: React.FC = () => {
       <DuckieSection />
       <SectionBreaker bg='light' fg='dark' />
       <StatsSection />
-      <ScheduleSection />
-      <SectionBreaker bg='light' fg='orange' />
-      <SpeakersSection />
-      <SectionBreaker bg='orange' fg='green' />
+      {/* <ScheduleSection /> */}
+      {/* <SectionBreaker bg='light' fg='orange' /> */}
+      {/* <SpeakersSection /> */}
+      {/* <SectionBreaker bg='orange' fg='green' /> */}
+      <SectionBreaker bg='dark' fg='green' />
       <LocationSection />
-      <SectionBreaker bg='green' fg='light' />
-      <SponsorSection />
-      <JobsSection />
-      <RegistrationSection />
+      {/* <SectionBreaker bg='green' fg='light' /> */}
+      {/* <SponsorSection /> */}
+      {/* <JobsSection /> */}
+      {/* <RegistrationSection /> */}
+      <TemporaryPastEditions />
       <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
       <FilmSection />

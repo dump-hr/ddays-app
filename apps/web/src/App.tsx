@@ -8,7 +8,7 @@ import { Path } from './constants/paths';
 import { getPageTitle } from './helpers';
 // import { Chatbot } from './pages/Chatbot';
 import { LandingPage } from './pages/LandingPage';
-// import { TemporaryLandingPage } from './pages/TemporaryLandingPage';
+import { TemporaryLandingPage } from './pages/TemporaryLandingPage';
 
 export const App = () => {
   return (
