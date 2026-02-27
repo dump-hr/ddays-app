@@ -97,7 +97,11 @@ export const StatsSection = () => {
         {stats.map((stat, i) =>
           stat === null ? (
             <div key={i} className={c.titleCard}>
-              <span className={c.titleText}>Šta ima na Daysima?</span>
+              <span className={c.titleText}>
+                Šta ima na
+                <br />
+                <span className={c.titleAccent}>Daysima?</span>
+              </span>
             </div>
           ) : (
             <StatCard

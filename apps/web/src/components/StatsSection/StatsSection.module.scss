@@ -15,10 +15,6 @@
 
     @media (max-width: 1028px) {
         min-height: auto;
-        padding: 40px 0;
-    }
-
-    @media (max-width: 768px) {
         padding: 16px 0;
     }
 
@@ -40,12 +36,6 @@
     justify-items: center;
 
     @media (max-width: 1028px) {
-        grid-template-columns: repeat(2, 1fr);
-        width: 90%;
-        gap: 16px;
-    }
-
-    @media (max-width: 768px) {
         grid-template-columns: 1fr;
         width: 90%;
         gap: 12px;
@@ -56,11 +46,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     aspect-ratio: 593 / 437;
     padding: 16px 8px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1028px) {
+        aspect-ratio: auto;
         order: -1;
+        padding: 32px 8px;
     }
 }
 
@@ -71,13 +64,22 @@
     line-height: 1;
     letter-spacing: -0.04em;
     text-align: center;
-    color: #ff482f;
+    color: #fff;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1028px) {
         font-size: vw-mobile-calc(28);
     }
 
     @media (max-width: 400px) {
         font-size: vw-mobile-calc(22);
+    }
+}
+
+.titleAccent {
+    color: #ff482f;
+    font-size: vw-calc(56);
+
+    @media (max-width: 1028px) {
+        font-size: inherit;
     }
 }

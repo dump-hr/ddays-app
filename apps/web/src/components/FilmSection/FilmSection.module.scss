@@ -15,17 +15,12 @@ $mobile-photo-top: 69px;
 $mobile-photo-left-1: 19px;
 $mobile-photo-gap: 237px;
 
-.gallerySection {
+.filmSection {
   width: 100%;
-  height: 100vh;
-  padding: 160px 0;
-  background-color: #065852;
-  position: relative;
-  box-sizing: border-box;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-drag: none;
   overflow: hidden;
+  background-color: #f5ede1;
+  padding: 150px 0 170px;
+  position: relative;
 
   &::before {
     content: '';
@@ -34,85 +29,7 @@ $mobile-photo-gap: 237px;
     background-image: url('../../assets/images/noise.webp');
     opacity: 0.15;
     pointer-events: none;
-    z-index: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('../../assets/images/gallery-vhs-overlay.jpg');
-    background-size: cover;
-    background-position: center;
-    mix-blend-mode: lighten;
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  @media screen and (max-width: 768px) {
-    height: 100vh;
-  }
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 24px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.title {
-  color: #eaeaea;
-  font-family: 'PP Neue Machina', sans-serif;
-  font-size: 120px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 0.9;
-  letter-spacing: -8.4px;
-
-  @media screen and (max-width: 768px) {
-    font-size: 64px;
-    line-height: 87px;
-    letter-spacing: -3px;
-  }
-}
-
-.subtitle {
-  color: #fff;
-  font-family: 'PP Neue Montreal Mono', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 1px;
-  opacity: 0.7;
-
-  @media screen and (max-width: 768px) {
-    font-size: 12px;
-    line-height: 14px;
-    letter-spacing: 0.5px;
-  }
-}
-
-.filmWrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(50% - #{$segment-height * 0.5});
-  z-index: 2;
-  overflow: visible;
-  pointer-events: none;
-  will-change: transform;
-
-  @media screen and (max-width: 992px) {
-    top: calc(50% - #{$mobile-segment-height * 0.5});
+    z-index: 1;
   }
 }
 
@@ -120,6 +37,8 @@ $mobile-photo-gap: 237px;
   display: flex;
   width: max-content;
   animation: scroll 30s linear infinite;
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes scroll {
@@ -198,6 +117,10 @@ $mobile-photo-gap: 237px;
 }
 
 @media screen and (max-width: 992px) {
+  .filmSection {
+    padding: 72px 0 92px;
+  }
+
   .track {
     animation-name: scroll-mobile;
   }

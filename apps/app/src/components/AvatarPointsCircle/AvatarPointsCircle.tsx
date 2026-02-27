@@ -43,10 +43,13 @@ const AvatarPointsCircle: React.FC<AvatarPointsCircleProps> = ({ avatar }) => {
     )}%, #484747 ${getCirclePercentage(points)}%, #484747)`,
   };
 
+  const isPreMadeAvatar = avatar && !avatar.includes('https://');
+  const avatarStyle = isPreMadeAvatar ? { scale: '0.75' } : {};
+
   return (
     <div className={c.outerCircle} style={percentageStyle}>
       <div className={c.innerCircle}>
-        <img src={avatar} alt='Avatar' className={c.avatar} />
+        <img src={avatar} alt='Avatar' className={c.avatar} style={avatarStyle} />
         <div className={c.levelWrapper}>
           <p className={c.level}>{levelStats.level}</p>
         </div>

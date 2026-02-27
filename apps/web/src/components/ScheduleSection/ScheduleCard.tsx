@@ -132,7 +132,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
               {getEventTime(event.startsAt)} - {getEventTime(event.endsAt)}
             </p>
             <p className={c.eventTypeText}>
-              {getEventTypeTranslation(event.type)}
+              {getEventTypeTranslation(event.type) &&
+                `/ ${getEventTypeTranslation(event.type)}`}
             </p>
           </div>
           <div className={c.scheduleCardCenterWrapper}>
