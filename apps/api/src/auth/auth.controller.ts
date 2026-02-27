@@ -9,13 +9,13 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Response } from 'express';
 
 import { RegistrationDto } from './auth.dto';
 import { UserLoginDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { UserGuard } from './user.guard';
-import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
