@@ -32,6 +32,9 @@ import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.mo
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { SwagBagModule } from './swag-bag/swag-bag.module';
 import { UserModule } from './user/user.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -54,6 +57,12 @@ import { UserModule } from './user/user.module';
     SponsorMaterialsModule,
     SponsorContractModule,
     MetricsModule,
+    ThrottlerModule.forRoot([
+      {
+        ttl: 30000,
+        limit: 100,
+      },
+    ]),
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
@@ -85,6 +94,13 @@ import { UserModule } from './user/user.module';
     SwagBagModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [
+    AppService,
+    PrismaService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
