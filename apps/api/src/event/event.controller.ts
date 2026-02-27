@@ -88,26 +88,25 @@ export class EventController {
     return this.eventService.getEventsInMySchedule(user.id);
   }
 
-  @Get(':id')
-  async findOne(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<EventWithSpeakerDto> {
-    return await this.eventService.getOne(id);
-  }
-
   @Get('schedule-ical/:userId.ics')
-  @UseGuards(UserGuard)
   async generateIcal(
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,
   ) {
-    res.header('Content-Type', 'text/calendar'); // MIME type for iCal files
+    res.header('Content-Type', 'text/calendar');
     res.header(
       'Content-Disposition',
       `attachment; filename=schedule-${userId}.ics`,
     );
     const icalData = await this.eventService.generateIcal(userId);
     res.send(icalData);
+  }
+
+  @Get(':id')
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<EventWithSpeakerDto> {
+    return await this.eventService.getOne(id);
   }
 
   @Get()
