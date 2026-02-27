@@ -96,9 +96,9 @@
   }
 
   .titleLine {
-    margin-left: vw-calc(152);
+    margin-left: vw-calc(96);
     margin-top: 0;
-    opacity: 0.6;
+    opacity: 0.7;
     mix-blend-mode: overlay;
     color: #a1caed;
 
@@ -111,19 +111,19 @@
 .titleLine {
   color: $background;
   font-family: 'PP Neue Machina', sans-serif;
-  font-size: vw-calc(112);
+  font-size: vw-calc(103);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.067em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: vw-calc(25);
+  gap: vw-calc(23);
   margin: 0;
 
   &:nth-child(3) {
-    margin-left: vw-calc(69);
-    margin-top: vw-calc(10);
+    margin-left: vw-calc(63);
+    margin-top: vw-calc(9);
 
     @media (max-width: 768px) {
       margin-left: 0;
@@ -132,7 +132,7 @@
   }
 
   &:nth-child(4) {
-    margin-top: vw-calc(-7);
+    margin-top: vw-calc(-6);
 
     @media (max-width: 768px) {
       margin-top: 0;
@@ -140,8 +140,8 @@
   }
 
   @media (max-width: 768px) {
-    font-size: vw-mobile-calc(48);
-    gap: vw-mobile-calc(8);
+    font-size: vw-mobile-calc(40);
+    gap: vw-mobile-calc(6);
   }
 }
 
@@ -150,14 +150,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  width: vw-calc(297);
-  height: vw-calc(124);
+  width: vw-calc(273);
+  height: vw-calc(114);
   flex-shrink: 0;
   overflow: visible;
 
   @media (max-width: 768px) {
-    width: vw-mobile-calc(120);
-    height: vw-mobile-calc(52);
+    width: vw-mobile-calc(99);
+    height: vw-mobile-calc(43);
   }
 }
 
@@ -187,6 +187,14 @@
     letter-spacing: 0.8px;
   }
 }
+
+.cursor {
+  font-weight: 700;
+  font-size: 1.1em;
+  position: relative;
+  bottom: 0.12em;
+}
+
 
 .ctaDivider {
   display: none;
