@@ -77,7 +77,9 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   setupClassValidator(app);
-  setupSwagger(app);
+  if (process.env.NODE_ENV === 'dev') {
+    setupSwagger(app);
+  }
   setupProxies(app);
 
   await run(app);
