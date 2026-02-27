@@ -87,7 +87,13 @@ export const CodePage = () => {
               </button>
             </div>
             <div ref={qrRef} className={c.qrContainer}>
-              <QRCode value={qrValue} size={256} />
+              <QRCode
+                value={JSON.stringify({
+                  dataType: 'code',
+                  data: qrValue,
+                })}
+                size={256}
+              />
             </div>
             <button className={c.qrDownloadButton} onClick={handleDownloadQr}>
               Preuzmi PNG
