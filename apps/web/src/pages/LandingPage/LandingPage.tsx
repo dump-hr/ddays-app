@@ -2,7 +2,7 @@ import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
-import FilmSection from 'components/FilmSection';
+// import FilmSection from 'components/FilmSection';
 import GallerySection from 'components/GallerySection';
 import HeroSection from 'components/HeroSection';
 // import JobsSection from 'components/JobsSection';
@@ -65,7 +65,6 @@ export const LandingPage: React.FC = () => {
       <TemporaryPastEditions />
       <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
-      <FilmSection />
       <TestimonialsSection />
       <FrequentlyAskedQuestionsSection />
       <SectionBreaker fg='dark' flipped className={c.flippedAndTransparent} />
