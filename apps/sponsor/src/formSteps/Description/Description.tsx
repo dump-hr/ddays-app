@@ -39,7 +39,7 @@ export const Description: FormComponent = ({ close }) => {
     const descriptionString = description ?? company.description ?? '';
     const wordCount = countWords(descriptionString);
 
-    if (wordCount < 65 || wordCount >= 75) {
+    if (wordCount < 40 || wordCount >= 60) {
       toast.error('Duljina teksta opisa ne odgovara uvjetima.');
       return;
     }
@@ -89,8 +89,8 @@ export const Description: FormComponent = ({ close }) => {
         <TextArea
           value={description ?? company.description ?? ''}
           onChange={(value) => setDescription(value)}
-          limit={70}
-          deviation={5}
+          limit={50}
+          deviation={10}
           label='Opis tvrtke'
           rows={8}
         />
@@ -102,8 +102,8 @@ export const Description: FormComponent = ({ close }) => {
               opportunitiesDescription ?? company.opportunitiesDescription ?? ''
             }
             onChange={(value) => setOpportunitiesDescription(value)}
-            limit={70}
-            deviation={5}
+            limit={50}
+            deviation={10}
             label='Poslovne prilike, o poslovima i projektima'
             rows={8}
           />

@@ -306,7 +306,10 @@ export class CompanyController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new FileTypeValidator({ fileType: 'image/*' }),
+          new FileTypeValidator({
+            fileType: /image\//,
+            skipMagicNumbersValidation: true,
+          }),
           new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
         ],
       }),
