@@ -31,6 +31,7 @@ export class CompanyService {
     const createdCompany = await this.prisma.company.create({
       data: {
         ...{ ...dto, interestIds: undefined },
+        codeId: dto.codeId ? dto.codeId : null,
         password: generatedPassword,
       },
     });
