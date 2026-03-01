@@ -5,6 +5,30 @@
     padding-bottom: 24px;
 }
 
+.countdownSection {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
+    padding: 48px 0;
+    flex-wrap: wrap;
+}
+
+.countdownText {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: Fuse;
+    color: #fff;
+}
+
+.countdownTimer {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: Fuse;
+    color: #fff;
+    opacity: 0.5;
+}
+
 .pageWrapper {
     max-width: 1050px;
     margin: auto;

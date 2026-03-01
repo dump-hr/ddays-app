@@ -38,16 +38,11 @@ export const SpotsPage = () => {
 
     if (!didFinish && !currentCompany.data?.booth) {
       return (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '60vh',
-            color: 'white',
-            fontSize: '24px',
-          }}>
-          Biranje mjesta kreće za {elapsedTime}
+        <div className={c.countdownSection}>
+          <span className={c.countdownText}>
+            Biranje mjesta kreće za{' '}
+          </span>
+          <span className={c.countdownTimer}>{elapsedTime}</span>
         </div>
       );
     }
