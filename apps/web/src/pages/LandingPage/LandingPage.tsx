@@ -7,7 +7,7 @@ import GallerySection from 'components/GallerySection';
 import HeroSection from 'components/HeroSection';
 // import JobsSection from 'components/JobsSection';
 import MobileMenu from 'components/MobileMenu';
-// import RegistrationSection from 'components/RegistrationSection';
+import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 // import SpeakersSection from 'components/SpeakersSection';
 // import SponsorSection from 'components/SponsorSection';
@@ -19,7 +19,6 @@ import Button from '../../components/Button';
 import LocationSection from '../../components/LocationSection';
 import Navbar from '../../components/Navbar';
 // import ScheduleSection from '../../components/ScheduleSection';
-import TemporaryPastEditions from '../../components/TemporaryPastEditions';
 import { landingNavigation } from '../../constants/landing-navigation';
 import c from './LandingPage.module.scss';
 
@@ -61,8 +60,7 @@ export const LandingPage: React.FC = () => {
       {/* <SectionBreaker bg='green' fg='light' /> */}
       {/* <SponsorSection /> */}
       {/* <JobsSection /> */}
-      {/* <RegistrationSection /> */}
-      <TemporaryPastEditions />
+      <RegistrationSection />
       <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
       <TestimonialsSection />

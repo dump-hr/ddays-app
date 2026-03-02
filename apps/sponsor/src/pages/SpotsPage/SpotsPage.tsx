@@ -39,9 +39,7 @@ export const SpotsPage = () => {
     if (!didFinish && !currentCompany.data?.booth) {
       return (
         <div className={c.countdownSection}>
-          <span className={c.countdownText}>
-            Biranje mjesta kreće za{' '}
-          </span>
+          <span className={c.countdownText}>Biranje mjesta kreće za</span>
           <span className={c.countdownTimer}>{elapsedTime}</span>
         </div>
       );

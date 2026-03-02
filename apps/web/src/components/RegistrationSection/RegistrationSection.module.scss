@@ -74,8 +74,21 @@
 }
 
 .mobileAppImage {
+  margin-top: 10px;
   max-width: 170%;
   z-index: 1;
+
+  @media (max-width: 1024px) {
+    max-width: 140%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 110%;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
 }
 
 .loginButton {
