@@ -2,7 +2,18 @@ import { DISPLAY, YEAR } from '@ddays-app/types';
 import { useLenis } from '@studio-freight/react-lenis';
 import filmFrameBorder from 'assets/images/film-frame-border.png';
 import filmFrameOverlay from 'assets/images/film-frame-overlay.png';
-import filmSamplePhoto from 'assets/images/film-sample-photo.png';
+import gallery1 from 'assets/images/gallery_1.jpg';
+import gallery2 from 'assets/images/gallery_2.jpg';
+import gallery3 from 'assets/images/gallery_3.jpg';
+import gallery4 from 'assets/images/gallery_4.jpg';
+import gallery5 from 'assets/images/gallery_5.jpg';
+import gallery6 from 'assets/images/gallery_6.jpg';
+import gallery7 from 'assets/images/gallery_7.jpg';
+import gallery8 from 'assets/images/gallery_8.jpg';
+import gallery9 from 'assets/images/gallery_9.jpg';
+import gallery10 from 'assets/images/gallery_10.jpg';
+import gallery11 from 'assets/images/gallery_11.jpg';
+import gallery12 from 'assets/images/gallery_12.jpg';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLayoutEffect, useRef } from 'react';
@@ -14,15 +25,18 @@ gsap.registerPlugin(ScrollTrigger);
 const FILM_TEXT = `DUMP DAYS X  /  ${DISPLAY.HEADER_DAY_START_NUM}— 29.05.${YEAR}.`;
 
 const PHOTOS = [
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
-  filmSamplePhoto,
+  gallery1,
+  gallery2,
+  gallery3,
+  gallery4,
+  gallery5,
+  gallery6,
+  gallery7,
+  gallery8,
+  gallery9,
+  gallery10,
+  gallery11,
+  gallery12,
 ];
 
 const PHOTOS_PER_SEGMENT = 3;

@@ -5,7 +5,7 @@ $photo-height: 363px;
 $photo-top: 91px;
 $photo-left-1: 25px;
 $photo-gap: 316px;
-$segment-count: 3;
+$segment-count: 4;
 
 $mobile-segment-width: 711px;
 $mobile-segment-height: 400px;
@@ -144,7 +144,7 @@ $mobile-photo-gap: 237px;
   left: $photo-left-1;
   display: flex;
   gap: calc($photo-gap - $photo-width);
-  z-index: 0;
+  z-index: 3;
 }
 
 .photoFrame {
