@@ -41,7 +41,7 @@ export const Input = ({
 
   return (
     <div className={c.container} style={props.style}>
-      <div className={c.inputWrapper}>
+      <div className={c.inputWrapper} role='button'>
         <input
           disabled={disabled}
           type={inputType}

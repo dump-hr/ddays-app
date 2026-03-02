@@ -23,6 +23,7 @@ export const DesktopNavigation = (): ReactElement => {
           className={`${styles.iconWrapper} ${
             tab.route === pathname ? styles.activeIcon : ''
           }`}
+          role='button'
           onClick={() => handleTabChange(tab.id)}>
           <svg width={tab.width} height={tab.height} className={styles.icon}>
             <use href={`${sprite}#${tab.icon}`} />

@@ -10,7 +10,7 @@ const NavigateHomeButton = () => {
     navigate(RouteNames.HOME);
   };
   return (
-    <div onClick={navigateHome}>
+    <div role='button' onClick={navigateHome}>
       <img src={CloseIcon} alt='' className={styles.button} />
     </div>
   );

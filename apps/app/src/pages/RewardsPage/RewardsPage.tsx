@@ -18,6 +18,8 @@ export const RewardsPage = () => {
       {!isMobile && (
         <img
           src={ReturnIcon}
+          className={c.returnIcon}
+          role='button'
           alt='return icon'
           onClick={() => navigate('/app/profile')}
         />
@@ -29,6 +31,7 @@ export const RewardsPage = () => {
             <h2>Nagrade</h2>
             <img
               src={CloseIcon}
+              role='button'
               alt='close icon'
               onClick={() => navigate('/app/profile')}
             />

@@ -30,6 +30,7 @@ const RecommendationsButton: React.FC<RecommendationsButtonProps> = ({
   return (
     <div
       className={clsx(c.button, className, { [c.compact]: isCompact })}
+      role='button'
       onClick={() => navigate(RouteNames.PROFILE_RECOMMENDATIONS)}
       {...handlers}
       ref={buttonRef}>

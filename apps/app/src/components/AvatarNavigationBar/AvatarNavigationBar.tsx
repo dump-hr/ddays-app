@@ -74,6 +74,7 @@ const NavIcon: FC<NavIconProps> = ({
       }`}>
       <div
         className={`${c.iconWrapper} ${selected ? c.iconWrapperSelected : ''}`}
+        role='button'
         onClick={onClick}>
         <svg width={width} height={height} className={c.iconSvg}>
           <use href={`${sprite}#${iconId}${selected ? '-selected' : ''}`} />

@@ -58,6 +58,7 @@ export const ImageWrapper: FC<ImageWrapperProps> = ({
   return (
     <div
       className={`${c.imageWrapper} ${isSelected ? c.selected : ''}`}
+      role='button'
       onClick={onClick}
       style={wrapperStyle}>
       <img

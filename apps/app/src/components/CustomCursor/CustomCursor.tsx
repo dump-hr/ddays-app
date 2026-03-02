@@ -10,8 +10,6 @@ const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [state, setState] = useState<CursorState>('normal');
 
-  //console.log(state);
-
   useEffect(() => {
     const move = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -35,11 +33,6 @@ const CustomCursor = () => {
     window.addEventListener('mousedown', mouseDown);
     window.addEventListener('mouseup', mouseUp);
     document.addEventListener('mouseover', hover);
-
-    // document.addEventListener('mouseover', (e) => {
-    //   console.log('cursor image:', state);
-    //   console.log('hovering:', e.target);
-    // });
 
     return () => {
       window.removeEventListener('mousemove', move);
