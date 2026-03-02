@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import c from './CustomCursor.module.scss';
-
 import cursorNormal from '../../assets/images/Normal.png';
 import cursorHover from '../../assets/images/Hover.png';
 import cursorClick from '../../assets/images/Click.png';
 
+type CursorState = 'normal' | 'hover' | 'click';
+
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [state, setState] = useState('normal');
+  const [state, setState] = useState<CursorState>('normal');
+
+  //console.log(state);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -16,25 +19,33 @@ const CustomCursor = () => {
 
     const mouseDown = () => setState('click');
     const mouseUp = () => setState('normal');
+    const hover = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
 
-    const allElements = Array.from(document.querySelectorAll<HTMLElement>('*'));
-    const hoverElements = allElements.filter(
-      (el) => getComputedStyle(el).cursor === 'pointer',
-    );
+      const interactive = target.closest(
+        "a, button, [role='button'], [data-cursor-hover]",
+      );
 
-    hoverElements.forEach((el) => {
-      el.addEventListener('mouseenter', () => setState('hover'));
-      el.addEventListener('mouseleave', () => setState('normal'));
-    });
+      if (interactive)
+        setState((prev) => (prev === 'click' ? 'click' : 'hover'));
+      else setState((prev) => (prev === 'click' ? 'click' : 'normal'));
+    };
 
     window.addEventListener('mousemove', move);
     window.addEventListener('mousedown', mouseDown);
     window.addEventListener('mouseup', mouseUp);
+    document.addEventListener('mouseover', hover);
+
+    // document.addEventListener('mouseover', (e) => {
+    //   console.log('cursor image:', state);
+    //   console.log('hovering:', e.target);
+    // });
 
     return () => {
       window.removeEventListener('mousemove', move);
       window.removeEventListener('mousedown', mouseDown);
       window.removeEventListener('mouseup', mouseUp);
+      document.removeEventListener('mouseover', hover);
     };
   }, []);
 
