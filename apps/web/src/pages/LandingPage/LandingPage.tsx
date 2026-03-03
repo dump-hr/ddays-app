@@ -2,23 +2,22 @@ import { ReactLenis } from '@studio-freight/react-lenis';
 import DuckieSection from 'components/DuckieSection';
 import FooterSection from 'components/FooterSection';
 import FrequentlyAskedQuestionsSection from 'components/FrequentlyAskedQuestionsSection';
-// import FilmSection from 'components/FilmSection';
 import GallerySection from 'components/GallerySection';
 import HeroSection from 'components/HeroSection';
-// import JobsSection from 'components/JobsSection';
 import MobileMenu from 'components/MobileMenu';
 import RegistrationSection from 'components/RegistrationSection';
 import { SectionBreaker } from 'components/SectionBreaker';
 // import SpeakersSection from 'components/SpeakersSection';
 // import SponsorSection from 'components/SponsorSection';
+// import FilmSection from 'components/FilmSection';
+// import ScheduleSection from '../../components/ScheduleSection';
+// import JobsSection from 'components/JobsSection';
 import { StatsSection } from 'components/StatsSection';
 import TestimonialsSection from 'components/TestimonialsSection';
 import { useState } from 'react';
-
 import Button from '../../components/Button';
 import LocationSection from '../../components/LocationSection';
 import Navbar from '../../components/Navbar';
-// import ScheduleSection from '../../components/ScheduleSection';
 import { landingNavigation } from '../../constants/landing-navigation';
 import c from './LandingPage.module.scss';
 
