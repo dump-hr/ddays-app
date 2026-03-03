@@ -3,8 +3,8 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useEffect, useRef, useState } from 'react';
 
-import DaysSticker from '../../assets/images/days-sticker.webp';
 import NavbarLogoText from '../../assets/icons/navbar-logo-text.svg';
+import DaysSticker from '../../assets/images/days-sticker.webp';
 import HamburgerButton from '../HamburgerButton';
 import c from './Navbar.module.scss';
 

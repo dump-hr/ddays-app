@@ -33,11 +33,11 @@ const Testimonial = ({
     <div className={classes} ref={refEl}>
       <div className={c.sectionBreaker} />
       <div className={c.leftWrapper}>
-        <img src={QuotesIcon} className={c.quote} />
+        <img src={QuotesIcon} className={c.quote} alt='quote' />
         <div className={c.infoWrapper}>
           <p className={c.name}>{name}</p>
           <p className={c.title}>
-            {title}{' '}
+            {title}
             <span className={c.company}>
               @{`\u00A0`}
               {company}
