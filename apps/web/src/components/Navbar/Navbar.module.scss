@@ -58,13 +58,9 @@
 }
 
 .logoText {
-  color: vars.$primary;
-  font-family: 'PP Neue Machina', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  white-space: nowrap;
+  height: 18px;
+  width: auto;
+  object-fit: contain;
 }
 
 .right {
