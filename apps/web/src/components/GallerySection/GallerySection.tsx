@@ -65,6 +65,8 @@ const GallerySection = () => {
   lenisRef.current = lenis;
 
   useLayoutEffect(() => {
+    if (window.innerWidth < 768) return;
+
     const ctx = gsap.context(() => {
       if (!filmRef.current || !sectionRef.current) return;
 

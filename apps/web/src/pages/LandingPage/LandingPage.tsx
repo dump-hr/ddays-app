@@ -60,6 +60,7 @@ export const LandingPage: React.FC = () => {
       {/* <SectionBreaker bg='green' fg='light' /> */}
       {/* <SponsorSection /> */}
       {/* <JobsSection /> */}
+      <SectionBreaker bg='green' fg='dark' />
       <RegistrationSection />
       <SectionBreaker bg='dark' fg='green' />
       <GallerySection />
