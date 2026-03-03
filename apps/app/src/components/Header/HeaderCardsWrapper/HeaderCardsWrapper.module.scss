@@ -11,4 +11,13 @@
             max-width: none;
         }
     }
+
+    @media (max-width: 600px) {
+        flex-wrap: wrap;
+
+        & > * {
+            flex: 1 1 calc(50% - 4px);
+            min-width: calc(50% - 4px);
+        }
+    }
 }

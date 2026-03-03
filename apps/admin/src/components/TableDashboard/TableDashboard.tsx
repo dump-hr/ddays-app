@@ -15,6 +15,7 @@ type TableDashboardProps = {
   onEdit?: (ids: number[]) => void;
   onDelete?: (ids: number[]) => void;
   onSelectionChange?: (selectedIds: number[]) => void;
+  renderRowAction?: (row: DataRow) => React.ReactNode;
 };
 
 export const TableDashboard: React.FC<TableDashboardProps> = ({
@@ -25,6 +26,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
   onEdit,
   onDelete,
   onSelectionChange,
+  renderRowAction,
 }) => {
   const columns = useMemo(() => {
     if (!data || data.length === 0) return [];
@@ -157,6 +159,7 @@ export const TableDashboard: React.FC<TableDashboardProps> = ({
         onCheckAll={handleCheckAll}
         onCheckboxChange={handleCheckboxChange}
         getDataType={(v) => (typeof v === 'boolean' ? 'boolean' : 'string')}
+        renderRowAction={renderRowAction}
       />
 
       {isFormOpen && renderForm && (

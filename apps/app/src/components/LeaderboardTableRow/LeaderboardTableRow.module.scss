@@ -30,11 +30,10 @@ td.pointsCell {
 }
 
 .duckIcon {
-  width: 57.891px;
-  height: 62.942px;
-  transform: rotate(0deg);
+  width: 58px;
+  height: 58px;
   flex-shrink: 0;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .playerInfo {

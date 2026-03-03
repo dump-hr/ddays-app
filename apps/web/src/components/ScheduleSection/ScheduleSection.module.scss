@@ -49,6 +49,8 @@
 
     &Left {
       margin-right: 145px;
+      width: 170px;
+      flex-shrink: 0;
 
       &Wrapper {
         display: flex;
@@ -155,7 +157,7 @@
   text-transform: uppercase;
   margin: 0;
   min-width: 130px;
-  text-align: right;
+  text-align: left;
 }
 
 .eventTypeText {
@@ -167,7 +169,8 @@
   line-height: 16px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  text-align: right;
+  text-align: left;
+  min-width: 130px;
   margin-top: 8px;
 }
 
@@ -302,6 +305,7 @@
 
   .scheduleHeader {
     justify-content: center;
+    margin-bottom: 0;
   }
 
   .plusButton {
@@ -345,7 +349,7 @@
 
   .scheduleCardSubtitle {
     margin-right: 0;
-    margin-left: 54px;
+    margin-left: 61px;
   }
 }
 

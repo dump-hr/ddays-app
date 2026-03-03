@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 import HamburgerButton from 'components/HamburgerButton';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 import c from './MobileMenu.module.scss';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 type MobileMenuProps = {
   Button: React.ReactNode;
@@ -27,7 +31,17 @@ const MobileMenu = ({ Button, isOpen, toggle, items }: MobileMenuProps) => {
           <a
             key={item.name}
             href={item.path}
-            onClick={toggle}
+            onClick={(e) => {
+              e.preventDefault();
+              toggle();
+              gsap.to(window, {
+                scrollTo: item.path,
+                duration: 1,
+                ease: 'power2.inOut',
+                onComplete: () =>
+                  history.replaceState(null, '', location.pathname),
+              });
+            }}
             className={c.item}>
             {item.name}
           </a>

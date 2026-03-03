@@ -10,6 +10,7 @@ type DataTableProps = {
   onCheckAll: () => void;
   onCheckboxChange: (id: number) => void;
   getDataType: (value: string | number | boolean | Date | null) => string;
+  renderRowAction?: (row: DataRow) => React.ReactNode;
 };
 
 export const Table: React.FC<DataTableProps> = ({
@@ -19,6 +20,7 @@ export const Table: React.FC<DataTableProps> = ({
   onCheckAll,
   onCheckboxChange,
   getDataType,
+  renderRowAction,
 }) => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderCellContent = (val: any) => {
@@ -76,6 +78,7 @@ export const Table: React.FC<DataTableProps> = ({
                 </div>
               </th>
             ))}
+            {renderRowAction && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -124,6 +127,9 @@ export const Table: React.FC<DataTableProps> = ({
 
                     return <td key={col}>{renderCellContent(val)}</td>;
                   })}
+                  {renderRowAction && (
+                    <td>{renderRowAction(row)}</td>
+                  )}
                 </tr>
               );
             })

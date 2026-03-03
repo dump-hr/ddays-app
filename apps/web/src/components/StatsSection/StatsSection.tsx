@@ -44,7 +44,9 @@ export const StatsSection = () => {
       const titleCard = children[1];
       const otherCards = children.filter((_, i) => i !== 1);
 
-      gsap.set(children, { y: window.innerHeight });
+      const sectionHeight = sectionRef.current.offsetHeight;
+
+      gsap.set(children, { y: sectionHeight });
 
       const tl = gsap.timeline({ paused: true });
       tl.to(titleCard, { y: 0, duration: 1, ease: 'none' });
@@ -54,10 +56,12 @@ export const StatsSection = () => {
 
       let completed = false;
 
+      const scrollDistance = sectionHeight * 2.5;
+
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top -85px',
-        end: '+=2500',
+        end: `+=${scrollDistance}`,
         pin: true,
         anticipatePin: 1,
         onUpdate: (self) => {
@@ -97,7 +101,11 @@ export const StatsSection = () => {
         {stats.map((stat, i) =>
           stat === null ? (
             <div key={i} className={c.titleCard}>
-              <span className={c.titleText}>Šta ima na Daysima?</span>
+              <span className={c.titleText}>
+                Šta ima na
+                <br />
+                <span className={c.titleAccent}>Daysima?</span>
+              </span>
             </div>
           ) : (
             <StatCard

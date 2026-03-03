@@ -2,33 +2,95 @@
 <html lang="en" translate="no">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-192.ico" />
+    <link rel="icon" href="/favicon-48.png" sizes="48x48" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DUMP Days</title>
     <meta
       name="description"
       content="DUMP Days je konferencija koja na jednom mjestu okuplja najutjecajnije ljude s hrvatske IT scene - predstavnike tvrtki, profesionalce i studente, pružajući brojne prilike za sklapanje kvalitetnih poznanstava i poslovnih suradnji."
     />
+    <meta name="robots" content="index, follow" />
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://days.dump.hr/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="DUMP Days" />
-    <meta property="og:description" content="" />
+    <meta property="og:title" content="DUMP Days 2026" />
+    <meta
+      property="og:description"
+      content="Pridruži se najvećoj studentskoj IT konferenciji u Hrvatskoj. Predavanja, radionice i networking na FESB-u, 28. i 29. svibnja."
+    />
     <meta property="og:image" content="https://days.dump.hr/og-image.png" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="days.dump.hr" />
     <meta property="twitter:url" content="https://days.dump.hr/" />
-    <meta name="twitter:title" content="DUMP Days" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:title" content="DUMP Days 2026" />
+    <meta
+      name="twitter:description"
+      content="Pridruži se najvećoj studentskoj IT konferenciji u Hrvatskoj. Predavanja, radionice i networking na FESB-u, 28. i 29. svibnja."
+    />
     <meta name="twitter:image" content="https://days.dump.hr/og-image.png" />
 
     <meta
       name="google-site-verification"
       content="klVnTKqXB1sWFef7z0h_TDu015WJ_GItBosDxkC-pPA"
     />
+    <!-- Preload fonts to avoid CSS → font chain -->
+    <link
+      rel="preload"
+      href="/src/assets/fonts/PPNeueMachina-PlainMedium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/PPNeueMontrealMono-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "DUMP Days 2026",
+        "startDate": "2026-05-28T09:00:00+02:00",
+        "endDate": "2026-05-29T14:00:00+02:00",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": "FESB (Fakultet elektrotehnike, strojarstva i brodogradnje)",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Ruđera Boškovića 32",
+            "addressLocality": "Split",
+            "postalCode": "21000",
+            "addressRegion": "Splitsko-dalmatinska županija",
+            "addressCountry": "HR"
+          }
+        },
+        "image": ["https://days.dump.hr/images/share-banner-2026.png"],
+        "description": "DUMP Days je besplatna IT konferencija koja okuplja studente i tech zajednicu uz vrhunska predavanja, radionice i networking.",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://days.dump.hr",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-03-01T00:00:00+02:00"
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "DUMP Udruga mladih programera",
+          "url": "https://dump.hr"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { HeaderCard } from '../HeaderCard/HeaderCard';
 import accreditationImage from './../../../assets/images/accreditationIcon.png';
 import enterCodeImage from './../../../assets/images/enterCodeIcon.png';
+import scannerImage from './../../../assets/images/scannerIcon.svg';
 import tShirtImage from './../../../assets/images/tShirtIcon.png';
 import styles from './HeaderCardsWrapper.module.scss';
 import { RouteNames } from '@/router/routes';
@@ -12,6 +13,7 @@ enum HeaderCards {
   ENTER_CODE,
   ACCREDITATION,
   SHOPPING,
+  SCANNER,
 }
 
 type HeaderCardsInfo = {
@@ -60,6 +62,14 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
       width: 80,
       height: 36,
       onClick: () => navigate(RouteNames.SHOPPING),
+    },
+    {
+      id: HeaderCards.SCANNER,
+      img: `${scannerImage}`,
+      text: 'Skeniraj QR',
+      width: 40,
+      height: 40,
+      onClick: () => navigate(RouteNames.SCANNER),
     },
   ];
 
