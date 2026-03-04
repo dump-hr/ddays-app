@@ -38,7 +38,7 @@ export const SwagBagPage: FC = () => {
             <h4 className={c.title}>Swag bag materijali</h4>
             <p className={c.subtitle}>
               Swag bag materijali podrazumijevaju Vaš merch koji će biti
-              podijeljen unutar naših swag bagova (ovo san izmislila bzvz je)
+              podijeljen unutar naših swag bagova.
             </p>
             {(companySwagBags ?? []).length > 0 && (
               <div className={c.swagBagList}>
