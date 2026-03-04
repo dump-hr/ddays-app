@@ -20,7 +20,6 @@ import { ShoppingPage } from '../pages/ShoppingPage';
 import { NotificationsPage } from '../pages/NotificationsPage';
 import { NavigationLayout } from '../layout';
 import Home from '../pages/Home';
-import TestPage from '../pages/TestPage/TestPage';
 import { ProfileInterestsPage } from '../pages/ProfileInterestsPage';
 import FlyTalksApplyPage from '../pages/FlyTalksApplyPage';
 import { ConfirmEmailPage } from '../pages/ConfirmEmailPage/ConfirmEmailPage';
@@ -144,7 +143,6 @@ const router = createBrowserRouter(
               element={<AccreditationScanPage />}
             />
           </Route>
-          <Route path='/app/test' element={<TestPage />} />
 
           <Route path='*' element={<NotFoundPage />} />
         </>
