@@ -11,13 +11,11 @@ import { RouteNames } from '@/router/routes';
 
 const COUNTDOWN_TIME = 60; // 60 seconds
 import axios from 'axios';
-import PointModifierPopup from '@/components/PointModifierPopup';
 
 export const ConfirmEmail = () => {
   const { isMobile } = useDeviceType({});
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [showPointsPopup, setShowPointsPopup] = useState(false);
   const [processedToken, setProcessedToken] = useState<string | null>(null);
 
   const { mutate: sendConfirmationEmail } = useSendConfirmationEmail();
@@ -46,7 +44,8 @@ export const ConfirmEmail = () => {
       );
 
       if (data.success) {
-        setShowPointsPopup(true);
+        toast.success('Email uspješno potvrđen!');
+        navigate('/app');
       } else {
         toast.error(data.message || 'Greška pri potvrdi emaila');
       }
@@ -86,11 +85,6 @@ export const ConfirmEmail = () => {
     }
   }, [lastSentTime]);
 
-  const handleClosePointsPopup = () => {
-    setShowPointsPopup(false);
-    navigate('/app');
-  };
-
   return (
     <div className={c.confirmEmail}>
       <div className={c.confirmEmailUpper}>
@@ -118,12 +112,6 @@ export const ConfirmEmail = () => {
         variant='orange'
         onClick={handleSendEmail}
         disabled={timeLeft > 0}
-      />
-
-      <PointModifierPopup
-        isOpen={showPointsPopup}
-        points={20}
-        closePopup={handleClosePointsPopup}
       />
     </div>
   );
