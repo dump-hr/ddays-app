@@ -32,6 +32,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Build frontend web apps
+        env:
+          VITE_PREVIEW_KEY: ${{ secrets.VITE_PREVIEW_KEY }}
         run: yarn build --filter=admin... --filter=sponsor... --filter=web... --filter=app...
 
       - name: Setup Docker Buildx

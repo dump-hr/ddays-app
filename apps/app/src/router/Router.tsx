@@ -43,6 +43,16 @@ import { InviteCodePage } from '@/pages/InviteCodePage';
 
 const isAppOpen = false; // True kad je app otvoren, false kad je app zatvoren (otvoren je samo oko daysa)
 
+const previewKey = import.meta.env.VITE_PREVIEW_KEY;
+if (previewKey) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('preview') === previewKey) {
+    localStorage.setItem('ddays-preview', 'true');
+  }
+}
+const isPreview = !!previewKey && localStorage.getItem('ddays-preview') === 'true';
+const showApp = isAppOpen || isPreview;
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <React.Fragment>
@@ -51,7 +61,7 @@ const router = createBrowserRouter(
         element={<TermsAndConditionsPage />}
       />
 
-      {isAppOpen ? (
+      {showApp ? (
         <>
           <Route path={RouteNames.LOGIN} element={<LoginPage />} />
           <Route
