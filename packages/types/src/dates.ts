@@ -5,11 +5,10 @@ export const ISO = {
   SPONSOR_FLY_TALK_DEADLINE: '2026-05-27T12:00:00Z',
   SPONSOR_FLY_TALK_DEADLINE_STRING:
     'Odabir sudionika zatvorit će se u srijedu 27. 5. u 12:00.',
-  CODE_DEFAULT_EXPIRATION: '2026-05-29T20:00:00.000',
+  CODE_DEFAULT_EXPIRATION: '2026-05-29T18:00:00.000',
   // main conference days (full ISO timestamps)
-  FIRST_DAY_START: '2026-05-28T08:00:00Z',
-  SECOND_DAY_START: '2026-05-29T08:00:00Z',
-  MAY_30_END: '2026-05-30T23:00:00Z',
+  FIRST_DAY_START: '2026-05-28T09:00:00Z',
+  SECOND_DAY_START: '2026-05-29T09:00:00Z',
   // spots / booth selection opening (UTCDate(2026,4,5,10,0) -> 2026-05-05T10:00:00Z)
   SPOTS_OPENING: '2026-05-18T10:00:00Z',
   // early bird cutoffs used in frontend/backend
@@ -47,8 +46,8 @@ export const DISPLAY = {
   FIRST_DAY_AND_DATE: 'ČETVRTAK, 28.05',
   SECOND_DAY_AND_DATE: 'PETAK, 29.05',
 
-  FIRST_DATE_AND_DAY: '28. 5. - PETAK',
-  SECOND_DATE_AND_DAY: '29. 5. - ČETVRTAK',
+  FIRST_DATE_AND_DAY: '28. 5. - ČETVRTAK',
+  SECOND_DATE_AND_DAY: '29. 5. - PETAK',
 
   //Jos prominit u FlyTalksPage u sponsor appu "tabs" koji se izvlace iz baze podataka
 };

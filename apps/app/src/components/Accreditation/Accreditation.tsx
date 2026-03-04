@@ -9,6 +9,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import RecieptText from '../RecieptText';
 import { useLoggedInUser } from '@/api/auth/useLoggedInUser';
+import { YEAR } from '@ddays-app/types';
 
 interface AccreditationProps {
   isOpen: boolean;
@@ -123,7 +124,7 @@ const Accreditation: React.FC<AccreditationProps> = ({ isOpen, onClose }) => {
           </div>
           <RecieptText
             item={{
-              id: 'dumpdays2026',
+              id: `dumpdays${YEAR}`,
               userId: String(user?.email),
               orderedAt: new Date(),
               shopItem: {

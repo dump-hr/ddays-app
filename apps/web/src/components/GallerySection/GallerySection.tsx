@@ -1,4 +1,4 @@
-import { DISPLAY, YEAR } from '@ddays-app/types';
+import { DISPLAY } from '@ddays-app/types';
 import { useLenis } from '@studio-freight/react-lenis';
 import filmFrameBorder from 'assets/images/film-frame-border.png';
 import filmFrameOverlay from 'assets/images/film-frame-overlay.png';
@@ -22,7 +22,7 @@ import c from './GallerySection.module.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FILM_TEXT = `DUMP DAYS X  /  ${DISPLAY.HEADER_DAY_START_NUM}— 29.05.${YEAR}.`;
+const FILM_TEXT = `DUMP DAYS X  /  ${DISPLAY.HEADER_DAY_START_NUM}— ${DISPLAY.HEADER_DAY_END_FULL}`;
 
 const PHOTOS = [
   gallery1,

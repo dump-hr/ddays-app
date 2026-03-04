@@ -41,7 +41,7 @@ import { GoogleCallback } from '@/pages/GoogleCallbackPage/GoogleCallback';
 import ClosedAppPage from '@/pages/ClosedAppPage';
 import { InviteCodePage } from '@/pages/InviteCodePage';
 
-const isAppOpen = false; // True kad je app otvoren, false kad je app zatvoren (otvoren je samo oko daysa)
+const isAppOpen = true; // True kad je app otvoren, false kad je app zatvoren (otvoren je samo oko daysa)
 
 const router = createBrowserRouter(
   createRoutesFromElements(

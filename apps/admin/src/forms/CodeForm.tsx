@@ -1,6 +1,7 @@
 import {
   CodeModifyDto,
   CodeWithConnectedAchievementsDto,
+  ISO,
 } from '@ddays-app/types';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { useForm } from 'react-hook-form';
@@ -73,7 +74,7 @@ export const CodeForm: React.FC<CodeFormProps> = ({ code, onSuccess }) => {
       title: 'Datum isteka',
       defaultValue:
         Helper.formatExpirationDate(code?.expirationDate) ||
-        Helper.formatExpirationDate(new Date('2026-05-29T18:00:00.000')), //DATUM
+        Helper.formatExpirationDate(new Date(ISO.CODE_DEFAULT_EXPIRATION)),
     },
     {
       id: 'achievements',

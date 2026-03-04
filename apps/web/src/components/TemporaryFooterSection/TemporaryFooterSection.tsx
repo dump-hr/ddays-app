@@ -2,6 +2,7 @@ import Facebook from '../../assets/images/FB.png';
 import Instagram from '../../assets/images/IG.png';
 import LinkedIn from '../../assets/images/LN.png';
 import YouTube from '../../assets/images/YT.png';
+import { YEAR } from '@ddays-app/types';
 import c from './TemporaryFooterSection.module.scss';
 
 const TemporaryFooterSection = () => {
@@ -39,7 +40,7 @@ const TemporaryFooterSection = () => {
         </div>
         <div className={c.dottedRuler}></div>
         <div className={c.bottomSmallTextWrapper}>
-          <p>© DUMPDAYS 2026</p>
+          <p>© DUMPDAYS {YEAR}</p>
           <p className={c.footerBottomSmallText}>
             Napravljeno uz tešku muku, bez PM skillova - al' iz čiste ljubavi.
           </p>

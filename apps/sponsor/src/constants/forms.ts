@@ -87,6 +87,6 @@ export const sponsorForm: SponsorForm = {
 };
 /*[FormSteps.SwagBag]: {
   title: 'Swag Bag',
-  description: 'Predaja do 15. travnja 2025.',
+  description: DISPLAY.SPONSOR_DEADLINE_TRAVANJ_15,
   component: InterestPicker,
 },*/
