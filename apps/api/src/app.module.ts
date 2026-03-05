@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { join } from 'path';
 
 import { AchievementModule } from './achievement/achievement.module';
@@ -31,7 +33,9 @@ import { SponsorContractModule } from './sponsor-contract/sponsor-contract.modul
 import { SponsorMaterialsModule } from './sponsor-materials/sponsor-materials.module';
 import { SurveyQuestionModule } from './survey-question/survey-question.module';
 import { SwagBagModule } from './swag-bag/swag-bag.module';
+import { CustomThrottlerGuard } from './throttler/throttler.guard';
 import { UserModule } from './user/user.module';
+
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -54,6 +58,12 @@ import { UserModule } from './user/user.module';
     SponsorMaterialsModule,
     SponsorContractModule,
     MetricsModule,
+    ThrottlerModule.forRoot([
+      {
+        ttl: 30000,
+        limit: 100,
+      },
+    ]),
 
     ...(process.env.NODE_ENV !== 'dev'
       ? [
@@ -85,6 +95,13 @@ import { UserModule } from './user/user.module';
     SwagBagModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [
+    AppService,
+    PrismaService,
+    {
+      provide: APP_GUARD,
+      useClass: CustomThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

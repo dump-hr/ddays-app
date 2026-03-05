@@ -9,8 +9,8 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Response } from 'express';
-import { UserService } from 'src/user/user.service';
 
 import { RegistrationDto } from './auth.dto';
 import { UserLoginDto } from './auth.dto';
@@ -19,11 +19,9 @@ import { UserGuard } from './user.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Post('company/login')
   async companyPasswordLogin(
     @Body() login: CompanyPasswordLoginDto,
@@ -34,6 +32,7 @@ export class AuthController {
     );
   }
 
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Post('user/login')
   async userPasswordLogin(
     @Body() { email, password }: UserLoginDto,
@@ -41,6 +40,7 @@ export class AuthController {
     return await this.authService.userPasswordLogin(email, password);
   }
 
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('user/register')
   async userRegister(
     @Body() body: RegistrationDto & { isFromGoogleAuth: boolean },
