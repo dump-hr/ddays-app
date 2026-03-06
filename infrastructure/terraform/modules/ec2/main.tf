@@ -24,7 +24,7 @@ resource "aws_instance" "instance" {
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [ami]
+    ignore_changes        = [ami, subnet_id]
   }
 
   tags = merge(
