@@ -16,6 +16,7 @@ const ProfileRecommendationsPage = () => {
       <img
         src={ArrowWhite}
         className={c.whiteArrow}
+        role='button'
         onClick={() => navigate(RouteNames.PROFILE)}
       />
       <main className={c.content}>

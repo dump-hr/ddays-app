@@ -14,14 +14,16 @@ body {
   overflow-x: hidden;
 }
 
-html{
+html {
   overflow-x: hidden;
+  cursor: none;
 }
 
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  cursor: none !important;
 }
 
 input,
@@ -31,4 +33,5 @@ select,
 div,
 a {
   -webkit-tap-highlight-color: transparent;
+  cursor: none !important;
 }

@@ -6,7 +6,7 @@ type SeachBarProps = React.HTMLProps<HTMLInputElement>;
 
 const SearchBar: React.FC<SeachBarProps> = ({ className, ...props }) => {
   return (
-    <div className={clsx(c.searchBar, className)}>
+    <div className={clsx(c.searchBar, className)} role='button'>
       <img className={c.icon} src={Magnifier} />
       <input {...props} className={c.input} type='text' name='' id='' />
     </div>

@@ -24,7 +24,7 @@
   position: absolute;
   left: 78px;
   top: 40px;
-  cursor: pointer;
+  cursor: none;
 
   @media screen and (max-width: $breakpoint-tablet) {
     display: none;
@@ -59,7 +59,7 @@
     .arrowLeft {
       position: absolute;
       left: 0;
-      cursor: pointer;
+      cursor: none;
       padding: 24px;
 
       @media screen and (min-width: $breakpoint-tablet) {

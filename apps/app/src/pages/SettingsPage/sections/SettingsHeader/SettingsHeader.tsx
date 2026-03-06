@@ -81,13 +81,17 @@ export const SettingsHeader: React.FC = () => {
         </div>
       )}
       {!isMobile && (
-        <div className={styles.backButtonDesktop} onClick={handleBackClick}>
+        <div
+          className={styles.backButtonDesktop}
+          role='button'
+          onClick={handleBackClick}>
           <img src={ArrowLeftWhiteIcon} alt='back' />
         </div>
       )}
       <h1>{getHeaderTitle()}</h1>
       <div
         onClick={handleEditClick}
+        role='button'
         className={clsx(
           isMobile && styles.editButton,
           !isMobile && styles.editButtonDesktop,

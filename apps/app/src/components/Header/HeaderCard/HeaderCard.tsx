@@ -23,6 +23,7 @@ export const HeaderCard = ({
   return (
     <div
       className={styles.headerCard}
+      role='button'
       onClick={onClick}
       style={{
         ...(width ? { width: `${width}px` } : {}),

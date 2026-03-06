@@ -47,6 +47,7 @@ export const ProfileLeaderboardPage = () => {
           src={WhiteArrowLeft}
           alt='Back'
           className={styles.headerArrowLeft}
+          role='button'
           onClick={() => navigate(-1)}
         />
       </header>

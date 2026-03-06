@@ -15,8 +15,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
 }) => {
   const navigate = useNavigate();
   const { isMobile } = useDeviceType({ breakpoint: 768 });
-  const { data: numOfUnreadNotifications } =
-    useGetNumOfUnreadNotifications();
+  const { data: numOfUnreadNotifications } = useGetNumOfUnreadNotifications();
 
   const handleClick = () => {
     if (isMobile) {
@@ -27,12 +26,17 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
   };
 
   return (
-    <div className={styles.notificationWrapper} onClick={handleClick}>
+    <div
+      className={styles.notificationWrapper}
+      role='button'
+      onClick={handleClick}>
       <svg className={styles.notificationIcon} width={26} height={26}>
         <use href={`${sprite}#notification-bell-icon`} />
       </svg>
       {numOfUnreadNotifications && numOfUnreadNotifications.count > 0 && (
-        <div className={styles.notificationBadge}>{numOfUnreadNotifications.count}</div>
+        <div className={styles.notificationBadge}>
+          {numOfUnreadNotifications.count}
+        </div>
       )}
     </div>
   );

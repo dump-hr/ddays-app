@@ -160,7 +160,7 @@ export const EditProfileSection: React.FC = () => {
 
       {isEditing && (
         <>
-          <div className={styles.checkboxContainer}>
+          <div className={styles.checkboxContainer} role='button'>
             {checkboxInputs.map((input) => {
               return (
                 <Checkbox

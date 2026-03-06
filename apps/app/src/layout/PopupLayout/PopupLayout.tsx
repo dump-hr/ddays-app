@@ -69,6 +69,7 @@ const PopupLayout = ({
               src={CloseIcon}
               onClick={closePopup}
               className={styles.closeIcon}
+              role='button'
               alt='close'
             />
           )}

@@ -75,7 +75,7 @@ export const HeaderCardsWrapper: React.FC<HeaderCardsWrapperProps> = ({
 
   return (
     <>
-      <div className={styles.headerCardsWrapper}>
+      <div className={styles.headerCardsWrapper} role='button'>
         {headerCards.map((card) => (
           <HeaderCard
             key={card.id}
